@@ -56,7 +56,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 
                 {/* Header Section */}
                 <div className="flex flex-col md:flex-row gap-8 items-start mb-12">
-                    <div className={`p-4 rounded-2xl bg-zinc-900/50 ring-1 ring-white/10 ${tool.color}`}>
+                    <div className={`p-4 rounded-2xl bg-card border border-border shadow-sm ${tool.color}`}>
                         <Icon className="h-12 w-12" />
                     </div>
 
@@ -83,7 +83,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                             >
                                 Visit Website
                             </AffiliateLink>
-                            
+
                             <SocialShare
                                 toolSlug={tool.slug}
                                 toolName={tool.title}
@@ -96,13 +96,13 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                 {/* Content Grid */}
                 <div className="grid md:grid-cols-3 gap-8">
                     <div className="md:col-span-2 space-y-8">
-                        <section className="bg-zinc-900/30 rounded-3xl p-8 border border-white/5">
-                            <h2 className="text-2xl font-semibold mb-6">Key Features</h2>
+                        <section className="bg-card rounded-3xl p-8 border border-border shadow-sm">
+                            <h2 className="text-2xl font-semibold mb-6 text-foreground">Key Features</h2>
                             <ul className="space-y-4">
                                 {tool.features?.map((feature) => (
                                     <li key={feature} className="flex items-start gap-3">
                                         <Check className="h-6 w-6 text-indigo-400 shrink-0" />
-                                        <span className="text-lg text-zinc-300">{feature}</span>
+                                        <span className="text-lg text-muted-foreground">{feature}</span>
                                     </li>
                                 )) || <p className="text-muted-foreground">No features listed.</p>}
                             </ul>
@@ -124,18 +124,18 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                     </div>
 
                     <aside className="md:col-span-1 space-y-6">
-                        <div className="bg-zinc-900/30 rounded-2xl p-6 border border-white/5">
+                        <div className="bg-card rounded-2xl p-6 border border-border shadow-sm">
                             <h3 className="font-semibold mb-4 text-foreground">Tool Details</h3>
                             <div className="space-y-4 text-sm">
-                                <div className="flex justify-between py-2 border-b border-white/5">
+                                <div className="flex justify-between py-2 border-b border-border">
                                     <span className="text-muted-foreground">Pricing</span>
                                     <span className="font-medium text-foreground">{tool.pricing}</span>
                                 </div>
-                                <div className="flex justify-between py-2 border-b border-white/5">
+                                <div className="flex justify-between py-2 border-b border-border">
                                     <span className="text-muted-foreground">Category</span>
                                     <span className="font-medium text-foreground">{tool.category}</span>
                                 </div>
-                                <div className="flex justify-between py-2 border-b border-white/5">
+                                <div className="flex justify-between py-2 border-b border-border">
                                     <span className="text-muted-foreground">Website</span>
                                     <AffiliateLink
                                         url={tool.affiliateUrl || tool.websiteUrl}

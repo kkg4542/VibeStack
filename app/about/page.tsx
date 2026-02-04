@@ -11,7 +11,7 @@ export default function AboutPage() {
             <div className="container max-w-3xl mx-auto px-4">
                 <h1 className="text-4xl font-bold tracking-tight mb-8">About VibeStack</h1>
 
-                <div className="prose prose-invert prose-indigo text-lg text-muted-foreground">
+                <div className="prose dark:prose-invert prose-zinc prose-indigo text-lg text-muted-foreground">
                     <p>
                         Welcome to <strong>AI Productivity Lab</strong> (VibeStack).
                     </p>
@@ -34,7 +34,7 @@ export default function AboutPage() {
 
                     <h2 className="text-foreground mt-12 mb-6 text-2xl font-bold">Contact</h2>
                     <p>
-                        Have a tool suggestion? Reach out to us at <a href="mailto:hello@vibestack.com" className="text-indigo-400 hover:text-indigo-300">hello@vibestack.com</a>.
+                        Have a tool suggestion? Reach out to us at <a href="mailto:hello@vibestack.com" className="text-primary hover:text-primary/80 transition-colors">hello@vibestack.com</a>.
                     </p>
                 </div>
             </div>

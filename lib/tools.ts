@@ -59,6 +59,7 @@ export const tools: Tool[] = [
         category: "Coding",
         pricing: "Freemium",
         websiteUrl: "https://cursor.sh",
+        affiliateUrl: "https://cursor.sh",
         color: "text-blue-400",
         bgGradient: "from-blue-500/10 to-transparent",
         features: ["AI Chat", "Codebase Indexing", "Agent Mode"]
@@ -191,6 +192,7 @@ export const tools: Tool[] = [
         category: "Design",
         pricing: "Freemium",
         websiteUrl: "https://v0.dev",
+        affiliateUrl: "https://v0.dev",
         color: "text-zinc-400",
         bgGradient: "from-zinc-500/10 to-transparent",
         features: ["React Code Gen", "Shadcn UI", "Tailwind"]

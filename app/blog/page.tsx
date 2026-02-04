@@ -24,8 +24,8 @@ export default function BlogListingPage() {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {blogPosts.map((post) => (
                         <Link key={post.slug} href={`/blog/${post.slug}`} className="group block h-full">
-                            <Card className="h-full border-white/5 bg-zinc-900/40 overflow-hidden transition-all duration-300 hover:border-white/10 hover:bg-zinc-900/60 hover:-translate-y-1">
-                                <div className="aspect-video w-full overflow-hidden bg-zinc-800">
+                            <Card className="h-full border-border/40 bg-card/50 overflow-hidden transition-all duration-300 hover:border-border/80 hover:bg-card/80 hover:-translate-y-1 hover:shadow-md">
+                                <div className="aspect-video w-full overflow-hidden bg-secondary/50">
                                     <img
                                         src={post.image}
                                         alt={post.title}
@@ -34,7 +34,7 @@ export default function BlogListingPage() {
                                 </div>
                                 <CardHeader className="space-y-2">
                                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                                        <Badge variant="secondary" className="bg-indigo-500/10 text-indigo-300 border-indigo-500/20 hover:bg-indigo-500/20">
+                                        <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 hover:bg-primary/20">
                                             {post.category}
                                         </Badge>
                                         <span>•</span>
@@ -43,15 +43,15 @@ export default function BlogListingPage() {
                                             {post.readTime}
                                         </span>
                                     </div>
-                                    <CardTitle className="text-xl group-hover:text-indigo-300 transition-colors">
+                                    <CardTitle className="text-xl group-hover:text-primary transition-colors text-foreground">
                                         {post.title}
                                     </CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <CardDescription className="line-clamp-2">
+                                    <CardDescription className="line-clamp-2 text-muted-foreground">
                                         {post.excerpt}
                                     </CardDescription>
-                                    <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground pt-4 border-t border-white/5">
+                                    <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground pt-4 border-t border-border/50">
                                         <User className="h-3 w-3" />
                                         {post.author}
                                         <span className="ml-auto flex items-center">

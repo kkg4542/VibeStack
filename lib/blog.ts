@@ -100,7 +100,7 @@ export const blogPosts: BlogPost[] = [
     author: "Sarah Jenkins",
     category: "Design",
     readTime: "6 min read",
-    image: "/images/blog/nocode-v0.png",
+    image: "/images/blog/nocode-design-v0.png",
     content: `
       <h2>The End of Lorem Ipsum</h2>
       <p>Design tools in 2026 don't start with rectangles; they start with intent. Vercel's <strong>v0</strong> and <strong>Builder.io</strong> allow you to describe a comprehensive dashboard and get a fully functional, responsive Shadcn UI component in seconds.</p>
@@ -137,7 +137,7 @@ export const blogPosts: BlogPost[] = [
     author: "David Kim",
     category: "Comparison",
     readTime: "5 min read",
-    image: "https://images.unsplash.com/photo-1642132652859-3ef5a9290a88?q=80&w=2600&auto=format&fit=crop",
+    image: "/images/blog/cursor-vs-vscode.png",
     content: `
       <h2>The Rise of AI Editors</h2>
       <p>For years, VS Code has dominated the developer landscape. It's free, extensible, and backed by Microsoft. But recently, a fork of VS Code called <strong>Cursor</strong> has been making waves.</p>
@@ -160,7 +160,7 @@ export const blogPosts: BlogPost[] = [
     author: "Sarah Jenkins",
     category: "Tutorial",
     readTime: "8 min read",
-    image: "https://images.unsplash.com/photo-1618477247222-acfab096349a?q=80&w=2600&auto=format&fit=crop",
+    image: "/images/blog/nextjs-server-actions.png",
     content: `
       <h2>RPC is Back</h2>
       <p>Server Actions allow you to call server-side functions directly from client components. It feels like magic, but it's just HTTP under the hood.</p>
@@ -177,7 +177,7 @@ export const blogPosts: BlogPost[] = [
     author: "Alex Rivera",
     category: "Process",
     readTime: "6 min read",
-    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2600&auto=format&fit=crop",
+    image: "/images/blog/linear-method.png",
     content: `
       <h2>Cycles, not Sprints</h2>
       <p>Linear operates on cycles. They aren't just renamed sprints. Cycles focus on momentum and scope, not just velocity charts.</p>

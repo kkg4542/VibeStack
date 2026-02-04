@@ -49,7 +49,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 <article>
                     <header className="mb-12 text-center">
                         <div className="flex items-center justify-center gap-2 mb-6">
-                            <Badge variant="outline" className="text-indigo-300 border-indigo-500/20 bg-indigo-500/10">
+                            <Badge variant="outline" className="text-primary border-primary/20 bg-primary/10">
                                 {post.category}
                             </Badge>
                             <span className="text-muted-foreground">•</span>
@@ -59,7 +59,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                             </span>
                         </div>
 
-                        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 leading-tight">
+                        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 leading-tight text-foreground">
                             {post.title}
                         </h1>
 
@@ -75,7 +75,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         </div>
                     </header>
 
-                    <div className="aspect-video w-full rounded-2xl overflow-hidden bg-zinc-800 mb-12 border border-white/5">
+                    <div className="aspect-video w-full rounded-2xl overflow-hidden bg-secondary/30 mb-12 border border-border shadow-sm">
                         <img
                             src={post.image}
                             alt={post.title}
@@ -84,7 +84,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     </div>
 
                     <div
-                        className="prose prose-invert prose-indigo mx-auto prose-lg prose-headings:font-bold prose-headings:tracking-tight prose-a:text-indigo-400 hover:prose-a:text-indigo-300"
+                        className="prose dark:prose-invert prose-zinc prose-indigo mx-auto prose-lg prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary/80"
                         dangerouslySetInnerHTML={{ __html: post.content }}
                     />
                 </article>

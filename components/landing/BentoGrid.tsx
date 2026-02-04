@@ -39,15 +39,15 @@ export function BentoGrid() {
                             href={`/tool/${tool.slug}`}
                             className="block h-full"
                         >
-                            <Card className="h-full relative overflow-hidden border-white/5 bg-zinc-900/40 transition-all duration-300 hover:border-white/10 hover:bg-zinc-900/60">
-                                <div className={`absolute inset-0 bg-linear-to-br ${tool.bgGradient} opacity-0 transition-opacity duration-500 group-hover:opacity-100`} />
+                            <Card className="h-full relative overflow-hidden border-border/40 bg-card/50 transition-all duration-300 hover:border-border/80 hover:bg-card/80 hover:shadow-md">
+                                <div className={`absolute inset-0 bg-linear-to-br ${tool.bgGradient} opacity-0 transition-opacity duration-500 group-hover:opacity-10`} />
 
                                 <CardHeader>
                                     <div className="mb-2 flex items-center justify-between">
-                                        <div className={`rounded-lg bg-zinc-900/80 p-2 ring-1 ring-white/10 ${tool.color}`}>
+                                        <div className={`rounded-lg bg-background/50 p-2 ring-1 ring-border/50 ${tool.color}`}>
                                             <tool.icon className="h-5 w-5" />
                                         </div>
-                                        <Badge variant="secondary" className="bg-zinc-800/50 text-xs font-normal text-muted-foreground">
+                                        <Badge variant="secondary" className="bg-secondary/50 text-xs font-normal text-muted-foreground">
                                             {tool.category}
                                         </Badge>
                                     </div>

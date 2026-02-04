@@ -1,10 +1,12 @@
 import { Hero } from "@/components/landing/Hero";
 import { BentoGrid } from "@/components/landing/BentoGrid";
+import { SponsorSection } from "@/components/landing/SponsorSection";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-background text-foreground selection:bg-indigo-500/20">
       <Hero />
+      <SponsorSection />
       <BentoGrid />
 
       {/* Footer minimal */}
