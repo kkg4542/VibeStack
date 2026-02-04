@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Menu, Sparkles, X, Search, Wand2, Heart, FileText, Info } from "lucide-react";
+import { Menu, Sparkles, X, Search, Wand2, Heart, FileText, Info, Zap } from "lucide-react";
 import * as motion from "framer-motion/client";
 import { CommandMenu } from "@/components/command-menu";
 import { SubmitDialog } from "@/components/layout/SubmitDialog";
@@ -21,9 +21,8 @@ const navItems = [
     { href: "/", label: "Home", icon: Sparkles },
     { href: "/tools", label: "AI Tools", icon: Search },
     { href: "/build", label: "Find Stack", icon: Wand2 },
-    { href: "/favorites", label: "Favorites", icon: Heart },
+    { href: "/consulting", label: "Services", icon: Zap },
     { href: "/blog", label: "Blog", icon: FileText },
-    { href: "/about", label: "About", icon: Info },
 ];
 
 export function Navbar() {
@@ -47,13 +46,13 @@ export function Navbar() {
                             Tools
                         </Link>
                         <Link id="nav-link-build" href="/build" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
-                            Find Stack
+                            stack
+                        </Link>
+                        <Link id="nav-link-consulting" href="/consulting" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+                            Services
                         </Link>
                         <Link id="nav-link-blog" href="/blog" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
                             Blog
-                        </Link>
-                        <Link id="nav-link-about" href="/about" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
-                            About
                         </Link>
                     </nav>
                 </div>

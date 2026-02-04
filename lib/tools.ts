@@ -1,10 +1,17 @@
-import { LucideIcon, Terminal, LayoutTemplate, PenTool, Bot, Code2, Cpu, Github, MessagesSquare, Sparkles, Shield, Search, Blocks, Braces, Zap, HardDrive, Rabbit, FileSearch, Command, Wind, Wand2 } from "lucide-react";
+import { LucideIcon, Github } from "lucide-react";
+import {
+    ChatGPTIcon, ClaudeIcon, GeminiIcon, CursorIcon, DevinIcon,
+    SupermavenIcon, OllamaIcon, LinearIcon, NotionIcon, ReplitIcon,
+    TabnineIcon, CodyIcon, BuilderIoIcon, V0Icon, PerplexityIcon,
+    LovableIcon, CodeRabbitIcon, CosineIcon, AiderIcon, WindsurfIcon
+} from "@/components/icons/AiIcons";
+import { ComponentType } from "react";
 
 export interface Tool {
     slug: string;
     title: string;
     description: string;
-    icon: LucideIcon;
+    icon: LucideIcon | ComponentType<{ className?: string }>;
     category: "Coding" | "Management" | "Productivity" | "Assistance" | "Design" | "Other";
     pricing: "Free" | "Freemium" | "Paid" | "Enterprise";
     websiteUrl: string;
@@ -16,10 +23,59 @@ export interface Tool {
 
 export const tools: Tool[] = [
     {
+        slug: "chatgpt",
+        title: "GPT-5.2",
+        description: "The new standard for agentic AI.",
+        icon: ChatGPTIcon,
+        category: "Assistance",
+        pricing: "Freemium",
+        websiteUrl: "https://chat.openai.com",
+        color: "text-emerald-400",
+        bgGradient: "from-emerald-500/10 to-transparent",
+        features: ["GPT-5.2 Codex", "Stabilized Context", "xHigh Reasoning"]
+    },
+    {
+        slug: "claude",
+        title: "Claude 5 Sonnet",
+        description: "Just released: The new apex of reasoning.",
+        icon: ClaudeIcon,
+        category: "Assistance",
+        pricing: "Freemium",
+        websiteUrl: "https://claude.ai",
+        color: "text-orange-400",
+        bgGradient: "from-orange-500/10 to-transparent",
+        features: ["Claude 5 Sonnet", "1M Context", "Agentic Capabilities"]
+    },
+    {
+        slug: "gemini-code-assist",
+        title: "Gemini 3 Pro",
+        description: "Native multimodal reasoning at scale.",
+        icon: GeminiIcon,
+        category: "Coding",
+        pricing: "Paid",
+        websiteUrl: "https://cloud.google.com/gemini/code-assist",
+        color: "text-sky-400",
+        bgGradient: "from-sky-500/10 to-transparent",
+        features: ["Gemini 3 Deep Think", "Native AV Processing", "1M Context"]
+    },
+    {
+        slug: "cursor",
+        title: "Cursor",
+        description: "The AI-first code editor built for speed.",
+        icon: CursorIcon,
+        category: "Coding",
+        pricing: "Freemium",
+        websiteUrl: "https://cursor.sh",
+        affiliateUrl: "https://cursor.sh",
+        color: "text-blue-400",
+        bgGradient: "from-blue-500/10 to-transparent",
+        features: ["AI Chat", "Codebase Indexing", "Agent Mode"]
+    },
+    {
         slug: "devin",
         title: "Devin",
         description: "The first autonomous AI software engineer.",
-        icon: Bot,
+        icon: DevinIcon,
         category: "Coding",
         pricing: "Paid",
         websiteUrl: "https://devin.ai",
@@ -31,7 +87,7 @@ export const tools: Tool[] = [
         slug: "supermaven",
         title: "Supermaven",
         description: "The fastest copilot with a 1 million token context.",
-        icon: Zap,
+        icon: SupermavenIcon,
         category: "Coding",
         pricing: "Freemium",
         websiteUrl: "https://supermaven.com",
@@ -43,26 +99,13 @@ export const tools: Tool[] = [
         slug: "ollama",
         title: "Ollama",
         description: "Get up and running with large language models locally.",
-        icon: HardDrive,
+        icon: OllamaIcon,
         category: "Other",
         pricing: "Free",
         websiteUrl: "https://ollama.com",
         color: "text-slate-100",
         bgGradient: "from-slate-500/10 to-transparent",
         features: ["Local Inference", "Privacy", "Llama 3 / Mistral Support"]
-    },
-    {
-        slug: "cursor",
-        title: "Cursor",
-        description: "The AI-first code editor built for speed.",
-        icon: Terminal,
-        category: "Coding",
-        pricing: "Freemium",
-        websiteUrl: "https://cursor.sh",
-        affiliateUrl: "https://cursor.sh",
-        color: "text-blue-400",
-        bgGradient: "from-blue-500/10 to-transparent",
-        features: ["AI Chat", "Codebase Indexing", "Agent Mode"]
     },
     {
         slug: "github-copilot",
@@ -77,34 +120,10 @@ export const tools: Tool[] = [
         features: ["Autocomplete", "Copilot Workspace", "Pull Request Summaries"]
     },
     {
-        slug: "claude",
-        title: "Claude 5 Sonnet",
-        description: "Just released: The new apex of reasoning.",
-        icon: MessagesSquare,
-        category: "Assistance",
-        pricing: "Freemium",
-        websiteUrl: "https://claude.ai",
-        color: "text-orange-400",
-        bgGradient: "from-orange-500/10 to-transparent",
-        features: ["Claude 5 Sonnet", "1M Context", "Agentic Capabilities"]
-    },
-    {
-        slug: "gemini-code-assist",
-        title: "Gemini 3 Pro",
-        description: "Native multimodal reasoning at scale.",
-        icon: Sparkles,
-        category: "Coding",
-        pricing: "Paid",
-        websiteUrl: "https://cloud.google.com/gemini/code-assist",
-        color: "text-sky-400",
-        bgGradient: "from-sky-500/10 to-transparent",
-        features: ["Gemini 3 Deep Think", "Native AV Processing", "1M Context"]
-    },
-    {
         slug: "linear",
         title: "Linear",
         description: "Project management for high-performance teams.",
-        icon: LayoutTemplate,
+        icon: LinearIcon,
         category: "Management",
         pricing: "Freemium",
         websiteUrl: "https://linear.app",
@@ -116,7 +135,7 @@ export const tools: Tool[] = [
         slug: "notion-ai",
         title: "Notion AI",
         description: "Your connected workspace, now with intelligence.",
-        icon: PenTool,
+        icon: NotionIcon,
         category: "Productivity",
         pricing: "Paid",
         websiteUrl: "https://notion.so",
@@ -128,7 +147,7 @@ export const tools: Tool[] = [
         slug: "replit-ai",
         title: "Replit AI",
         description: "The AI-powered software development platform.",
-        icon: Code2,
+        icon: ReplitIcon,
         category: "Coding",
         pricing: "Freemium",
         websiteUrl: "https://replit.com/ai",
@@ -140,7 +159,7 @@ export const tools: Tool[] = [
         slug: "tabnine",
         title: "Tabnine",
         description: "AI code assistant associated with privacy and security.",
-        icon: Shield,
+        icon: TabnineIcon,
         category: "Coding",
         pricing: "Freemium",
         websiteUrl: "https://tabnine.com",
@@ -152,7 +171,7 @@ export const tools: Tool[] = [
         slug: "cody",
         title: "Cody",
         description: "AI that knows your entire codebase by Sourcegraph.",
-        icon: Search,
+        icon: CodyIcon,
         category: "Coding",
         pricing: "Freemium",
         websiteUrl: "https://sourcegraph.com/cody",
@@ -164,7 +183,7 @@ export const tools: Tool[] = [
         slug: "builder-io",
         title: "Builder.io",
         description: "Visual development platform to ship faster.",
-        icon: Blocks,
+        icon: BuilderIoIcon,
         category: "Design",
         pricing: "Freemium",
         websiteUrl: "https://builder.io",
@@ -173,22 +192,10 @@ export const tools: Tool[] = [
         features: ["Design to Code", "Visual CMS", "Figma Import"]
     },
     {
-        slug: "chatgpt",
-        title: "GPT-5.2",
-        description: "The new standard for agentic AI.",
-        icon: Bot,
-        category: "Assistance",
-        pricing: "Freemium",
-        websiteUrl: "https://chat.openai.com",
-        color: "text-emerald-400",
-        bgGradient: "from-emerald-500/10 to-transparent",
-        features: ["GPT-5.2 Codex", "Stabilized Context", "xHigh Reasoning"]
-    },
-    {
         slug: "v0",
         title: "v0",
         description: "Generate UI with simple text prompts.",
-        icon: Braces,
+        icon: V0Icon,
         category: "Design",
         pricing: "Freemium",
         websiteUrl: "https://v0.dev",
@@ -201,7 +208,7 @@ export const tools: Tool[] = [
         slug: "perplexity",
         title: "Perplexity",
         description: "Where knowledge begins.",
-        icon: Cpu,
+        icon: PerplexityIcon,
         category: "Assistance",
         pricing: "Freemium",
         websiteUrl: "https://perplexity.ai",
@@ -213,7 +220,7 @@ export const tools: Tool[] = [
         slug: "lovable",
         title: "Lovable",
         description: "Build full-stack apps at the speed of thought with AI.",
-        icon: Wand2,
+        icon: LovableIcon,
         category: "Design",
         pricing: "Freemium",
         websiteUrl: "https://lovable.dev",
@@ -225,7 +232,7 @@ export const tools: Tool[] = [
         slug: "coderabbit",
         title: "CodeRabbit",
         description: "AI-powered code reviews that actually understand your context.",
-        icon: Rabbit,
+        icon: CodeRabbitIcon,
         category: "Coding",
         pricing: "Freemium",
         websiteUrl: "https://coderabbit.ai",
@@ -237,7 +244,7 @@ export const tools: Tool[] = [
         slug: "cosine",
         title: "Cosine",
         description: "The AI code knowledge base for complex repositories.",
-        icon: FileSearch,
+        icon: CosineIcon,
         category: "Coding",
         pricing: "Freemium",
         websiteUrl: "https://cosine.sh",
@@ -249,7 +256,7 @@ export const tools: Tool[] = [
         slug: "aider",
         title: "Aider",
         description: "Command-line AI pairing that edits code directly in your local files.",
-        icon: Command,
+        icon: AiderIcon,
         category: "Coding",
         pricing: "Free",
         websiteUrl: "https://aider.chat",
@@ -261,7 +268,7 @@ export const tools: Tool[] = [
         slug: "windsurf",
         title: "Windsurf",
         description: "The first agentic IDE that flows with you.",
-        icon: Wind,
+        icon: WindsurfIcon,
         category: "Coding",
         pricing: "Freemium",
         websiteUrl: "https://codeium.com/windsurf",

@@ -6,6 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { Tool, tools } from "@/lib/tools";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
+import { SponsorshipModal } from "@/components/monetization/SponsorshipModal";
+
 function BentoCard({ tool, index }: { tool: Tool, index: number }) {
     const x = useMotionValue(0);
     const y = useMotionValue(0);
@@ -106,14 +108,18 @@ export function BentoGrid() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="mb-12 flex flex-col items-center text-center"
+                className="mb-12 flex flex-col md:flex-row items-center justify-between gap-6"
             >
-                <h2 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-                    Essential Tools
-                </h2>
-                <p className="max-w-[600px] text-muted-foreground">
-                    Hand-picked AI tools that integrate seamlessly into your workflow.
-                </p>
+                <div className="text-center md:text-left">
+                    <h2 className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+                        Essential Tools
+                    </h2>
+                    <p className="text-muted-foreground">
+                        Hand-picked AI tools that integrate seamlessly into your workflow.
+                    </p>
+                </div>
+
+                <SponsorshipModal />
             </motion.div>
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
