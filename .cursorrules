@@ -1,0 +1,195 @@
+# VibeStack 프로젝트 규칙
+
+## 📁 아키텍처 규칙 (Clean Architecture)
+
+### 1. 폴더 구조 원칙
+```
+/app              → Next.js App Router (Presentation Layer)
+/components       → 순수 UI 컴포넌트 (shadcn/ui 기반)
+  /ui             → shadcn/ui 컴포넌트 (수정 금지)
+  /[feature]      → 도메인별 컴포넌트
+/lib              → 비즈니스 로직 & 유틸리티
+  /utils.ts       → 순수 함수 유틸리티
+  /[feature].ts   → 도메인별 로직
+/hooks            → 커스텀 React Hooks
+/types            → 전역 타입 정의 (공유 인터페이스)
+/public           → 정적 자산
+```
+
+### 2. 의존성 방향
+```
+UI Components → Hooks → Lib/Utils → Types
+     ↑                              
+   Data (lib/tools.ts, lib/blog.ts)
+```
+
+**금지**: `lib/`에서 `components/` 또는 `app/` import
+
+### 3. 컴포넌트 분리 원칙
+- **Smart Components**: 데이터 fetch, 상태 관리 (page.tsx, layout.tsx)
+- **Dumb Components**: props만 받는 순수 UI (components/)
+- **1컴포넌트 1파일** (단, index.tsx barrel export 허용)
+
+---
+
+## 🎨 코드 품질 규칙
+
+### 4. TypeScript 엄격 모드
+```typescript
+// ✅ 허용
+const handleClick = (id: string): void => { ... }
+
+// ❌ 금지
+const handleClick = (id) => { ... }  // any 타입
+const data: any = fetchData()         // any 금지
+```
+
+### 5. React Hooks 규칙
+```typescript
+// ✅ 커스텀 Hook은 use prefix
+const useToolData = (slug: string) => { ... }
+
+// ✅ 의존성 배열 필수
+useEffect(() => { ... }, [dep1, dep2])
+
+// ❌ 금지
+useEffect(() => { ... })  // 빈 배열 없음
+```
+
+### 6. 성능 최적화
+```typescript
+// ✅ memo 사용 (무거운 연산)
+const filteredTools = useMemo(() => 
+  tools.filter(t => t.category === category), 
+  [tools, category]
+)
+
+// ✅ callback memoization
+const handleSubmit = useCallback(() => { ... }, [deps])
+```
+
+---
+
+## 💰 수익화 기능 규칙
+
+### 7. Affiliate 링크 관리
+```typescript
+// lib/tools.ts
+interface Tool {
+  websiteUrl: string       // 공식 사이트 (fallback)
+  affiliateUrl?: string    // 제휴 링크 (우선 사용)
+  affiliateParams?: {      // UTM 파라미터
+    source: string
+    medium: string
+    campaign?: string
+  }
+}
+
+// ✅ 사용법
+const visitUrl = tool.affiliateUrl || tool.websiteUrl
+const fullUrl = `${visitUrl}?${buildUTM(tool.affiliateParams)}`
+```
+
+### 8. "Get Featured" 폼
+- **위치**: Navbar, Tool 페이지 Sidebar
+- **구현**: Dialog + Typeform 임베드
+- **트래킹**: GA4 이벤트 (button_click, form_open)
+
+### 9. 뉴스레터 구독
+- **위치**: Footer, Blog Sidebar
+- **서비스**: Mailchimp 무료 티어
+- **필드**: email (필수), name (선택)
+
+---
+
+## 🧪 테스트 & 품질
+
+### 10. ESLint 규칙 준수
+```bash
+# 반드시 통과해야 함
+npm run lint
+
+# 자동 수정
+npm run lint -- --fix
+```
+
+### 11. 커밋 메시지 컨벤션
+```
+feat: 새로운 기능 추가
+fix: 버그 수정
+docs: 문서 수정
+style: 코드 포맷팅 (세미콜론, 들여쓰기 등)
+refactor: 코드 리팩토링
+test: 테스트 코드
+chore: 빌드, 패키지 매니저 설정 등
+```
+
+---
+
+## 🎯 프로젝트 특화 규칙
+
+### 12. AI 도구 데이터 관리
+```typescript
+// lib/tools.ts - 단일 진실 공급원 (Single Source of Truth)
+export const tools: Tool[] = [
+  {
+    slug: 'cursor',
+    title: 'Cursor',
+    // ... 모든 메타데이터
+  }
+]
+
+// ❌ 금지: 하드코딩된 도구 이름, URL
+// ❌ 금지: components/에서 tools 데이터 직접 수정
+```
+
+### 13. 다크모드 우선 디자인
+```typescript
+// ✅ Tailwind 클래스 우선순위
+className="text-foreground bg-background"
+
+// ✅ CSS 변수 사용
+className="text-[hsl(var(--foreground))]"
+```
+
+### 14. SEO 메타데이터
+```typescript
+// app/layout.tsx 또는 page.tsx
+export const metadata: Metadata = {
+  title: '도구명 | VibeStack',  // 50자 이내
+  description: '...',           // 150자 이내
+  openGraph: {
+    images: ['/og-image.jpg'],  // 1200x630px
+  }
+}
+```
+
+---
+
+## 📝 코드 리뷰 체크리스트
+
+- [ ] TypeScript 타입 정의 완료
+- [ ] 의존성 방향 확인 (lib → components ×)
+- [ ] 불필요한 console.log 제거
+- [ ] affiliateUrl 유무 확인 (수익화)
+- [ ] SEO 메타데이터 추가
+- [ ] 반응형 디자인 확인 (mobile-first)
+- [ ] 접근성 (alt, aria-label) 확인
+
+---
+
+## 🔧 개발 워크플로우
+
+```bash
+# 1. 기능 개발 전
+npm run lint
+
+# 2. 개발 서버
+npm run dev
+
+# 3. 빌드 테스트
+npm run build
+
+# 4. 배포
+vercel --prod
+```
