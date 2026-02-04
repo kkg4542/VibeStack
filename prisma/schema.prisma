@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -17,33 +11,67 @@ model Tool {
   slug         String   @unique
   title        String
   description  String
-  iconName     String
-  category     Category @relation(fields: [categoryId], references: [id])
-  categoryId   String
+  category     String
   pricing      String
-  websiteUrl   String
-  affiliateUrl String?
-  color        String
-  bgGradient   String
+  websiteUrl   String   @map("website_url")
+  affiliateUrl String?  @map("affiliate_url")
   features     String[]
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  reviews      Review[]
+  color        String
+  bgGradient   String   @map("bg_gradient")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  stackTools   StackTool[]
+
+  @@map("tools")
 }
 
-model Category {
-  id    String @id @default(cuid())
-  name  String @unique
-  tools Tool[]
+model Stack {
+  id              String   @id @default(cuid())
+  idField         String   @unique @map("id_field")
+  name            String
+  description     String?
+  longDescription String?  @map("long_description")
+  totalPrice      String?  @map("total_price")
+  tags            String[]
+  idealFor        String[] @map("ideal_for")
+  workflow        String[]
+  icon            String?
+  color           String?
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  stackTools      StackTool[]
+
+  @@map("stacks")
 }
 
-model Review {
-  id         String   @id @default(cuid())
-  tool       Tool     @relation(fields: [toolId], references: [id])
-  toolId     String
-  pros       String[]
-  cons       String[]
-  experience String   @db.Text
-  rating     Float?
-  createdAt  DateTime @default(now())
+model StackTool {
+  id        String   @id @default(cuid())
+  stackId   String   @map("stack_id")
+  toolId    String   @map("tool_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  stack     Stack    @relation(fields: [stackId], references: [id], onDelete: Cascade)
+  tool      Tool     @relation(fields: [toolId], references: [id], onDelete: Cascade)
+
+  @@unique([stackId, toolId])
+  @@map("stack_tools")
+}
+
+model BlogPost {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  excerpt   String?
+  content   String?  @db.Text
+  date      String?
+  author    String?
+  category  String?
+  readTime  String?  @map("read_time")
+  image     String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("blog_posts")
 }

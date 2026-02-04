@@ -121,3 +121,20 @@
     @apply bg-background text-foreground;
   }
 }
+
+@utility no-scrollbar {
+
+  /* Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* IE and Edge */
+  -ms-overflow-style: none;
+  /* Firefox */
+  scrollbar-width: none;
+}
+
+@utility mask-image-fade {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}

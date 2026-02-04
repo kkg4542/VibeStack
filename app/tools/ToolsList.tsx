@@ -159,31 +159,28 @@ export function ToolsList() {
             {featuredTool && <FeaturedSpotlight toolSlug={featuredTool.slug} />}
 
             {/* Filters Row */}
-            <div className="flex flex-col gap-8 mb-16">
-                {/* Category & Pricing Filters */}
-                <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                    <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
-                        {categories.map((cat) => (
-                            <button
-                                key={cat}
-                                onClick={() => setCategory(cat)}
-                                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${category === cat
-                                    ? "bg-indigo-500 text-white shadow-lg shadow-indigo-500/20"
-                                    : "bg-secondary/40 text-muted-foreground hover:bg-secondary hover:text-foreground border border-white/5"
-                                    }`}
-                            >
-                                {cat}
-                            </button>
-                        ))}
+            <div className="flex flex-col gap-4 mb-12">
+
+                {/* Row 1: Controls (Pricing & Sort) - Balanced Layout */}
+                <div className="flex flex-wrap items-center justify-between gap-4 w-full">
+
+                    {/* Left Anchor: Tool Count */}
+                    <div className="hidden md:flex items-center gap-2 text-sm text-muted-foreground">
+                        <span className="flex items-center justify-center w-6 h-6 rounded-full bg-secondary/50 text-xs font-bold text-foreground">
+                            {filteredTools.length}
+                        </span>
+                        <span className="font-medium">Tools Available</span>
                     </div>
 
-                    <div className="flex items-center gap-4">
-                        <div className="flex bg-secondary/30 p-1 rounded-xl border border-white/5">
+                    {/* Right Anchor: Filter Controls */}
+                    <div className="flex flex-wrap items-center justify-end gap-3 ml-auto md:ml-0 w-full md:w-auto">
+                        {/* Pricing Segmented Control */}
+                        <div className="flex bg-secondary/30 p-1 rounded-lg border border-white/5">
                             {pricingModels.map((p) => (
                                 <button
                                     key={p}
                                     onClick={() => setPricing(p)}
-                                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${pricing === p
+                                    className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${pricing === p
                                         ? "bg-indigo-500 text-white shadow-md"
                                         : "text-muted-foreground hover:text-foreground"
                                         }`}
@@ -193,60 +190,80 @@ export function ToolsList() {
                             ))}
                         </div>
 
+                        {/* Sort Dropdown */}
                         <div className="relative group">
                             <select
                                 value={sortBy}
                                 onChange={(e) => setSortBy(e.target.value)}
-                                className="appearance-none bg-secondary/30 border border-white/5 rounded-xl px-4 py-2 pr-10 text-sm font-medium text-muted-foreground hover:text-foreground focus:outline-none transition-all cursor-pointer"
+                                className="appearance-none bg-secondary/30 border border-white/5 rounded-lg pl-4 pr-10 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground focus:outline-none transition-all cursor-pointer hover:border-white/10"
                             >
-                                <option value="default">Sort by Default</option>
+                                <option value="default">Default</option>
                                 <option value="rating">Top Rated</option>
-                                <option value="newest">Latest Release</option>
+                                <option value="newest">Newest</option>
                             </select>
-                            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 pointer-events-none text-muted-foreground" />
+                            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-3 w-3 pointer-events-none text-muted-foreground" />
                         </div>
+                    </div>
+                </div>
+                {/* Row 2: Categories - Scrollable Horizontal List */}
+                <div className="w-full -mx-4 px-4 lg:mx-0 lg:px-0 overflow-x-auto no-scrollbar pb-2 mask-image-fade">
+                    <div className="flex items-center gap-2 min-w-max border-b border-white/5 pb-4">
+                        {categories.map((cat) => (
+                            <button
+                                key={cat}
+                                onClick={() => setCategory(cat)}
+                                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${category === cat
+                                    ? "bg-white/10 text-white border-indigo-500/50 shadow-[0_0_15px_rgba(99,102,241,0.3)] backdrop-blur-md"
+                                    : "bg-transparent text-muted-foreground border-transparent hover:bg-secondary/50 hover:text-foreground"
+                                    }`}
+                            >
+                                {cat}
+                            </button>
+                        ))}
                     </div>
                 </div>
             </div>
 
             {/* Tools Grid */}
-            <motion.div layout className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            < motion.div layout className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3" >
                 <AnimatePresence mode="popLayout">
                     {filteredTools.map((tool) => (
                         <ToolCard key={tool.slug} tool={tool} />
                     ))}
                 </AnimatePresence>
-            </motion.div>
+            </motion.div >
 
             {/* Floating Compare Bar */}
             <AnimatePresence>
-                {compareCount > 0 && (
-                    <motion.div
-                        initial={{ y: 100, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: 100, opacity: 0 }}
-                        className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 pointer-events-none"
-                    >
-                        <div className="bg-indigo-600 text-white px-6 py-4 rounded-2xl shadow-2xl border border-white/20 backdrop-blur-xl flex items-center gap-6 pointer-events-auto">
-                            <div className="flex items-center gap-3">
-                                <div className="bg-white/20 p-2 rounded-lg">
-                                    <Scale className="h-5 w-5" />
+                {
+                    compareCount > 0 && (
+                        <motion.div
+                            initial={{ y: 100, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            exit={{ y: 100, opacity: 0 }}
+                            className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 pointer-events-none"
+                        >
+                            <div className="bg-indigo-600 text-white px-6 py-4 rounded-2xl shadow-2xl border border-white/20 backdrop-blur-xl flex items-center gap-6 pointer-events-auto">
+                                <div className="flex items-center gap-3">
+                                    <div className="bg-white/20 p-2 rounded-lg">
+                                        <Scale className="h-5 w-5" />
+                                    </div>
+                                    <div>
+                                        <p className="text-sm font-bold">{compareCount} Tool{compareCount > 1 ? 's' : ''} Selected</p>
+                                        <p className="text-xs text-indigo-100">Compare features side-by-side</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p className="text-sm font-bold">{compareCount} Tool{compareCount > 1 ? 's' : ''} Selected</p>
-                                    <p className="text-xs text-indigo-100">Compare features side-by-side</p>
-                                </div>
+                                <Button asChild size="sm" className="bg-white text-indigo-600 hover:bg-indigo-50 rounded-xl font-bold group">
+                                    <Link href="/compare" className="flex items-center gap-2">
+                                        Compare Now
+                                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                                    </Link>
+                                </Button>
                             </div>
-                            <Button asChild size="sm" className="bg-white text-indigo-600 hover:bg-indigo-50 rounded-xl font-bold group">
-                                <Link href="/compare" className="flex items-center gap-2">
-                                    Compare Now
-                                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                                </Link>
-                            </Button>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </div>
+                        </motion.div>
+                    )
+                }
+            </AnimatePresence >
+        </div >
     );
 }
