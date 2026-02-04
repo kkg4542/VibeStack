@@ -21,10 +21,10 @@ export default function SearchPage() {
 
     const searchTools = useMemo(() => {
         if (!query.trim()) return [];
-        
+
         const lowerQuery = query.toLowerCase();
-        
-        return tools.filter(tool => 
+
+        return tools.filter(tool =>
             tool.title.toLowerCase().includes(lowerQuery) ||
             tool.description.toLowerCase().includes(lowerQuery) ||
             tool.category.toLowerCase().includes(lowerQuery) ||
@@ -34,10 +34,10 @@ export default function SearchPage() {
 
     const searchStacks = useMemo(() => {
         if (!query.trim()) return [];
-        
+
         const lowerQuery = query.toLowerCase();
-        
-        return stacks.filter(stack => 
+
+        return stacks.filter(stack =>
             stack.name.toLowerCase().includes(lowerQuery) ||
             stack.description.toLowerCase().includes(lowerQuery) ||
             stack.tags.some(t => t.toLowerCase().includes(lowerQuery))
@@ -62,7 +62,7 @@ export default function SearchPage() {
         setQuery(newQuery);
         if (newQuery.trim() && searchTools.length > 0) {
             trackSearchQuery(newQuery, searchTools.length);
-            
+
             // Save to recent searches
             if (typeof window !== 'undefined') {
                 const recent = localStorage.getItem('vibestack-recent-searches');
@@ -81,7 +81,7 @@ export default function SearchPage() {
 
     const highlightMatch = (text: string) => {
         if (!query.trim()) return text;
-        
+
         const regex = new RegExp(`(${query.split('').join('.*')})`, 'gi');
         return text.replace(regex, '<mark class="bg-indigo-500/20 text-indigo-400 rounded px-1">$1</mark>');
     };
@@ -170,7 +170,7 @@ export default function SearchPage() {
                                                         </div>
                                                         <div className="flex-1">
                                                             <div className="flex items-center gap-2 mb-1">
-                                                                <h3 
+                                                                <h3
                                                                     className="text-lg font-semibold"
                                                                     dangerouslySetInnerHTML={{ __html: highlightMatch(tool.title) }}
                                                                 />
@@ -178,7 +178,7 @@ export default function SearchPage() {
                                                                     {tool.pricing}
                                                                 </Badge>
                                                             </div>
-                                                            <p 
+                                                            <p
                                                                 className="text-sm text-muted-foreground line-clamp-2"
                                                                 dangerouslySetInnerHTML={{ __html: highlightMatch(tool.description) }}
                                                             />
@@ -206,12 +206,12 @@ export default function SearchPage() {
                                             <Card className="hover:bg-accent/50 transition-colors cursor-pointer border-border/50">
                                                 <CardContent className="p-4">
                                                     <div className="flex items-start gap-4">
-                                                        <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center text-2xl">
+                                                        <div className="shrink-0 w-12 h-12 rounded-lg bg-linear-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center text-2xl">
                                                             {stack.icon}
                                                         </div>
                                                         <div className="flex-1">
                                                             <div className="flex items-center gap-2 mb-1">
-                                                                <h3 
+                                                                <h3
                                                                     className="text-lg font-semibold"
                                                                     dangerouslySetInnerHTML={{ __html: highlightMatch(stack.name) }}
                                                                 />
@@ -219,7 +219,7 @@ export default function SearchPage() {
                                                                     {stack.totalPrice}
                                                                 </Badge>
                                                             </div>
-                                                            <p 
+                                                            <p
                                                                 className="text-sm text-muted-foreground line-clamp-2"
                                                                 dangerouslySetInnerHTML={{ __html: highlightMatch(stack.description) }}
                                                             />

@@ -56,7 +56,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 
                 {/* Header Section */}
                 <div className="flex flex-col md:flex-row gap-8 items-start mb-12">
-                    <div className={`p-4 rounded-2xl bg-card border border-border shadow-sm ${tool.color}`}>
+                    <div className={`p-4 rounded-2xl bg-secondary/80 border border-border shadow-md ${tool.color}`}>
                         <Icon className="h-12 w-12" />
                     </div>
 

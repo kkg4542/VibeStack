@@ -56,6 +56,7 @@ export default function RootLayout({
       </head>
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground selection:bg-indigo-500/30 selection:text-indigo-200`}
+        suppressHydrationWarning
       >
         <ThemeProvider defaultTheme="dark" enableSystem>
           <Navbar />

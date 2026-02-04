@@ -200,13 +200,13 @@ export default function BuildPage() {
                             className="w-full"
                         >
                             {/* Stack Reveal Card */}
-                            <div className="bg-gradient-to-b from-indigo-500/10 to-card/50 border border-indigo-500/20 rounded-3xl p-8 md:p-12 mb-12 shadow-2xl shadow-indigo-500/10">
+                            <div className="bg-linear-to-b from-indigo-500/10 to-card/50 border border-indigo-500/20 rounded-3xl p-8 md:p-12 mb-12 shadow-2xl shadow-indigo-500/10">
                                 <div className="flex items-center justify-center gap-2 mb-6 text-indigo-400">
                                     <CheckCircle2 className="h-6 w-6" />
                                     <span className="font-medium tracking-wide uppercase text-sm">Recommended Stack</span>
                                 </div>
 
-                                <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
+                                <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-linear-to-r from-foreground to-foreground/70">
                                     {getRecommendedStack().name}
                                 </h2>
                                 <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">

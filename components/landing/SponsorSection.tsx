@@ -5,9 +5,9 @@ import { ArrowRight, Star } from "lucide-react";
 
 export function SponsorSection() {
     return (
-        <section className="w-full py-8 border-b border-border/40 bg-secondary/30">
+        <section className="w-full py-12 border-b border-border/40 bg-secondary/50">
             <div className="container mx-auto px-4">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-6 rounded-2xl border border-primary/20 bg-linear-to-r from-primary/10 to-purple-500/5 p-6 md:p-8 shadow-sm">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-6 rounded-3xl border border-primary/30 bg-card/60 p-8 md:p-10 shadow-xl backdrop-blur-sm">
 
                     {/* Label */}
                     <div className="flex flex-col gap-2">

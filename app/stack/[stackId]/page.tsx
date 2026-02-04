@@ -19,7 +19,7 @@ export default function StackDetailPage({ params }: { params: Promise<{ stackId:
         setMounted(true);
         const favorites = JSON.parse(localStorage.getItem("vibestack-favorites") || "[]");
         setIsFavorite(favorites);
-        
+
         params.then(async ({ stackId }) => {
             const stack = stacks.find(s => s.id === stackId);
             if (!stack) {
@@ -91,7 +91,7 @@ export default function StackDetailPage({ params }: { params: Promise<{ stackId:
                         </p>
 
                         <div className="flex flex-wrap gap-4 items-center mb-6">
-                            <Button 
+                            <Button
                                 variant={isFavorite ? "default" : "outline"}
                                 onClick={toggleFavorite}
                                 className="gap-2"
@@ -99,7 +99,7 @@ export default function StackDetailPage({ params }: { params: Promise<{ stackId:
                                 <Heart className={`h-4 w-4 ${isFavorite ? "fill-current" : ""}`} />
                                 {isFavorite ? "Saved" : "Save Stack"}
                             </Button>
-                            
+
                             <SocialShare
                                 toolSlug={stack.id}
                                 toolName={stack.name}
@@ -108,7 +108,7 @@ export default function StackDetailPage({ params }: { params: Promise<{ stackId:
                         </div>
                     </div>
 
-                    <Card className="bg-gradient-to-b from-indigo-500/10 to-card/50 border-indigo-500/20">
+                    <Card className="bg-linear-to-b from-indigo-500/10 to-card/50 border-indigo-500/20">
                         <CardContent className="p-6">
                             <h3 className="text-sm font-semibold text-muted-foreground mb-4">Total Cost</h3>
                             <div className="text-4xl font-bold text-foreground mb-2">
@@ -144,7 +144,7 @@ export default function StackDetailPage({ params }: { params: Promise<{ stackId:
                             <Card key={index} className="border-border/50">
                                 <CardContent className="p-6">
                                     <div className="flex items-start gap-3">
-                                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-500 font-semibold text-sm">
+                                        <div className="shrink-0 w-12 h-12 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 font-semibold text-sm">
                                             {index + 1}
                                         </div>
                                         <p className="text-muted-foreground">{step}</p>
@@ -203,7 +203,7 @@ export default function StackDetailPage({ params }: { params: Promise<{ stackId:
                 </section>
 
                 {/* CTA */}
-                <section className="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-3xl p-8 md:p-12 text-center">
+                <section className="bg-linear-to-r from-indigo-500/10 to-purple-500/10 rounded-3xl p-8 md:p-12 text-center">
                     <h2 className="text-3xl font-bold mb-4">Ready to Build?</h2>
                     <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
                         Start using this stack today and accelerate your development workflow.

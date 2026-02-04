@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { ReadingProgress } from "@/components/blog/ReadingProgress";
 
 interface Props {
     params: { slug: string };
@@ -37,6 +38,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
     return (
         <main className="min-h-screen bg-background pt-32 pb-20">
+            <ReadingProgress />
             <div className="container max-w-3xl mx-auto px-4">
                 <Link
                     href="/blog"

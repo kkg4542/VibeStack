@@ -3,7 +3,7 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import { type DialogProps } from "@radix-ui/react-dialog"
-import { Laptop, Moon, Sun, Search, Sparkles } from "lucide-react"
+import { Laptop, Moon, Sun, Search, Sparkles, FileText, Wand2 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -60,7 +60,15 @@ export function CommandMenu({ ...props }: DialogProps) {
                 <CommandInput placeholder="Type a command or search..." />
                 <CommandList>
                     <CommandEmpty>No results found.</CommandEmpty>
-                    <CommandGroup heading="Suggestions">
+                    <CommandGroup heading="General">
+                        <CommandItem
+                            onSelect={() => {
+                                runCommand(() => router.push("/"))
+                            }}
+                        >
+                            <Laptop className="mr-2 h-4 w-4" />
+                            <span>Go to Homepage</span>
+                        </CommandItem>
                         <CommandItem
                             onSelect={() => {
                                 runCommand(() => router.push("/tools"))
@@ -68,6 +76,22 @@ export function CommandMenu({ ...props }: DialogProps) {
                         >
                             <Sparkles className="mr-2 h-4 w-4" />
                             <span>Browse all tools</span>
+                        </CommandItem>
+                        <CommandItem
+                            onSelect={() => {
+                                runCommand(() => router.push("/blog"))
+                            }}
+                        >
+                            <FileText className="mr-2 h-4 w-4" />
+                            <span>Read Lab Blog</span>
+                        </CommandItem>
+                        <CommandItem
+                            onSelect={() => {
+                                runCommand(() => router.push("/build"))
+                            }}
+                        >
+                            <Wand2 className="mr-2 h-4 w-4" />
+                            <span>Find Your Stack</span>
                         </CommandItem>
                     </CommandGroup>
                     <CommandSeparator />

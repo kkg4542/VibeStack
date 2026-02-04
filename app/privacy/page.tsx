@@ -1,9 +1,9 @@
 export default function PrivacyPage() {
     return (
-        <main className="container max-w-3xl mx-auto px-4 py-20">
-            <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
-            <div className="prose prose-invert prose-zinc max-w-none">
-                <p className="lead">Last updated: February 3, 2026</p>
+        <main className="container max-w-4xl mx-auto px-4 pt-32 pb-20">
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-12 text-foreground">Privacy Policy</h1>
+            <div className="prose prose-zinc dark:prose-invert max-w-none prose-lg prose-headings:text-foreground prose-p:text-muted-foreground prose-li:text-muted-foreground">
+                <p className="text-xl font-medium text-foreground mb-8">Last updated: February 3, 2026</p>
 
                 <h2>1. Introduction</h2>
                 <p>

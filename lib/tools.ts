@@ -1,4 +1,4 @@
-import { LucideIcon, Terminal, LayoutTemplate, PenTool, Bot, Code2, Cpu, Github, MessagesSquare, Sparkles, Shield, Search, Blocks, Braces, Zap, HardDrive } from "lucide-react";
+import { LucideIcon, Terminal, LayoutTemplate, PenTool, Bot, Code2, Cpu, Github, MessagesSquare, Sparkles, Shield, Search, Blocks, Braces, Zap, HardDrive, Rabbit, FileSearch, Command, Wind, Wand2 } from "lucide-react";
 
 export interface Tool {
     slug: string;
@@ -208,5 +208,65 @@ export const tools: Tool[] = [
         color: "text-teal-400",
         bgGradient: "from-teal-500/10 to-transparent",
         features: ["Real-time Search", "Citations", "Pro Search"]
+    },
+    {
+        slug: "lovable",
+        title: "Lovable",
+        description: "Build full-stack apps at the speed of thought with AI.",
+        icon: Wand2,
+        category: "Design",
+        pricing: "Freemium",
+        websiteUrl: "https://lovable.dev",
+        color: "text-pink-400",
+        bgGradient: "from-pink-500/10 to-transparent",
+        features: ["Full-stack Generation", "Supabase Integration", "Visual Editing"]
+    },
+    {
+        slug: "coderabbit",
+        title: "CodeRabbit",
+        description: "AI-powered code reviews that actually understand your context.",
+        icon: Rabbit,
+        category: "Coding",
+        pricing: "Freemium",
+        websiteUrl: "https://coderabbit.ai",
+        color: "text-emerald-500",
+        bgGradient: "from-emerald-500/10 to-transparent",
+        features: ["Auto-summaries", "Contextual Feedback", "Line-by-line Reviews"]
+    },
+    {
+        slug: "cosine",
+        title: "Cosine",
+        description: "The AI code knowledge base for complex repositories.",
+        icon: FileSearch,
+        category: "Coding",
+        pricing: "Freemium",
+        websiteUrl: "https://cosine.sh",
+        color: "text-blue-500",
+        bgGradient: "from-blue-500/10 to-transparent",
+        features: ["Genie 2 Architecture", "Deep Semantic Search", "On-prem Isolation"]
+    },
+    {
+        slug: "aider",
+        title: "Aider",
+        description: "Command-line AI pairing that edits code directly in your local files.",
+        icon: Command,
+        category: "Coding",
+        pricing: "Free",
+        websiteUrl: "https://aider.chat",
+        color: "text-zinc-300",
+        bgGradient: "from-zinc-500/10 to-transparent",
+        features: ["CLI First", "Git-aware", "Multi-file Editing"]
+    },
+    {
+        slug: "windsurf",
+        title: "Windsurf",
+        description: "The first agentic IDE that flows with you.",
+        icon: Wind,
+        category: "Coding",
+        pricing: "Freemium",
+        websiteUrl: "https://codeium.com/windsurf",
+        color: "text-cyan-400",
+        bgGradient: "from-cyan-500/10 to-transparent",
+        features: ["Flow State AI", "Deep Codebase Indexing", "Context-aware Thinking"]
     }
 ];

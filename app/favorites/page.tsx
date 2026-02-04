@@ -31,7 +31,7 @@ export default function FavoritesPage() {
 
     const filteredFavorites = favorites.filter(item => {
         if (!searchQuery.trim()) return true;
-        
+
         const lowerQuery = searchQuery.toLowerCase();
         if (item.type === 'tool') {
             const tool = tools.find(t => t.slug === item.id);
@@ -203,7 +203,7 @@ export default function FavoritesPage() {
                                                 <CardContent className="p-4">
                                                     <div className="flex items-start justify-between mb-3">
                                                         <Link href={`/stack/${stack.id}`} className="flex items-center gap-3">
-                                                            <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center text-2xl">
+                                                            <div className="shrink-0 w-12 h-12 rounded-lg bg-linear-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center text-2xl">
                                                                 {stack.icon}
                                                             </div>
                                                             <div>

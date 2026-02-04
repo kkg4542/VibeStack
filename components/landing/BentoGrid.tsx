@@ -1,8 +1,99 @@
+"use client";
+
 import Link from "next/link";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { tools } from "@/lib/tools";
-import * as motion from "framer-motion/client";
+import { Tool, tools } from "@/lib/tools";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+
+function BentoCard({ tool, index }: { tool: Tool, index: number }) {
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    const mouseXSpring = useSpring(x);
+    const mouseYSpring = useSpring(y);
+
+    const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+    const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        const xPct = mouseX / width - 0.5;
+        const yPct = mouseY / height - 0.5;
+        x.set(xPct);
+        y.set(yPct);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className={`block relative group ${index === 0 || index === 3 ? "md:col-span-2" : "md:col-span-1"}`}
+            style={{ perspective: "1000px" }}
+        >
+            <Link
+                id={`featured-tool-${tool.slug}`}
+                href={`/tool/${tool.slug}`}
+                className="block h-full"
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+            >
+                <motion.div
+                    style={{
+                        rotateX,
+                        rotateY,
+                        transformStyle: "preserve-3d",
+                    }}
+                    className="h-full"
+                >
+                    <Card className="h-full relative overflow-hidden border-border/40 bg-card/40 transition-all duration-500 hover:border-border/80 hover:bg-card/60 hover:shadow-2xl hover:shadow-indigo-500/10 backdrop-blur-md">
+                        <div className={`absolute inset-0 bg-linear-to-br ${tool.bgGradient} opacity-0 transition-opacity duration-700 group-hover:opacity-[0.07]`} />
+
+                        <CardHeader className="relative z-10 h-full flex flex-col pt-8" style={{ transformStyle: "preserve-3d" }}>
+                            <div className="mb-4 flex items-center justify-between" style={{ transform: "translateZ(30px)", transformStyle: "preserve-3d" }}>
+                                <motion.div
+                                    whileHover={{
+                                        z: 50,
+                                        scale: 1.2,
+                                        translateY: -8,
+                                    }}
+                                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                                    className={`rounded-xl bg-secondary/80 p-2.5 ring-1 ring-border shadow-inner ${tool.color}`}
+                                    style={{
+                                        transformStyle: "preserve-3d",
+                                        transform: "translateZ(60px)",
+                                    }}
+                                >
+                                    <tool.icon className="h-6 w-6" />
+                                </motion.div>
+                                <Badge variant="secondary" className="bg-secondary/40 text-[10px] uppercase tracking-wider font-semibold text-muted-foreground backdrop-blur-sm" style={{ transform: "translateZ(20px)" }}>
+                                    {tool.category}
+                                </Badge>
+                            </div>
+                            <CardTitle className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300" style={{ transform: "translateZ(40px)" }}>
+                                {tool.title}
+                            </CardTitle>
+                            <CardDescription className="text-muted-foreground/80 leading-relaxed mt-2" style={{ transform: "translateZ(30px)" }}>
+                                {tool.description}
+                            </CardDescription>
+                        </CardHeader>
+                    </Card>
+                </motion.div>
+            </Link>
+        </motion.div>
+    );
+}
 
 export function BentoGrid() {
     // Use first 4 tools for the landing page
@@ -27,38 +118,7 @@ export function BentoGrid() {
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                 {featuredTools.map((tool, index) => (
-                    <motion.div
-                        key={tool.slug}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                        className={`block relative group ${index === 0 || index === 3 ? "md:col-span-2" : "md:col-span-1"}`}
-                    >
-                        <Link
-                            href={`/tool/${tool.slug}`}
-                            className="block h-full"
-                        >
-                            <Card className="h-full relative overflow-hidden border-border/40 bg-card/50 transition-all duration-300 hover:border-border/80 hover:bg-card/80 hover:shadow-md">
-                                <div className={`absolute inset-0 bg-linear-to-br ${tool.bgGradient} opacity-0 transition-opacity duration-500 group-hover:opacity-10`} />
-
-                                <CardHeader>
-                                    <div className="mb-2 flex items-center justify-between">
-                                        <div className={`rounded-lg bg-background/50 p-2 ring-1 ring-border/50 ${tool.color}`}>
-                                            <tool.icon className="h-5 w-5" />
-                                        </div>
-                                        <Badge variant="secondary" className="bg-secondary/50 text-xs font-normal text-muted-foreground">
-                                            {tool.category}
-                                        </Badge>
-                                    </div>
-                                    <CardTitle className="text-xl font-medium text-foreground">{tool.title}</CardTitle>
-                                    <CardDescription className="text-muted-foreground">
-                                        {tool.description}
-                                    </CardDescription>
-                                </CardHeader>
-                            </Card>
-                        </Link>
-                    </motion.div>
+                    <BentoCard key={tool.slug} tool={tool} index={index} />
                 ))}
             </div>
         </section>
