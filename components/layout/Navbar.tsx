@@ -21,7 +21,7 @@ const navItems = [
     { href: "/", label: "Home", icon: Sparkles },
     { href: "/tools", label: "AI Tools", icon: Search },
     { href: "/build", label: "Find Stack", icon: Wand2 },
-    { href: "/consulting", label: "Services", icon: Zap },
+    { href: "/consulting", label: "Advertise", icon: Zap },
     { href: "/blog", label: "Blog", icon: FileText },
 ];
 
@@ -49,7 +49,7 @@ export function Navbar() {
                             stack
                         </Link>
                         <Link id="nav-link-consulting" href="/consulting" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
-                            Services
+                            Advertise
                         </Link>
                         <Link id="nav-link-blog" href="/blog" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
                             Blog

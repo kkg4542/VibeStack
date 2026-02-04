@@ -27,7 +27,7 @@ export function FeaturedSpotlight({ toolSlug }: FeaturedSpotlightProps) {
             <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-indigo-500/10 blur-3xl transition-all duration-500 group-hover:bg-indigo-500/20" />
 
             <div className="relative flex flex-col md:flex-row items-center gap-8">
-                <div className={`flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl bg-secondary/50 border border-white/10 ${tool.color} shadow-2xl shadow-indigo-500/20 transition-transform duration-500 group-hover:scale-110`}>
+                <div className={`flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl bg-secondary/50 border border-indigo-500/20 dark:border-white/10 ${tool.color} shadow-2xl shadow-indigo-500/20 transition-transform duration-500 group-hover:scale-110`}>
                     <Icon className="h-12 w-12" />
                 </div>
 
@@ -37,12 +37,12 @@ export function FeaturedSpotlight({ toolSlug }: FeaturedSpotlightProps) {
                             <Sparkles className="h-3 w-3" />
                             Featured Tool
                         </Badge>
-                        <Badge variant="outline" className="text-muted-foreground border-white/10 uppercase tracking-widest text-[10px] font-bold">
+                        <Badge variant="outline" className="text-muted-foreground border-indigo-500/20 dark:border-white/10 uppercase tracking-widest text-[10px] font-bold">
                             Partner Spotlight
                         </Badge>
                     </div>
 
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-linear-to-r from-white to-white/60 bg-clip-text text-transparent italic">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-linear-to-r from-gray-900 via-indigo-800 to-indigo-900 dark:from-white dark:to-white/60 bg-clip-text text-transparent italic">
                         {tool.title}
                     </h2>
 
@@ -60,7 +60,7 @@ export function FeaturedSpotlight({ toolSlug }: FeaturedSpotlightProps) {
                         <Link
                             href={tool.websiteUrl}
                             target="_blank"
-                            className="text-sm font-medium text-muted-foreground hover:text-white transition-colors"
+                            className="text-sm font-medium text-muted-foreground hover:text-indigo-600 dark:hover:text-white transition-colors"
                         >
                             Visit Official Site
                         </Link>

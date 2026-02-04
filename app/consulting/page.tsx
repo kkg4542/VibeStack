@@ -51,31 +51,31 @@ export default function ConsultingPage() {
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
                             </span>
-                            Accepting New Clients for Q1 2026
+                            Now Accepting Partners for Q1 2026
                         </div>
 
                         <h1 className="mx-auto max-w-4xl text-5xl font-bold tracking-tight text-foreground sm:text-7xl">
-                            Building the Future <br />
+                            Promote Your AI Tool to <br />
                             <span className="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
-                                at the Speed of Thought
+                                Thousands of Developers
                             </span>
                         </h1>
 
                         <p className="mx-auto mt-8 max-w-2xl text-lg text-muted-foreground sm:text-xl">
-                            We help forward-thinking companies adopt "Vibe Coding" methodologies.
-                            Don't just write software. Orchestrate it.
+                            VibeStack is the fastest-growing community for AI productivity.
+                            Showcase your product where the builders are.
                         </p>
 
                         <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-                            <Link href="mailto:hello@usevibestack.com">
+                            <Link href="mailto:hello@usevibestack.com?subject=Sponsorship%20Inquiry">
                                 <Button size="lg" className="rounded-full shadow-lg shadow-indigo-500/20 px-8 text-base h-12">
-                                    Contact via Email
+                                    Book a Sponsorship
                                     <ArrowRight className="ml-2 h-4 w-4" />
                                 </Button>
                             </Link>
-                            <Link href="/blog/vibe-coding-manifesto">
+                            <Link href="/tools">
                                 <Button variant="outline" size="lg" className="rounded-full px-8 text-base h-12">
-                                    Read the Manifesto
+                                    View Our Reach
                                 </Button>
                             </Link>
                         </div>
@@ -85,67 +85,127 @@ export default function ConsultingPage() {
                 {/* Services Grid */}
                 <section className="container mx-auto px-4 py-20">
                     <div className="mb-16 text-center">
-                        <h2 className="text-3xl font-bold text-foreground">How We Accelerate Your Team</h2>
-                        <p className="mt-4 text-muted-foreground">Comprehensive services for the Agentic Era.</p>
+                        <h2 className="text-3xl font-bold text-foreground">Advertising Solutions</h2>
+                        <p className="mt-4 text-muted-foreground">High-impact placements to drive growth.</p>
                     </div>
 
                     <div className="grid gap-8 md:grid-cols-3">
-                        {services.map((service, idx) => (
-                            <motion.div
-                                key={service.title}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.1, duration: 0.5 }}
-                                className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card p-8 transition-all hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
-                            >
-                                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/50 ring-1 ring-border group-hover:bg-indigo-500/10 group-hover:ring-indigo-500/30 transition-colors">
-                                    {service.icon}
-                                </div>
-                                <h3 className="mb-3 text-2xl font-semibold text-foreground">{service.title}</h3>
-                                <p className="mb-6 text-muted-foreground">{service.description}</p>
-                                <ul className="space-y-3">
-                                    {service.features.map((feature) => (
-                                        <li key={feature} className="flex items-center text-sm text-foreground/80">
-                                            <Check className="mr-3 h-4 w-4 text-indigo-500" />
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </motion.div>
-                        ))}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5 }}
+                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card p-8 transition-all hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
+                        >
+                            <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/50 ring-1 ring-border group-hover:bg-indigo-500/10 group-hover:ring-indigo-500/30 transition-colors">
+                                <Rocket className="h-6 w-6 text-pink-400" />
+                            </div>
+                            <h3 className="mb-3 text-2xl font-semibold text-foreground">Featured Spotlight</h3>
+                            <p className="mb-6 text-muted-foreground">Get the prime spot on our homepage and tools usage list. Includes a custom verified badge.</p>
+                            <ul className="space-y-3">
+                                <li className="flex items-center text-sm text-foreground/80">
+                                    <Check className="mr-3 h-4 w-4 text-indigo-500" />
+                                    Top of Homepage Placement
+                                </li>
+                                <li className="flex items-center text-sm text-foreground/80">
+                                    <Check className="mr-3 h-4 w-4 text-indigo-500" />
+                                    "Featured" Badge
+                                </li>
+                                <li className="flex items-center text-sm text-foreground/80">
+                                    <Check className="mr-3 h-4 w-4 text-indigo-500" />
+                                    ~15k Monthly Impressions
+                                </li>
+                            </ul>
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.1, duration: 0.5 }}
+                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card p-8 transition-all hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
+                        >
+                            <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/50 ring-1 ring-border group-hover:bg-indigo-500/10 group-hover:ring-indigo-500/30 transition-colors">
+                                <Zap className="h-6 w-6 text-purple-400" />
+                            </div>
+                            <h3 className="mb-3 text-2xl font-semibold text-foreground">Sidebar Ads</h3>
+                            <p className="mb-6 text-muted-foreground">Contextual targeting on product detail pages. Reach users exploring your competitors.</p>
+                            <ul className="space-y-3">
+                                <li className="flex items-center text-sm text-foreground/80">
+                                    <Check className="mr-3 h-4 w-4 text-indigo-500" />
+                                    Category Targeting
+                                </li>
+                                <li className="flex items-center text-sm text-foreground/80">
+                                    <Check className="mr-3 h-4 w-4 text-indigo-500" />
+                                    Sticky Sidebar Visibility
+                                </li>
+                                <li className="flex items-center text-sm text-foreground/80">
+                                    <Check className="mr-3 h-4 w-4 text-indigo-500" />
+                                    High Intent Traffic
+                                </li>
+                            </ul>
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.2, duration: 0.5 }}
+                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card p-8 transition-all hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
+                        >
+                            <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/50 ring-1 ring-border group-hover:bg-indigo-500/10 group-hover:ring-indigo-500/30 transition-colors">
+                                <Terminal className="h-6 w-6 text-indigo-400" />
+                            </div>
+                            <h3 className="mb-3 text-2xl font-semibold text-foreground">Newsletter</h3>
+                            <p className="mb-6 text-muted-foreground">Sponsor our weekly dispatch to 5,000+ AI engineers and early adopters.</p>
+                            <ul className="space-y-3">
+                                <li className="flex items-center text-sm text-foreground/80">
+                                    <Check className="mr-3 h-4 w-4 text-indigo-500" />
+                                    Dedicated Sponsor Slot
+                                </li>
+                                <li className="flex items-center text-sm text-foreground/80">
+                                    <Check className="mr-3 h-4 w-4 text-indigo-500" />
+                                    40%+ Open Rate
+                                </li>
+                                <li className="flex items-center text-sm text-foreground/80">
+                                    <Check className="mr-3 h-4 w-4 text-indigo-500" />
+                                    Exclusive Shout-out
+                                </li>
+                            </ul>
+                        </motion.div>
                     </div>
                 </section>
 
                 {/* Social Proof / Trust */}
                 <section className="border-t border-border/40 bg-secondary/5 py-24">
                     <div className="container mx-auto px-4 text-center">
-                        <h2 className="mb-12 text-3xl font-bold">Why VibeStack?</h2>
+                        <h2 className="mb-12 text-3xl font-bold">Why Advertise with Us?</h2>
                         <div className="grid gap-8 md:grid-cols-3">
                             <div className="p-6">
                                 <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/10">
                                     <Shield className="h-6 w-6 text-emerald-500" />
                                 </div>
-                                <h3 className="text-xl font-semibold">100% Private</h3>
-                                <p className="mt-2 text-muted-foreground">We build on your infrastructure. Your data never leaves your VPC.</p>
+                                <h3 className="text-xl font-semibold">High Intent</h3>
+                                <p className="mt-2 text-muted-foreground">Our users are actively looking for tools to adopt, not just browsing.</p>
                             </div>
                             <div className="p-6">
                                 <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-500/10">
                                     <Rocket className="h-6 w-6 text-blue-500" />
                                 </div>
-                                <h3 className="text-xl font-semibold">Day 1 Value</h3>
-                                <p className="mt-2 text-muted-foreground">Our "Starter Stacks" deploy in minutes, not months. Immediate ROI.</p>
+                                <h3 className="text-xl font-semibold">Developer Focused</h3>
+                                <p className="mt-2 text-muted-foreground">Reach software engineers, founders, and CTOs making purchasing decisions.</p>
                             </div>
                             <div className="p-6">
                                 <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-amber-500/10">
                                     <Terminal className="h-6 w-6 text-amber-500" />
                                 </div>
-                                <h3 className="text-xl font-semibold">Developer First</h3>
-                                <p className="mt-2 text-muted-foreground">Built by engineers, for engineers. No low-code lock-in.</p>
+                                <h3 className="text-xl font-semibold">Native Feel</h3>
+                                <p className="mt-2 text-muted-foreground">Ads are integrated directly into the UI, maintaining our premium aesthetic.</p>
                             </div>
                         </div>
                     </div>
                 </section>
+
             </div>
         </main>
     );

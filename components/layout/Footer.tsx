@@ -84,6 +84,7 @@ export function Footer() {
                         <ul className="space-y-3 text-sm text-muted-foreground">
                             <li><Link href="/tools" className="hover:text-primary transition-colors">AI Tools</Link></li>
                             <li><Link href="/build" className="hover:text-primary transition-colors">Find Stack</Link></li>
+                            <li><Link href="/consulting" className="hover:text-primary transition-colors">Advertise</Link></li>
                             <li><Link href="/blog" className="hover:text-primary transition-colors">Blog</Link></li>
                             <li><Link href="/about" className="hover:text-primary transition-colors">About</Link></li>
                         </ul>

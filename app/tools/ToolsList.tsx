@@ -175,14 +175,14 @@ export function ToolsList() {
                     {/* Right Anchor: Filter Controls */}
                     <div className="flex flex-wrap items-center justify-end gap-3 ml-auto md:ml-0 w-full md:w-auto">
                         {/* Pricing Segmented Control */}
-                        <div className="flex bg-secondary/30 p-1 rounded-lg border border-white/5">
+                        <div className="flex bg-secondary/50 p-1 rounded-lg border border-border/40 dark:border-white/5">
                             {pricingModels.map((p) => (
                                 <button
                                     key={p}
                                     onClick={() => setPricing(p)}
                                     className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${pricing === p
                                         ? "bg-indigo-500 text-white shadow-md"
-                                        : "text-muted-foreground hover:text-foreground"
+                                        : "text-muted-foreground hover:text-foreground hover:bg-background/50"
                                         }`}
                                 >
                                     {p}
@@ -195,7 +195,7 @@ export function ToolsList() {
                             <select
                                 value={sortBy}
                                 onChange={(e) => setSortBy(e.target.value)}
-                                className="appearance-none bg-secondary/30 border border-white/5 rounded-lg pl-4 pr-10 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground focus:outline-none transition-all cursor-pointer hover:border-white/10"
+                                className="appearance-none bg-secondary/50 border border-border/40 dark:border-white/5 rounded-lg pl-4 pr-10 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground focus:outline-none transition-all cursor-pointer hover:border-border/80"
                             >
                                 <option value="default">Default</option>
                                 <option value="rating">Top Rated</option>
@@ -207,14 +207,14 @@ export function ToolsList() {
                 </div>
                 {/* Row 2: Categories - Scrollable Horizontal List */}
                 <div className="w-full -mx-4 px-4 lg:mx-0 lg:px-0 overflow-x-auto no-scrollbar pb-2 mask-image-fade">
-                    <div className="flex items-center gap-2 min-w-max border-b border-white/5 pb-4">
+                    <div className="flex items-center gap-2 min-w-max border-b border-border/40 dark:border-white/5 pb-4">
                         {categories.map((cat) => (
                             <button
                                 key={cat}
                                 onClick={() => setCategory(cat)}
                                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${category === cat
-                                    ? "bg-white/10 text-white border-indigo-500/50 shadow-[0_0_15px_rgba(99,102,241,0.3)] backdrop-blur-md"
-                                    : "bg-transparent text-muted-foreground border-transparent hover:bg-secondary/50 hover:text-foreground"
+                                    ? "bg-indigo-500 text-white border-indigo-500 shadow-md shadow-indigo-500/20"
+                                    : "bg-transparent text-muted-foreground border-transparent hover:bg-secondary/80 hover:text-foreground"
                                     }`}
                             >
                                 {cat}
