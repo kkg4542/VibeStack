@@ -3,7 +3,7 @@ import { tools } from "@/lib/tools";
 import { blogPosts } from "@/lib/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = "https://vibestack.com";
+    const baseUrl = "https://usevibestack.com";
 
     // Static pages
     const staticPages = [

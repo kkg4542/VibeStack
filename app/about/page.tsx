@@ -34,7 +34,7 @@ export default function AboutPage() {
 
                     <h2 className="text-foreground mt-12 mb-6 text-2xl font-bold">Contact</h2>
                     <p>
-                        Have a tool suggestion? Reach out to us at <a href="mailto:hello@vibestack.com" className="text-primary hover:text-primary/80 transition-colors">hello@vibestack.com</a>.
+                        Have a tool suggestion? Reach out to us at <a href="mailto:hello@usevibestack.com" className="text-primary hover:text-primary/80 transition-colors">hello@usevibestack.com</a>.
                     </p>
                 </div>
             </div>

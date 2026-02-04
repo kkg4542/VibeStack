@@ -32,11 +32,11 @@ export default function Error({
                 <h1 className="text-2xl font-bold mb-4 text-foreground">
                     Something Went Wrong
                 </h1>
-                
+
                 <p className="text-muted-foreground mb-2">
                     We apologize for the inconvenience.
                 </p>
-                
+
                 {error.message && (
                     <p className="text-sm text-muted-foreground/70 mb-8 font-mono bg-muted/50 p-3 rounded-lg">
                         {error.message}
@@ -44,15 +44,15 @@ export default function Error({
                 )}
 
                 <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
-                    <Button 
-                        onClick={reset} 
-                        variant="default" 
+                    <Button
+                        onClick={reset}
+                        variant="default"
                         className="rounded-full"
                     >
                         <RefreshCw className="mr-2 h-4 w-4" />
                         Try Again
                     </Button>
-                    
+
                     <Button asChild variant="outline" className="rounded-full">
                         <Link href="/">
                             <Home className="mr-2 h-4 w-4" />
@@ -91,8 +91,8 @@ export default function Error({
                     <p className="text-sm text-muted-foreground mb-4">
                         Still having trouble?
                     </p>
-                    <Link 
-                        href="mailto:hello@vibestack.com" 
+                    <Link
+                        href="mailto:hello@usevibestack.com"
                         className="text-sm text-indigo-500 hover:text-indigo-400 transition-colors"
                     >
                         Contact Support

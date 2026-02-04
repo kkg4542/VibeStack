@@ -104,7 +104,7 @@ export default function StackDetailPage({ params }: { params: Promise<{ stackId:
                             <SocialShare
                                 toolSlug={stack.id}
                                 toolName={stack.name}
-                                url={`https://vibestack.com/stack/${stack.id}`}
+                                url={`https://usevibestack.com/stack/${stack.id}`}
                             />
                         </div>
                     </div>

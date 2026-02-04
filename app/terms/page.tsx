@@ -43,7 +43,7 @@ export default function TermsPage() {
 
                 <h2>7. Contact Us</h2>
                 <p>
-                    If you have any questions about these Terms, please contact us at: support@vibestack.com
+                    If you have any questions about these Terms, please contact us at: hello@usevibestack.com
                 </p>
             </div>
         </main>

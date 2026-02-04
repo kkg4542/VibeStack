@@ -8,7 +8,7 @@ export default function PrivacyPage() {
                 <h2>1. Introduction</h2>
                 <p>
                     Welcome to VibeStack ("we," "our," or "us"). We respect your privacy and are committed to protecting your personal data.
-                    This privacy policy will inform you as to how we look after your personal data when you visit our website (vibestack.com)
+                    This privacy policy will inform you as to how we look after your personal data when you visit our website (usevibestack.com)
                     and tell you about your privacy rights.
                 </p>
 
@@ -38,7 +38,7 @@ export default function PrivacyPage() {
                 </ul>
 
                 <h2>5. Contact Us</h2>
-                <p>If you have any questions about this privacy policy, please contact us at: support@vibestack.com</p>
+                <p>If you have any questions about this privacy policy, please contact us at: hello@usevibestack.com</p>
             </div>
         </main>
     )

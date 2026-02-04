@@ -87,7 +87,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                             <SocialShare
                                 toolSlug={tool.slug}
                                 toolName={tool.title}
-                                url={`https://vibestack.com/tool/${tool.slug}`}
+                                url={`https://usevibestack.com/tool/${tool.slug}`}
                             />
                         </div>
                     </div>

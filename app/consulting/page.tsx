@@ -57,7 +57,7 @@ export default function ConsultingPage() {
                     </p>
 
                     <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-                        <Link href="mailto:hello@vibestack.com">
+                        <Link href="mailto:hello@usevibestack.com">
                             <Button size="lg" className="rounded-full shadow-lg shadow-indigo-500/20 px-8 text-base h-12">
                                 Contact via Email
                                 <ArrowRight className="ml-2 h-4 w-4" />

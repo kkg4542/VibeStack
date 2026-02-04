@@ -72,7 +72,7 @@ export function Footer() {
                             <a href="https://github.com/vibestack" target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
                                 <Github className="h-5 w-5" />
                             </a>
-                            <a href="mailto:hello@vibestack.com" className="text-muted-foreground hover:text-foreground transition-colors">
+                            <a href="mailto:hello@usevibestack.com" className="text-muted-foreground hover:text-foreground transition-colors">
                                 <Mail className="h-5 w-5" />
                             </a>
                         </div>
