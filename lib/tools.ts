@@ -3,7 +3,8 @@ import {
     ChatGPTIcon, ClaudeIcon, GeminiIcon, CursorIcon, DevinIcon,
     SupermavenIcon, OllamaIcon, LinearIcon, NotionIcon, ReplitIcon,
     TabnineIcon, CodyIcon, BuilderIoIcon, V0Icon, PerplexityIcon,
-    LovableIcon, CodeRabbitIcon, CosineIcon, AiderIcon, WindsurfIcon
+    LovableIcon, CodeRabbitIcon, CosineIcon, AiderIcon, WindsurfIcon,
+    CopilotIcon
 } from "@/components/icons/AiIcons";
 import { ComponentType } from "react";
 
@@ -19,6 +20,14 @@ export interface Tool {
     features?: string[];
     color: string;
     bgGradient: string;
+    pros?: string[];
+    cons?: string[];
+    review?: {
+        content: string;
+        rating: number;
+    };
+    isFeatured?: boolean;
+    adCopy?: string;
 }
 
 export const tools: Tool[] = [
@@ -32,11 +41,17 @@ export const tools: Tool[] = [
         websiteUrl: "https://chat.openai.com",
         color: "text-emerald-400",
         bgGradient: "from-emerald-500/10 to-transparent",
-        features: ["GPT-5.2 Codex", "Stabilized Context", "xHigh Reasoning"]
+        features: ["GPT-5.2 Codex", "Stabilized Context", "xHigh Reasoning"],
+        pros: ["Highest reasoning capabilities", "Massive ecosystem", "Versatile agent mode"],
+        cons: ["Subscription required for best features", "Privacy concerns"],
+        review: {
+            content: "GPT-5.2 sets a new benchmark for AI agents. Its ability to solve complex multi-step problems is currently unmatched in the industry.",
+            rating: 4.9
+        }
     },
     {
         slug: "claude",
-        title: "Claude 5 Sonnet",
+        title: "Claude by Anthropic",
         description: "Just released: The new apex of reasoning.",
         icon: ClaudeIcon,
         category: "Assistance",
@@ -44,7 +59,13 @@ export const tools: Tool[] = [
         websiteUrl: "https://claude.ai",
         color: "text-orange-400",
         bgGradient: "from-orange-500/10 to-transparent",
-        features: ["Claude 5 Sonnet", "1M Context", "Agentic Capabilities"]
+        features: ["Claude 5 Sonnet", "1M Context", "Agentic Capabilities"],
+        pros: ["Natural writing style", "Huge 1M token context", "Excellent documentation handling"],
+        cons: ["Usage limits on free tier", "API can be expensive"],
+        review: {
+            content: "Claude 5 is the preferred choice for long-form content and complex document analysis. Its 1M token context is a game changer for researchers.",
+            rating: 4.8
+        }
     },
     {
         slug: "gemini-code-assist",
@@ -69,7 +90,9 @@ export const tools: Tool[] = [
         affiliateUrl: "https://cursor.sh",
         color: "text-blue-400",
         bgGradient: "from-blue-500/10 to-transparent",
-        features: ["AI Chat", "Codebase Indexing", "Agent Mode"]
+        features: ["AI Chat", "Codebase Indexing", "Agent Mode"],
+        isFeatured: true,
+        adCopy: "Stop fighting your editor. Start flowing with Cursor's predictive coding."
     },
     {
         slug: "devin",
@@ -103,7 +126,7 @@ export const tools: Tool[] = [
         category: "Other",
         pricing: "Free",
         websiteUrl: "https://ollama.com",
-        color: "text-slate-100",
+        color: "text-slate-900 dark:text-slate-100",
         bgGradient: "from-slate-500/10 to-transparent",
         features: ["Local Inference", "Privacy", "Llama 3 / Mistral Support"]
     },
@@ -111,11 +134,11 @@ export const tools: Tool[] = [
         slug: "github-copilot",
         title: "GitHub Copilot",
         description: "Your AI pair programmer.",
-        icon: Github,
+        icon: CopilotIcon,
         category: "Coding",
         pricing: "Paid",
         websiteUrl: "https://github.com/features/copilot",
-        color: "text-slate-200",
+        color: "text-slate-900 dark:text-slate-200",
         bgGradient: "from-slate-500/10 to-transparent",
         features: ["Autocomplete", "Copilot Workspace", "Pull Request Summaries"]
     },
@@ -200,9 +223,11 @@ export const tools: Tool[] = [
         pricing: "Freemium",
         websiteUrl: "https://v0.dev",
         affiliateUrl: "https://v0.dev",
-        color: "text-zinc-400",
+        color: "text-zinc-900 dark:text-zinc-400",
         bgGradient: "from-zinc-500/10 to-transparent",
-        features: ["React Code Gen", "Shadcn UI", "Tailwind"]
+        features: ["React Code Gen", "Shadcn UI", "Tailwind"],
+        isFeatured: true,
+        adCopy: "Ship beautiful UI in seconds with Vercel's generative interface engine."
     },
     {
         slug: "perplexity",
@@ -260,7 +285,7 @@ export const tools: Tool[] = [
         category: "Coding",
         pricing: "Free",
         websiteUrl: "https://aider.chat",
-        color: "text-zinc-300",
+        color: "text-zinc-900 dark:text-zinc-300",
         bgGradient: "from-zinc-500/10 to-transparent",
         features: ["CLI First", "Git-aware", "Multi-file Editing"]
     },

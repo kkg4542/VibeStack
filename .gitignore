@@ -39,3 +39,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/lib/generated/prisma
+
+# PWA
+public/sw.js
+public/workbox-*.js
+public/worker-*.js
+
+# RSS
+public/rss.xml
+
+# Testing
+playwright-report
+test-results

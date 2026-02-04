@@ -1,0 +1,21 @@
+{
+    "name": "VibeStack - AI Productivity Lab",
+    "short_name": "VibeStack",
+    "description": "Discover and compare the best AI tools for developers and creators.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#09090b",
+    "theme_color": "#6366f1",
+    "icons": [
+        {
+            "src": "/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
