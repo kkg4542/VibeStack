@@ -94,7 +94,7 @@ export function SubmitDialog() {
                         </div>
 
                         <Button className="w-full bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-500/20" asChild>
-                            <a href="https://buy.stripe.com/test_premium_submission" target="_blank">Get Featured Now</a>
+                            <a href="https://buy.stripe.com/4gM5kw4BH7K2apmbdi7IY00" target="_blank">Get Featured Now</a>
                         </Button>
                     </div>
                 </div>
