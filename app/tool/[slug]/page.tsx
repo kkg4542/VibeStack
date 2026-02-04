@@ -7,6 +7,8 @@ import Link from "next/link";
 import { RelatedTools } from "@/components/tools/RelatedTools";
 import { Separator } from "@/components/ui/separator";
 import { Metadata } from "next";
+import { SocialShare } from "@/components/ui/SocialShare";
+import { AffiliateLink } from "@/components/ui/AffiliateLink";
 
 interface Props {
     params: { slug: string };
@@ -73,17 +75,20 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                             {tool.description}
                         </p>
 
-                        <div className="flex gap-4">
-                            <Button size="lg" className="rounded-full shadow-lg shadow-indigo-500/20" asChild>
-                                <a
-                                    href={`${tool.affiliateUrl || tool.websiteUrl}${tool.websiteUrl.includes('?') ? '&' : '?'}ref=vibestack&utm_source=vibestack`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    Visit Website
-                                    <ExternalLink className="ml-2 h-4 w-4" />
-                                </a>
-                            </Button>
+                        <div className="flex flex-col sm:flex-row gap-4">
+                            <AffiliateLink
+                                url={tool.affiliateUrl || tool.websiteUrl}
+                                toolSlug={tool.slug}
+                                toolName={tool.title}
+                            >
+                                Visit Website
+                            </AffiliateLink>
+                            
+                            <SocialShare
+                                toolSlug={tool.slug}
+                                toolName={tool.title}
+                                url={`https://vibestack.com/tool/${tool.slug}`}
+                            />
                         </div>
                     </div>
                 </div>
@@ -132,14 +137,14 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                 </div>
                                 <div className="flex justify-between py-2 border-b border-white/5">
                                     <span className="text-muted-foreground">Website</span>
-                                    <a
-                                        href={`${tool.affiliateUrl || tool.websiteUrl}${tool.websiteUrl.includes('?') ? '&' : '?'}ref=vibestack&utm_source=vibestack`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="font-medium text-indigo-400 hover:underline truncate max-w-[150px]"
+                                    <AffiliateLink
+                                        url={tool.affiliateUrl || tool.websiteUrl}
+                                        toolSlug={tool.slug}
+                                        toolName={tool.title}
+                                        variant="link"
                                     >
                                         {tool.websiteUrl.replace('https://', '')}
-                                    </a>
+                                    </AffiliateLink>
                                 </div>
                             </div>
                         </div>
