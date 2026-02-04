@@ -22,11 +22,11 @@ export default function BlogListingPage() {
                     </p>
                 </div>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[600px]">
                     {blogPosts.map((post) => (
                         <Link key={post.slug} href={`/blog/${post.slug}`} className="group block h-full">
                             <Card className="h-full border-border/40 bg-card/50 overflow-hidden transition-all duration-300 hover:border-border/80 hover:bg-card/80 hover:-translate-y-1 hover:shadow-md">
-                                <div className="aspect-video w-full overflow-hidden bg-secondary/50">
+                                <div className="relative aspect-video w-full overflow-hidden bg-secondary/50">
                                     <Image
                                         src={post.image}
                                         alt={post.title}
