@@ -19,7 +19,8 @@ import { useState } from "react";
 const navItems = [
     { href: "/", label: "Home", icon: Sparkles },
     { href: "/tools", label: "AI Tools", icon: Search },
-    { href: "/build", label: "Find Your Stack", icon: Wand2 },
+    { href: "/build", label: "Find Stack", icon: Wand2 },
+    { href: "/favorites", label: "Favorites", icon: Heart },
     { href: "/blog", label: "Blog", icon: FileText },
     { href: "/about", label: "About", icon: Info },
 ];
