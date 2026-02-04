@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
-    "build": "npm run generate:rss && next build --webpack",
+    "build": "prisma generate && npm run generate:rss && next build --webpack",
     "start": "next start",
     "lint": "next lint",
     "test": "vitest",
