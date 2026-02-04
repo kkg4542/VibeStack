@@ -7,8 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { tools } from "@/lib/tools";
-import { stacks } from "@/lib/stacks";
+import { tools, Tool } from "@/lib/tools";
+import { stacks, Stack } from "@/lib/stacks";
 import { trackSearchQuery } from "@/lib/analytics";
 
 export default function SearchPage() {
@@ -160,7 +160,7 @@ export default function SearchPage() {
                                     </h2>
                                 </div>
                                 <div className="space-y-3">
-                                    {searchTools.map((tool: any) => (
+                                    {searchTools.map((tool: Tool & { bgGradient?: string, color?: string }) => (
                                         <Link key={tool.slug} href={`/tool/${tool.slug}`}>
                                             <Card className="hover:bg-accent/50 transition-colors cursor-pointer border-border/50">
                                                 <CardContent className="p-4">
@@ -201,7 +201,7 @@ export default function SearchPage() {
                                     </h2>
                                 </div>
                                 <div className="space-y-3">
-                                    {searchStacks.map((stack: any) => (
+                                    {searchStacks.map((stack: Stack) => (
                                         <Link key={stack.id} href={`/stack/${stack.id}`}>
                                             <Card className="hover:bg-accent/50 transition-colors cursor-pointer border-border/50">
                                                 <CardContent className="p-4">

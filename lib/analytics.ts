@@ -5,7 +5,7 @@ declare global {
       eventName: string,
       params?: Record<string, any>
     ) => void;
-    dataLayer: any[];
+    dataLayer: Record<string, unknown>[];
   }
 }
 

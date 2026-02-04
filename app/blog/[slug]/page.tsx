@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { blogPosts } from "@/lib/blog";
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { ReadingProgress } from "@/components/blog/ReadingProgress";
@@ -77,11 +78,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         </div>
                     </header>
 
-                    <div className="aspect-video w-full rounded-2xl overflow-hidden bg-secondary/30 mb-12 border border-border shadow-sm">
-                        <img
+                    <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-secondary/30 mb-12 border border-border shadow-sm">
+                        <Image
                             src={post.image}
                             alt={post.title}
-                            className="h-full w-full object-cover"
+                            fill
+                            priority
+                            className="object-cover"
                         />
                     </div>
 

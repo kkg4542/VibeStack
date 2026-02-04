@@ -7,12 +7,13 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowLeft, CheckCircle2, ExternalLink, Zap, Users, Star, Heart } from "lucide-react";
 import { stacks, getStackTools, Stack } from "@/lib/stacks";
+import { Tool } from "@/lib/tools";
 import { SocialShare } from "@/components/ui/SocialShare";
 import { useState, useEffect } from "react";
 
 export default function StackDetailPage({ params }: { params: Promise<{ stackId: string }> }) {
     const [mounted, setMounted] = useState(false);
-    const [stackData, setStackData] = useState<{ stack: Stack; tools: any[] } | null>(null);
+    const [stackData, setStackData] = useState<{ stack: Stack; tools: Tool[] } | null>(null);
     const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
@@ -26,7 +27,7 @@ export default function StackDetailPage({ params }: { params: Promise<{ stackId:
                 notFound();
                 return;
             }
-            const tools = getStackTools(stack);
+            const tools = getStackTools(stack).filter((t): t is Tool => t !== undefined);
             setStackData({ stack, tools });
             setIsFavorite(favorites.includes(stackId));
         });

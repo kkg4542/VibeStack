@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { blogPosts } from "@/lib/blog";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -26,10 +27,12 @@ export default function BlogListingPage() {
                         <Link key={post.slug} href={`/blog/${post.slug}`} className="group block h-full">
                             <Card className="h-full border-border/40 bg-card/50 overflow-hidden transition-all duration-300 hover:border-border/80 hover:bg-card/80 hover:-translate-y-1 hover:shadow-md">
                                 <div className="aspect-video w-full overflow-hidden bg-secondary/50">
-                                    <img
+                                    <Image
                                         src={post.image}
                                         alt={post.title}
-                                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                        fill
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                        className="object-cover transition-transform duration-500 group-hover:scale-105"
                                     />
                                 </div>
                                 <CardHeader className="space-y-2">
