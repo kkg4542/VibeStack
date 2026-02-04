@@ -17,7 +17,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://vibestack.com"),
+  metadataBase: new URL("https://usevibestack.com"),
   title: {
     default: "VibeStack - AI Productivity Lab",
     template: "%s | VibeStack",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://vibestack.com",
+    url: "https://usevibestack.com",
     title: "VibeStack - AI Productivity Lab",
     description: "Curated AI tools for developers. Discover the best tools to accelerate your workflow.",
     siteName: "VibeStack",
