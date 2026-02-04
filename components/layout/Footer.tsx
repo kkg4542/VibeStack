@@ -5,6 +5,7 @@ import { Sparkles, Twitter, Github, Mail, CheckCircle, AlertCircle, Loader2 } fr
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { trackNewsletterSubscribe } from "@/lib/analytics";
 
 export function Footer() {
     const [email, setEmail] = useState("");
@@ -37,6 +38,7 @@ export function Footer() {
             if (response.ok) {
                 setStatus("success");
                 setMessage(data.message || "Successfully subscribed!");
+                trackNewsletterSubscribe(email);
                 setEmail("");
             } else {
                 setStatus("error");
