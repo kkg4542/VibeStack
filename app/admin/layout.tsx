@@ -1,6 +1,9 @@
 import { Metadata } from "next";
 import { AdminNav } from "@/components/admin/AdminNav";
 
+export const dynamic = "force-dynamic";
+
+
 export const metadata: Metadata = {
   title: "Admin Dashboard | VibeStack",
   description: "VibeStack admin dashboard",
