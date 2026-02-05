@@ -108,6 +108,6 @@ export async function POST(request: NextRequest) {
     return createSuccessResponse(review, 201);
   } catch (error) {
     console.error("Failed to create review:", error);
-    return createErrorResponse("Failed to create review", 500);
+    return createErrorResponse(error instanceof Error ? error.message : "Failed to create review", 500);
   }
 }
