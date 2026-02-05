@@ -12,10 +12,10 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pt-14">
       <div className="flex">
         {/* Sidebar */}
-        <aside className="w-64 min-h-screen border-r border-border bg-card">
+        <aside className="fixed left-0 top-14 w-64 h-[calc(100vh-3.5rem)] border-r border-border bg-card overflow-y-auto">
           <div className="p-6">
             <h1 className="text-xl font-bold">Admin</h1>
             <p className="text-sm text-muted-foreground">VibeStack</p>
@@ -24,7 +24,7 @@ export default function AdminLayout({
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 p-8">
+        <main className="flex-1 ml-64 p-8">
           {children}
         </main>
       </div>
