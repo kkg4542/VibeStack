@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { createErrorResponse } from "@/lib/api-utils";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -18,19 +19,13 @@ export async function GET(
     });
 
     if (!tool) {
-      return NextResponse.json(
-        { error: "Tool not found" },
-        { status: 404 }
-      );
+      return createErrorResponse("Tool not found", 404);
     }
 
     return NextResponse.json({ tool });
   } catch (error) {
     console.error("Error fetching tool:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch tool" },
-      { status: 500 }
-    );
+    return createErrorResponse("Failed to fetch tool", 500);
   }
 }
 
@@ -61,10 +56,7 @@ export async function PUT(
     });
 
     if (!existingTool) {
-      return NextResponse.json(
-        { error: "Tool not found" },
-        { status: 404 }
-      );
+      return createErrorResponse("Tool not found", 404);
     }
 
     // 도구 수정
@@ -88,10 +80,7 @@ export async function PUT(
     );
   } catch (error) {
     console.error("Error updating tool:", error);
-    return NextResponse.json(
-      { error: "Failed to update tool" },
-      { status: 500 }
-    );
+    return createErrorResponse("Failed to update tool", 500);
   }
 }
 
@@ -109,10 +98,7 @@ export async function DELETE(
     });
 
     if (!existingTool) {
-      return NextResponse.json(
-        { error: "Tool not found" },
-        { status: 404 }
-      );
+      return createErrorResponse("Tool not found", 404);
     }
 
     // 도구 삭제
@@ -125,9 +111,6 @@ export async function DELETE(
     );
   } catch (error) {
     console.error("Error deleting tool:", error);
-    return NextResponse.json(
-      { error: "Failed to delete tool" },
-      { status: 500 }
-    );
+    return createErrorResponse("Failed to delete tool", 500);
   }
 }

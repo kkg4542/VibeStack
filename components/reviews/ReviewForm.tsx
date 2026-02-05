@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Star, Loader2 } from "lucide-react";
+import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import { AuthDialog } from "@/components/auth/AuthDialog";
 
@@ -26,7 +27,7 @@ export function ReviewForm({ toolSlug }: { toolSlug: string }) {
         }
 
         if (rating === 0) {
-            alert("Please select a rating");
+            toast.warning("Please select a rating");
             return;
         }
 
@@ -50,12 +51,13 @@ export function ReviewForm({ toolSlug }: { toolSlug: string }) {
 
             setContent("");
             setRating(0);
+            toast.success("Review submitted successfully!");
 
             // Dispatch event to update list
             window.dispatchEvent(new Event("review-submitted"));
         } catch (error) {
             console.error(error);
-            alert(error instanceof Error ? error.message : "Failed to submit review");
+            toast.error(error instanceof Error ? error.message : "Failed to submit review");
         } finally {
             setIsSubmitting(false);
         }

@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from '@prisma/client';
+import { createErrorResponse } from "@/lib/api-utils";
 
 export async function GET() {
   try {
     // Runtime에 환경변수 직접 확인
     const databaseUrl = process.env.DATABASE_URL;
-    
+
     if (!databaseUrl) {
       return NextResponse.json({
         status: "error",
@@ -41,13 +42,10 @@ export async function GET() {
     });
   } catch (error) {
     console.error("Database connection error:", error);
-    return NextResponse.json(
-      {
-        status: "error",
-        message: "Database connection failed",
-        error: error instanceof Error ? error.message : "Unknown error",
-      },
-      { status: 500 }
+    return createErrorResponse(
+      "Database connection failed",
+      500,
+      { error: error instanceof Error ? error.message : "Unknown error" }
     );
   }
 }

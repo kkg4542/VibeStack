@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { createErrorResponse } from "@/lib/api-utils";
 
 const subscribeSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -30,10 +31,7 @@ export async function POST(request: Request) {
     const result = subscribeSchema.safeParse(body);
 
     if (!result.success) {
-      return NextResponse.json(
-        { error: result.error.issues[0].message },
-        { status: 400 }
-      );
+      return createErrorResponse(result.error.issues[0].message, 400);
     }
 
     const { email, firstName, lastName } = result.data;
@@ -44,10 +42,7 @@ export async function POST(request: Request) {
 
     if (!MAILCHIMP_API_KEY || !MAILCHIMP_LIST_ID || !MAILCHIMP_DC) {
       console.error("Mailchimp environment variables not set");
-      return NextResponse.json(
-        { error: "Server configuration error" },
-        { status: 500 }
-      );
+      return createErrorResponse("Server configuration error", 500);
     }
 
     const response = await fetch(
@@ -86,16 +81,10 @@ export async function POST(request: Request) {
       }
 
       console.error("Mailchimp error:", error);
-      return NextResponse.json(
-        { error: "Failed to subscribe. Please try again." },
-        { status: 500 }
-      );
+      return createErrorResponse("Failed to subscribe. Please try again.", 500);
     }
   } catch (error) {
     console.error("Newsletter subscription error:", error);
-    return NextResponse.json(
-      { error: "An error occurred. Please try again." },
-      { status: 500 }
-    );
+    return createErrorResponse("An error occurred. Please try again.", 500);
   }
 }
