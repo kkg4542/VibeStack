@@ -12,7 +12,7 @@ export async function GET(
 ) {
   try {
     const { slug } = await params;
-    
+
     const tool = await prisma.tool.findUnique({
       where: { slug },
     });
@@ -42,7 +42,7 @@ export async function PUT(
   try {
     const { slug } = await params;
     const body = await request.json();
-    
+
     const {
       title,
       description,
@@ -73,7 +73,7 @@ export async function PUT(
       data: {
         title,
         description,
-        categoryId: category,
+        category,
         pricing,
         websiteUrl,
         affiliateUrl,

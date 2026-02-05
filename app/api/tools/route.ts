@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    
+
     const {
       slug,
       title,
@@ -44,8 +44,7 @@ export async function POST(request: NextRequest) {
         slug,
         title,
         description,
-        iconName: title.toLowerCase().replace(/\s+/g, '-'),
-        categoryId: category,
+        category,
         pricing,
         websiteUrl,
         affiliateUrl,
