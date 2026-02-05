@@ -1,68 +1,190 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { CreateToolSchema, UpdateToolSchema } from "@/lib/schemas";
+import { validateRequest, createErrorResponse, createSuccessResponse, formatZodError } from "@/lib/api-utils";
+import { revalidateTag } from "next/cache";
+
+export async function GET(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const page = parseInt(searchParams.get("page") || "1");
+    const limit = Math.min(parseInt(searchParams.get("limit") || "20"), 50);
+    const category = searchParams.get("category");
+    const pricing = searchParams.get("pricing");
+    const search = searchParams.get("q");
+    
+    const skip = (page - 1) * limit;
+    
+    const where: any = {};
+    
+    if (category) {
+      where.category = category;
+    }
+    
+    if (pricing) {
+      where.pricing = pricing;
+    }
+    
+    if (search) {
+      where.OR = [
+        { title: { contains: search, mode: 'insensitive' } },
+        { description: { contains: search, mode: 'insensitive' } },
+      ];
+    }
+    
+    const [tools, total] = await Promise.all([
+      prisma.tool.findMany({
+        where,
+        skip,
+        take: limit,
+        orderBy: { createdAt: "desc" },
+      }),
+      prisma.tool.count({ where }),
+    ]);
+    
+    return createSuccessResponse({
+      tools,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+        hasMore: page * limit < total,
+      },
+    });
+  } catch (error) {
+    console.error("Error fetching tools:", error);
+    return createErrorResponse("Failed to fetch tools", 500);
+  }
+}
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-
-    const {
-      slug,
-      title,
-      description,
-      category,
-      pricing,
-      websiteUrl,
-      affiliateUrl,
-      features,
-      color,
-      bgGradient,
-    } = body;
-
-    // 필수 필드 검증
-    if (!slug || !title || !description || !category || !pricing || !websiteUrl) {
-      return NextResponse.json(
-        { error: "Missing required fields" },
-        { status: 400 }
-      );
+    
+    const validation = validateRequest(CreateToolSchema, body);
+    
+    if (!validation.success) {
+      return createErrorResponse("Validation failed", 400, formatZodError(validation.error));
     }
+    
+    const data = validation.data;
+    
+    const existingTool = await prisma.tool.findUnique({
+      where: { slug: data.slug },
+    });
+    
+    if (existingTool) {
+      return createErrorResponse("Tool with this slug already exists", 409);
+    }
+    
+    const tool = await prisma.tool.create({
+      data: {
+        slug: data.slug,
+        title: data.title,
+        description: data.description,
+        category: data.category,
+        pricing: data.pricing,
+        websiteUrl: data.websiteUrl,
+        affiliateUrl: data.affiliateUrl,
+        icon: data.icon,
+        features: data.features || [],
+        pros: data.pros || [],
+        cons: data.cons || [],
+        color: "text-foreground",
+        bgGradient: "from-transparent to-transparent",
+      },
+    });
+    
+    revalidateTag("tools");
+    
+    return createSuccessResponse(tool, 201);
+  } catch (error) {
+    console.error("Error creating tool:", error);
+    return createErrorResponse("Failed to create tool", 500);
+  }
+}
 
-    // slug 중복 확인
+export async function PUT(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const slug = searchParams.get("slug");
+    
+    if (!slug) {
+      return createErrorResponse("Tool slug is required", 400);
+    }
+    
+    const body = await request.json();
+    
+    const validation = validateRequest(UpdateToolSchema, body);
+    
+    if (!validation.success) {
+      return createErrorResponse("Validation failed", 400, formatZodError(validation.error));
+    }
+    
+    const data = validation.data;
+    
     const existingTool = await prisma.tool.findUnique({
       where: { slug },
     });
-
-    if (existingTool) {
-      return NextResponse.json(
-        { error: "Tool with this slug already exists" },
-        { status: 409 }
-      );
+    
+    if (!existingTool) {
+      return createErrorResponse("Tool not found", 404);
     }
-
-    // 도구 생성
-    const tool = await prisma.tool.create({
+    
+    const tool = await prisma.tool.update({
+      where: { slug },
       data: {
-        slug,
-        title,
-        description,
-        category,
-        pricing,
-        websiteUrl,
-        affiliateUrl,
-        features: features || [],
-        color: color || "text-foreground",
-        bgGradient: bgGradient || "from-transparent to-transparent",
+        ...(data.title !== undefined && { title: data.title }),
+        ...(data.description !== undefined && { description: data.description }),
+        ...(data.category !== undefined && { category: data.category }),
+        ...(data.pricing !== undefined && { pricing: data.pricing }),
+        ...(data.websiteUrl !== undefined && { websiteUrl: data.websiteUrl }),
+        ...(data.affiliateUrl !== undefined && { affiliateUrl: data.affiliateUrl }),
+        ...(data.icon !== undefined && { icon: data.icon }),
+        ...(data.features !== undefined && { features: data.features }),
+        ...(data.pros !== undefined && { pros: data.pros }),
+        ...(data.cons !== undefined && { cons: data.cons }),
       },
     });
-
-    return NextResponse.json(
-      { message: "Tool created successfully", tool },
-      { status: 201 }
-    );
+    
+    revalidateTag(`tool-${slug}`);
+    revalidateTag("tools");
+    
+    return createSuccessResponse(tool);
   } catch (error) {
-    console.error("Error creating tool:", error);
-    return NextResponse.json(
-      { error: "Failed to create tool" },
-      { status: 500 }
-    );
+    console.error("Error updating tool:", error);
+    return createErrorResponse("Failed to update tool", 500);
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const slug = searchParams.get("slug");
+    
+    if (!slug) {
+      return createErrorResponse("Tool slug is required", 400);
+    }
+    
+    const existingTool = await prisma.tool.findUnique({
+      where: { slug },
+    });
+    
+    if (!existingTool) {
+      return createErrorResponse("Tool not found", 404);
+    }
+    
+    await prisma.tool.delete({
+      where: { slug },
+    });
+    
+    revalidateTag(`tool-${slug}`);
+    revalidateTag("tools");
+    
+    return createSuccessResponse({ message: "Tool deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting tool:", error);
+    return createErrorResponse("Failed to delete tool", 500);
   }
 }

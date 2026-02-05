@@ -1,65 +1,116 @@
-
 import { auth } from "@/auth";
-import { PrismaClient } from "@prisma/client";
-import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { CreateReviewSchema } from "@/lib/schemas";
+import { validateRequest, createErrorResponse, createSuccessResponse, formatZodError } from "@/lib/api-utils";
+import { NextRequest } from "next/server";
+import { revalidateTag } from "next/cache";
 
-const prisma = new PrismaClient();
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const toolId = searchParams.get("toolId");
+  const toolSlug = searchParams.get("toolSlug");
 
-export async function GET(request: Request) {
-    const { searchParams } = new URL(request.url);
-    const slug = searchParams.get("slug");
+  if (!toolId && !toolSlug) {
+    return createErrorResponse("Tool ID or slug is required", 400);
+  }
 
-    if (!slug) {
-        return NextResponse.json({ error: "Tool slug is required" }, { status: 400 });
+  try {
+    let toolIdToQuery = toolId;
+    
+    if (toolSlug && !toolId) {
+      const tool = await prisma.tool.findUnique({
+        where: { slug: toolSlug },
+        select: { id: true },
+      });
+      
+      if (!tool) {
+        return createErrorResponse("Tool not found", 404);
+      }
+      
+      toolIdToQuery = tool.id;
     }
 
-    try {
-        const reviews = await prisma.review.findMany({
-            where: { toolSlug: slug },
-            include: {
-                user: {
-                    select: {
-                        name: true,
-                        image: true,
-                    },
-                },
-            },
-            orderBy: { createdAt: "desc" },
-        });
-        return NextResponse.json(reviews);
-    } catch (error) {
-        console.error("Failed to fetch reviews:", error);
-        return NextResponse.json({ error: "Failed to fetch reviews" }, { status: 500 });
-    }
+    const reviews = await prisma.review.findMany({
+      where: { toolId: toolIdToQuery! },
+      include: {
+        user: {
+          select: {
+            name: true,
+            image: true,
+          },
+        },
+      },
+      orderBy: { createdAt: "desc" },
+    });
+    
+    return createSuccessResponse(reviews);
+  } catch (error) {
+    console.error("Failed to fetch reviews:", error);
+    return createErrorResponse("Failed to fetch reviews", 500);
+  }
 }
 
-export async function POST(request: Request) {
-    const session = await auth();
+export async function POST(request: NextRequest) {
+  const session = await auth();
 
-    if (!session || !session.user) {
-        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!session || !session.user) {
+    return createErrorResponse("Unauthorized", 401);
+  }
+
+  try {
+    const body = await request.json();
+    
+    const validation = validateRequest(CreateReviewSchema, body);
+    
+    if (!validation.success) {
+      return createErrorResponse("Validation failed", 400, formatZodError(validation.error));
+    }
+    
+    const { toolId, rating, content } = validation.data;
+    
+    // Check if tool exists
+    const tool = await prisma.tool.findUnique({
+      where: { id: toolId },
+    });
+    
+    if (!tool) {
+      return createErrorResponse("Tool not found", 404);
+    }
+    
+    // Check if user already reviewed this tool
+    const existingReview = await prisma.review.findFirst({
+      where: {
+        toolId,
+        userId: session.user.id,
+      },
+    });
+    
+    if (existingReview) {
+      return createErrorResponse("You have already reviewed this tool", 409);
     }
 
-    try {
-        const body = await request.json();
-        const { toolSlug, rating, content } = body;
+    const review = await prisma.review.create({
+      data: {
+        toolId,
+        rating,
+        content,
+        userId: session.user.id,
+      },
+      include: {
+        user: {
+          select: {
+            name: true,
+            image: true,
+          },
+        },
+      },
+    });
+    
+    revalidateTag(`reviews-${toolId}`);
 
-        if (!toolSlug || !rating || !content) {
-            return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
-        }
-
-        const review = await prisma.review.create({
-            data: {
-                toolSlug,
-                rating,
-                content,
-                userId: session.user.id,
-            },
-        });
-
-        return NextResponse.json(review);
-    } catch (error) {
-        console.error("Failed to create review:", error);
-        return NextResponse.json({ error: "Failed to create review" }, { status: 500 });
-    }
+    return createSuccessResponse(review, 201);
+  } catch (error) {
+    console.error("Failed to create review:", error);
+    return createErrorResponse("Failed to create review", 500);
+  }
 }

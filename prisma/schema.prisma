@@ -19,13 +19,17 @@ model Tool {
   pricing      String
   websiteUrl   String   @map("website_url")
   affiliateUrl String?  @map("affiliate_url")
+  icon         String?
   features     String[]
-  color        String
-  bgGradient   String   @map("bg_gradient")
+  pros         String[]
+  cons         String[]
+  color        String   @default("text-foreground")
+  bgGradient   String   @default("from-transparent to-transparent") @map("bg_gradient")
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
 
   stackTools   StackTool[]
+  reviews      Review[]
 
   @@map("tools")
 }
@@ -139,13 +143,14 @@ model VerificationToken {
 model Review {
   id        String   @id @default(cuid())
   userId    String   @map("user_id")
-  toolSlug  String   @map("tool_slug")
+  toolId    String   @map("tool_id")
   rating    Int
   content   String   @db.Text
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tool Tool @relation(fields: [toolId], references: [id], onDelete: Cascade)
 
   @@map("reviews")
 }

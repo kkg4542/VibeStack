@@ -1,4 +1,6 @@
+import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
+
 const withPWA = require('next-pwa')({
   dest: 'public',
   disable: process.env.NODE_ENV === 'development',
@@ -9,6 +11,12 @@ const withPWA = require('next-pwa')({
 const nextConfig: NextConfig = {
   env: {
     DATABASE_URL: process.env.DATABASE_URL,
+  },
+  images: {
+    domains: ['cdn.vibestack.dev', 'images.unsplash.com'],
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   async headers() {
     return [
@@ -49,4 +57,15 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withPWA(nextConfig);
+export default withSentryConfig(withPWA(nextConfig), {
+  org: "vibestack",
+  project: "vibestack-web",
+  silent: !process.env.CI,
+  widenClientFileUpload: true,
+  tunnelRoute: "/monitoring",
+  sourcemaps: {
+    disable: false,
+  },
+  disableLogger: true,
+  automaticVercelMonitors: true,
+});

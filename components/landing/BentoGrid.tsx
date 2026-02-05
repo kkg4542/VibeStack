@@ -63,7 +63,7 @@ function BentoCard({ tool, index }: { tool: Tool, index: number }) {
                         <div className={`absolute inset-0 bg-linear-to-br ${tool.bgGradient} opacity-0 transition-opacity duration-700 group-hover:opacity-[0.07]`} />
 
                         <CardHeader className="relative z-10 h-full flex flex-col pt-8" style={{ transformStyle: "preserve-3d" }}>
-                            <div className="mb-4 flex items-center justify-between" style={{ transform: "translateZ(30px)", transformStyle: "preserve-3d" }}>
+                            <div className="mb-4 flex items-center justify-between gap-4" style={{ transform: "translateZ(30px)", transformStyle: "preserve-3d" }}>
                                 <motion.div
                                     whileHover={{
                                         z: 50,
@@ -71,7 +71,7 @@ function BentoCard({ tool, index }: { tool: Tool, index: number }) {
                                         translateY: -8,
                                     }}
                                     transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                                    className={`rounded-xl bg-secondary/80 p-2.5 ring-1 ring-border shadow-inner ${tool.color}`}
+                                    className={`rounded-lg bg-secondary/80 p-3 ring-1 ring-border shadow-lg ${tool.color} group-hover:shadow-indigo-500/20`}
                                     style={{
                                         transformStyle: "preserve-3d",
                                         transform: "translateZ(60px)",
@@ -79,7 +79,7 @@ function BentoCard({ tool, index }: { tool: Tool, index: number }) {
                                 >
                                     <tool.icon className="h-6 w-6" />
                                 </motion.div>
-                                <Badge variant="secondary" className="bg-secondary/40 text-[10px] uppercase tracking-wider font-semibold text-muted-foreground backdrop-blur-sm" style={{ transform: "translateZ(20px)" }}>
+                                <Badge variant="secondary" className="bg-secondary/50 text-[10px] uppercase tracking-wider font-semibold text-muted-foreground backdrop-blur-sm" style={{ transform: "translateZ(20px)" }}>
                                     {tool.category}
                                 </Badge>
                             </div>
