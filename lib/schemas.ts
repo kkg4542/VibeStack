@@ -41,7 +41,7 @@ export const NewsletterSchema = z.object({
 
 // Review schema
 export const CreateReviewSchema = z.object({
-  toolId: z.string().min(1),
+  toolSlug: z.string().min(1),
   rating: z.number().min(1).max(5),
   content: z.string().min(1).max(1000),
 });

@@ -13,7 +13,16 @@ const nextConfig: NextConfig = {
     DATABASE_URL: process.env.DATABASE_URL,
   },
   images: {
-    domains: ['cdn.vibestack.dev', 'images.unsplash.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.vibestack.dev',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+    ],
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
@@ -66,6 +75,6 @@ export default withSentryConfig(withPWA(nextConfig), {
   sourcemaps: {
     disable: false,
   },
-  disableLogger: true,
-  automaticVercelMonitors: true,
+  // disableLogger: true, // DEPRECATED
+  // automaticVercelMonitors: true, // DEPRECATED
 });

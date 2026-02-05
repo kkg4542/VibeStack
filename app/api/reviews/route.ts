@@ -15,17 +15,17 @@ export async function GET(request: NextRequest) {
 
   try {
     let toolIdToQuery = toolId;
-    
+
     if (toolSlug && !toolId) {
       const tool = await prisma.tool.findUnique({
         where: { slug: toolSlug },
         select: { id: true },
       });
-      
+
       if (!tool) {
         return createErrorResponse("Tool not found", 404);
       }
-      
+
       toolIdToQuery = tool.id;
     }
 
@@ -41,7 +41,7 @@ export async function GET(request: NextRequest) {
       },
       orderBy: { createdAt: "desc" },
     });
-    
+
     return createSuccessResponse(reviews);
   } catch (error) {
     console.error("Failed to fetch reviews:", error);
@@ -58,39 +58,39 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json();
-    
+
     const validation = validateRequest(CreateReviewSchema, body);
-    
+
     if (!validation.success) {
       return createErrorResponse("Validation failed", 400, formatZodError(validation.error));
     }
-    
-    const { toolId, rating, content } = validation.data;
-    
+
+    const { toolSlug, rating, content } = validation.data;
+
     // Check if tool exists
     const tool = await prisma.tool.findUnique({
-      where: { id: toolId },
+      where: { slug: toolSlug },
     });
-    
+
     if (!tool) {
       return createErrorResponse("Tool not found", 404);
     }
-    
+
     // Check if user already reviewed this tool
     const existingReview = await prisma.review.findFirst({
       where: {
-        toolId,
+        toolId: tool.id,
         userId: session.user.id,
       },
     });
-    
+
     if (existingReview) {
       return createErrorResponse("You have already reviewed this tool", 409);
     }
 
     const review = await prisma.review.create({
       data: {
-        toolId,
+        toolId: tool.id,
         rating,
         content,
         userId: session.user.id,
@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
         },
       },
     });
-    
+
     return createSuccessResponse(review, 201);
   } catch (error) {
     console.error("Failed to create review:", error);
