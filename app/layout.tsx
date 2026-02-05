@@ -5,7 +5,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/next";
 import { SessionProvider } from "next-auth/react";
 
 const inter = Inter({
@@ -76,6 +76,7 @@ export default function RootLayout({
             <Footer />
           </SessionProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
