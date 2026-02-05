@@ -43,7 +43,10 @@ export function ReviewForm({ toolSlug }: { toolSlug: string }) {
                 }),
             });
 
-            if (!res.ok) throw new Error("Failed to submit review");
+            if (!res.ok) {
+                const data = await res.json();
+                throw new Error(data.error || "Failed to submit review");
+            }
 
             setContent("");
             setRating(0);
@@ -52,7 +55,7 @@ export function ReviewForm({ toolSlug }: { toolSlug: string }) {
             window.dispatchEvent(new Event("review-submitted"));
         } catch (error) {
             console.error(error);
-            alert("Failed to submit review");
+            alert(error instanceof Error ? error.message : "Failed to submit review");
         } finally {
             setIsSubmitting(false);
         }
@@ -75,8 +78,8 @@ export function ReviewForm({ toolSlug }: { toolSlug: string }) {
                         >
                             <Star
                                 className={`w-6 h-6 ${star <= (hoveredRating || rating)
-                                        ? "fill-yellow-500 text-yellow-500"
-                                        : "text-zinc-600"
+                                    ? "fill-yellow-500 text-yellow-500"
+                                    : "text-zinc-600"
                                     }`}
                             />
                         </button>
