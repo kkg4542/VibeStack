@@ -47,7 +47,7 @@ export default async function AdminToolsPage() {
                 <tr key={tool.id} className="border-b">
                   <td className="px-4 py-3 font-medium">{tool.title}</td>
                   <td className="px-4 py-3">
-                    <Badge variant="secondary">{tool.categoryId}</Badge>
+                    <Badge variant="secondary">{tool.category}</Badge>
                   </td>
                   <td className="px-4 py-3">{tool.pricing}</td>
                   <td className="px-4 py-3">
