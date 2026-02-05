@@ -3,13 +3,14 @@
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
+    DialogClose,
     DialogContent,
     DialogDescription,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { Plus, Star } from "lucide-react";
+import { Plus, Star, X } from "lucide-react";
 
 export function SubmitDialog() {
     return (
@@ -23,7 +24,11 @@ export function SubmitDialog() {
                     Advertise
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[800px] border-white/10 bg-zinc-950/90 backdrop-blur-xl p-0 overflow-hidden shadow-2xl">
+            <DialogContent showCloseButton={false} className="sm:max-w-[800px] border-white/10 bg-zinc-950/90 backdrop-blur-xl p-0 overflow-hidden shadow-2xl">
+                <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground text-zinc-400 hover:text-white z-50 cursor-pointer">
+                    <X className="h-4 w-4" />
+                    <span className="sr-only">Close</span>
+                </DialogClose>
                 <div className="grid grid-cols-1 md:grid-cols-2 md:divide-x divide-white/10">
                     {/* Left: Standard */}
                     <div className="flex flex-col p-8 md:p-10 bg-white/5">
