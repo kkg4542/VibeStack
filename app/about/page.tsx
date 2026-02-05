@@ -1,4 +1,7 @@
 import { Metadata } from "next";
+import { PageHeader } from "@/components/ui/page-header";
+import * as motion from "framer-motion/client";
+import { designSystem } from "@/lib/design-system";
 
 export const metadata: Metadata = {
     title: "About - AI Productivity Lab",
@@ -9,9 +12,18 @@ export default function AboutPage() {
     return (
         <main className="min-h-screen bg-background pt-32 pb-20">
             <div className="container max-w-3xl mx-auto px-4">
-                <h1 className="text-4xl font-bold tracking-tight mb-8">About VibeStack</h1>
+                <PageHeader
+                    title="About VibeStack"
+                    description="Curating the signal from the noise in the AI era."
+                />
 
-                <div className="prose dark:prose-invert prose-zinc prose-indigo text-lg text-muted-foreground">
+                <motion.div
+                    initial="initial"
+                    animate="animate"
+                    variants={designSystem.animations.fadeInUp}
+                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.2 }}
+                    className="prose dark:prose-invert prose-zinc prose-indigo text-lg text-muted-foreground"
+                >
                     <p>
                         Welcome to <strong>AI Productivity Lab</strong> (VibeStack).
                     </p>
@@ -36,7 +48,7 @@ export default function AboutPage() {
                     <p>
                         Have a tool suggestion? Reach out to us at <a href="mailto:hello@usevibestack.com" className="text-primary hover:text-primary/80 transition-colors">hello@usevibestack.com</a>.
                     </p>
-                </div>
+                </motion.div>
             </div>
         </main>
     );
