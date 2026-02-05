@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { SessionProvider } from "next-auth/react";
 
 const inter = Inter({
@@ -77,6 +78,7 @@ export default function RootLayout({
           </SessionProvider>
         </ThemeProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
