@@ -7,7 +7,7 @@ export default function PrivacyPage() {
 
                 <h2>1. Introduction</h2>
                 <p>
-                    Welcome to VibeStack ("we," "our," or "us"). We respect your privacy and are committed to protecting your personal data.
+                    Welcome to VibeStack (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). We respect your privacy and are committed to protecting your personal data.
                     This privacy policy will inform you as to how we look after your personal data when you visit our website (usevibestack.com)
                     and tell you about your privacy rights.
                 </p>
