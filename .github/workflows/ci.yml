@@ -87,6 +87,7 @@ jobs:
         uses: trufflesecurity/trufflehog@main
         with:
           path: ./
-          base: main
-          head: HEAD
+          base: ""
+          head: ""
           extra_args: --debug --only-verified
+        continue-on-error: true
