@@ -66,7 +66,7 @@ export function useTool(slug: string) {
 
 export function useCreateTool() {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: createTool,
     onSuccess: () => {
@@ -85,11 +85,11 @@ export function useReviews(toolId: string) {
 
 export function useCreateReview() {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: createReview,
-    onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["reviews", variables.toolId] });
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["reviews"] });
     },
   });
 }
