@@ -2,8 +2,6 @@ import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { CreateToolSchema, UpdateToolSchema } from "@/lib/schemas";
 import { validateRequest, createErrorResponse, createSuccessResponse, formatZodError } from "@/lib/api-utils";
-import { revalidateTag } from "next/cache";
-
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -96,8 +94,6 @@ export async function POST(request: NextRequest) {
       },
     });
     
-    revalidateTag("tools");
-    
     return createSuccessResponse(tool, 201);
   } catch (error) {
     console.error("Error creating tool:", error);
@@ -148,9 +144,6 @@ export async function PUT(request: NextRequest) {
       },
     });
     
-    revalidateTag(`tool-${slug}`);
-    revalidateTag("tools");
-    
     return createSuccessResponse(tool);
   } catch (error) {
     console.error("Error updating tool:", error);
@@ -178,9 +171,6 @@ export async function DELETE(request: NextRequest) {
     await prisma.tool.delete({
       where: { slug },
     });
-    
-    revalidateTag(`tool-${slug}`);
-    revalidateTag("tools");
     
     return createSuccessResponse({ message: "Tool deleted successfully" });
   } catch (error) {

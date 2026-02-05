@@ -3,7 +3,6 @@ import { prisma } from "@/lib/prisma";
 import { CreateReviewSchema } from "@/lib/schemas";
 import { validateRequest, createErrorResponse, createSuccessResponse, formatZodError } from "@/lib/api-utils";
 import { NextRequest } from "next/server";
-import { revalidateTag } from "next/cache";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -106,8 +105,6 @@ export async function POST(request: NextRequest) {
       },
     });
     
-    revalidateTag(`reviews-${toolId}`);
-
     return createSuccessResponse(review, 201);
   } catch (error) {
     console.error("Failed to create review:", error);
