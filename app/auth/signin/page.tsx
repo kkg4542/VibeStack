@@ -1,12 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { Sparkles } from "lucide-react";
+import { useSearchParams, useRouter } from "next/navigation";
 
 export default function SignInPage() {
     const [isLoading, setIsLoading] = useState(false);
+    const searchParams = useSearchParams();
+    const error = searchParams.get("error");
+    const router = useRouter();
+    const { status } = useSession();
+
+    useEffect(() => {
+        if (status === "authenticated") {
+            router.push("/");
+        }
+    }, [status, router]);
 
     const handleSocialLogin = async (provider: string) => {
         setIsLoading(true);
@@ -31,6 +42,14 @@ export default function SignInPage() {
                         Sign in to save your stacks, write reviews, and contribute to the community.
                     </p>
                 </div>
+
+                {error && (
+                    <div className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm text-center">
+                        {error === "OAuthAccountNotLinked"
+                            ? "This email is already associated with another account. Please sign in with the original provider."
+                            : "An error occurred during sign in. Please try again."}
+                    </div>
+                )}
 
                 <div className="grid gap-3">
                     <Button
