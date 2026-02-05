@@ -15,7 +15,7 @@ test('tools page is accessible', async ({ page }) => {
     await page.goto('/tools');
     await expect(page).toHaveURL(/.*tools/);
 
-    // Check if categories are visible
-    const categoryFilter = page.locator('button', { hasText: 'All' });
-    await expect(categoryFilter).toBeVisible();
+    // Check if page title is visible
+    const pageTitle = page.getByRole('heading', { name: /All Tools/i });
+    await expect(pageTitle).toBeVisible();
 });
