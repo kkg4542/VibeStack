@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { Analytics } from "@vercel/analytics/react";
+import { AuthProvider } from "@/context/auth-context";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -69,9 +70,11 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <ThemeProvider defaultTheme="dark" enableSystem>
-          <Navbar />
-          {children}
-          <Footer />
+          <AuthProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

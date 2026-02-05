@@ -10,6 +10,8 @@ import { Metadata } from "next";
 import { SocialShare } from "@/components/ui/SocialShare";
 import { AffiliateLink } from "@/components/ui/AffiliateLink";
 import { SidebarAd } from "@/components/tools/SidebarAd";
+import { ReviewList } from "@/components/reviews/ReviewList";
+import { ReviewForm } from "@/components/reviews/ReviewForm";
 
 interface Props {
     params: { slug: string };
@@ -160,6 +162,17 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                             ) : (
                                 <p className="text-muted-foreground italic">Full review coming soon.</p>
                             )}
+                        </section>
+                        {/* User Reviews */}
+                        <section className="mt-12">
+                            <div className="flex items-center justify-between mb-8">
+                                <h2 className="text-2xl font-semibold">User Reviews</h2>
+                            </div>
+
+                            <div className="grid gap-8">
+                                <ReviewForm toolSlug={tool.slug} />
+                                <ReviewList toolSlug={tool.slug} />
+                            </div>
                         </section>
                     </div>
 
