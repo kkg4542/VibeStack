@@ -6,7 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { Analytics } from "@vercel/analytics/react";
-import { AuthProvider } from "@/context/auth-context";
+import { SessionProvider } from "next-auth/react";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -70,11 +70,11 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <ThemeProvider defaultTheme="dark" enableSystem>
-          <AuthProvider>
+          <SessionProvider>
             <Navbar />
             {children}
             <Footer />
-          </AuthProvider>
+          </SessionProvider>
         </ThemeProvider>
       </body>
     </html>

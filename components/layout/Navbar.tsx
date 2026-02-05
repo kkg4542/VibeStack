@@ -17,7 +17,8 @@ import {
     SheetClose,
 } from "@/components/ui/sheet";
 import { useState } from "react";
-import { useAuth } from "@/context/auth-context";
+// import { useAuth } from "@/context/auth-context"; // Removed local auth
+import { useSession, signOut } from "next-auth/react";
 import { AuthDialog } from "@/components/auth/AuthDialog";
 import {
     DropdownMenu,
@@ -39,8 +40,13 @@ const navItems = [
 
 export function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
-    const { user, logout } = useAuth();
+    const { data: session } = useSession();
     const [isAuthOpen, setIsAuthOpen] = useState(false);
+
+    // Auth helpers
+    const user = session?.user;
+    const handleSignOut = () => signOut();
+    const handleSignIn = () => setIsAuthOpen(true);
 
     return (
         <header className="fixed top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl supports-backdrop-filter:bg-background/60">
@@ -89,8 +95,11 @@ export function Navbar() {
                             <DropdownMenuTrigger asChild>
                                 <Button variant="ghost" className="relative h-8 w-8 rounded-full ml-2">
                                     <Avatar className="h-8 w-8">
-                                        <AvatarImage src={user.avatar} alt={user.name} />
-                                        <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                                        {/* Use user image if available, fallback to first letter */}
+                                        {user.image ? (
+                                            <AvatarImage src={user.image} alt={user.name || "User"} />
+                                        ) : null}
+                                        <AvatarFallback>{user.name?.charAt(0) || "U"}</AvatarFallback>
                                     </Avatar>
                                 </Button>
                             </DropdownMenuTrigger>
@@ -104,7 +113,7 @@ export function Navbar() {
                                     </div>
                                 </DropdownMenuLabel>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem onClick={() => logout()} className="text-red-500 focus:text-red-500">
+                                <DropdownMenuItem onClick={handleSignOut} className="text-red-500 focus:text-red-500">
                                     <LogOut className="mr-2 h-4 w-4" />
                                     <span>Log out</span>
                                 </DropdownMenuItem>
@@ -150,14 +159,16 @@ export function Navbar() {
                                     {user ? (
                                         <div className="flex items-center gap-3 p-2 rounded-lg bg-secondary/50">
                                             <Avatar className="h-10 w-10">
-                                                <AvatarImage src={user.avatar} />
-                                                <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                                                {user.image ? (
+                                                    <AvatarImage src={user.image} />
+                                                ) : null}
+                                                <AvatarFallback>{user.name?.charAt(0) || "U"}</AvatarFallback>
                                             </Avatar>
                                             <div className="flex-1 overflow-hidden">
                                                 <p className="text-sm font-medium truncate">{user.name}</p>
                                                 <p className="text-xs text-muted-foreground truncate">{user.email}</p>
                                             </div>
-                                            <Button variant="ghost" size="icon" onClick={() => logout()} className="h-8 w-8 text-muted-foreground">
+                                            <Button variant="ghost" size="icon" onClick={handleSignOut} className="h-8 w-8 text-muted-foreground">
                                                 <LogOut className="h-4 w-4" />
                                             </Button>
                                         </div>

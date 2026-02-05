@@ -2,20 +2,22 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea"; // Assuming generic textarea or use input? I'll check.
-import { useAuth } from "@/context/auth-context";
+import { Textarea } from "@/components/ui/textarea";
+import { Star, Loader2 } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { AuthDialog } from "@/components/auth/AuthDialog";
-import { addReview } from "@/lib/reviews-store";
-import { Star } from "lucide-react";
 
 export function ReviewForm({ toolSlug }: { toolSlug: string }) {
-    const { user } = useAuth();
-    const [rating, setRating] = useState(0);
-    const [content, setContent] = useState("");
-    const [isAuthOpen, setIsAuthOpen] = useState(false);
-    const [hoverRating, setHoverRating] = useState(0);
+    const { data: session } = useSession();
+    const user = session?.user;
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const [rating, setRating] = useState(0);
+    const [hoveredRating, setHoveredRating] = useState(0);
+    const [content, setContent] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isAuthOpen, setIsAuthOpen] = useState(false);
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!user) {
@@ -23,80 +25,93 @@ export function ReviewForm({ toolSlug }: { toolSlug: string }) {
             return;
         }
 
-        if (rating === 0) return;
+        if (rating === 0) {
+            alert("Please select a rating");
+            return;
+        }
 
-        addReview({
-            toolSlug,
-            userId: user.id,
-            userName: user.name,
-            userAvatar: user.avatar,
-            rating,
-            content,
-        });
+        setIsSubmitting(true);
 
-        // Reset
-        setRating(0);
-        setContent("");
-        alert("Review submitted successfully!");
+        try {
+            const res = await fetch("/api/reviews", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    toolSlug,
+                    rating,
+                    content,
+                }),
+            });
+
+            if (!res.ok) throw new Error("Failed to submit review");
+
+            setContent("");
+            setRating(0);
+
+            // Dispatch event to update list
+            window.dispatchEvent(new Event("review-submitted"));
+        } catch (error) {
+            console.error(error);
+            alert("Failed to submit review");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
-    if (!user) {
-        return (
-            <div className="bg-indigo-500/5 border border-indigo-500/10 rounded-2xl p-8 text-center">
-                <h3 className="text-lg font-semibold mb-2">Have you used this tool?</h3>
-                <p className="text-muted-foreground mb-6 text-sm">Sign in to share your experience with the community.</p>
-                <AuthDialog
-                    open={isAuthOpen}
-                    onOpenChange={setIsAuthOpen}
-                    trigger={
-                        <Button>Write a Review</Button>
-                    }
-                />
-            </div>
-        );
-    }
-
     return (
-        <form onSubmit={handleSubmit} className="bg-card border border-border rounded-2xl p-6">
-            <h3 className="text-lg font-semibold mb-4">Write a Verified Review</h3>
+        <div className="p-6 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
+            <h3 className="text-lg font-semibold mb-4">Write a Review</h3>
 
-            <div className="mb-4">
-                <label className="block text-sm font-medium mb-2 text-muted-foreground">Rating</label>
+            <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="flex gap-1">
                     {[1, 2, 3, 4, 5].map((star) => (
                         <button
                             key={star}
                             type="button"
-                            className="focus:outline-none"
-                            onMouseEnter={() => setHoverRating(star)}
-                            onMouseLeave={() => setHoverRating(0)}
+                            className="focus:outline-none transition-transform hover:scale-110"
+                            onMouseEnter={() => setHoveredRating(star)}
+                            onMouseLeave={() => setHoveredRating(0)}
                             onClick={() => setRating(star)}
                         >
                             <Star
-                                className={`h-6 w-6 transition-colors ${star <= (hoverRating || rating)
-                                        ? "text-yellow-400 fill-current"
+                                className={`w-6 h-6 ${star <= (hoveredRating || rating)
+                                        ? "fill-yellow-500 text-yellow-500"
                                         : "text-zinc-600"
                                     }`}
                             />
                         </button>
                     ))}
+                    <span className="ml-2 text-sm text-muted-foreground self-center">
+                        {rating > 0 ? `${rating} stars` : "Select rating"}
+                    </span>
                 </div>
-            </div>
 
-            <div className="mb-4">
-                <label className="block text-sm font-medium mb-2 text-muted-foreground">Your Review</label>
-                <textarea
-                    className="flex min-h-[100px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                    placeholder="What did you like or dislike?"
+                <Textarea
+                    placeholder="Share your experience with this tool..."
+                    className="min-h-[100px] bg-black/20 border-white/10 focus:border-indigo-500"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                     required
                 />
-            </div>
 
-            <Button type="submit" disabled={rating === 0 || !content.trim()}>
-                Submit Review
-            </Button>
-        </form>
+                <div className="flex justify-end">
+                    <Button type="submit" disabled={isSubmitting || rating === 0}>
+                        {isSubmitting ? (
+                            <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                Submitting...
+                            </>
+                        ) : (
+                            "Post Review"
+                        )}
+                    </Button>
+                </div>
+            </form>
+
+            <AuthDialog
+                open={isAuthOpen}
+                onOpenChange={setIsAuthOpen}
+            />
+        </div>
     );
 }

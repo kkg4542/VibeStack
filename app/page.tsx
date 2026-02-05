@@ -16,10 +16,7 @@ export default function Home() {
         <BentoGrid />
       </motion.div>
 
-      {/* Footer minimal */}
-      <footer className="border-t border-border/40 bg-background/50 py-12 text-center text-sm text-muted-foreground backdrop-blur-xl">
-        <p>© 2026 AI Productivity Lab. Built with Next.js & Shadcn.</p>
-      </footer>
+
     </main>
   );
 }
