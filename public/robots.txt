@@ -1,4 +1,12 @@
+# *
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /auth
 
+# Host
+Host: https://usevibestack.com
+
+# Sitemaps
 Sitemap: https://usevibestack.com/sitemap.xml

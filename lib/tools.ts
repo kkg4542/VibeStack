@@ -5,7 +5,7 @@ import {
     TabnineIcon, CodyIcon, BuilderIoIcon, V0Icon, PerplexityIcon,
     LovableIcon, CodeRabbitIcon, CosineIcon, AiderIcon, WindsurfIcon,
     CopilotIcon,
-    PiecesIcon, WarpIcon, ContinueIcon, StackBlitzIcon, CodeSandboxIcon, 
+    PiecesIcon, WarpIcon, ContinueIcon, StackBlitzIcon, CodeSandboxIcon,
     HuggingFaceIcon, DALLEIcon, ElevenLabsIcon, JasperIcon,
     CopyAiIcon, PoeIcon, PhindIcon, DescriptIcon,
     FigmaIcon, RunwayIcon, CanvaIcon, CharacterAiIcon, OtterIcon,
@@ -156,6 +156,7 @@ export const tools: Tool[] = [
         category: "Management",
         pricing: "Freemium",
         websiteUrl: "https://linear.app",
+        // TODO: Add after Impact.com approval: affiliateUrl: "https://impact.com/...",
         color: "text-indigo-400",
         bgGradient: "from-indigo-500/10 to-transparent",
         features: ["Issue Tracking", "Cycles", "Roadmaps"]
@@ -168,6 +169,7 @@ export const tools: Tool[] = [
         category: "Productivity",
         pricing: "Paid",
         websiteUrl: "https://notion.so",
+        // TODO: Add after affiliate.notion.so approval: affiliateUrl: "https://affiliate.notion.so/vibestack",
         color: "text-amber-400",
         bgGradient: "from-amber-500/10 to-transparent",
         features: ["Writing Assistant", "Database AI", "Summarization"]
@@ -435,6 +437,7 @@ export const tools: Tool[] = [
         category: "Assistance",
         pricing: "Paid",
         websiteUrl: "https://jasper.ai",
+        // TODO: Add after jasper.ai/affiliates approval: affiliateUrl: "https://jasper.ai/affiliate/vibestack",
         color: "text-red-500",
         bgGradient: "from-red-500/10 to-transparent",
         features: ["Marketing Copy", "Brand Voice", "SEO Optimization"]
@@ -483,6 +486,7 @@ export const tools: Tool[] = [
         category: "Productivity",
         pricing: "Freemium",
         websiteUrl: "https://descript.com",
+        // TODO: Add after descript.com/affiliates approval: affiliateUrl: "https://www.descript.com/affiliate/vibestack",
         color: "text-blue-300",
         bgGradient: "from-blue-300/10 to-transparent",
         features: ["Video Editing", "Transcription", "Overdub"]
@@ -531,6 +535,7 @@ export const tools: Tool[] = [
         category: "Design",
         pricing: "Freemium",
         websiteUrl: "https://canva.com",
+        // TODO: Add after canva.com/affiliates approval: affiliateUrl: "https://www.canva.com/affiliates/vibestack",
         color: "text-teal-500",
         bgGradient: "from-teal-500/10 to-transparent",
         features: ["Magic Design", "Text to Image", "Brand Kit"]
@@ -603,6 +608,7 @@ export const tools: Tool[] = [
         category: "Management",
         pricing: "Freemium",
         websiteUrl: "https://clickup.com",
+        // TODO: Add after clickup.com/partners/affiliates approval: affiliateUrl: "https://clickup.com/affiliates/vibestack",
         color: "text-purple-700",
         bgGradient: "from-purple-700/10 to-transparent",
         features: ["Task Management", "Docs", "AI Writing"]
@@ -615,6 +621,7 @@ export const tools: Tool[] = [
         category: "Management",
         pricing: "Freemium",
         websiteUrl: "https://asana.com",
+        // TODO: Add after Impact.com approval: affiliateUrl: "https://impact.com/asana/vibestack",
         color: "text-red-600",
         bgGradient: "from-red-600/10 to-transparent",
         features: ["Project Management", "AI Workflows", "Goal Tracking"]
@@ -639,6 +646,7 @@ export const tools: Tool[] = [
         category: "Productivity",
         pricing: "Freemium",
         websiteUrl: "https://grammarly.com",
+        // TODO: Add after grammarly.com/affiliates approval: affiliateUrl: "https://www.grammarly.com/affiliates/vibestack",
         color: "text-green-500",
         bgGradient: "from-green-500/10 to-transparent",
         features: ["Grammar Check", "Tone Detection", "Plagiarism Detection"]
