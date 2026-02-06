@@ -56,47 +56,44 @@ export function Navbar() {
                 {/* Logo area */}
                 <div className="flex items-center gap-2">
                     <Link id="navbar-logo" href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
-                        <div className="flex h-6 w-6 items-center justify-center rounded bg-indigo-500/20 text-indigo-400">
-                            <Sparkles className="h-4 w-4" />
-                        </div>
-                        <span className="text-sm font-semibold tracking-tight">VibeStack</span>
+                        <img
+                            src="/logo.png"
+                            alt="VibeStack Logo"
+                            className="h-8 w-auto object-contain"
+                        />
                     </Link>
 
                     {/* Desktop Navigation */}
                     <nav className="hidden items-center gap-6 md:flex ml-8">
-                        <Link 
-                            id="nav-link-tools" 
-                            href="/tools" 
-                            className={`text-sm font-medium transition-colors hover:text-foreground ${
-                                pathname === '/tools' ? 'text-foreground' : 'text-muted-foreground'
-                            }`}
+                        <Link
+                            id="nav-link-tools"
+                            href="/tools"
+                            className={`text-sm font-medium transition-colors hover:text-foreground ${pathname === '/tools' ? 'text-foreground' : 'text-muted-foreground'
+                                }`}
                         >
                             Tools
                         </Link>
-                        <Link 
-                            id="nav-link-build" 
-                            href="/build" 
-                            className={`text-sm font-medium transition-colors hover:text-foreground ${
-                                pathname === '/build' ? 'text-foreground' : 'text-muted-foreground'
-                            }`}
+                        <Link
+                            id="nav-link-build"
+                            href="/build"
+                            className={`text-sm font-medium transition-colors hover:text-foreground ${pathname === '/build' ? 'text-foreground' : 'text-muted-foreground'
+                                }`}
                         >
                             stack
                         </Link>
-                        <Link 
-                            id="nav-link-consulting" 
-                            href="/consulting" 
-                            className={`text-sm font-medium transition-colors hover:text-foreground ${
-                                pathname === '/consulting' ? 'text-foreground' : 'text-muted-foreground'
-                            }`}
+                        <Link
+                            id="nav-link-consulting"
+                            href="/consulting"
+                            className={`text-sm font-medium transition-colors hover:text-foreground ${pathname === '/consulting' ? 'text-foreground' : 'text-muted-foreground'
+                                }`}
                         >
                             Advertise
                         </Link>
-                        <Link 
-                            id="nav-link-blog" 
-                            href="/blog" 
-                            className={`text-sm font-medium transition-colors hover:text-foreground ${
-                                pathname?.startsWith('/blog') ? 'text-foreground' : 'text-muted-foreground'
-                            }`}
+                        <Link
+                            id="nav-link-blog"
+                            href="/blog"
+                            className={`text-sm font-medium transition-colors hover:text-foreground ${pathname?.startsWith('/blog') ? 'text-foreground' : 'text-muted-foreground'
+                                }`}
                         >
                             Blog
                         </Link>
@@ -173,10 +170,11 @@ export function Navbar() {
                         <SheetContent side="right" className="w-[300px] bg-background/95 backdrop-blur-xl">
                             <SheetHeader>
                                 <SheetTitle className="flex items-center gap-2 text-left">
-                                    <div className="flex h-6 w-6 items-center justify-center rounded bg-indigo-500/20 text-indigo-400">
-                                        <Sparkles className="h-4 w-4" />
-                                    </div>
-                                    <span className="text-sm font-semibold">Menu</span>
+                                    <img
+                                        src="/logo.png"
+                                        alt="VibeStack Logo"
+                                        className="h-8 w-auto object-contain"
+                                    />
                                 </SheetTitle>
                             </SheetHeader>
 
