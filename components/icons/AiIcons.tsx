@@ -175,3 +175,297 @@ export function CopilotIcon({ className }: { className?: string }) {
         </svg>
     );
 }
+
+export function PiecesIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 0L2 4v7.5l10 4 10-4V4L12 0zm0 24l10-4v-7.5l-10 4-10-4V20l10 4z" />
+        </svg>
+    );
+}
+
+export function WarpIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 256 310" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 309.8L8.8 241.2V68.8L128 0l119.2 68.8v172.4L128 309.8z" />
+        </svg>
+    );
+}
+
+export function ContinueIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 19h20L12 2zm0 4.5l6 10H6l6-10z" />
+        </svg>
+    );
+}
+
+export function AmazonCodeWhispererIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+        </svg>
+    );
+}
+
+export function GoogleIDXIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 22h20L12 2zm-1 16h2v-2h-2v2zm0-4h2v-4h-2v4z" />
+        </svg>
+    );
+}
+
+export function StackBlitzIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.797 14.182H3.635L16.728 0l-3.525 9.818h7.162L7.272 24l3.524-9.818Z" />
+        </svg>
+    );
+}
+
+export function CodeSandboxIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M2.5 12a9.5 9.5 0 0 1 19 0 9.5 9.5 0 0 1-19 0Z" />
+            <path d="M7 12h10" stroke="currentColor" strokeWidth="2" />
+        </svg>
+    );
+}
+
+export function HuggingFaceIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2-12c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm4 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-2 9c2.21 0 4-1.79 4-4h-8c0 2.21 1.79 4 4 4z" />
+        </svg>
+    );
+}
+
+export function MidjourneyIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2Zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm1 11h-2v-2h2v2Zm4-4h-2V7h2v4Zm-8 0H7V7h2v4Zm4 0h-2V5h2v6Z" />
+        </svg>
+    );
+}
+
+export function DALLEIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="9" height="9" rx="2" />
+            <rect x="13" y="2" width="9" height="9" rx="2" />
+            <rect x="2" y="13" width="9" height="9" rx="2" />
+            <rect x="13" y="13" width="9" height="9" rx="2" />
+        </svg>
+    );
+}
+
+export function ElevenLabsIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 22h20L12 2zm0 4l6 12H6l6-12z" />
+        </svg>
+    );
+}
+
+export function GammaIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm0 4c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z" />
+        </svg>
+    );
+}
+
+export function JasperIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2l10 10-10 10-10-10 10-10zm0 4L5 12l7 6 7-6-7-6z" />
+        </svg>
+    );
+}
+
+export function CopyAiIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 2h11v2H4v16H2V4a2 2 0 0 1 2-2zm16 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zm-2 14H8v-2h10v2zm0-4H8v-2h10v2zm-4-4H8v-2h6v2z" />
+        </svg>
+    );
+}
+
+export function PoeIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V8h2v4zm4 4h-2v-2h2v2zm0-4h-2V8h2v4z" />
+        </svg>
+    );
+}
+
+export function PhindIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7l10 5 10-5-10-5zm0 14L2 11l2-1 8 4 8-4 2 1-10 5zm0 6l-10-5 2-1 8 4 8-4 2 1-10 5z" />
+        </svg>
+    );
+}
+
+export function DescriptIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 4h16v16H4V4zm2 2v12h12V6H6zm3 3h6v6H9V9z" />
+        </svg>
+    );
+}
+
+export function RaycastIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="20" height="20" rx="4" />
+            <path d="M8 8h8v8H8V8z" fill="var(--background)" />
+        </svg>
+    );
+}
+
+export function FigmaIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 12a3 3 0 1 0 3-3V6a3 3 0 1 0-3 3v3zm6-6a3 3 0 0 0-3 3v3h3a3 3 0 1 0 0-6zm0 9a3 3 0 0 0-3 3 3 3 0 1 0 3-3zm6-6a3 3 0 1 0-3 3h3V9z" />
+        </svg>
+    );
+}
+
+export function RunwayIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 22h20L12 2zm0 6l3.5 10h-7L12 8z" />
+        </svg>
+    );
+}
+
+export function CanvaIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M8 12h8" stroke="var(--background)" strokeWidth="3" />
+        </svg>
+    );
+}
+
+export function CharacterAiIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 13h-2v-2h2v2zm4 0h-2v-2h2v2zm2-4H8V9h8v2z" />
+        </svg>
+    );
+}
+
+export function OtterIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2a5 5 0 0 0-5 5v7a5 5 0 0 0 10 0V7a5 5 0 0 0-5-5zm3 9a3 3 0 1 1-6 0V7a3 3 0 1 1 6 0v4z" />
+        </svg>
+    );
+}
+
+export function FirefliesIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="8" />
+            <path d="M12 2v20M2 12h20" stroke="var(--background)" />
+        </svg>
+    );
+}
+
+export function KrispIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 12l4-8 4 8-4 8-4-8zm16 0l-4-8-4 8 4 8 4-8z" />
+        </svg>
+    );
+}
+
+export function MotionIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 22h20L12 2zm0 6l3 10H9l3-10z" />
+        </svg>
+    );
+}
+
+export function ClickUpIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 12l5 5 10-10" stroke="currentColor" strokeWidth="3" fill="none" />
+            <path d="M12 18V22" stroke="currentColor" strokeWidth="3" />
+        </svg>
+    );
+}
+
+export function AsanaIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="6" r="3" />
+            <circle cx="18" cy="18" r="3" />
+            <circle cx="6" cy="18" r="3" />
+        </svg>
+    );
+}
+
+export function TrelloIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="20" height="20" rx="3" />
+            <rect x="5" y="5" width="6" height="10" rx="1" fill="var(--background)" />
+            <rect x="13" y="5" width="6" height="14" rx="1" fill="var(--background)" />
+        </svg>
+    );
+}
+
+export function GrammarlyIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14h2a4 4 0 0 0 4-4v-1h-2v1a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v.5h2V9a4 4 0 0 0-4-4h-2a4 4 0 0 0-4 4v6a4 4 0 0 0 4 4z" />
+        </svg>
+    );
+}
+
+export function QuillBotIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2l-2 4h4l-2-4zm-4 6l-2 4h4l-2-4zm8 0l-2 4h4l-2-4zm-4 6l-2 4h4l-2-4z" />
+            <path d="M4 22h16v-2H4v2z" />
+        </svg>
+    );
+}
+
+export function Lumen5Icon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 22h20L12 2zm0 7l2 8H10l2-8z" />
+        </svg>
+    );
+}
+
+export function SynthesiaIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="4" width="16" height="16" rx="2" />
+            <path d="M10 8l6 4-6 4V8z" fill="var(--background)" />
+        </svg>
+    );
+}
+
+export function MemIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0zm10-6v12m-6-6h12" stroke="currentColor" strokeWidth="2" />
+        </svg>
+    );
+}
+
+export function ReflectIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2l3 3-3 3-3-3 3-3zm0 14l3 3-3 3-3-3 3-3zm7-7l3 3-3 3-3-3 3-3zM5 9l3 3-3 3-3-3 3-3z" />
+        </svg>
+    );
+}
