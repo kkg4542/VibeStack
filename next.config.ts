@@ -75,6 +75,5 @@ export default withSentryConfig(withPWA(nextConfig), {
   sourcemaps: {
     disable: false,
   },
-  // disableLogger: true, // DEPRECATED
-  // automaticVercelMonitors: true, // DEPRECATED
+  authToken: process.env.SENTRY_AUTH_TOKEN,
 });
