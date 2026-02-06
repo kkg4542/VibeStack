@@ -55,12 +55,15 @@ export function Navbar() {
             <div className="container mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
                 {/* Logo area */}
                 <div className="flex items-center gap-2">
-                    <Link id="navbar-logo" href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
+                    <Link id="navbar-logo" href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
                         <img
-                            src="/logo.png"
-                            alt="VibeStack Logo"
-                            className="h-8 w-auto object-contain"
+                            src="/logo-icon.png"
+                            alt="VibeStack Icon"
+                            className="h-10 w-auto object-contain"
                         />
+                        <span className="text-xl font-bold tracking-tight text-white">
+                            VibeStack
+                        </span>
                     </Link>
 
                     {/* Desktop Navigation */}
@@ -169,12 +172,13 @@ export function Navbar() {
                         </SheetTrigger>
                         <SheetContent side="right" className="w-[300px] bg-background/95 backdrop-blur-xl">
                             <SheetHeader>
-                                <SheetTitle className="flex items-center gap-2 text-left">
+                                <SheetTitle className="flex items-center gap-3 text-left">
                                     <img
-                                        src="/logo.png"
-                                        alt="VibeStack Logo"
+                                        src="/logo-icon.png"
+                                        alt="VibeStack Icon"
                                         className="h-8 w-auto object-contain"
                                     />
+                                    <span className="text-lg font-semibold">VibeStack</span>
                                 </SheetTitle>
                             </SheetHeader>
 
