@@ -16,8 +16,29 @@ export function ClaudeIcon({ className }: { className?: string }) {
 
 export function GeminiIcon({ className }: { className?: string }) {
     return (
-        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M11.04 19.32Q12 21.51 12 24q0-2.49.93-4.68.96-2.19 2.58-3.81t3.81-2.55Q21.51 12 24 12q-2.49 0-4.68-.93a12.3 12.3 0 0 1-3.81-2.58 12.3 12.3 0 0 1-2.58-3.81Q12 2.49 12 0q0 2.49-.96 4.68-.93 2.19-2.55 3.81a12.3 12.3 0 0 1-3.81 2.58Q2.49 12 0 12q2.49 0 4.68.96 2.19.93 3.81 2.55t2.55 3.81" />
+        <svg role="img" viewBox="0 0 24 24" className={className} xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="gemini-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style={{ stopColor: '#FF5757', stopOpacity: 1 }} />
+                    <stop offset="33%" style={{ stopColor: '#9B72FF', stopOpacity: 1 }} />
+                    <stop offset="66%" style={{ stopColor: '#4285F4', stopOpacity: 1 }} />
+                    <stop offset="100%" style={{ stopColor: '#0F9D58', stopOpacity: 1 }} />
+                </linearGradient>
+                <linearGradient id="gemini-grad-2" x1="100%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style={{ stopColor: '#4285F4', stopOpacity: 1 }} />
+                    <stop offset="50%" style={{ stopColor: '#34A853', stopOpacity: 1 }} />
+                    <stop offset="100%" style={{ stopColor: '#FBBC04', stopOpacity: 1 }} />
+                </linearGradient>
+            </defs>
+            <path
+                d="M12 2.5 C13 2.5 14 3.5 15.5 5.5 17 7.5 18.5 10 19.5 11 20.5 12 21.5 12 21.5 12 21.5 12 20.5 12 19.5 13 18.5 14 17 16.5 15.5 18.5 14 20.5 13 21.5 12 21.5 11 21.5 10 20.5 8.5 18.5 7 16.5 5.5 14 4.5 13 3.5 12 2.5 12 2.5 12 2.5 12 3.5 11 4.5 10 5.5 7.5 7 5.5 8.5 3.5 10 2.5 11 2.5 12 2.5 Z"
+                fill="url(#gemini-grad-1)"
+            />
+            <path
+                d="M12 2.5 C13 2.5 14 3.5 15.5 5.5 17 7.5 18.5 10 19.5 11 20.5 12 21.5 12 21.5 12 21.5 12 20.5 12 19.5 13 18.5 14 17 16.5 15.5 18.5 14 20.5 13 21.5 12 21.5 11 21.5 10 20.5 8.5 18.5 7 16.5 5.5 14 4.5 13 3.5 12 2.5 12 2.5 12 2.5 12 3.5 11 4.5 10 5.5 7.5 7 5.5 8.5 3.5 10 2.5 11 2.5 12 2.5 Z"
+                fill="url(#gemini-grad-2)"
+                opacity="0.6"
+            />
         </svg>
     );
 }
@@ -84,7 +105,7 @@ export function ReplitIcon({ className }: { className?: string }) {
 export function TabnineIcon({ className }: { className?: string }) {
     return (
         <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M8.087 5.609 0 21.176h5.414l6.769-12.966-.002-.002-2.065-4.003c-.152-.244-.493-.244-.645 0l-1.384 1.404Zm7.826 0 8.087 15.567h-5.414L11.817 8.21l.002-.002 2.066-4.003c.151-.244.492-.244.644 0l1.384 1.404Zm-2.434 3.903 6.108 11.664h-5.011l-4.043-7.726c-.191-.436.174-.91.644-.91h1.658c.214 0 .41-.119.508-.308l.136-.263Zm-3.958.006.056.107L8.015 12.1l.124.237c.098.189.294.308.508.308h1.658c.47 0 .835.474.644.91l-4.043 7.726H1.895l6.108-11.664-.02-.038c-.191-.436.174-.91.644-.91h.546c.47 0 .835.474.644.91l-.296.566z"/>
+            <path d="M8.087 5.609 0 21.176h5.414l6.769-12.966-.002-.002-2.065-4.003c-.152-.244-.493-.244-.645 0l-1.384 1.404Zm7.826 0 8.087 15.567h-5.414L11.817 8.21l.002-.002 2.066-4.003c.151-.244.492-.244.644 0l1.384 1.404Zm-2.434 3.903 6.108 11.664h-5.011l-4.043-7.726c-.191-.436.174-.91.644-.91h1.658c.214 0 .41-.119.508-.308l.136-.263Zm-3.958.006.056.107L8.015 12.1l.124.237c.098.189.294.308.508.308h1.658c.47 0 .835.474.644.91l-4.043 7.726H1.895l6.108-11.664-.02-.038c-.191-.436.174-.91.644-.91h.546c.47 0 .835.474.644.91l-.296.566z" />
         </svg>
     );
 }
@@ -100,7 +121,7 @@ export function CodyIcon({ className }: { className?: string }) {
 export function BuilderIoIcon({ className }: { className?: string }) {
     return (
         <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M1.5 6.488v1.2h4.8v-1.2H1.5Zm0 4.8v1.2h4.8v-1.2H1.5Zm16.2 1.2h4.8v-1.2h-4.8v1.2Zm-10.2-6v12h3.6v-1.2H8.7v-9.6h2.4v-1.2H7.5Zm4.8 0v1.2h2.4v9.6h-2.4v1.2h3.6v-12h-3.6Zm-10.8 6v1.2h4.8v-1.2H1.5Zm16.2 1.2h4.8v-1.2h-4.8v1.2Zm0-6h4.8v-1.2h-4.8v1.2Zm0 1.2v1.2h4.8v-1.2h-4.8Zm0 4.8v1.2h4.8v-1.2h-4.8Z"/>
+            <path d="M1.5 6.488v1.2h4.8v-1.2H1.5Zm0 4.8v1.2h4.8v-1.2H1.5Zm16.2 1.2h4.8v-1.2h-4.8v1.2Zm-10.2-6v12h3.6v-1.2H8.7v-9.6h2.4v-1.2H7.5Zm4.8 0v1.2h2.4v9.6h-2.4v1.2h3.6v-12h-3.6Zm-10.8 6v1.2h4.8v-1.2H1.5Zm16.2 1.2h4.8v-1.2h-4.8v1.2Zm0-6h4.8v-1.2h-4.8v1.2Zm0 1.2v1.2h4.8v-1.2h-4.8Zm0 4.8v1.2h4.8v-1.2h-4.8Z" />
         </svg>
     );
 }
@@ -183,7 +204,7 @@ export function PiecesIcon({ className }: { className?: string }) {
 export function WarpIcon({ className }: { className?: string }) {
     return (
         <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
         </svg>
     );
 }
@@ -209,7 +230,7 @@ export function StackBlitzIcon({ className }: { className?: string }) {
 export function CodeSandboxIcon({ className }: { className?: string }) {
     return (
         <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 6l10-4 10 4v12l-10 4-10-4V6zm10 2.5L5.5 6 12 3.5 18.5 6 12 8.5zM4 8v8l7 3.5V11.5L4 8zm9 11.5l7-3.5V8l-7 3.5v8z"/>
+            <path d="M2 6l10-4 10 4v12l-10 4-10-4V6zm10 2.5L5.5 6 12 3.5 18.5 6 12 8.5zM4 8v8l7 3.5V11.5L4 8zm9 11.5l7-3.5V8l-7 3.5v8z" />
         </svg>
     );
 }
@@ -217,8 +238,8 @@ export function CodeSandboxIcon({ className }: { className?: string }) {
 export function HuggingFaceIcon({ className }: { className?: string }) {
     return (
         <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.5 6c.83 0 1.5.67 1.5 1.5S16.33 11 15.5 11 14 10.33 14 9.5s.67-1.5 1.5-1.5zm-7 0c.83 0 1.5.67 1.5 1.5S9.33 11 8.5 11 7 10.33 7 9.5s.67-1.5 1.5-1.5zm8.91 6.5c-.3.95-1.08 1.66-2.06 1.87-.44.1-.9.1-1.35 0-.98-.21-1.76-.92-2.06-1.87-.11-.36.25-.66.55-.47.78.5 1.74.8 2.68.8s1.9-.3 2.68-.8c.3-.19.66.11.55.47z"/>
-            <path d="M6.5 6.5c.28 0 .5.22.5.5v2c0 .28-.22.5-.5.5s-.5-.22-.5-.5V7c0-.28.22-.5.5-.5zm11 0c.28 0 .5.22.5.5v2c0 .28-.22.5-.5.5s-.5-.22-.5-.5V7c0-.28.22-.5.5-.5z"/>
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.5 6c.83 0 1.5.67 1.5 1.5S16.33 11 15.5 11 14 10.33 14 9.5s.67-1.5 1.5-1.5zm-7 0c.83 0 1.5.67 1.5 1.5S9.33 11 8.5 11 7 10.33 7 9.5s.67-1.5 1.5-1.5zm8.91 6.5c-.3.95-1.08 1.66-2.06 1.87-.44.1-.9.1-1.35 0-.98-.21-1.76-.92-2.06-1.87-.11-.36.25-.66.55-.47.78.5 1.74.8 2.68.8s1.9-.3 2.68-.8c.3-.19.66.11.55.47z" />
+            <path d="M6.5 6.5c.28 0 .5.22.5.5v2c0 .28-.22.5-.5.5s-.5-.22-.5-.5V7c0-.28.22-.5.5-.5zm11 0c.28 0 .5.22.5.5v2c0 .28-.22.5-.5.5s-.5-.22-.5-.5V7c0-.28.22-.5.5-.5z" />
         </svg>
     );
 }
@@ -237,8 +258,9 @@ export function DALLEIcon({ className }: { className?: string }) {
 
 export function ElevenLabsIcon({ className }: { className?: string }) {
     return (
-        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 3v18M8 8v8M4 11v2M16 8v8M20 11v2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+        <svg role="img" viewBox="0 0 876 876" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M468 292H528V584H468V292Z" />
+            <path d="M348 292H408V584H348V292Z" />
         </svg>
     );
 }
@@ -246,8 +268,8 @@ export function ElevenLabsIcon({ className }: { className?: string }) {
 
 export function JasperIcon({ className }: { className?: string }) {
     return (
-        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M19 13.5L12 21l-7-7.5a4.5 4.5 0 0 1 0-6.36l.7-.7a4.5 4.5 0 0 1 6.36 0L12 7l.94-.94A4.5 4.5 0 0 1 19 13.5z" />
+        <svg role="img" viewBox="0 0 100 100" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M26.6342 78.2117C26.6342 83.6245 25.9303 87.9239 24.5224 91.11C23.1146 94.296 21.2432 96.5742 18.9083 97.9445C16.5733 99.3148 14.101 100 11.4914 100C9.36248 100 7.50827 99.6574 5.92875 98.9722C4.34923 98.2871 3.13025 97.345 2.27181 96.1459C1.41338 94.9469 0.984161 93.5594 0.984161 91.9836C0.984161 90.4077 1.43055 89.26 2.32332 88.335C3.21609 87.4101 4.45224 86.9476 6.03176 86.9476C7.33658 86.9476 8.38387 87.273 9.17363 87.9239C9.96339 88.5749 10.6673 89.654 11.2854 91.1614C12.0408 92.5317 12.6589 93.508 13.1396 94.0904C13.6203 94.6728 14.2041 94.964 14.8908 94.964C15.9209 94.964 16.6935 94.5701 17.2086 93.7821C17.7236 92.9942 17.9812 91.9493 17.9812 90.6475C17.9812 89.2771 17.758 87.9582 17.3116 86.6906C16.8652 85.4231 16.2986 83.9671 15.6119 82.3227C14.9251 80.6783 14.3586 78.7256 13.9122 76.4645C13.4658 74.2035 13.2426 71.4628 13.2426 68.2425V38.0267C13.2426 35.6972 13.1396 33.9671 12.9336 32.8366C12.7276 31.7061 12.2468 31.038 11.4914 30.8325C10.736 30.6269 9.49984 30.7982 7.78297 31.3463V28.3659L26.6342 20.4522V78.2117ZM25.5011 13.3094C26.8746 11.8362 27.5613 10.0034 27.5613 7.81089C27.5613 5.61836 26.8746 3.76841 25.5011 2.26105C24.1276 0.753683 22.2733 0 19.9384 0C17.6035 0 15.6977 0.753683 14.2212 2.26105C12.7447 3.76841 12.0065 5.61836 12.0065 7.81089C12.0065 10.0034 12.7447 11.8362 14.2212 13.3094C15.6977 14.7825 17.6035 15.519 19.9384 15.519C22.2733 15.519 24.1276 14.7825 25.5011 13.3094Z" fill="#FA4028" />
         </svg>
     );
 }
@@ -376,7 +398,7 @@ export function TrelloIcon({ className }: { className?: string }) {
 export function GrammarlyIcon({ className }: { className?: string }) {
     return (
         <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
         </svg>
     );
 }
