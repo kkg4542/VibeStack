@@ -6,13 +6,25 @@ import { Badge } from "@/components/ui/badge";
 interface Props {
     currentSlug: string;
     category: string;
+    pricing?: string;
 }
 
-export function RelatedTools({ currentSlug, category }: Props) {
-    // Filter related tools: same category, exclude current, limit to 3
+export function RelatedTools({ currentSlug, category, pricing }: Props) {
+    // Smart algorithm: prioritize same category, then similar pricing
     const relatedTools = tools
-        .filter((t) => t.category === category && t.slug !== currentSlug)
-        .slice(0, 3);
+        .filter((t) => t.slug !== currentSlug)
+        .map((t) => {
+            // Calculate relevance score
+            let score = 0;
+            if (t.category === category) score += 10;
+            if (t.pricing === pricing) score += 5;
+            // Secondary: same category but different pricing
+            if (t.category === category && t.pricing !== pricing) score += 3;
+            return { tool: t, score };
+        })
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 4)
+        .map((item) => item.tool);
 
     if (relatedTools.length === 0) return null;
 

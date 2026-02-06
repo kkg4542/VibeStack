@@ -1,20 +1,43 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { tools, Tool } from "@/lib/tools";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Check, X, Scale } from "lucide-react";
+import { ArrowLeft, Check, X, Scale, Share2, Link as LinkIcon } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import { toast } from "sonner";
 
 export default function ComparePage() {
     const [selectedTools, setSelectedTools] = useState<Tool[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const searchParams = useSearchParams();
 
     useEffect(() => {
-        const compareList = JSON.parse(localStorage.getItem("compareTools") || "[]") as string[];
-        const filtered = tools.filter(t => compareList.includes(t.slug));
-        setSelectedTools(filtered);
-    }, []);
+        const loadTools = () => {
+            setIsLoading(true);
+            
+            // Check for URL params first
+            const toolsParam = searchParams.get('tools');
+            if (toolsParam) {
+                const slugs = toolsParam.split(',').filter(Boolean);
+                const filtered = tools.filter(t => slugs.includes(t.slug)).slice(0, 3);
+                setSelectedTools(filtered);
+                // Update localStorage to match URL
+                localStorage.setItem("compareTools", JSON.stringify(filtered.map(t => t.slug)));
+            } else {
+                // Fall back to localStorage
+                const compareList = JSON.parse(localStorage.getItem("compareTools") || "[]") as string[];
+                const filtered = tools.filter(t => compareList.includes(t.slug));
+                setSelectedTools(filtered);
+            }
+            
+            setIsLoading(false);
+        };
+
+        loadTools();
+    }, [searchParams]);
 
     const removeTool = (slug: string) => {
         const compareList = JSON.parse(localStorage.getItem("compareTools") || "[]") as string[];
@@ -22,6 +45,25 @@ export default function ComparePage() {
         localStorage.setItem("compareTools", JSON.stringify(newList));
         setSelectedTools(selectedTools.filter(t => t.slug !== slug));
     };
+
+    const shareComparison = () => {
+        const slugs = selectedTools.map(t => t.slug).join(',');
+        const url = `${window.location.origin}/compare?tools=${slugs}`;
+        
+        navigator.clipboard.writeText(url).then(() => {
+            toast.success("Link copied! Share this comparison with others");
+        });
+    };
+
+    if (isLoading) {
+        return (
+            <main className="min-h-screen pt-32 pb-20 px-4">
+                <div className="container max-w-2xl mx-auto text-center">
+                    <p className="text-muted-foreground">Loading comparison...</p>
+                </div>
+            </main>
+        );
+    }
 
     if (selectedTools.length === 0) {
         return (
@@ -45,10 +87,22 @@ export default function ComparePage() {
     return (
         <main className="min-h-screen pt-24 pb-20 px-4">
             <div className="container mx-auto">
-                <Link href="/tools" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors">
-                    <ArrowLeft className="mr-2 h-4 w-4" />
-                    Back to Directory
-                </Link>
+                <div className="flex items-center justify-between mb-8">
+                    <Link href="/tools" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors">
+                        <ArrowLeft className="mr-2 h-4 w-4" />
+                        Back to Directory
+                    </Link>
+                    
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={shareComparison}
+                        className="gap-2"
+                    >
+                        <Share2 className="h-4 w-4" />
+                        Share Comparison
+                    </Button>
+                </div>
 
                 <h1 className="text-4xl font-bold mb-12 flex items-center gap-3">
                     <Scale className="h-10 w-10 text-indigo-400" />

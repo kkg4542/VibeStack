@@ -174,6 +174,13 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                 <ReviewList toolSlug={tool.slug} />
                             </div>
                         </section>
+
+                        {/* Similar Tools */}
+                        <RelatedTools 
+                            currentSlug={tool.slug} 
+                            category={tool.category}
+                            pricing={tool.pricing}
+                        />
                     </div>
 
                     {/* Sidebar Ad Section */}

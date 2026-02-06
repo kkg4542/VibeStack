@@ -30,6 +30,7 @@ model Tool {
 
   stackTools   StackTool[]
   reviews      Review[]
+  favorites    Favorite[]
 
   @@map("tools")
 }
@@ -116,17 +117,18 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String     @id @default(cuid())
   name          String?
-  email         String?   @unique
-  emailVerified DateTime? @map("email_verified")
+  email         String?    @unique
+  emailVerified DateTime?  @map("email_verified")
   image         String?
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @updatedAt @map("updated_at")
+  createdAt     DateTime   @default(now()) @map("created_at")
+  updatedAt     DateTime   @updatedAt @map("updated_at")
   
   accounts      Account[]
   sessions      Session[]
   reviews       Review[]
+  favorites     Favorite[]
 
   @@map("users")
 }
@@ -153,4 +155,17 @@ model Review {
   tool Tool @relation(fields: [toolId], references: [id], onDelete: Cascade)
 
   @@map("reviews")
+}
+
+model Favorite {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  toolId    String   @map("tool_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tool Tool @relation(fields: [toolId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, toolId])
+  @@map("favorites")
 }

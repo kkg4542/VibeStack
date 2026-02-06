@@ -2,13 +2,14 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Heart, Trash2, ArrowLeft, Search } from "lucide-react";
+import { Heart, Trash2, ArrowLeft, Search, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { tools } from "@/lib/tools";
 import { stacks } from "@/lib/stacks";
+import { useSession } from "next-auth/react";
 
 type FavoriteItem = {
     id: string;
@@ -17,17 +18,47 @@ type FavoriteItem = {
 };
 
 export default function FavoritesPage() {
+    const { data: session } = useSession();
     const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [mounted, setMounted] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
+    // Load favorites
     useEffect(() => {
         setMounted(true);
-        const saved = localStorage.getItem("vibestack-favorites");
-        if (saved) {
-            setFavorites(JSON.parse(saved));
+        loadFavorites();
+    }, [session]);
+
+    const loadFavorites = async () => {
+        setIsLoading(true);
+        
+        if (session?.user?.id) {
+            // Load from DB
+            try {
+                const response = await fetch('/api/favorites');
+                if (response.ok) {
+                    const dbFavorites = await response.json();
+                    const formatted = dbFavorites.map((f: any) => ({
+                        id: f.tool.slug,
+                        type: 'tool' as const,
+                        addedAt: new Date(f.createdAt).getTime(),
+                    }));
+                    setFavorites(formatted);
+                }
+            } catch (error) {
+                console.error('Failed to load favorites:', error);
+            }
+        } else {
+            // Load from localStorage
+            const saved = localStorage.getItem("vibestack-favorites");
+            if (saved) {
+                setFavorites(JSON.parse(saved));
+            }
         }
-    }, []);
+        
+        setIsLoading(false);
+    };
 
     const filteredFavorites = favorites.filter(item => {
         if (!searchQuery.trim()) return true;
@@ -55,24 +86,52 @@ export default function FavoritesPage() {
         return false;
     });
 
-    const removeFavorite = (id: string) => {
+    const removeFavorite = async (id: string, type: 'tool' | 'stack') => {
+        if (session?.user?.id && type === 'tool') {
+            // Remove from DB
+            try {
+                await fetch('/api/favorites', {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ toolId: id }),
+                });
+            } catch (error) {
+                console.error('Failed to remove favorite:', error);
+            }
+        }
+        
+        // Update local state
         const updated = favorites.filter(f => f.id !== id);
         setFavorites(updated);
         localStorage.setItem("vibestack-favorites", JSON.stringify(updated));
     };
 
-    const clearAll = () => {
+    const clearAll = async () => {
         if (confirm("Are you sure you want to remove all favorites?")) {
+            if (session?.user?.id) {
+                // Clear all from DB
+                for (const fav of favorites) {
+                    if (fav.type === 'tool') {
+                        await fetch('/api/favorites', {
+                            method: 'DELETE',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ toolId: fav.id }),
+                        });
+                    }
+                }
+            }
             setFavorites([]);
             localStorage.removeItem("vibestack-favorites");
         }
     };
 
-    if (!mounted) {
+    if (!mounted || isLoading) {
         return (
             <main className="min-h-screen bg-background pt-24 pb-20">
                 <div className="container max-w-6xl mx-auto px-4">
-                    <p className="text-muted-foreground">Loading favorites...</p>
+                    <div className="flex items-center justify-center py-20">
+                        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                    </div>
                 </div>
             </main>
         );
@@ -93,6 +152,7 @@ export default function FavoritesPage() {
                         </h1>
                         <p className="text-muted-foreground">
                             {favorites.length} {favorites.length === 1 ? 'item' : 'items'} saved
+                            {session?.user && " (synced to your account)"}
                         </p>
                     </div>
 
@@ -130,6 +190,10 @@ export default function FavoritesPage() {
                         <h2 className="text-2xl font-semibold mb-3">No favorites yet</h2>
                         <p className="text-muted-foreground mb-6 max-w-md mx-auto">
                             Start saving your favorite tools and stacks to easily access them later.
+                            {session?.user 
+                                ? " Your favorites will be synced across all your devices."
+                                : " Sign in to sync your favorites across devices."
+                            }
                         </p>
                         <div className="flex gap-3 justify-center">
                             <Button asChild className="rounded-full">
@@ -171,8 +235,8 @@ export default function FavoritesPage() {
                                                         </Link>
                                                         <Button
                                                             variant="ghost"
-                                                            size="icon-sm"
-                                                            onClick={() => removeFavorite(item.id)}
+                                                            size="sm"
+                                                            onClick={() => removeFavorite(item.id, 'tool')}
                                                             className="text-muted-foreground hover:text-red-500"
                                                         >
                                                             <Trash2 className="h-4 w-4" />
@@ -217,8 +281,8 @@ export default function FavoritesPage() {
                                                         </Link>
                                                         <Button
                                                             variant="ghost"
-                                                            size="icon-sm"
-                                                            onClick={() => removeFavorite(item.id)}
+                                                            size="sm"
+                                                            onClick={() => removeFavorite(item.id, 'stack')}
                                                             className="text-muted-foreground hover:text-red-500"
                                                         >
                                                             <Trash2 className="h-4 w-4" />
