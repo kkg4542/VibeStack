@@ -8,6 +8,8 @@ import { Testimonials } from "@/components/landing/Testimonials";
 import { CTASection } from "@/components/landing/CTASection";
 import { motion } from "framer-motion";
 
+// Note: metadata export moved to layout.tsx as client components cannot export metadata
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-indigo-500/20">

@@ -31,12 +31,21 @@ export function CategoryFilter({ onCategoryChange }: CategoryFilterProps) {
                 >
                     <Badge
                         variant={selected === category ? "default" : "outline"}
-                        className={`cursor-pointer px-4 py-2 text-sm transition-all ${
-                            selected === category
+                        className={`cursor-pointer px-4 py-2 text-sm transition-all ${selected === category
                                 ? "bg-primary text-primary-foreground shadow-md shadow-primary/20"
                                 : "hover:bg-accent"
-                        }`}
+                            }`}
                         onClick={() => handleCategoryClick(category)}
+                        role="button"
+                        aria-label={`Filter by ${category} category`}
+                        aria-pressed={selected === category}
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                handleCategoryClick(category);
+                            }
+                        }}
                     >
                         {category}
                     </Badge>
