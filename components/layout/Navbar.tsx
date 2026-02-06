@@ -55,12 +55,10 @@ export function Navbar() {
             <div className="container mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
                 {/* Logo area */}
                 <div className="flex items-center gap-2">
-                    <Link id="navbar-logo" href="/" className="transition-opacity hover:opacity-80">
-                        <img
-                            src="/logo.svg"
-                            alt="VibeStack"
-                            className="h-10 w-auto"
-                        />
+                    <Link id="navbar-logo" href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
+                        <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
+                            VibeStack
+                        </span>
                     </Link>
 
                     {/* Desktop Navigation */}
@@ -170,11 +168,9 @@ export function Navbar() {
                         <SheetContent side="right" className="w-[300px] bg-background/95 backdrop-blur-xl">
                             <SheetHeader>
                                 <SheetTitle className="text-left">
-                                    <img
-                                        src="/logo.svg"
-                                        alt="VibeStack"
-                                        className="h-8 w-auto"
-                                    />
+                                    <span className="text-lg font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
+                                        VibeStack
+                                    </span>
                                 </SheetTitle>
                             </SheetHeader>
 
