@@ -47,6 +47,11 @@ export const metadata: Metadata = {
     description: "Curated AI tools for developers.",
     creator: "@vibestack",
   },
+  verification: {
+    other: {
+      'impact-site-verification': '5db97e44-cd36-4f35-9f7b-f7495b5eac1e',
+    },
+  },
   icons: {
     icon: "/favicon.ico",
   },
