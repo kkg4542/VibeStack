@@ -12,6 +12,14 @@ const nextConfig: NextConfig = {
   env: {
     DATABASE_URL: process.env.DATABASE_URL,
   },
+  // Resolve lockfile warning
+  outputFileTracingRoot: __dirname,
+
+  // Performance optimizations
+  experimental: {
+    optimizePackageImports: ['framer-motion', 'lucide-react'],
+  },
+
   images: {
     remotePatterns: [
       {

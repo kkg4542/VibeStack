@@ -1,12 +1,23 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { Hero } from "@/components/landing/Hero";
 import { StatsSection } from "@/components/landing/StatsSection";
 import { BentoGrid } from "@/components/landing/BentoGrid";
-import { HowItWorks } from "@/components/landing/HowItWorks";
-import { Testimonials } from "@/components/landing/Testimonials";
-import { CTASection } from "@/components/landing/CTASection";
 import { motion } from "framer-motion";
+
+// Dynamic imports for below-the-fold components to reduce initial bundle size
+const HowItWorks = dynamic(() => import("@/components/landing/HowItWorks").then(m => ({ default: m.HowItWorks })), {
+  loading: () => <div className="h-96 w-full animate-pulse bg-muted/20" />
+});
+
+const Testimonials = dynamic(() => import("@/components/landing/Testimonials").then(m => ({ default: m.Testimonials })), {
+  loading: () => <div className="h-96 w-full animate-pulse bg-muted/20" />
+});
+
+const CTASection = dynamic(() => import("@/components/landing/CTASection").then(m => ({ default: m.CTASection })), {
+  loading: () => <div className="h-64 w-full animate-pulse bg-muted/20" />
+});
 
 // Note: metadata export moved to layout.tsx as client components cannot export metadata
 
