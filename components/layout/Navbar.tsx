@@ -66,6 +66,7 @@ export function Navbar() {
                         <Link
                             id="nav-link-tools"
                             href="/tools"
+                            aria-current={pathname === '/tools' ? 'page' : undefined}
                             className={`text-sm font-medium transition-colors hover:text-foreground ${pathname === '/tools' ? 'text-foreground' : 'text-muted-foreground'
                                 }`}
                         >
@@ -74,6 +75,7 @@ export function Navbar() {
                         <Link
                             id="nav-link-build"
                             href="/build"
+                            aria-current={pathname === '/build' ? 'page' : undefined}
                             className={`text-sm font-medium transition-colors hover:text-foreground ${pathname === '/build' ? 'text-foreground' : 'text-muted-foreground'
                                 }`}
                         >
@@ -82,6 +84,7 @@ export function Navbar() {
                         <Link
                             id="nav-link-consulting"
                             href="/consulting"
+                            aria-current={pathname === '/consulting' ? 'page' : undefined}
                             className={`text-sm font-medium transition-colors hover:text-foreground ${pathname === '/consulting' ? 'text-foreground' : 'text-muted-foreground'
                                 }`}
                         >
@@ -90,6 +93,7 @@ export function Navbar() {
                         <Link
                             id="nav-link-blog"
                             href="/blog"
+                            aria-current={pathname?.startsWith('/blog') ? 'page' : undefined}
                             className={`text-sm font-medium transition-colors hover:text-foreground ${pathname?.startsWith('/blog') ? 'text-foreground' : 'text-muted-foreground'
                                 }`}
                         >

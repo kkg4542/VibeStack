@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
@@ -8,9 +9,9 @@ import { motion } from "framer-motion";
 export function Hero() {
     return (
         <section className="relative flex min-h-[80vh] flex-col items-center justify-center overflow-hidden border-b border-border/40 bg-background pt-32 md:pt-40">
-            {/* Ambient Background Glows - Optimized */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 z-0 h-[60vh] w-full max-w-[1200px] bg-indigo-500/10 dark:bg-indigo-500/20 blur-[120px] rounded-full will-change-transform" />
-            <div className="absolute top-[30%] left-[15%] z-0 h-[25vh] w-[25vh] bg-purple-500/8 blur-[80px] rounded-full" />
+            {/* Ambient Background Glows - Optimized (Issue 16) */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 z-0 h-[60vh] w-full max-w-[1200px] bg-indigo-500/5 dark:bg-indigo-500/10 blur-[80px] rounded-full will-change-transform" />
+            <div className="absolute top-[30%] left-[15%] z-0 h-[25vh] w-[25vh] bg-purple-500/5 blur-[60px] rounded-full" />
 
             <div className="relative z-10 flex max-w-[980px] flex-col items-center gap-6 px-4 text-center">
                 <motion.div
@@ -34,7 +35,7 @@ export function Hero() {
                         delay: 0.2,
                         ease: [0.16, 1, 0.3, 1]
                     }}
-                    className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl"
+                    className="text-3xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl"
                 >
                     <span className="bg-linear-to-b from-foreground to-foreground/60 bg-clip-text text-transparent">
                         AI Productivity
@@ -68,15 +69,14 @@ export function Hero() {
                     }}
                     className="my-8 relative max-w-md mx-auto motion-reduce:transform-none"
                 >
-                    <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20 blur-3xl" />
-                    <img 
-                        src="/illustrations/coding-ai.svg" 
+                    <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 blur-2xl" />
+                    <Image
+                        src="/illustrations/coding-ai.svg"
                         alt="AI-powered coding illustration"
-                        className="relative z-10 w-full h-auto"
-                        width="400"
-                        height="300"
-                        loading="eager"
-                        fetchPriority="high"
+                        className="relative z-10 w-full h-auto drop-shadow-2xl"
+                        width={400}
+                        height={300}
+                        priority
                     />
                 </motion.div>
 
@@ -88,7 +88,7 @@ export function Hero() {
                         delay: 0.6,
                         ease: [0.16, 1, 0.3, 1]
                     }}
-                    className="flex flex-col gap-4 sm:flex-row mt-4 sm:gap-4"
+                    className="flex flex-col gap-5 sm:flex-row mt-6 sm:gap-4"
                 >
                     <Link
                         id="hero-cta-build" href="/build"
@@ -106,8 +106,8 @@ export function Hero() {
                 </motion.div>
             </div>
 
-            {/* Hero visual/grid background overlay - Enhanced contrast */}
-            <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#80808018_1px,transparent_1px),linear-gradient(to_bottom,#80808018_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-size-[40px_40px] mask-[radial-gradient(ellipse_80%_80%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+            {/* Hero visual/grid background overlay - Enhanced contrast (Issue 17) */}
+            <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#80808025_1px,transparent_1px),linear-gradient(to_bottom,#80808025_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-size-[40px_40px] mask-[radial-gradient(ellipse_80%_80%_at_50%_0%,#000_70%,transparent_100%)]"></div>
             <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-background to-transparent" />
         </section>
     );
