@@ -56,12 +56,28 @@ export function Navbar() {
                 {/* Logo area */}
                 <div className="flex items-center gap-2">
                     <Link id="navbar-logo" href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
-                        <img
-                            src="/logo-icon.png"
-                            alt="VibeStack Icon"
-                            className="h-10 w-auto object-contain"
-                        />
-                        <span className="text-xl font-bold tracking-tight text-white">
+                        <svg
+                            width="40"
+                            height="40"
+                            viewBox="0 0 100 100"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="shrink-0"
+                        >
+                            <defs>
+                                <linearGradient id="vGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="#1e3a8a" />
+                                    <stop offset="30%" stopColor="#4F46E5" />
+                                    <stop offset="70%" stopColor="#06B6D4" />
+                                    <stop offset="100%" stopColor="#14B8A6" />
+                                </linearGradient>
+                            </defs>
+                            {/* V shape - 3 layered parallelograms */}
+                            <path d="M15 15 L40 15 L60 85 L35 85 Z" fill="url(#vGradient)" opacity="0.7" />
+                            <path d="M30 15 L55 15 L70 85 L45 85 Z" fill="url(#vGradient)" opacity="0.85" />
+                            <path d="M45 15 L70 15 L85 85 L60 85 Z" fill="url(#vGradient)" />
+                        </svg>
+                        <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">
                             VibeStack
                         </span>
                     </Link>
@@ -173,12 +189,26 @@ export function Navbar() {
                         <SheetContent side="right" className="w-[300px] bg-background/95 backdrop-blur-xl">
                             <SheetHeader>
                                 <SheetTitle className="flex items-center gap-3 text-left">
-                                    <img
-                                        src="/logo-icon.png"
-                                        alt="VibeStack Icon"
-                                        className="h-8 w-auto object-contain"
-                                    />
-                                    <span className="text-lg font-semibold">VibeStack</span>
+                                    <svg
+                                        width="32"
+                                        height="32"
+                                        viewBox="0 0 100 100"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <defs>
+                                            <linearGradient id="vGradientMobile" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%" stopColor="#1e3a8a" />
+                                                <stop offset="30%" stopColor="#4F46E5" />
+                                                <stop offset="70%" stopColor="#06B6D4" />
+                                                <stop offset="100%" stopColor="#14B8A6" />
+                                            </linearGradient>
+                                        </defs>
+                                        <path d="M15 15 L40 15 L60 85 L35 85 Z" fill="url(#vGradientMobile)" opacity="0.7" />
+                                        <path d="M30 15 L55 15 L70 85 L45 85 Z" fill="url(#vGradientMobile)" opacity="0.85" />
+                                        <path d="M45 15 L70 15 L85 85 L60 85 Z" fill="url(#vGradientMobile)" />
+                                    </svg>
+                                    <span className="text-lg font-semibold bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">VibeStack</span>
                                 </SheetTitle>
                             </SheetHeader>
 
