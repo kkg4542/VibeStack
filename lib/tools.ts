@@ -1,18 +1,16 @@
-import { LucideIcon, Github } from "lucide-react";
+import { LucideIcon, Github, Palette, Wand2, Zap, Calendar, FileEdit, Video } from "lucide-react";
 import {
     ChatGPTIcon, ClaudeIcon, GeminiIcon, CursorIcon, DevinIcon,
     SupermavenIcon, OllamaIcon, LinearIcon, NotionIcon, ReplitIcon,
     TabnineIcon, CodyIcon, BuilderIoIcon, V0Icon, PerplexityIcon,
     LovableIcon, CodeRabbitIcon, CosineIcon, AiderIcon, WindsurfIcon,
     CopilotIcon,
-    PiecesIcon, WarpIcon, ContinueIcon, AmazonCodeWhispererIcon,
-    GoogleIDXIcon, StackBlitzIcon, CodeSandboxIcon, HuggingFaceIcon,
-    MidjourneyIcon, DALLEIcon, ElevenLabsIcon, GammaIcon, JasperIcon,
-    CopyAiIcon, PoeIcon, PhindIcon, DescriptIcon, RaycastIcon,
+    PiecesIcon, WarpIcon, ContinueIcon, StackBlitzIcon, CodeSandboxIcon, 
+    HuggingFaceIcon, DALLEIcon, ElevenLabsIcon, JasperIcon,
+    CopyAiIcon, PoeIcon, PhindIcon, DescriptIcon,
     FigmaIcon, RunwayIcon, CanvaIcon, CharacterAiIcon, OtterIcon,
-    FirefliesIcon, KrispIcon, MotionIcon, ClickUpIcon, AsanaIcon,
-    TrelloIcon, GrammarlyIcon, QuillBotIcon, Lumen5Icon, SynthesiaIcon,
-    MemIcon, ReflectIcon
+    FirefliesIcon, KrispIcon, ClickUpIcon, AsanaIcon,
+    TrelloIcon, GrammarlyIcon, MemIcon, ReflectIcon
 } from "@/components/icons/AiIcons";
 import { ComponentType } from "react";
 
@@ -346,30 +344,6 @@ export const tools: Tool[] = [
         features: ["Open Source", "Local Models", "Customizable"]
     },
     {
-        slug: "amazon-codewhisperer",
-        title: "Amazon CodeWhisperer",
-        description: "AI-powered code generator from Amazon Web Services.",
-        icon: AmazonCodeWhispererIcon,
-        category: "Coding",
-        pricing: "Freemium",
-        websiteUrl: "https://aws.amazon.com/codewhisperer",
-        color: "text-orange-400",
-        bgGradient: "from-orange-500/10 to-transparent",
-        features: ["IDE Integration", "Security Scans", "AWS Integration"]
-    },
-    {
-        slug: "google-idx",
-        title: "Google IDX",
-        description: "AI-assisted workspace for full-stack, multiplatform app development.",
-        icon: GoogleIDXIcon,
-        category: "Coding",
-        pricing: "Free",
-        websiteUrl: "https://idx.dev",
-        color: "text-blue-500",
-        bgGradient: "from-blue-500/10 to-transparent",
-        features: ["Cloud-based IDE", "Firebase Integration", "AI Assistance"]
-    },
-    {
         slug: "stackblitz",
         title: "StackBlitz",
         description: "Instant dev environments that run in your browser.",
@@ -409,7 +383,7 @@ export const tools: Tool[] = [
         slug: "midjourney",
         title: "Midjourney",
         description: "AI-powered image generation from text descriptions.",
-        icon: MidjourneyIcon,
+        icon: Palette,
         category: "Design",
         pricing: "Paid",
         websiteUrl: "https://midjourney.com",
@@ -445,7 +419,7 @@ export const tools: Tool[] = [
         slug: "gamma",
         title: "Gamma",
         description: "Create beautiful presentations, documents, and webpages with AI.",
-        icon: GammaIcon,
+        icon: Wand2,
         category: "Productivity",
         pricing: "Freemium",
         websiteUrl: "https://gamma.app",
@@ -517,7 +491,7 @@ export const tools: Tool[] = [
         slug: "raycast",
         title: "Raycast",
         description: "Blazingly fast, totally extendable launcher with AI.",
-        icon: RaycastIcon,
+        icon: Zap,
         category: "Productivity",
         pricing: "Freemium",
         websiteUrl: "https://raycast.com",
@@ -613,7 +587,7 @@ export const tools: Tool[] = [
         slug: "motion",
         title: "Motion",
         description: "AI-powered productivity and calendar assistant.",
-        icon: MotionIcon,
+        icon: Calendar,
         category: "Management",
         pricing: "Paid",
         websiteUrl: "https://usemotion.com",
@@ -673,7 +647,7 @@ export const tools: Tool[] = [
         slug: "quillbot",
         title: "QuillBot",
         description: "AI paraphrasing and writing tool.",
-        icon: QuillBotIcon,
+        icon: FileEdit,
         category: "Productivity",
         pricing: "Freemium",
         websiteUrl: "https://quillbot.com",
@@ -685,7 +659,7 @@ export const tools: Tool[] = [
         slug: "lumen5",
         title: "Lumen5",
         description: "AI-powered video creation platform.",
-        icon: Lumen5Icon,
+        icon: Video,
         category: "Design",
         pricing: "Freemium",
         websiteUrl: "https://lumen5.com",
@@ -697,7 +671,7 @@ export const tools: Tool[] = [
         slug: "synthesia",
         title: "Synthesia",
         description: "AI video creation with virtual avatars.",
-        icon: SynthesiaIcon,
+        icon: Video,
         category: "Design",
         pricing: "Paid",
         websiteUrl: "https://synthesia.io",

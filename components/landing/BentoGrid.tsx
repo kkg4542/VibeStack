@@ -57,10 +57,10 @@ function BentoCard({ tool, index }: { tool: Tool, index: number }) {
                         rotateY,
                         transformStyle: "preserve-3d",
                     }}
-                    className="h-full"
+                    className="h-full motion-reduce:transform-none"
                 >
                     <Card className="h-full relative overflow-hidden border-border/40 bg-card/40 transition-all duration-500 hover:border-border/80 hover:bg-card/60 hover:shadow-2xl hover:shadow-indigo-500/10 backdrop-blur-md">
-                        <div className={`absolute inset-0 bg-linear-to-br ${tool.bgGradient} opacity-0 transition-opacity duration-700 group-hover:opacity-[0.07]`} />
+                        <div className={`absolute inset-0 bg-linear-to-br ${tool.bgGradient} opacity-0 transition-opacity duration-700 group-hover:opacity-[0.15]`} />
 
                         <CardHeader className="relative z-10 h-full flex flex-col pt-8" style={{ transformStyle: "preserve-3d" }}>
                             <div className="mb-4 flex items-center justify-between gap-4" style={{ transform: "translateZ(30px)", transformStyle: "preserve-3d" }}>
@@ -98,8 +98,8 @@ function BentoCard({ tool, index }: { tool: Tool, index: number }) {
 }
 
 export function BentoGrid() {
-    // Use first 4 tools for the landing page
-    const featuredTools = tools.slice(0, 4);
+    // Use first 8 tools for the landing page
+    const featuredTools = tools.slice(0, 8);
 
     return (
         <section className="container mx-auto max-w-6xl px-4 py-24">
@@ -108,18 +108,14 @@ export function BentoGrid() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="mb-12 flex flex-col md:flex-row items-center justify-between gap-6"
+                className="mb-16 text-center"
             >
-                <div className="text-center md:text-left">
-                    <h2 className="mb-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-                        Essential Tools
-                    </h2>
-                    <p className="text-muted-foreground">
-                        Hand-picked AI tools that integrate seamlessly into your workflow.
-                    </p>
-                </div>
-
-                <SponsorshipModal />
+                <h2 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+                    Essential Tools
+                </h2>
+                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                    Hand-picked AI tools that integrate seamlessly into your workflow.
+                </p>
             </motion.div>
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -127,6 +123,21 @@ export function BentoGrid() {
                     <BentoCard key={tool.slug} tool={tool} index={index} />
                 ))}
             </div>
+
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="mt-12 text-center"
+            >
+                <Link
+                    href="/tools"
+                    className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors font-medium"
+                >
+                    View all {tools.length}+ tools →
+                </Link>
+            </motion.div>
         </section>
     );
 }

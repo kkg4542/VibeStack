@@ -2,9 +2,10 @@
 
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Menu, Sparkles, X, Search, Wand2, Heart, FileText, Info, Zap, User, LogOut } from "lucide-react";
-import * as motion from "framer-motion/client";
+import { motion } from "framer-motion";
 import { CommandMenu } from "@/components/command-menu";
 import { SubmitDialog } from "@/components/layout/SubmitDialog";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
@@ -39,6 +40,7 @@ const navItems = [
 ];
 
 export function Navbar() {
+    const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const { data: session } = useSession();
     const [isAuthOpen, setIsAuthOpen] = useState(false);
@@ -62,16 +64,40 @@ export function Navbar() {
 
                     {/* Desktop Navigation */}
                     <nav className="hidden items-center gap-6 md:flex ml-8">
-                        <Link id="nav-link-tools" href="/tools" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+                        <Link 
+                            id="nav-link-tools" 
+                            href="/tools" 
+                            className={`text-sm font-medium transition-colors hover:text-foreground ${
+                                pathname === '/tools' ? 'text-foreground' : 'text-muted-foreground'
+                            }`}
+                        >
                             Tools
                         </Link>
-                        <Link id="nav-link-build" href="/build" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+                        <Link 
+                            id="nav-link-build" 
+                            href="/build" 
+                            className={`text-sm font-medium transition-colors hover:text-foreground ${
+                                pathname === '/build' ? 'text-foreground' : 'text-muted-foreground'
+                            }`}
+                        >
                             stack
                         </Link>
-                        <Link id="nav-link-consulting" href="/consulting" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+                        <Link 
+                            id="nav-link-consulting" 
+                            href="/consulting" 
+                            className={`text-sm font-medium transition-colors hover:text-foreground ${
+                                pathname === '/consulting' ? 'text-foreground' : 'text-muted-foreground'
+                            }`}
+                        >
                             Advertise
                         </Link>
-                        <Link id="nav-link-blog" href="/blog" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+                        <Link 
+                            id="nav-link-blog" 
+                            href="/blog" 
+                            className={`text-sm font-medium transition-colors hover:text-foreground ${
+                                pathname?.startsWith('/blog') ? 'text-foreground' : 'text-muted-foreground'
+                            }`}
+                        >
                             Blog
                         </Link>
                     </nav>
@@ -139,6 +165,7 @@ export function Navbar() {
                                 size="icon"
                                 className="md:hidden text-muted-foreground"
                                 aria-label="Open menu"
+                                aria-expanded={isOpen}
                             >
                                 <Menu className="h-5 w-5" />
                             </Button>

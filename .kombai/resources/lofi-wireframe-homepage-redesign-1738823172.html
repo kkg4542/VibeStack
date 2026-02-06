@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeStack 홈페이지 재설계 와이어프레임</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Comic Sans MS', cursive;
+            background: #fff;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .wireframe-section {
+            margin: 40px 0;
+            padding: 30px;
+            border: 2px solid #333;
+            background: #f5f5f5;
+        }
+        
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #666;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #ccc;
+            border: 2px solid #666;
+        }
+        
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border: 2px solid #333;
+            background: #e0e0e0;
+            margin-bottom: 20px;
+        }
+        
+        .logo-box {
+            width: 150px;
+            height: 40px;
+            border: 2px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-link {
+            padding: 8px 16px;
+            border: 2px solid #333;
+            background: #fff;
+        }
+        
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            border: 3px solid #333;
+            background: #f0f0f0;
+            position: relative;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border: 2px solid #333;
+            background: #fff;
+            margin-bottom: 20px;
+        }
+        
+        .hero-title {
+            font-size: 48px;
+            margin: 20px 0;
+            padding: 20px;
+            border: 3px dashed #666;
+        }
+        
+        .hero-subtitle {
+            font-size: 18px;
+            margin: 20px auto;
+            max-width: 700px;
+            padding: 15px;
+            border: 2px solid #999;
+            background: #fff;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .btn-primary, .btn-secondary {
+            padding: 15px 40px;
+            border: 3px solid #333;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background: #666;
+            color: #fff;
+        }
+        
+        .btn-secondary {
+            background: #fff;
+            color: #333;
+        }
+        
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .stat-box {
+            padding: 30px;
+            border: 2px solid #333;
+            background: #fff;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        /* Category Pills */
+        .category-pills {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        
+        .pill {
+            padding: 10px 20px;
+            border: 2px solid #333;
+            background: #fff;
+            border-radius: 20px;
+        }
+        
+        /* Bento Grid */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .bento-card {
+            padding: 30px;
+            border: 3px solid #333;
+            background: #f9f9f9;
+            min-height: 200px;
+            position: relative;
+        }
+        
+        .bento-card.large {
+            grid-column: span 2;
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #333;
+            background: #e0e0e0;
+            margin-bottom: 15px;
+        }
+        
+        .card-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border: 1px solid #666;
+            background: #fff;
+            font-size: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .card-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            padding: 30px;
+            border: 2px solid #333;
+            background: #fff;
+            text-align: center;
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border: 2px solid #333;
+            background: #e0e0e0;
+            margin: 0 auto 20px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 60px 20px;
+            border: 3px solid #333;
+            background: #e8e8e8;
+            margin: 40px 0;
+        }
+        
+        /* Footer */
+        .footer {
+            padding: 40px 20px;
+            border: 2px solid #333;
+            background: #f0f0f0;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h4 {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #666;
+        }
+        
+        .footer-link {
+            display: block;
+            padding: 8px 0;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        .newsletter-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #333;
+            background: #fff;
+            margin-bottom: 10px;
+        }
+        
+        /* Badge styles for component tagging */
+        .component-badge {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            z-index: 10;
+            color: white;
+        }
+        
+        .badge-reuse {
+            background: #4CAF50;
+        }
+        
+        .badge-new {
+            background: #FF9800;
+        }
+        
+        .placeholder-image {
+            background: #e0e0e0;
+            border: 2px dashed #999;
+            padding: 40px;
+            text-align: center;
+            color: #666;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-grid, .bento-grid, .features-grid, .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .bento-card.large {
+                grid-column: span 1;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>VibeStack 홈페이지 재설계 - 개선된 레이아웃 제안</h1>
+        
+        <!-- NAVBAR -->
+        <div class="wireframe-section" style="position: relative;">
+            <span class="component-badge badge-reuse" title="components/layout/Navbar.tsx">[REUSE] Navbar</span>
+            <div class="navbar">
+                <div class="logo-box">VibeStack Logo</div>
+                <div class="nav-links">
+                    <div class="nav-link">Tools</div>
+                    <div class="nav-link">Stack</div>
+                    <div class="nav-link">Advertise</div>
+                    <div class="nav-link">Blog</div>
+                </div>
+                <div class="nav-link">Sign In</div>
+            </div>
+            <div style="margin-top: 10px; padding: 10px; background: #fff; border: 1px solid #ccc;">
+                <strong>재사용:</strong> 기존 Navbar 컴포넌트 - 검색, 테마 토글, 모바일 메뉴 포함
+            </div>
+        </div>
+        
+        <!-- HERO SECTION -->
+        <div class="wireframe-section" style="position: relative;">
+            <span class="component-badge badge-reuse" title="components/landing/Hero.tsx (개선)">[REUSE] Hero (Enhanced)</span>
+            <div class="section-title">Hero 섹션 - 개선된 버전</div>
+            <div class="hero">
+                <div class="hero-badge">✨ Built with Vibe Coding</div>
+                <div class="hero-title">
+                    AI Productivity Lab
+                </div>
+                <div class="hero-subtitle">
+                    개발자를 위한 AI 도구를 큐레이션합니다. 아름답게 디자인되고, 개발자 중심이며, 인텔리전스로 구동됩니다.
+                </div>
+                
+                <!-- NEW: Visual Element -->
+                <div style="position: relative; margin: 30px 0;">
+                    <span class="component-badge badge-new" title="To be created">[NEW] HeroVisual</span>
+                    <div class="placeholder-image">
+                        [이미지: 도구 스크린샷 캐러셀 또는 애니메이션 프리뷰]<br>
+                        600x400
+                    </div>
+                </div>
+                
+                <div class="cta-buttons">
+                    <button class="btn-primary">Start Building →</button>
+                    <button class="btn-secondary">Explore Tools</button>
+                </div>
+            </div>
+            <div style="margin-top: 10px; padding: 10px; background: #fff; border: 1px solid #ccc;">
+                <strong>개선사항:</strong> 기존 Hero에 시각적 요소 추가 (도구 프리뷰 캐러셀)
+            </div>
+        </div>
+        
+        <!-- NEW: STATS SECTION -->
+        <div class="wireframe-section" style="position: relative;">
+            <span class="component-badge badge-new" title="To be created at components/landing/StatsSection.tsx">[NEW] StatsSection</span>
+            <div class="section-title">통계 섹션 (새로 추가)</div>
+            <div class="stats-grid">
+                <div class="stat-box" style="position: relative;">
+                    <span class="component-badge badge-new" title="To be created">[NEW] StatCard</span>
+                    <div class="stat-number">100+</div>
+                    <div>AI 도구</div>
+                </div>
+                <div class="stat-box" style="position: relative;">
+                    <span class="component-badge badge-new" title="To be created">[NEW] StatCard</span>
+                    <div class="stat-number">50K+</div>
+                    <div>개발자</div>
+                </div>
+                <div class="stat-box" style="position: relative;">
+                    <span class="component-badge badge-new" title="To be created">[NEW] StatCard</span>
+                    <div class="stat-number">4.9★</div>
+                    <div>평균 평점</div>
+                </div>
+            </div>
+            <div style="margin-top: 10px; padding: 10px; background: #fff; border: 1px solid #ccc;">
+                <strong>새 컴포넌트:</strong> StatCard - 플랫폼 신뢰도를 보여주는 주요 지표
+            </div>
+        </div>
+        
+        <!-- CATEGORY FILTER -->
+        <div class="wireframe-section" style="position: relative;">
+            <span class="component-badge badge-new" title="To be created at components/landing/CategoryFilter.tsx">[NEW] CategoryFilter</span>
+            <div class="section-title">카테고리 필터 (새로 추가)</div>
+            <div class="category-pills">
+                <div class="pill" style="position: relative;">
+                    <span class="component-badge badge-reuse" title="components/ui/badge.tsx">[REUSE] Badge</span>
+                    All Tools
+                </div>
+                <div class="pill">Coding</div>
+                <div class="pill">Design</div>
+                <div class="pill">Management</div>
+                <div class="pill">Productivity</div>
+                <div class="pill">Assistance</div>
+            </div>
+            <div style="margin-top: 10px; padding: 10px; background: #fff; border: 1px solid #ccc;">
+                <strong>새 기능:</strong> 도구를 카테고리별로 필터링할 수 있는 인터랙티브 필터
+            </div>
+        </div>
+        
+        <!-- ESSENTIAL TOOLS - EXPANDED -->
+        <div class="wireframe-section" style="position: relative;">
+            <span class="component-badge badge-reuse" title="components/landing/BentoGrid.tsx (확장)">[REUSE] BentoGrid (Expanded)</span>
+            <div class="section-title">Essential Tools - 확장된 그리드</div>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h2 style="font-size: 32px; margin-bottom: 10px;">필수 AI 도구</h2>
+                <p style="color: #666;">워크플로우에 완벽하게 통합되는 엄선된 AI 도구들</p>
+            </div>
+            
+            <div class="bento-grid">
+                <!-- Row 1 -->
+                <div class="bento-card large" style="position: relative;">
+                    <span class="component-badge badge-reuse" title="components/ui/card.tsx">[REUSE] Card</span>
+                    <div class="card-badge">ASSISTANCE</div>
+                    <div class="card-icon">[아이콘]</div>
+                    <div class="card-title">GPT-5.2</div>
+                    <div>The new standard for agentic AI.</div>
+                </div>
+                <div class="bento-card" style="position: relative;">
+                    <span class="component-badge badge-reuse" title="components/ui/card.tsx">[REUSE] Card</span>
+                    <div class="card-badge">ASSISTANCE</div>
+                    <div class="card-icon">[아이콘]</div>
+                    <div class="card-title">Claude</div>
+                    <div>The new apex of reasoning.</div>
+                </div>
+                
+                <!-- Row 2 -->
+                <div class="bento-card" style="position: relative;">
+                    <span class="component-badge badge-reuse" title="components/ui/card.tsx">[REUSE] Card</span>
+                    <div class="card-badge">CODING</div>
+                    <div class="card-icon">[아이콘]</div>
+                    <div class="card-title">Gemini 3 Pro</div>
+                    <div>Native multimodal reasoning.</div>
+                </div>
+                <div class="bento-card large" style="position: relative;">
+                    <span class="component-badge badge-reuse" title="components/ui/card.tsx">[REUSE] Card</span>
+                    <div class="card-badge">CODING</div>
+                    <div class="card-icon">[아이콘]</div>
+                    <div class="card-title">Cursor</div>
+                    <div>The AI-first code editor built for speed.</div>
+                </div>
+                
+                <!-- Row 3 - Additional tools -->
+                <div class="bento-card large" style="position: relative;">
+                    <span class="component-badge badge-reuse" title="components/ui/card.tsx">[REUSE] Card</span>
+                    <div class="card-badge">DESIGN</div>
+                    <div class="card-icon">[아이콘]</div>
+                    <div class="card-title">Midjourney</div>
+                    <div>AI-powered image generation.</div>
+                </div>
+                <div class="bento-card" style="position: relative;">
+                    <span class="component-badge badge-reuse" title="components/ui/card.tsx">[REUSE] Card</span>
+                    <div class="card-badge">MANAGEMENT</div>
+                    <div class="card-icon">[아이콘]</div>
+                    <div class="card-title">Linear</div>
+                    <div>Project management reimagined.</div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn-secondary" style="position: relative;">
+                    <span class="component-badge badge-reuse" title="components/ui/button.tsx">[REUSE] Button</span>
+                    모든 도구 보기 (100+) →
+                </button>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 10px; background: #fff; border: 1px solid #ccc;">
+                <strong>개선사항:</strong> 4개에서 6개 이상의 도구로 확장, "모든 도구 보기" 버튼 추가
+            </div>
+        </div>
+        
+        <!-- NEW: HOW IT WORKS -->
+        <div class="wireframe-section" style="position: relative;">
+            <span class="component-badge badge-new" title="To be created at components/landing/HowItWorks.tsx">[NEW] HowItWorks</span>
+            <div class="section-title">작동 방식 (새로 추가)</div>
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h2 style="font-size: 32px; margin-bottom: 10px;">3단계로 시작하기</h2>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card" style="position: relative;">
+                    <span class="component-badge badge-new" title="To be created">[NEW] StepCard</span>
+                    <div class="feature-icon">[1]</div>
+                    <div class="card-title">탐색</div>
+                    <div>100개 이상의 AI 도구 찾아보기</div>
+                </div>
+                <div class="feature-card" style="position: relative;">
+                    <span class="component-badge badge-new" title="To be created">[NEW] StepCard</span>
+                    <div class="feature-icon">[2]</div>
+                    <div class="card-title">비교</div>
+                    <div>기능과 가격 비교하기</div>
+                </div>
+                <div class="feature-card" style="position: relative;">
+                    <span class="component-badge badge-new" title="To be created">[NEW] StepCard</span>
+                    <div class="feature-icon">[3]</div>
+                    <div class="card-title">구축</div>
+                    <div>완벽한 스택으로 빌드 시작</div>
+                </div>
+            </div>
+            <div style="margin-top: 10px; padding: 10px; background: #fff; border: 1px solid #ccc;">
+                <strong>새 섹션:</strong> 사용자가 플랫폼 사용 방법을 쉽게 이해할 수 있도록 도움
+            </div>
+        </div>
+        
+        <!-- NEW: TESTIMONIALS -->
+        <div class="wireframe-section" style="position: relative;">
+            <span class="component-badge badge-new" title="To be created at components/landing/Testimonials.tsx">[NEW] Testimonials</span>
+            <div class="section-title">사용자 후기 (새로 추가)</div>
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h2 style="font-size: 32px; margin-bottom: 10px;">개발자들이 말하는 VibeStack</h2>
+            </div>
+            
+            <div class="bento-grid">
+                <div class="bento-card" style="position: relative;">
+                    <span class="component-badge badge-new" title="To be created">[NEW] TestimonialCard</span>
+                    <div style="margin-bottom: 15px;">"VibeStack 덕분에 워크플로우가 3배 빨라졌습니다!"</div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="width: 40px; height: 40px; border: 2px solid #333; border-radius: 50%; background: #e0e0e0;"></div>
+                        <div>
+                            <div><strong>Sarah Chen</strong></div>
+                            <div style="font-size: 12px; color: #666;">Senior Developer</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bento-card" style="position: relative;">
+                    <span class="component-badge badge-new" title="To be created">[NEW] TestimonialCard</span>
+                    <div style="margin-bottom: 15px;">"최고의 AI 도구만 모아놓은 곳. 강력 추천!"</div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="width: 40px; height: 40px; border: 2px solid #333; border-radius: 50%; background: #e0e0e0;"></div>
+                        <div>
+                            <div><strong>Alex Rodriguez</strong></div>
+                            <div style="font-size: 12px; color: #666;">Product Manager</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bento-card" style="position: relative;">
+                    <span class="component-badge badge-new" title="To be created">[NEW] TestimonialCard</span>
+                    <div style="margin-bottom: 15px;">"필요한 모든 도구가 한 곳에. 정말 편리합니다."</div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="width: 40px; height: 40px; border: 2px solid #333; border-radius: 50%; background: #e0e0e0;"></div>
+                        <div>
+                            <div><strong>Maya Patel</strong></div>
+                            <div style="font-size: 12px; color: #666;">Tech Lead</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 10px; padding: 10px; background: #fff; border: 1px solid #ccc;">
+                <strong>새 섹션:</strong> 사회적 증거 제공으로 신뢰도 향상
+            </div>
+        </div>
+        
+        <!-- CTA SECTION -->
+        <div class="wireframe-section" style="position: relative;">
+            <span class="component-badge badge-new" title="To be created at components/landing/CTASection.tsx">[NEW] CTASection</span>
+            <div class="section-title">행동 유도 섹션 (새로 추가)</div>
+            <div class="cta-section">
+                <h2 style="font-size: 36px; margin-bottom: 20px;">오늘부터 더 빠르게 빌드하세요</h2>
+                <p style="font-size: 18px; margin-bottom: 30px; color: #666;">
+                    개발자들이 신뢰하는 AI 도구로 생산성을 높이세요
+                </p>
+                <div class="cta-buttons">
+                    <button class="btn-primary" style="position: relative;">
+                        <span class="component-badge badge-reuse" title="components/ui/button.tsx">[REUSE] Button</span>
+                        무료로 시작하기
+                    </button>
+                    <button class="btn-secondary" style="position: relative;">
+                        <span class="component-badge badge-reuse" title="components/ui/button.tsx">[REUSE] Button</span>
+                        데모 보기
+                    </button>
+                </div>
+            </div>
+            <div style="margin-top: 10px; padding: 10px; background: #fff; border: 1px solid #ccc;">
+                <strong>새 섹션:</strong> Footer 전 강력한 CTA로 전환율 향상
+            </div>
+        </div>
+        
+        <!-- FOOTER -->
+        <div class="wireframe-section" style="position: relative;">
+            <span class="component-badge badge-reuse" title="components/layout/Footer.tsx">[REUSE] Footer</span>
+            <div class="section-title">Footer</div>
+            <div class="footer">
+                <div class="footer-grid">
+                    <div class="footer-column">
+                        <div class="logo-box" style="margin-bottom: 20px;">VibeStack</div>
+                        <div style="margin-bottom: 15px;">AI Productivity Lab. 최고의 AI 도구로 더 빠르게 빌드하세요.</div>
+                        <div style="display: flex; gap: 15px;">
+                            <div style="width: 30px; height: 30px; border: 2px solid #333; background: #e0e0e0;"></div>
+                            <div style="width: 30px; height: 30px; border: 2px solid #333; background: #e0e0e0;"></div>
+                            <div style="width: 30px; height: 30px; border: 2px solid #333; background: #e0e0e0;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>플랫폼</h4>
+                        <div class="footer-link">AI Tools</div>
+                        <div class="footer-link">Find Stack</div>
+                        <div class="footer-link">Advertise</div>
+                        <div class="footer-link">Blog</div>
+                        <div class="footer-link">About</div>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>리소스</h4>
+                        <div class="footer-link">Documentation</div>
+                        <div class="footer-link">API</div>
+                        <div class="footer-link">Support</div>
+                        <div class="footer-link">Contact</div>
+                    </div>
+                    
+                    <div class="footer-column" style="position: relative;">
+                        <span class="component-badge badge-reuse" title="components/ui/input.tsx + components/ui/button.tsx">[REUSE] Input + Button</span>
+                        <h4>최신 소식 받기</h4>
+                        <p style="font-size: 12px; margin-bottom: 15px;">주간 AI 도구 뉴스레터. 스팸 없음.</p>
+                        <input type="email" class="newsletter-input" placeholder="이메일 입력">
+                        <button class="btn-primary" style="width: 100%;">구독하기</button>
+                    </div>
+                </div>
+                
+                <div style="border-top: 2px solid #999; padding-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>© 2026 VibeStack. All rights reserved.</div>
+                    <div style="display: flex; gap: 20px;">
+                        <div>Privacy Policy</div>
+                        <div>Terms of Service</div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 10px; padding: 10px; background: #fff; border: 1px solid #ccc;">
+                <strong>재사용:</strong> 기존 Footer 컴포넌트 - 뉴스레터 구독 기능 포함
+            </div>
+        </div>
+        
+        <!-- SUMMARY -->
+        <div style="margin: 40px 0; padding: 30px; background: #fffacd; border: 3px solid #333;">
+            <h2 style="margin-bottom: 20px; font-size: 24px;">와이어프레임 요약</h2>
+            
+            <div style="margin-bottom: 20px;">
+                <h3 style="font-size: 18px; margin-bottom: 10px;">재사용 컴포넌트 (기존):</h3>
+                <ul style="list-style: none; padding-left: 20px;">
+                    <li>✅ Navbar - components/layout/Navbar.tsx</li>
+                    <li>✅ Hero (개선) - components/landing/Hero.tsx</li>
+                    <li>✅ BentoGrid (확장) - components/landing/BentoGrid.tsx</li>
+                    <li>✅ Footer - components/layout/Footer.tsx</li>
+                    <li>✅ Button - components/ui/button.tsx</li>
+                    <li>✅ Card - components/ui/card.tsx</li>
+                    <li>✅ Badge - components/ui/badge.tsx</li>
+                    <li>✅ Input - components/ui/input.tsx</li>
+                </ul>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <h3 style="font-size: 18px; margin-bottom: 10px;">새로 생성할 컴포넌트:</h3>
+                <ul style="list-style: none; padding-left: 20px;">
+                    <li>🆕 HeroVisual - 도구 프리뷰 캐러셀</li>
+                    <li>🆕 StatsSection - components/landing/StatsSection.tsx</li>
+                    <li>🆕 StatCard - 통계 카드 컴포넌트</li>
+                    <li>🆕 CategoryFilter - components/landing/CategoryFilter.tsx</li>
+                    <li>🆕 HowItWorks - components/landing/HowItWorks.tsx</li>
+                    <li>🆕 StepCard - 단계별 설명 카드</li>
+                    <li>🆕 Testimonials - components/landing/Testimonials.tsx</li>
+                    <li>🆕 TestimonialCard - 사용자 후기 카드</li>
+                    <li>🆕 CTASection - components/landing/CTASection.tsx</li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 style="font-size: 18px; margin-bottom: 10px;">주요 개선사항:</h3>
+                <ul style="padding-left: 20px;">
+                    <li>✨ Hero 섹션에 시각적 요소(캐러셀) 추가로 더 매력적인 첫인상</li>
+                    <li>📊 통계 섹션 추가로 플랫폼 신뢰도 강화</li>
+                    <li>🏷️ 카테고리 필터로 도구 탐색 경험 개선</li>
+                    <li>📦 Essential Tools를 4개에서 6개 이상으로 확장</li>
+                    <li>📚 "작동 방식" 섹션으로 사용자 온보딩 개선</li>
+                    <li>💬 사용자 후기 섹션으로 사회적 증거 제공</li>
+                    <li>🎯 강력한 CTA 섹션으로 전환율 향상</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

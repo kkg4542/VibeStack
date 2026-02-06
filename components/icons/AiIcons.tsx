@@ -50,7 +50,9 @@ export function OllamaIcon({ className }: { className?: string }) {
 export function SupermavenIcon({ className }: { className?: string }) {
     return (
         <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+            <path d="M2.604 7.2524C2.0896 6.86 1.3696 6.956 1.0336 7.5292 0.2128 8.9444-.0832 10.612.0192 12.28c.204 3.328 1.9844 6.2624 4.8 8.0248.9264.58 1.8848 1.0044 2.8584 1.3 1.1516.3496 2.1724-.7248 1.9636-1.9096-.1472-.8348-.8756-1.4104-1.6936-1.6184-.5504-.14-1.0924-.3404-1.614-.6144-1.9392-1.0196-3.224-2.832-3.6112-4.876-.2088-1.102.2256-2.1804.8048-3.1L5.824 6.3768c.688-1.0912.568-2.5288-.396-3.438-.8212-.774-2.0936-.8656-3.0024-.1692z" />
+            <path d="M21.4 7.252c.5144-.3924 1.2344-.2964 1.5704.2768.8208 1.4152 1.1168 3.0828 1.0144 4.7508-.204 3.328-1.9844 6.2624-4.8 8.0248-.9264.58-1.8848 1.0044-2.8584 1.3-1.1516.3496-2.172-.7248-1.9636-1.9096.1472-.8348.8756-1.4104 1.6936-1.6184.5504-.14 1.0924-.3404 1.614-.6144 1.9392-1.0196 3.224-2.832 3.6112-4.876.2088-1.102-.2256-2.1804-.8048-3.1l-2.196-3.1144c-.688-1.0912-.568-2.5288.396-3.438.8212-.774 2.0936-.8656 3.0024-.1692z" />
+            <path d="M14.6024 4.8856c-.184-1.1596-1.2532-1.9372-2.386-1.7368-1.1328.2004-1.888 1.2872-1.704 2.4468l1.7556 11.0176c.184 1.1596 1.2532 1.9372 2.386 1.7368 1.1328-.2004 1.888-1.2872 1.704-2.4468z" />
         </svg>
     );
 }
@@ -81,10 +83,8 @@ export function ReplitIcon({ className }: { className?: string }) {
 
 export function TabnineIcon({ className }: { className?: string }) {
     return (
-        <svg role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2L3 7.2v9.6L12 22l9-5.2V7.2L12 2z" />
-            <path d="M9 7.5L16 12L9 16.5V7.5Z" />
-            <path d="M9 7.5V16.5M3 7.2L9 7.5M3 16.8L9 16.5M21 7.2L16 12M21 16.8L16 12" />
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.087 5.609 0 21.176h5.414l6.769-12.966-.002-.002-2.065-4.003c-.152-.244-.493-.244-.645 0l-1.384 1.404Zm7.826 0 8.087 15.567h-5.414L11.817 8.21l.002-.002 2.066-4.003c.151-.244.492-.244.644 0l1.384 1.404Zm-2.434 3.903 6.108 11.664h-5.011l-4.043-7.726c-.191-.436.174-.91.644-.91h1.658c.214 0 .41-.119.508-.308l.136-.263Zm-3.958.006.056.107L8.015 12.1l.124.237c.098.189.294.308.508.308h1.658c.47 0 .835.474.644.91l-4.043 7.726H1.895l6.108-11.664-.02-.038c-.191-.436.174-.91.644-.91h.546c.47 0 .835.474.644.91l-.296.566z"/>
         </svg>
     );
 }
@@ -100,8 +100,7 @@ export function CodyIcon({ className }: { className?: string }) {
 export function BuilderIoIcon({ className }: { className?: string }) {
     return (
         <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <rect x="2" y="2" width="20" height="20" rx="5" />
-            <path d="M12 7l-5 5 5 5 5-5-5-5z" fill="var(--background)" />
+            <path d="M1.5 6.488v1.2h4.8v-1.2H1.5Zm0 4.8v1.2h4.8v-1.2H1.5Zm16.2 1.2h4.8v-1.2h-4.8v1.2Zm-10.2-6v12h3.6v-1.2H8.7v-9.6h2.4v-1.2H7.5Zm4.8 0v1.2h2.4v9.6h-2.4v1.2h3.6v-12h-3.6Zm-10.8 6v1.2h4.8v-1.2H1.5Zm16.2 1.2h4.8v-1.2h-4.8v1.2Zm0-6h4.8v-1.2h-4.8v1.2Zm0 1.2v1.2h4.8v-1.2h-4.8Zm0 4.8v1.2h4.8v-1.2h-4.8Z"/>
         </svg>
     );
 }
@@ -109,7 +108,7 @@ export function BuilderIoIcon({ className }: { className?: string }) {
 export function V0Icon({ className }: { className?: string }) {
     return (
         <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="m12 1.608 12 20.784H0Z" />
+            <path d="M14.066 6.028v2.22h5.729q.075-.001.148.005l-5.853 5.752a2 2 0 0 1-.024-.309V8.247h-2.353v5.45c0 2.322 1.935 4.222 4.258 4.222h5.675v-2.22h-5.675q-.03 0-.059-.003l5.729-5.629q.006.082.006.166v5.465H24v-5.465a4.204 4.204 0 0 0-4.205-4.205zM0 8.245l8.28 9.266c.839.94 2.396.346 2.396-.914V8.245H8.19v5.44l-4.86-5.44Z" />
         </svg>
     );
 }
@@ -125,7 +124,8 @@ export function PerplexityIcon({ className }: { className?: string }) {
 export function LovableIcon({ className }: { className?: string }) {
     return (
         <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-4-4 1.41-1.41L11 14.17l6.59-6.59L19 9l-8 8z" />
+            <path d="M7.5 11.5L9 10l3 3 5-5 1.5 1.5L12 16l-4.5-4.5z" fill="var(--background)" opacity="0.8" />
         </svg>
     );
 }
@@ -140,9 +140,9 @@ export function CodeRabbitIcon({ className }: { className?: string }) {
 
 export function CosineIcon({ className }: { className?: string }) {
     return (
-        <svg role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 12a10 10 0 1 0 20 0 10 10 0 1 0-20 0z" />
-            <path d="M7 12c.5-2 2-3 5-3s4.5 1 5 3-.5 2-2 4-5 1-4.5 1 1-1.5 1.5-3" />
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+            <path d="M8 12c0-2.21 1.79-4 4-4s4 1.79 4 4-1.79 4-4 4-4-1.79-4-4zm2 0c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2z" />
         </svg>
     );
 }
@@ -150,20 +150,16 @@ export function CosineIcon({ className }: { className?: string }) {
 export function AiderIcon({ className }: { className?: string }) {
     return (
         <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z" />
-            <path d="M12 6a1 1 0 0 0-1 1v4H7a1 1 0 0 0 0 2h5v4a1 1 0 0 0 2 0v-5h4a1 1 0 0 0 0-2h-4V7a1 1 0 0 0-1-1z" />
+            <path d="M12 1L1 6v12l11 5 11-5V6L12 1zm0 2.2l8.5 3.9L12 11 3.5 7.1 12 3.2zM3 8.4l8 3.7v8.5l-8-3.6V8.4zm10 12.2v-8.5l8-3.7v8.5l-8 3.7z" />
+            <text x="12" y="15" fontSize="6" fontWeight="bold" textAnchor="middle" fill="var(--background)">A</text>
         </svg>
     );
 }
 
 export function WindsurfIcon({ className }: { className?: string }) {
     return (
-        <svg role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 13s.5-1 2-1 2 1 2 1 .5 1 2 1 2-1 2-1" />
-            <path d="M12 13s.5-1 2-1 2 1 2 1 .5 1 2 1 2-1 2-1" />
-            <path d="M2 17s.5-1 2-1 2 1 2 1 .5 1 2 1 2-1 2-1" />
-            <path d="M12 17s.5-1 2-1 2 1 2 1 .5 1 2 1 2-1 2-1" />
-            <path d="M7 2h7l-3 6h7l-11 12" />
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M23.55 5.067c-1.2038-.002-2.1806.973-2.1806 2.1765v4.8676c0 .972-.8035 1.7594-1.7597 1.7594-.568 0-1.1352-.286-1.4718-.7659l-4.9713-7.1003c-.4125-.5896-1.0837-.941-1.8103-.941-1.1334 0-2.1533.9635-2.1533 2.153v4.8957c0 .972-.7969 1.7594-1.7596 1.7594-.57 0-1.1363-.286-1.4728-.7658L.4076 5.1598C.2822 4.9798 0 5.0688 0 5.2882v4.2452c0 .2147.0656.4228.1884.599l5.4748 7.8183c.3234.462.8006.8052 1.3509.9298 1.3771.313 2.6446-.747 2.6446-2.0977v-4.893c0-.972.7875-1.7593 1.7596-1.7593h.003a1.798 1.798 0 0 1 1.4718.7658l4.9723 7.0994c.4135.5905 1.05.941 1.8093.941 1.1587 0 2.1515-.9645 2.1515-2.153v-4.8948c0-.972.7875-1.7594 1.7596-1.7594h.194a.22.22 0 0 0 .2204-.2202v-4.622a.22.22 0 0 0-.2203-.2203Z" />
         </svg>
     );
 }
@@ -200,21 +196,7 @@ export function ContinueIcon({ className }: { className?: string }) {
     );
 }
 
-export function AmazonCodeWhispererIcon({ className }: { className?: string }) {
-    return (
-        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M16.93 11.67c-.48-.18-1.15-.33-1.96-.46.16-.64.24-1.32.24-2.03 0-2.25-.74-4.14-2.09-5.33-.21-.19-.45-.34-.71-.46.3-.18.62-.33.96-.45.21-.07.44-.13.67-.17A7.49 7.49 0 0 0 8.61 4.6c-1.9 1.6-2.96 4.02-2.96 6.84 0 .56.05 1.1.15 1.62-.65.32-1.11.71-1.36 1.16-.26.47-.26 1.01-.01 1.5.38.71 1.35 1.15 2.65 1.22.16.01.32.02.49.02 2.07 0 4.48-.71 6.64-1.94.6-.35 1.17-.74 1.69-1.15.29-.23.56-.48.81-.74.27-.28.4-.52.44-.7.05-.26-.02-.49-.22-.66z"/>
-        </svg>
-    );
-}
 
-export function GoogleIDXIcon({ className }: { className?: string }) {
-    return (
-        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.5L19.5 8 12 11.5 4.5 8 12 4.5zM4 9.5l7 3.5v6.5l-7-3.5V9.5zm9 10v-6.5l7-3.5v6.5l-7 3.5z"/>
-        </svg>
-    );
-}
 
 export function StackBlitzIcon({ className }: { className?: string }) {
     return (
@@ -241,13 +223,6 @@ export function HuggingFaceIcon({ className }: { className?: string }) {
     );
 }
 
-export function MidjourneyIcon({ className }: { className?: string }) {
-    return (
-        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2L9.5 7h5L12 2zm-5 2.5L5 10h4.5L7 4.5zm10 0L14.5 10H19l-2-5.5zM4.5 11.5L2 17h5l-2.5-5.5zm15 0L17 17h5l-2.5-5.5zM8 12.5l-1.5 9h4l-1.5-9h-1zm8 0l-1.5 9h4l-1.5-9h-1zM12 14l-2 7.5h4L12 14z"/>
-        </svg>
-    );
-}
 
 export function DALLEIcon({ className }: { className?: string }) {
     return (
@@ -268,13 +243,6 @@ export function ElevenLabsIcon({ className }: { className?: string }) {
     );
 }
 
-export function GammaIcon({ className }: { className?: string }) {
-    return (
-        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2L4 6v12l8 4 8-4V6l-8-4zm0 2.5L18.5 7 12 10.5 5.5 7 12 4.5zM5 8.5l6 3.5v6.5l-6-3.5V8.5zm14 0v6.5l-6 3.5v-6.5l6-3.5z"/>
-        </svg>
-    );
-}
 
 export function JasperIcon({ className }: { className?: string }) {
     return (
@@ -316,13 +284,6 @@ export function DescriptIcon({ className }: { className?: string }) {
     );
 }
 
-export function RaycastIcon({ className }: { className?: string }) {
-    return (
-        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-        </svg>
-    );
-}
 
 export function FigmaIcon({ className }: { className?: string }) {
     return (
@@ -382,13 +343,6 @@ export function KrispIcon({ className }: { className?: string }) {
     );
 }
 
-export function MotionIcon({ className }: { className?: string }) {
-    return (
-        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm5 10c0 1.1-.9 2-2 2H9c-1.1 0-2-.9-2-2v-1c0-1.67 3.33-2.5 5-2.5s5 .83 5 2.5v1z"/>
-        </svg>
-    );
-}
 
 export function ClickUpIcon({ className }: { className?: string }) {
     return (
@@ -427,29 +381,9 @@ export function GrammarlyIcon({ className }: { className?: string }) {
     );
 }
 
-export function QuillBotIcon({ className }: { className?: string }) {
-    return (
-        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M7 2h10c1.1 0 2 .9 2 2v16c0 1.1-.9 2-2 2H7c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2zm5 3c-2.76 0-5 2.24-5 5 0 2.5 1.84 4.58 4.25 4.94v2.56h1.5v-2.56C15.16 14.58 17 12.5 17 10c0-2.76-2.24-5-5-5z"/>
-        </svg>
-    );
-}
 
-export function Lumen5Icon({ className }: { className?: string }) {
-    return (
-        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm0 4v10h4V7H5zm6 0v6h4V7h-4zm6 0v4h2V7h-2z"/>
-        </svg>
-    );
-}
 
-export function SynthesiaIcon({ className }: { className?: string }) {
-    return (
-        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-        </svg>
-    );
-}
+
 
 export function MemIcon({ className }: { className?: string }) {
     return (

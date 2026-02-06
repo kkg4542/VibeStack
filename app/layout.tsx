@@ -13,11 +13,15 @@ import { Toaster } from "@/components/ui/sonner";
 const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
 });
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -71,10 +75,18 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground selection:bg-indigo-500/30 selection:text-indigo-200`}
         suppressHydrationWarning
       >
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md"
+        >
+          Skip to main content
+        </a>
         <ThemeProvider defaultTheme="dark" enableSystem>
           <SessionProvider>
             <Navbar />
-            {children}
+            <main id="main-content">
+              {children}
+            </main>
             <Footer />
           </SessionProvider>
         </ThemeProvider>

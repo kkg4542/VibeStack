@@ -48,6 +48,7 @@ export function CommandMenu({ ...props }: DialogProps) {
                     "relative h-9 w-9 p-0 xl:h-10 xl:w-60 xl:justify-start xl:px-3 xl:py-2 text-muted-foreground hover:bg-white/5 hover:text-foreground md:flex",
                 )}
                 onClick={() => setOpen(true)}
+                aria-label="Search tools (Cmd+K)"
                 {...props}
             >
                 <Search className="h-4 w-4 xl:mr-2" />

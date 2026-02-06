@@ -56,8 +56,8 @@
 
   --muted: #f1f5f9;
   /* Slate-100 */
-  --muted-foreground: #64748b;
-  /* Slate-500 */
+  --muted-foreground: #475569;
+  /* Slate-600 - Improved contrast for WCAG AAA */
 
   --accent: #f8fafc;
   /* Slate-50 */
@@ -94,8 +94,8 @@
   --secondary-foreground: #fafafa;
 
   --muted: #27272a;
-  --muted-foreground: #a1a1aa;
-  /* Zinc-400 */
+  --muted-foreground: #d4d4d8;
+  /* Zinc-300 - Improved contrast for WCAG AAA */
 
   --accent: #27272a;
   --accent-foreground: #fafafa;
@@ -114,11 +114,24 @@
   }
 
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
   }
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Enhanced focus indicator for accessibility */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary ring-2 ring-primary/20;
   }
 }
 

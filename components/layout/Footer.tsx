@@ -99,13 +99,18 @@ export function Footer() {
                             Get the latest AI tools delivered to your inbox weekly. No spam.
                         </p>
                         <form onSubmit={handleSubmit} className="space-y-2">
+                            <label htmlFor="newsletter-email" className="sr-only">
+                                Email address
+                            </label>
                             <Input
+                                id="newsletter-email"
                                 type="email"
                                 placeholder="Enter your email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 disabled={status === "loading"}
                                 className="bg-secondary/50 border-input text-foreground placeholder:text-muted-foreground focus-visible:ring-primary/50"
+                                aria-label="Email address for newsletter"
                             />
                             <Button
                                 type="submit"

@@ -1,11 +1,19 @@
+"use client";
+
 import { Hero } from "@/components/landing/Hero";
+import { StatsSection } from "@/components/landing/StatsSection";
 import { BentoGrid } from "@/components/landing/BentoGrid";
-import * as motion from "framer-motion/client";
+import { HowItWorks } from "@/components/landing/HowItWorks";
+import { Testimonials } from "@/components/landing/Testimonials";
+import { CTASection } from "@/components/landing/CTASection";
+import { motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background text-foreground selection:bg-indigo-500/20">
+    <div className="min-h-screen bg-background text-foreground selection:bg-indigo-500/20">
       <Hero />
+
+      <StatsSection />
 
       <motion.div
         initial={{ opacity: 0, y: 40 }}
@@ -16,7 +24,11 @@ export default function Home() {
         <BentoGrid />
       </motion.div>
 
+      <HowItWorks />
 
-    </main>
+      <Testimonials />
+
+      <CTASection />
+    </div>
   );
 }
