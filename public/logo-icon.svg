@@ -1,0 +1,18 @@
+<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="vGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4F46E5;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#06B6D4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#14B8A6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 왼쪽 레이어 -->
+  <path d="M8 8 L22 8 L32 52 L18 52 Z" fill="url(#vGrad)" opacity="0.85"/>
+  
+  <!-- 중간 레이어 -->
+  <path d="M18 8 L32 8 L38 52 L28 52 Z" fill="url(#vGrad)"/>
+  
+  <!-- 오른쪽 레이어 -->
+  <path d="M28 8 L42 8 L52 52 L38 52 Z" fill="url(#vGrad)" opacity="0.85"/>
+</svg>
