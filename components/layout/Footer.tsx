@@ -56,11 +56,10 @@ export function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                     {/* Brand Column */}
                     <div className="md:col-span-2 space-y-6">
-                        <Link href="/" className="flex items-center gap-2">
-                            <div className="flex h-6 w-6 items-center justify-center rounded bg-primary/20 text-primary">
-                                <Sparkles className="h-4 w-4" />
-                            </div>
-                            <span className="text-sm font-semibold tracking-tight text-foreground">VibeStack</span>
+                        <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
+                            <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
+                                VibeStack
+                            </span>
                         </Link>
                         <p className="text-muted-foreground text-sm leading-relaxed max-w-sm">
                             The AI Productivity Lab. We curate the best AI tools to help developers build faster and better.
