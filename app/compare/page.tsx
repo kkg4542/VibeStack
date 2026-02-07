@@ -10,6 +10,7 @@ import Link from "next/link";
 import { toast } from "sonner";
 import * as motion from "framer-motion/client";
 import { Card, CardContent } from "@/components/ui/card";
+import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 
 export default function ComparePage() {
     const [selectedTools, setSelectedTools] = useState<Tool[]>([]);
@@ -72,12 +73,8 @@ export default function ComparePage() {
 
     if (selectedTools.length === 0) {
         return (
-            <main className="min-h-screen bg-background relative overflow-hidden pt-32 pb-20 px-4">
-                {/* Background Effects */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 z-0 h-[50vh] w-full max-w-[1400px] bg-indigo-500/10 dark:bg-indigo-500/20 blur-[140px]" />
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-size-[40px_40px] mask-[radial-gradient(ellipse_80%_80%_at_50%_0%,#000_70%,transparent_100%)]" />
-                
-                <div className="relative z-10 container max-w-2xl mx-auto text-center">
+            <PageBackground {...BackgroundPresets.content}>
+                <div className="container max-w-2xl mx-auto text-center">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -95,18 +92,13 @@ export default function ComparePage() {
                         </Button>
                     </motion.div>
                 </div>
-            </main>
+            </PageBackground>
         );
     }
 
     return (
-        <main className="min-h-screen bg-background relative overflow-hidden">
-            {/* Background Effects */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 z-0 h-[50vh] w-full max-w-[1400px] bg-indigo-500/10 dark:bg-indigo-500/20 blur-[140px]" />
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-size-[40px_40px] mask-[radial-gradient(ellipse_80%_80%_at_50%_0%,#000_70%,transparent_100%)]" />
-
-            <div className="relative z-10 pt-32 pb-20 px-4">
-                <div className="container mx-auto max-w-7xl">
+        <PageBackground {...BackgroundPresets.content}>
+            <div className="container mx-auto max-w-7xl">
                     {/* Header */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -341,7 +333,6 @@ export default function ComparePage() {
                         </motion.div>
                     )}
                 </div>
-            </div>
-        </main>
+        </PageBackground>
     );
 }

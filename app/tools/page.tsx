@@ -7,6 +7,7 @@ import { Search, Sparkles, TrendingUp, Target, Zap } from "lucide-react";
 import { designSystem } from "@/lib/design-system";
 import { tools } from "@/lib/tools";
 import { useState } from "react";
+import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 
 // Note: Can't export metadata from client component, moved to separate metadata file would be ideal
 
@@ -18,18 +19,8 @@ export default function ToolsPage() {
     const freeToolsCount = tools.filter(t => t.pricing === "Free" || t.pricing === "Freemium").length;
 
     return (
-        <main className="min-h-screen bg-background relative overflow-hidden">
-            {/* Background Effects */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 z-0 h-[50vh] w-full max-w-[1400px] bg-indigo-500/10 dark:bg-indigo-500/20 blur-[140px]" />
-            <div className="absolute top-[30%] left-[10%] z-0 h-[30vh] w-[30vh] bg-purple-500/10 blur-[100px] rounded-full" />
-            <div className="absolute top-[50%] right-[10%] z-0 h-[30vh] w-[30vh] bg-blue-500/10 blur-[100px] rounded-full" />
-
-            {/* Background Grid Pattern */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-size-[40px_40px] mask-[radial-gradient(ellipse_80%_80%_at_50%_0%,#000_70%,transparent_100%)]" />
-
-            <div className="relative z-10 pt-32 pb-20">
-                {/* Hero Section */}
-                <div className="container max-w-6xl mx-auto px-4">
+        <PageBackground {...BackgroundPresets.content}>
+            <div className="container max-w-6xl mx-auto px-4">
                     <motion.div
                         initial={designSystem.animations.fadeInUp.initial}
                         animate={designSystem.animations.fadeInUp.animate}
@@ -122,7 +113,6 @@ export default function ToolsPage() {
                     {/* Tools List Component */}
                     <ToolsList searchQuery={searchQuery} />
                 </div>
-            </div>
-        </main>
+        </PageBackground>
     );
 }

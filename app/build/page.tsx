@@ -8,6 +8,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { tools } from "@/lib/tools";
 import { cn } from "@/lib/utils";
+import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 
 // Types
 type StackRecommendation = {
@@ -152,17 +153,8 @@ export default function BuildPage() {
     const stack = isFinished ? getRecommendedStack() : null;
 
     return (
-        <main className="min-h-screen bg-background relative overflow-hidden">
-            {/* Background Effects */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 z-0 h-[50vh] w-full max-w-[1400px] bg-indigo-500/10 dark:bg-indigo-500/20 blur-[140px]" />
-            <div className="absolute top-[30%] left-[10%] z-0 h-[25vh] w-[25vh] bg-purple-500/10 blur-[100px] rounded-full" />
-            <div className="absolute top-[50%] right-[10%] z-0 h-[25vh] w-[25vh] bg-blue-500/10 blur-[100px] rounded-full" />
-            
-            {/* Background Grid */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-size-[40px_40px] mask-[radial-gradient(ellipse_80%_80%_at_50%_0%,#000_70%,transparent_100%)]" />
-
-            <div className="relative z-10 pt-32 pb-20 px-4">
-                <div className="container max-w-5xl mx-auto">
+        <PageBackground {...BackgroundPresets.content}>
+            <div className="container max-w-5xl mx-auto">
                     {/* Header */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -427,7 +419,6 @@ export default function BuildPage() {
                         )}
                     </AnimatePresence>
                 </div>
-            </div>
-        </main>
+        </PageBackground>
     );
 }

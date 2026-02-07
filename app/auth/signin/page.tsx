@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
 import * as motion from "framer-motion/client";
+import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 
 const benefits = [
     {
@@ -75,16 +76,8 @@ export default function SignInPage() {
     };
 
     return (
-        <div className="min-h-screen bg-background relative overflow-hidden flex items-center justify-center p-4">
-            {/* Background Effects */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 z-0 h-[60vh] w-full max-w-[1400px] bg-indigo-500/10 dark:bg-indigo-500/20 blur-[140px]" />
-            <div className="absolute top-[20%] left-[10%] z-0 h-[30vh] w-[30vh] bg-purple-500/10 blur-[100px] rounded-full" />
-            <div className="absolute top-[40%] right-[10%] z-0 h-[30vh] w-[30vh] bg-pink-500/10 blur-[100px] rounded-full" />
-            
-            {/* Background Grid */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-size-[40px_40px] mask-[radial-gradient(ellipse_80%_80%_at_50%_0%,#000_70%,transparent_100%)]" />
-
-            <div className="relative z-10 w-full max-w-5xl">
+        <PageBackground {...BackgroundPresets.content} className="flex items-center justify-center p-4">
+            <div className="w-full max-w-5xl">
                 <div className="grid lg:grid-cols-2 gap-8 items-center">
                     {/* Left Side - Benefits */}
                     <motion.div
@@ -323,6 +316,6 @@ export default function SignInPage() {
                     </motion.div>
                 </div>
             </div>
-        </div>
+        </PageBackground>
     );
 }
