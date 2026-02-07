@@ -14,9 +14,9 @@ const withPWA = require('next-pwa')({
 });
 
 const nextConfig: NextConfig = {
-  env: {
-    DATABASE_URL: process.env.DATABASE_URL,
-  },
+  // Environment variables that need to be exposed to the browser should be prefixed with NEXT_PUBLIC_
+  // DATABASE_URL should NOT be exposed to the client - it's server-side only
+  
   // Resolve lockfile warning
   outputFileTracingRoot: __dirname,
 

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createErrorResponse } from "@/lib/api-utils";
+import { checkRateLimit, rateLimitConfigs } from "@/lib/redis";
 
 const subscribeSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -8,22 +9,28 @@ const subscribeSchema = z.object({
   lastName: z.string().optional(),
 });
 
-// Simple in-memory rate limiting (Note: In serverless, this resets per instance)
-const rateLimit = new Map<string, number>();
-const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
-const MAX_REQUESTS = 5; // 5 requests per minute
-
 export async function POST(request: Request) {
   try {
-    const ip = request.headers.get("x-forwarded-for") || "unknown";
-    const now = Date.now();
-    const lastRequestTime = rateLimit.get(ip) || 0;
+    // Get IP address
+    const ip = request.headers.get("x-forwarded-for") || 
+               request.headers.get("x-real-ip") || 
+               "unknown";
+    
+    // Check rate limit using Redis (3 requests per hour per IP)
+    const rateLimitResult = await checkRateLimit(
+      `newsletter:${ip}`,
+      rateLimitConfigs.newsletter
+    );
 
-    if (now - lastRequestTime < RATE_LIMIT_WINDOW / MAX_REQUESTS) {
-      // Allow burst but throttle slightly
+    if (!rateLimitResult.allowed) {
+      return createErrorResponse(
+        "Too many requests. Please try again later.",
+        429,
+        {
+          retryAfter: Math.ceil((rateLimitResult.resetTime - Date.now()) / 1000),
+        }
+      );
     }
-
-    // Strict rate check could go here, but for now we ensure valid input first
 
     const body = await request.json();
 

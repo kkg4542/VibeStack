@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { createErrorResponse } from "@/lib/api-utils";
+import { auth } from "@/auth";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -29,12 +30,18 @@ export async function GET(
   }
 }
 
-// PUT - 도구 수정
+// PUT - 도구 수정 (Admin only)
 export async function PUT(
   request: NextRequest,
   { params }: Props
 ) {
   try {
+    // Check authentication
+    const session = await auth();
+    if (!session?.user) {
+      return createErrorResponse("Unauthorized", 401);
+    }
+
     const { slug } = await params;
     const body = await request.json();
 
@@ -84,12 +91,18 @@ export async function PUT(
   }
 }
 
-// DELETE - 도구 삭제
+// DELETE - 도구 삭제 (Admin only)
 export async function DELETE(
   request: NextRequest,
   { params }: Props
 ) {
   try {
+    // Check authentication
+    const session = await auth();
+    if (!session?.user) {
+      return createErrorResponse("Unauthorized", 401);
+    }
+
     const { slug } = await params;
 
     // 도구 존재 확인

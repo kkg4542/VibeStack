@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { CreateToolSchema, UpdateToolSchema } from "@/lib/schemas";
 import { validateRequest, createErrorResponse, createSuccessResponse, formatZodError } from "@/lib/api-utils";
+import { auth } from "@/auth";
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -56,8 +57,15 @@ export async function GET(request: NextRequest) {
   }
 }
 
+// POST - Create tool (Admin only)
 export async function POST(request: NextRequest) {
   try {
+    // Check authentication
+    const session = await auth();
+    if (!session?.user) {
+      return createErrorResponse("Unauthorized", 401);
+    }
+
     const body = await request.json();
     
     const validation = validateRequest(CreateToolSchema, body);
@@ -101,8 +109,15 @@ export async function POST(request: NextRequest) {
   }
 }
 
+// PUT - Update tool (Admin only)
 export async function PUT(request: NextRequest) {
   try {
+    // Check authentication
+    const session = await auth();
+    if (!session?.user) {
+      return createErrorResponse("Unauthorized", 401);
+    }
+
     const { searchParams } = new URL(request.url);
     const slug = searchParams.get("slug");
     
@@ -151,8 +166,15 @@ export async function PUT(request: NextRequest) {
   }
 }
 
+// DELETE - Delete tool (Admin only)
 export async function DELETE(request: NextRequest) {
   try {
+    // Check authentication
+    const session = await auth();
+    if (!session?.user) {
+      return createErrorResponse("Unauthorized", 401);
+    }
+
     const { searchParams } = new URL(request.url);
     const slug = searchParams.get("slug");
     

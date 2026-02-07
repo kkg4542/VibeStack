@@ -10,8 +10,7 @@ export async function GET() {
     if (!databaseUrl) {
       return NextResponse.json({
         status: "error",
-        message: "DATABASE_URL not found in environment",
-        env: Object.keys(process.env).filter(key => key.includes('DATABASE')),
+        message: "Database configuration error",
       }, { status: 500 });
     }
 

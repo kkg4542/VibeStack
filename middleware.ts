@@ -119,16 +119,13 @@ export async function middleware(req: NextRequest) {
         const validUser = process.env.ADMIN_USER;
         const validPwd = process.env.ADMIN_PASSWORD;
 
-        // Require environment variables in production
-        if (process.env.NODE_ENV === "production" && (!validUser || !validPwd)) {
-          console.error("ADMIN_USER and ADMIN_PASSWORD must be set in production");
+        // Require environment variables
+        if (!validUser || !validPwd) {
+          console.error("ADMIN_USER and ADMIN_PASSWORD must be set");
           return new NextResponse("Server configuration error", { status: 500 });
         }
 
-        const defaultUser = process.env.NODE_ENV === "development" ? "admin" : "";
-        const defaultPwd = process.env.NODE_ENV === "development" ? "admin123" : "";
-
-        if (user === (validUser || defaultUser) && pwd === (validPwd || defaultPwd)) {
+        if (user === validUser && pwd === validPwd) {
           // Clear failed attempts on success
           failedAttempts.delete(ip);
           

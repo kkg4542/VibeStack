@@ -6,7 +6,7 @@ import Image from "next/image";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { ReadingProgress } from "@/components/blog/ReadingProgress";
-import DOMPurify from "isomorphic-dompurify";
+import sanitizeHtml from "sanitize-html";
 
 interface Props {
     params: { slug: string };
@@ -37,6 +37,21 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     if (!post) {
         notFound();
     }
+
+    // Sanitize HTML content to prevent XSS attacks
+    const sanitizedContent = sanitizeHtml(post.content, {
+        allowedTags: [
+            'p', 'br', 'strong', 'b', 'em', 'i', 'u', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+            'ul', 'ol', 'li', 'a', 'img', 'blockquote', 'code', 'pre', 'span', 'div',
+            'table', 'thead', 'tbody', 'tr', 'th', 'td'
+        ],
+        allowedAttributes: {
+            '*': ['class', 'id'],
+            'a': ['href', 'title', 'target', 'rel'],
+            'img': ['src', 'alt', 'title'],
+        },
+        disallowedTagsMode: 'discard',
+    });
 
     return (
         <main className="min-h-screen bg-background pt-32 pb-20">
@@ -91,7 +106,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
                     <div
                         className="prose dark:prose-invert prose-zinc prose-indigo mx-auto prose-lg prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary/80"
-                        dangerouslySetInnerHTML={{ __html: post.content }}
+                        dangerouslySetInnerHTML={{ __html: sanitizedContent }}
                     />
                 </article>
             </div>
