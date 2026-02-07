@@ -29,6 +29,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { MobileNavDrawer } from "@/components/layout/MobileNavDrawer";
 
 const navItems = [
     { href: "/", label: "Home", icon: Sparkles },
@@ -157,83 +158,18 @@ export function Navbar() {
                         )}
 
                         {/* Mobile Menu */}
-                        <Sheet open={isOpen} onOpenChange={setIsOpen}>
-                            <SheetTrigger asChild>
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="md:hidden text-muted-foreground"
-                                    aria-label="Open menu"
-                                    aria-expanded={isOpen}
-                                >
-                                    <Menu className="h-5 w-5" />
-                                </Button>
-                            </SheetTrigger>
-                            <SheetContent side="right" className="w-[300px] bg-background/95 backdrop-blur-xl">
-                                <SheetHeader>
-                                    <SheetTitle className="text-left">
-                                        <span className="text-lg font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
-                                            VibeStack
-                                        </span>
-                                    </SheetTitle>
-                                </SheetHeader>
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => setIsOpen(true)}
+                            className="md:hidden text-muted-foreground"
+                            aria-label="Open menu"
+                        >
+                            <Menu className="h-5 w-5" />
+                        </Button>
 
-                                <nav className="mt-8 flex flex-col gap-2">
-                                    {/* Mobile Auth */}
-                                    <div className="mb-4 px-2">
-                                        {user ? (
-                                            <div className="flex items-center gap-3 p-2 rounded-lg bg-secondary/50">
-                                                <Avatar className="h-10 w-10">
-                                                    {user.image ? (
-                                                        <AvatarImage src={user.image} />
-                                                    ) : null}
-                                                    <AvatarFallback>{user.name?.charAt(0) || "U"}</AvatarFallback>
-                                                </Avatar>
-                                                <div className="flex-1 overflow-hidden">
-                                                    <p className="text-sm font-medium truncate">{user.name}</p>
-                                                    <p className="text-xs text-muted-foreground truncate">{user.email}</p>
-                                                </div>
-                                                <Button variant="ghost" size="icon" onClick={handleSignOut} className="h-8 w-8 text-muted-foreground">
-                                                    <LogOut className="h-4 w-4" />
-                                                </Button>
-                                            </div>
-                                        ) : (
-                                            <Button className="w-full" onClick={() => { setIsOpen(false); setIsAuthOpen(true); }}>
-                                                Sign In
-                                            </Button>
-                                        )}
-                                    </div>
-
-                                    <div className="border-t border-border mb-4" />
-
-                                    {navItems.map((item, index) => (
-                                        <m.div
-                                            key={item.href}
-                                            initial={{ opacity: 0, x: 20 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ delay: index * 0.05 + 0.1, duration: 0.3 }}
-                                        >
-                                            <SheetClose asChild>
-                                                <Link
-                                                    id={`nav-link-${item.href.replace("/", "") || "home"}`}
-                                                    href={item.href}
-                                                    className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-muted-foreground rounded-lg hover:bg-accent hover:text-foreground transition-colors group"
-                                                >
-                                                    <item.icon className="h-4 w-4 transition-transform group-hover:scale-110" />
-                                                    {item.label}
-                                                </Link>
-                                            </SheetClose>
-                                        </m.div>
-                                    ))}
-
-                                    <div className="my-4 border-t border-border" />
-
-                                    <div className="px-4">
-                                        <SubmitDialog />
-                                    </div>
-                                </nav>
-                            </SheetContent>
-                        </Sheet>
+                        {/* Enhanced Mobile Navigation Drawer */}
+                        <MobileNavDrawer isOpen={isOpen} onClose={() => setIsOpen(false)} />
                     </div>
                 </div>
             </header>
