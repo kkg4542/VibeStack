@@ -39,8 +39,8 @@ const categories = [
 
 const quickLinks = [
     { href: "/", label: "Home", icon: Home, color: "from-blue-500 to-cyan-500" },
-    { href: "/tools", label: "AI Tools", icon: Wrench, color: "from-indigo-500 to-purple-500" },
     { href: "/build", label: "Find Stack", icon: Layers, color: "from-violet-500 to-pink-500" },
+    { href: "/tools", label: "AI Tools", icon: Wrench, color: "from-indigo-500 to-purple-500" },
     { href: "/blog", label: "Blog", icon: Newspaper, color: "from-emerald-500 to-teal-500" },
     { href: "/favorites", label: "Favorites", icon: Heart, color: "from-rose-500 to-pink-500" },
 ];

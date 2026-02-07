@@ -2,8 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { Hero } from "@/components/landing/Hero";
-import { StatsSection } from "@/components/landing/StatsSection";
-import { BentoGrid } from "@/components/landing/BentoGrid";
+import { FeaturedStacks } from "@/components/landing/FeaturedStacks";
 import { m } from "framer-motion";
 import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
 
@@ -28,15 +27,13 @@ export default function Home() {
       <div className="min-h-screen bg-background text-foreground selection:bg-indigo-500/20">
         <Hero />
 
-        <StatsSection />
-
         <m.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] as const }}
         >
-          <BentoGrid />
+          <FeaturedStacks />
         </m.div>
 
         <HowItWorks />

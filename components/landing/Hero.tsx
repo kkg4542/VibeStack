@@ -49,10 +49,10 @@ export function Hero() {
                         className="text-3xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl"
                     >
                         <span className="bg-linear-to-b from-foreground to-foreground/60 bg-clip-text text-transparent">
-                            AI Productivity
+                            Find Your Perfect
                         </span>{" "}
                         <span className="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
-                            Lab
+                            AI Stack
                         </span>
                     </m.h1>
 
@@ -62,8 +62,8 @@ export function Hero() {
                         transition={delayedTransition(0.4)}
                         className="max-w-[700px] text-lg text-muted-foreground md:text-xl/relaxed leading-relaxed"
                     >
-                        Curated tools to accelerate your development workflow.
-                        Beautifully designed, developer-focused, and powered by intelligence.
+                        Stop searching for tools. Start using proven workflows.
+                        Curated AI stacks for developers, designers, and creators.
                     </m.p>
 
                     <m.div
@@ -94,7 +94,7 @@ export function Hero() {
                                 id="hero-cta-build" href="/build"
                                 className={buttonVariants({ variant: "default", size: "lg" }) + " h-12 sm:h-14 rounded-full px-8 sm:px-10 text-sm sm:text-base font-semibold shadow-xl shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all duration-300 group"}
                             >
-                                Start Building
+                                Find My Stack
                                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                             </Link>
                         </MagneticButton>

@@ -12,6 +12,13 @@ export interface Stack {
     workflow: string[];
     icon: string;
     color: string;
+    curatedBy?: {
+        name: string;
+        role: string;
+        avatar?: string;
+    };
+    usedBy?: string; // e.g. "1,200+ Developers"
+    shareCount?: number;
 }
 
 export const stacks: Stack[] = [
@@ -31,7 +38,13 @@ export const stacks: Stack[] = [
             "4. Deploy with one click"
         ],
         icon: "🪄",
-        color: "text-purple-500"
+        color: "text-purple-500",
+        curatedBy: {
+            name: "Sarah Chen",
+            role: "Product Designer @ TechFlow"
+        },
+        usedBy: "2,400+ Designers",
+        shareCount: 1240
     },
     {
         id: "product-designer",
@@ -49,7 +62,13 @@ export const stacks: Stack[] = [
             "4. Deploy to your preferred platform"
         ],
         icon: "🎨",
-        color: "text-pink-500"
+        color: "text-pink-500",
+        curatedBy: {
+            name: "Alex Rivera",
+            role: "Senior UX Engineer"
+        },
+        usedBy: "850+ Pro Teams",
+        shareCount: 856
     },
     {
         id: "learner",
@@ -67,7 +86,13 @@ export const stacks: Stack[] = [
             "4. Build and share projects instantly"
         ],
         icon: "📚",
-        color: "text-green-500"
+        color: "text-green-500",
+        curatedBy: {
+            name: "David Park",
+            role: "Coding Boothcamp Instructor"
+        },
+        usedBy: "5,000+ Students",
+        shareCount: 3420
     },
     {
         id: "10x-engineer",
@@ -85,7 +110,13 @@ export const stacks: Stack[] = [
             "4. Deploy with confidence"
         ],
         icon: "🚀",
-        color: "text-orange-500"
+        color: "text-orange-500",
+        curatedBy: {
+            name: "James Wilson",
+            role: "CTO @ FastShip"
+        },
+        usedBy: "1,100+ Senior Devs",
+        shareCount: 2100
     },
     {
         id: "efficiency",
@@ -103,7 +134,13 @@ export const stacks: Stack[] = [
             "4. Ship features faster"
         ],
         icon: "⚡",
-        color: "text-yellow-500"
+        color: "text-yellow-500",
+        curatedBy: {
+            name: "Maria Garcia",
+            role: "Indie Hacker"
+        },
+        usedBy: "1,500+ Freelancers",
+        shareCount: 1890
     },
     {
         id: "power-pair",
@@ -121,7 +158,13 @@ export const stacks: Stack[] = [
             "4. Review and refine with AI assistance"
         ],
         icon: "🤝",
-        color: "text-blue-500"
+        color: "text-blue-500",
+        curatedBy: {
+            name: "Ken Thompson",
+            role: "Staff Engineer"
+        },
+        usedBy: "900+ Enterprise Devs",
+        shareCount: 670
     },
     {
         id: "smart-assistant",
@@ -139,7 +182,13 @@ export const stacks: Stack[] = [
             "4. Combine insights for best results"
         ],
         icon: "🧠",
-        color: "text-indigo-500"
+        color: "text-indigo-500",
+        curatedBy: {
+            name: "Dr. Emily Chen",
+            role: "AI Researcher"
+        },
+        usedBy: "10,000+ Researchers",
+        shareCount: 5400
     }
 ];
 

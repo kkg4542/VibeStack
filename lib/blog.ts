@@ -9,6 +9,7 @@ export interface BlogPost {
   readTime: string;
   image: string;
   tags?: string[];
+  relatedStack?: string;
 }
 
 export const blogPosts: BlogPost[] = [
@@ -22,6 +23,7 @@ export const blogPosts: BlogPost[] = [
     category: "Guide",
     readTime: "15 min read",
     image: "/images/blog/ultimate-developer-stack-2026.png",
+    relatedStack: "10x-engineer",
     content: `
       <h2>The Stack Has Changed</h2>
       <p>The developer stack of 2024 is dead. In 2026, we typically don't choose tools based on "what features do they have?" but "how well do they integrate with AI agents?". The modern sovereign developer needs a stack that amplifies their intent, not just one that highlights their syntax.</p>

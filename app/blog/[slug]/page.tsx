@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { ReadingProgress } from "@/components/blog/ReadingProgress";
+import { StackPromoCard } from "@/components/blog/StackPromoCard";
 import sanitizeHtml from "sanitize-html";
 
 interface Props {
@@ -108,6 +109,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         className="prose dark:prose-invert prose-zinc prose-indigo mx-auto prose-lg prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary/80"
                         dangerouslySetInnerHTML={{ __html: sanitizedContent }}
                     />
+
+                    {post.relatedStack && <StackPromoCard stackId={post.relatedStack} />}
                 </article>
             </div>
         </main>

@@ -18,7 +18,9 @@ export type AnalyticsEvent =
   | "social_share"
   | "theme_change"
   | "search_query"
-  | "filter_use";
+  | "filter_use"
+  | "stack_finder_step"
+  | "stack_recommended";
 
 interface EventParams {
   tool_visit: { tool_slug: string; tool_name: string };
@@ -30,6 +32,8 @@ interface EventParams {
   theme_change: { theme: "light" | "dark" | "system" };
   search_query: { query: string; results_count: number };
   filter_use: { filter_type: string; filter_value: string };
+  stack_finder_step: { step_id: string; option_id: string };
+  stack_recommended: { stack_name: string; total_price: string };
 }
 
 export function trackEvent<T extends AnalyticsEvent>(
@@ -89,4 +93,12 @@ export function trackFilterUse(
   filterValue: string
 ): void {
   trackEvent("filter_use", { filter_type: filterType, filter_value: filterValue });
+}
+
+export function trackStackFinderStep(stepId: string, optionId: string): void {
+  trackEvent("stack_finder_step", { step_id: stepId, option_id: optionId });
+}
+
+export function trackStackRecommended(stackName: string, totalPrice: string): void {
+  trackEvent("stack_recommended", { stack_name: stackName, total_price: totalPrice });
 }

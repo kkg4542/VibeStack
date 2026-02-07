@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { trackStackFinderStep, trackStackRecommended } from "@/lib/analytics";
 import { ArrowRight, Code2, Paintbrush, Brain, Layout, ArrowLeft, CheckCircle2, DollarSign, GraduationCap, Zap, Bookmark, Share2, Sparkles, TrendingUp, Target, RotateCcw, FileDown } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -60,9 +61,10 @@ export default function BuildPage() {
     const isFinished = stepIndex >= STEPS.length;
 
     const handleOptionClick = (optionId: string) => {
+        trackStackFinderStep(currentStep.id, optionId);
         setIsAnimating(true);
         setAnswers(prev => ({ ...prev, [currentStep.id]: optionId }));
-        
+
         setTimeout(() => {
             if (isLastStep) {
                 setStepIndex(prev => prev + 1);
@@ -152,273 +154,278 @@ export default function BuildPage() {
 
     const stack = isFinished ? getRecommendedStack() : null;
 
+    useEffect(() => {
+        if (stack) {
+            trackStackRecommended(stack.name, stack.totalPrice);
+        }
+    }, [stack]);
+
     return (
         <PageBackground {...BackgroundPresets.content}>
             <div className="container max-w-5xl mx-auto">
-                    {/* Header */}
+                {/* Header */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-center mb-12"
+                >
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-center mb-12"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5, delay: 0.1 }}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6 backdrop-blur-sm"
                     >
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.5, delay: 0.1 }}
-                            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6 backdrop-blur-sm"
-                        >
-                            <Sparkles className="w-4 h-4" />
-                            <span>AI Stack Finder</span>
-                        </motion.div>
-
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
-                            Find Your{" "}
-                            <span className="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
-                                Vibe Stack
-                            </span>
-                        </h1>
-                        
-                        {!isFinished && (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                className="flex items-center justify-center gap-2"
-                            >
-                                <div className="flex gap-1">
-                                    {STEPS.map((_, idx) => (
-                                        <div
-                                            key={idx}
-                                            className={`h-1.5 rounded-full transition-all duration-300 ${
-                                                idx <= stepIndex 
-                                                    ? "w-8 bg-indigo-500" 
-                                                    : "w-2 bg-muted"
-                                            }`}
-                                        />
-                                    ))}
-                                </div>
-                                <span className="text-sm text-muted-foreground ml-2">
-                                    Step {stepIndex + 1} of {STEPS.length}
-                                </span>
-                            </motion.div>
-                        )}
+                        <Sparkles className="w-4 h-4" />
+                        <span>AI Stack Finder</span>
                     </motion.div>
 
-                    <AnimatePresence mode="wait">
-                        {!isFinished ? (
-                            <motion.div
-                                key="question"
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -20 }}
-                                transition={{ duration: 0.4 }}
-                                className="w-full max-w-3xl mx-auto"
-                            >
-                                {/* Question Card */}
-                                <div className="bg-card/50 backdrop-blur-sm rounded-3xl border border-border/50 p-8 md:p-12 shadow-xl">
-                                    <div className="text-center mb-8">
-                                        <h2 className="text-2xl md:text-3xl font-bold mb-2">
-                                            {currentStep.question}
-                                        </h2>
-                                        <p className="text-muted-foreground">
-                                            {currentStep.description}
-                                        </p>
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
+                        Find Your{" "}
+                        <span className="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
+                            Vibe Stack
+                        </span>
+                    </h1>
+
+                    {!isFinished && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="flex items-center justify-center gap-2"
+                        >
+                            <div className="flex gap-1">
+                                {STEPS.map((_, idx) => (
+                                    <div
+                                        key={idx}
+                                        className={`h-1.5 rounded-full transition-all duration-300 ${idx <= stepIndex
+                                            ? "w-8 bg-indigo-500"
+                                            : "w-2 bg-muted"
+                                            }`}
+                                    />
+                                ))}
+                            </div>
+                            <span className="text-sm text-muted-foreground ml-2">
+                                Step {stepIndex + 1} of {STEPS.length}
+                            </span>
+                        </motion.div>
+                    )}
+                </motion.div>
+
+                <AnimatePresence mode="wait">
+                    {!isFinished ? (
+                        <motion.div
+                            key="question"
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -20 }}
+                            transition={{ duration: 0.4 }}
+                            className="w-full max-w-3xl mx-auto"
+                        >
+                            {/* Question Card */}
+                            <div className="bg-card/50 backdrop-blur-sm rounded-3xl border border-border/50 p-8 md:p-12 shadow-xl">
+                                <div className="text-center mb-8">
+                                    <h2 className="text-2xl md:text-3xl font-bold mb-2">
+                                        {currentStep.question}
+                                    </h2>
+                                    <p className="text-muted-foreground">
+                                        {currentStep.description}
+                                    </p>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {currentStep.options.map((option, index) => {
+                                        const Icon = option.icon;
+                                        return (
+                                            <motion.button
+                                                key={option.id}
+                                                initial={{ opacity: 0, y: 20 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                transition={{ duration: 0.4, delay: index * 0.1 }}
+                                                onClick={() => handleOptionClick(option.id)}
+                                                disabled={isAnimating}
+                                                className="group relative flex flex-col items-center text-center p-8 rounded-2xl border border-border/50 bg-background/50 hover:bg-accent/50 hover:border-indigo-500/50 transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-indigo-500/5"
+                                            >
+                                                <div className={`p-4 rounded-2xl bg-linear-to-br ${option.color} mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                                                    <Icon className="h-8 w-8 text-white" />
+                                                </div>
+                                                <h3 className="text-xl font-semibold mb-2 text-foreground">{option.label}</h3>
+                                                <p className="text-sm text-muted-foreground">{option.description}</p>
+
+                                                <div className="absolute inset-0 rounded-2xl bg-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                            </motion.button>
+                                        );
+                                    })}
+                                </div>
+
+                                {stepIndex > 0 && (
+                                    <div className="mt-8 flex justify-center">
+                                        <Button
+                                            variant="ghost"
+                                            onClick={handleBack}
+                                            className="text-muted-foreground hover:text-foreground rounded-full"
+                                        >
+                                            <ArrowLeft className="mr-2 h-4 w-4" /> Back
+                                        </Button>
+                                    </div>
+                                )}
+                            </div>
+                        </motion.div>
+                    ) : (
+                        <motion.div
+                            key="results"
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.6, type: "spring" }}
+                            className="w-full"
+                        >
+                            {/* Stack Reveal Card */}
+                            <div className="bg-linear-to-b from-indigo-500/10 via-purple-500/5 to-pink-500/5 border border-indigo-500/20 rounded-3xl p-8 md:p-12 mb-8 shadow-2xl shadow-indigo-500/10 relative overflow-hidden">
+                                {/* Decorative Background */}
+                                <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/10 blur-[120px] rounded-full" />
+                                <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/10 blur-[100px] rounded-full" />
+
+                                <div className="relative z-10">
+                                    {/* Header */}
+                                    <div className="flex items-center justify-center gap-2 mb-6">
+                                        <div className="p-2 rounded-full bg-indigo-500/20">
+                                            <CheckCircle2 className="h-6 w-6 text-indigo-400" />
+                                        </div>
+                                        <span className="font-medium tracking-wide uppercase text-sm text-indigo-400">
+                                            Recommended Stack
+                                        </span>
                                     </div>
 
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        {currentStep.options.map((option, index) => {
-                                            const Icon = option.icon;
+                                    {/* Stack Name */}
+                                    <motion.h2
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.2 }}
+                                        className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-center bg-linear-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent"
+                                    >
+                                        {stack!.name}
+                                    </motion.h2>
+
+                                    <motion.p
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.3 }}
+                                        className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto text-center"
+                                    >
+                                        {stack!.description}
+                                    </motion.p>
+
+                                    {/* Price Badge */}
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ delay: 0.4 }}
+                                        className="flex justify-center mb-12"
+                                    >
+                                        <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                                            <DollarSign className="h-5 w-5" />
+                                            <span className="font-bold text-lg">{stack!.totalPrice}</span>
+                                        </div>
+                                    </motion.div>
+
+                                    {/* Tools Grid */}
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                                        {stack!.tools.map((slug, index) => {
+                                            const tool = getToolDetails(slug);
+                                            if (!tool) return null;
                                             return (
-                                                <motion.button
-                                                    key={option.id}
+                                                <motion.div
+                                                    key={tool.slug}
                                                     initial={{ opacity: 0, y: 20 }}
                                                     animate={{ opacity: 1, y: 0 }}
-                                                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                                                    onClick={() => handleOptionClick(option.id)}
-                                                    disabled={isAnimating}
-                                                    className="group relative flex flex-col items-center text-center p-8 rounded-2xl border border-border/50 bg-background/50 hover:bg-accent/50 hover:border-indigo-500/50 transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-indigo-500/5"
+                                                    transition={{ delay: 0.5 + index * 0.1 }}
                                                 >
-                                                    <div className={`p-4 rounded-2xl bg-linear-to-br ${option.color} mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                                                        <Icon className="h-8 w-8 text-white" />
-                                                    </div>
-                                                    <h3 className="text-xl font-semibold mb-2 text-foreground">{option.label}</h3>
-                                                    <p className="text-sm text-muted-foreground">{option.description}</p>
-                                                    
-                                                    <div className="absolute inset-0 rounded-2xl bg-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                                </motion.button>
+                                                    <Link href={`/tool/${tool.slug}`} className="group block h-full">
+                                                        <div className="h-full flex flex-col p-6 rounded-2xl border border-border/50 bg-background/80 hover:bg-accent/50 hover:border-indigo-500/50 transition-all duration-300 shadow-sm hover:shadow-lg">
+                                                            <div className="flex items-start justify-between mb-4">
+                                                                <div className={cn("p-3 rounded-xl bg-linear-to-br", tool.bgGradient)}>
+                                                                    <tool.icon className={cn("h-6 w-6", tool.color)} />
+                                                                </div>
+                                                                <ArrowRight className="h-5 w-5 text-muted-foreground/30 group-hover:text-indigo-500 transition-colors" />
+                                                            </div>
+                                                            <h3 className="text-lg font-bold mb-1">{tool.title}</h3>
+                                                            <p className="text-xs text-muted-foreground uppercase tracking-wider mb-3">{tool.category}</p>
+                                                            <p className="text-sm text-muted-foreground line-clamp-2 flex-grow">
+                                                                {tool.description}
+                                                            </p>
+                                                            <Badge variant="secondary" className="mt-4 w-fit">
+                                                                {tool.pricing}
+                                                            </Badge>
+                                                        </div>
+                                                    </Link>
+                                                </motion.div>
                                             );
                                         })}
                                     </div>
 
-                                    {stepIndex > 0 && (
-                                        <div className="mt-8 flex justify-center">
-                                            <Button 
-                                                variant="ghost" 
-                                                onClick={handleBack} 
-                                                className="text-muted-foreground hover:text-foreground rounded-full"
-                                            >
-                                                <ArrowLeft className="mr-2 h-4 w-4" /> Back
+                                    {/* Alternative Stacks */}
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ delay: 0.8 }}
+                                        className="border-t border-border/50 pt-8"
+                                    >
+                                        <p className="text-sm text-muted-foreground text-center mb-4">
+                                            Not quite right? Try these alternatives:
+                                        </p>
+                                        <div className="flex flex-wrap justify-center gap-3">
+                                            <Button variant="outline" className="rounded-full">
+                                                <Target className="h-4 w-4 mr-2" />
+                                                More UI Tools
                                             </Button>
+                                            <Button variant="outline" className="rounded-full">
+                                                <TrendingUp className="h-4 w-4 mr-2" />
+                                                Free Alternatives
+                                            </Button>
+                                            <Link href="/tools">
+                                                <Button variant="outline" className="rounded-full">
+                                                    Browse All
+                                                </Button>
+                                            </Link>
                                         </div>
-                                    )}
+                                    </motion.div>
                                 </div>
-                            </motion.div>
-                        ) : (
+                            </div>
+
+                            {/* Action Buttons */}
                             <motion.div
-                                key="results"
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.6, type: "spring" }}
-                                className="w-full"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.9 }}
+                                className="flex flex-col sm:flex-row justify-center gap-4"
                             >
-                                {/* Stack Reveal Card */}
-                                <div className="bg-linear-to-b from-indigo-500/10 via-purple-500/5 to-pink-500/5 border border-indigo-500/20 rounded-3xl p-8 md:p-12 mb-8 shadow-2xl shadow-indigo-500/10 relative overflow-hidden">
-                                    {/* Decorative Background */}
-                                    <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/10 blur-[120px] rounded-full" />
-                                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/10 blur-[100px] rounded-full" />
-                                    
-                                    <div className="relative z-10">
-                                        {/* Header */}
-                                        <div className="flex items-center justify-center gap-2 mb-6">
-                                            <div className="p-2 rounded-full bg-indigo-500/20">
-                                                <CheckCircle2 className="h-6 w-6 text-indigo-400" />
-                                            </div>
-                                            <span className="font-medium tracking-wide uppercase text-sm text-indigo-400">
-                                                Recommended Stack
-                                            </span>
-                                        </div>
-
-                                        {/* Stack Name */}
-                                        <motion.h2 
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: 0.2 }}
-                                            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-center bg-linear-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent"
-                                        >
-                                            {stack!.name}
-                                        </motion.h2>
-                                        
-                                        <motion.p 
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: 0.3 }}
-                                            className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto text-center"
-                                        >
-                                            {stack!.description}
-                                        </motion.p>
-
-                                        {/* Price Badge */}
-                                        <motion.div 
-                                            initial={{ opacity: 0, scale: 0.9 }}
-                                            animate={{ opacity: 1, scale: 1 }}
-                                            transition={{ delay: 0.4 }}
-                                            className="flex justify-center mb-12"
-                                        >
-                                            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-                                                <DollarSign className="h-5 w-5" />
-                                                <span className="font-bold text-lg">{stack!.totalPrice}</span>
-                                            </div>
-                                        </motion.div>
-
-                                        {/* Tools Grid */}
-                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                                            {stack!.tools.map((slug, index) => {
-                                                const tool = getToolDetails(slug);
-                                                if (!tool) return null;
-                                                return (
-                                                    <motion.div
-                                                        key={tool.slug}
-                                                        initial={{ opacity: 0, y: 20 }}
-                                                        animate={{ opacity: 1, y: 0 }}
-                                                        transition={{ delay: 0.5 + index * 0.1 }}
-                                                    >
-                                                        <Link href={`/tool/${tool.slug}`} className="group block h-full">
-                                                            <div className="h-full flex flex-col p-6 rounded-2xl border border-border/50 bg-background/80 hover:bg-accent/50 hover:border-indigo-500/50 transition-all duration-300 shadow-sm hover:shadow-lg">
-                                                                <div className="flex items-start justify-between mb-4">
-                                                                    <div className={cn("p-3 rounded-xl bg-linear-to-br", tool.bgGradient)}>
-                                                                        <tool.icon className={cn("h-6 w-6", tool.color)} />
-                                                                    </div>
-                                                                    <ArrowRight className="h-5 w-5 text-muted-foreground/30 group-hover:text-indigo-500 transition-colors" />
-                                                                </div>
-                                                                <h3 className="text-lg font-bold mb-1">{tool.title}</h3>
-                                                                <p className="text-xs text-muted-foreground uppercase tracking-wider mb-3">{tool.category}</p>
-                                                                <p className="text-sm text-muted-foreground line-clamp-2 flex-grow">
-                                                                    {tool.description}
-                                                                </p>
-                                                                <Badge variant="secondary" className="mt-4 w-fit">
-                                                                    {tool.pricing}
-                                                                </Badge>
-                                                            </div>
-                                                        </Link>
-                                                    </motion.div>
-                                                );
-                                            })}
-                                        </div>
-
-                                        {/* Alternative Stacks */}
-                                        <motion.div
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            transition={{ delay: 0.8 }}
-                                            className="border-t border-border/50 pt-8"
-                                        >
-                                            <p className="text-sm text-muted-foreground text-center mb-4">
-                                                Not quite right? Try these alternatives:
-                                            </p>
-                                            <div className="flex flex-wrap justify-center gap-3">
-                                                <Button variant="outline" className="rounded-full">
-                                                    <Target className="h-4 w-4 mr-2" />
-                                                    More UI Tools
-                                                </Button>
-                                                <Button variant="outline" className="rounded-full">
-                                                    <TrendingUp className="h-4 w-4 mr-2" />
-                                                    Free Alternatives
-                                                </Button>
-                                                <Link href="/tools">
-                                                    <Button variant="outline" className="rounded-full">
-                                                        Browse All
-                                                    </Button>
-                                                </Link>
-                                            </div>
-                                        </motion.div>
-                                    </div>
-                                </div>
-
-                                {/* Action Buttons */}
-                                <motion.div 
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.9 }}
-                                    className="flex flex-col sm:flex-row justify-center gap-4"
+                                <Button
+                                    variant="outline"
+                                    onClick={handleRestart}
+                                    className="rounded-full h-12 px-6"
                                 >
-                                    <Button
-                                        variant="outline"
-                                        onClick={handleRestart}
-                                        className="rounded-full h-12 px-6"
-                                    >
-                                        <RotateCcw className="mr-2 h-4 w-4" /> Start Over
+                                    <RotateCcw className="mr-2 h-4 w-4" /> Start Over
+                                </Button>
+                                <Button
+                                    variant="outline"
+                                    onClick={() => {
+                                        if (stack) {
+                                            navigator.clipboard.writeText(`Check out my recommended stack: ${stack.name} - ${window.location.href}`);
+                                            alert("Stack link copied to clipboard!");
+                                        }
+                                    }}
+                                    className="rounded-full h-12 px-6"
+                                >
+                                    <Share2 className="mr-2 h-4 w-4" /> Share Stack
+                                </Button>
+                                <Link href="/tools">
+                                    <Button className="rounded-full h-12 px-8 shadow-lg shadow-indigo-500/20">
+                                        Browse All Tools <ArrowRight className="ml-2 h-4 w-4" />
                                     </Button>
-                                    <Button
-                                        variant="outline"
-                                        onClick={() => {
-                                            if (stack) {
-                                                navigator.clipboard.writeText(`Check out my recommended stack: ${stack.name} - ${window.location.href}`);
-                                                alert("Stack link copied to clipboard!");
-                                            }
-                                        }}
-                                        className="rounded-full h-12 px-6"
-                                    >
-                                        <Share2 className="mr-2 h-4 w-4" /> Share Stack
-                                    </Button>
-                                    <Link href="/tools">
-                                        <Button className="rounded-full h-12 px-8 shadow-lg shadow-indigo-500/20">
-                                            Browse All Tools <ArrowRight className="ml-2 h-4 w-4" />
-                                        </Button>
-                                    </Link>
-                                </motion.div>
+                                </Link>
                             </motion.div>
-                        )}
-                    </AnimatePresence>
-                </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
         </PageBackground>
     );
 }

@@ -33,9 +33,8 @@ import { MobileNavDrawer } from "@/components/layout/MobileNavDrawer";
 
 const navItems = [
     { href: "/", label: "Home", icon: Sparkles },
-    { href: "/tools", label: "AI Tools", icon: Search },
     { href: "/build", label: "Find Stack", icon: Wand2 },
-    { href: "/consulting", label: "Advertise", icon: Zap },
+    { href: "/tools", label: "Tools", icon: Search },
     { href: "/blog", label: "Blog", icon: FileText },
 ];
 
@@ -65,6 +64,15 @@ export function Navbar() {
                         {/* Desktop Navigation */}
                         <nav className="hidden items-center gap-6 md:flex ml-8">
                             <Link
+                                id="nav-link-build"
+                                href="/build"
+                                aria-current={pathname === '/build' ? 'page' : undefined}
+                                className={`text-sm font-medium transition-colors hover:text-foreground ${pathname === '/build' ? 'text-foreground' : 'text-muted-foreground'
+                                    }`}
+                            >
+                                Find Stack
+                            </Link>
+                            <Link
                                 id="nav-link-tools"
                                 href="/tools"
                                 aria-current={pathname === '/tools' ? 'page' : undefined}
@@ -72,24 +80,6 @@ export function Navbar() {
                                     }`}
                             >
                                 Tools
-                            </Link>
-                            <Link
-                                id="nav-link-build"
-                                href="/build"
-                                aria-current={pathname === '/build' ? 'page' : undefined}
-                                className={`text-sm font-medium transition-colors hover:text-foreground ${pathname === '/build' ? 'text-foreground' : 'text-muted-foreground'
-                                    }`}
-                            >
-                                stack
-                            </Link>
-                            <Link
-                                id="nav-link-consulting"
-                                href="/consulting"
-                                aria-current={pathname === '/consulting' ? 'page' : undefined}
-                                className={`text-sm font-medium transition-colors hover:text-foreground ${pathname === '/consulting' ? 'text-foreground' : 'text-muted-foreground'
-                                    }`}
-                            >
-                                Advertise
                             </Link>
                             <Link
                                 id="nav-link-blog"
