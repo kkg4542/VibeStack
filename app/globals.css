@@ -151,3 +151,359 @@
 @utility mask-image-fade {
   mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
+
+/* ========================================
+   MICRO-INTERACTIONS
+   ======================================== */
+
+/* Smooth theme transition */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0ms;
+}
+
+.theme-transition * {
+  transition-duration: 300ms;
+}
+
+/* Button Hover Effects */
+.btn-hover-lift {
+  @apply transition-all duration-300 ease-out;
+}
+
+.btn-hover-lift:hover {
+  @apply -translate-y-0.5 shadow-lg;
+}
+
+.btn-hover-lift:active {
+  @apply translate-y-0 shadow-md;
+}
+
+/* Magnetic Button Base */
+.magnetic-btn {
+  @apply transition-transform duration-200 ease-out;
+}
+
+/* Card Hover Effects */
+.card-hover {
+  @apply transition-all duration-300 ease-out;
+}
+
+.card-hover:hover {
+  @apply -translate-y-1 shadow-xl;
+}
+
+.card-hover-lift {
+  @apply transition-all duration-300 ease-out border-border/50;
+}
+
+.card-hover-lift:hover {
+  @apply -translate-y-1.5 shadow-2xl border-indigo-500/30;
+}
+
+.card-hover-glow {
+  @apply transition-all duration-300 ease-out;
+}
+
+.card-hover-glow:hover {
+  @apply shadow-lg shadow-indigo-500/10 border-indigo-500/20;
+}
+
+/* Link Hover Effects */
+.link-hover {
+  @apply relative transition-colors duration-200;
+}
+
+.link-hover::after {
+  content: '';
+  @apply absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-300;
+}
+
+.link-hover:hover::after {
+  @apply w-full;
+}
+
+/* Scale on Hover */
+.scale-hover {
+  @apply transition-transform duration-200 ease-out;
+}
+
+.scale-hover:hover {
+  @apply scale-105;
+}
+
+.scale-hover-sm {
+  @apply transition-transform duration-200 ease-out;
+}
+
+.scale-hover-sm:hover {
+  @apply scale-[1.02];
+}
+
+/* Icon Animations */
+.icon-spin {
+  @apply transition-transform duration-500;
+}
+
+.icon-spin:hover {
+  @apply rotate-180;
+}
+
+.icon-bounce {
+  @apply transition-transform duration-300;
+}
+
+.icon-bounce:hover {
+  animation: bounce 0.6s ease infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.icon-pulse {
+  @apply transition-transform duration-200;
+}
+
+.icon-pulse:hover {
+  animation: pulse 1s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Page Transition */
+.page-transition-enter {
+  @apply opacity-0 translate-y-4;
+}
+
+.page-transition-enter-active {
+  @apply opacity-100 translate-y-0 transition-all duration-500 ease-out;
+}
+
+.page-transition-exit {
+  @apply opacity-100 translate-y-0;
+}
+
+.page-transition-exit-active {
+  @apply opacity-0 translate-y-4 transition-all duration-300 ease-in;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Stagger Children */
+.stagger-children > * {
+  @apply opacity-0;
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+.stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
+
+/* Focus Animations */
+.focus-ring {
+  @apply transition-shadow duration-200;
+}
+
+.focus-ring:focus {
+  @apply ring-2 ring-primary ring-offset-2 ring-offset-background;
+}
+
+/* Glow Effects */
+.glow-hover {
+  @apply transition-all duration-300;
+}
+
+.glow-hover:hover {
+  @apply shadow-lg;
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+}
+
+.glow-text {
+  @apply transition-all duration-300;
+}
+
+.glow-text:hover {
+  text-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+}
+
+/* Ripple Effect Base */
+.ripple {
+  @apply relative overflow-hidden;
+}
+
+.ripple::after {
+  content: '';
+  @apply absolute inset-0 bg-white/30 rounded-full scale-0 opacity-0;
+  transition: transform 0.5s, opacity 0.5s;
+}
+
+.ripple:active::after {
+  @apply scale-150 opacity-100;
+  transition: 0s;
+}
+
+/* Loading Shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Dark Mode Transition */
+.dark * {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Smooth Scroll Behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-border rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-muted-foreground/30;
+}
+
+/* Selection Animation */
+::selection {
+  @apply bg-indigo-500/30 text-indigo-200;
+}
+
+/* Toast/Notification Slide Animation */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.toast-enter {
+  animation: slideInRight 0.3s ease-out forwards;
+}
+
+.toast-exit {
+  animation: slideOutRight 0.3s ease-in forwards;
+}
+
+/* Skeleton Shimmer */
+@keyframes skeletonShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--muted)) 25%,
+    hsl(var(--muted-foreground) / 0.1) 50%,
+    hsl(var(--muted)) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s infinite;
+}
+
+/* Image Hover Zoom */
+.img-zoom {
+  @apply overflow-hidden;
+}
+
+.img-zoom img {
+  @apply transition-transform duration-500 ease-out;
+}
+
+.img-zoom:hover img {
+  @apply scale-110;
+}
+
+/* Border Gradient Animation */
+@keyframes borderRotate {
+  0% { --angle: 0deg; }
+  100% { --angle: 360deg; }
+}
+
+.border-gradient {
+  --angle: 0deg;
+  border: 2px solid;
+  border-image: linear-gradient(var(--angle), #6366f1, #a855f7, #ec4899) 1;
+  animation: borderRotate 3s linear infinite;
+}
+
+/* Text Gradient Animation */
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.text-gradient-animate {
+  background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899, #6366f1);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 3s ease infinite;
+}
