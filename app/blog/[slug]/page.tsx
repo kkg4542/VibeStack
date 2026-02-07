@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { ReadingProgress } from "@/components/blog/ReadingProgress";
+import DOMPurify from "isomorphic-dompurify";
 
 interface Props {
     params: { slug: string };

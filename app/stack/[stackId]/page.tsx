@@ -19,6 +19,7 @@ export default function StackDetailPage({ params }: { params: Promise<{ stackId:
     const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setMounted(true);
         const favorites = JSON.parse(localStorage.getItem("vibestack-favorites") || "[]");
 
@@ -66,7 +67,7 @@ export default function StackDetailPage({ params }: { params: Promise<{ stackId:
             <div className="absolute top-0 left-1/2 -translate-x-1/2 z-0 h-[60vh] w-full max-w-[1400px] bg-indigo-500/10 dark:bg-indigo-500/20 blur-[140px]" />
             <div className="absolute top-[20%] left-[10%] z-0 h-[30vh] w-[30vh] bg-purple-500/10 blur-[100px] rounded-full" />
             <div className="absolute top-[40%] right-[10%] z-0 h-[30vh] w-[30vh] bg-pink-500/10 blur-[100px] rounded-full" />
-            
+
             {/* Background Grid */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-size-[40px_40px] mask-[radial-gradient(ellipse_80%_80%_at_50%_0%,#000_70%,transparent_100%)]" />
 
@@ -98,7 +99,7 @@ export default function StackDetailPage({ params }: { params: Promise<{ stackId:
                             {/* Decorative Elements */}
                             <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 blur-[100px] rounded-full" />
                             <div className="absolute bottom-0 left-0 w-48 h-48 bg-purple-500/10 blur-[80px] rounded-full" />
-                            
+
                             <div className="relative z-10">
                                 <div className="flex flex-col lg:flex-row gap-8 items-start justify-between">
                                     <div className="flex-1">
@@ -201,7 +202,7 @@ export default function StackDetailPage({ params }: { params: Promise<{ stackId:
                                                     {stack.totalPrice}
                                                 </div>
                                                 <p className="text-xs text-muted-foreground">
-                                                    Estimated monthly cost<br/>for all tools combined
+                                                    Estimated monthly cost<br />for all tools combined
                                                 </p>
                                             </CardContent>
                                         </Card>

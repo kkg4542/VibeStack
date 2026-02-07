@@ -12,7 +12,7 @@ import { useState } from "react";
 
 export default function ToolsPage() {
     const [searchQuery, setSearchQuery] = useState("");
-    
+
     // Calculate stats
     const categoriesCount = new Set(tools.map(t => t.category)).size;
     const freeToolsCount = tools.filter(t => t.pricing === "Free" || t.pricing === "Freemium").length;
@@ -23,7 +23,7 @@ export default function ToolsPage() {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 z-0 h-[50vh] w-full max-w-[1400px] bg-indigo-500/10 dark:bg-indigo-500/20 blur-[140px]" />
             <div className="absolute top-[30%] left-[10%] z-0 h-[30vh] w-[30vh] bg-purple-500/10 blur-[100px] rounded-full" />
             <div className="absolute top-[50%] right-[10%] z-0 h-[30vh] w-[30vh] bg-blue-500/10 blur-[100px] rounded-full" />
-            
+
             {/* Background Grid Pattern */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-size-[40px_40px] mask-[radial-gradient(ellipse_80%_80%_at_50%_0%,#000_70%,transparent_100%)]" />
 
@@ -55,7 +55,7 @@ export default function ToolsPage() {
                             <br />
                             for Every Task
                         </h1>
-                        
+
                         <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed">
                             From coding assistants to design tools, explore our comprehensive database of AI-powered solutions curated for developers and creators.
                         </p>
@@ -114,7 +114,7 @@ export default function ToolsPage() {
                                 />
                             </div>
                             <p className="text-xs text-muted-foreground mt-3">
-                                💡 Try searching "coding", "free", or "design"
+                                💡 Try searching &quot;coding&quot;, &quot;free&quot;, or &quot;design&quot;
                             </p>
                         </motion.div>
                     </motion.div>

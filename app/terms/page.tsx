@@ -18,7 +18,7 @@ export default function TermsPage() {
 
                 <h2>3. Paid Services (Featured Listings)</h2>
                 <p>
-                    We offer a "Featured Listing" service for a one-time fee of $49.
+                    We offer a &quot;Featured Listing&quot; service for a one-time fee of $49.
                 </p>
                 <ul>
                     <li><strong>Process:</strong> Upon payment, your tool submission is expedited for review within 24 hours.</li>

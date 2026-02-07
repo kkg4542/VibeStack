@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Star } from "lucide-react";
 // import { getReviews, Review } from "@/lib/reviews-store"; // Removed local store
@@ -20,7 +20,7 @@ export function ReviewList({ toolSlug }: { toolSlug: string }) {
     const [reviews, setReviews] = useState<Review[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    const loadReviews = async () => {
+    const loadReviews = useCallback(async () => {
         try {
             const res = await fetch(`/api/reviews?slug=${toolSlug}`);
             if (res.ok) {
@@ -32,7 +32,7 @@ export function ReviewList({ toolSlug }: { toolSlug: string }) {
         } finally {
             setIsLoading(false);
         }
-    };
+    }, [toolSlug]);
 
     useEffect(() => {
         loadReviews();
@@ -40,7 +40,7 @@ export function ReviewList({ toolSlug }: { toolSlug: string }) {
         // Listen for updates from form
         window.addEventListener("review-submitted", loadReviews);
         return () => window.removeEventListener("review-submitted", loadReviews);
-    }, [toolSlug]);
+    }, [loadReviews]);
 
     if (isLoading) {
         return <div className="text-center py-8 text-muted-foreground">Loading reviews...</div>;

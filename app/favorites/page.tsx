@@ -32,15 +32,9 @@ export default function FavoritesPage() {
     const [sortBy, setSortBy] = useState<SortOption>('newest');
     const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
-    // Load favorites
-    useEffect(() => {
-        setMounted(true);
-        loadFavorites();
-    }, [session]);
-
     const loadFavorites = async () => {
         setIsLoading(true);
-        
+
         if (session?.user?.id) {
             try {
                 const response = await fetch('/api/favorites');
@@ -62,9 +56,16 @@ export default function FavoritesPage() {
                 setFavorites(JSON.parse(saved));
             }
         }
-        
+
         setIsLoading(false);
     };
+
+    // Load favorites
+    useEffect(() => {
+        setMounted(true);
+        loadFavorites();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [session]);
 
     // Get unique categories from favorite tools
     const categories = useMemo(() => {
@@ -123,7 +124,7 @@ export default function FavoritesPage() {
                 case 'oldest':
                     return a.addedAt - b.addedAt;
                 case 'name':
-                    const nameA = a.type === 'tool' 
+                    const nameA = a.type === 'tool'
                         ? tools.find(t => t.slug === a.id)?.title || ''
                         : stacks.find(s => s.id === a.id)?.name || '';
                     const nameB = b.type === 'tool'
@@ -150,7 +151,7 @@ export default function FavoritesPage() {
                 console.error('Failed to remove favorite:', error);
             }
         }
-        
+
         const updated = favorites.filter(f => f.id !== id);
         setFavorites(updated);
         localStorage.setItem("vibestack-favorites", JSON.stringify(updated));
@@ -194,7 +195,7 @@ export default function FavoritesPage() {
             {/* Background Effects */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 z-0 h-[50vh] w-full max-w-[1400px] bg-indigo-500/10 dark:bg-indigo-500/20 blur-[140px]" />
             <div className="absolute top-[30%] left-[10%] z-0 h-[25vh] w-[25vh] bg-pink-500/10 blur-[100px] rounded-full" />
-            
+
             {/* Background Grid */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-size-[40px_40px] mask-[radial-gradient(ellipse_80%_80%_at_50%_0%,#000_70%,transparent_100%)]" />
 
@@ -318,7 +319,7 @@ export default function FavoritesPage() {
                             <h2 className="text-2xl font-semibold mb-3">No favorites yet</h2>
                             <p className="text-muted-foreground mb-6 max-w-md mx-auto">
                                 Start saving your favorite tools and stacks to easily access them later.
-                                {session?.user 
+                                {session?.user
                                     ? " Your favorites will be synced across all your devices."
                                     : " Sign in to sync your favorites across devices."
                                 }
@@ -348,8 +349,8 @@ export default function FavoritesPage() {
                                         <Sparkles className="w-5 h-5 text-indigo-500" />
                                         <h2 className="text-xl font-semibold">Tools ({favoriteTools.length})</h2>
                                     </div>
-                                    
-                                    <div className={viewMode === 'grid' 
+
+                                    <div className={viewMode === 'grid'
                                         ? "grid md:grid-cols-2 lg:grid-cols-3 gap-4"
                                         : "space-y-3"
                                     }>
@@ -364,9 +365,8 @@ export default function FavoritesPage() {
                                                     animate={{ opacity: 1, y: 0 }}
                                                     transition={{ duration: 0.3, delay: index * 0.05 }}
                                                 >
-                                                    <Card className={`group border-border/50 hover:border-indigo-500/50 hover:bg-accent/50 transition-all duration-300 ${
-                                                        viewMode === 'list' ? 'flex items-center p-4' : ''
-                                                    }`}>
+                                                    <Card className={`group border-border/50 hover:border-indigo-500/50 hover:bg-accent/50 transition-all duration-300 ${viewMode === 'list' ? 'flex items-center p-4' : ''
+                                                        }`}>
                                                         <CardContent className={viewMode === 'list' ? 'p-0 flex-1' : 'p-4'}>
                                                             <div className={`flex items-start gap-3 ${viewMode === 'list' ? '' : 'mb-3'}`}>
                                                                 <Link href={`/tool/${tool.slug}`} className="flex items-center gap-3 flex-1">
@@ -414,7 +414,7 @@ export default function FavoritesPage() {
                                         <Sparkles className="w-5 h-5 text-violet-500" />
                                         <h2 className="text-xl font-semibold">Stacks ({favoriteStacks.length})</h2>
                                     </div>
-                                    
+
                                     <div className="grid md:grid-cols-2 gap-4">
                                         {favoriteStacks.map((item, index) => {
                                             const stack = stacks.find(s => s.id === item.id);

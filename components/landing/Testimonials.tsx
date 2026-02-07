@@ -66,11 +66,11 @@ export function Testimonials() {
                                         <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                                     ))}
                                 </div>
-                                
+
                                 <p className="text-foreground mb-6 leading-relaxed">
-                                    "{testimonial.content}"
+                                    &quot;{testimonial.content}&quot;
                                 </p>
-                                
+
                                 <div className="flex items-center gap-3">
                                     <Avatar className="h-10 w-10">
                                         <AvatarFallback className="bg-primary/10 text-primary font-semibold">

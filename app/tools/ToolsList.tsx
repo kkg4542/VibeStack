@@ -136,10 +136,10 @@ export function ToolsList({ searchQuery = "" }: ToolsListProps) {
 
     // Filter & Sort Logic
     const filteredTools = useMemo(() => {
-        let result = tools.filter(t => {
+        const result = tools.filter(t => {
             const matchCategory = category === "All" || t.category === category;
             const matchPricing = pricing === "All" || t.pricing === pricing;
-            const matchSearch = !searchQuery || 
+            const matchSearch = !searchQuery ||
                 t.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 t.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 t.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -159,7 +159,12 @@ export function ToolsList({ searchQuery = "" }: ToolsListProps) {
 
     const featuredTool = useMemo(() => {
         const featured = tools.filter(t => t.isFeatured);
-        return featured[Math.floor(Math.random() * featured.length)];
+        // Use deterministic selection based on date or similar to avoid hydration mismatch
+        // For now, just pick the first one or use a consistent seed if possible.
+        // Or better, move this to a client component that mounts, OR just use the first one.
+        // Randomness in SSR/SSG causes hydration mismatch.
+        // Let's use the day of year to rotate it? Or just index 0.
+        return featured.length > 0 ? featured[0] : null;
     }, []);
 
     return (

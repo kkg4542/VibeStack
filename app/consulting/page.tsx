@@ -110,7 +110,7 @@ export default function ConsultingPage() {
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
                                     <Check className="mr-3 h-4 w-4 text-indigo-500" />
-                                    "Featured" Badge
+                                    &quot;Featured&quot; Badge
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
                                     <Check className="mr-3 h-4 w-4 text-indigo-500" />
@@ -284,7 +284,7 @@ export default function ConsultingPage() {
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
                                     <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
-                                    <span>"Featured" badge on listing</span>
+                                    <span>&quot;Featured&quot; badge on listing</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
                                     <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
@@ -398,7 +398,7 @@ export default function ConsultingPage() {
                                 ))}
                             </div>
                             <p className="text-sm text-foreground/90 mb-4">
-                                "VibeStack drove 500+ quality signups in our first month. The developer audience is exactly who we needed to reach."
+                                &quot;VibeStack drove 500+ quality signups in our first month. The developer audience is exactly who we needed to reach.&quot;
                             </p>
                             <div className="flex items-center gap-3">
                                 <div className="h-10 w-10 rounded-full bg-indigo-500/20" />
@@ -422,7 +422,7 @@ export default function ConsultingPage() {
                                 ))}
                             </div>
                             <p className="text-sm text-foreground/90 mb-4">
-                                "Best ROI we've seen from any developer marketing channel. The team is responsive and the analytics are detailed."
+                                &quot;Best ROI we&apos;ve seen from any developer marketing channel. The team is responsive and the analytics are detailed.&quot;
                             </p>
                             <div className="flex items-center gap-3">
                                 <div className="h-10 w-10 rounded-full bg-purple-500/20" />
@@ -446,7 +446,7 @@ export default function ConsultingPage() {
                                 ))}
                             </div>
                             <p className="text-sm text-foreground/90 mb-4">
-                                "The newsletter sponsorship was a game-changer. High-quality clicks and actual conversions, not just vanity metrics."
+                                &quot;The newsletter sponsorship was a game-changer. High-quality clicks and actual conversions, not just vanity metrics.&quot;
                             </p>
                             <div className="flex items-center gap-3">
                                 <div className="h-10 w-10 rounded-full bg-pink-500/20" />
@@ -473,7 +473,7 @@ export default function ConsultingPage() {
                             <Mail className="w-16 h-16 mx-auto mb-6 text-indigo-400" />
                             <h2 className="text-3xl sm:text-4xl font-bold mb-4">Ready to Get Started?</h2>
                             <p className="text-lg text-muted-foreground mb-8">
-                                Let's discuss how we can help you reach thousands of developers actively searching for tools like yours.
+                                Let&apos;s discuss how we can help you reach thousands of developers actively searching for tools like yours.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                 <Link href="mailto:hello@usevibestack.com?subject=Partnership%20Inquiry">

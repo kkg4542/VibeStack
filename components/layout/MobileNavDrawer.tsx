@@ -7,9 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { 
-    X, 
-    Search, 
+import {
+    X,
+    Search,
     History,
     TrendingUp,
     Sparkles,
@@ -56,6 +56,7 @@ export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
     useEffect(() => {
         const recent = localStorage.getItem('vibestack-recent-tools');
         if (recent) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setRecentTools(JSON.parse(recent).slice(0, 4));
         }
     }, []);
@@ -67,10 +68,10 @@ export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
 
     const handleTouchMove = (e: React.TouchEvent) => {
         if (touchStart === null) return;
-        
+
         const touchEnd = e.touches[0].clientX;
         const diff = touchStart - touchEnd;
-        
+
         // Swipe left to close
         if (diff > 100) {
             onClose();
@@ -178,11 +179,10 @@ export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
                                                 href={link.href}
                                                 onClick={() => handleLinkClick(link.href)}
                                             >
-                                                <Card className={`border-0 transition-all duration-200 ${
-                                                    isActive 
-                                                        ? 'bg-indigo-500/10 border-indigo-500/30' 
-                                                        : 'bg-secondary/30 hover:bg-secondary/50'
-                                                }`}>
+                                                <Card className={`border-0 transition-all duration-200 ${isActive
+                                                    ? 'bg-indigo-500/10 border-indigo-500/30'
+                                                    : 'bg-secondary/30 hover:bg-secondary/50'
+                                                    }`}>
                                                     <CardContent className="p-3 flex items-center gap-3">
                                                         <div className={`p-2 rounded-lg bg-linear-to-br ${link.color}`}>
                                                             <Icon className="h-4 w-4 text-white" />
@@ -280,8 +280,8 @@ export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
                                             href={`/search?q=${encodeURIComponent(tag)}`}
                                             onClick={() => handleLinkClick(`/search?q=${encodeURIComponent(tag)}`)}
                                         >
-                                            <Badge 
-                                                variant="secondary" 
+                                            <Badge
+                                                variant="secondary"
                                                 className="cursor-pointer hover:bg-indigo-500/10 hover:text-indigo-400 transition-colors"
                                             >
                                                 {tag}

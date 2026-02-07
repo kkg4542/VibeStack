@@ -18,6 +18,7 @@ export default function SearchPage() {
     const [recentSearches, setRecentSearches] = useState<string[]>([]);
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setMounted(true);
         const saved = localStorage.getItem('vibestack-recent-searches');
         if (saved) {
@@ -94,8 +95,8 @@ export default function SearchPage() {
         if (!query.trim()) return text;
 
         const parts = text.split(new RegExp(`(${query})`, 'gi'));
-        return parts.map((part, i) => 
-            part.toLowerCase() === query.toLowerCase() 
+        return parts.map((part, i) =>
+            part.toLowerCase() === query.toLowerCase()
                 ? <mark key={i} className="bg-indigo-500/20 text-indigo-400 rounded px-1">{part}</mark>
                 : part
         );
@@ -120,7 +121,7 @@ export default function SearchPage() {
             {/* Background Effects */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 z-0 h-[50vh] w-full max-w-[1400px] bg-indigo-500/10 dark:bg-indigo-500/20 blur-[140px]" />
             <div className="absolute top-[30%] left-[10%] z-0 h-[25vh] w-[25vh] bg-purple-500/10 blur-[100px] rounded-full" />
-            
+
             {/* Background Grid */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-size-[40px_40px] mask-[radial-gradient(ellipse_80%_80%_at_50%_0%,#000_70%,transparent_100%)]" />
 
@@ -137,14 +138,14 @@ export default function SearchPage() {
                             <Sparkles className="w-4 h-4" />
                             <span>Smart Search</span>
                         </div>
-                        
+
                         <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
                             Find Your Perfect{" "}
                             <span className="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
                                 AI Tool
                             </span>
                         </h1>
-                        
+
                         <p className="text-muted-foreground text-lg mb-8">
                             Search across {tools.length}+ tools and stacks
                         </p>

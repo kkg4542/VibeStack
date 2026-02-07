@@ -107,27 +107,43 @@ export function MultiLayerParallax({
 
     return (
         <div ref={ref} className={`relative overflow-hidden ${className}`}>
-            {layers.map((layer, index) => {
-                const y = useTransform(
-                    scrollYProgress,
-                    [0, 1],
-                    [0, layer.speed * 200]
-                );
-
-                return (
-                    <motion.div
-                        key={index}
-                        className="absolute inset-0"
-                        style={{
-                            y,
-                            zIndex: layer.zIndex || index,
-                        }}
-                    >
-                        {layer.children}
-                    </motion.div>
-                );
-            })}
+            {layers.map((layer, index) => (
+                <ParallaxLayer
+                    key={index}
+                    layer={layer}
+                    index={index}
+                    progress={scrollYProgress}
+                />
+            ))}
         </div>
+    );
+}
+
+function ParallaxLayer({
+    layer,
+    index,
+    progress,
+}: {
+    layer: {
+        children: React.ReactNode;
+        speed: number;
+        zIndex?: number;
+    };
+    index: number;
+    progress: any;
+}) {
+    const y = useTransform(progress, [0, 1], [0, layer.speed * 200]);
+
+    return (
+        <motion.div
+            className="absolute inset-0"
+            style={{
+                y,
+                zIndex: layer.zIndex || index,
+            }}
+        >
+            {layer.children}
+        </motion.div>
     );
 }
 
@@ -150,28 +166,44 @@ export function ParallaxText({
     return (
         <div ref={ref} className={`overflow-hidden ${className}`}>
             <div className="flex flex-wrap">
-                {words.map((word, i) => {
-                    const start = i / words.length;
-                    const end = start + 1 / words.length;
-                    const y = useTransform(
-                        scrollYProgress,
-                        [start, end],
-                        ["100%", "0%"]
-                    );
-
-                    return (
-                        <span key={i} className="mr-2 overflow-hidden">
-                            <motion.span
-                                className="inline-block"
-                                style={{ y }}
-                            >
-                                {word}
-                            </motion.span>
-                        </span>
-                    );
-                })}
+                {words.map((word, i) => (
+                    <ParallaxWord
+                        key={i}
+                        word={word}
+                        index={i}
+                        total={words.length}
+                        progress={scrollYProgress}
+                        className="mr-2 overflow-hidden"
+                    />
+                ))}
             </div>
         </div>
+    );
+}
+
+function ParallaxWord({
+    word,
+    index,
+    total,
+    progress,
+    className,
+}: {
+    word: string;
+    index: number;
+    total: number;
+    progress: any; // Using explicit type for MotionValue is complex, any is fine here or MotionValue<number>
+    className: string;
+}) {
+    const start = index / total;
+    const end = start + 1 / total;
+    const y = useTransform(progress, [start, end], ["100%", "0%"]);
+
+    return (
+        <span className={className}>
+            <motion.span className="inline-block" style={{ y }}>
+                {word}
+            </motion.span>
+        </span>
     );
 }
 

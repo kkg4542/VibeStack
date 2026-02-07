@@ -146,6 +146,7 @@ export function ReadingProgress() {
             const text = content.textContent || "";
             const wordCount = text.split(/\s+/).length;
             const minutes = Math.ceil(wordCount / 200); // Average reading speed
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setReadingTime(minutes);
         }
     }, []);

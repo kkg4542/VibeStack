@@ -7,7 +7,7 @@
     "build": "prisma generate && npm run generate:rss && next build --webpack",
     "postbuild": "next-sitemap",
     "start": "next start",
-    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "lint": "eslint .",
     "test": "vitest",
     "test:e2e": "playwright test",
     "generate:rss": "tsx scripts/generate-rss.ts"
@@ -26,7 +26,9 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "cross-env": "^10.1.0",
+    "dompurify": "^3.3.1",
     "framer-motion": "^12.31.0",
+    "isomorphic-dompurify": "^2.35.0",
     "lucide-react": "^0.563.0",
     "next": "16.1.6",
     "next-auth": "^5.0.0-beta.30",
@@ -42,6 +44,8 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.3",
+    "@eslint/js": "^9.39.2",
     "@playwright/test": "^1.58.1",
     "@prisma/client": "^5.22.0",
     "@tailwindcss/postcss": "^4",

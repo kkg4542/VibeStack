@@ -15,6 +15,7 @@ export function CompareButton({ toolSlug, toolTitle }: CompareButtonProps) {
 
     useEffect(() => {
         const compareList = JSON.parse(localStorage.getItem("compareTools") || "[]");
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setIsAdded(compareList.includes(toolSlug));
     }, [toolSlug]);
 
