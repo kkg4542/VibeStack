@@ -106,7 +106,11 @@ function ToolCard({ tool }: { tool: Tool }) {
     );
 }
 
-export function ToolsList() {
+interface ToolsListProps {
+    searchQuery?: string;
+}
+
+export function ToolsList({ searchQuery = "" }: ToolsListProps) {
     const [category, setCategory] = useState<string>("All");
     const [pricing, setPricing] = useState<string>("All");
     const [sortBy, setSortBy] = useState<string>("default");
@@ -135,7 +139,12 @@ export function ToolsList() {
         let result = tools.filter(t => {
             const matchCategory = category === "All" || t.category === category;
             const matchPricing = pricing === "All" || t.pricing === pricing;
-            return matchCategory && matchPricing;
+            const matchSearch = !searchQuery || 
+                t.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                t.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                t.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                t.features?.some(f => f.toLowerCase().includes(searchQuery.toLowerCase()));
+            return matchCategory && matchPricing && matchSearch;
         });
 
         if (sortBy === "rating") {
@@ -146,7 +155,7 @@ export function ToolsList() {
         }
 
         return result;
-    }, [category, pricing, sortBy]);
+    }, [category, pricing, sortBy, searchQuery]);
 
     const featuredTool = useMemo(() => {
         const featured = tools.filter(t => t.isFeatured);

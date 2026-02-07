@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Code2, Paintbrush, Brain, Layout, ArrowLeft, CheckCircle2, DollarSign, GraduationCap, Zap } from "lucide-react";
+import { ArrowRight, Code2, Paintbrush, Brain, Layout, ArrowLeft, CheckCircle2, DollarSign, GraduationCap, Zap, Bookmark, Share2 } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { tools } from "@/lib/tools";
 import { cn } from "@/lib/utils";
@@ -242,13 +242,24 @@ export default function BuildPage() {
                                 </div>
                             </div>
 
-                            <div className="flex justify-center gap-4">
+                            <div className="flex flex-col sm:flex-row justify-center gap-4">
                                 <Button
                                     variant="outline"
                                     onClick={handleRestart}
                                     className="rounded-full h-12 px-6"
                                 >
                                     <ArrowLeft className="mr-2 h-4 w-4" /> Start Over
+                                </Button>
+                                <Button
+                                    variant="outline"
+                                    onClick={() => {
+                                        const stack = getRecommendedStack();
+                                        navigator.clipboard.writeText(`Check out my recommended stack: ${stack.name} - ${window.location.href}`);
+                                        alert("Stack link copied to clipboard!");
+                                    }}
+                                    className="rounded-full h-12 px-6"
+                                >
+                                    <Share2 className="mr-2 h-4 w-4" /> Share Stack
                                 </Button>
                                 <Link href="/tools">
                                     <Button className="rounded-full h-12 px-8 shadow-lg shadow-indigo-500/20">
