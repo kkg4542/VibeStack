@@ -9,6 +9,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
+import { ScrollProgress } from "@/components/effects/ScrollProgress";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -88,6 +89,7 @@ export default function RootLayout({
         </a>
         <ThemeProvider defaultTheme="dark" enableSystem>
           <SessionProvider>
+            <ScrollProgress />
             <Navbar />
             <main id="main-content">
               {children}
