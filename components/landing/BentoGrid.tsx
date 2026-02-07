@@ -1,13 +1,12 @@
 "use client";
 
-
 import Link from "next/link";
 import { useState } from "react";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tool, tools } from "@/lib/tools";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-
+import { m, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
 import { SponsorshipModal } from "@/components/monetization/SponsorshipModal";
 
 function BentoCard({ tool, index }: { tool: Tool, index: number }) {
@@ -38,7 +37,7 @@ function BentoCard({ tool, index }: { tool: Tool, index: number }) {
     };
 
     return (
-        <motion.div
+        <m.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -53,7 +52,7 @@ function BentoCard({ tool, index }: { tool: Tool, index: number }) {
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
             >
-                <motion.div
+                <m.div
                     style={{
                         rotateX,
                         rotateY,
@@ -66,7 +65,7 @@ function BentoCard({ tool, index }: { tool: Tool, index: number }) {
 
                         <CardHeader className="relative z-10 h-full flex flex-col pt-8" style={{ transformStyle: "preserve-3d" }}>
                             <div className="mb-4 flex items-center justify-between gap-4" style={{ transform: "translateZ(30px)", transformStyle: "preserve-3d" }}>
-                                <motion.div
+                                <m.div
                                     whileHover={{
                                         z: 50,
                                         scale: 1.2,
@@ -80,7 +79,7 @@ function BentoCard({ tool, index }: { tool: Tool, index: number }) {
                                     }}
                                 >
                                     <tool.icon className="h-6 w-6" />
-                                </motion.div>
+                                </m.div>
                                 <Badge variant="secondary" className="bg-secondary/50 text-[10px] uppercase tracking-wider font-semibold text-muted-foreground backdrop-blur-sm" style={{ transform: "translateZ(20px)" }}>
                                     {tool.category}
                                 </Badge>
@@ -93,9 +92,9 @@ function BentoCard({ tool, index }: { tool: Tool, index: number }) {
                             </CardDescription>
                         </CardHeader>
                     </Card>
-                </motion.div>
+                </m.div>
             </Link>
-        </motion.div>
+        </m.div>
     );
 }
 
@@ -113,61 +112,63 @@ export function BentoGrid() {
     const categories = ["All", "Coding", "Assistance", "Productivity", "Design", "Management"];
 
     return (
-        <section className="container mx-auto max-w-6xl px-4 py-24">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="mb-16 text-center"
-            >
-                <h2 className="mb-6 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-                    Essential Tools
-                </h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-                    Hand-picked AI tools that integrate seamlessly into your workflow.
-                </p>
-
-                {/* Category Filter (Issue 12) */}
-                <div className="flex flex-wrap justify-center gap-2">
-                    {categories.map((cat) => (
-                        <button
-                            key={cat}
-                            onClick={() => setCategory(cat)}
-                            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${category === cat
-                                ? "bg-primary text-primary-foreground shadow-md"
-                                : "bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground"
-                                }`}
-                        >
-                            {cat}
-                        </button>
-                    ))}
-                </div>
-            </motion.div>
-
-            <motion.div
-                layout
-                className="grid grid-cols-1 gap-6 md:grid-cols-3"
-            >
-                {featuredTools.map((tool, index) => (
-                    <BentoCard key={tool.slug} tool={tool} index={index} />
-                ))}
-            </motion.div>
-
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                className="mt-12 text-center"
-            >
-                <Link
-                    href="/tools"
-                    className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors font-medium"
+        <LazyMotionProvider>
+            <section className="container mx-auto max-w-6xl px-4 py-24">
+                <m.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
+                    className="mb-16 text-center"
                 >
-                    View all {tools.length}+ tools →
-                </Link>
-            </motion.div>
-        </section>
+                    <h2 className="mb-6 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+                        Essential Tools
+                    </h2>
+                    <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+                        Hand-picked AI tools that integrate seamlessly into your workflow.
+                    </p>
+
+                    {/* Category Filter (Issue 12) */}
+                    <div className="flex flex-wrap justify-center gap-2">
+                        {categories.map((cat) => (
+                            <button
+                                key={cat}
+                                onClick={() => setCategory(cat)}
+                                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${category === cat
+                                    ? "bg-primary text-primary-foreground shadow-md"
+                                    : "bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground"
+                                    }`}
+                            >
+                                {cat}
+                            </button>
+                        ))}
+                    </div>
+                </m.div>
+
+                <m.div
+                    layout
+                    className="grid grid-cols-1 gap-6 md:grid-cols-3"
+                >
+                    {featuredTools.map((tool, index) => (
+                        <BentoCard key={tool.slug} tool={tool} index={index} />
+                    ))}
+                </m.div>
+
+                <m.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                    className="mt-12 text-center"
+                >
+                    <Link
+                        href="/tools"
+                        className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors font-medium"
+                    >
+                        View all {tools.length}+ tools →
+                    </Link>
+                </m.div>
+            </section>
+        </LazyMotionProvider>
     );
 }

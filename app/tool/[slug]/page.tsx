@@ -2,16 +2,17 @@ import { notFound } from "next/navigation";
 import { tools } from "@/lib/tools";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Check, ArrowLeft } from "lucide-react";
+import { ExternalLink, Check, ArrowLeft, Star, Heart, Scale, Sparkles, TrendingUp, Target, Zap } from "lucide-react";
 import Link from "next/link";
 import { RelatedTools } from "@/components/tools/RelatedTools";
-import { Separator } from "@/components/ui/separator";
 import { Metadata } from "next";
 import { SocialShare } from "@/components/ui/SocialShare";
 import { AffiliateLink } from "@/components/ui/AffiliateLink";
 import { SidebarAd } from "@/components/tools/SidebarAd";
 import { ReviewList } from "@/components/reviews/ReviewList";
 import { ReviewForm } from "@/components/reviews/ReviewForm";
+import * as motion from "framer-motion/client";
+import { designSystem } from "@/lib/design-system";
 
 interface Props {
     params: { slug: string };
@@ -46,181 +47,364 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
     const Icon = tool.icon;
 
     return (
-        <main className="min-h-screen bg-background pt-24 pb-20">
-            <div className="container max-w-4xl mx-auto px-4">
-                {/* Back Link */}
-                <Link
-                    href="/"
-                    className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
-                >
-                    <ArrowLeft className="mr-2 h-4 w-4" />
-                    Back to Tools
-                </Link>
+        <main className="min-h-screen bg-background relative overflow-hidden">
+            {/* Background Effects - Premium Style */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 z-0 h-[60vh] w-full max-w-[1400px] bg-indigo-500/10 dark:bg-indigo-500/20 blur-[140px]" />
+            <div className="absolute top-[20%] left-[10%] z-0 h-[30vh] w-[30vh] bg-purple-500/10 blur-[100px] rounded-full" />
+            <div className="absolute top-[40%] right-[10%] z-0 h-[30vh] w-[30vh] bg-blue-500/10 blur-[100px] rounded-full" />
+            
+            {/* Background Grid Pattern */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-size-[40px_40px] mask-[radial-gradient(ellipse_80%_80%_at_50%_0%,#000_70%,transparent_100%)]" />
 
-                {/* Header Section */}
-                <div className="flex flex-col md:flex-row gap-8 items-start mb-12">
-                    <div className={`p-4 rounded-2xl bg-secondary/80 border border-border shadow-md ${tool.color}`}>
-                        <Icon className="h-12 w-12" />
-                    </div>
+            <div className="relative z-10 pt-32 pb-20">
+                <div className="container max-w-6xl mx-auto px-4">
+                    {/* Back Link */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <Link
+                            href="/tools"
+                            className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors group"
+                        >
+                            <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+                            Back to Tools
+                        </Link>
+                    </motion.div>
 
-                    <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
-                            <h1 className="text-4xl font-bold tracking-tight">{tool.title}</h1>
-                            <Badge variant="outline" className="text-muted-foreground border-white/10">
-                                {tool.category}
-                            </Badge>
-                            <Badge className="bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 border-indigo-500/20">
-                                {tool.pricing}
-                            </Badge>
+                    {/* Hero Section - Enhanced */}
+                    <motion.div
+                        initial={designSystem.animations.fadeInUp.initial}
+                        animate={designSystem.animations.fadeInUp.animate}
+                        transition={{ ...designSystem.animations.fadeInUp.transition, duration: 0.8 }}
+                        className="mb-16"
+                    >
+                        <div className="bg-linear-to-br from-indigo-500/5 via-purple-500/5 to-pink-500/5 rounded-3xl p-8 md:p-12 border border-indigo-500/10 relative overflow-hidden">
+                            {/* Decorative Elements */}
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 blur-[100px] rounded-full" />
+                            <div className="absolute bottom-0 left-0 w-48 h-48 bg-purple-500/10 blur-[80px] rounded-full" />
+                            
+                            <div className="relative z-10 flex flex-col lg:flex-row gap-8 items-start">
+                                {/* Icon & Rating */}
+                                <motion.div 
+                                    className="shrink-0"
+                                    initial={{ scale: 0.8, opacity: 0 }}
+                                    animate={{ scale: 1, opacity: 1 }}
+                                    transition={{ duration: 0.5, delay: 0.2 }}
+                                >
+                                    <div className={`p-6 rounded-3xl bg-linear-to-br ${tool.bgGradient} border border-white/10 shadow-2xl shadow-indigo-500/10`}>
+                                        <Icon className="h-16 w-16 text-white" />
+                                    </div>
+                                    {tool.review && (
+                                        <div className="mt-4 flex items-center justify-center gap-1 bg-yellow-500/10 rounded-full px-3 py-1">
+                                            <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
+                                            <span className="text-sm font-bold text-yellow-400">{tool.review.rating}</span>
+                                        </div>
+                                    )}
+                                </motion.div>
+
+                                <div className="flex-1 min-w-0">
+                                    {/* Badges */}
+                                    <div className="flex flex-wrap items-center gap-3 mb-4">
+                                        <Badge variant="outline" className="text-muted-foreground border-white/10 bg-background/50 backdrop-blur-sm">
+                                            {tool.category}
+                                        </Badge>
+                                        <Badge className="bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 border-indigo-500/20">
+                                            {tool.pricing}
+                                        </Badge>
+                                        {tool.isFeatured && (
+                                            <Badge className="bg-amber-500/10 text-amber-400 border-amber-500/20">
+                                                <Sparkles className="h-3 w-3 mr-1" />
+                                                Featured
+                                            </Badge>
+                                        )}
+                                    </div>
+
+                                    {/* Title */}
+                                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 bg-linear-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+                                        {tool.title}
+                                    </h1>
+
+                                    {/* Description */}
+                                    <p className="text-xl text-muted-foreground mb-8 max-w-3xl leading-relaxed">
+                                        {tool.description}
+                                    </p>
+
+                                    {/* Quick Stats */}
+                                    <div className="flex flex-wrap gap-6 mb-8">
+                                        <div className="flex items-center gap-2 text-sm">
+                                            <div className="p-2 rounded-lg bg-emerald-500/10">
+                                                <Target className="h-4 w-4 text-emerald-500" />
+                                            </div>
+                                            <div>
+                                                <div className="font-bold text-foreground">{tool.category}</div>
+                                                <div className="text-muted-foreground text-xs">Category</div>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center gap-2 text-sm">
+                                            <div className="p-2 rounded-lg bg-blue-500/10">
+                                                <Zap className="h-4 w-4 text-blue-500" />
+                                            </div>
+                                            <div>
+                                                <div className="font-bold text-foreground">{tool.pricing}</div>
+                                                <div className="text-muted-foreground text-xs">Pricing</div>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center gap-2 text-sm">
+                                            <div className="p-2 rounded-lg bg-violet-500/10">
+                                                <TrendingUp className="h-4 w-4 text-violet-500" />
+                                            </div>
+                                            <div>
+                                                <div className="font-bold text-foreground">{tool.features?.length || 0}</div>
+                                                <div className="text-muted-foreground text-xs">Features</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Action Buttons */}
+                                    <div className="flex flex-col sm:flex-row gap-4">
+                                        <AffiliateLink
+                                            url={tool.affiliateUrl || tool.websiteUrl}
+                                            toolSlug={tool.slug}
+                                            toolName={tool.title}
+                                            className="h-12 px-8 rounded-full"
+                                        >
+                                            Visit Website
+                                        </AffiliateLink>
+                                        <div className="flex gap-3">
+                                            <SocialShare
+                                                toolSlug={tool.slug}
+                                                toolName={tool.title}
+                                                url={`https://usevibestack.com/tool/${tool.slug}`}
+                                            />
+                                            <Button variant="outline" className="h-12 px-6 rounded-full border-border/60 hover:bg-accent/50">
+                                                <Heart className="h-4 w-4 mr-2" />
+                                                Save
+                                            </Button>
+                                            <Link href={`/compare?tools=${tool.slug}`}>
+                                                <Button variant="outline" className="h-12 px-6 rounded-full border-border/60 hover:bg-accent/50">
+                                                    <Scale className="h-4 w-4 mr-2" />
+                                                    Compare
+                                                </Button>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                    </motion.div>
 
-                        <p className="text-xl text-muted-foreground mb-6 max-w-2xl">
-                            {tool.description}
-                        </p>
-
-                        <div className="flex flex-col sm:flex-row gap-4">
-                            <AffiliateLink
-                                url={tool.affiliateUrl || tool.websiteUrl}
-                                toolSlug={tool.slug}
-                                toolName={tool.title}
+                    {/* Content Grid */}
+                    <div className="grid lg:grid-cols-3 gap-8">
+                        <div className="lg:col-span-2 space-y-8">
+                            {/* Key Features - Enhanced */}
+                            <motion.section 
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6 }}
+                                className="bg-card/50 backdrop-blur-sm rounded-3xl p-8 border border-border/50 shadow-lg"
                             >
-                                Visit Website
-                            </AffiliateLink>
+                                <div className="flex items-center gap-3 mb-6">
+                                    <div className="p-2 rounded-lg bg-indigo-500/10">
+                                        <Sparkles className="h-5 w-5 text-indigo-500" />
+                                    </div>
+                                    <h2 className="text-2xl font-semibold text-foreground">Key Features</h2>
+                                </div>
+                                <ul className="space-y-4">
+                                    {tool.features?.map((feature, index) => (
+                                        <motion.li 
+                                            key={feature} 
+                                            initial={{ opacity: 0, x: -20 }}
+                                            whileInView={{ opacity: 1, x: 0 }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 0.4, delay: index * 0.1 }}
+                                            className="flex items-start gap-4 p-4 rounded-2xl bg-secondary/30 hover:bg-secondary/50 transition-colors"
+                                        >
+                                            <div className="p-1.5 rounded-full bg-indigo-500/20 shrink-0 mt-0.5">
+                                                <Check className="h-4 w-4 text-indigo-400" />
+                                            </div>
+                                            <span className="text-lg text-foreground">{feature}</span>
+                                        </motion.li>
+                                    )) || <p className="text-muted-foreground">No features listed.</p>}
+                                </ul>
+                            </motion.section>
 
-                            <SocialShare
-                                toolSlug={tool.slug}
-                                toolName={tool.title}
-                                url={`https://usevibestack.com/tool/${tool.slug}`}
+                            {/* Pros & Cons Section - Enhanced */}
+                            <div className="grid sm:grid-cols-2 gap-6">
+                                <motion.section 
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.6 }}
+                                    className="bg-emerald-500/5 rounded-3xl p-8 border border-emerald-500/20 hover:border-emerald-500/30 transition-colors"
+                                >
+                                    <div className="flex items-center gap-3 mb-6">
+                                        <div className="p-2 rounded-lg bg-emerald-500/20">
+                                            <Check className="h-5 w-5 text-emerald-500" />
+                                        </div>
+                                        <h3 className="text-xl font-semibold text-emerald-400">Pros</h3>
+                                    </div>
+                                    <ul className="space-y-3">
+                                        {tool.pros?.map((pro) => (
+                                            <li key={pro} className="flex items-start gap-3 text-foreground/80">
+                                                <div className="mt-1.5 h-2 w-2 rounded-full bg-emerald-400 shrink-0" />
+                                                {pro}
+                                            </li>
+                                        )) || <p className="text-sm text-muted-foreground">Information pending.</p>}
+                                    </ul>
+                                </motion.section>
+                                <motion.section 
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.6, delay: 0.1 }}
+                                    className="bg-rose-500/5 rounded-3xl p-8 border border-rose-500/20 hover:border-rose-500/30 transition-colors"
+                                >
+                                    <div className="flex items-center gap-3 mb-6">
+                                        <div className="p-2 rounded-lg bg-rose-500/20">
+                                            <ExternalLink className="h-5 w-5 text-rose-500 rotate-45" />
+                                        </div>
+                                        <h3 className="text-xl font-semibold text-rose-400">Cons</h3>
+                                    </div>
+                                    <ul className="space-y-3">
+                                        {tool.cons?.map((con) => (
+                                            <li key={con} className="flex items-start gap-3 text-foreground/80">
+                                                <div className="mt-1.5 h-2 w-2 rounded-full bg-rose-400 shrink-0" />
+                                                {con}
+                                            </li>
+                                        )) || <p className="text-sm text-muted-foreground">Information pending.</p>}
+                                    </ul>
+                                </motion.section>
+                            </div>
+
+                            {/* In-depth Review - Enhanced */}
+                            <motion.section 
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6 }}
+                                className="bg-linear-to-br from-indigo-500/5 to-purple-500/5 rounded-3xl p-8 border border-indigo-500/10"
+                            >
+                                <div className="flex items-center gap-3 mb-6">
+                                    <div className="p-2 rounded-lg bg-indigo-500/10">
+                                        <Star className="h-5 w-5 text-indigo-500" />
+                                    </div>
+                                    <h2 className="text-2xl font-semibold">Expert Review</h2>
+                                </div>
+                                {tool.review ? (
+                                    <div className="space-y-6">
+                                        <div className="flex items-center gap-4 p-4 bg-background/50 rounded-2xl border border-border/50">
+                                            <div className="flex gap-1">
+                                                {[...Array(5)].map((_, i) => (
+                                                    <Star key={i} className={`h-6 w-6 ${i < Math.floor(tool.review!.rating) ? 'text-yellow-400 fill-yellow-400' : 'text-zinc-600'}`} />
+                                                ))}
+                                            </div>
+                                            <div className="flex items-baseline gap-2">
+                                                <span className="text-3xl font-bold text-foreground">{tool.review.rating}</span>
+                                                <span className="text-muted-foreground">/ 5.0</span>
+                                            </div>
+                                        </div>
+                                        <div className="prose prose-invert prose-zinc max-w-none">
+                                            <p className="text-lg text-muted-foreground leading-relaxed">
+                                                {tool.review.content}
+                                            </p>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <p className="text-muted-foreground italic">Full review coming soon.</p>
+                                )}
+                            </motion.section>
+
+                            {/* User Reviews */}
+                            <motion.section 
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6 }}
+                                className="mt-12"
+                            >
+                                <div className="flex items-center justify-between mb-8">
+                                    <div className="flex items-center gap-3">
+                                        <div className="p-2 rounded-lg bg-violet-500/10">
+                                            <TrendingUp className="h-5 w-5 text-violet-500" />
+                                        </div>
+                                        <h2 className="text-2xl font-semibold">User Reviews</h2>
+                                    </div>
+                                </div>
+
+                                <div className="grid gap-8">
+                                    <ReviewForm toolSlug={tool.slug} />
+                                    <ReviewList toolSlug={tool.slug} />
+                                </div>
+                            </motion.section>
+
+                            {/* Similar Tools */}
+                            <RelatedTools 
+                                currentSlug={tool.slug} 
+                                category={tool.category}
+                                pricing={tool.pricing}
                             />
                         </div>
-                    </div>
-                </div>
 
-                {/* Content Grid */}
-                <div className="grid md:grid-cols-3 gap-8">
-                    <div className="md:col-span-2 space-y-8">
-                        <section className="bg-card rounded-3xl p-8 border border-border shadow-sm">
-                            <h2 className="text-2xl font-semibold mb-6 text-foreground">Key Features</h2>
-                            <ul className="space-y-4">
-                                {tool.features?.map((feature) => (
-                                    <li key={feature} className="flex items-start gap-3">
-                                        <Check className="h-6 w-6 text-indigo-400 shrink-0" />
-                                        <span className="text-lg text-muted-foreground">{feature}</span>
-                                    </li>
-                                )) || <p className="text-muted-foreground">No features listed.</p>}
-                            </ul>
-                        </section>
+                        {/* Sidebar Ad Section - Enhanced */}
+                        <aside className="lg:col-span-1 space-y-6">
+                            {/* Promoting a Featured Tool */}
+                            {(() => {
+                                const relatedAd = tools.find(t =>
+                                    t.isFeatured &&
+                                    t.slug !== tool.slug &&
+                                    t.category === tool.category
+                                ) || tools.find(t => t.isFeatured && t.slug !== tool.slug);
 
-                        {/* Pros & Cons Section */}
-                        <div className="grid sm:grid-cols-2 gap-6">
-                            <section className="bg-emerald-500/5 rounded-3xl p-8 border border-emerald-500/10">
-                                <h3 className="text-xl font-semibold mb-4 text-emerald-400">Pros</h3>
-                                <ul className="space-y-3">
-                                    {tool.pros?.map((pro) => (
-                                        <li key={pro} className="flex items-start gap-2 text-muted-foreground">
-                                            <div className="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400 shrink-0" />
-                                            {pro}
-                                        </li>
-                                    )) || <p className="text-sm text-muted-foreground">Information pending.</p>}
-                                </ul>
-                            </section>
-                            <section className="bg-rose-500/5 rounded-3xl p-8 border border-rose-500/10">
-                                <h3 className="text-xl font-semibold mb-4 text-rose-400">Cons</h3>
-                                <ul className="space-y-3">
-                                    {tool.cons?.map((con) => (
-                                        <li key={con} className="flex items-start gap-2 text-muted-foreground">
-                                            <div className="mt-1 h-1.5 w-1.5 rounded-full bg-rose-400 shrink-0" />
-                                            {con}
-                                        </li>
-                                    )) || <p className="text-sm text-muted-foreground">Information pending.</p>}
-                                </ul>
-                            </section>
-                        </div>
+                                return relatedAd ? <SidebarAd toolSlug={relatedAd.slug} /> : null;
+                            })()}
 
-                        {/* In-depth Review */}
-                        <section className="bg-card rounded-3xl p-8 border border-border shadow-sm">
-                            <h2 className="text-2xl font-semibold mb-6">Expert Review</h2>
-                            {tool.review ? (
-                                <div className="space-y-4">
-                                    <div className="flex items-center gap-2 mb-4">
-                                        <div className="flex">
-                                            {[...Array(5)].map((_, i) => (
-                                                <div key={i} className={`h-5 w-5 ${i < Math.floor(tool.review!.rating) ? 'text-yellow-400' : 'text-zinc-600'}`}>
-                                                    ★
-                                                </div>
-                                            ))}
-                                        </div>
-                                        <span className="text-lg font-bold text-foreground">{tool.review.rating}</span>
-                                        <span className="text-muted-foreground">/ 5.0</span>
+                            {/* Tool Details Card */}
+                            <motion.div 
+                                initial={{ opacity: 0, x: 20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6 }}
+                                className="bg-card/50 backdrop-blur-sm rounded-3xl p-6 border border-border/50 shadow-lg sticky top-24"
+                            >
+                                <div className="flex items-center gap-3 mb-6">
+                                    <div className="p-2 rounded-lg bg-indigo-500/10">
+                                        <Target className="h-5 w-5 text-indigo-500" />
                                     </div>
-                                    <div className="prose prose-invert prose-zinc max-w-none">
-                                        <p className="text-lg text-muted-foreground leading-relaxed">
-                                            {tool.review.content}
-                                        </p>
+                                    <h3 className="font-semibold text-foreground">Tool Details</h3>
+                                </div>
+                                <div className="space-y-4 text-sm">
+                                    <div className="flex justify-between items-center py-3 border-b border-border/50">
+                                        <span className="text-muted-foreground">Pricing</span>
+                                        <Badge variant="secondary" className="bg-primary/10 text-primary">
+                                            {tool.pricing}
+                                        </Badge>
+                                    </div>
+                                    <div className="flex justify-between items-center py-3 border-b border-border/50">
+                                        <span className="text-muted-foreground">Category</span>
+                                        <span className="font-medium text-foreground">{tool.category}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center py-3 border-b border-border/50">
+                                        <span className="text-muted-foreground">Features</span>
+                                        <span className="font-medium text-foreground">{tool.features?.length || 0}</span>
+                                    </div>
+                                    <div className="pt-2">
+                                        <span className="text-muted-foreground block mb-2">Website</span>
+                                        <AffiliateLink
+                                            url={tool.affiliateUrl || tool.websiteUrl}
+                                            toolSlug={tool.slug}
+                                            toolName={tool.title}
+                                            variant="link"
+                                        >
+                                            {tool.websiteUrl.replace('https://', '')}
+                                        </AffiliateLink>
                                     </div>
                                 </div>
-                            ) : (
-                                <p className="text-muted-foreground italic">Full review coming soon.</p>
-                            )}
-                        </section>
-                        {/* User Reviews */}
-                        <section className="mt-12">
-                            <div className="flex items-center justify-between mb-8">
-                                <h2 className="text-2xl font-semibold">User Reviews</h2>
-                            </div>
-
-                            <div className="grid gap-8">
-                                <ReviewForm toolSlug={tool.slug} />
-                                <ReviewList toolSlug={tool.slug} />
-                            </div>
-                        </section>
-
-                        {/* Similar Tools */}
-                        <RelatedTools 
-                            currentSlug={tool.slug} 
-                            category={tool.category}
-                            pricing={tool.pricing}
-                        />
+                            </motion.div>
+                        </aside>
                     </div>
-
-                    {/* Sidebar Ad Section */}
-                    <aside className="lg:col-span-1 space-y-8">
-                        {/* Promoting a Featured Tool of same category or random featured */}
-                        {(() => {
-                            const relatedAd = tools.find(t =>
-                                t.isFeatured &&
-                                t.slug !== tool.slug &&
-                                t.category === tool.category
-                            ) || tools.find(t => t.isFeatured && t.slug !== tool.slug);
-
-                            return relatedAd ? <SidebarAd toolSlug={relatedAd.slug} /> : null;
-                        })()}
-
-                        <div className="bg-secondary/20 rounded-3xl p-8 border border-white/5 sticky top-24">
-                            <h3 className="font-semibold mb-4 text-foreground">Tool Details</h3>
-                            <div className="space-y-4 text-sm">
-                                <div className="flex justify-between py-2 border-b border-border">
-                                    <span className="text-muted-foreground">Pricing</span>
-                                    <span className="font-medium text-foreground">{tool.pricing}</span>
-                                </div>
-                                <div className="flex justify-between py-2 border-b border-border">
-                                    <span className="text-muted-foreground">Category</span>
-                                    <span className="font-medium text-foreground">{tool.category}</span>
-                                </div>
-                                <div className="flex justify-between py-2 border-b border-border">
-                                    <span className="text-muted-foreground">Website</span>
-                                    <AffiliateLink
-                                        url={tool.affiliateUrl || tool.websiteUrl}
-                                        toolSlug={tool.slug}
-                                        toolName={tool.title}
-                                        variant="link"
-                                    >
-                                        {tool.websiteUrl.replace('https://', '')}
-                                    </AffiliateLink>
-                                </div>
-                            </div>
-                        </div>
-                    </aside>
                 </div>
             </div>
 

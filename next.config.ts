@@ -1,5 +1,10 @@
 import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
+import withBundleAnalyzer from '@next/bundle-analyzer';
+
+const withAnalyzer = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
 
 const withPWA = require('next-pwa')({
   dest: 'public',
@@ -74,7 +79,7 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withSentryConfig(withPWA(nextConfig), {
+export default withSentryConfig(withAnalyzer(withPWA(nextConfig)), {
   org: "vibestack",
   project: "vibestack-web",
   silent: !process.env.CI,

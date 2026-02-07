@@ -10,6 +10,7 @@ interface AffiliateLinkProps {
   toolName: string;
   children: React.ReactNode;
   variant?: "default" | "link";
+  className?: string;
 }
 
 export function AffiliateLink({ 
@@ -17,7 +18,8 @@ export function AffiliateLink({
   toolSlug, 
   toolName, 
   children,
-  variant = "default" 
+  variant = "default",
+  className
 }: AffiliateLinkProps) {
   const fullUrl = `${url}${url.includes('?') ? '&' : '?'}ref=vibestack&utm_source=vibestack`;
 
@@ -42,7 +44,7 @@ export function AffiliateLink({
   return (
     <Button 
       size="lg" 
-      className="rounded-full shadow-lg shadow-indigo-500/20" 
+      className={`rounded-full shadow-lg shadow-indigo-500/20 ${className || ''}`}
       asChild
     >
       <a
