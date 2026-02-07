@@ -221,7 +221,7 @@ export default function BuildPage() {
                             className="w-full max-w-3xl mx-auto"
                         >
                             {/* Question Card */}
-                            <div className="bg-card/50 backdrop-blur-sm rounded-3xl border border-border/50 p-8 md:p-12 shadow-xl">
+                            <div className="bg-card backdrop-blur-sm rounded-3xl border border-border p-8 md:p-12 shadow-xl">
                                 <div className="text-center mb-8">
                                     <h2 className="text-2xl md:text-3xl font-bold mb-2">
                                         {currentStep.question}
@@ -231,7 +231,10 @@ export default function BuildPage() {
                                     </p>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className={cn(
+                                    "grid grid-cols-1 gap-4",
+                                    stepIndex === 0 ? "md:grid-cols-3" : "md:grid-cols-2"
+                                )}>
                                     {currentStep.options.map((option, index) => {
                                         const Icon = option.icon;
                                         return (
@@ -242,7 +245,7 @@ export default function BuildPage() {
                                                 transition={{ duration: 0.4, delay: index * 0.1 }}
                                                 onClick={() => handleOptionClick(option.id)}
                                                 disabled={isAnimating}
-                                                className="group relative flex flex-col items-center text-center p-8 rounded-2xl border border-border/50 bg-background/50 hover:bg-accent/50 hover:border-indigo-500/50 transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-indigo-500/5"
+                                                className="group relative flex flex-col items-center text-center p-8 rounded-2xl border border-border bg-background hover:bg-accent hover:border-indigo-500/50 transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-indigo-500/5"
                                             >
                                                 <div className={`p-4 rounded-2xl bg-linear-to-br ${option.color} mb-6 group-hover:scale-110 transition-transform duration-300`}>
                                                     <Icon className="h-8 w-8 text-white" />
