@@ -66,7 +66,7 @@ export default function SubmitStackPage() {
                         </div>
                         <h1 className="text-3xl font-bold mb-4">Submission Received!</h1>
                         <p className="text-muted-foreground text-lg mb-8">
-                            Thanks for sharing your stack. Our editors will review it and notify you once it's live on VibeStack.
+                            Thanks for sharing your stack. Our editors will review it and notify you once it&apos;s live on VibeStack.
                         </p>
                         <Button
                             onClick={() => setIsSuccess(false)}
@@ -188,7 +188,7 @@ export default function SubmitStackPage() {
                                 )}
                             </div>
                             <p className="text-xs text-muted-foreground">
-                                Can't find a tool? Mention it in the description.
+                                Can&apos;t find a tool? Mention it in the description.
                             </p>
                         </div>
 

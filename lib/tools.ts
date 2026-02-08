@@ -45,7 +45,7 @@ export const tools: Tool[] = [
         category: "Assistance",
         pricing: "Freemium",
         websiteUrl: "https://chat.openai.com",
-        color: "text-emerald-400",
+        color: "text-emerald-600 dark:text-emerald-400",
         bgGradient: "from-emerald-500/10 to-transparent",
         features: ["GPT-5.2 Codex", "Stabilized Context", "xHigh Reasoning"],
         pros: ["Highest reasoning capabilities", "Massive ecosystem", "Versatile agent mode"],
@@ -63,7 +63,7 @@ export const tools: Tool[] = [
         category: "Assistance",
         pricing: "Freemium",
         websiteUrl: "https://claude.ai",
-        color: "text-orange-400",
+        color: "text-orange-600 dark:text-orange-400",
         bgGradient: "from-orange-500/10 to-transparent",
         features: ["Claude 5 Sonnet", "1M Context", "Agentic Capabilities"],
         pros: ["Natural writing style", "Huge 1M token context", "Excellent documentation handling"],
@@ -81,7 +81,7 @@ export const tools: Tool[] = [
         category: "Coding",
         pricing: "Paid",
         websiteUrl: "https://cloud.google.com/gemini/code-assist",
-        color: "text-sky-400",
+        color: "text-sky-600 dark:text-sky-400",
         bgGradient: "from-sky-500/10 to-transparent",
         features: ["Gemini 3 Deep Think", "Native AV Processing", "1M Context"]
     },
@@ -94,7 +94,7 @@ export const tools: Tool[] = [
         pricing: "Freemium",
         websiteUrl: "https://cursor.sh",
         affiliateUrl: "https://cursor.sh",
-        color: "text-blue-400",
+        color: "text-blue-600 dark:text-blue-400",
         bgGradient: "from-blue-500/10 to-transparent",
         features: ["AI Chat", "Codebase Indexing", "Agent Mode"],
         isFeatured: true,
@@ -108,7 +108,7 @@ export const tools: Tool[] = [
         category: "Coding",
         pricing: "Paid",
         websiteUrl: "https://devin.ai",
-        color: "text-amber-500",
+        color: "text-amber-600 dark:text-amber-500",
         bgGradient: "from-amber-500/10 to-transparent",
         features: ["Autonomous Coding", "Self-Healing", "Deployment"]
     },
@@ -120,7 +120,7 @@ export const tools: Tool[] = [
         category: "Coding",
         pricing: "Freemium",
         websiteUrl: "https://supermaven.com",
-        color: "text-rose-400",
+        color: "text-rose-600 dark:text-rose-400",
         bgGradient: "from-rose-500/10 to-transparent",
         features: ["1M Context Window", "Instant Completion", "Low Latency"]
     },
@@ -157,7 +157,7 @@ export const tools: Tool[] = [
         pricing: "Freemium",
         websiteUrl: "https://linear.app",
         // TODO: Add after Impact.com approval: affiliateUrl: "https://impact.com/...",
-        color: "text-indigo-400",
+        color: "text-indigo-600 dark:text-indigo-400",
         bgGradient: "from-indigo-500/10 to-transparent",
         features: ["Issue Tracking", "Cycles", "Roadmaps"]
     },
@@ -170,7 +170,7 @@ export const tools: Tool[] = [
         pricing: "Paid",
         websiteUrl: "https://notion.so",
         // TODO: Add after affiliate.notion.so approval: affiliateUrl: "https://affiliate.notion.so/vibestack",
-        color: "text-amber-400",
+        color: "text-amber-600 dark:text-amber-400",
         bgGradient: "from-amber-500/10 to-transparent",
         features: ["Writing Assistant", "Database AI", "Summarization"]
     },
@@ -194,7 +194,7 @@ export const tools: Tool[] = [
         category: "Coding",
         pricing: "Freemium",
         websiteUrl: "https://tabnine.com",
-        color: "text-purple-400",
+        color: "text-purple-600 dark:text-purple-400",
         bgGradient: "from-purple-500/10 to-transparent",
         features: ["Private Codebase Training", "Local Mode", "Security"]
     },
@@ -206,7 +206,7 @@ export const tools: Tool[] = [
         category: "Coding",
         pricing: "Freemium",
         websiteUrl: "https://sourcegraph.com/cody",
-        color: "text-violet-400",
+        color: "text-violet-600 dark:text-violet-400",
         bgGradient: "from-violet-500/10 to-transparent",
         features: ["Codebase Search", "Context Awareness", "Unit Test Generation"]
     },
@@ -218,7 +218,7 @@ export const tools: Tool[] = [
         category: "Design",
         pricing: "Freemium",
         websiteUrl: "https://builder.io",
-        color: "text-green-400",
+        color: "text-green-600 dark:text-green-400",
         bgGradient: "from-green-500/10 to-transparent",
         features: ["Design to Code", "Visual CMS", "Figma Import"]
     },
@@ -245,7 +245,7 @@ export const tools: Tool[] = [
         category: "Assistance",
         pricing: "Freemium",
         websiteUrl: "https://perplexity.ai",
-        color: "text-teal-400",
+        color: "text-teal-600 dark:text-teal-400",
         bgGradient: "from-teal-500/10 to-transparent",
         features: ["Real-time Search", "Citations", "Pro Search"]
     },
@@ -257,7 +257,7 @@ export const tools: Tool[] = [
         category: "Design",
         pricing: "Freemium",
         websiteUrl: "https://lovable.dev",
-        color: "text-pink-400",
+        color: "text-pink-600 dark:text-pink-400",
         bgGradient: "from-pink-500/10 to-transparent",
         features: ["Full-stack Generation", "Supabase Integration", "Visual Editing"]
     },
@@ -269,7 +269,7 @@ export const tools: Tool[] = [
         category: "Coding",
         pricing: "Freemium",
         websiteUrl: "https://coderabbit.ai",
-        color: "text-emerald-500",
+        color: "text-emerald-600 dark:text-emerald-500",
         bgGradient: "from-emerald-500/10 to-transparent",
         features: ["Auto-summaries", "Contextual Feedback", "Line-by-line Reviews"]
     },
@@ -281,7 +281,7 @@ export const tools: Tool[] = [
         category: "Coding",
         pricing: "Freemium",
         websiteUrl: "https://cosine.sh",
-        color: "text-blue-500",
+        color: "text-blue-600 dark:text-blue-500",
         bgGradient: "from-blue-500/10 to-transparent",
         features: ["Genie 2 Architecture", "Deep Semantic Search", "On-prem Isolation"]
     },
@@ -305,7 +305,7 @@ export const tools: Tool[] = [
         category: "Coding",
         pricing: "Freemium",
         websiteUrl: "https://codeium.com/windsurf",
-        color: "text-cyan-400",
+        color: "text-cyan-600 dark:text-cyan-400",
         bgGradient: "from-cyan-500/10 to-transparent",
         features: ["Flow State AI", "Deep Codebase Indexing", "Context-aware Thinking"]
     },
@@ -317,7 +317,7 @@ export const tools: Tool[] = [
         category: "Coding",
         pricing: "Freemium",
         websiteUrl: "https://pieces.app",
-        color: "text-yellow-400",
+        color: "text-yellow-600 dark:text-yellow-400",
         bgGradient: "from-yellow-500/10 to-transparent",
         features: ["Snippet Management", "AI Search", "Workflow Automation"]
     },
@@ -329,7 +329,7 @@ export const tools: Tool[] = [
         category: "Coding",
         pricing: "Freemium",
         websiteUrl: "https://warp.dev",
-        color: "text-purple-500",
+        color: "text-purple-600 dark:text-purple-500",
         bgGradient: "from-purple-500/10 to-transparent",
         features: ["AI Command Search", "Modern IDE Features", "Collaboration"]
     },
@@ -341,7 +341,7 @@ export const tools: Tool[] = [
         category: "Coding",
         pricing: "Free",
         websiteUrl: "https://continue.dev",
-        color: "text-green-500",
+        color: "text-green-600 dark:text-green-500",
         bgGradient: "from-green-500/10 to-transparent",
         features: ["Open Source", "Local Models", "Customizable"]
     },
@@ -353,7 +353,7 @@ export const tools: Tool[] = [
         category: "Coding",
         pricing: "Freemium",
         websiteUrl: "https://stackblitz.com",
-        color: "text-blue-600",
+        color: "text-blue-700 dark:text-blue-600",
         bgGradient: "from-blue-600/10 to-transparent",
         features: ["Browser IDE", "WebContainers", "Instant Preview"]
     },
@@ -365,7 +365,7 @@ export const tools: Tool[] = [
         category: "Coding",
         pricing: "Freemium",
         websiteUrl: "https://codesandbox.io",
-        color: "text-pink-500",
+        color: "text-pink-600 dark:text-pink-500",
         bgGradient: "from-pink-500/10 to-transparent",
         features: ["Live Collaboration", "DevContainers", "GitHub Integration"]
     },
@@ -377,7 +377,7 @@ export const tools: Tool[] = [
         category: "Assistance",
         pricing: "Freemium",
         websiteUrl: "https://huggingface.co",
-        color: "text-yellow-500",
+        color: "text-yellow-600 dark:text-yellow-500",
         bgGradient: "from-yellow-500/10 to-transparent",
         features: ["Model Hub", "Transformers Library", "Inference API"]
     },
@@ -401,7 +401,7 @@ export const tools: Tool[] = [
         category: "Design",
         pricing: "Paid",
         websiteUrl: "https://openai.com/dall-e-3",
-        color: "text-emerald-400",
+        color: "text-emerald-600 dark:text-emerald-400",
         bgGradient: "from-emerald-400/10 to-transparent",
         features: ["Text-to-Image", "ChatGPT Integration", "High Quality"]
     },
@@ -413,7 +413,7 @@ export const tools: Tool[] = [
         category: "Productivity",
         pricing: "Freemium",
         websiteUrl: "https://elevenlabs.io",
-        color: "text-indigo-400",
+        color: "text-indigo-600 dark:text-indigo-400",
         bgGradient: "from-indigo-400/10 to-transparent",
         features: ["Voice Cloning", "Multilingual", "Emotional Speech"]
     },
@@ -425,7 +425,7 @@ export const tools: Tool[] = [
         category: "Productivity",
         pricing: "Freemium",
         websiteUrl: "https://gamma.app",
-        color: "text-violet-500",
+        color: "text-violet-600 dark:text-violet-500",
         bgGradient: "from-violet-500/10 to-transparent",
         features: ["AI Presentation", "Document Creation", "Web Publishing"]
     },
@@ -438,7 +438,7 @@ export const tools: Tool[] = [
         pricing: "Paid",
         websiteUrl: "https://jasper.ai",
         // TODO: Add after jasper.ai/affiliates approval: affiliateUrl: "https://jasper.ai/affiliate/vibestack",
-        color: "text-red-500",
+        color: "text-red-600 dark:text-red-500",
         bgGradient: "from-red-500/10 to-transparent",
         features: ["Marketing Copy", "Brand Voice", "SEO Optimization"]
     },
@@ -474,7 +474,7 @@ export const tools: Tool[] = [
         category: "Assistance",
         pricing: "Freemium",
         websiteUrl: "https://phind.com",
-        color: "text-cyan-500",
+        color: "text-cyan-600 dark:text-cyan-500",
         bgGradient: "from-cyan-500/10 to-transparent",
         features: ["Developer Search", "Code Examples", "Technical Answers"]
     },
@@ -487,7 +487,7 @@ export const tools: Tool[] = [
         pricing: "Freemium",
         websiteUrl: "https://descript.com",
         // TODO: Add after descript.com/affiliates approval: affiliateUrl: "https://www.descript.com/affiliate/vibestack",
-        color: "text-blue-300",
+        color: "text-blue-500 dark:text-blue-300",
         bgGradient: "from-blue-300/10 to-transparent",
         features: ["Video Editing", "Transcription", "Overdub"]
     },
@@ -499,7 +499,7 @@ export const tools: Tool[] = [
         category: "Productivity",
         pricing: "Freemium",
         websiteUrl: "https://raycast.com",
-        color: "text-red-400",
+        color: "text-red-600 dark:text-red-400",
         bgGradient: "from-red-400/10 to-transparent",
         features: ["Quick Launcher", "AI Commands", "Extensions"]
     },
@@ -511,7 +511,7 @@ export const tools: Tool[] = [
         category: "Design",
         pricing: "Freemium",
         websiteUrl: "https://figma.com/ai",
-        color: "text-purple-600",
+        color: "text-purple-700 dark:text-purple-600",
         bgGradient: "from-purple-600/10 to-transparent",
         features: ["Auto Layout", "Content Generation", "Design Systems"]
     },
@@ -523,7 +523,7 @@ export const tools: Tool[] = [
         category: "Design",
         pricing: "Freemium",
         websiteUrl: "https://runwayml.com",
-        color: "text-pink-600",
+        color: "text-pink-700 dark:text-pink-600",
         bgGradient: "from-pink-600/10 to-transparent",
         features: ["Video Generation", "Motion Graphics", "Green Screen"]
     },
@@ -536,7 +536,7 @@ export const tools: Tool[] = [
         pricing: "Freemium",
         websiteUrl: "https://canva.com",
         // TODO: Add after canva.com/affiliates approval: affiliateUrl: "https://www.canva.com/affiliates/vibestack",
-        color: "text-teal-500",
+        color: "text-teal-600 dark:text-teal-500",
         bgGradient: "from-teal-500/10 to-transparent",
         features: ["Magic Design", "Text to Image", "Brand Kit"]
     },
@@ -548,7 +548,7 @@ export const tools: Tool[] = [
         category: "Assistance",
         pricing: "Freemium",
         websiteUrl: "https://character.ai",
-        color: "text-amber-400",
+        color: "text-amber-600 dark:text-amber-400",
         bgGradient: "from-amber-400/10 to-transparent",
         features: ["AI Characters", "Conversations", "Custom Personalities"]
     },
@@ -560,7 +560,7 @@ export const tools: Tool[] = [
         category: "Productivity",
         pricing: "Freemium",
         websiteUrl: "https://otter.ai",
-        color: "text-blue-700",
+        color: "text-blue-800 dark:text-blue-700",
         bgGradient: "from-blue-700/10 to-transparent",
         features: ["Meeting Transcription", "Live Notes", "Action Items"]
     },
@@ -572,7 +572,7 @@ export const tools: Tool[] = [
         category: "Productivity",
         pricing: "Freemium",
         websiteUrl: "https://fireflies.ai",
-        color: "text-orange-600",
+        color: "text-orange-700 dark:text-orange-600",
         bgGradient: "from-orange-600/10 to-transparent",
         features: ["Meeting Recording", "Conversation Intelligence", "CRM Integration"]
     },
@@ -584,7 +584,7 @@ export const tools: Tool[] = [
         category: "Productivity",
         pricing: "Freemium",
         websiteUrl: "https://krisp.ai",
-        color: "text-green-600",
+        color: "text-green-700 dark:text-green-600",
         bgGradient: "from-green-600/10 to-transparent",
         features: ["Noise Cancellation", "Voice Cancellation", "Accent Localization"]
     },
@@ -596,7 +596,7 @@ export const tools: Tool[] = [
         category: "Management",
         pricing: "Paid",
         websiteUrl: "https://usemotion.com",
-        color: "text-indigo-600",
+        color: "text-indigo-700 dark:text-indigo-600",
         bgGradient: "from-indigo-600/10 to-transparent",
         features: ["Auto-scheduling", "Task Management", "Calendar Integration"]
     },
@@ -609,7 +609,7 @@ export const tools: Tool[] = [
         pricing: "Freemium",
         websiteUrl: "https://clickup.com",
         // TODO: Add after clickup.com/partners/affiliates approval: affiliateUrl: "https://clickup.com/affiliates/vibestack",
-        color: "text-purple-700",
+        color: "text-purple-800 dark:text-purple-700",
         bgGradient: "from-purple-700/10 to-transparent",
         features: ["Task Management", "Docs", "AI Writing"]
     },
@@ -622,7 +622,7 @@ export const tools: Tool[] = [
         pricing: "Freemium",
         websiteUrl: "https://asana.com",
         // TODO: Add after Impact.com approval: affiliateUrl: "https://impact.com/asana/vibestack",
-        color: "text-red-600",
+        color: "text-red-700 dark:text-red-600",
         bgGradient: "from-red-600/10 to-transparent",
         features: ["Project Management", "AI Workflows", "Goal Tracking"]
     },
@@ -634,7 +634,7 @@ export const tools: Tool[] = [
         category: "Management",
         pricing: "Freemium",
         websiteUrl: "https://trello.com",
-        color: "text-blue-500",
+        color: "text-blue-600 dark:text-blue-500",
         bgGradient: "from-blue-500/10 to-transparent",
         features: ["Kanban Boards", "Automation", "Power-Ups"]
     },
@@ -647,7 +647,7 @@ export const tools: Tool[] = [
         pricing: "Freemium",
         websiteUrl: "https://grammarly.com",
         // TODO: Add after grammarly.com/affiliates approval: affiliateUrl: "https://www.grammarly.com/affiliates/vibestack",
-        color: "text-green-500",
+        color: "text-green-600 dark:text-green-500",
         bgGradient: "from-green-500/10 to-transparent",
         features: ["Grammar Check", "Tone Detection", "Plagiarism Detection"]
     },
@@ -659,7 +659,7 @@ export const tools: Tool[] = [
         category: "Productivity",
         pricing: "Freemium",
         websiteUrl: "https://quillbot.com",
-        color: "text-teal-400",
+        color: "text-teal-600 dark:text-teal-400",
         bgGradient: "from-teal-400/10 to-transparent",
         features: ["Paraphrasing", "Grammar Checker", "Summarizer"]
     },
@@ -671,7 +671,7 @@ export const tools: Tool[] = [
         category: "Design",
         pricing: "Freemium",
         websiteUrl: "https://lumen5.com",
-        color: "text-purple-500",
+        color: "text-purple-600 dark:text-purple-500",
         bgGradient: "from-purple-500/10 to-transparent",
         features: ["Blog to Video", "Media Library", "Brand Templates"]
     },
@@ -683,7 +683,7 @@ export const tools: Tool[] = [
         category: "Design",
         pricing: "Paid",
         websiteUrl: "https://synthesia.io",
-        color: "text-blue-400",
+        color: "text-blue-600 dark:text-blue-400",
         bgGradient: "from-blue-400/10 to-transparent",
         features: ["AI Avatars", "Text to Video", "Multiple Languages"]
     },
@@ -695,7 +695,7 @@ export const tools: Tool[] = [
         category: "Productivity",
         pricing: "Freemium",
         websiteUrl: "https://mem.ai",
-        color: "text-purple-400",
+        color: "text-purple-600 dark:text-purple-400",
         bgGradient: "from-purple-400/10 to-transparent",
         features: ["AI Search", "Smart Collections", "Self-organizing"]
     },
@@ -707,7 +707,7 @@ export const tools: Tool[] = [
         category: "Productivity",
         pricing: "Paid",
         websiteUrl: "https://reflect.app",
-        color: "text-indigo-500",
+        color: "text-indigo-600 dark:text-indigo-500",
         bgGradient: "from-indigo-500/10 to-transparent",
         features: ["AI Assistant", "Backlinks", "End-to-end Encryption"]
     }

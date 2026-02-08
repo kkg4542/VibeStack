@@ -18,16 +18,18 @@ interface StackDetailClientProps {
 }
 
 export function StackDetailClient({ stack }: StackDetailClientProps) {
-    const [isFavorite, setIsFavorite] = useState(false);
-    const [mounted, setMounted] = useState(false);
+    // Lazy initialization to avoid setState in effect
+    const [isFavorite, setIsFavorite] = useState(() => {
+        if (typeof window === 'undefined') return false;
+        try {
+            const favorites = JSON.parse(localStorage.getItem("vibestack-favorites") || "[]");
+            return favorites.includes(stack.id);
+        } catch {
+            return false;
+        }
+    });
 
     const stackTools = stack.tools.map(slug => tools.find(t => t.slug === slug)).filter((t): t is Tool => t !== undefined);
-
-    useEffect(() => {
-        setMounted(true);
-        const favorites = JSON.parse(localStorage.getItem("vibestack-favorites") || "[]");
-        setIsFavorite(favorites.includes(stack.id));
-    }, [stack.id]);
 
     const toggleFavorite = () => {
         const favorites = JSON.parse(localStorage.getItem("vibestack-favorites") || "[]");
@@ -37,10 +39,6 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
         localStorage.setItem("vibestack-favorites", JSON.stringify(newFavorites));
         setIsFavorite(!isFavorite);
     };
-
-    if (!mounted) {
-        return null; // Prevent hydration mismatch on initial render for localStorage dependent UI
-    }
 
     return (
         <PageBackground {...BackgroundPresets.content}>

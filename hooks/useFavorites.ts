@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
+import { FavoriteWithTool } from "@/lib/schemas";
 
 type FavoriteItem = {
     id: string;
@@ -24,9 +25,9 @@ export function useFavorites() {
                 try {
                     const response = await fetch('/api/favorites');
                     if (response.ok) {
-                        const dbFavorites = await response.json();
+                        const dbFavorites: FavoriteWithTool[] = await response.json();
                         // Convert DB format to local format
-                        const formatted = dbFavorites.map((f: any) => ({
+                        const formatted = dbFavorites.map((f) => ({
                             id: f.toolId,
                             type: 'tool' as const,
                             addedAt: new Date(f.createdAt).getTime(),
@@ -76,8 +77,8 @@ export function useFavorites() {
                     // Reload favorites from DB
                     const response = await fetch('/api/favorites');
                     if (response.ok) {
-                        const dbFavorites = await response.json();
-                        const formatted = dbFavorites.map((f: any) => ({
+                        const dbFavorites: FavoriteWithTool[] = await response.json();
+                        const formatted = dbFavorites.map((f) => ({
                             id: f.toolId,
                             type: 'tool' as const,
                             addedAt: new Date(f.createdAt).getTime(),

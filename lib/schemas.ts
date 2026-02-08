@@ -78,3 +78,35 @@ export type NewsletterInput = z.infer<typeof NewsletterSchema>;
 export type CreateReviewInput = z.infer<typeof CreateReviewSchema>;
 export type CreateStackInput = z.infer<typeof CreateStackSchema>;
 export type SearchParamsInput = z.infer<typeof SearchParamsSchema>;
+
+// Favorite types for API responses
+export interface FavoriteWithTool {
+  id: string;
+  userId: string;
+  toolId: string;
+  createdAt: string;
+  tool: {
+    id: string;
+    slug: string;
+    title: string;
+    description: string;
+    category: string;
+    pricing: string;
+    websiteUrl: string;
+    affiliateUrl?: string;
+    icon?: string;
+    features: string[];
+    pros: string[];
+    cons: string[];
+    color: string;
+    bgGradient: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
+
+export interface FavoriteItem {
+  id: string;
+  type: 'tool';
+  addedAt: number;
+}

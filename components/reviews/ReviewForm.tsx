@@ -64,7 +64,7 @@ export function ReviewForm({ toolSlug }: { toolSlug: string }) {
     };
 
     return (
-        <div className="p-6 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
+        <div className="p-6 rounded-xl bg-secondary/30 border border-border/30 backdrop-blur-sm">
             <h3 className="text-lg font-semibold mb-4">Write a Review</h3>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -81,7 +81,7 @@ export function ReviewForm({ toolSlug }: { toolSlug: string }) {
                             <Star
                                 className={`w-6 h-6 ${star <= (hoveredRating || rating)
                                     ? "fill-yellow-500 text-yellow-500"
-                                    : "text-zinc-600"
+                                    : "text-muted-foreground/40"
                                     }`}
                             />
                         </button>
@@ -93,7 +93,7 @@ export function ReviewForm({ toolSlug }: { toolSlug: string }) {
 
                 <Textarea
                     placeholder="Share your experience with this tool..."
-                    className="min-h-[100px] bg-black/20 border-white/10 focus:border-indigo-500"
+                    className="min-h-[100px] bg-secondary/50 border-border/30 focus:border-indigo-500"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                     required

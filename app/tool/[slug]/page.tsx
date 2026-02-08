@@ -85,8 +85,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                     animate={{ scale: 1, opacity: 1 }}
                                     transition={{ duration: 0.5, delay: 0.2 }}
                                 >
-                                    <div className={`p-6 rounded-3xl bg-linear-to-br ${tool.bgGradient} border border-white/10 shadow-2xl shadow-indigo-500/10`}>
-                                        <Icon className="h-16 w-16 text-white" />
+                                    <div className={`p-6 rounded-3xl bg-linear-to-br ${tool.bgGradient} border border-border/20 shadow-2xl shadow-indigo-500/10`}>
+                                        <Icon className="h-16 w-16 text-foreground" />
                                     </div>
                                     {tool.review && (
                                         <div className="mt-4 flex items-center justify-center gap-1 bg-yellow-500/10 rounded-full px-3 py-1">
@@ -99,7 +99,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                 <div className="flex-1 min-w-0">
                                     {/* Badges */}
                                     <div className="flex flex-wrap items-center gap-3 mb-4">
-                                        <Badge variant="outline" className="text-muted-foreground border-white/10 bg-background/50 backdrop-blur-sm">
+                                        <Badge variant="outline" className="text-muted-foreground border-border/30 bg-background/50 backdrop-blur-sm">
                                             {tool.category}
                                         </Badge>
                                         <Badge className="bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 border-indigo-500/20">

@@ -48,7 +48,7 @@ export function ReviewList({ toolSlug }: { toolSlug: string }) {
 
     if (reviews.length === 0) {
         return (
-            <div className="text-center py-12 bg-white/5 rounded-xl border border-white/10">
+            <div className="text-center py-12 bg-secondary/30 rounded-xl border border-border/30">
                 <p className="text-muted-foreground">No reviews yet. Be the first to share your experience!</p>
             </div>
         );
@@ -57,7 +57,7 @@ export function ReviewList({ toolSlug }: { toolSlug: string }) {
     return (
         <div className="space-y-6">
             {reviews.map((review) => (
-                <div key={review.id} className="p-6 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                <div key={review.id} className="p-6 rounded-xl bg-secondary/30 border border-border/30 backdrop-blur-sm">
                     <div className="flex items-start justify-between mb-4">
                         <div className="flex items-center gap-3">
                             <Avatar>
@@ -75,12 +75,12 @@ export function ReviewList({ toolSlug }: { toolSlug: string }) {
                             {[...Array(5)].map((_, i) => (
                                 <Star
                                     key={i}
-                                    className={`w-4 h-4 ${i < review.rating ? "fill-current" : "text-zinc-700"}`}
+                                    className={`w-4 h-4 ${i < review.rating ? "fill-current" : "text-muted-foreground/30"}`}
                                 />
                             ))}
                         </div>
                     </div>
-                    <p className="text-zinc-300 leading-relaxed text-sm">
+                    <p className="text-foreground/80 leading-relaxed text-sm">
                         {review.content}
                     </p>
                 </div>

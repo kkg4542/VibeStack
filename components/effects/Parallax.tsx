@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
 
 interface ParallaxProps {
     children: React.ReactNode;
@@ -130,7 +130,7 @@ function ParallaxLayer({
         zIndex?: number;
     };
     index: number;
-    progress: any;
+    progress: MotionValue<number>;
 }) {
     const y = useTransform(progress, [0, 1], [0, layer.speed * 200]);
 
@@ -191,7 +191,7 @@ function ParallaxWord({
     word: string;
     index: number;
     total: number;
-    progress: any; // Using explicit type for MotionValue is complex, any is fine here or MotionValue<number>
+    progress: MotionValue<number>;
     className: string;
 }) {
     const start = index / total;

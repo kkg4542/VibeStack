@@ -13,6 +13,7 @@ import { useSession } from "next-auth/react";
 import * as motion from "framer-motion/client";
 import { designSystem } from "@/lib/design-system";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
+import { FavoriteWithTool } from "@/lib/schemas";
 
 type FavoriteItem = {
     id: string;
@@ -40,8 +41,8 @@ export default function FavoritesPage() {
             try {
                 const response = await fetch('/api/favorites');
                 if (response.ok) {
-                    const dbFavorites = await response.json();
-                    const formatted = dbFavorites.map((f: any) => ({
+                    const dbFavorites: FavoriteWithTool[] = await response.json();
+                    const formatted = dbFavorites.map((f) => ({
                         id: f.tool.slug,
                         type: 'tool' as const,
                         addedAt: new Date(f.createdAt).getTime(),

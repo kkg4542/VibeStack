@@ -29,11 +29,11 @@ export function SidebarAd({ toolSlug }: SidebarAdProps) {
                 </div>
 
                 <div className="flex items-start gap-4">
-                    <div className={`p-3 rounded-xl bg-secondary/50 border border-white/10 ${tool.color}`}>
+                    <div className={`p-3 rounded-xl bg-secondary/50 border border-border/20 ${tool.color}`}>
                         <Icon className="h-6 w-6" />
                     </div>
                     <div>
-                        <h4 className="font-bold text-white group-hover:text-indigo-300 transition-colors">
+                        <h4 className="font-bold text-foreground group-hover:text-indigo-500 transition-colors">
                             {tool.title}
                         </h4>
                         <p className="text-xs text-muted-foreground line-clamp-2 mt-1">
