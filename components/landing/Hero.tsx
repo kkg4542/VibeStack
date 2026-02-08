@@ -7,13 +7,16 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import { m, useReducedMotion } from "framer-motion";
 import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
 import { MagneticButton } from "@/components/effects/MagneticButton";
+import { designSystem } from "@/lib/design-system";
 
 export function Hero() {
     const shouldReduceMotion = useReducedMotion();
+    const fadeInUp = designSystem.animations.fadeInUp;
+    const elegantEase = designSystem.animations.elegantEase;
 
     const transition = {
-        duration: shouldReduceMotion ? 0 : 1,
-        ease: [0.16, 1, 0.3, 1] as const
+        duration: shouldReduceMotion ? 0 : 0.8,
+        ease: elegantEase
     };
 
     const delayedTransition = (delay: number) => ({
@@ -32,10 +35,7 @@ export function Hero() {
                     <m.div
                         initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{
-                            duration: shouldReduceMotion ? 0 : 0.8,
-                            ease: [0.16, 1, 0.3, 1] as const
-                        }}
+                        transition={transition}
                         className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-sm text-primary backdrop-blur-md shadow-sm"
                     >
                         <Sparkles className="mr-2 h-3.5 w-3.5" />
@@ -43,8 +43,8 @@ export function Hero() {
                     </m.div>
 
                     <m.h1
-                        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 30 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        initial={fadeInUp.initial}
+                        animate={fadeInUp.animate}
                         transition={delayedTransition(0.2)}
                         className="text-3xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl"
                     >
@@ -57,8 +57,8 @@ export function Hero() {
                     </m.h1>
 
                     <m.p
-                        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        initial={fadeInUp.initial}
+                        animate={fadeInUp.animate}
                         transition={delayedTransition(0.4)}
                         className="max-w-[700px] text-lg text-muted-foreground md:text-xl/relaxed leading-relaxed"
                     >
@@ -68,8 +68,8 @@ export function Hero() {
 
                     {/* Social Proof */}
                     <m.div
-                        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        initial={fadeInUp.initial}
+                        animate={fadeInUp.animate}
                         transition={delayedTransition(0.45)}
                         className="flex items-center gap-2 text-sm text-muted-foreground"
                     >
@@ -106,8 +106,8 @@ export function Hero() {
                     </m.div>
 
                     <m.div
-                        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        initial={fadeInUp.initial}
+                        animate={fadeInUp.animate}
                         transition={delayedTransition(0.6)}
                         className="flex flex-col gap-5 sm:flex-row mt-6 sm:gap-4"
                     >

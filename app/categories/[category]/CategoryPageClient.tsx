@@ -1,6 +1,7 @@
 "use client";
 
 import * as motion from "framer-motion/client";
+import { designSystem } from "@/lib/design-system";
 import { tools } from "@/lib/tools";
 import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -8,12 +9,12 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CompareButton } from "@/components/tools/CompareButton";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
-import { 
-    Code2, 
-    FolderKanban, 
-    Zap, 
-    MessageSquare, 
-    Palette, 
+import {
+    Code2,
+    FolderKanban,
+    Zap,
+    MessageSquare,
+    Palette,
     Box,
     ArrowLeft,
     TrendingUp,
@@ -73,11 +74,11 @@ const categoryInfo: Record<string, {
 export function CategoryPageClient({ category }: CategoryPageClientProps) {
     const info = categoryInfo[category];
     const Icon = info.icon;
-    
+
     const categoryTools = useMemo(() => {
         return tools.filter(tool => tool.category === category);
     }, [category]);
-    
+
     const freeCount = categoryTools.filter(t => t.pricing === "Free" || t.pricing === "Freemium").length;
     const avgRating = categoryTools.reduce((acc, t) => acc + (t.review?.rating || 0), 0) / categoryTools.filter(t => t.review?.rating).length || 0;
 
@@ -86,8 +87,9 @@ export function CategoryPageClient({ category }: CategoryPageClientProps) {
             <div className="container max-w-6xl mx-auto px-4">
                 {/* Back Button */}
                 <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    initial={designSystem.animations.fadeInUp.initial}
+                    animate={designSystem.animations.fadeInUp.animate}
+                    transition={designSystem.animations.fadeInUp.transition}
                     className="mb-6"
                 >
                     <Button variant="ghost" asChild className="pl-0">
@@ -100,9 +102,9 @@ export function CategoryPageClient({ category }: CategoryPageClientProps) {
 
                 {/* Hero Section */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
+                    initial={designSystem.animations.fadeInUp.initial}
+                    animate={designSystem.animations.fadeInUp.animate}
+                    transition={designSystem.animations.fadeInUp.transition}
                     className="text-center mb-16"
                 >
                     <motion.div
@@ -134,9 +136,9 @@ export function CategoryPageClient({ category }: CategoryPageClientProps) {
 
                     {/* Stats */}
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.3 }}
+                        initial={designSystem.animations.fadeInUp.initial}
+                        animate={designSystem.animations.fadeInUp.animate}
+                        transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.3 }}
                         className="flex flex-wrap justify-center gap-8"
                     >
                         <div className="flex items-center gap-2 text-sm">
@@ -173,9 +175,9 @@ export function CategoryPageClient({ category }: CategoryPageClientProps) {
 
                 {/* Key Features */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
+                    initial={designSystem.animations.fadeInUp.initial}
+                    animate={designSystem.animations.fadeInUp.animate}
+                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.4 }}
                     className="mb-12"
                 >
                     <div className="flex flex-wrap justify-center gap-3">
@@ -186,8 +188,8 @@ export function CategoryPageClient({ category }: CategoryPageClientProps) {
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
                             >
-                                <Badge 
-                                    variant="secondary" 
+                                <Badge
+                                    variant="secondary"
                                     className="px-4 py-2 text-sm bg-secondary/50 border border-border/40"
                                 >
                                     {feature}
@@ -199,9 +201,9 @@ export function CategoryPageClient({ category }: CategoryPageClientProps) {
 
                 {/* Tools Grid */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.5 }}
+                    initial={designSystem.animations.fadeInUp.initial}
+                    animate={designSystem.animations.fadeInUp.animate}
+                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.5 }}
                 >
                     <div className="flex items-center justify-between mb-6">
                         <h2 className="text-2xl font-bold">Available Tools</h2>
@@ -212,9 +214,9 @@ export function CategoryPageClient({ category }: CategoryPageClientProps) {
                         {categoryTools.map((tool, index) => (
                             <motion.div
                                 key={tool.slug}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.3, delay: 0.6 + index * 0.05 }}
+                                initial={designSystem.animations.fadeInUp.initial}
+                                animate={designSystem.animations.fadeInUp.animate}
+                                transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.6 + index * 0.05 }}
                             >
                                 <Link
                                     href={`/tool/${tool.slug}`}
@@ -255,9 +257,9 @@ export function CategoryPageClient({ category }: CategoryPageClientProps) {
 
                 {/* Related Categories */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.7 }}
+                    initial={designSystem.animations.fadeInUp.initial}
+                    animate={designSystem.animations.fadeInUp.animate}
+                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.7 }}
                     className="mt-16 text-center"
                 >
                     <Card className="border-indigo-500/20 bg-linear-to-br from-indigo-500/5 to-purple-500/5">

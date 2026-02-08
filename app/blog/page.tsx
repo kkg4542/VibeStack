@@ -110,9 +110,9 @@ export default function BlogListingPage() {
 
                     {/* Enhanced Search Bar */}
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.3 }}
+                        initial={designSystem.animations.fadeInUp.initial}
+                        animate={designSystem.animations.fadeInUp.animate}
+                        transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.3 }}
                         className="max-w-3xl mx-auto relative"
                     >
                         <div className="relative bg-card/50 backdrop-blur-sm rounded-2xl border border-border/40 p-2 shadow-lg">
@@ -218,9 +218,9 @@ export default function BlogListingPage() {
 
                     {/* Popular Tags */}
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.4 }}
+                        initial={designSystem.animations.fadeInUp.initial}
+                        animate={designSystem.animations.fadeInUp.animate}
+                        transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.4 }}
                         className="mt-6"
                     >
                         <span className="text-sm text-muted-foreground mr-3">Popular:</span>
@@ -242,10 +242,10 @@ export default function BlogListingPage() {
                         {/* Featured Posts Section */}
                         {!searchQuery && selectedCategory === "All" && (
                             <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
+                                initial={designSystem.animations.fadeInUp.initial}
+                                whileInView={designSystem.animations.fadeInUp.animate}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.6 }}
+                                transition={designSystem.animations.fadeInUp.transition}
                                 className="mb-16"
                             >
                                 <div className="flex items-center gap-3 mb-8">
@@ -313,10 +313,10 @@ export default function BlogListingPage() {
 
                         {/* All Posts Section */}
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={designSystem.animations.fadeInUp.initial}
+                            whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
+                            transition={designSystem.animations.fadeInUp.transition}
                         >
                             <div className="flex items-center justify-between mb-8">
                                 <div className="flex items-center gap-3">

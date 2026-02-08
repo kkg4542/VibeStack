@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { Hero } from "@/components/landing/Hero";
 import { FeaturedStacks } from "@/components/landing/FeaturedStacks";
 import { ExitIntentPopup } from "@/components/ui/ExitIntentPopup";
+import { designSystem } from "@/lib/design-system";
 import { m } from "framer-motion";
 import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
 
@@ -23,16 +24,18 @@ const CTASection = dynamic(() => import("@/components/landing/CTASection").then(
 // Note: metadata export moved to layout.tsx as client components cannot export metadata
 
 export default function Home() {
+  const fadeInUp = designSystem.animations.fadeInUp;
+
   return (
     <LazyMotionProvider>
       <div className="min-h-screen bg-background text-foreground selection:bg-indigo-500/20">
         <Hero />
 
         <m.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={fadeInUp.initial}
+          whileInView={fadeInUp.animate}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] as const }}
+          transition={{ ...fadeInUp.transition, delay: 0.1 }}
         >
           <FeaturedStacks />
         </m.div>

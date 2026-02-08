@@ -1,10 +1,10 @@
 "use client";
 
 import * as motion from "framer-motion/client";
-import { 
-    MapPin, 
-    CheckCircle2, 
-    Clock, 
+import {
+    MapPin,
+    CheckCircle2,
+    Clock,
     Sparkles,
     Rocket,
     Zap,
@@ -16,6 +16,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
+import { designSystem } from "@/lib/design-system";
 import Link from "next/link";
 
 const roadmapItems = [
@@ -172,9 +173,9 @@ export default function RoadmapPage() {
             <div className="container max-w-5xl mx-auto px-4">
                 {/* Hero Section */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
+                    initial={designSystem.animations.fadeInUp.initial}
+                    animate={designSystem.animations.fadeInUp.animate}
+                    transition={designSystem.animations.fadeInUp.transition}
                     className="text-center mb-16"
                 >
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6">
@@ -190,16 +191,16 @@ export default function RoadmapPage() {
                     </h1>
 
                     <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                        See what we&apos;ve built, what we&apos;re working on, and what&apos;s coming next. 
+                        See what we&apos;ve built, what we&apos;re working on, and what&apos;s coming next.
                         We&apos;re building VibeStack in public.
                     </p>
                 </motion.div>
 
                 {/* Roadmap Timeline */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.1 }}
+                    initial={designSystem.animations.fadeInUp.initial}
+                    animate={designSystem.animations.fadeInUp.animate}
+                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.1 }}
                     className="mb-20"
                 >
                     <div className="flex items-center gap-3 mb-8">
@@ -214,31 +215,28 @@ export default function RoadmapPage() {
                         <div className="space-y-8">
                             {roadmapItems.map((item, index) => {
                                 const isLeft = index % 2 === 0;
-                                
+
                                 return (
                                     <motion.div
                                         key={item.quarter}
-                                        initial={{ opacity: 0, x: isLeft ? -20 : 20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
-                                        className={`relative flex items-start gap-4 md:gap-8 ${
-                                            isLeft ? 'md:flex-row' : 'md:flex-row-reverse'
-                                        }`}
+                                        initial={designSystem.animations.fadeInUp.initial}
+                                        animate={designSystem.animations.fadeInUp.animate}
+                                        transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.2 + index * 0.1 }}
+                                        className={`relative flex items-start gap-4 md:gap-8 ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'
+                                            }`}
                                     >
                                         {/* Timeline Dot */}
-                                        <div className={`absolute left-4 md:left-1/2 w-8 h-8 rounded-full border-4 border-background md:-translate-x-1/2 z-10 flex items-center justify-center ${
-                                            item.status === 'completed' ? 'bg-emerald-500' :
-                                            item.status === 'in-progress' ? 'bg-amber-500' : 'bg-slate-400'
-                                        }`}>
+                                        <div className={`absolute left-4 md:left-1/2 w-8 h-8 rounded-full border-4 border-background md:-translate-x-1/2 z-10 flex items-center justify-center ${item.status === 'completed' ? 'bg-emerald-500' :
+                                                item.status === 'in-progress' ? 'bg-amber-500' : 'bg-slate-400'
+                                            }`}>
                                             {item.status === 'completed' && <CheckCircle2 className="h-4 w-4 text-white" />}
                                             {item.status === 'in-progress' && <Clock className="h-4 w-4 text-white" />}
                                             {item.status === 'planned' && <MapPin className="h-4 w-4 text-white" />}
                                         </div>
 
                                         {/* Content */}
-                                        <div className={`ml-12 md:ml-0 md:w-[calc(50%-2rem)] ${
-                                            isLeft ? 'md:text-right md:pr-8' : 'md:pl-8'
-                                        }`}>
+                                        <div className={`ml-12 md:ml-0 md:w-[calc(50%-2rem)] ${isLeft ? 'md:text-right md:pr-8' : 'md:pl-8'
+                                            }`}>
                                             <Card className="border-border/50 hover:border-indigo-500/30 transition-colors">
                                                 <CardContent className="p-6">
                                                     <div className={`flex items-center gap-2 mb-3 ${isLeft ? 'md:justify-end' : ''}`}>
@@ -247,7 +245,7 @@ export default function RoadmapPage() {
                                                     </div>
                                                     <h3 className="text-lg font-bold mb-1">{item.title}</h3>
                                                     <p className="text-sm text-muted-foreground mb-4">{item.description}</p>
-                                                    
+
                                                     <ul className="space-y-2">
                                                         {item.items.map((listItem, i) => (
                                                             <li key={i} className={`flex items-center gap-2 text-sm ${isLeft ? 'md:flex-row-reverse' : ''}`}>
@@ -274,9 +272,9 @@ export default function RoadmapPage() {
 
                 {/* Changelog */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.5 }}
+                    initial={designSystem.animations.fadeInUp.initial}
+                    animate={designSystem.animations.fadeInUp.animate}
+                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.5 }}
                     className="mb-20"
                 >
                     <div className="flex items-center gap-3 mb-8">
@@ -288,9 +286,9 @@ export default function RoadmapPage() {
                         {changelog.map((release, index) => (
                             <motion.div
                                 key={release.version}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
+                                initial={designSystem.animations.fadeInUp.initial}
+                                animate={designSystem.animations.fadeInUp.animate}
+                                transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.6 + index * 0.1 }}
                             >
                                 <Card className="border-border/50">
                                     <CardContent className="p-6">
@@ -305,7 +303,7 @@ export default function RoadmapPage() {
                                                 </Badge>
                                             )}
                                         </div>
-                                        
+
                                         <ul className="space-y-3">
                                             {release.changes.map((change, i) => (
                                                 <li key={i} className="flex items-start gap-3">
@@ -323,9 +321,9 @@ export default function RoadmapPage() {
 
                 {/* Feature Request CTA */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.8 }}
+                    initial={designSystem.animations.fadeInUp.initial}
+                    animate={designSystem.animations.fadeInUp.animate}
+                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.8 }}
                     className="text-center"
                 >
                     <Card className="border-indigo-500/20 bg-linear-to-br from-indigo-500/5 to-purple-500/5">

@@ -45,9 +45,9 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
             <div className="container max-w-6xl mx-auto px-4">
                 {/* Back Link */}
                 <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5 }}
+                    initial={designSystem.animations.fadeInUp.initial}
+                    animate={designSystem.animations.fadeInUp.animate}
+                    transition={designSystem.animations.fadeInUp.transition}
                 >
                     <Link
                         href="/build"
@@ -62,7 +62,7 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
                 <motion.div
                     initial={designSystem.animations.fadeInUp.initial}
                     animate={designSystem.animations.fadeInUp.animate}
-                    transition={{ duration: 0.8 }}
+                    transition={designSystem.animations.fadeInUp.transition}
                     className="mb-16"
                 >
                     <div className="bg-linear-to-br from-indigo-500/5 via-purple-500/5 to-pink-500/5 rounded-3xl p-8 md:p-12 border border-indigo-500/10 relative overflow-hidden">
@@ -158,9 +158,9 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
 
                                 {/* Cost Card */}
                                 <motion.div
-                                    initial={{ opacity: 0, x: 20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.6, delay: 0.3 }}
+                                    initial={designSystem.animations.fadeInUp.initial}
+                                    animate={designSystem.animations.fadeInUp.animate}
+                                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.3 }}
                                 >
                                     <Card className="bg-linear-to-b from-indigo-500/10 to-card/50 border-indigo-500/20 min-w-[200px]">
                                         <CardContent className="p-6 text-center">
@@ -187,10 +187,10 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
                     <div className="lg:col-span-2 space-y-12">
                         {/* About This Stack */}
                         <motion.section
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={designSystem.animations.fadeInUp.initial}
+                            whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
+                            transition={designSystem.animations.fadeInUp.transition}
                         >
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="p-2 rounded-lg bg-indigo-500/10">
@@ -209,10 +209,10 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
 
                         {/* Workflow Section */}
                         <motion.section
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={designSystem.animations.fadeInUp.initial}
+                            whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
+                            transition={designSystem.animations.fadeInUp.transition}
                         >
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="p-2 rounded-lg bg-violet-500/10">
@@ -249,10 +249,10 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
 
                         {/* Tools in Stack */}
                         <motion.section
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={designSystem.animations.fadeInUp.initial}
+                            whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
+                            transition={designSystem.animations.fadeInUp.transition}
                         >
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="p-2 rounded-lg bg-amber-500/10">
@@ -299,10 +299,10 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
 
                         {/* Ideal For Section */}
                         <motion.section
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={designSystem.animations.fadeInUp.initial}
+                            whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
+                            transition={designSystem.animations.fadeInUp.transition}
                         >
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="p-2 rounded-lg bg-emerald-500/10">
@@ -333,10 +333,10 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
                     <aside className="space-y-6">
                         {/* CTA Card */}
                         <motion.div
-                            initial={{ opacity: 0, x: 20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
+                            initial={designSystem.animations.fadeInUp.initial}
+                            whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
+                            transition={designSystem.animations.fadeInUp.transition}
                             className="bg-linear-to-br from-indigo-500/10 to-purple-500/10 rounded-3xl border border-indigo-500/20 p-6 backdrop-blur-sm sticky top-24"
                         >
                             <h3 className="text-xl font-bold mb-4">Ready to Build?</h3>
@@ -360,10 +360,10 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
 
                         {/* Stack Stats */}
                         <motion.div
-                            initial={{ opacity: 0, x: 20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
+                            initial={designSystem.animations.fadeInUp.initial}
+                            whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: 0.1 }}
+                            transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.1 }}
                             className="bg-card/50 rounded-3xl border border-border/50 p-6 backdrop-blur-sm"
                         >
                             <h3 className="font-semibold mb-4">Stack Stats</h3>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import * as motion from "framer-motion/client";
+import { designSystem } from "@/lib/design-system";
 
 export default function ConsultingPage() {
     const services = [
@@ -43,9 +44,9 @@ export default function ConsultingPage() {
                 {/* Hero */}
                 <section className="container mx-auto px-4 pt-20 pb-32 text-center">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
+                        initial={designSystem.animations.fadeInUp.initial}
+                        animate={designSystem.animations.fadeInUp.animate}
+                        transition={designSystem.animations.fadeInUp.transition}
                     >
                         <div className="mx-auto mb-6 flex max-w-fit items-center rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-2 text-sm font-medium text-indigo-400 backdrop-blur-md">
                             <span className="mr-2 flex h-2 w-2 relative">
@@ -92,10 +93,10 @@ export default function ConsultingPage() {
 
                     <div className="grid gap-8 md:grid-cols-3">
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={designSystem.animations.fadeInUp.initial}
+                            whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.5 }}
+                            transition={designSystem.animations.fadeInUp.transition}
                             className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card p-8 transition-all hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
                         >
                             <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/50 ring-1 ring-border group-hover:bg-indigo-500/10 group-hover:ring-indigo-500/30 transition-colors">
@@ -120,10 +121,10 @@ export default function ConsultingPage() {
                         </motion.div>
 
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={designSystem.animations.fadeInUp.initial}
+                            whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
-                            transition={{ delay: 0.1, duration: 0.5 }}
+                            transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.1 }}
                             className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card p-8 transition-all hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
                         >
                             <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/50 ring-1 ring-border group-hover:bg-indigo-500/10 group-hover:ring-indigo-500/30 transition-colors">
@@ -148,10 +149,10 @@ export default function ConsultingPage() {
                         </motion.div>
 
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={designSystem.animations.fadeInUp.initial}
+                            whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
-                            transition={{ delay: 0.2, duration: 0.5 }}
+                            transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.2 }}
                             className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card p-8 transition-all hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
                         >
                             <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/50 ring-1 ring-border group-hover:bg-indigo-500/10 group-hover:ring-indigo-500/30 transition-colors">
@@ -217,10 +218,10 @@ export default function ConsultingPage() {
                     <div className="grid gap-8 md:grid-cols-3 max-w-5xl mx-auto">
                         {/* Starter */}
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={designSystem.animations.fadeInUp.initial}
+                            whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.5 }}
+                            transition={designSystem.animations.fadeInUp.transition}
                             className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card/50 p-8 transition-all hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
                         >
                             <div className="mb-6">
@@ -257,10 +258,10 @@ export default function ConsultingPage() {
 
                         {/* Professional - Highlighted */}
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={designSystem.animations.fadeInUp.initial}
+                            whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: 0.1 }}
+                            transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.1 }}
                             className="group relative overflow-hidden rounded-3xl border-2 border-indigo-500/50 bg-linear-to-b from-indigo-500/10 to-card/50 p-8 shadow-xl shadow-indigo-500/20 transition-all hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-500/30"
                         >
                             <div className="absolute top-4 right-4">
@@ -304,10 +305,10 @@ export default function ConsultingPage() {
 
                         {/* Enterprise */}
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={designSystem.animations.fadeInUp.initial}
+                            whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
+                            transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.2 }}
                             className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card/50 p-8 transition-all hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
                         >
                             <div className="mb-6">
@@ -386,10 +387,10 @@ export default function ConsultingPage() {
 
                     <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={designSystem.animations.fadeInUp.initial}
+                            whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.5 }}
+                            transition={designSystem.animations.fadeInUp.transition}
                             className="rounded-2xl border border-border/50 bg-card/50 p-6 backdrop-blur-sm"
                         >
                             <div className="mb-4 flex gap-1">
@@ -410,10 +411,10 @@ export default function ConsultingPage() {
                         </motion.div>
 
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={designSystem.animations.fadeInUp.initial}
+                            whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: 0.1 }}
+                            transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.1 }}
                             className="rounded-2xl border border-border/50 bg-card/50 p-6 backdrop-blur-sm"
                         >
                             <div className="mb-4 flex gap-1">
@@ -434,10 +435,10 @@ export default function ConsultingPage() {
                         </motion.div>
 
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={designSystem.animations.fadeInUp.initial}
+                            whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
+                            transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.2 }}
                             className="rounded-2xl border border-border/50 bg-card/50 p-6 backdrop-blur-sm"
                         >
                             <div className="mb-4 flex gap-1">
@@ -462,10 +463,10 @@ export default function ConsultingPage() {
                 {/* Final CTA */}
                 <section className="container mx-auto px-4 py-20">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                        initial={designSystem.animations.fadeInUp.initial}
+                        whileInView={designSystem.animations.fadeInUp.animate}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
+                        transition={designSystem.animations.fadeInUp.transition}
                         className="relative overflow-hidden rounded-3xl border border-indigo-500/20 bg-linear-to-br from-indigo-500/10 via-purple-500/5 to-pink-500/10 p-12 lg:p-16 text-center backdrop-blur-sm"
                     >
                         <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-size-[20px_20px]" />

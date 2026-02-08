@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import * as motion from "framer-motion/client";
-import { 
-    HelpCircle, 
-    Search, 
-    ChevronDown, 
+import {
+    HelpCircle,
+    Search,
+    ChevronDown,
     MessageCircle,
     Mail,
     Sparkles
@@ -14,6 +14,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
+import { designSystem } from "@/lib/design-system";
 import Link from "next/link";
 
 const faqCategories = [
@@ -105,8 +106,8 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
                 className="w-full p-6 flex items-center justify-between text-left hover:bg-secondary/30 transition-colors"
             >
                 <span className="font-semibold text-foreground pr-4">{question}</span>
-                <ChevronDown 
-                    className={`h-5 w-5 text-muted-foreground flex-shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} 
+                <ChevronDown
+                    className={`h-5 w-5 text-muted-foreground flex-shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
                 />
             </button>
             <motion.div
@@ -129,7 +130,7 @@ export default function FAQPage() {
     const filteredCategories = faqCategories.map(category => ({
         ...category,
         questions: category.questions.filter(
-            q => 
+            q =>
                 q.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 q.answer.toLowerCase().includes(searchQuery.toLowerCase())
         )
@@ -140,9 +141,9 @@ export default function FAQPage() {
             <div className="container max-w-4xl mx-auto px-4">
                 {/* Hero Section */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
+                    initial={designSystem.animations.fadeInUp.initial}
+                    animate={designSystem.animations.fadeInUp.animate}
+                    transition={designSystem.animations.fadeInUp.transition}
                     className="text-center mb-12"
                 >
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6">
@@ -181,9 +182,9 @@ export default function FAQPage() {
                         return (
                             <motion.div
                                 key={category.title}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.4, delay: categoryIndex * 0.1 }}
+                                initial={designSystem.animations.fadeInUp.initial}
+                                animate={designSystem.animations.fadeInUp.animate}
+                                transition={{ ...designSystem.animations.fadeInUp.transition, delay: categoryIndex * 0.1 }}
                             >
                                 <div className="flex items-center gap-3 mb-6">
                                     <div className="p-2 rounded-lg bg-indigo-500/10">
@@ -191,14 +192,14 @@ export default function FAQPage() {
                                     </div>
                                     <h2 className="text-xl font-bold">{category.title}</h2>
                                 </div>
-                                
+
                                 <div className="space-y-4">
                                     {category.questions.map((q, qIndex) => (
                                         <motion.div
                                             key={q.question}
-                                            initial={{ opacity: 0, x: -20 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ duration: 0.3, delay: qIndex * 0.05 }}
+                                            initial={designSystem.animations.fadeInUp.initial}
+                                            animate={designSystem.animations.fadeInUp.animate}
+                                            transition={{ ...designSystem.animations.fadeInUp.transition, delay: qIndex * 0.05 }}
                                         >
                                             <FAQItem question={q.question} answer={q.answer} />
                                         </motion.div>
@@ -217,8 +218,8 @@ export default function FAQPage() {
                     >
                         <HelpCircle className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
                         <p className="text-muted-foreground">No questions found matching your search.</p>
-                        <Button 
-                            variant="outline" 
+                        <Button
+                            variant="outline"
                             className="mt-4"
                             onClick={() => setSearchQuery("")}
                         >
@@ -229,9 +230,9 @@ export default function FAQPage() {
 
                 {/* Contact CTA */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.5 }}
+                    initial={designSystem.animations.fadeInUp.initial}
+                    animate={designSystem.animations.fadeInUp.animate}
+                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.5 }}
                     className="mt-16 text-center"
                 >
                     <Card className="border-indigo-500/20 bg-linear-to-br from-indigo-500/5 to-purple-500/5">
