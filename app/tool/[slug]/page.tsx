@@ -11,6 +11,7 @@ import { AffiliateLink } from "@/components/ui/AffiliateLink";
 import { SidebarAd } from "@/components/tools/SidebarAd";
 import { ReviewList } from "@/components/reviews/ReviewList";
 import { ReviewForm } from "@/components/reviews/ReviewForm";
+import { ExitIntentPopup } from "@/components/ui/ExitIntentPopup";
 import * as motion from "framer-motion/client";
 import { designSystem } from "@/lib/design-system";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
@@ -425,6 +426,9 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                     })
                 }}
             />
+            
+            {/* Exit Intent Popup */}
+            <ExitIntentPopup toolSlug={tool.slug} toolName={tool.title} />
         </PageBackground>
     );
 }

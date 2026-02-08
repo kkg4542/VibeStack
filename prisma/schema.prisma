@@ -25,12 +25,15 @@ model Tool {
   cons         String[]
   color        String   @default("text-foreground")
   bgGradient   String   @default("from-transparent to-transparent") @map("bg_gradient")
+  tier         String   @default("free") // free, bronze, silver, gold, platinum
+  isFeatured   Boolean  @default(false) @map("is_featured")
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
 
   stackTools   StackTool[]
   reviews      Review[]
   favorites    Favorite[]
+  affiliateClicks AffiliateClick[]
 
   @@map("tools")
 }
@@ -168,4 +171,55 @@ model Favorite {
 
   @@unique([userId, toolId])
   @@map("favorites")
+}
+
+model AffiliateClick {
+  id        String   @id @default(cuid())
+  toolId    String   @map("tool_id")
+  toolSlug  String   @map("tool_slug")
+  toolName  String   @map("tool_name")
+  url       String
+  userAgent String?  @map("user_agent")
+  referrer  String?
+  ipAddress String?  @map("ip_address")
+  abVariant String?  @map("ab_variant") // A/B test variant
+  createdAt DateTime @default(now()) @map("created_at")
+
+  tool Tool @relation(fields: [toolId], references: [id], onDelete: Cascade)
+
+  @@index([toolId, createdAt])
+  @@index([createdAt])
+  @@map("affiliate_clicks")
+}
+
+model EmailCapture {
+  id        String   @id @default(cuid())
+  email     String
+  source    String   @default("exit_intent") // exit_intent, newsletter, tool_page
+  toolSlug  String?  @map("tool_slug")
+  metadata  String?  // JSON string for additional data
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([email, source])
+  @@index([createdAt])
+  @@map("email_captures")
+}
+
+model Submission {
+  id          String   @id @default(cuid())
+  toolName    String   @map("tool_name")
+  description String
+  websiteUrl  String   @map("website_url")
+  category    String
+  pricing     String
+  email       String
+  tier        String   @default("free") // free, priority, premium
+  status      String   @default("pending") // pending, approved, rejected
+  amount      Int      @default(0) // in cents (0 for free, 4900 for priority, 14900 for premium)
+  paymentId   String?  @map("payment_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@index([status, createdAt])
+  @@map("submissions")
 }

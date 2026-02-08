@@ -66,6 +66,28 @@ export function Hero() {
                         Curated AI stacks for developers, designers, and creators.
                     </m.p>
 
+                    {/* Social Proof */}
+                    <m.div
+                        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={delayedTransition(0.45)}
+                        className="flex items-center gap-2 text-sm text-muted-foreground"
+                    >
+                        <div className="flex -space-x-2">
+                            {[1, 2, 3, 4].map((i) => (
+                                <div
+                                    key={i}
+                                    className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 border-2 border-background flex items-center justify-center text-[10px] font-bold text-white"
+                                >
+                                    {String.fromCharCode(64 + i)}
+                                </div>
+                            ))}
+                        </div>
+                        <span>
+                            <strong className="text-foreground">15,000+</strong> developers trust VibeStack
+                        </span>
+                    </m.div>
+
                     <m.div
                         initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}

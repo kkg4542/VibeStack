@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { Hero } from "@/components/landing/Hero";
 import { FeaturedStacks } from "@/components/landing/FeaturedStacks";
+import { ExitIntentPopup } from "@/components/ui/ExitIntentPopup";
 import { m } from "framer-motion";
 import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
 
@@ -41,6 +42,9 @@ export default function Home() {
         <Testimonials />
 
         <CTASection />
+
+        {/* Exit Intent Popup */}
+        <ExitIntentPopup />
       </div>
     </LazyMotionProvider>
   );

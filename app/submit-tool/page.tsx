@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import * as motion from "framer-motion/client";
 import { 
     Upload, 
@@ -15,13 +16,76 @@ import {
     FileCheck,
     MessageSquare,
     Mail,
-    ExternalLink
+    ExternalLink,
+    Check,
+    TrendingUp,
+    Award
 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import Link from "next/link";
+
+const pricingPlans = [
+    {
+        id: "free",
+        name: "Free Submission",
+        price: "$0",
+        description: "Basic listing with standard review time",
+        features: [
+            "Standard listing on VibeStack",
+            "1-2 week review process",
+            "Basic tool information",
+            "Community reviews enabled"
+        ],
+        notIncluded: [
+            "Priority review",
+            "Featured placement",
+            "Social media promotion"
+        ],
+        cta: "Submit for Free",
+        popular: false
+    },
+    {
+        id: "priority",
+        name: "Priority Submission",
+        price: "$49",
+        description: "Fast-track review with social promotion",
+        features: [
+            "Everything in Free",
+            "24-48 hour review process",
+            "Twitter/X announcement",
+            "LinkedIn post",
+            "Priority support"
+        ],
+        notIncluded: [
+            "Featured badge",
+            "Homepage placement"
+        ],
+        cta: "Submit with Priority",
+        popular: true
+    },
+    {
+        id: "premium",
+        name: "Premium Submission",
+        price: "$149",
+        description: "Maximum visibility and promotion",
+        features: [
+            "Everything in Priority",
+            "Featured badge",
+            "Homepage spotlight (48 hours)",
+            "Newsletter feature",
+            "Dedicated blog mention",
+            "1-week featured sidebar ad"
+        ],
+        notIncluded: [],
+        cta: "Submit Premium",
+        popular: false
+    }
+];
 
 const criteria = [
     {
@@ -79,51 +143,78 @@ const rejectionReasons = [
     }
 ];
 
-const processSteps = [
-    {
-        step: 1,
-        title: "Submit Your Tool",
-        description: "Fill out the submission form with accurate information about your tool.",
-        duration: "5 minutes",
-        icon: Upload
-    },
-    {
-        step: 2,
-        title: "Initial Review",
-        description: "Our team checks that your submission meets basic criteria and has all required information.",
-        duration: "1-2 days",
-        icon: FileCheck
-    },
-    {
-        step: 3,
-        title: "Quality Assessment",
-        description: "We test the tool ourselves and evaluate its quality, usability, and value proposition.",
-        duration: "3-5 days",
-        icon: Star
-    },
-    {
-        step: 4,
-        title: "Decision & Feedback",
-        description: "You'll receive an email with our decision. If approved, your tool goes live within 24 hours.",
-        duration: "1 week total",
-        icon: CheckCircle2
-    }
-];
-
-const tips = [
-    "Be honest about your tool's capabilities - exaggeration hurts credibility",
-    "Include screenshots or demo videos showing the AI features in action",
-    "Explain what makes your tool different from competitors",
-    "Provide clear pricing information upfront",
-    "Have a professional landing page ready for reviewers",
-    "Respond promptly if we have follow-up questions",
-    "Make sure your tool works reliably during the review period"
-];
-
 export default function SubmitToolPage() {
+    const [selectedPlan, setSelectedPlan] = useState<string>("priority");
+    const [formData, setFormData] = useState({
+        toolName: "",
+        description: "",
+        websiteUrl: "",
+        category: "",
+        pricing: "",
+        email: ""
+    });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+
+        try {
+            const response = await fetch("/api/submissions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    ...formData,
+                    tier: selectedPlan,
+                    amount: selectedPlan === "free" ? 0 : selectedPlan === "priority" ? 4900 : 14900
+                })
+            });
+
+            if (response.ok) {
+                setSubmitted(true);
+            }
+        } catch (error) {
+            console.error("Submission error:", error);
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    if (submitted) {
+        return (
+            <PageBackground {...BackgroundPresets.content}>
+                <div className="container max-w-2xl mx-auto px-4 py-24">
+                    <Card className="text-center">
+                        <CardContent className="p-12">
+                            <div className="w-20 h-20 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-6">
+                                <CheckCircle2 className="w-10 h-10 text-emerald-500" />
+                            </div>
+                            <h2 className="text-3xl font-bold mb-4">Submission Received!</h2>
+                            <p className="text-muted-foreground mb-8">
+                                Thank you for submitting your tool. We&apos;ve sent a confirmation email to {formData.email}.
+                                {selectedPlan !== "free" && " You will receive a payment link shortly."}
+                            </p>
+                            <div className="flex justify-center gap-4">
+                                <Button asChild variant="outline">
+                                    <Link href="/tools">Browse Tools</Link>
+                                </Button>
+                                <Button asChild>
+                                    <Link href="/">Back to Home</Link>
+                                </Button>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </div>
+            </PageBackground>
+        );
+    }
+
     return (
         <PageBackground {...BackgroundPresets.content}>
-            <div className="container max-w-5xl mx-auto px-4">
+            <div className="container max-w-6xl mx-auto px-4 py-12">
                 {/* Hero Section */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -148,30 +239,223 @@ export default function SubmitToolPage() {
                         </span>
                     </h1>
 
-                    <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-8">
-                        Get your AI tool discovered by thousands of developers. 
-                        Read our guidelines to ensure a smooth submission process.
+                    <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                        Get your AI tool discovered by thousands of developers. Choose the submission tier that fits your needs.
                     </p>
+                </motion.div>
 
-                    <div className="flex flex-wrap justify-center gap-4">
-                        <Button asChild size="lg" className="rounded-full">
-                            <Link href="/consulting" className="flex items-center gap-2">
-                                Submit Your Tool
-                                <ArrowRight className="w-4 h-4" />
-                            </Link>
-                        </Button>
-                        <Button variant="outline" asChild size="lg" className="rounded-full">
-                            <Link href="/faq">View FAQ</Link>
-                        </Button>
+                {/* Pricing Plans */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    className="mb-16"
+                >
+                    <div className="text-center mb-8">
+                        <h2 className="text-2xl font-bold mb-2">Choose Your Submission Tier</h2>
+                        <p className="text-muted-foreground">Select the option that best fits your promotion needs</p>
                     </div>
+
+                    <div className="grid md:grid-cols-3 gap-6">
+                        {pricingPlans.map((plan, index) => (
+                            <motion.div
+                                key={plan.id}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
+                            >
+                                <Card 
+                                    className={`h-full cursor-pointer transition-all ${
+                                        selectedPlan === plan.id 
+                                            ? "border-indigo-500 ring-2 ring-indigo-500/20" 
+                                            : "border-border/50 hover:border-indigo-500/30"
+                                    }`}
+                                    onClick={() => setSelectedPlan(plan.id)}
+                                >
+                                    {plan.popular && (
+                                        <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                                            <Badge className="bg-indigo-500 text-white">
+                                                <TrendingUp className="w-3 h-3 mr-1" />
+                                                Most Popular
+                                            </Badge>
+                                        </div>
+                                    )}
+                                    <CardHeader className="pb-4">
+                                        <CardTitle className="text-xl">{plan.name}</CardTitle>
+                                        <div className="flex items-baseline gap-1">
+                                            <span className="text-4xl font-bold">{plan.price}</span>
+                                            {plan.id !== "free" && <span className="text-muted-foreground">one-time</span>}
+                                        </div>
+                                        <CardDescription>{plan.description}</CardDescription>
+                                    </CardHeader>
+                                    <CardContent className="pt-0">
+                                        <ul className="space-y-3 mb-6">
+                                            {plan.features.map((feature) => (
+                                                <li key={feature} className="flex items-start gap-2">
+                                                    <Check className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
+                                                    <span className="text-sm">{feature}</span>
+                                                </li>
+                                            ))}
+                                            {plan.notIncluded.map((item) => (
+                                                <li key={item} className="flex items-start gap-2 text-muted-foreground">
+                                                    <XCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                                                    <span className="text-sm line-through">{item}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                        <Button 
+                                            className="w-full"
+                                            variant={selectedPlan === plan.id ? "default" : "outline"}
+                                            onClick={() => setSelectedPlan(plan.id)}
+                                        >
+                                            {selectedPlan === plan.id ? (
+                                                <>
+                                                    <Check className="w-4 h-4 mr-2" />
+                                                    Selected
+                                                </>
+                                            ) : (
+                                                plan.cta
+                                            )}
+                                        </Button>
+                                    </CardContent>
+                                </Card>
+                            </motion.div>
+                        ))}
+                    </div>
+                </motion.div>
+
+                {/* Submission Form */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                    className="max-w-2xl mx-auto"
+                >
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Tool Information</CardTitle>
+                            <CardDescription>
+                                Tell us about your AI tool. Selected tier: <strong className="text-indigo-400">
+                                    {pricingPlans.find(p => p.id === selectedPlan)?.name}
+                                </strong>
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <form onSubmit={handleSubmit} className="space-y-6">
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium">Tool Name *</label>
+                                    <Input
+                                        required
+                                        placeholder="e.g., AI Code Assistant"
+                                        value={formData.toolName}
+                                        onChange={(e) => setFormData({...formData, toolName: e.target.value})}
+                                    />
+                                </div>
+
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium">Description *</label>
+                                    <Textarea
+                                        required
+                                        placeholder="Briefly describe what your tool does and how it helps developers..."
+                                        rows={4}
+                                        value={formData.description}
+                                        onChange={(e) => setFormData({...formData, description: e.target.value})}
+                                    />
+                                </div>
+
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium">Website URL *</label>
+                                    <Input
+                                        required
+                                        type="url"
+                                        placeholder="https://yourtool.com"
+                                        value={formData.websiteUrl}
+                                        onChange={(e) => setFormData({...formData, websiteUrl: e.target.value})}
+                                    />
+                                </div>
+
+                                <div className="grid md:grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium">Category *</label>
+                                        <select 
+                                            required
+                                            className="w-full h-10 px-3 rounded-md border border-input bg-background"
+                                            value={formData.category}
+                                            onChange={(e) => setFormData({...formData, category: e.target.value})}
+                                        >
+                                            <option value="">Select category</option>
+                                            <option value="Coding">Coding</option>
+                                            <option value="Design">Design</option>
+                                            <option value="Productivity">Productivity</option>
+                                            <option value="Management">Management</option>
+                                            <option value="Assistance">Assistance</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium">Pricing Model *</label>
+                                        <select 
+                                            required
+                                            className="w-full h-10 px-3 rounded-md border border-input bg-background"
+                                            value={formData.pricing}
+                                            onChange={(e) => setFormData({...formData, pricing: e.target.value})}
+                                        >
+                                            <option value="">Select pricing</option>
+                                            <option value="Free">Free</option>
+                                            <option value="Freemium">Freemium</option>
+                                            <option value="Paid">Paid</option>
+                                            <option value="Enterprise">Enterprise</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium">Your Email *</label>
+                                    <Input
+                                        required
+                                        type="email"
+                                        placeholder="you@example.com"
+                                        value={formData.email}
+                                        onChange={(e) => setFormData({...formData, email: e.target.value})}
+                                    />
+                                    <p className="text-xs text-muted-foreground">
+                                        We&apos;ll send updates about your submission to this email.
+                                    </p>
+                                </div>
+
+                                <Button 
+                                    type="submit" 
+                                    size="lg" 
+                                    className="w-full rounded-full"
+                                    disabled={isSubmitting}
+                                >
+                                    {isSubmitting ? (
+                                        "Submitting..."
+                                    ) : (
+                                        <>
+                                            Submit Tool
+                                            <ArrowRight className="w-4 h-4 ml-2" />
+                                        </>
+                                    )}
+                                </Button>
+
+                                <p className="text-xs text-center text-muted-foreground">
+                                    By submitting, you agree to our{" "}
+                                    <Link href="/terms" className="underline">Terms</Link> and{" "}
+                                    <Link href="/privacy" className="underline">Privacy Policy</Link>.
+                                </p>
+                            </form>
+                        </CardContent>
+                    </Card>
                 </motion.div>
 
                 {/* Criteria Section */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className="mb-16"
+                    transition={{ duration: 0.6, delay: 0.5 }}
+                    className="mt-16 mb-16"
                 >
                     <div className="text-center mb-8">
                         <h2 className="text-2xl font-bold mb-2">Submission Criteria</h2>
@@ -186,9 +470,9 @@ export default function SubmitToolPage() {
                                     key={item.title}
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
+                                    transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
                                 >
-                                    <Card className="h-full border-border/50 hover:border-indigo-500/30 transition-colors">
+                                    <Card className="h-full border-border/50">
                                         <CardContent className="p-6">
                                             <div className="flex items-start gap-4">
                                                 <div className="p-3 rounded-xl bg-indigo-500/10">
@@ -212,128 +496,11 @@ export default function SubmitToolPage() {
                     </div>
                 </motion.div>
 
-                {/* Review Process */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                    className="mb-16"
-                >
-                    <div className="text-center mb-8">
-                        <h2 className="text-2xl font-bold mb-2">Review Process</h2>
-                        <p className="text-muted-foreground">What happens after you submit</p>
-                    </div>
-
-                    <div className="space-y-6">
-                        {processSteps.map((step, index) => {
-                            const Icon = step.icon;
-                            return (
-                                <motion.div
-                                    key={step.step}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
-                                >
-                                    <Card className="border-border/50">
-                                        <CardContent className="p-6">
-                                            <div className="flex flex-col md:flex-row md:items-center gap-6">
-                                                <div className="flex items-center gap-4">
-                                                    <div className="w-12 h-12 rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-400 font-bold text-lg">
-                                                        {step.step}
-                                                    </div>
-                                                    <div className="p-3 rounded-xl bg-secondary/50 md:hidden">
-                                                        <Icon className="w-6 h-6 text-indigo-400" />
-                                                    </div>
-                                                </div>
-                                                <div className="flex-1">
-                                                    <h3 className="font-bold text-lg mb-1">{step.title}</h3>
-                                                    <p className="text-muted-foreground">{step.description}</p>
-                                                </div>
-                                                <div className="hidden md:block p-3 rounded-xl bg-secondary/50">
-                                                    <Icon className="w-6 h-6 text-indigo-400" />
-                                                </div>
-                                                <Badge variant="outline" className="md:self-center">
-                                                    <Clock className="w-3 h-3 mr-1" />
-                                                    {step.duration}
-                                                </Badge>
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-                                </motion.div>
-                            );
-                        })}
-                    </div>
-                </motion.div>
-
-                {/* Common Rejection Reasons */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.6 }}
-                    className="mb-16"
-                >
-                    <div className="text-center mb-8">
-                        <h2 className="text-2xl font-bold mb-2">Common Rejection Reasons</h2>
-                        <p className="text-muted-foreground">Avoid these pitfalls to improve your chances</p>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-6">
-                        {rejectionReasons.map((item, index) => (
-                            <motion.div
-                                key={item.reason}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.4, delay: 0.7 + index * 0.1 }}
-                            >
-                                <Card className="border-border/50 border-l-4 border-l-red-500/50">
-                                    <CardContent className="p-6">
-                                        <div className="flex items-start gap-3">
-                                            <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                                            <div>
-                                                <h3 className="font-bold mb-1">{item.reason}</h3>
-                                                <p className="text-sm text-muted-foreground">{item.explanation}</p>
-                                            </div>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            </motion.div>
-                        ))}
-                    </div>
-                </motion.div>
-
-                {/* Tips for Success */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.7 }}
-                    className="mb-16"
-                >
-                    <Card className="border-indigo-500/20 bg-linear-to-br from-indigo-500/5 to-purple-500/5">
-                        <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
-                                <Sparkles className="w-5 h-5 text-indigo-400" />
-                                Tips for a Successful Submission
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <ul className="space-y-3">
-                                {tips.map((tip, index) => (
-                                    <li key={index} className="flex items-start gap-3">
-                                        <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
-                                        <span className="text-muted-foreground">{tip}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </CardContent>
-                    </Card>
-                </motion.div>
-
                 {/* FAQ Link */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.8 }}
-                    className="mb-16"
+                    transition={{ duration: 0.6, delay: 0.7 }}
                 >
                     <Card className="border-border/50">
                         <CardContent className="p-6">
@@ -359,30 +526,6 @@ export default function SubmitToolPage() {
                                     </Button>
                                 </div>
                             </div>
-                        </CardContent>
-                    </Card>
-                </motion.div>
-
-                {/* Final CTA */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.9 }}
-                    className="text-center"
-                >
-                    <Card className="border-indigo-500/20 bg-linear-to-br from-indigo-500/5 to-purple-500/5">
-                        <CardContent className="p-8">
-                            <Upload className="w-12 h-12 text-indigo-400 mx-auto mb-4" />
-                            <h3 className="text-2xl font-bold mb-2">Ready to submit your tool?</h3>
-                            <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
-                                Join hundreds of AI tools on VibeStack and reach thousands of developers looking for solutions like yours.
-                            </p>
-                            <Button asChild size="lg" className="rounded-full">
-                                <Link href="/consulting" className="flex items-center gap-2">
-                                    Submit Your Tool
-                                    <ArrowRight className="w-4 h-4" />
-                                </Link>
-                            </Button>
                         </CardContent>
                     </Card>
                 </motion.div>
