@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 interface MagneticButtonProps {
     children: React.ReactNode;
@@ -36,7 +36,7 @@ export function MagneticButton({
     };
 
     return (
-        <motion.button
+        <m.button
             ref={ref}
             onMouseMove={handleMouse}
             onMouseLeave={handleMouseLeave}
@@ -46,7 +46,7 @@ export function MagneticButton({
             className={className}
         >
             {children}
-        </motion.button>
+        </m.button>
     );
 }
 
@@ -79,7 +79,7 @@ export function MagneticWrapper({
     };
 
     return (
-        <motion.div
+        <m.div
             ref={ref}
             onMouseMove={handleMouse}
             onMouseLeave={handleMouseLeave}
@@ -88,7 +88,7 @@ export function MagneticWrapper({
             className={className}
         >
             {children}
-        </motion.div>
+        </m.div>
     );
 }
 
@@ -123,7 +123,7 @@ export function MagneticLink({
     };
 
     return (
-        <motion.a
+        <m.a
             ref={ref}
             href={href}
             onMouseMove={handleMouse}
@@ -133,7 +133,7 @@ export function MagneticLink({
             className={`relative inline-block ${className}`}
         >
             {children}
-        </motion.a>
+        </m.a>
     );
 }
 
@@ -168,7 +168,7 @@ export function MagneticCard({
     };
 
     return (
-        <motion.div
+        <m.div
             ref={ref}
             onMouseMove={handleMouse}
             onMouseEnter={() => setIsHovered(true)}
@@ -182,7 +182,7 @@ export function MagneticCard({
             className={className}
         >
             {children}
-        </motion.div>
+        </m.div>
     );
 }
 
@@ -220,7 +220,7 @@ export function MagneticShineButton({
     };
 
     return (
-        <motion.button
+        <m.button
             ref={ref}
             onMouseMove={handleMouse}
             onMouseLeave={handleMouseLeave}
@@ -233,6 +233,6 @@ export function MagneticShineButton({
             }}
         >
             <span className="relative z-10">{children}</span>
-        </motion.button>
+        </m.button>
     );
 }

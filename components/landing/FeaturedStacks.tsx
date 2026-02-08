@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowRight, DollarSign, Sparkles, Zap } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -20,7 +20,7 @@ export function FeaturedStacks() {
 
             <div className="container px-4 mx-auto">
                 <div className="text-center max-w-3xl mx-auto mb-16">
-                    <motion.div
+                    <m.div
                         initial={designSystem.animations.fadeInUp.initial}
                         whileInView={designSystem.animations.fadeInUp.animate}
                         viewport={{ once: true }}
@@ -39,12 +39,12 @@ export function FeaturedStacks() {
                         <p className="text-lg text-muted-foreground">
                             Don&apos;t start from scratch. Use the same tools as the world&apos;s best builders.
                         </p>
-                    </motion.div>
+                    </m.div>
                 </div>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                     {featuredStacks.map((stack, index) => (
-                        <motion.div
+                        <m.div
                             key={stack.id}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -103,7 +103,7 @@ export function FeaturedStacks() {
                                     </div>
                                 </div>
                             </Link>
-                        </motion.div>
+                        </m.div>
                     ))}
                 </div>
 

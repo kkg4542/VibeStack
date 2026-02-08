@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Star } from "lucide-react";
@@ -35,7 +35,7 @@ const testimonials = [
 export function Testimonials() {
     return (
         <section className="container mx-auto max-w-6xl px-4 py-24">
-            <motion.div
+            <m.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -48,26 +48,26 @@ export function Testimonials() {
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                     Join thousands of developers who trust VibeStack for their AI tool needs
                 </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {testimonials.map((testimonial, index) => (
-                    <motion.div
+                    <m.div
                         key={testimonial.name}
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: index * 0.1 }}
                     >
-                        <Card className="h-full border-border/40 bg-card/40 backdrop-blur-sm hover:border-border/80 transition-all">
-                            <CardContent className="p-6">
+                        <Card className="h-full border-border/40 bg-card/40 backdrop-blur-sm hover:border-border/80 transition-all flex flex-col">
+                            <CardContent className="p-6 flex flex-col h-full">
                                 <div className="flex gap-1 mb-4">
                                     {[...Array(testimonial.rating)].map((_, i) => (
                                         <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                                     ))}
                                 </div>
 
-                                <p className="text-foreground mb-6 leading-relaxed">
+                                <p className="text-foreground mb-6 leading-relaxed grow">
                                     &quot;{testimonial.content}&quot;
                                 </p>
 
@@ -88,7 +88,7 @@ export function Testimonials() {
                                 </div>
                             </CardContent>
                         </Card>
-                    </motion.div>
+                    </m.div>
                 ))}
             </div>
         </section>
