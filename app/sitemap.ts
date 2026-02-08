@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { tools } from "@/lib/tools";
 import { blogPosts } from "@/lib/blog";
+import { stacks } from "@/lib/stacks";
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = "https://usevibestack.com";
@@ -11,6 +12,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
         "/tools",
         "/blog",
         "/about",
+        "/build",
+        "/submit-tool",
+        "/submit-stack",
     ].map((route) => ({
         url: `${baseUrl}${route}`,
         lastModified: new Date(),
@@ -26,6 +30,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.9,
     }));
 
+    // Stack pages
+    const stackPages = stacks.map((stack) => ({
+        url: `${baseUrl}/stack/${stack.id}`,
+        lastModified: new Date(),
+        changeFrequency: "weekly" as const,
+        priority: 0.9,
+    }));
+
     // Blog pages
     const blogPages = blogPosts.map((post) => ({
         url: `${baseUrl}/blog/${post.slug}`,
@@ -34,5 +46,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.7,
     }));
 
-    return [...staticPages, ...toolPages, ...blogPages];
+    return [...staticPages, ...toolPages, ...stackPages, ...blogPages];
 }

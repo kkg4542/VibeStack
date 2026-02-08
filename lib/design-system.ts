@@ -1,10 +1,5 @@
 export const designSystem = {
-    colors: {
-        primary: "var(--primary)",
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-        muted: "var(--muted-foreground)",
-    },
+
     animations: {
         // Standard fade-in-up for entering elements
         fadeInUp: {

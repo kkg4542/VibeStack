@@ -1,13 +1,11 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { m } from "framer-motion";
+import { m, HTMLMotionProps } from "framer-motion";
 
-interface MagneticButtonProps {
+interface MagneticButtonProps extends HTMLMotionProps<"button"> {
     children: React.ReactNode;
-    className?: string;
     strength?: number;
-    onClick?: () => void;
 }
 
 // Magnetic button that pulls towards cursor
@@ -16,6 +14,7 @@ export function MagneticButton({
     className = "",
     strength = 0.3,
     onClick,
+    ...props
 }: MagneticButtonProps) {
     const ref = useRef<HTMLButtonElement>(null);
     const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -44,6 +43,7 @@ export function MagneticButton({
             animate={{ x: position.x, y: position.y }}
             transition={{ type: "spring", stiffness: 350, damping: 15, mass: 0.5 }}
             className={className}
+            {...props}
         >
             {children}
         </m.button>
