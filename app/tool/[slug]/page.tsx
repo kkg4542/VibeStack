@@ -115,7 +115,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                 </div>
 
                                 {/* Title */}
-                                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 bg-linear-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+                                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 bg-linear-to-r from-foreground to-foreground/70 bg-clip-text text-transparent text-balance">
                                     {tool.title}
                                 </h1>
 

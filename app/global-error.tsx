@@ -28,7 +28,7 @@ export default function GlobalError({
           </div>
           
           <div className="space-y-2">
-            <h1 className="text-2xl font-bold">Something went wrong</h1>
+            <h1 className="text-2xl font-bold text-balance">Something went wrong</h1>
             <p className="text-muted-foreground">
               We apologize for the inconvenience. Our team has been notified and is working on a fix.
             </p>

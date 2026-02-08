@@ -41,7 +41,7 @@ export default function BestAICodingToolsPage() {
           <Badge variant="secondary" className="mb-4">
             2025 Updated
           </Badge>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent text-balance">
             Top 10 Best AI Coding Tools
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">

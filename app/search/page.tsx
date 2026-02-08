@@ -133,7 +133,7 @@ export default function SearchPage() {
                         <span>Smart Search</span>
                     </div>
 
-                    <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+                    <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-balance">
                         Find Your Perfect{" "}
                         <span className="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
                             AI Tool

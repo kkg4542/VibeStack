@@ -151,7 +151,7 @@ export default function FAQPage() {
                         <span>FAQ</span>
                     </div>
 
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
                         Frequently Asked{" "}
                         <span className="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
                             Questions

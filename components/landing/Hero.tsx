@@ -46,7 +46,7 @@ export function Hero() {
                         initial={fadeInUp.initial}
                         animate={fadeInUp.animate}
                         transition={delayedTransition(0.2)}
-                        className="text-3xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl"
+                        className="text-3xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl text-balance"
                     >
                         <span className="bg-linear-to-b from-foreground to-foreground/60 bg-clip-text text-transparent">
                             Find Your Perfect

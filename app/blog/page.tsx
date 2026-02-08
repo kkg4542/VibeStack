@@ -97,7 +97,7 @@ export default function BlogListingPage() {
                         <span>{blogPosts.length} Articles Published</span>
                     </motion.div>
 
-                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
                         Insights on{" "}
                         <span className="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
                             AI & Development

@@ -32,7 +32,7 @@ export default function Error({
                     </div>
                 </div>
 
-                <h1 className="text-2xl font-bold mb-4 text-foreground">
+                <h1 className="text-2xl font-bold mb-4 text-foreground text-balance">
                     Something Went Wrong
                 </h1>
 

@@ -463,7 +463,7 @@ export default function BuildPage() {
               <span>AI Stack Finder</span>
             </motion.div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4 text-balance">
               Find Your{" "}
               <span className="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
                 Vibe Stack
@@ -687,7 +687,7 @@ export default function BuildPage() {
             <span>AI Stack Finder</span>
           </motion.div>
 
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-balance">
             Find Your{" "}
             <span className="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
               Vibe Stack

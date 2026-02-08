@@ -121,12 +121,11 @@ export function CategoryPageClient({ category }: CategoryPageClientProps) {
                         <div className={`p-4 rounded-2xl bg-linear-to-br ${info.gradient} shadow-lg`}>
                             <Icon className="w-10 h-10 text-white" />
                         </div>
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-balance leading-tight">
                             <span className={`bg-linear-to-r ${info.gradient} bg-clip-text text-transparent`}>
                                 {category}
                             </span>
-                            <br />
-                            <span className="text-foreground">AI Tools</span>
+                            <span className="text-foreground"> AI Tools</span>
                         </h1>
                     </div>
 

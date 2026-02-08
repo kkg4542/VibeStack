@@ -148,6 +148,10 @@
   scrollbar-width: none;
 }
 
+@utility text-balance {
+  text-wrap: balance;
+}
+
 @utility mask-image-fade {
   mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }

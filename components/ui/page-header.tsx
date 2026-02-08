@@ -16,7 +16,7 @@ export function PageHeader({ title, description, centered = true }: PageHeaderPr
                 initial={designSystem.animations.fadeInUp.initial}
                 animate={designSystem.animations.fadeInUp.animate}
                 transition={designSystem.animations.fadeInUp.transition}
-                className="text-4xl font-bold tracking-tight mb-4 text-foreground sm:text-5xl"
+                className="text-4xl font-bold tracking-tight mb-4 text-foreground sm:text-5xl text-balance"
             >
                 {title}
             </motion.h1>

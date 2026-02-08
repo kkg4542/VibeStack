@@ -60,7 +60,7 @@ export default function AnalyticsPage() {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Analytics Dashboard</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-balance">Analytics Dashboard</h1>
           <p className="text-muted-foreground">Loading analytics data...</p>
         </div>
         <div className="grid gap-4 md:grid-cols-4">
@@ -83,7 +83,7 @@ export default function AnalyticsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Analytics Dashboard</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-balance">Analytics Dashboard</h1>
           <p className="text-muted-foreground">
             Track affiliate clicks, email captures, and conversion metrics.
           </p>

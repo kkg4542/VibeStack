@@ -56,8 +56,8 @@ export default function ConsultingPage() {
                             Now Accepting Partners for Q1 2026
                         </div>
 
-                        <h1 className="mx-auto max-w-4xl text-5xl font-bold tracking-tight text-foreground sm:text-7xl">
-                            Promote Your AI Tool to <br />
+                        <h1 className="mx-auto max-w-4xl text-5xl font-bold tracking-tight text-foreground sm:text-7xl text-balance leading-tight">
+                            Promote Your AI Tool to{" "}
                             <span className="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
                                 Thousands of Developers
                             </span>

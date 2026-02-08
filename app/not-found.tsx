@@ -119,7 +119,7 @@ export default function NotFound() {
                                 <span>Lost in the Stack?</span>
                             </div>
 
-                            <h1 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
+                            <h1 className="text-3xl md:text-5xl font-bold mb-4 text-foreground text-balance">
                                 Page Not Found
                             </h1>
 

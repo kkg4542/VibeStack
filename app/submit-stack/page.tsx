@@ -64,7 +64,7 @@ export default function SubmitStackPage() {
                         <div className="inline-flex p-4 rounded-full bg-green-500/10 mb-6">
                             <CheckCircle2 className="h-12 w-12 text-green-500" />
                         </div>
-                        <h1 className="text-3xl font-bold mb-4">Submission Received!</h1>
+                        <h1 className="text-3xl font-bold mb-4 text-balance">Submission Received!</h1>
                         <p className="text-muted-foreground text-lg mb-8">
                             Thanks for sharing your stack. Our editors will review it and notify you once it&apos;s live on VibeStack.
                         </p>
@@ -93,7 +93,7 @@ export default function SubmitStackPage() {
                         <Sparkles className="w-4 h-4" />
                         <span>Community Contributions</span>
                     </div>
-                    <h1 className="text-4xl font-bold tracking-tight mb-4">Submit Your Stack</h1>
+                    <h1 className="text-4xl font-bold tracking-tight mb-4 text-balance">Submit Your Stack</h1>
                     <p className="text-muted-foreground text-lg">
                         Share your workflow with thousands of other developers.
                     </p>

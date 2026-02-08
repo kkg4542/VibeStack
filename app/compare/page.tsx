@@ -83,7 +83,7 @@ export default function ComparePage() {
                         <div className="inline-flex p-6 bg-indigo-500/10 rounded-full w-24 h-24 mx-auto mb-6 items-center justify-center border border-indigo-500/20">
                             <Scale className="h-12 w-12 text-indigo-400" />
                         </div>
-                        <h1 className="text-4xl font-bold mb-4">Compare AI Tools</h1>
+                        <h1 className="text-4xl font-bold mb-4 text-balance">Compare AI Tools</h1>
                         <p className="text-muted-foreground text-lg mb-8">
                             Select up to 3 tools from our directory to compare them side-by-side and find the perfect fit for your workflow.
                         </p>
@@ -144,7 +144,7 @@ export default function ComparePage() {
                             <div className="p-2 rounded-lg bg-indigo-500/10">
                                 <Scale className="h-6 w-6 text-indigo-400" />
                             </div>
-                            <h1 className="text-3xl md:text-4xl font-bold">Tool Comparison</h1>
+                            <h1 className="text-3xl md:text-4xl font-bold text-balance">Tool Comparison</h1>
                         </div>
                         <p className="text-muted-foreground">
                             Comparing {selectedTools.length} tools side-by-side

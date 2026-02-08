@@ -93,7 +93,7 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
                                     </div>
 
                                     {/* Title */}
-                                    <h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 ${stack.color}`}>
+                                    <h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance ${stack.color}`}>
                                         {stack.name}
                                     </h1>
 

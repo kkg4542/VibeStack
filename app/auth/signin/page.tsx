@@ -91,7 +91,7 @@ export default function SignInPage() {
                                 <Sparkles className="w-4 h-4" />
                                 <span>Join the Community</span>
                             </div>
-                            <h1 className="text-4xl font-bold mb-4">
+                            <h1 className="text-4xl font-bold mb-4 text-balance">
                                 Unlock the Full{" "}
                                 <span className="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
                                     VibeStack
