@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { m, useScroll, useSpring } from "framer-motion";
 
 interface ScrollProgressProps {
     color?: string;
@@ -34,7 +34,7 @@ export function ScrollProgress({
     return (
         <>
             {/* Progress Bar */}
-            <motion.div
+            <m.div
                 className={`fixed left-0 right-0 z-[100] ${position === "top" ? "top-0" : "bottom-0"}`}
                 style={{
                     scaleX,
@@ -46,14 +46,14 @@ export function ScrollProgress({
 
             {/* Percentage Indicator (optional) */}
             {showPercentage && (
-                <motion.div
+                <m.div
                     className="fixed bottom-4 right-4 z-50 bg-background/80 backdrop-blur-sm border border-border rounded-full px-3 py-1 text-sm font-medium text-muted-foreground"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
                 >
                     {progress}%
-                </motion.div>
+                </m.div>
             )}
         </>
     );
@@ -84,7 +84,7 @@ export function ScrollProgressCircular({
 
     return (
         <div className="fixed bottom-6 right-6 z-50">
-            <motion.div
+            <m.div
                 className="relative"
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -106,7 +106,7 @@ export function ScrollProgressCircular({
                         strokeWidth={strokeWidth}
                     />
                     {/* Progress circle */}
-                    <motion.circle
+                    <m.circle
                         cx={size / 2}
                         cy={size / 2}
                         r={radius}
@@ -125,7 +125,7 @@ export function ScrollProgressCircular({
                         {Math.round(progress * 100)}%
                     </span>
                 </div>
-            </motion.div>
+            </m.div>
         </div>
     );
 }
@@ -160,8 +160,8 @@ export function ReadingProgress() {
                     Reading
                 </span>
             </div>
-            <motion.div
-                className="h-0.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 origin-left"
+            <m.div
+                className="h-0.5 bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 origin-left"
                 style={{ scaleX }}
             />
         </div>

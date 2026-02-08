@@ -9,6 +9,7 @@ import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
 import { CommandMenu } from "@/components/command-menu";
 import { SubmitDialog } from "@/components/layout/SubmitDialog";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import {
     Sheet,
     SheetContent,
@@ -81,25 +82,25 @@ export function Navbar() {
                             >
                                 Tools
                             </Link>
-                        <Link
-                            id="nav-link-blog"
-                            href="/blog"
-                            aria-current={pathname?.startsWith('/blog') ? 'page' : undefined}
-                            className={`text-sm font-medium transition-colors hover:text-foreground ${pathname?.startsWith('/blog') ? 'text-foreground' : 'text-muted-foreground'
-                                }`}
-                        >
-                            Blog
-                        </Link>
-                        <Link
-                            id="nav-link-faq"
-                            href="/faq"
-                            aria-current={pathname === '/faq' ? 'page' : undefined}
-                            className={`text-sm font-medium transition-colors hover:text-foreground ${pathname === '/faq' ? 'text-foreground' : 'text-muted-foreground'
-                                }`}
-                        >
-                            FAQ
-                        </Link>
-                    </nav>
+                            <Link
+                                id="nav-link-blog"
+                                href="/blog"
+                                aria-current={pathname?.startsWith('/blog') ? 'page' : undefined}
+                                className={`text-sm font-medium transition-colors hover:text-foreground ${pathname?.startsWith('/blog') ? 'text-foreground' : 'text-muted-foreground'
+                                    }`}
+                            >
+                                Blog
+                            </Link>
+                            <Link
+                                id="nav-link-faq"
+                                href="/faq"
+                                aria-current={pathname === '/faq' ? 'page' : undefined}
+                                className={`text-sm font-medium transition-colors hover:text-foreground ${pathname === '/faq' ? 'text-foreground' : 'text-muted-foreground'
+                                    }`}
+                            >
+                                FAQ
+                            </Link>
+                        </nav>
                     </div>
 
                     {/* Right Actions */}
@@ -109,6 +110,23 @@ export function Navbar() {
                         <div className="hidden h-4 w-px bg-white/10 md:block"></div>
 
                         <ThemeToggle />
+
+                        <div className="hidden md:block">
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <Link href="/favorites">
+                                            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
+                                                <Heart className="h-5 w-5" />
+                                            </Button>
+                                        </Link>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p>Your Favorites</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+                        </div>
 
                         <div className="hidden md:block">
                             <SubmitDialog />

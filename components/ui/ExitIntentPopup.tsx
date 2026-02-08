@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { X, Mail, Download, Gift } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,7 +27,7 @@ export function ExitIntentPopup({ toolSlug, toolName }: ExitIntentPopupProps) {
     }
 
     let mouseY = 0;
-    
+
     const handleMouseMove = (e: MouseEvent) => {
       mouseY = e.clientY;
     };
@@ -52,7 +52,7 @@ export function ExitIntentPopup({ toolSlug, toolName }: ExitIntentPopupProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!email || !email.includes("@")) return;
 
     try {
@@ -84,7 +84,7 @@ export function ExitIntentPopup({ toolSlug, toolName }: ExitIntentPopupProps) {
       {isVisible && (
         <>
           {/* Backdrop */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -93,7 +93,7 @@ export function ExitIntentPopup({ toolSlug, toolName }: ExitIntentPopupProps) {
           />
 
           {/* Popup */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -109,7 +109,7 @@ export function ExitIntentPopup({ toolSlug, toolName }: ExitIntentPopupProps) {
               </button>
 
               {/* Decorative gradient */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" />
+              <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500" />
 
               <CardContent className="p-8">
                 {!isSubmitted ? (
@@ -142,8 +142,8 @@ export function ExitIntentPopup({ toolSlug, toolName }: ExitIntentPopupProps) {
                           required
                         />
                       </div>
-                      <Button 
-                        type="submit" 
+                      <Button
+                        type="submit"
                         className="w-full h-12 rounded-full"
                         size="lg"
                       >
@@ -173,7 +173,7 @@ export function ExitIntentPopup({ toolSlug, toolName }: ExitIntentPopupProps) {
                 )}
               </CardContent>
             </Card>
-          </motion.div>
+          </m.div>
         </>
       )}
     </AnimatePresence>
