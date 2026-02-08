@@ -39,8 +39,10 @@ export default function ToolsPage() {
                         </motion.div>
 
                         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-                            Discover the{" "}
-                            <span className="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
+                            Discover
+                            <br />
+                            the{" "}
+                            <span className="bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-500 bg-clip-text text-transparent">
                                 Perfect AI Tool
                             </span>
                             <br />
