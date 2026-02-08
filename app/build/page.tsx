@@ -18,6 +18,7 @@ import { tools } from "@/lib/tools";
 import { cn } from "@/lib/utils";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { ReviewList } from "@/components/reviews/ReviewList";
+import { designSystem } from "@/lib/design-system";
 
 // Types
 type StackRecommendation = {
@@ -217,6 +218,7 @@ const TESTIMONIALS = [
 ];
 
 export default function BuildPage() {
+  const fadeInUp = designSystem.animations.fadeInUp;
   const [stepIndex, setStepIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [isAnimating, setIsAnimating] = useState(false);
@@ -446,8 +448,9 @@ export default function BuildPage() {
         <div className="container max-w-5xl mx-auto px-4">
           {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={fadeInUp.initial}
+            animate={fadeInUp.animate}
+            transition={fadeInUp.transition}
             className="text-center mb-12"
           >
             <motion.div
@@ -507,9 +510,9 @@ export default function BuildPage() {
                       return (
                         <motion.button
                           key={option.id}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.4, delay: index * 0.1 }}
+                          initial={fadeInUp.initial}
+                          animate={fadeInUp.animate}
+                          transition={{ ...fadeInUp.transition, delay: index * 0.1 }}
                           onClick={() => handleOptionClick(option.id)}
                           disabled={isAnimating}
                           className="group relative flex flex-col items-center text-center p-6 rounded-2xl border border-border bg-background hover:bg-accent hover:border-indigo-500/50 transition-all duration-300"
@@ -550,18 +553,18 @@ export default function BuildPage() {
                     </div>
                     
                     <motion.h2
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 }}
+                      initial={fadeInUp.initial}
+                      animate={fadeInUp.animate}
+                      transition={{ ...fadeInUp.transition, delay: 0.2 }}
                       className="text-4xl md:text-5xl font-bold mb-4"
                     >
                       {getRecommendedStack.name}
                     </motion.h2>
                     
                     <motion.p
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 }}
+                      initial={fadeInUp.initial}
+                      animate={fadeInUp.animate}
+                      transition={{ ...fadeInUp.transition, delay: 0.3 }}
                       className="text-xl text-muted-foreground max-w-2xl mx-auto mb-6"
                     >
                       {getRecommendedStack.description}
@@ -615,9 +618,9 @@ export default function BuildPage() {
                       return (
                         <motion.div
                           key={tool.slug}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.5 + index * 0.1 }}
+                          initial={fadeInUp.initial}
+                          animate={fadeInUp.animate}
+                          transition={{ ...fadeInUp.transition, delay: 0.5 + index * 0.1 }}
                         >
                           <Link href={`/tool/${tool.slug}`} className="group block h-full">
                             <Card className="h-full hover:border-indigo-500/50 transition-all">
@@ -669,8 +672,9 @@ export default function BuildPage() {
       <div className="container max-w-6xl mx-auto px-4">
         {/* Hero */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={fadeInUp.initial}
+          animate={fadeInUp.animate}
+          transition={fadeInUp.transition}
           className="text-center py-16 md:py-24"
         >
           <motion.div
@@ -722,9 +726,9 @@ export default function BuildPage() {
 
         {/* Popular Stacks */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
+          initial={fadeInUp.initial}
+          animate={fadeInUp.animate}
+          transition={{ ...fadeInUp.transition, delay: 0.3 }}
           className="mb-24"
         >
           <div className="text-center mb-12">
@@ -736,9 +740,9 @@ export default function BuildPage() {
             {POPULAR_STACKS.map((stack, index) => (
               <motion.div
                 key={stack.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 + index * 0.1 }}
+                initial={fadeInUp.initial}
+                animate={fadeInUp.animate}
+                transition={{ ...fadeInUp.transition, delay: 0.4 + index * 0.1 }}
               >
                 <PopularStackCard stack={stack} />
               </motion.div>
@@ -748,9 +752,9 @@ export default function BuildPage() {
 
         {/* Why Stacks Matter */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
+          initial={fadeInUp.initial}
+          animate={fadeInUp.animate}
+          transition={{ ...fadeInUp.transition, delay: 0.5 }}
           className="mb-24"
         >
           <div className="text-center mb-12">
@@ -764,9 +768,9 @@ export default function BuildPage() {
               return (
                 <motion.div
                   key={item.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 + index * 0.1 }}
+                  initial={fadeInUp.initial}
+                  animate={fadeInUp.animate}
+                  transition={{ ...fadeInUp.transition, delay: 0.6 + index * 0.1 }}
                 >
                   <Card className="text-center h-full">
                     <CardContent className="p-8">
@@ -787,9 +791,9 @@ export default function BuildPage() {
 
         {/* Testimonials */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
+          initial={fadeInUp.initial}
+          animate={fadeInUp.animate}
+          transition={{ ...fadeInUp.transition, delay: 0.7 }}
           className="mb-24"
         >
           <div className="text-center mb-12">
@@ -801,9 +805,9 @@ export default function BuildPage() {
             {TESTIMONIALS.map((testimonial, index) => (
               <motion.div
                 key={testimonial.author}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 + index * 0.1 }}
+                initial={fadeInUp.initial}
+                animate={fadeInUp.animate}
+                transition={{ ...fadeInUp.transition, delay: 0.8 + index * 0.1 }}
               >
                 <Card className="h-full">
                   <CardContent className="p-6">
@@ -831,9 +835,9 @@ export default function BuildPage() {
 
         {/* CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9 }}
+          initial={fadeInUp.initial}
+          animate={fadeInUp.animate}
+          transition={{ ...fadeInUp.transition, delay: 0.9 }}
           className="text-center pb-16"
         >
           <Card className="border-indigo-500/20 bg-linear-to-br from-indigo-500/5 to-purple-500/5">
