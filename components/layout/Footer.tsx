@@ -53,7 +53,7 @@ export function Footer() {
     return (
         <footer className="border-t border-border bg-background pt-16 pb-12">
             <div className="container mx-auto px-4 max-w-6xl">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-16">
                     {/* Brand Column */}
                     <div className="md:col-span-2 space-y-6">
                         <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
@@ -79,14 +79,26 @@ export function Footer() {
                         </div>
                     </div>
 
-                    {/* Links Column */}
+                    {/* Links Column 1 */}
                     <div className="space-y-4">
                         <h4 className="text-sm font-semibold text-foreground">Platform</h4>
                         <ul className="space-y-3 text-sm text-muted-foreground">
                             <li><Link href="/tools" className="hover:text-primary transition-colors">AI Tools</Link></li>
                             <li><Link href="/build" className="hover:text-primary transition-colors">Find Stack</Link></li>
-                            <li><Link href="/consulting" className="hover:text-primary transition-colors">Advertise</Link></li>
+                            <li><Link href="/compare" className="hover:text-primary transition-colors">Compare</Link></li>
+                            <li><Link href="/favorites" className="hover:text-primary transition-colors">Favorites</Link></li>
                             <li><Link href="/blog" className="hover:text-primary transition-colors">Blog</Link></li>
+                        </ul>
+                    </div>
+
+                    {/* Links Column 2 */}
+                    <div className="space-y-4">
+                        <h4 className="text-sm font-semibold text-foreground">Resources</h4>
+                        <ul className="space-y-3 text-sm text-muted-foreground">
+                            <li><Link href="/faq" className="hover:text-primary transition-colors">FAQ</Link></li>
+                            <li><Link href="/roadmap" className="hover:text-primary transition-colors">Roadmap</Link></li>
+                            <li><Link href="/newsletter" className="hover:text-primary transition-colors">Newsletter</Link></li>
+                            <li><Link href="/submit-tool" className="hover:text-primary transition-colors">Submit Tool</Link></li>
                             <li><Link href="/about" className="hover:text-primary transition-colors">About</Link></li>
                         </ul>
                     </div>

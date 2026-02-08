@@ -81,16 +81,25 @@ export function Navbar() {
                             >
                                 Tools
                             </Link>
-                            <Link
-                                id="nav-link-blog"
-                                href="/blog"
-                                aria-current={pathname?.startsWith('/blog') ? 'page' : undefined}
-                                className={`text-sm font-medium transition-colors hover:text-foreground ${pathname?.startsWith('/blog') ? 'text-foreground' : 'text-muted-foreground'
-                                    }`}
-                            >
-                                Blog
-                            </Link>
-                        </nav>
+                        <Link
+                            id="nav-link-blog"
+                            href="/blog"
+                            aria-current={pathname?.startsWith('/blog') ? 'page' : undefined}
+                            className={`text-sm font-medium transition-colors hover:text-foreground ${pathname?.startsWith('/blog') ? 'text-foreground' : 'text-muted-foreground'
+                                }`}
+                        >
+                            Blog
+                        </Link>
+                        <Link
+                            id="nav-link-faq"
+                            href="/faq"
+                            aria-current={pathname === '/faq' ? 'page' : undefined}
+                            className={`text-sm font-medium transition-colors hover:text-foreground ${pathname === '/faq' ? 'text-foreground' : 'text-muted-foreground'
+                                }`}
+                        >
+                            FAQ
+                        </Link>
+                    </nav>
                     </div>
 
                     {/* Right Actions */}

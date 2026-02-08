@@ -236,6 +236,24 @@ export function ToolsList({ searchQuery = "" }: ToolsListProps) {
                         ))}
                     </div>
                 </div>
+
+                {/* Category Landing Pages Link */}
+                <div className="flex items-center justify-between">
+                    <p className="text-sm text-muted-foreground">
+                        View detailed category pages:
+                    </p>
+                    <div className="flex items-center gap-2">
+                        {categories.filter(c => c !== "All").map((cat) => (
+                            <Link
+                                key={cat}
+                                href={`/categories/${cat.toLowerCase()}`}
+                                className="text-xs text-indigo-400 hover:text-indigo-300 transition-colors"
+                            >
+                                {cat}
+                            </Link>
+                        ))}
+                    </div>
+                </div>
             </div>
 
             {/* Tools Grid */}
