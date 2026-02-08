@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Menu, Sparkles, X, Search, Wand2, Heart, FileText, Info, Zap, User, LogOut } from "lucide-react";
+
 import { m } from "framer-motion";
 import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
 import { CommandMenu } from "@/components/command-menu";

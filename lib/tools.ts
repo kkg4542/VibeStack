@@ -1,6 +1,6 @@
 import { LucideIcon, Github, Palette, Wand2, Zap, Calendar, FileEdit, Video } from "lucide-react";
 import {
-    ChatGPTIcon, ClaudeIcon, GeminiIcon, CursorIcon, DevinIcon,
+    ChatGPTIcon, ClaudeIcon, GeminiIcon, Gemini3Icon, CursorIcon, DevinIcon,
     SupermavenIcon, OllamaIcon, LinearIcon, NotionIcon, ReplitIcon,
     TabnineIcon, CodyIcon, BuilderIoIcon, V0Icon, PerplexityIcon,
     LovableIcon, CodeRabbitIcon, CosineIcon, AiderIcon, WindsurfIcon,
@@ -77,12 +77,12 @@ export const tools: Tool[] = [
         slug: "gemini-code-assist",
         title: "Gemini 3 Pro",
         description: "Native multimodal reasoning at scale.",
-        icon: GeminiIcon,
+        icon: Gemini3Icon,
         category: "Coding",
         pricing: "Paid",
         websiteUrl: "https://cloud.google.com/gemini/code-assist",
-        color: "text-sky-600 dark:text-sky-400",
-        bgGradient: "from-sky-500/10 to-transparent",
+        color: "text-indigo-600 dark:text-indigo-400",
+        bgGradient: "from-indigo-500/10 to-transparent",
         features: ["Gemini 3 Deep Think", "Native AV Processing", "1M Context"]
     },
     {

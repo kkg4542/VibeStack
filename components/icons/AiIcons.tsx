@@ -43,6 +43,23 @@ export function GeminiIcon({ className }: { className?: string }) {
     );
 }
 
+export function Gemini3Icon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" className={className} xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="gemini-3-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style={{ stopColor: '#4F46E5', stopOpacity: 1 }} />
+                    <stop offset="100%" style={{ stopColor: '#9333EA', stopOpacity: 1 }} />
+                </linearGradient>
+            </defs>
+            <path
+                d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"
+                fill="url(#gemini-3-grad)"
+            />
+        </svg>
+    );
+}
+
 export function CursorIcon({ className }: { className?: string }) {
     return (
         <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
