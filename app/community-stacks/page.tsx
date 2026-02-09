@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { m } from 'framer-motion';
 import { Plus, Users, TrendingUp, Clock, Eye, Heart, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -188,9 +189,11 @@ export default async function CommunityStacksPage(props: {
                       <div className="mt-auto pt-4 border-t border-white/10">
                         <div className="flex items-center gap-3">
                           {stack.curator.image ? (
-                            <img 
+                            <Image 
                               src={stack.curator.image} 
                               alt={stack.curator.name || 'Anonymous'}
+                              width={32}
+                              height={32}
                               className="w-8 h-8 rounded-full object-cover"
                             />
                           ) : (

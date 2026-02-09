@@ -33,6 +33,10 @@ model Tool {
   sponsorships    Sponsorship[]
   stackTools      StackTool[]
 
+  @@index([category])
+  @@index([pricing])
+  @@index([isFeatured])
+  @@index([createdAt])
   @@map("tools")
 }
 
@@ -81,6 +85,8 @@ model BlogPost {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  @@index([category])
+  @@index([createdAt])
   @@map("blog_posts")
 }
 
