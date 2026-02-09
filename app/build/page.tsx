@@ -822,7 +822,7 @@ export default function BuildPage() {
                         <Star key={i} className="w-4 h-4 text-amber-500 fill-amber-500" />
                       ))}
                     </div>
-                    <p className="text-muted-foreground mb-6 italic">"{testimonial.quote}"</p>
+                    <p className="text-muted-foreground mb-6 italic">&ldquo;{testimonial.quote}&rdquo;</p>
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 font-bold">
                         {testimonial.avatar}

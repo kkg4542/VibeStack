@@ -9,7 +9,7 @@ import { m, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
 import { SponsorshipModal } from "@/components/monetization/SponsorshipModal";
 import { useAllTools } from "@/hooks/use-tools";
-import { getToolIcon } from "@/lib/tool-icons";
+import { ToolIconRenderer } from "@/components/tools/ToolIconRenderer";
 
 function BentoCard({ tool, index }: { tool: ToolData, index: number }) {
     const x = useMotionValue(0);
@@ -80,10 +80,7 @@ function BentoCard({ tool, index }: { tool: ToolData, index: number }) {
                                         transform: "translateZ(60px)",
                                     }}
                                 >
-                                    {(() => {
-                                        const ToolIcon = getToolIcon(tool.slug);
-                                        return <ToolIcon className="h-6 w-6" />;
-                                    })()}
+                                    <ToolIconRenderer slug={tool.slug} className="h-6 w-6" />
                                 </m.div>
                                 <Badge variant="secondary" className="bg-secondary/50 text-[10px] uppercase tracking-wider font-semibold text-muted-foreground backdrop-blur-sm" style={{ transform: "translateZ(20px)" }}>
                                     {tool.category}

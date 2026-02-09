@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ToolData } from "@/lib/tool-types";
-import { getToolIcon } from "@/lib/tool-icons";
+import { ToolIconRenderer } from "@/components/tools/ToolIconRenderer";
 import { useActiveSponsorship } from "@/hooks/use-sponsorships";
 import { SponsorshipPlacements } from "@/lib/sponsorships";
 
@@ -19,8 +19,6 @@ export function FeaturedSpotlight({ tool }: FeaturedSpotlightProps) {
     const sponsoredTool = data?.sponsorship?.tool;
     const activeTool = sponsoredTool || tool;
 
-    const Icon = getToolIcon(activeTool.slug);
-
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -32,7 +30,7 @@ export function FeaturedSpotlight({ tool }: FeaturedSpotlightProps) {
 
             <div className="relative flex flex-col md:flex-row items-center gap-8">
                 <div className={`flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl bg-secondary/50 border border-border/30 ${activeTool.color || "text-foreground"} shadow-2xl shadow-indigo-500/20 transition-transform duration-500 group-hover:scale-110`}>
-                    <Icon className="h-12 w-12" />
+                    <ToolIconRenderer slug={activeTool.slug} className="h-12 w-12" />
                 </div>
 
                 <div className="flex-1 text-center md:text-left">

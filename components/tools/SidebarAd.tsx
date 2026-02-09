@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ExternalLink, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { ToolData } from "@/lib/tool-types";
-import { getToolIcon } from "@/lib/tool-icons";
+import { ToolIconRenderer } from "@/components/tools/ToolIconRenderer";
 import { useActiveSponsorship } from "@/hooks/use-sponsorships";
 import { SponsorshipPlacements } from "@/lib/sponsorships";
 
@@ -17,7 +17,6 @@ export function SidebarAd({ tool }: SidebarAdProps) {
     const { data } = useActiveSponsorship(SponsorshipPlacements.sidebarAd);
     const sponsoredTool = data?.sponsorship?.tool;
     const activeTool = sponsoredTool || tool;
-    const Icon = getToolIcon(activeTool.slug);
 
     return (
         <div className="relative overflow-hidden rounded-2xl border border-indigo-500/20 bg-indigo-500/5 p-6 mb-8 group transition-all duration-300 hover:border-indigo-500/40">
@@ -33,7 +32,7 @@ export function SidebarAd({ tool }: SidebarAdProps) {
 
                 <div className="flex items-start gap-4">
                     <div className={`p-3 rounded-xl bg-secondary/50 border border-border/20 ${activeTool.color || "text-foreground"}`}>
-                        <Icon className="h-6 w-6" />
+                        <ToolIconRenderer slug={activeTool.slug} className="h-6 w-6" />
                     </div>
                     <div>
                         <h4 className="font-bold text-foreground group-hover:text-indigo-500 transition-colors">

@@ -1,7 +1,7 @@
 "use client";
 
 import { ToolData } from "@/lib/tool-types";
-import { getToolIcon } from "@/lib/tool-icons";
+import { ToolIconRenderer } from "@/components/tools/ToolIconRenderer";
 import Link from "next/link";
 import { FeaturedSpotlight } from "@/components/tools/FeaturedSpotlight";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -83,10 +83,7 @@ function ToolCard({ tool }: { tool: ToolData }) {
                                         transform: "translateZ(60px)",
                                     }}
                                 >
-                                    {(() => {
-                                        const Icon = getToolIcon(tool.slug);
-                                        return <Icon className="h-6 w-6" />;
-                                    })()}
+                                    <ToolIconRenderer slug={tool.slug} className="h-6 w-6" />
                                 </motion.div>
                                 <Badge variant="secondary" className="bg-secondary/50 text-xs font-normal text-muted-foreground backdrop-blur-sm" style={{ transform: "translateZ(20px)" }}>
                                     {tool.category}

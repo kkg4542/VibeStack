@@ -77,8 +77,8 @@ describe("ReviewForm", () => {
 
         render(<ReviewForm toolSlug="test-tool" />);
 
-        // Select 5 stars
-        const stars = screen.getAllByRole("button");
+        // Select 5 stars using radio role
+        const stars = screen.getAllByRole("radio");
         fireEvent.click(stars[4]);
 
         // Enter content
@@ -111,7 +111,7 @@ describe("ReviewForm", () => {
 
         render(<ReviewForm toolSlug="test-tool" />);
 
-        const stars = screen.getAllByRole("button");
+        const stars = screen.getAllByRole("radio");
         fireEvent.click(stars[4]);
 
         const textarea = screen.getByPlaceholderText("Share your experience with this tool...");

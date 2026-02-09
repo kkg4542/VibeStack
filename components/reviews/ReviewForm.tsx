@@ -68,7 +68,7 @@ export function ReviewForm({ toolSlug }: { toolSlug: string }) {
             <h3 className="text-lg font-semibold mb-4">Write a Review</h3>
 
             <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="flex gap-1">
+                <div className="flex gap-1" role="radiogroup" aria-label="Rating">
                     {[1, 2, 3, 4, 5].map((star) => (
                         <button
                             key={star}
@@ -77,6 +77,9 @@ export function ReviewForm({ toolSlug }: { toolSlug: string }) {
                             onMouseEnter={() => setHoveredRating(star)}
                             onMouseLeave={() => setHoveredRating(0)}
                             onClick={() => setRating(star)}
+                            aria-label={`${star} star${star > 1 ? 's' : ''}`}
+                            aria-pressed={rating === star}
+                            role="radio"
                         >
                             <Star
                                 className={`w-6 h-6 ${star <= (hoveredRating || rating)
@@ -86,7 +89,7 @@ export function ReviewForm({ toolSlug }: { toolSlug: string }) {
                             />
                         </button>
                     ))}
-                    <span className="ml-2 text-sm text-muted-foreground self-center">
+                    <span className="ml-2 text-sm text-muted-foreground self-center" aria-live="polite">
                         {rating > 0 ? `${rating} stars` : "Select rating"}
                     </span>
                 </div>
