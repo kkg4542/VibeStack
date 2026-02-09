@@ -1,27 +1,9 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from '@prisma/client';
+import { prisma } from "@/lib/prisma";
 import { createErrorResponse } from "@/lib/api-utils";
 
 export async function GET() {
   try {
-    // Runtime에 환경변수 직접 확인
-    const databaseUrl = process.env.DATABASE_URL;
-
-    if (!databaseUrl) {
-      return NextResponse.json({
-        status: "error",
-        message: "Database configuration error",
-      }, { status: 500 });
-    }
-
-    // PrismaClient에 datasourceUrl 직접 전달
-    const prisma = new PrismaClient({
-      datasources: {
-        db: {
-          url: databaseUrl,
-        },
-      },
-    });
 
     // 데이터베이스 연결 테스트
     const toolsCount = await prisma.tool.count();
