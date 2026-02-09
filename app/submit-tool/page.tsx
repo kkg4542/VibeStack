@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as motion from "framer-motion/client";
 import { 
     Upload, 
@@ -28,6 +28,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 const pricingPlans = [
     {
@@ -144,6 +145,7 @@ const rejectionReasons = [
 ];
 
 export default function SubmitToolPage() {
+    const searchParams = useSearchParams();
     const [selectedPlan, setSelectedPlan] = useState<string>("priority");
     const [formData, setFormData] = useState({
         toolName: "",
@@ -155,25 +157,41 @@ export default function SubmitToolPage() {
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+    const [submittedEmail, setSubmittedEmail] = useState("");
+
+    useEffect(() => {
+        const success = searchParams.get("success");
+        if (success === "1") {
+            const storedEmail = localStorage.getItem("submission_email") || "";
+            setSubmittedEmail(storedEmail);
+            setSubmitted(true);
+        }
+    }, [searchParams]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
 
         try {
-            const response = await fetch("/api/submissions", {
+            const response = await fetch("/api/submissions/checkout", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
                     ...formData,
-                    tier: selectedPlan,
-                    amount: selectedPlan === "free" ? 0 : selectedPlan === "priority" ? 4900 : 14900
+                    tier: selectedPlan
                 })
             });
 
             if (response.ok) {
+                const data = await response.json();
+                if (data.checkoutUrl) {
+                    localStorage.setItem("submission_email", formData.email);
+                    window.location.href = data.checkoutUrl;
+                    return;
+                }
+                setSubmittedEmail(formData.email);
                 setSubmitted(true);
             }
         } catch (error) {
@@ -194,8 +212,8 @@ export default function SubmitToolPage() {
                             </div>
                             <h2 className="text-3xl font-bold mb-4">Submission Received!</h2>
                             <p className="text-muted-foreground mb-8">
-                                Thank you for submitting your tool. We&apos;ve sent a confirmation email to {formData.email}.
-                                {selectedPlan !== "free" && " You will receive a payment link shortly."}
+                                Thank you for submitting your tool. We&apos;ve sent a confirmation email{submittedEmail ? ` to ${submittedEmail}` : ""}.
+                                {selectedPlan !== "free" && " Your payment has been received."}
                             </p>
                             <div className="flex justify-center gap-4">
                                 <Button asChild variant="outline">
