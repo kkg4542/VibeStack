@@ -1,54 +1,31 @@
-"use client";
-
-import dynamic from "next/dynamic";
-import { Hero } from "@/components/landing/Hero";
+import { getVerifiedTestimonials, getFeaturedStacks } from "@/lib/data/stacks";
+import { VibeHero } from "@/components/landing/VibeHero";
 import { FeaturedStacks } from "@/components/landing/FeaturedStacks";
+import { HowItWorks } from "@/components/landing/HowItWorks";
+import { CTASection } from "@/components/landing/CTASection";
+import { Testimonials } from "@/components/landing/Testimonials";
 import { ExitIntentPopup } from "@/components/ui/ExitIntentPopup";
-import { designSystem } from "@/lib/design-system";
-import { m } from "framer-motion";
-import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
 
-// Dynamic imports for below-the-fold components to reduce initial bundle size
-const HowItWorks = dynamic(() => import("@/components/landing/HowItWorks").then(m => ({ default: m.HowItWorks })), {
-  loading: () => <div className="h-96 w-full animate-pulse bg-muted/20" />
-});
-
-const Testimonials = dynamic(() => import("@/components/landing/Testimonials").then(m => ({ default: m.Testimonials })), {
-  loading: () => <div className="h-96 w-full animate-pulse bg-muted/20" />
-});
-
-const CTASection = dynamic(() => import("@/components/landing/CTASection").then(m => ({ default: m.CTASection })), {
-  loading: () => <div className="h-64 w-full animate-pulse bg-muted/20" />
-});
-
-// Note: metadata export moved to layout.tsx as client components cannot export metadata
-
-export default function Home() {
-  const fadeInUp = designSystem.animations.fadeInUp;
+export default async function Home() {
+  // Fetch data on the server
+  const [testimonials, featuredStacks] = await Promise.all([
+    getVerifiedTestimonials(6),
+    getFeaturedStacks(6),
+  ]);
 
   return (
-    <LazyMotionProvider>
-      <div className="min-h-screen bg-background text-foreground selection:bg-indigo-500/20">
-        <Hero />
-
-        <m.div
-          initial={fadeInUp.initial}
-          whileInView={fadeInUp.animate}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ ...fadeInUp.transition, delay: 0.1 }}
-        >
-          <FeaturedStacks />
-        </m.div>
-
-        <HowItWorks />
-
-        <Testimonials />
-
-        <CTASection />
-
-        {/* Exit Intent Popup */}
-        <ExitIntentPopup />
-      </div>
-    </LazyMotionProvider>
+    <div className="min-h-screen bg-background text-foreground">
+      <VibeHero />
+      
+      <FeaturedStacks stacks={featuredStacks} />
+      
+      <HowItWorks />
+      
+      <Testimonials testimonials={testimonials} />
+      
+      <CTASection />
+      
+      <ExitIntentPopup />
+    </div>
   );
 }

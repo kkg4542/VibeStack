@@ -103,19 +103,19 @@ export default function ConsultingPage() {
                                 <Rocket className="h-6 w-6 text-pink-400" />
                             </div>
                             <h3 className="mb-3 text-2xl font-semibold text-foreground">Featured Spotlight</h3>
-                            <p className="mb-6 text-muted-foreground">Get the prime spot on our homepage and tools usage list. Includes a custom verified badge.</p>
+                            <p className="mb-6 text-muted-foreground">Top-of-home placement with a Featured badge and priority visibility for new visitors.</p>
                             <ul className="space-y-3">
                                 <li className="flex items-center text-sm text-foreground/80">
                                     <Check className="mr-3 h-4 w-4 text-indigo-500" />
-                                    Top of Homepage Placement
+                                    Top of homepage placement
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
                                     <Check className="mr-3 h-4 w-4 text-indigo-500" />
-                                    &quot;Featured&quot; Badge
+                                    &quot;Featured&quot; badge on listing
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
                                     <Check className="mr-3 h-4 w-4 text-indigo-500" />
-                                    ~15k Monthly Impressions
+                                    Monthly performance report
                                 </li>
                             </ul>
                         </motion.div>
@@ -131,19 +131,19 @@ export default function ConsultingPage() {
                                 <Zap className="h-6 w-6 text-purple-400" />
                             </div>
                             <h3 className="mb-3 text-2xl font-semibold text-foreground">Sidebar Ads</h3>
-                            <p className="mb-6 text-muted-foreground">Contextual targeting on product detail pages. Reach users exploring your competitors.</p>
+                            <p className="mb-6 text-muted-foreground">Category-targeted sidebar placement for high-intent visitors exploring tools.</p>
                             <ul className="space-y-3">
                                 <li className="flex items-center text-sm text-foreground/80">
                                     <Check className="mr-3 h-4 w-4 text-indigo-500" />
-                                    Category Targeting
+                                    Category page sidebar placement
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
                                     <Check className="mr-3 h-4 w-4 text-indigo-500" />
-                                    Sticky Sidebar Visibility
+                                    Monthly impressions estimate (initial range)
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
                                     <Check className="mr-3 h-4 w-4 text-indigo-500" />
-                                    High Intent Traffic
+                                    Click and conversion summary
                                 </li>
                             </ul>
                         </motion.div>
@@ -158,20 +158,20 @@ export default function ConsultingPage() {
                             <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/50 ring-1 ring-border group-hover:bg-indigo-500/10 group-hover:ring-indigo-500/30 transition-colors">
                                 <Terminal className="h-6 w-6 text-indigo-400" />
                             </div>
-                            <h3 className="mb-3 text-2xl font-semibold text-foreground">Newsletter</h3>
-                            <p className="mb-6 text-muted-foreground">Sponsor our weekly dispatch to 5,000+ AI engineers and early adopters.</p>
+                            <h3 className="mb-3 text-2xl font-semibold text-foreground">Newsletter Sponsor</h3>
+                            <p className="mb-6 text-muted-foreground">One sponsor slot per month with copy approved before send.</p>
                             <ul className="space-y-3">
                                 <li className="flex items-center text-sm text-foreground/80">
                                     <Check className="mr-3 h-4 w-4 text-indigo-500" />
-                                    Dedicated Sponsor Slot
+                                    One sponsor slot per send
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
                                     <Check className="mr-3 h-4 w-4 text-indigo-500" />
-                                    40%+ Open Rate
+                                    Monthly send cadence
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
                                     <Check className="mr-3 h-4 w-4 text-indigo-500" />
-                                    Exclusive Shout-out
+                                    Click and conversion summary
                                 </li>
                             </ul>
                         </motion.div>
@@ -234,19 +234,19 @@ export default function ConsultingPage() {
                             <ul className="space-y-3 mb-8">
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
                                     <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
-                                    <span>Category-targeted placement</span>
+                                    <span>Category page sidebar placement</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
                                     <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
-                                    <span>~8k monthly impressions</span>
+                                    <span>Estimated 3–8k monthly impressions</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
                                     <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
-                                    <span>Analytics dashboard</span>
+                                    <span>Click and conversion summary</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
                                     <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
-                                    <span>A/B testing support</span>
+                                    <span>One copy or image update included</span>
                                 </li>
                             </ul>
                             <Link href="mailto:hello@usevibestack.com?subject=Sidebar%20Ads%20Inquiry">
@@ -277,11 +277,11 @@ export default function ConsultingPage() {
                             <ul className="space-y-3 mb-8">
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
                                     <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
-                                    <span>Homepage hero placement</span>
+                                    <span>Home hero placement</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
                                     <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
-                                    <span>~15k monthly impressions</span>
+                                    <span>Priority visibility for new visitors</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
                                     <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
@@ -289,11 +289,7 @@ export default function ConsultingPage() {
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
                                     <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
-                                    <span>Priority in search results</span>
-                                </li>
-                                <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
-                                    <span>Social media mentions</span>
+                                    <span>Monthly performance report</span>
                                 </li>
                             </ul>
                             <Link href="mailto:hello@usevibestack.com?subject=Featured%20Spotlight%20Inquiry">
@@ -321,19 +317,15 @@ export default function ConsultingPage() {
                             <ul className="space-y-3 mb-8">
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
                                     <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
-                                    <span>Dedicated sponsor slot</span>
+                                    <span>One sponsor slot per month</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
                                     <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
-                                    <span>5,000+ subscribers</span>
+                                    <span>Send cadence and copy approval</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
                                     <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
-                                    <span>40%+ open rate</span>
-                                </li>
-                                <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
-                                    <span>Custom creative support</span>
+                                    <span>Click and conversion summary</span>
                                 </li>
                             </ul>
                             <Link href="mailto:hello@usevibestack.com?subject=Newsletter%20Sponsorship%20Inquiry">
@@ -347,6 +339,19 @@ export default function ConsultingPage() {
                     <p className="text-center text-sm text-muted-foreground mt-8">
                         All prices in USD. Custom packages available for annual commitments.
                     </p>
+                </section>
+
+                {/* Sponsor Copy Guidelines */}
+                <section className="container mx-auto px-4 pb-16">
+                    <div className="mx-auto max-w-3xl rounded-2xl border border-border/50 bg-card/50 p-8">
+                        <h3 className="text-xl font-semibold text-foreground mb-3">Sponsor Copy Guidelines</h3>
+                        <p className="text-muted-foreground mb-4">Keep it clear and honest. We review copy to maintain user trust.</p>
+                        <ul className="space-y-2 text-sm text-foreground/80">
+                            <li>Length: 60–120 characters (one-line summary)</li>
+                            <li>Required: product name + one-sentence value</li>
+                            <li>Avoid: exaggerated claims and guarantees</li>
+                        </ul>
+                    </div>
                 </section>
 
                 {/* Stats Section */}

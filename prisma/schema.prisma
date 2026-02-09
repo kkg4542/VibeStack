@@ -1,60 +1,55 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
 model Tool {
-  id           String   @id @default(cuid())
-  slug         String   @unique
-  title        String
-  description  String
-  category     String
-  pricing      String
-  websiteUrl   String   @map("website_url")
-  affiliateUrl String?  @map("affiliate_url")
-  icon         String?
-  features     String[]
-  pros         String[]
-  cons         String[]
-  color        String   @default("text-foreground")
-  bgGradient   String   @default("from-transparent to-transparent") @map("bg_gradient")
-  tier         String   @default("free") // free, bronze, silver, gold, platinum
-  isFeatured   Boolean  @default(false) @map("is_featured")
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @updatedAt @map("updated_at")
-
-  stackTools   StackTool[]
-  reviews      Review[]
-  favorites    Favorite[]
+  id              String           @id @default(cuid())
+  slug            String           @unique
+  title           String
+  description     String
+  category        String
+  pricing         String
+  websiteUrl      String           @map("website_url")
+  affiliateUrl    String?          @map("affiliate_url")
+  features        String[]
+  color           String           @default("text-foreground")
+  bgGradient      String           @default("from-transparent to-transparent") @map("bg_gradient")
+  createdAt       DateTime         @default(now()) @map("created_at")
+  updatedAt       DateTime         @updatedAt @map("updated_at")
+  cons            String[]
+  icon            String?
+  pros            String[]
+  isFeatured      Boolean          @default(false) @map("is_featured")
+  tier            String           @default("free")
   affiliateClicks AffiliateClick[]
-  sponsorships Sponsorship[]
+  favorites       Favorite[]
+  reviews         Review[]
+  sponsorships    Sponsorship[]
+  stackTools      StackTool[]
 
   @@map("tools")
 }
 
 model Stack {
-  id              String   @id @default(cuid())
-  idField         String   @unique @map("id_field")
+  id              String      @id @default(cuid())
+  idField         String      @unique @map("id_field")
   name            String
   description     String?
-  longDescription String?  @map("long_description")
-  totalPrice      String?  @map("total_price")
+  longDescription String?     @map("long_description")
+  totalPrice      String?     @map("total_price")
   tags            String[]
-  idealFor        String[] @map("ideal_for")
+  idealFor        String[]    @map("ideal_for")
   workflow        String[]
   icon            String?
   color           String?
-  createdAt       DateTime @default(now()) @map("created_at")
-  updatedAt       DateTime @updatedAt @map("updated_at")
-
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime    @updatedAt @map("updated_at")
   stackTools      StackTool[]
 
   @@map("stacks")
@@ -65,7 +60,6 @@ model StackTool {
   stackId   String   @map("stack_id")
   toolId    String   @map("tool_id")
   createdAt DateTime @default(now()) @map("created_at")
-
   stack     Stack    @relation(fields: [stackId], references: [id], onDelete: Cascade)
   tool      Tool     @relation(fields: [toolId], references: [id], onDelete: Cascade)
 
@@ -78,7 +72,7 @@ model BlogPost {
   slug      String   @unique
   title     String
   excerpt   String?
-  content   String?  @db.Text
+  content   String?
   date      String?
   author    String?
   category  String?
@@ -90,22 +84,20 @@ model BlogPost {
   @@map("blog_posts")
 }
 
-// NextAuth Models
 model Account {
   id                String  @id @default(cuid())
   userId            String  @map("user_id")
   type              String
   provider          String
   providerAccountId String  @map("provider_account_id")
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@map("accounts")
@@ -129,11 +121,11 @@ model User {
   image         String?
   createdAt     DateTime   @default(now()) @map("created_at")
   updatedAt     DateTime   @updatedAt @map("updated_at")
-  
   accounts      Account[]
-  sessions      Session[]
-  reviews       Review[]
   favorites     Favorite[]
+  reviews       Review[]
+  sessions      Session[]
+  communityStacks CommunityStack[]
 
   @@map("users")
 }
@@ -152,12 +144,11 @@ model Review {
   userId    String   @map("user_id")
   toolId    String   @map("tool_id")
   rating    Int
-  content   String   @db.Text
+  content   String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  tool Tool @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  tool      Tool     @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("reviews")
 }
@@ -167,9 +158,8 @@ model Favorite {
   userId    String   @map("user_id")
   toolId    String   @map("tool_id")
   createdAt DateTime @default(now()) @map("created_at")
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  tool Tool @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  tool      Tool     @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, toolId])
   @@map("favorites")
@@ -184,10 +174,9 @@ model AffiliateClick {
   userAgent String?  @map("user_agent")
   referrer  String?
   ipAddress String?  @map("ip_address")
-  abVariant String?  @map("ab_variant") // A/B test variant
+  abVariant String?  @map("ab_variant")
   createdAt DateTime @default(now()) @map("created_at")
-
-  tool Tool @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  tool      Tool     @relation(fields: [toolId], references: [id], onDelete: Cascade)
 
   @@index([toolId, createdAt])
   @@index([createdAt])
@@ -197,9 +186,9 @@ model AffiliateClick {
 model EmailCapture {
   id        String   @id @default(cuid())
   email     String
-  source    String   @default("exit_intent") // exit_intent, newsletter, tool_page
+  source    String   @default("exit_intent")
   toolSlug  String?  @map("tool_slug")
-  metadata  String?  // JSON string for additional data
+  metadata  String?
   createdAt DateTime @default(now()) @map("created_at")
 
   @@unique([email, source])
@@ -215,9 +204,9 @@ model Submission {
   category    String
   pricing     String
   email       String
-  tier        String   @default("free") // free, priority, premium
-  status      String   @default("pending") // pending, approved, rejected
-  amount      Int      @default(0) // in cents (0 for free, 4900 for priority, 14900 for premium)
+  tier        String   @default("free")
+  status      String   @default("pending")
+  amount      Int      @default(0)
   paymentId   String?  @map("payment_id")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
@@ -231,9 +220,9 @@ model WebhookEvent {
   provider  String
   eventId   String   @unique @map("event_id")
   type      String
-  status    String   @default("received") // received, processed, failed
-  error     String?  @db.Text
-  payload   String?  @db.Text
+  status    String   @default("received")
+  error     String?
+  payload   String?
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -242,27 +231,159 @@ model WebhookEvent {
 }
 
 model Sponsorship {
-  id                   String   @id @default(cuid())
-  provider             String   @default("stripe")
-  placement            String   // newsletter, featured_spotlight, sidebar_ad
-  status               String   @default("active") // active, canceled, past_due, incomplete
-  priceId              String?  @map("price_id")
-  stripeSubscriptionId String?  @unique @map("stripe_subscription_id")
-  stripeCustomerId     String?  @map("stripe_customer_id")
+  id                   String    @id @default(cuid())
+  provider             String    @default("stripe")
+  placement            String
+  status               String    @default("active")
+  priceId              String?   @map("price_id")
+  stripeSubscriptionId String?   @unique @map("stripe_subscription_id")
+  stripeCustomerId     String?   @map("stripe_customer_id")
   currentPeriodStart   DateTime? @map("current_period_start")
   currentPeriodEnd     DateTime? @map("current_period_end")
-  sponsorName          String?  @map("sponsor_name")
-  sponsorUrl           String?  @map("sponsor_url")
-  sponsorEmail         String?  @map("sponsor_email")
-  sponsorCopy          String?  @map("sponsor_copy")
-  toolId               String?  @map("tool_id")
-
-  tool Tool? @relation(fields: [toolId], references: [id], onDelete: SetNull)
-
-  createdAt            DateTime @default(now()) @map("created_at")
-  updatedAt            DateTime @updatedAt @map("updated_at")
+  sponsorName          String?   @map("sponsor_name")
+  sponsorUrl           String?   @map("sponsor_url")
+  sponsorEmail         String?   @map("sponsor_email")
+  sponsorCopy          String?   @map("sponsor_copy")
+  toolId               String?   @map("tool_id")
+  createdAt            DateTime  @default(now()) @map("created_at")
+  updatedAt            DateTime  @updatedAt @map("updated_at")
+  tool                 Tool?     @relation(fields: [toolId], references: [id])
 
   @@index([placement, status])
   @@index([currentPeriodEnd])
   @@map("sponsorships")
+}
+
+// Verified User Testimonials
+model Testimonial {
+  id              String   @id @default(cuid())
+  userId          String   @map("user_id")
+  stackId         String?  @map("stack_id")
+  toolId          String?  @map("tool_id")
+  rating          Int
+  content         String
+  metrics         Json?    // { productivityGain: "3x", timeSaved: "10h/week", roi: "$2000/mo" }
+  videoUrl        String?  @map("video_url")
+  verified        Boolean  @default(false)
+  verifiedAt      DateTime? @map("verified_at")
+  featured        Boolean  @default(false)
+  featuredOrder   Int      @default(0) @map("featured_order")
+  socialProof     Json?    // { likes: 42, retweets: 12, comments: [] }
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@index([verified, featured])
+  @@index([stackId, featured])
+  @@index([createdAt])
+  @@map("testimonials")
+}
+
+// Stack Metrics and Analytics
+model StackMetrics {
+  id                    String   @id @default(cuid())
+  stackId               String   @unique @map("stack_id")
+  views                 Int      @default(0)
+  saves                 Int      @default(0)
+  shares                Int      @default(0)
+  implementations       Int      @default(0)
+  avgRating             Float    @default(0) @map("avg_rating")
+  reviewCount           Int      @default(0) @map("review_count")
+  popularityScore       Float    @default(0) @map("popularity_score")
+  trendingRank          Int?     @map("trending_rank")
+  lastCalculatedAt      DateTime @default(now()) @map("last_calculated_at")
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @updatedAt @map("updated_at")
+
+  @@index([popularityScore])
+  @@index([trendingRank])
+  @@map("stack_metrics")
+}
+
+// Community Curated Stacks
+model CommunityStack {
+  id              String   @id @default(cuid())
+  userId          String   @map("user_id")
+  name            String
+  description     String?
+  isPublic        Boolean  @default(true) @map("is_public")
+  isFeatured      Boolean  @default(false) @map("is_featured")
+  featuredOrder   Int      @default(0) @map("featured_order")
+  forkedFromId    String?  @map("forked_from_id")
+  viewCount       Int      @default(0) @map("view_count")
+  saveCount       Int      @default(0) @map("save_count")
+  likeCount       Int      @default(0) @map("like_count")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  forkedFrom      CommunityStack? @relation("StackForks", fields: [forkedFromId], references: [id])
+  forks           CommunityStack[] @relation("StackForks")
+
+  @@index([isPublic, isFeatured])
+  @@index([userId])
+  @@index([createdAt])
+  @@map("community_stacks")
+}
+
+// Content Management (Blog, Guides, etc.)
+model Content {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  title           String
+  excerpt         String?
+  content         String   @db.Text
+  type            ContentType
+  status          ContentStatus @default(draft)
+  authorId        String   @map("author_id")
+  coverImage      String?  @map("cover_image")
+  tags            String[]
+  seoTitle        String?  @map("seo_title")
+  seoDescription  String?  @map("seo_description")
+  publishedAt     DateTime? @map("published_at")
+  viewCount       Int      @default(0) @map("view_count")
+  readingTime     Int      @default(0) @map("reading_time")
+  relatedStacks   String[] @map("related_stacks") // Array of stack IDs
+  relatedTools    String[] @map("related_tools") // Array of tool IDs
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@index([type, status])
+  @@index([status, publishedAt])
+  @@index([tags])
+  @@map("content")
+}
+
+enum ContentType {
+  blog
+  guide
+  comparison
+  tutorial
+  case_study
+  changelog
+}
+
+enum ContentStatus {
+  draft
+  review
+  published
+  archived
+}
+
+// Stack Adoption/Usage Tracking
+model StackAdoption {
+  id              String   @id @default(cuid())
+  stackId         String   @map("stack_id")
+  userId          String   @map("user_id")
+  toolsAdopted    String[] @map("tools_adopted")
+  productivityGain String? @map("productivity_gain")
+  timeSaved       String?  @map("time_saved")
+  costSaved       String?  @map("cost_saved")
+  testimonialId   String?  @map("testimonial_id")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@unique([stackId, userId])
+  @@index([stackId])
+  @@index([userId])
+  @@map("stack_adoptions")
 }

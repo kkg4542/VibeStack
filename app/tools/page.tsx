@@ -37,19 +37,19 @@ export default function ToolsPage() {
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6 backdrop-blur-sm"
                     >
                         <Sparkles className="w-4 h-4" />
-                        <span>{tools.length} AI Tools Curated</span>
+                        <span>{tools.length} tools, vetted for real work</span>
                     </motion.div>
 
                     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance max-w-4xl mx-auto leading-tight">
-                        Discover the{" "}
+                        Skip the hype. Find the{" "}
                         <span className="bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-500 bg-clip-text text-transparent">
-                            Perfect AI Tool
+                            tools that ship
                         </span>{" "}
-                        for Every Task
+                        your work faster.
                     </h1>
 
                     <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed">
-                        From coding assistants to design tools, explore our comprehensive database of AI-powered solutions curated for developers and creators.
+                        We test, tag, and track AI products by real workflow impact, not buzz. Compare tools by category, pricing, and outcomes to build a stack that actually saves time.
                     </p>
 
                     {/* Quick Stats */}
@@ -106,7 +106,7 @@ export default function ToolsPage() {
                             />
                         </div>
                         <p className="text-xs text-muted-foreground mt-3">
-                            💡 Try searching &quot;coding&quot;, &quot;free&quot;, or &quot;design&quot;
+                            Try searching &quot;coding&quot;, &quot;free&quot;, or &quot;design&quot;
                         </p>
                     </motion.div>
                 </motion.div>

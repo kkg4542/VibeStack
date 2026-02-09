@@ -3,17 +3,21 @@ import { PrismaClient } from '@prisma/client';
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
 const prismaClientSingleton = () => {
+  let url = process.env.DATABASE_URL || '';
+  if (url && !url.includes('pgbouncer=')) {
+    const separator = url.includes('?') ? '&' : '?';
+    url = `${url}${separator}pgbouncer=true`;
+  }
+
   return new PrismaClient({
-    log: process.env.NODE_ENV === 'development' 
-      ? ['query', 'info', 'warn', 'error'] 
+    log: process.env.NODE_ENV === 'development'
+      ? ['query', 'info', 'warn', 'error']
       : ['error'],
     datasources: {
       db: {
-        url: process.env.DATABASE_URL,
+        url,
       },
     },
-    // Connection pool configuration
-    // https://www.prisma.io/docs/concepts/components/prisma-client/working-with-prismaclient/connection-pool
   });
 };
 
