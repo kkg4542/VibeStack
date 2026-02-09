@@ -8,6 +8,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Tool {
@@ -34,6 +35,7 @@ model Tool {
   reviews      Review[]
   favorites    Favorite[]
   affiliateClicks AffiliateClick[]
+  sponsorships Sponsorship[]
 
   @@map("tools")
 }
@@ -237,4 +239,30 @@ model WebhookEvent {
 
   @@index([provider, createdAt])
   @@map("webhook_events")
+}
+
+model Sponsorship {
+  id                   String   @id @default(cuid())
+  provider             String   @default("stripe")
+  placement            String   // newsletter, featured_spotlight, sidebar_ad
+  status               String   @default("active") // active, canceled, past_due, incomplete
+  priceId              String?  @map("price_id")
+  stripeSubscriptionId String?  @unique @map("stripe_subscription_id")
+  stripeCustomerId     String?  @map("stripe_customer_id")
+  currentPeriodStart   DateTime? @map("current_period_start")
+  currentPeriodEnd     DateTime? @map("current_period_end")
+  sponsorName          String?  @map("sponsor_name")
+  sponsorUrl           String?  @map("sponsor_url")
+  sponsorEmail         String?  @map("sponsor_email")
+  sponsorCopy          String?  @map("sponsor_copy")
+  toolId               String?  @map("tool_id")
+
+  tool Tool? @relation(fields: [toolId], references: [id], onDelete: SetNull)
+
+  createdAt            DateTime @default(now()) @map("created_at")
+  updatedAt            DateTime @updatedAt @map("updated_at")
+
+  @@index([placement, status])
+  @@index([currentPeriodEnd])
+  @@map("sponsorships")
 }

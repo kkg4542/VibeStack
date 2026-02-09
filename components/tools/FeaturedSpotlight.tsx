@@ -7,13 +7,19 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ToolData } from "@/lib/tool-types";
 import { getToolIcon } from "@/lib/tool-icons";
+import { useActiveSponsorship } from "@/hooks/use-sponsorships";
+import { SponsorshipPlacements } from "@/lib/sponsorships";
 
 interface FeaturedSpotlightProps {
     tool: ToolData;
 }
 
 export function FeaturedSpotlight({ tool }: FeaturedSpotlightProps) {
-    const Icon = getToolIcon(tool.slug);
+    const { data } = useActiveSponsorship(SponsorshipPlacements.featuredSpotlight);
+    const sponsoredTool = data?.sponsorship?.tool;
+    const activeTool = sponsoredTool || tool;
+
+    const Icon = getToolIcon(activeTool.slug);
 
     return (
         <motion.div
@@ -25,7 +31,7 @@ export function FeaturedSpotlight({ tool }: FeaturedSpotlightProps) {
             <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-indigo-500/10 blur-3xl transition-all duration-500 group-hover:bg-indigo-500/20" />
 
             <div className="relative flex flex-col md:flex-row items-center gap-8">
-                <div className={`flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl bg-secondary/50 border border-border/30 ${tool.color || "text-foreground"} shadow-2xl shadow-indigo-500/20 transition-transform duration-500 group-hover:scale-110`}>
+                <div className={`flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl bg-secondary/50 border border-border/30 ${activeTool.color || "text-foreground"} shadow-2xl shadow-indigo-500/20 transition-transform duration-500 group-hover:scale-110`}>
                     <Icon className="h-12 w-12" />
                 </div>
 
@@ -35,28 +41,33 @@ export function FeaturedSpotlight({ tool }: FeaturedSpotlightProps) {
                             <Sparkles className="h-3 w-3" />
                             Featured Tool
                         </Badge>
+                        {sponsoredTool && (
+                            <Badge variant="outline" className="text-emerald-500 border-emerald-500/30 bg-emerald-500/10">
+                                Current Sponsor
+                            </Badge>
+                        )}
                         <Badge variant="outline" className="text-muted-foreground border-indigo-500/20 dark:border-white/10 uppercase tracking-widest text-[10px] font-bold">
                             Partner Spotlight
                         </Badge>
                     </div>
 
                     <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-linear-to-r from-gray-900 via-indigo-800 to-indigo-900 dark:from-white dark:to-white/60 bg-clip-text text-transparent italic">
-                        {tool.title}
+                        {activeTool.title}
                     </h2>
 
                     <p className="text-lg text-muted-foreground mb-6 max-w-2xl">
-                        {tool.adCopy || tool.description}
+                        {activeTool.adCopy || activeTool.description}
                     </p>
 
                     <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
                         <Button asChild className="bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl px-8 py-6 h-auto text-lg font-semibold shadow-xl shadow-indigo-500/20 transition-all hover:scale-105 active:scale-95">
-                            <Link href={`/tool/${tool.slug}`}>
+                            <Link href={`/tool/${activeTool.slug}`}>
                                 Try it now
                                 <ArrowRight className="ml-2 h-5 w-5" />
                             </Link>
                         </Button>
                         <Link
-                            href={tool.websiteUrl}
+                            href={activeTool.websiteUrl}
                             target="_blank"
                             className="text-sm font-medium text-muted-foreground hover:text-indigo-600 dark:hover:text-white transition-colors"
                         >

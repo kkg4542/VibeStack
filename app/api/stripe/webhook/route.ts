@@ -4,6 +4,7 @@ import { getStripe } from "@/lib/stripe";
 import { createToolFromSubmission } from "@/lib/submissions";
 import { sendSubmissionApprovedEmail, sendSubmissionFailedEmail } from "@/lib/emails";
 import { sendSlackAlert } from "@/lib/alerts";
+import { SponsorshipPlacements } from "@/lib/sponsorships";
 
 export const runtime = "nodejs";
 
@@ -104,6 +105,52 @@ export async function POST(request: NextRequest) {
             console.error("Failed to send approval email:", error);
           }
         }
+
+        if (metadata.type === "sponsorship") {
+          const subscriptionId = session.subscription?.toString();
+          if (subscriptionId) {
+            const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+
+            await prisma.sponsorship.upsert({
+              where: { stripeSubscriptionId: subscriptionId },
+              update: {
+                status: subscription.status,
+                priceId: subscription.items.data[0]?.price.id,
+                stripeCustomerId: subscription.customer?.toString(),
+                currentPeriodStart: new Date(subscription.current_period_start * 1000),
+                currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+                sponsorName: metadata.sponsorName || null,
+                sponsorUrl: metadata.sponsorUrl || null,
+                sponsorEmail: metadata.sponsorEmail || null,
+                sponsorCopy: metadata.sponsorCopy || null,
+                toolId: metadata.toolId || null,
+                placement: metadata.placement || SponsorshipPlacements.newsletter,
+              },
+              create: {
+                placement: metadata.placement || SponsorshipPlacements.newsletter,
+                status: subscription.status,
+                priceId: subscription.items.data[0]?.price.id,
+                stripeSubscriptionId: subscriptionId,
+                stripeCustomerId: subscription.customer?.toString(),
+                currentPeriodStart: new Date(subscription.current_period_start * 1000),
+                currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+                sponsorName: metadata.sponsorName || null,
+                sponsorUrl: metadata.sponsorUrl || null,
+                sponsorEmail: metadata.sponsorEmail || null,
+                sponsorCopy: metadata.sponsorCopy || null,
+                toolId: metadata.toolId || null,
+              },
+            });
+
+            if (metadata.placement === SponsorshipPlacements.featuredSpotlight && metadata.toolId) {
+              await prisma.tool.update({
+                where: { id: metadata.toolId },
+                data: { isFeatured: true },
+              });
+            }
+
+          }
+        }
         break;
       }
       case "checkout.session.expired": {
@@ -184,6 +231,33 @@ export async function POST(request: NextRequest) {
             where: { id: submissionId, status: { in: ["pending_payment", "pending"] } },
             data: { status: "failed" },
           });
+        }
+        break;
+      }
+      case "customer.subscription.updated":
+      case "customer.subscription.deleted": {
+        const subscription = event.data.object;
+        const subscriptionId = subscription.id;
+
+        await prisma.sponsorship.updateMany({
+          where: { stripeSubscriptionId: subscriptionId },
+          data: {
+            status: subscription.status,
+            currentPeriodStart: new Date(subscription.current_period_start * 1000),
+            currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+          },
+        });
+
+        if (subscription.status !== "active") {
+          const record = await prisma.sponsorship.findFirst({
+            where: { stripeSubscriptionId: subscriptionId },
+          });
+          if (record?.placement === SponsorshipPlacements.featuredSpotlight && record.toolId) {
+            await prisma.tool.update({
+              where: { id: record.toolId },
+              data: { isFeatured: false },
+            });
+          }
         }
         break;
       }

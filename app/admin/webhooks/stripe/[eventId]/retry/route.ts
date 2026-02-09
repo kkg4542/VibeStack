@@ -4,6 +4,7 @@ import { getStripe } from "@/lib/stripe";
 import { createToolFromSubmission } from "@/lib/submissions";
 import { sendSubmissionApprovedEmail, sendSubmissionFailedEmail } from "@/lib/emails";
 import { sendSlackAlert } from "@/lib/alerts";
+import { SponsorshipPlacements } from "@/lib/sponsorships";
 
 interface Props {
   params: Promise<{ eventId: string }>;
@@ -40,6 +41,7 @@ export async function POST(request: NextRequest, { params }: Props) {
           metadata?: Record<string, string>;
           payment_intent?: string;
           amount_total?: number;
+          subscription?: string;
         };
         const metadata = session.metadata || {};
         if (metadata.type === "submission" && metadata.submissionId) {
@@ -68,6 +70,45 @@ export async function POST(request: NextRequest, { params }: Props) {
             } catch (error) {
               console.error("Failed to send approval email:", error);
             }
+          }
+        }
+        if (metadata.type === "sponsorship" && session.subscription) {
+          const subscription = await stripe.subscriptions.retrieve(session.subscription);
+          await prisma.sponsorship.upsert({
+            where: { stripeSubscriptionId: subscription.id },
+            update: {
+              status: subscription.status,
+              priceId: subscription.items.data[0]?.price.id,
+              stripeCustomerId: subscription.customer?.toString(),
+              currentPeriodStart: new Date(subscription.current_period_start * 1000),
+              currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+              sponsorName: metadata.sponsorName || null,
+              sponsorUrl: metadata.sponsorUrl || null,
+              sponsorEmail: metadata.sponsorEmail || null,
+              sponsorCopy: metadata.sponsorCopy || null,
+              toolId: metadata.toolId || null,
+              placement: metadata.placement || SponsorshipPlacements.newsletter,
+            },
+            create: {
+              placement: metadata.placement || SponsorshipPlacements.newsletter,
+              status: subscription.status,
+              priceId: subscription.items.data[0]?.price.id,
+              stripeSubscriptionId: subscription.id,
+              stripeCustomerId: subscription.customer?.toString(),
+              currentPeriodStart: new Date(subscription.current_period_start * 1000),
+              currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+              sponsorName: metadata.sponsorName || null,
+              sponsorUrl: metadata.sponsorUrl || null,
+              sponsorEmail: metadata.sponsorEmail || null,
+              sponsorCopy: metadata.sponsorCopy || null,
+              toolId: metadata.toolId || null,
+            },
+          });
+          if (metadata.placement === SponsorshipPlacements.featuredSpotlight && metadata.toolId) {
+            await prisma.tool.update({
+              where: { id: metadata.toolId },
+              data: { isFeatured: true },
+            });
           }
         }
         break;
@@ -124,6 +165,35 @@ export async function POST(request: NextRequest, { params }: Props) {
             } catch (error) {
               console.error("Failed to send failure email:", error);
             }
+          }
+        }
+        break;
+      }
+      case "customer.subscription.updated":
+      case "customer.subscription.deleted": {
+        const subscription = event.data.object as {
+          id: string;
+          status: string;
+          current_period_start: number;
+          current_period_end: number;
+        };
+        await prisma.sponsorship.updateMany({
+          where: { stripeSubscriptionId: subscription.id },
+          data: {
+            status: subscription.status,
+            currentPeriodStart: new Date(subscription.current_period_start * 1000),
+            currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+          },
+        });
+        if (subscription.status !== "active") {
+          const record = await prisma.sponsorship.findFirst({
+            where: { stripeSubscriptionId: subscription.id },
+          });
+          if (record?.placement === SponsorshipPlacements.featuredSpotlight && record.toolId) {
+            await prisma.tool.update({
+              where: { id: record.toolId },
+              data: { isFeatured: false },
+            });
           }
         }
         break;

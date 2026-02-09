@@ -20,6 +20,8 @@ import { PageBackground, BackgroundPresets } from "@/components/effects/PageBack
 import { useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
+import { useActiveSponsorship } from "@/hooks/use-sponsorships";
+import { SponsorshipPlacements } from "@/lib/sponsorships";
 
 // Sample newsletter archive data
 const newsletterArchive = [
@@ -139,17 +141,56 @@ function NewsletterCard({ issue, index }: { issue: typeof newsletterArchive[0]; 
 export default function NewsletterPage() {
     const [email, setEmail] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [sponsorName, setSponsorName] = useState("");
+    const [sponsorUrl, setSponsorUrl] = useState("");
+    const [sponsorEmail, setSponsorEmail] = useState("");
+    const [sponsorCopy, setSponsorCopy] = useState("");
+    const [sponsorLoading, setSponsorLoading] = useState(false);
+    const { data: sponsorData } = useActiveSponsorship(SponsorshipPlacements.newsletter);
+    const activeSponsor = sponsorData?.sponsorship;
 
     const handleSubscribe = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
-        
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        toast.success("Successfully subscribed! Check your inbox for confirmation.");
-        setEmail("");
-        setIsSubmitting(false);
+        try {
+            const res = await fetch("/api/newsletter", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email }),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || "Failed to subscribe");
+            toast.success(data.message || "Successfully subscribed! Check your inbox for confirmation.");
+            setEmail("");
+        } catch (error) {
+            toast.error(error instanceof Error ? error.message : "Failed to subscribe.");
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    const handleSponsorCheckout = async () => {
+        setSponsorLoading(true);
+        try {
+            const res = await fetch("/api/sponsorships/checkout", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    placement: SponsorshipPlacements.newsletter,
+                    sponsorName,
+                    sponsorUrl,
+                    sponsorEmail,
+                    sponsorCopy,
+                }),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || "Failed to start sponsorship checkout");
+            window.location.href = data.checkoutUrl;
+        } catch (error) {
+            toast.error(error instanceof Error ? error.message : "Failed to start checkout.");
+        } finally {
+            setSponsorLoading(false);
+        }
     };
 
     return (
@@ -332,6 +373,71 @@ export default function NewsletterPage() {
                         </CardContent>
                     </Card>
                 </motion.div>
+            </div>
+
+            {/* Sponsorship Section */}
+            <div className="container max-w-5xl mx-auto px-4 mt-16">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="mb-12 text-center"
+                >
+                    <h2 className="text-3xl font-bold mb-4">Sponsor the Newsletter</h2>
+                    <p className="text-muted-foreground">
+                        Reach thousands of developers with a dedicated sponsor slot in the next issue.
+                    </p>
+                </motion.div>
+
+                <Card className="border-border/50 bg-card/50">
+                    <CardContent className="p-8">
+                        {activeSponsor ? (
+                            <div className="flex flex-col gap-2">
+                                <Badge className="w-fit bg-emerald-500/10 text-emerald-600 border-emerald-500/20">
+                                    Current Sponsor
+                                </Badge>
+                                <h3 className="text-2xl font-bold">{activeSponsor.sponsorName || "Sponsor"}</h3>
+                                <p className="text-muted-foreground">{activeSponsor.sponsorCopy}</p>
+                                {activeSponsor.sponsorUrl && (
+                                    <Link href={activeSponsor.sponsorUrl} target="_blank" className="text-indigo-400 hover:underline">
+                                        {activeSponsor.sponsorUrl}
+                                    </Link>
+                                )}
+                                {activeSponsor.currentPeriodEnd && (
+                                    <p className="text-xs text-muted-foreground mt-2">
+                                        Active until {new Date(activeSponsor.currentPeriodEnd).toLocaleDateString()}
+                                    </p>
+                                )}
+                            </div>
+                        ) : (
+                            <div className="grid gap-6 md:grid-cols-2">
+                                <div>
+                                    <Badge className="mb-3 bg-indigo-500/10 text-indigo-500 border-indigo-500/20">
+                                        Monthly Sponsorship
+                                    </Badge>
+                                    <h3 className="text-2xl font-bold mb-2">$499 / month</h3>
+                                    <p className="text-muted-foreground mb-4">
+                                        Includes featured placement in the next issue and homepage newsletter section.
+                                    </p>
+                                    <ul className="text-sm text-muted-foreground space-y-2">
+                                        <li>✓ Dedicated sponsor block</li>
+                                        <li>✓ Link + brand mention</li>
+                                        <li>✓ Delivered every Monday</li>
+                                    </ul>
+                                </div>
+                                <div className="space-y-3">
+                                    <Input placeholder="Company name" value={sponsorName} onChange={(e) => setSponsorName(e.target.value)} />
+                                    <Input placeholder="Website URL" value={sponsorUrl} onChange={(e) => setSponsorUrl(e.target.value)} />
+                                    <Input placeholder="Contact email" value={sponsorEmail} onChange={(e) => setSponsorEmail(e.target.value)} />
+                                    <Input placeholder="Short sponsor copy" value={sponsorCopy} onChange={(e) => setSponsorCopy(e.target.value)} />
+                                    <Button className="w-full" onClick={handleSponsorCheckout} disabled={sponsorLoading || !sponsorName || !sponsorUrl || !sponsorEmail}>
+                                        {sponsorLoading ? "Redirecting..." : "Become a Sponsor"}
+                                    </Button>
+                                </div>
+                            </div>
+                        )}
+                    </CardContent>
+                </Card>
             </div>
         </PageBackground>
     );

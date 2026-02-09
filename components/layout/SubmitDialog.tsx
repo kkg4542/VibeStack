@@ -11,8 +11,40 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { Plus, Star, X } from "lucide-react";
+import { useState } from "react";
+import { SponsorshipPlacements } from "@/lib/sponsorships";
+import { toast } from "sonner";
 
 export function SubmitDialog() {
+    const [sponsorName, setSponsorName] = useState("");
+    const [sponsorUrl, setSponsorUrl] = useState("");
+    const [sponsorEmail, setSponsorEmail] = useState("");
+    const [toolSlug, setToolSlug] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+
+    const startCheckout = async (placement: string) => {
+        try {
+            setIsLoading(true);
+            const res = await fetch("/api/sponsorships/checkout", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    placement,
+                    sponsorName,
+                    sponsorUrl,
+                    sponsorEmail,
+                    toolSlug,
+                }),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || "Failed to start checkout");
+            window.location.href = data.checkoutUrl;
+        } catch (error) {
+            toast.error(error instanceof Error ? error.message : "Checkout failed");
+        } finally {
+            setIsLoading(false);
+        }
+    };
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -58,11 +90,16 @@ export function SubmitDialog() {
                         </div>
 
                         <div className="mt-auto">
-                            <Button variant="outline" className="w-full h-12 rounded-xl border-white/10 bg-white/5 text-white hover:bg-white/10 hover:border-white/20 transition-all font-medium" asChild>
-                                <a href="https://buy.stripe.com/7sYfZa5FL3tMbtqgxC7IY02" target="_blank">Get Started</a>
+                            <Button
+                                variant="outline"
+                                className="w-full h-12 rounded-xl border-white/10 bg-white/5 text-white hover:bg-white/10 hover:border-white/20 transition-all font-medium"
+                                onClick={() => startCheckout(SponsorshipPlacements.sidebarAd)}
+                                disabled={isLoading || !sponsorName || !sponsorUrl || !sponsorEmail || !toolSlug}
+                            >
+                                {isLoading ? "Redirecting..." : "Get Started"}
                             </Button>
                             <p className="mt-3 text-center text-[10px] text-zinc-500 uppercase tracking-wider font-medium">
-                                Secure payment via Stripe
+                                Monthly billing via Stripe
                             </p>
                         </div>
                     </div>
@@ -104,16 +141,49 @@ export function SubmitDialog() {
                         </div>
 
                         <div className="relative z-10 mt-auto">
-                            <Button className="w-full h-12 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold shadow-lg shadow-indigo-500/25 transition-all hover:scale-[1.02] active:scale-[0.98]" asChild>
-                                <a href="https://buy.stripe.com/fZufZa9W10hAbtqgxC7IY03" target="_blank">
-                                    Get Featured Now
-                                </a>
+                            <Button
+                                className="w-full h-12 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold shadow-lg shadow-indigo-500/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                                onClick={() => startCheckout(SponsorshipPlacements.featuredSpotlight)}
+                                disabled={isLoading || !sponsorName || !sponsorUrl || !sponsorEmail || !toolSlug}
+                            >
+                                {isLoading ? "Redirecting..." : "Get Featured Now"}
                             </Button>
                             <p className="mt-3 text-center text-[10px] text-indigo-300/40 uppercase tracking-wider font-medium">
-                                Secure payment via Stripe
+                                Monthly billing via Stripe
                             </p>
                         </div>
                     </div>
+                </div>
+                <div className="p-6 border-t border-white/10 bg-black/40">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+                        <input
+                            className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white"
+                            placeholder="Company name"
+                            value={sponsorName}
+                            onChange={(e) => setSponsorName(e.target.value)}
+                        />
+                        <input
+                            className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white"
+                            placeholder="Website URL"
+                            value={sponsorUrl}
+                            onChange={(e) => setSponsorUrl(e.target.value)}
+                        />
+                        <input
+                            className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white"
+                            placeholder="Contact email"
+                            value={sponsorEmail}
+                            onChange={(e) => setSponsorEmail(e.target.value)}
+                        />
+                        <input
+                            className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white"
+                            placeholder="Tool slug (required)"
+                            value={toolSlug}
+                            onChange={(e) => setToolSlug(e.target.value)}
+                        />
+                    </div>
+                    <p className="text-[10px] text-zinc-500 mt-3">
+                        Sponsorships are billed monthly. Cancel anytime.
+                    </p>
                 </div>
             </DialogContent>
         </Dialog>

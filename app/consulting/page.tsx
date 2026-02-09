@@ -227,7 +227,7 @@ export default function ConsultingPage() {
                             <div className="mb-6">
                                 <h3 className="text-xl font-semibold mb-2">Sidebar Ads</h3>
                                 <div className="flex items-baseline gap-2">
-                                    <span className="text-4xl font-bold text-foreground">$299</span>
+                                    <span className="text-4xl font-bold text-foreground">$99</span>
                                     <span className="text-muted-foreground">/month</span>
                                 </div>
                             </div>
@@ -270,7 +270,7 @@ export default function ConsultingPage() {
                             <div className="mb-6">
                                 <h3 className="text-xl font-semibold mb-2">Featured Spotlight</h3>
                                 <div className="flex items-baseline gap-2">
-                                    <span className="text-4xl font-bold text-foreground">$799</span>
+                                    <span className="text-4xl font-bold text-foreground">$199</span>
                                     <span className="text-muted-foreground">/month</span>
                                 </div>
                             </div>
@@ -314,8 +314,8 @@ export default function ConsultingPage() {
                             <div className="mb-6">
                                 <h3 className="text-xl font-semibold mb-2">Newsletter Sponsor</h3>
                                 <div className="flex items-baseline gap-2">
-                                    <span className="text-4xl font-bold text-foreground">$499</span>
-                                    <span className="text-muted-foreground">/issue</span>
+                                    <span className="text-4xl font-bold text-foreground">$149</span>
+                                    <span className="text-muted-foreground">/month</span>
                                 </div>
                             </div>
                             <ul className="space-y-3 mb-8">

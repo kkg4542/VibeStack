@@ -12,6 +12,7 @@ import {
   Settings,
   Inbox,
   Webhook,
+  Megaphone,
 } from "lucide-react";
 
 const navItems = [
@@ -29,6 +30,11 @@ const navItems = [
     href: "/admin/submissions",
     label: "Submissions",
     icon: Inbox,
+  },
+  {
+    href: "/admin/sponsorships",
+    label: "Sponsorships",
+    icon: Megaphone,
   },
   {
     href: "/admin/webhooks",

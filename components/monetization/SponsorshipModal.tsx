@@ -3,12 +3,18 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Check, Rocket, Sparkles, Star } from "lucide-react";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { SponsorshipPlacements } from "@/lib/sponsorships";
+import { toast } from "sonner";
 
 export function SponsorshipModal() {
     const [selectedPlan, setSelectedPlan] = useState<"Standard" | "Premium">("Premium");
+    const [sponsorName, setSponsorName] = useState("");
+    const [sponsorUrl, setSponsorUrl] = useState("");
+    const [sponsorEmail, setSponsorEmail] = useState("");
+    const [toolSlug, setToolSlug] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const plans = [
         {
@@ -20,8 +26,7 @@ export function SponsorshipModal() {
                 "Do-Follow Backlink (SEO)",
                 "Permanent Listing",
             ],
-            // Actual $99 Stripe link
-            link: "https://buy.stripe.com/7sYfZa5FL3tMbtqgxC7IY02",
+            placement: SponsorshipPlacements.sidebarAd,
             color: "blue",
             isPremium: false,
         },
@@ -35,14 +40,37 @@ export function SponsorshipModal() {
                 "Social Media Shoutout",
                 "Priority Support",
             ],
-            // Actual $299 Stripe link
-            link: "https://buy.stripe.com/fZufZa9W10hAbtqgxC7IY03",
+            placement: SponsorshipPlacements.featuredSpotlight,
             color: "indigo",
             isPremium: true,
         },
     ];
 
     const currentPlan = plans.find(p => p.name === selectedPlan) || plans[1];
+
+    const handleCheckout = async () => {
+        try {
+            setIsLoading(true);
+            const res = await fetch("/api/sponsorships/checkout", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    placement: currentPlan.placement,
+                    sponsorName,
+                    sponsorUrl,
+                    sponsorEmail,
+                    toolSlug,
+                }),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || "Failed to start checkout");
+            window.location.href = data.checkoutUrl;
+        } catch (error) {
+            toast.error(error instanceof Error ? error.message : "Checkout failed");
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     return (
         <Dialog>
@@ -136,19 +164,47 @@ export function SponsorshipModal() {
                 </div>
 
                 <div className="p-6 bg-zinc-900/50 border-t border-zinc-800 flex flex-col items-center gap-4">
-                    <Link href={currentPlan.link} target="_blank" className="w-full sm:w-auto">
-                        <Button className={cn(
+                    <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <input
+                            className="w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-sm"
+                            placeholder="Company name"
+                            value={sponsorName}
+                            onChange={(e) => setSponsorName(e.target.value)}
+                        />
+                        <input
+                            className="w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-sm"
+                            placeholder="Website URL"
+                            value={sponsorUrl}
+                            onChange={(e) => setSponsorUrl(e.target.value)}
+                        />
+                        <input
+                            className="w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-sm"
+                            placeholder="Contact email"
+                            value={sponsorEmail}
+                            onChange={(e) => setSponsorEmail(e.target.value)}
+                        />
+                        <input
+                            className="w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 py-2 text-sm"
+                            placeholder="Tool slug (required)"
+                            value={toolSlug}
+                            onChange={(e) => setToolSlug(e.target.value)}
+                        />
+                    </div>
+                    <Button
+                        className={cn(
                             "w-full sm:min-w-[200px] font-semibold h-12 rounded-lg text-white transition-all text-lg shadow-xl",
                             currentPlan.isPremium
                                 ? "bg-indigo-600 hover:bg-indigo-500 shadow-indigo-500/20"
                                 : "bg-blue-600 hover:bg-blue-500 shadow-blue-500/20"
-                        )}>
-                            Proceed with {currentPlan.name}
-                        </Button>
-                    </Link>
+                        )}
+                        onClick={handleCheckout}
+                        disabled={isLoading || !sponsorName || !sponsorUrl || !sponsorEmail || !toolSlug}
+                    >
+                        {isLoading ? "Redirecting..." : `Proceed with ${currentPlan.name}`}
+                    </Button>
                     <p className="text-xs text-zinc-500 flex items-center justify-center gap-2">
                         <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-                        Secure payment via Stripe. Cancel anytime.
+                        Secure monthly billing via Stripe. Cancel anytime.
                     </p>
                 </div>
             </DialogContent>

@@ -76,8 +76,17 @@ export async function middleware(req: NextRequest) {
     );
   }
 
-  // Admin route protection with rate limiting
-  if (req.nextUrl.pathname.startsWith("/admin")) {
+  // Protect only /admin and /api/... (sensitive) routes
+  const isProtectedPath =
+    req.nextUrl.pathname.startsWith("/admin") ||
+    (req.nextUrl.pathname.startsWith("/api") &&
+      !req.nextUrl.pathname.startsWith("/api/auth") &&
+      !req.nextUrl.pathname.startsWith("/api/tools") &&
+      !req.nextUrl.pathname.startsWith("/api/stacks") &&
+      !req.nextUrl.pathname.startsWith("/api/sponsorships") &&
+      !req.nextUrl.pathname.startsWith("/api/blog"));
+
+  if (isProtectedPath) {
     // Check rate limiting
     if (isRateLimited(ip)) {
       return new NextResponse("Too many failed attempts. Please try again in 15 minutes.", {
@@ -181,5 +190,20 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/api/:path*"],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api/auth (auth routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    "/admin/:path*",
+    {
+      source: "/api/:path*",
+      missing: [
+        { type: "header", key: "next-action" },
+      ],
+    },
+  ],
 };
