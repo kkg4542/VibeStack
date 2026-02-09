@@ -120,6 +120,15 @@ export default function AdminSettingsPage() {
             </div>
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
+                <span className="text-sm font-medium">Webhook Failures</span>
+                <p className="text-sm text-muted-foreground">
+                  Notify when Stripe webhook processing fails
+                </p>
+              </div>
+              <input type="checkbox" className="h-4 w-4" />
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="space-y-0.5">
                 <span className="text-sm font-medium">Weekly Reports</span>
                 <p className="text-sm text-muted-foreground">
                   Receive weekly analytics reports

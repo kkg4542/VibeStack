@@ -38,6 +38,8 @@ export default async function AdminToolsPage() {
                 <th className="px-4 py-3 text-left text-sm font-medium">Name</th>
                 <th className="px-4 py-3 text-left text-sm font-medium">Category</th>
                 <th className="px-4 py-3 text-left text-sm font-medium">Pricing</th>
+                <th className="px-4 py-3 text-left text-sm font-medium">Tier</th>
+                <th className="px-4 py-3 text-left text-sm font-medium">Featured</th>
                 <th className="px-4 py-3 text-left text-sm font-medium">Created</th>
                 <th className="px-4 py-3 text-right text-sm font-medium">Actions</th>
               </tr>
@@ -50,6 +52,24 @@ export default async function AdminToolsPage() {
                     <Badge variant="secondary">{tool.category}</Badge>
                   </td>
                   <td className="px-4 py-3">{tool.pricing}</td>
+                  <td className="px-4 py-3">
+                    {tool.tier && tool.tier !== "free" ? (
+                      <Badge variant="secondary" className="bg-indigo-500/10 text-indigo-600">
+                        {tool.tier}
+                      </Badge>
+                    ) : (
+                      <span className="text-xs text-muted-foreground">free</span>
+                    )}
+                  </td>
+                  <td className="px-4 py-3">
+                    {tool.isFeatured ? (
+                      <Badge variant="secondary" className="bg-amber-500/10 text-amber-600">
+                        Featured
+                      </Badge>
+                    ) : (
+                      <span className="text-xs text-muted-foreground">-</span>
+                    )}
+                  </td>
                   <td className="px-4 py-3">
                     {new Date(tool.createdAt).toLocaleDateString()}
                   </td>

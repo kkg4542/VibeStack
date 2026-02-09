@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getStripe } from "@/lib/stripe";
 import { createToolFromSubmission } from "@/lib/submissions";
 import { sendSubmissionApprovedEmail, sendSubmissionFailedEmail } from "@/lib/emails";
+import { sendSlackAlert } from "@/lib/alerts";
 
 interface Props {
   params: Promise<{ eventId: string }>;
@@ -143,6 +144,11 @@ export async function POST(request: NextRequest, { params }: Props) {
       where: { eventId },
       data: { status: "failed", error: String(error) },
     });
+    try {
+      await sendSlackAlert(`Stripe webhook retry failed: ${eventId} - ${String(error)}`);
+    } catch (slackError) {
+      console.error("Failed to send Slack alert:", slackError);
+    }
     return NextResponse.redirect(new URL("/admin/webhooks", request.url));
   }
 }

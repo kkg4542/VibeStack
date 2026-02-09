@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getStripe } from "@/lib/stripe";
 import { createToolFromSubmission } from "@/lib/submissions";
 import { sendSubmissionApprovedEmail, sendSubmissionFailedEmail } from "@/lib/emails";
+import { sendSlackAlert } from "@/lib/alerts";
 
 export const runtime = "nodejs";
 
@@ -58,6 +59,11 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("Stripe webhook error:", error);
+    try {
+      await sendSlackAlert(`Stripe webhook signature error: ${String(error)}`);
+    } catch (slackError) {
+      console.error("Failed to send Slack alert:", slackError);
+    }
     return NextResponse.json({ error: "Webhook signature verification failed" }, { status: 400 });
   }
 
@@ -154,6 +160,33 @@ export async function POST(request: NextRequest) {
         }
         break;
       }
+      case "charge.refunded": {
+        const charge = event.data.object as {
+          payment_intent?: string | null;
+        };
+        const paymentIntentId = charge.payment_intent?.toString();
+        if (paymentIntentId) {
+          await prisma.submission.updateMany({
+            where: { paymentId: paymentIntentId },
+            data: { status: "refunded" },
+          });
+        }
+        break;
+      }
+      case "payment_intent.canceled": {
+        const intent = event.data.object as {
+          id: string;
+          metadata?: Record<string, string>;
+        };
+        const submissionId = intent.metadata?.submissionId;
+        if (submissionId) {
+          await prisma.submission.updateMany({
+            where: { id: submissionId, status: { in: ["pending_payment", "pending"] } },
+            data: { status: "failed" },
+          });
+        }
+        break;
+      }
       default:
         break;
     }
@@ -167,6 +200,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ received: true });
   } catch (error) {
     console.error("Stripe webhook handler error:", error);
+    try {
+      await sendSlackAlert(`Stripe webhook handler error: ${String(error)}`);
+    } catch (slackError) {
+      console.error("Failed to send Slack alert:", slackError);
+    }
     if (webhookEventId) {
       await prisma.webhookEvent.update({
         where: { eventId: webhookEventId },

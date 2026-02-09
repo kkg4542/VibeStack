@@ -73,6 +73,8 @@ export default async function AdminSubmissionsPage() {
                               ? "bg-rose-500/10 text-rose-600"
                               : submission.status === "paid"
                                 ? "bg-amber-500/10 text-amber-600"
+                                : submission.status === "refunded"
+                                  ? "bg-slate-500/10 text-slate-600"
                                 : "bg-muted text-muted-foreground"
                         }
                       >
