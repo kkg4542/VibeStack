@@ -12,13 +12,15 @@ const fetchTools = async (params?: { category?: string; pricing?: string; page?:
 
   const response = await fetch(`/api/tools?${searchParams.toString()}`);
   if (!response.ok) throw new Error("Failed to fetch tools");
-  return response.json();
+  const json = await response.json();
+  return json.data ?? json;
 };
 
 const fetchTool = async (slug: string) => {
   const response = await fetch(`/api/tools/${slug}`);
   if (!response.ok) throw new Error("Failed to fetch tool");
-  return response.json();
+  const json = await response.json();
+  return json.data ?? json;
 };
 
 const createTool = async (data: CreateToolInput) => {
@@ -54,6 +56,14 @@ export function useTools(params?: Parameters<typeof fetchTools>[0]) {
     queryKey: ["tools", params],
     queryFn: () => fetchTools(params),
   });
+}
+
+export function useAllTools() {
+  const query = useTools({ limit: 500 });
+  return {
+    ...query,
+    tools: query.data?.tools ?? [],
+  };
 }
 
 export function useTool(slug: string) {

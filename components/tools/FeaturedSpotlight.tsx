@@ -1,21 +1,19 @@
 "use client";
 
-import { tools } from "@/lib/tools";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { ToolData } from "@/lib/tool-types";
+import { getToolIcon } from "@/lib/tool-icons";
 
 interface FeaturedSpotlightProps {
-    toolSlug: string;
+    tool: ToolData;
 }
 
-export function FeaturedSpotlight({ toolSlug }: FeaturedSpotlightProps) {
-    const tool = tools.find(t => t.slug === toolSlug);
-    if (!tool) return null;
-
-    const Icon = tool.icon;
+export function FeaturedSpotlight({ tool }: FeaturedSpotlightProps) {
+    const Icon = getToolIcon(tool.slug);
 
     return (
         <motion.div
@@ -27,7 +25,7 @@ export function FeaturedSpotlight({ toolSlug }: FeaturedSpotlightProps) {
             <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-indigo-500/10 blur-3xl transition-all duration-500 group-hover:bg-indigo-500/20" />
 
             <div className="relative flex flex-col md:flex-row items-center gap-8">
-                <div className={`flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl bg-secondary/50 border border-border/30 ${tool.color} shadow-2xl shadow-indigo-500/20 transition-transform duration-500 group-hover:scale-110`}>
+                <div className={`flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl bg-secondary/50 border border-border/30 ${tool.color || "text-foreground"} shadow-2xl shadow-indigo-500/20 transition-transform duration-500 group-hover:scale-110`}>
                     <Icon className="h-12 w-12" />
                 </div>
 

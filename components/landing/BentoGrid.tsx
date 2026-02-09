@@ -4,12 +4,14 @@ import Link from "next/link";
 import { useState } from "react";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Tool, tools } from "@/lib/tools";
+import { ToolData } from "@/lib/tool-types";
 import { m, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
 import { SponsorshipModal } from "@/components/monetization/SponsorshipModal";
+import { useAllTools } from "@/hooks/use-tools";
+import { getToolIcon } from "@/lib/tool-icons";
 
-function BentoCard({ tool, index }: { tool: Tool, index: number }) {
+function BentoCard({ tool, index }: { tool: ToolData, index: number }) {
     const x = useMotionValue(0);
     const y = useMotionValue(0);
 
@@ -61,7 +63,7 @@ function BentoCard({ tool, index }: { tool: Tool, index: number }) {
                     className="h-full motion-reduce:transform-none"
                 >
                     <Card className="h-full relative overflow-hidden border-border/40 bg-card/40 transition-all duration-500 hover:border-border/80 hover:bg-card/60 hover:shadow-2xl hover:shadow-indigo-500/10 backdrop-blur-md">
-                        <div className={`absolute inset-0 bg-linear-to-br ${tool.bgGradient} opacity-0 transition-opacity duration-700 group-hover:opacity-[0.15]`} />
+                        <div className={`absolute inset-0 bg-linear-to-br ${tool.bgGradient || "from-transparent to-transparent"} opacity-0 transition-opacity duration-700 group-hover:opacity-[0.15]`} />
 
                         <CardHeader className="relative z-10 h-full flex flex-col pt-8" style={{ transformStyle: "preserve-3d" }}>
                             <div className="mb-4 flex items-center justify-between gap-4" style={{ transform: "translateZ(30px)", transformStyle: "preserve-3d" }}>
@@ -72,13 +74,16 @@ function BentoCard({ tool, index }: { tool: Tool, index: number }) {
                                         translateY: -8,
                                     }}
                                     transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                                    className={`rounded-lg bg-secondary/80 p-3 ring-1 ring-border shadow-lg ${tool.color} group-hover:shadow-indigo-500/20`}
+                                    className={`rounded-lg bg-secondary/80 p-3 ring-1 ring-border shadow-lg ${tool.color || "text-foreground"} group-hover:shadow-indigo-500/20`}
                                     style={{
                                         transformStyle: "preserve-3d",
                                         transform: "translateZ(60px)",
                                     }}
                                 >
-                                    <tool.icon className="h-6 w-6" />
+                                    {(() => {
+                                        const ToolIcon = getToolIcon(tool.slug);
+                                        return <ToolIcon className="h-6 w-6" />;
+                                    })()}
                                 </m.div>
                                 <Badge variant="secondary" className="bg-secondary/50 text-[10px] uppercase tracking-wider font-semibold text-muted-foreground backdrop-blur-sm" style={{ transform: "translateZ(20px)" }}>
                                     {tool.category}
@@ -100,9 +105,10 @@ function BentoCard({ tool, index }: { tool: Tool, index: number }) {
 
 export function BentoGrid() {
     const [category, setCategory] = useState("All");
+    const { tools, isLoading } = useAllTools();
 
     // Filter tools based on category
-    const filteredTools = tools.filter(tool =>
+    const filteredTools = tools.filter((tool: ToolData) =>
         category === "All" ? true : tool.category === category
     );
 
@@ -149,7 +155,7 @@ export function BentoGrid() {
                     layout
                     className="grid grid-cols-1 gap-6 md:grid-cols-3"
                 >
-                    {featuredTools.map((tool, index) => (
+                    {!isLoading && featuredTools.map((tool: ToolData, index: number) => (
                         <BentoCard key={tool.slug} tool={tool} index={index} />
                     ))}
                 </m.div>

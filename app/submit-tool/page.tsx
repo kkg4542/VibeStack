@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import * as motion from "framer-motion/client";
-import { 
-    Upload, 
-    CheckCircle2, 
-    XCircle, 
+import {
+    Upload,
+    CheckCircle2,
+    XCircle,
     AlertCircle,
     Sparkles,
     ArrowRight,
@@ -282,12 +282,11 @@ export default function SubmitToolPage() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
                             >
-                                <Card 
-                                    className={`h-full cursor-pointer transition-all ${
-                                        selectedPlan === plan.id 
-                                            ? "border-indigo-500 ring-2 ring-indigo-500/20" 
-                                            : "border-border/50 hover:border-indigo-500/30"
-                                    }`}
+                                <Card
+                                    className={`h-full cursor-pointer transition-all ${selectedPlan === plan.id
+                                        ? "border-indigo-500 ring-2 ring-indigo-500/20"
+                                        : "border-border/50 hover:border-indigo-500/30"
+                                        }`}
                                     onClick={() => setSelectedPlan(plan.id)}
                                 >
                                     {plan.popular && (
@@ -306,8 +305,8 @@ export default function SubmitToolPage() {
                                         </div>
                                         <CardDescription>{plan.description}</CardDescription>
                                     </CardHeader>
-                                    <CardContent className="pt-0">
-                                        <ul className="space-y-3 mb-6">
+                                    <CardContent className="pt-0 flex-1 flex flex-col">
+                                        <ul className="space-y-3 mb-6 flex-1">
                                             {plan.features.map((feature) => (
                                                 <li key={feature} className="flex items-start gap-2">
                                                     <Check className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
@@ -321,8 +320,8 @@ export default function SubmitToolPage() {
                                                 </li>
                                             ))}
                                         </ul>
-                                        <Button 
-                                            className="w-full"
+                                        <Button
+                                            className="w-full mt-auto"
                                             variant={selectedPlan === plan.id ? "default" : "outline"}
                                             onClick={() => setSelectedPlan(plan.id)}
                                         >
@@ -366,7 +365,7 @@ export default function SubmitToolPage() {
                                         required
                                         placeholder="e.g., AI Code Assistant"
                                         value={formData.toolName}
-                                        onChange={(e) => setFormData({...formData, toolName: e.target.value})}
+                                        onChange={(e) => setFormData({ ...formData, toolName: e.target.value })}
                                     />
                                 </div>
 
@@ -377,7 +376,7 @@ export default function SubmitToolPage() {
                                         placeholder="Briefly describe what your tool does and how it helps developers..."
                                         rows={4}
                                         value={formData.description}
-                                        onChange={(e) => setFormData({...formData, description: e.target.value})}
+                                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                                     />
                                 </div>
 
@@ -388,18 +387,18 @@ export default function SubmitToolPage() {
                                         type="url"
                                         placeholder="https://yourtool.com"
                                         value={formData.websiteUrl}
-                                        onChange={(e) => setFormData({...formData, websiteUrl: e.target.value})}
+                                        onChange={(e) => setFormData({ ...formData, websiteUrl: e.target.value })}
                                     />
                                 </div>
 
                                 <div className="grid md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
                                         <label className="text-sm font-medium">Category *</label>
-                                        <select 
+                                        <select
                                             required
                                             className="w-full h-10 px-3 rounded-md border border-input bg-background"
                                             value={formData.category}
-                                            onChange={(e) => setFormData({...formData, category: e.target.value})}
+                                            onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                                         >
                                             <option value="">Select category</option>
                                             <option value="Coding">Coding</option>
@@ -413,11 +412,11 @@ export default function SubmitToolPage() {
 
                                     <div className="space-y-2">
                                         <label className="text-sm font-medium">Pricing Model *</label>
-                                        <select 
+                                        <select
                                             required
                                             className="w-full h-10 px-3 rounded-md border border-input bg-background"
                                             value={formData.pricing}
-                                            onChange={(e) => setFormData({...formData, pricing: e.target.value})}
+                                            onChange={(e) => setFormData({ ...formData, pricing: e.target.value })}
                                         >
                                             <option value="">Select pricing</option>
                                             <option value="Free">Free</option>
@@ -435,16 +434,16 @@ export default function SubmitToolPage() {
                                         type="email"
                                         placeholder="you@example.com"
                                         value={formData.email}
-                                        onChange={(e) => setFormData({...formData, email: e.target.value})}
+                                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                     />
                                     <p className="text-xs text-muted-foreground">
                                         We&apos;ll send updates about your submission to this email.
                                     </p>
                                 </div>
 
-                                <Button 
-                                    type="submit" 
-                                    size="lg" 
+                                <Button
+                                    type="submit"
+                                    size="lg"
                                     className="w-full rounded-full"
                                     disabled={isSubmitting}
                                 >

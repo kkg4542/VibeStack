@@ -1,13 +1,11 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { tools } from "@/lib/tools";
 import { CategoryPageClient } from "./CategoryPageClient";
 
 // Generate static paths for all categories
 export function generateStaticParams() {
-    const categories = Array.from(new Set(tools.map(tool => tool.category)));
-    return categories.map(category => ({
-        category: category.toLowerCase().replace(/\s+/g, '-'),
+    return Object.keys(categoryMap).map((category) => ({
+        category,
     }));
 }
 
@@ -45,12 +43,6 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
     const category = categoryMap[categorySlug];
     
     if (!category) {
-        notFound();
-    }
-    
-    const categoryTools = tools.filter(tool => tool.category === category);
-    
-    if (categoryTools.length === 0) {
         notFound();
     }
     

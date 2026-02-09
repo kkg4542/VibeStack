@@ -16,12 +16,14 @@ export default function TermsPage() {
                     VibeStack is a curated directory of AI tools for developers. We provide information, reviews, and links to third-party AI tools.
                 </p>
 
-                <h2>3. Paid Services (Featured Listings)</h2>
+                <h2>3. Paid Services (Submission Tiers)</h2>
                 <p>
-                    We offer a &quot;Featured Listing&quot; service for a one-time fee of $49.
+                    We offer optional paid submission tiers to accelerate review and promotion.
                 </p>
                 <ul>
-                    <li><strong>Process:</strong> Upon payment, your tool submission is expedited for review within 24 hours.</li>
+                    <li><strong>Priority Submission:</strong> $49 one-time fee (faster review and social promotion).</li>
+                    <li><strong>Premium Submission:</strong> $149 one-time fee (featured placement and additional promotion).</li>
+                    <li><strong>Process:</strong> Upon payment, your submission is prioritized for review.</li>
                     <li><strong>Guarantees:</strong> While we guarantee review, we reserve the right to reject submissions that violate our quality standards or illegal content policies. In case of rejection, a full refund will be issued.</li>
                     <li><strong>Refunds:</strong> Once a tool is listed and featured, the fee is non-refundable.</li>
                 </ul>

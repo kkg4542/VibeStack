@@ -7,7 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { tools, Tool } from "@/lib/tools";
+import { ToolData } from "@/lib/tool-types";
+import { useAllTools } from "@/hooks/use-tools";
+import { getToolIcon } from "@/lib/tool-icons";
 import { stacks, Stack } from "@/lib/stacks";
 import { trackSearchQuery } from "@/lib/analytics";
 import * as motion from "framer-motion/client";
@@ -18,6 +20,7 @@ export default function SearchPage() {
     const [query, setQuery] = useState("");
     const [mounted, setMounted] = useState(false);
     const [recentSearches, setRecentSearches] = useState<string[]>([]);
+    const { tools } = useAllTools();
 
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -33,13 +36,13 @@ export default function SearchPage() {
 
         const lowerQuery = query.toLowerCase();
 
-        return tools.filter(tool =>
+        return tools.filter((tool: ToolData) =>
             tool.title.toLowerCase().includes(lowerQuery) ||
             tool.description.toLowerCase().includes(lowerQuery) ||
             tool.category.toLowerCase().includes(lowerQuery) ||
             tool.features?.some(f => f.toLowerCase().includes(lowerQuery))
-        ).map(tool => ({ type: 'tool' as const, ...tool }));
-    }, [query]);
+        ).map((tool: ToolData) => ({ type: 'tool' as const, ...tool }));
+    }, [query, tools]);
 
     const searchStacks = useMemo(() => {
         if (!query.trim()) return [];
@@ -207,7 +210,7 @@ export default function SearchPage() {
                                     <Badge variant="secondary">{searchTools.length}</Badge>
                                 </div>
                                 <div className="space-y-3">
-                                    {searchTools.map((tool: Tool & { bgGradient?: string, color?: string }, index) => (
+                                    {searchTools.map((tool: ToolData, index: number) => (
                                         <motion.div
                                             key={tool.slug}
                                             initial={designSystem.animations.fadeInUp.initial}
@@ -218,8 +221,11 @@ export default function SearchPage() {
                                                 <Card className="hover:bg-accent/50 transition-colors cursor-pointer border-border/50 group">
                                                     <CardContent className="p-4">
                                                         <div className="flex items-start gap-4">
-                                                            <div className={`p-3 rounded-xl bg-linear-to-br ${tool.bgGradient} shrink-0`}>
-                                                                <tool.icon className="h-6 w-6 text-white" />
+                                                            <div className={`p-3 rounded-xl bg-linear-to-br ${tool.bgGradient || "from-slate-500/60 to-slate-800/60"} shrink-0`}>
+                                                                {(() => {
+                                                                    const Icon = getToolIcon(tool.slug);
+                                                                    return <Icon className="h-6 w-6 text-white" />;
+                                                                })()}
                                                             </div>
                                                             <div className="flex-1 min-w-0">
                                                                 <div className="flex items-center gap-2 mb-1">

@@ -7,13 +7,15 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { tools } from "@/lib/tools";
+import { useAllTools } from "@/hooks/use-tools";
+import { getToolIcon } from "@/lib/tool-icons";
 import { stacks } from "@/lib/stacks";
 import { useSession } from "next-auth/react";
 import * as motion from "framer-motion/client";
 import { designSystem } from "@/lib/design-system";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { FavoriteWithTool } from "@/lib/schemas";
+import type { Tool } from "@prisma/client";
 
 type FavoriteItem = {
     id: string;
@@ -26,6 +28,7 @@ type SortOption = 'newest' | 'oldest' | 'name';
 
 export default function FavoritesPage() {
     const { data: session } = useSession();
+    const { tools } = useAllTools();
     const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [mounted, setMounted] = useState(false);
@@ -74,12 +77,12 @@ export default function FavoritesPage() {
         const cats = new Set<string>();
         favorites.forEach(item => {
             if (item.type === 'tool') {
-                const tool = tools.find(t => t.slug === item.id);
+                const tool = tools.find((t: Tool) => t.slug === item.id);
                 if (tool) cats.add(tool.category);
             }
         });
         return ['all', ...Array.from(cats)];
-    }, [favorites]);
+    }, [favorites, tools]);
 
     const filteredFavorites = useMemo(() => {
         let filtered = favorites.filter(item => {
@@ -87,7 +90,7 @@ export default function FavoritesPage() {
 
             const lowerQuery = searchQuery.toLowerCase();
             if (item.type === 'tool') {
-                const tool = tools.find(t => t.slug === item.id);
+                const tool = tools.find((t: Tool) => t.slug === item.id);
                 if (tool) {
                     return (
                         tool.title.toLowerCase().includes(lowerQuery) ||
@@ -111,7 +114,7 @@ export default function FavoritesPage() {
         if (selectedCategory !== 'all') {
             filtered = filtered.filter(item => {
                 if (item.type === 'tool') {
-                    const tool = tools.find(t => t.slug === item.id);
+                    const tool = tools.find((t: Tool) => t.slug === item.id);
                     return tool?.category === selectedCategory;
                 }
                 return false;
@@ -127,10 +130,10 @@ export default function FavoritesPage() {
                     return a.addedAt - b.addedAt;
                 case 'name':
                     const nameA = a.type === 'tool'
-                        ? tools.find(t => t.slug === a.id)?.title || ''
+                        ? tools.find((t: Tool) => t.slug === a.id)?.title || ''
                         : stacks.find(s => s.id === a.id)?.name || '';
                     const nameB = b.type === 'tool'
-                        ? tools.find(t => t.slug === b.id)?.title || ''
+                        ? tools.find((t: Tool) => t.slug === b.id)?.title || ''
                         : stacks.find(s => s.id === b.id)?.name || '';
                     return nameA.localeCompare(nameB);
                 default:
@@ -139,7 +142,7 @@ export default function FavoritesPage() {
         });
 
         return filtered;
-    }, [favorites, searchQuery, selectedCategory, sortBy]);
+    }, [favorites, searchQuery, selectedCategory, sortBy, tools]);
 
     const removeFavorite = async (id: string, type: 'tool' | 'stack') => {
         if (session?.user?.id && type === 'tool') {
@@ -349,7 +352,7 @@ export default function FavoritesPage() {
                                     : "space-y-3"
                                 }>
                                     {favoriteTools.map((item, index) => {
-                                        const tool = tools.find(t => t.slug === item.id);
+                                        const tool = tools.find((t: Tool) => t.slug === item.id);
                                         if (!tool) return null;
 
                                         return (
@@ -364,8 +367,11 @@ export default function FavoritesPage() {
                                                     <CardContent className={viewMode === 'list' ? 'p-0 flex-1' : 'p-4'}>
                                                         <div className={`flex items-start gap-3 ${viewMode === 'list' ? '' : 'mb-3'}`}>
                                                             <Link href={`/tool/${tool.slug}`} className="flex items-center gap-3 flex-1">
-                                                                <div className={`p-2.5 rounded-lg bg-linear-to-br ${tool.bgGradient} shrink-0`}>
-                                                                    <tool.icon className={`h-5 w-5 text-white`} />
+                                                                <div className={`p-2.5 rounded-lg bg-linear-to-br ${tool.bgGradient || "from-slate-500/60 to-slate-800/60"} shrink-0`}>
+                                                                    {(() => {
+                                                                        const Icon = getToolIcon(tool.slug);
+                                                                        return <Icon className="h-5 w-5 text-white" />;
+                                                                    })()}
                                                                 </div>
                                                                 <div className="min-w-0">
                                                                     <h3 className="font-semibold group-hover:text-indigo-500 transition-colors truncate">

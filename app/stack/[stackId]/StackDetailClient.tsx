@@ -6,7 +6,9 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowLeft, CheckCircle2, ExternalLink, Zap, Users, Star, Heart, TrendingUp, Target, DollarSign, Sparkles, ArrowRight } from "lucide-react";
 import { Stack } from "@/lib/stacks";
-import { Tool, tools } from "@/lib/tools";
+import { ToolData } from "@/lib/tool-types";
+import { useAllTools } from "@/hooks/use-tools";
+import { getToolIcon } from "@/lib/tool-icons";
 import { SocialShare } from "@/components/ui/SocialShare";
 import { useState, useEffect } from "react";
 import * as motion from "framer-motion/client";
@@ -18,6 +20,7 @@ interface StackDetailClientProps {
 }
 
 export function StackDetailClient({ stack }: StackDetailClientProps) {
+    const { tools } = useAllTools();
     // Lazy initialization to avoid setState in effect
     const [isFavorite, setIsFavorite] = useState(() => {
         if (typeof window === 'undefined') return false;
@@ -29,7 +32,7 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
         }
     });
 
-    const stackTools = stack.tools.map(slug => tools.find(t => t.slug === slug)).filter((t): t is Tool => t !== undefined);
+    const stackTools = stack.tools.map(slug => tools.find((t: ToolData) => t.slug === slug)).filter((t): t is ToolData => t !== undefined);
 
     const toggleFavorite = () => {
         const favorites = JSON.parse(localStorage.getItem("vibestack-favorites") || "[]");
@@ -275,8 +278,11 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
                                                 <Card className="h-full border-border/50 hover:border-indigo-500/50 hover:bg-accent/50 transition-all duration-300 group">
                                                     <CardContent className="p-6">
                                                         <div className="flex items-start justify-between mb-4">
-                                                            <div className={`p-3 rounded-xl bg-linear-to-br ${tool.bgGradient}`}>
-                                                                <tool.icon className={`h-6 w-6 text-white`} />
+                                                            <div className={`p-3 rounded-xl bg-linear-to-br ${tool.bgGradient || "from-slate-500/60 to-slate-800/60"}`}>
+                                                                {(() => {
+                                                                    const Icon = getToolIcon(tool.slug);
+                                                                    return <Icon className="h-6 w-6 text-white" />;
+                                                                })()}
                                                             </div>
                                                             <ExternalLink className="h-5 w-5 text-muted-foreground/30 group-hover:text-indigo-500 transition-colors" />
                                                         </div>

@@ -10,6 +10,8 @@ import {
   FileText,
   Users,
   Settings,
+  Inbox,
+  Webhook,
 } from "lucide-react";
 
 const navItems = [
@@ -22,6 +24,16 @@ const navItems = [
     href: "/admin/tools",
     label: "Tools",
     icon: Wrench,
+  },
+  {
+    href: "/admin/submissions",
+    label: "Submissions",
+    icon: Inbox,
+  },
+  {
+    href: "/admin/webhooks",
+    label: "Webhooks",
+    icon: Webhook,
   },
   {
     href: "/admin/stacks",

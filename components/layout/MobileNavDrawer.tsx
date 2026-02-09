@@ -23,7 +23,9 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { tools } from "@/lib/tools";
+import { useAllTools } from "@/hooks/use-tools";
+import { getToolIcon } from "@/lib/tool-icons";
+import { ToolData } from "@/lib/tool-types";
 
 interface MobileNavDrawerProps {
     isOpen: boolean;
@@ -48,6 +50,7 @@ const quickLinks = [
 export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
     const pathname = usePathname();
     const router = useRouter();
+    const { tools } = useAllTools();
     const [searchQuery, setSearchQuery] = useState("");
     const [recentTools, setRecentTools] = useState<string[]>([]);
     const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -99,7 +102,7 @@ export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
     };
 
     const recentToolDetails = recentTools
-        .map(slug => tools.find(t => t.slug === slug))
+        .map(slug => tools.find((t: ToolData) => t.slug === slug))
         .filter(Boolean);
 
     return (
@@ -240,7 +243,7 @@ export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
                                     </div>
                                     <div className="space-y-2">
                                         {recentToolDetails.map((toolItem) => {
-                                            const Icon = toolItem!.icon;
+                                            const Icon = getToolIcon(toolItem!.slug);
                                             return (
                                                 <Link
                                                     key={toolItem!.slug}
@@ -249,7 +252,7 @@ export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
                                                 >
                                                     <Card className="border-0 bg-secondary/30 hover:bg-secondary/50 transition-colors">
                                                         <CardContent className="p-3 flex items-center gap-3">
-                                                            <div className={`p-2 rounded-lg bg-linear-to-br ${toolItem!.bgGradient}`}>
+                                                            <div className={`p-2 rounded-lg bg-linear-to-br ${toolItem!.bgGradient || "from-slate-500/60 to-slate-800/60"}`}>
                                                                 <Icon className="h-4 w-4 text-white" />
                                                             </div>
                                                             <div className="flex-1 min-w-0">

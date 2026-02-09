@@ -5,18 +5,20 @@ import { ToolsList } from "./ToolsList";
 import { motion } from "framer-motion";
 import { Search, Sparkles, TrendingUp, Target, Zap } from "lucide-react";
 import { designSystem } from "@/lib/design-system";
-import { tools } from "@/lib/tools";
 import { useState } from "react";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
+import { useAllTools } from "@/hooks/use-tools";
+import { ToolData } from "@/lib/tool-types";
 
 // Note: Can't export metadata from client component, moved to separate metadata file would be ideal
 
 export default function ToolsPage() {
     const [searchQuery, setSearchQuery] = useState("");
+    const { tools, isLoading } = useAllTools();
 
     // Calculate stats
-    const categoriesCount = new Set(tools.map(t => t.category)).size;
-    const freeToolsCount = tools.filter(t => t.pricing === "Free" || t.pricing === "Freemium").length;
+    const categoriesCount = new Set(tools.map((t: ToolData) => t.category)).size;
+    const freeToolsCount = tools.filter((t: ToolData) => t.pricing === "Free" || t.pricing === "Freemium").length;
 
     return (
         <PageBackground {...BackgroundPresets.content}>
@@ -110,7 +112,7 @@ export default function ToolsPage() {
                 </motion.div>
 
                 {/* Tools List Component */}
-                <ToolsList searchQuery={searchQuery} />
+                {!isLoading && <ToolsList searchQuery={searchQuery} tools={tools} />}
             </div>
         </PageBackground>
     );

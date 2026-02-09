@@ -8,6 +8,7 @@ import {
 } from "@/components/icons/AiIcons";
 import { ComponentType } from "react";
 import { prisma } from "./prisma";
+import { toolIconMap } from "@/lib/tool-icons";
 
 export interface Tool {
     slug: string;
@@ -31,29 +32,7 @@ export interface Tool {
     adCopy?: string;
 }
 
-const iconMap: Record<string, LucideIcon | ComponentType<{ className?: string }>> = {
-    chatgpt: ChatGPTIcon,
-    claude: ClaudeIcon,
-    "gemini-code-assist": GeminiIcon,
-    cursor: CursorIcon,
-    devin: DevinIcon,
-    supermaven: SupermavenIcon,
-    ollama: OllamaIcon,
-    "github-copilot": CopilotIcon,
-    linear: LinearIcon,
-    "notion-ai": NotionIcon,
-    "replit-ai": ReplitIcon,
-    tabnine: TabnineIcon,
-    cody: CodyIcon,
-    "builder-io": BuilderIoIcon,
-    v0: V0Icon,
-    perplexity: PerplexityIcon,
-    lovable: LovableIcon,
-    coderabbit: CodeRabbitIcon,
-    cosine: CosineIcon,
-    aider: AiderIcon,
-    windsurf: WindsurfIcon,
-};
+const iconMap = toolIconMap as Record<string, LucideIcon | ComponentType<{ className?: string }>>;
 
 const defaultTools: Tool[] = [
     {
@@ -342,6 +321,10 @@ export async function getTools(): Promise<Tool[]> {
         features: tool.features,
         color: tool.color || "text-foreground",
         bgGradient: tool.bgGradient || "from-transparent to-transparent",
+        pros: tool.pros,
+        cons: tool.cons,
+        isFeatured: tool.isFeatured,
+        adCopy: undefined,
     }));
 }
 
@@ -360,6 +343,10 @@ export async function getToolBySlug(slug: string): Promise<Tool | null> {
         features: tool.features,
         color: tool.color || "text-foreground",
         bgGradient: tool.bgGradient || "from-transparent to-transparent",
+        pros: tool.pros,
+        cons: tool.cons,
+        isFeatured: tool.isFeatured,
+        adCopy: undefined,
     };
 }
 

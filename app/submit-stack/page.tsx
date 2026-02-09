@@ -10,9 +10,12 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
-import { tools as allTools } from "@/lib/tools";
+import { useAllTools } from "@/hooks/use-tools";
+import { getToolIcon } from "@/lib/tool-icons";
+import { ToolData } from "@/lib/tool-types";
 
 export default function SubmitStackPage() {
+    const { tools: allTools } = useAllTools();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
 
@@ -23,7 +26,7 @@ export default function SubmitStackPage() {
     const [searchQuery, setSearchQuery] = useState("");
     const [email, setEmail] = useState("");
 
-    const filteredTools = allTools.filter(t =>
+    const filteredTools = allTools.filter((t: ToolData) =>
         !selectedTools.includes(t.slug) &&
         t.title.toLowerCase().includes(searchQuery.toLowerCase())
     ).slice(0, 5);
@@ -135,7 +138,7 @@ export default function SubmitStackPage() {
                             {/* Selected Tools Tags */}
                             <div className="flex flex-wrap gap-2 mb-2">
                                 {selectedTools.map(slug => {
-                                    const tool = allTools.find(t => t.slug === slug);
+                                    const tool = allTools.find((t: ToolData) => t.slug === slug);
                                     if (!tool) return null;
                                     return (
                                         <Badge key={slug} variant="secondary" className="pl-2 pr-1 py-1 gap-1 text-sm bg-indigo-500/10 hover:bg-indigo-500/20 border-indigo-500/20 text-indigo-300">
@@ -165,15 +168,18 @@ export default function SubmitStackPage() {
                                 {searchQuery && (
                                     <div className="absolute z-10 w-full mt-2 bg-popover/90 backdrop-blur-xl border border-border rounded-xl shadow-xl overflow-hidden">
                                         {filteredTools.length > 0 ? (
-                                            filteredTools.map(tool => (
+                                            filteredTools.map((tool: ToolData) => (
                                                 <button
                                                     key={tool.slug}
                                                     type="button"
                                                     onClick={() => addTool(tool.slug)}
                                                     className="w-full flex items-center gap-3 p-3 hover:bg-accent/50 text-left transition-colors"
                                                 >
-                                                    <div className={`p-1.5 rounded bg-linear-to-br ${tool.bgGradient}`}>
-                                                        <tool.icon className={`h-4 w-4 ${tool.color}`} />
+                                                    <div className={`p-1.5 rounded bg-linear-to-br ${tool.bgGradient || "from-slate-500/60 to-slate-800/60"}`}>
+                                                        {(() => {
+                                                            const Icon = getToolIcon(tool.slug);
+                                                            return <Icon className={`h-4 w-4 ${tool.color || "text-foreground"}`} />;
+                                                        })()}
                                                     </div>
                                                     <span className="font-medium">{tool.title}</span>
                                                     <Plus className="ml-auto h-4 w-4 text-muted-foreground" />

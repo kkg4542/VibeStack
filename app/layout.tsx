@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { QueryProvider } from "@/components/providers/QueryProvider";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next"
@@ -89,12 +90,14 @@ export default function RootLayout({
         </a>
         <ThemeProvider defaultTheme="dark" enableSystem>
           <SessionProvider>
-            <ScrollProgress />
-            <Navbar />
-            <main id="main-content">
-              {children}
-            </main>
-            <Footer />
+            <QueryProvider>
+              <ScrollProgress />
+              <Navbar />
+              <main id="main-content">
+                {children}
+              </main>
+              <Footer />
+            </QueryProvider>
           </SessionProvider>
         </ThemeProvider>
         <Analytics />

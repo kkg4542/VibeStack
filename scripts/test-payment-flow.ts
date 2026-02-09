@@ -103,11 +103,25 @@ async function runTest() {
             where: { id: submission.id },
         });
 
-        if (updatedSubmission?.status === 'paid') {
-            console.log("SUCCESS! Submission status updated to 'paid'.");
+        if (updatedSubmission?.status === 'approved') {
+            console.log("SUCCESS! Submission status updated to 'approved'.");
             console.log("Payment ID:", updatedSubmission.paymentId);
         } else {
             console.error("FAILURE! Submission status is:", updatedSubmission?.status);
+        }
+
+        console.log("5. Verifying Webhook Event Log...");
+        const webhookLog = await prisma.webhookEvent.findFirst({
+            orderBy: { createdAt: 'desc' },
+            where: { type: 'checkout.session.completed' }
+        });
+
+        if (webhookLog) {
+            console.log("SUCCESS! Webhook event logged in database.");
+            console.log(`Event ID: ${webhookLog.eventId}`);
+            console.log(`Status: ${webhookLog.status}`);
+        } else {
+            console.error("FAILURE! Webhook event NOT found in database.");
         }
 
     } catch (error) {

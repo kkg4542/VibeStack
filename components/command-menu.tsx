@@ -16,11 +16,14 @@ import {
     CommandList,
     CommandSeparator,
 } from "@/components/ui/command"
-import { tools } from "@/lib/tools"
+import { useAllTools } from "@/hooks/use-tools"
+import { getToolIcon } from "@/lib/tool-icons"
+import { ToolData } from "@/lib/tool-types"
 
 export function CommandMenu({ ...props }: DialogProps) {
     const router = useRouter()
     const [open, setOpen] = React.useState(false)
+    const { tools } = useAllTools()
 
     React.useEffect(() => {
         const down = (e: KeyboardEvent) => {
@@ -97,7 +100,7 @@ export function CommandMenu({ ...props }: DialogProps) {
                     </CommandGroup>
                     <CommandSeparator />
                     <CommandGroup heading="Tools">
-                        {tools.map((tool) => (
+                        {tools.map((tool: ToolData) => (
                             <CommandItem
                                 key={tool.slug}
                                 value={tool.title}
@@ -106,7 +109,10 @@ export function CommandMenu({ ...props }: DialogProps) {
                                 }}
                             >
                                 <div className="mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-white/10 bg-white/5">
-                                    <tool.icon className="h-3 w-3" />
+                                    {(() => {
+                                        const Icon = getToolIcon(tool.slug)
+                                        return <Icon className="h-3 w-3" />
+                                    })()}
                                 </div>
                                 <span>{tool.title}</span>
                             </CommandItem>

@@ -71,6 +71,7 @@ export async function POST(request: NextRequest) {
         submissionId: submission.id,
         tier: normalizedTier,
         type: "submission",
+        toolName: submission.toolName,
       },
     });
 

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { tools } from "@/lib/tools";
+import { getTools } from "@/lib/tools-db";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -18,7 +18,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BestAICodingToolsPage() {
+export default async function BestAICodingToolsPage() {
+  const tools = await getTools();
   const codingTools = tools
     .filter(tool => tool.category === "Coding")
     .sort((a, b) => {

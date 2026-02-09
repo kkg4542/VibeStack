@@ -1,10 +1,11 @@
 import { MetadataRoute } from "next";
-import { tools } from "@/lib/tools";
+import { getTools } from "@/lib/tools-db";
 import { blogPosts } from "@/lib/blog";
 import { stacks } from "@/lib/stacks";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = "https://usevibestack.com";
+    const tools = await getTools();
 
     // Static pages
     const staticPages = [

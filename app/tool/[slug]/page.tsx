@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { tools } from "@/lib/tools";
+import { getToolBySlug, getTools } from "@/lib/tools-db";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Check, ArrowLeft, Star, Heart, Scale, Sparkles, TrendingUp, Target, Zap } from "lucide-react";
@@ -22,6 +22,7 @@ interface Props {
 
 // Generate static params for all tools
 export async function generateStaticParams() {
+    const tools = await getTools();
     return tools.map((tool) => ({
         slug: tool.slug,
     }));
@@ -29,7 +30,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
-    const tool = tools.find((t) => t.slug === slug);
+    const tool = await getToolBySlug(slug);
     if (!tool) return { title: "Tool Not Found" };
 
     return {
@@ -40,13 +41,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ToolPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    const tool = tools.find((t) => t.slug === slug);
+    const tool = await getToolBySlug(slug);
 
     if (!tool) {
         notFound();
     }
 
     const Icon = tool.icon;
+    const allTools = await getTools();
 
     return (
         <PageBackground {...BackgroundPresets.content}>
@@ -338,6 +340,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                             currentSlug={tool.slug}
                             category={tool.category}
                             pricing={tool.pricing}
+                            tools={allTools}
                         />
                     </div>
 
@@ -345,13 +348,15 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                     <aside className="lg:col-span-1 space-y-6">
                         {/* Promoting a Featured Tool */}
                         {(() => {
-                            const relatedAd = tools.find(t =>
+                            const relatedAd = allTools.find(t =>
                                 t.isFeatured &&
                                 t.slug !== tool.slug &&
                                 t.category === tool.category
-                            ) || tools.find(t => t.isFeatured && t.slug !== tool.slug);
+                            ) || allTools.find(t => t.isFeatured && t.slug !== tool.slug);
 
-                            return relatedAd ? <SidebarAd toolSlug={relatedAd.slug} /> : null;
+                            if (!relatedAd) return null;
+                            const { icon: _icon, ...toolData } = relatedAd;
+                            return <SidebarAd tool={toolData} />;
                         })()}
 
                         {/* Tool Details Card */}

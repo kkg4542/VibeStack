@@ -4,21 +4,23 @@ import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { trackStackFinderStep, trackStackRecommended } from "@/lib/analytics";
-import { 
-  ArrowRight, Code2, Paintbrush, Brain, ArrowLeft, CheckCircle2, DollarSign, 
-  GraduationCap, Zap, Share2, Sparkles, TrendingUp, Target, RotateCcw, 
-  Users, Layers, BookOpen, Star, Lightbulb, Monitor, FileCode, TestTube, 
+import {
+  ArrowRight, Code2, Paintbrush, Brain, ArrowLeft, CheckCircle2, DollarSign,
+  GraduationCap, Zap, Share2, Sparkles, TrendingUp, Target, RotateCcw,
+  Users, Layers, BookOpen, Star, Lightbulb, Monitor, FileCode, TestTube,
   MessageSquare, Heart, Trophy, ExternalLink, Copy, Check
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { tools } from "@/lib/tools";
+import { useAllTools } from "@/hooks/use-tools";
+import { getToolIcon } from "@/lib/tool-icons";
 import { cn } from "@/lib/utils";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { ReviewList } from "@/components/reviews/ReviewList";
 import { designSystem } from "@/lib/design-system";
+import type { Tool } from "@prisma/client";
 
 // Types
 type StackRecommendation = {
@@ -218,6 +220,7 @@ const TESTIMONIALS = [
 ];
 
 export default function BuildPage() {
+  const { tools } = useAllTools();
   const fadeInUp = designSystem.animations.fadeInUp;
   const [stepIndex, setStepIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
@@ -388,7 +391,7 @@ export default function BuildPage() {
     return stack;
   }, [answers]);
 
-  const getToolDetails = (slug: string) => tools.find(t => t.slug === slug);
+  const getToolDetails = (slug: string) => tools.find((t: Tool) => t.slug === slug);
 
   useEffect(() => {
     if (isFinished) {
@@ -551,7 +554,7 @@ export default function BuildPage() {
                       <Trophy className="w-4 h-4" />
                       <span>Recommended Stack</span>
                     </div>
-                    
+
                     <motion.h2
                       initial={fadeInUp.initial}
                       animate={fadeInUp.animate}
@@ -560,7 +563,7 @@ export default function BuildPage() {
                     >
                       {getRecommendedStack.name}
                     </motion.h2>
-                    
+
                     <motion.p
                       initial={fadeInUp.initial}
                       animate={fadeInUp.animate}
@@ -574,8 +577,8 @@ export default function BuildPage() {
                       <div className="flex items-center gap-2">
                         <div className="flex">
                           {[...Array(5)].map((_, i) => (
-                            <Star 
-                              key={i} 
+                            <Star
+                              key={i}
                               className={`w-5 h-5 ${i < Math.floor(getRecommendedStack.rating) ? 'text-amber-500 fill-amber-500' : 'text-muted'}`}
                             />
                           ))}
@@ -626,8 +629,11 @@ export default function BuildPage() {
                             <Card className="h-full hover:border-indigo-500/50 transition-all">
                               <CardContent className="p-6">
                                 <div className="flex items-start justify-between mb-4">
-                                  <div className={`p-3 rounded-xl ${tool.bgGradient}`}>
-                                    <tool.icon className={`w-6 h-6 ${tool.color}`} />
+                                  <div className={`p-3 rounded-xl ${tool.bgGradient || "bg-secondary/50"}`}>
+                                    {(() => {
+                                      const Icon = getToolIcon(tool.slug);
+                                      return <Icon className={`w-6 h-6 ${tool.color || "text-foreground"}`} />;
+                                    })()}
                                   </div>
                                   <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-indigo-400 transition-colors" />
                                 </div>
@@ -695,7 +701,7 @@ export default function BuildPage() {
           </h1>
 
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-            Answer a few questions and get a personalized AI tool stack curated for your workflow, 
+            Answer a few questions and get a personalized AI tool stack curated for your workflow,
             experience level, and budget.
           </p>
 

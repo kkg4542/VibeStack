@@ -1,6 +1,7 @@
 "use client";
 
-import { Tool, tools } from "@/lib/tools";
+import { ToolData } from "@/lib/tool-types";
+import { getToolIcon } from "@/lib/tool-icons";
 import Link from "next/link";
 import { FeaturedSpotlight } from "@/components/tools/FeaturedSpotlight";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,7 +12,7 @@ import { CompareButton } from "@/components/tools/CompareButton";
 import { Scale, ArrowRight, Filter, ChevronDown } from "lucide-react";
 import { useEffect, useState, useMemo } from "react";
 
-function ToolCard({ tool }: { tool: Tool }) {
+function ToolCard({ tool }: { tool: ToolData }) {
     const x = useMotionValue(0);
     const y = useMotionValue(0);
 
@@ -65,7 +66,7 @@ function ToolCard({ tool }: { tool: Tool }) {
                     className="h-full"
                 >
                     <Card className="h-full relative overflow-hidden border-border/40 bg-card/50 transition-all duration-300 hover:border-border/80 hover:bg-card/80 hover:shadow-2xl">
-                        <div className={`absolute inset-0 bg-linear-to-br ${tool.bgGradient} opacity-0 transition-opacity duration-500 group-hover:opacity-10`} />
+                        <div className={`absolute inset-0 bg-linear-to-br ${tool.bgGradient || "from-transparent to-transparent"} opacity-0 transition-opacity duration-500 group-hover:opacity-10`} />
 
                         <CardHeader className="relative h-full flex flex-col pt-8" style={{ transformStyle: "preserve-3d" }}>
                             <div className="mb-4 flex items-center justify-between gap-4" style={{ transform: "translateZ(30px)", transformStyle: "preserve-3d" }}>
@@ -76,13 +77,16 @@ function ToolCard({ tool }: { tool: Tool }) {
                                         translateY: -8,
                                     }}
                                     transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                                    className={`rounded-lg bg-secondary/80 p-3 ring-1 ring-border shadow-lg ${tool.color} group-hover:shadow-indigo-500/20`}
+                                    className={`rounded-lg bg-secondary/80 p-3 ring-1 ring-border shadow-lg ${tool.color || "text-foreground"} group-hover:shadow-indigo-500/20`}
                                     style={{
                                         transformStyle: "preserve-3d",
                                         transform: "translateZ(60px)",
                                     }}
                                 >
-                                    <tool.icon className="h-6 w-6" />
+                                    {(() => {
+                                        const Icon = getToolIcon(tool.slug);
+                                        return <Icon className="h-6 w-6" />;
+                                    })()}
                                 </motion.div>
                                 <Badge variant="secondary" className="bg-secondary/50 text-xs font-normal text-muted-foreground backdrop-blur-sm" style={{ transform: "translateZ(20px)" }}>
                                     {tool.category}
@@ -108,9 +112,10 @@ function ToolCard({ tool }: { tool: Tool }) {
 
 interface ToolsListProps {
     searchQuery?: string;
+    tools: ToolData[];
 }
 
-export function ToolsList({ searchQuery = "" }: ToolsListProps) {
+export function ToolsList({ searchQuery = "", tools }: ToolsListProps) {
     const [category, setCategory] = useState<string>("All");
     const [pricing, setPricing] = useState<string>("All");
     const [sortBy, setSortBy] = useState<string>("default");
@@ -131,7 +136,10 @@ export function ToolsList({ searchQuery = "" }: ToolsListProps) {
     }, []);
 
     // Options
-    const categories = useMemo(() => ["All", ...Array.from(new Set(tools.map((t) => t.category)))], []);
+    const categories = useMemo(
+        () => ["All", ...Array.from(new Set(tools.map((t) => t.category)))],
+        [tools]
+    );
     const pricingModels = ["All", "Free", "Freemium", "Paid"];
 
     // Filter & Sort Logic
@@ -155,7 +163,7 @@ export function ToolsList({ searchQuery = "" }: ToolsListProps) {
         }
 
         return result;
-    }, [category, pricing, sortBy, searchQuery]);
+    }, [category, pricing, sortBy, searchQuery, tools]);
 
     const featuredTool = useMemo(() => {
         const featured = tools.filter(t => t.isFeatured);
@@ -165,12 +173,12 @@ export function ToolsList({ searchQuery = "" }: ToolsListProps) {
         // Randomness in SSR/SSG causes hydration mismatch.
         // Let's use the day of year to rotate it? Or just index 0.
         return featured.length > 0 ? featured[0] : null;
-    }, []);
+    }, [tools]);
 
     return (
         <div className="w-full">
             {/* Featured Section */}
-            {featuredTool && <FeaturedSpotlight toolSlug={featuredTool.slug} />}
+            {featuredTool && <FeaturedSpotlight tool={featuredTool} />}
 
             {/* Filters Row */}
             <div className="flex flex-col gap-4 mb-12">

@@ -2,7 +2,8 @@
 
 import * as motion from "framer-motion/client";
 import { designSystem } from "@/lib/design-system";
-import { tools } from "@/lib/tools";
+import { useAllTools } from "@/hooks/use-tools";
+import { getToolIcon } from "@/lib/tool-icons";
 import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -22,6 +23,14 @@ import {
     Sparkles
 } from "lucide-react";
 import { useMemo } from "react";
+import type { Tool } from "@prisma/client";
+
+interface ExtendedTool extends Tool {
+    review?: {
+        rating: number;
+    };
+    pricing: string; // Ensure pricing is typed as string match
+}
 
 interface CategoryPageClientProps {
     category: string;
@@ -75,12 +84,14 @@ export function CategoryPageClient({ category }: CategoryPageClientProps) {
     const info = categoryInfo[category];
     const Icon = info.icon;
 
-    const categoryTools = useMemo(() => {
-        return tools.filter(tool => tool.category === category);
-    }, [category]);
+    const { tools, isLoading } = useAllTools();
 
-    const freeCount = categoryTools.filter(t => t.pricing === "Free" || t.pricing === "Freemium").length;
-    const avgRating = categoryTools.reduce((acc, t) => acc + (t.review?.rating || 0), 0) / categoryTools.filter(t => t.review?.rating).length || 0;
+    const categoryTools = useMemo(() => {
+        return (tools as ExtendedTool[]).filter((tool: ExtendedTool) => tool.category === category);
+    }, [category, tools]);
+
+    const freeCount = categoryTools.filter((t: ExtendedTool) => t.pricing === "Free" || t.pricing === "Freemium").length;
+    const avgRating = categoryTools.reduce((acc: number, t: ExtendedTool) => acc + (t.review?.rating || 0), 0) / categoryTools.filter((t: ExtendedTool) => t.review?.rating).length || 0;
 
     return (
         <PageBackground {...BackgroundPresets.content}>
@@ -209,8 +220,12 @@ export function CategoryPageClient({ category }: CategoryPageClientProps) {
                         <Badge variant="outline">{categoryTools.length} tools</Badge>
                     </div>
 
+                    {isLoading && (
+                        <p className="text-sm text-muted-foreground">Loading tools...</p>
+                    )}
+
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                        {categoryTools.map((tool, index) => (
+                        {categoryTools.map((tool: ExtendedTool, index: number) => (
                             <motion.div
                                 key={tool.slug}
                                 initial={designSystem.animations.fadeInUp.initial}
@@ -222,12 +237,15 @@ export function CategoryPageClient({ category }: CategoryPageClientProps) {
                                     className="block relative group h-full"
                                 >
                                     <Card className="h-full relative overflow-hidden border-border/40 bg-card/50 transition-all duration-300 hover:border-border/80 hover:bg-card/80 hover:shadow-2xl">
-                                        <div className={`absolute inset-0 bg-linear-to-br ${tool.bgGradient} opacity-0 transition-opacity duration-500 group-hover:opacity-10`} />
+                                        <div className={`absolute inset-0 bg-linear-to-br ${tool.bgGradient || "from-transparent to-transparent"} opacity-0 transition-opacity duration-500 group-hover:opacity-10`} />
 
                                         <CardHeader className="relative h-full flex flex-col pt-8">
                                             <div className="mb-4 flex items-center justify-between gap-4">
-                                                <div className={`rounded-lg bg-secondary/80 p-3 ring-1 ring-border shadow-lg ${tool.color}`}>
-                                                    <tool.icon className="h-6 w-6" />
+                                                <div className={`rounded-lg bg-secondary/80 p-3 ring-1 ring-border shadow-lg ${tool.color || "text-foreground"}`}>
+                                                    {(() => {
+                                                        const ToolIcon = getToolIcon(tool.slug);
+                                                        return <ToolIcon className="h-6 w-6" />;
+                                                    })()}
                                                 </div>
                                                 <Badge variant="secondary" className="bg-secondary/50 text-xs font-normal text-muted-foreground backdrop-blur-sm">
                                                     {tool.category}

@@ -1,15 +1,17 @@
 import Link from "next/link";
-import { tools } from "@/lib/tools";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Tool } from "@/lib/tools-db";
+import { getToolIcon } from "@/lib/tool-icons";
 
 interface Props {
     currentSlug: string;
     category: string;
     pricing?: string;
+    tools: Tool[];
 }
 
-export function RelatedTools({ currentSlug, category, pricing }: Props) {
+export function RelatedTools({ currentSlug, category, pricing, tools }: Props) {
     // Smart algorithm: prioritize same category, then similar pricing
     const relatedTools = tools
         .filter((t) => t.slug !== currentSlug)
@@ -43,8 +45,11 @@ export function RelatedTools({ currentSlug, category, pricing }: Props) {
 
                             <CardHeader>
                                 <div className="mb-2 flex items-center justify-between">
-                                    <div className={`rounded-lg bg-secondary/80 p-2 ring-1 ring-border/30 ${tool.color}`}>
-                                        <tool.icon className="h-5 w-5" />
+                                    <div className={`rounded-lg bg-secondary/80 p-2 ring-1 ring-border/30 ${tool.color || "text-foreground"}`}>
+                                        {(() => {
+                                            const Icon = getToolIcon(tool.slug);
+                                            return <Icon className="h-5 w-5" />;
+                                        })()}
                                     </div>
                                     <Badge variant="secondary" className="bg-secondary/60 text-xs font-normal text-muted-foreground">
                                         {tool.category}
