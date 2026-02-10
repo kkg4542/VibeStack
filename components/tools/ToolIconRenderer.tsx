@@ -1,6 +1,8 @@
 "use client";
 
 import { getToolIcon } from "@/components/icons/tool-icons";
+import { toolIconMap } from "@/components/icons/tool-icons";
+import { Github } from "lucide-react";
 
 interface ToolIconRendererProps {
   slug: string;
@@ -8,6 +10,7 @@ interface ToolIconRendererProps {
 }
 
 export function ToolIconRenderer({ slug, className }: ToolIconRendererProps) {
-  const IconComponent = getToolIcon(slug);
+  // Direct conditional rendering instead of creating component during render
+  const IconComponent = toolIconMap[slug] || Github;
   return <IconComponent className={className} />;
 }

@@ -24,27 +24,34 @@ export function VibeCard({
   depth = 20,
 }: VibeCardProps) {
   const ref = useRef<HTMLDivElement>(null);
-  
+
   // Motion values for mouse position
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  
+
   // Spring animations for smooth tilt
   const springConfig = { stiffness: 300, damping: 30 };
   const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [tiltStrength, -tiltStrength]), springConfig);
   const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-tiltStrength, tiltStrength]), springConfig);
-  
-  // Transform for glow position
+
+  // Transform for glow position (MUST be at top level, not inside conditional)
   const glowX = useTransform(x, [-0.5, 0.5], [0, 100]);
   const glowY = useTransform(y, [-0.5, 0.5], [0, 100]);
 
+  // Compute glow background at top level to satisfy React Hooks rules
+  const glowBackground = useTransform(
+    [glowX, glowY],
+    ([latestX, latestY]) =>
+      `radial-gradient(400px circle at ${latestX}% ${latestY}%, rgba(0, 217, 255, 0.15), transparent 40%)`
+  );
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return;
-    
+
     const rect = ref.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    
+
     // Normalize mouse position relative to center (-0.5 to 0.5)
     x.set((e.clientX - centerX) / rect.width);
     y.set((e.clientY - centerY) / rect.height);
@@ -113,11 +120,7 @@ export function VibeCard({
         <m.div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
           style={{
-            background: useTransform(
-              [glowX, glowY],
-              ([latestX, latestY]) =>
-                `radial-gradient(400px circle at ${latestX}% ${latestY}%, rgba(0, 217, 255, 0.15), transparent 40%)`
-            ),
+            background: glowBackground,
           }}
         />
       )}

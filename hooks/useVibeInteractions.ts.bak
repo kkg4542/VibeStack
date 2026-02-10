@@ -205,13 +205,14 @@ export function useAnimatedCounter(
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    // Early return if motion is reduced - already initialized to final state
     if (shouldReduceMotion) {
+      setCount(targetValue);
+      setIsComplete(true);
       return;
     }
 
-    let animationFrame: number;
     let startTime: number;
+    let animationFrame: number;
 
     const animate = (timestamp: number) => {
       if (!startTime) startTime = timestamp;

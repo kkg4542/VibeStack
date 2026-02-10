@@ -80,7 +80,7 @@ export function ReviewForm({ toolSlug }: { toolSlug: string }) {
                             onMouseLeave={() => setHoveredRating(0)}
                             onClick={() => setRating(star)}
                             aria-label={`${star} star${star > 1 ? 's' : ''}`}
-                            aria-pressed={rating === star}
+                            aria-checked={rating === star}
                             role="radio"
                         >
                             <Star

@@ -15,41 +15,47 @@ interface AffiliateLinkProps {
   abTestVariant?: "A" | "B" | "C";
 }
 
-export function AffiliateLink({ 
-  url, 
-  toolSlug, 
-  toolName, 
+export function AffiliateLink({
+  url,
+  toolSlug,
+  toolName,
   children,
   variant: buttonVariant = "default",
   className,
   abTestVariant
 }: AffiliateLinkProps) {
-  const [abVariant, setAbVariant] = useState<"A" | "B" | "C">("A");
-  
-  // A/B testing setup
-  useEffect(() => {
+  // Initialize state with lazy function to avoid setState in useEffect
+  const [abVariant, setAbVariant] = useState<"A" | "B" | "C">(() => {
     if (abTestVariant) {
-      setAbVariant(abTestVariant);
-    } else {
-      // Randomly assign variant if not provided
-      const variants: ("A" | "B" | "C")[] = ["A", "B", "C"];
+      return abTestVariant;
+    }
+
+    // Check localStorage for saved variant
+    if (typeof window !== 'undefined') {
       const savedVariant = localStorage.getItem(`ab_variant_${toolSlug}`);
       if (savedVariant && ["A", "B", "C"].includes(savedVariant)) {
-        setAbVariant(savedVariant as "A" | "B" | "C");
-      } else {
-        const randomVariant = variants[Math.floor(Math.random() * variants.length)];
-        localStorage.setItem(`ab_variant_${toolSlug}`, randomVariant);
-        setAbVariant(randomVariant);
+        return savedVariant as "A" | "B" | "C";
       }
     }
-  }, [toolSlug, abTestVariant]);
+
+    // Randomly assign if not found
+    const variants: ("A" | "B" | "C")[] = ["A", "B", "C"];
+    const randomVariant = variants[Math.floor(Math.random() * variants.length)];
+
+    // Save to localStorage for consistency
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(`ab_variant_${toolSlug}`, randomVariant);
+    }
+
+    return randomVariant;
+  });
 
   const fullUrl = `${url}${url.includes("?") ? "&" : "?"}ref=vibestack&utm_source=vibestack`;
 
   const handleClick = async () => {
     // Track in Google Analytics
     trackAffiliateClick(toolSlug, toolName, fullUrl);
-    
+
     // Track in our database
     try {
       await fetch("/api/analytics/affiliate-click", {
@@ -98,8 +104,8 @@ export function AffiliateLink({
   }
 
   return (
-    <Button 
-      size="lg" 
+    <Button
+      size="lg"
       className={`rounded-full shadow-lg shadow-indigo-500/20 ${className || ""}`}
       asChild
     >

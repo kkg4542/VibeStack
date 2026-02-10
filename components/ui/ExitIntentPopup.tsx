@@ -16,15 +16,18 @@ export function ExitIntentPopup({ toolSlug, toolName }: ExitIntentPopupProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [hasShown, setHasShown] = useState(false);
+
+  // Use lazy initialization to check sessionStorage without useEffect setState
+  const [hasShown, setHasShown] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return sessionStorage.getItem("exit_intent_shown") === "true";
+    }
+    return false;
+  });
 
   useEffect(() => {
-    // Check if already shown in this session
-    const sessionShown = sessionStorage.getItem("exit_intent_shown");
-    if (sessionShown) {
-      setHasShown(true);
-      return;
-    }
+    // Skip if already shown
+    if (hasShown) return;
 
     let mouseY = 0;
 
