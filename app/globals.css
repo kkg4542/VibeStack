@@ -33,7 +33,7 @@
 
   /* VibeStack Brand Colors */
   --color-vibe-electric: #00d9ff;
-  --color-vibe-neon: #ff00ff;
+  --color-vibe-neon: #d900d9; /* Darkened from #ff00ff for better light mode contrast (4.5:1 on white) */
   --color-vibe-deep: #0a0a1a;
   --color-vibe-cyan: #00f0ff;
   --color-vibe-purple: #b829dd;

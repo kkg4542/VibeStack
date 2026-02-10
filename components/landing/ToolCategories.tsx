@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import { m } from "framer-motion";
-import { 
-  Code2, 
-  Palette, 
-  MessageSquare, 
-  Zap, 
-  Briefcase, 
+import {
+  Code2,
+  Palette,
+  MessageSquare,
+  Zap,
+  Briefcase,
   Lightbulb,
   ArrowRight,
   Sparkles
@@ -83,7 +83,7 @@ export function ToolCategories() {
     <section className="py-24 md:py-32 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background/50 to-background" />
-      
+
       {/* Decorative elements */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-vibe-purple/10 blur-[120px] rounded-full -z-10" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-vibe-electric/10 blur-[100px] rounded-full -z-10" />
@@ -97,8 +97,8 @@ export function ToolCategories() {
             viewport={{ once: true }}
             transition={designSystem.animations.fadeInUp.transition}
           >
-            <Badge 
-              variant="outline" 
+            <Badge
+              variant="outline"
               className="mb-4 border-vibe-neon/20 bg-vibe-neon/5 text-vibe-neon"
             >
               <Sparkles className="mr-2 h-3 w-3" />
@@ -111,7 +111,7 @@ export function ToolCategories() {
               </span>
             </h2>
             <p className="text-lg text-muted-foreground">
-              Explore our curated collection of AI tools organized by category. 
+              Explore our curated collection of AI tools organized by category.
               From coding assistants to design generators.
             </p>
           </m.div>
@@ -126,21 +126,21 @@ export function ToolCategories() {
                 key={category.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ 
-                  duration: 0.5, 
-                  delay: index * 0.1, 
-                  ease: [0.16, 1, 0.3, 1] 
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.1,
+                  ease: [0.16, 1, 0.3, 1]
                 }}
               >
-                <Link 
+                <Link
                   href={`/categories/${category.id}`}
                   className="group block h-full"
                 >
                   <div className="relative h-full p-6 rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm hover:border-border transition-all duration-300 hover:shadow-lg hover:shadow-vibe-electric/5">
                     {/* Glow effect on hover */}
                     <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
-                    
+
                     <div className="relative z-10">
                       {/* Icon & Count */}
                       <div className="flex items-start justify-between mb-4">
@@ -163,7 +163,7 @@ export function ToolCategories() {
                       {/* Featured Tools */}
                       <div className="flex flex-wrap gap-2 mb-4">
                         {category.tools.map((tool) => (
-                          <span 
+                          <span
                             key={tool}
                             className="text-xs px-2 py-1 rounded-full bg-background border border-border/50 text-muted-foreground"
                           >

@@ -49,11 +49,15 @@ export function FeaturedStacks({ stacks }: FeaturedStacksProps) {
               key={stack.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.1,
+                ease: [0.16, 1, 0.3, 1]
+              }}
             >
               <Link href={`/stack/${stack.idField}`} className="group block h-full">
-                <VibeCard 
+                <VibeCard
                   className="h-full"
                   tiltStrength={8}
                   glowOnHover={true}
@@ -114,7 +118,7 @@ export function FeaturedStacks({ stacks }: FeaturedStacksProps) {
 
                       {/* Curator Info (Authority) */}
                       {stack.curator ? (
-                        <div className="flex items-center gap-3 pt-6 border-t border-white/10">
+                        <div className="flex items-center gap-3 pt-6 border-t border-foreground/10">
                           <div className="w-8 h-8 rounded-full bg-gradient-to-br from-vibe-electric to-vibe-neon flex items-center justify-center text-xs font-bold text-white">
                             {stack.curator.name.charAt(0)}
                           </div>
@@ -125,12 +129,12 @@ export function FeaturedStacks({ stacks }: FeaturedStacksProps) {
                           <ArrowRight className="h-4 w-4 text-muted-foreground/50 group-hover:text-vibe-electric transition-colors" />
                         </div>
                       ) : (
-                        <div className="flex items-center justify-between pt-6 border-t border-white/10">
+                        <div className="flex items-center justify-between pt-6 border-t border-foreground/10">
                           <div className="flex -space-x-2">
                             {stack.tools.slice(0, 4).map((tool, i) => (
                               <div
                                 key={tool.id}
-                                className="w-8 h-8 rounded-full bg-white/10 border-2 border-background flex items-center justify-center text-xs"
+                                className="w-8 h-8 rounded-full bg-foreground/10 border-2 border-background flex items-center justify-center text-xs"
                                 title={tool.name}
                               >
                                 {tool.name.charAt(0)}

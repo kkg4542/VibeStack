@@ -31,8 +31,8 @@ export function PopularTools() {
             transition={designSystem.animations.fadeInUp.transition}
             className="max-w-2xl"
           >
-            <Badge 
-              variant="outline" 
+            <Badge
+              variant="outline"
               className="mb-4 border-vibe-electric/20 bg-vibe-electric/5 text-vibe-electric"
             >
               <TrendingUp className="mr-2 h-3 w-3" />
@@ -71,15 +71,15 @@ export function PopularTools() {
               key={tool.slug}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ 
-                duration: 0.5, 
-                delay: index * 0.1, 
-                ease: [0.16, 1, 0.3, 1] 
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.1,
+                ease: [0.16, 1, 0.3, 1]
               }}
             >
               <Link href={`/tool/${tool.slug}`} className="group block h-full">
-                <VibeCard 
+                <VibeCard
                   className="h-full"
                   tiltStrength={6}
                   glowOnHover={true}
@@ -89,7 +89,7 @@ export function PopularTools() {
                     {/* Icon & Title */}
                     <div className="flex items-start gap-3 mb-4">
                       <div className={`p-2.5 rounded-xl ${tool.bgGradient}`}>
-                        <ToolIconRenderer 
+                        <ToolIconRenderer
                           slug={tool.slug}
                           className={`w-6 h-6 ${tool.color}`}
                         />
@@ -125,7 +125,7 @@ export function PopularTools() {
                           <span className="text-xs text-muted-foreground">Featured</span>
                         </div>
                       )}
-                      
+
                       <div className="flex items-center text-xs text-vibe-electric group-hover:text-vibe-cyan transition-colors">
                         <span>Details</span>
                         <ExternalLink className="ml-1 w-3 h-3" />

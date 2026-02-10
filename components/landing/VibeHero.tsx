@@ -22,6 +22,7 @@ export function VibeHero() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [displayText, setDisplayText] = useState(headlines[0].highlight);
   const [isScrambling, setIsScrambling] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const shouldReduceMotion = useReducedMotion();
   const elegantEase = designSystem.animations.elegantEase;
 
@@ -61,6 +62,15 @@ export function VibeHero() {
 
     return () => clearInterval(interval);
   }, [shouldReduceMotion]);
+
+  // Initial mount scramble
+  useEffect(() => {
+    setIsMounted(true);
+    const timer = setTimeout(() => {
+      scrambleText(headlines[0].highlight);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [scrambleText]);
 
   // Rotate headlines
   useEffect(() => {
@@ -142,13 +152,13 @@ export function VibeHero() {
           initial={{ opacity: 0, y: 20, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.6, ease: elegantEase }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-foreground/5 border border-foreground/10 backdrop-blur-md"
         >
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-vibe-electric opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-vibe-electric" />
           </span>
-          <span className="text-sm text-white/70 font-medium">Built with Vibe Coding</span>
+          <span className="text-sm text-foreground/70 font-medium font-sans">Built with Vibe Coding</span>
         </m.div>
 
         {/* Rotating Headline with Scramble Effect */}
@@ -259,8 +269,8 @@ export function VibeHero() {
               href="/tools"
               className={buttonVariants({ variant: "outline", size: "lg" }) +
                 " h-14 px-10 text-base font-semibold rounded-full " +
-                "border-white/20 bg-white/5 backdrop-blur-md " +
-                "hover:bg-white/10 hover:border-white/30 " +
+                "border-foreground/20 bg-foreground/5 backdrop-blur-md " +
+                "hover:bg-foreground/10 hover:border-foreground/30 " +
                 "transition-all duration-300"
               }
             >
@@ -281,7 +291,7 @@ export function VibeHero() {
             {[1, 2, 3, 4].map((i) => (
               <div
                 key={i}
-                className="w-8 h-8 rounded-full bg-gradient-to-br from-vibe-electric/30 to-vibe-neon/30 border-2 border-background flex items-center justify-center text-xs font-medium"
+                className="w-8 h-8 rounded-full bg-linear-to-br from-vibe-electric/30 to-vibe-neon/30 border-2 border-background flex items-center justify-center text-xs font-medium"
               >
                 {String.fromCharCode(64 + i)}
               </div>
@@ -301,12 +311,12 @@ export function VibeHero() {
         <m.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          className="w-6 h-10 rounded-full border-2 border-white/20 flex items-start justify-center p-2"
+          className="w-6 h-10 rounded-full border-2 border-foreground/20 flex items-start justify-center p-2"
         >
           <m.div
             animate={{ opacity: [1, 0.3, 1] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className="w-1 h-2 bg-white/40 rounded-full"
+            className="w-1 h-2 bg-foreground/40 rounded-full"
           />
         </m.div>
       </m.div>
