@@ -2,14 +2,15 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
-import { 
-  generateCsrfToken, 
-  validateCsrfToken, 
-  isCsrfProtectedMethod, 
+import {
+  generateCsrfToken,
+  validateCsrfToken,
+  isCsrfProtectedMethod,
   isCsrfExcludedPath,
   CSRF_COOKIE_NAME,
-  CSRF_HEADER_NAME 
+  CSRF_HEADER_NAME
 } from "@/lib/csrf";
+import { withCORS, isPreflightRequest, handleCorsPreflight } from "@/lib/cors";
 
 // Initialize Redis client for rate limiting
 const redis = (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN)
@@ -76,10 +77,26 @@ export async function middleware(req: NextRequest) {
   const ip = getClientIP(req);
   const response = NextResponse.next();
 
-  // Check for HTTPS in production
-  if (process.env.NODE_ENV === "production" && req.headers.get("x-forwarded-proto") !== "https") {
+  // Handle CORS preflight requests
+  if (isPreflightRequest(req)) {
+    return handleCorsPreflight(req);
+  }
+
+  // Add CORS headers to API responses
+  if (req.nextUrl.pathname.startsWith("/api")) {
+    withCORS(req, response);
+  }
+
+  // Check for HTTPS in production (skip for localhost)
+  const host = req.headers.get("host") || "";
+  if (
+    process.env.NODE_ENV === "production" &&
+    req.headers.get("x-forwarded-proto") !== "https" &&
+    !host.includes("localhost") &&
+    !host.includes("127.0.0.1")
+  ) {
     return NextResponse.redirect(
-      `https://${req.headers.get("host")}${req.nextUrl.pathname}`,
+      `https://${host}${req.nextUrl.pathname}`,
       301
     );
   }
@@ -87,16 +104,16 @@ export async function middleware(req: NextRequest) {
   // CSRF Protection for state-changing requests
   const isProtectedMethod = isCsrfProtectedMethod(req.method);
   const isExcludedPath = isCsrfExcludedPath(req.nextUrl.pathname);
-  
+
   if (isProtectedMethod && !isExcludedPath && req.nextUrl.pathname.startsWith("/api")) {
     const { valid, token } = await validateCsrfToken(req);
-    
+
     if (!valid) {
       return new NextResponse(
-        JSON.stringify({ 
+        JSON.stringify({
           error: "Invalid or missing CSRF token",
           code: "CSRF_INVALID"
-        }), 
+        }),
         {
           status: 403,
           headers: {
@@ -105,13 +122,13 @@ export async function middleware(req: NextRequest) {
         }
       );
     }
-    
+
     // Add CSRF token to response header for subsequent requests
     if (token) {
       response.headers.set(CSRF_HEADER_NAME, token);
     }
   }
-  
+
   // Generate new CSRF token for GET requests if not present
   if (req.method === "GET" && !req.cookies.get(CSRF_COOKIE_NAME)) {
     const csrfToken = await generateCsrfToken();

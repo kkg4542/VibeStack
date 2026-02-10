@@ -1,6 +1,7 @@
 "use client";
 
-import { ArrowRight, Check, Rocket, Shield, Terminal, Zap, TrendingUp, Users, Award, Mail } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, Check, Rocket, Shield, Terminal, Zap, TrendingUp, Users, Award, Mail, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -8,6 +9,29 @@ import * as motion from "framer-motion/client";
 import { designSystem } from "@/lib/design-system";
 
 export default function ConsultingPage() {
+    const [loading, setLoading] = useState(false);
+
+    async function handleCheckout(placement: string) {
+        setLoading(true);
+        try {
+            const res = await fetch('/api/sponsorships/checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ placement })
+            });
+
+            const data = await res.json();
+            if (data.checkoutUrl) {
+                window.location.href = data.checkoutUrl;
+            } else {
+                throw new Error('No checkout URL returned');
+            }
+        } catch (error) {
+            console.error('Checkout failed:', error);
+            alert('Failed to start checkout. Please contact us at hello@usevibestack.com');
+            setLoading(false);
+        }
+    }
     const services = [
         {
             title: "AI Workflow Audit",
@@ -69,17 +93,24 @@ export default function ConsultingPage() {
                         </p>
 
                         <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-                            <Link href="mailto:hello@usevibestack.com?subject=Sponsorship%20Inquiry">
-                                <Button size="lg" className="rounded-full shadow-lg shadow-indigo-500/20 px-8 text-base h-12">
-                                    Book a Sponsorship
-                                    <ArrowRight className="ml-2 h-4 w-4" />
-                                </Button>
-                            </Link>
+                            <Button
+                                size="lg"
+                                className="rounded-full shadow-lg shadow-indigo-500/20 px-8 text-base h-12"
+                                onClick={() => handleCheckout('featuredSpotlight')}
+                                disabled={loading}
+                            >
+                                {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                                Book a Sponsorship
+                                <ArrowRight className="ml-2 h-4 w-4" />
+                            </Button>
                             <Link href="/tools">
                                 <Button variant="outline" size="lg" className="rounded-full px-8 text-base h-12">
                                     View Our Reach
                                 </Button>
                             </Link>
+                            <p className="text-sm text-muted-foreground mt-2">
+                                Or <a href="mailto:hello@usevibestack.com" className="underline">contact us</a> for custom packages
+                            </p>
                         </div>
                     </motion.div>
                 </section>
@@ -159,19 +190,23 @@ export default function ConsultingPage() {
                                 <Terminal className="h-6 w-6 text-indigo-400" />
                             </div>
                             <h3 className="mb-3 text-2xl font-semibold text-foreground">Newsletter Sponsor</h3>
-                            <p className="mb-6 text-muted-foreground">One sponsor slot per month with copy approved before send.</p>
+                            <p className="mb-6 text-muted-foreground">Exclusive sponsor slot in our monthly newsletter sent to 15,000+ developers. Send date confirmed 5 days in advance.</p>
                             <ul className="space-y-3">
                                 <li className="flex items-center text-sm text-foreground/80">
                                     <Check className="mr-3 h-4 w-4 text-indigo-500" />
-                                    One sponsor slot per send
+                                    One sponsor per monthly newsletter
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
                                     <Check className="mr-3 h-4 w-4 text-indigo-500" />
-                                    Monthly send cadence
+                                    Sent to 15,000+ verified developer emails
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
                                     <Check className="mr-3 h-4 w-4 text-indigo-500" />
-                                    Click and conversion summary
+                                    60-120 character ad copy (we review for clarity)
+                                </li>
+                                <li className="flex items-center text-sm text-foreground/80">
+                                    <Check className="mr-3 h-4 w-4 text-indigo-500" />
+                                    Click and conversion tracking included
                                 </li>
                             </ul>
                         </motion.div>
@@ -249,11 +284,15 @@ export default function ConsultingPage() {
                                     <span>One copy or image update included</span>
                                 </li>
                             </ul>
-                            <Link href="mailto:hello@usevibestack.com?subject=Sidebar%20Ads%20Inquiry">
-                                <Button variant="outline" className="w-full rounded-full">
-                                    Get Started
-                                </Button>
-                            </Link>
+                            <Button
+                                variant="outline"
+                                className="w-full rounded-full"
+                                onClick={() => handleCheckout('sidebarAd')}
+                                disabled={loading}
+                            >
+                                {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                                Get Started
+                            </Button>
                         </motion.div>
 
                         {/* Professional - Highlighted */}
@@ -292,11 +331,14 @@ export default function ConsultingPage() {
                                     <span>Monthly performance report</span>
                                 </li>
                             </ul>
-                            <Link href="mailto:hello@usevibestack.com?subject=Featured%20Spotlight%20Inquiry">
-                                <Button className="w-full rounded-full shadow-lg">
-                                    Get Started
-                                </Button>
-                            </Link>
+                            <Button
+                                className="w-full rounded-full shadow-lg"
+                                onClick={() => handleCheckout('featuredSpotlight')}
+                                disabled={loading}
+                            >
+                                {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                                Get Started
+                            </Button>
                         </motion.div>
 
                         {/* Enterprise */}
@@ -317,22 +359,30 @@ export default function ConsultingPage() {
                             <ul className="space-y-3 mb-8">
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
                                     <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
-                                    <span>One sponsor slot per month</span>
+                                    <span>Sent to 15,000+ developer subscribers</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
                                     <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
-                                    <span>Send cadence and copy approval</span>
+                                    <span>One exclusive slot per month (first week preferred)</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
                                     <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
-                                    <span>Click and conversion summary</span>
+                                    <span>Copy approval 3 days before send</span>
+                                </li>
+                                <li className="flex items-start gap-2 text-sm text-foreground/80">
+                                    <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
+                                    <span>Full click analytics within 48 hours</span>
                                 </li>
                             </ul>
-                            <Link href="mailto:hello@usevibestack.com?subject=Newsletter%20Sponsorship%20Inquiry">
-                                <Button variant="outline" className="w-full rounded-full">
-                                    Get Started
-                                </Button>
-                            </Link>
+                            <Button
+                                variant="outline"
+                                className="w-full rounded-full"
+                                onClick={() => handleCheckout('newsletter')}
+                                disabled={loading}
+                            >
+                                {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                                Get Started
+                            </Button>
                         </motion.div>
                     </div>
 
@@ -482,15 +532,19 @@ export default function ConsultingPage() {
                                 Let&apos;s discuss how we can help you reach thousands of developers actively searching for tools like yours.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                <Button
+                                    size="lg"
+                                    className="rounded-full shadow-lg shadow-indigo-500/20 px-8"
+                                    onClick={() => handleCheckout('featuredSpotlight')}
+                                    disabled={loading}
+                                >
+                                    {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                                    Get Started Now
+                                    <ArrowRight className="ml-2 h-4 w-4" />
+                                </Button>
                                 <Link href="mailto:hello@usevibestack.com?subject=Partnership%20Inquiry">
-                                    <Button size="lg" className="rounded-full shadow-lg shadow-indigo-500/20 px-8">
-                                        Schedule a Call
-                                        <ArrowRight className="ml-2 h-4 w-4" />
-                                    </Button>
-                                </Link>
-                                <Link href="/tools">
                                     <Button variant="outline" size="lg" className="rounded-full px-8">
-                                        View Our Reach
+                                        Or Contact Us
                                     </Button>
                                 </Link>
                             </div>

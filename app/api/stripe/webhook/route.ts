@@ -261,6 +261,52 @@ export async function POST(request: NextRequest) {
         }
         break;
       }
+      case "invoice.payment_succeeded": {
+        const invoice = event.data.object as {
+          subscription?: string | null;
+          customer_email?: string | null;
+        };
+        const subscriptionId = invoice.subscription?.toString();
+
+        if (subscriptionId) {
+          // Retrieve latest subscription data from Stripe
+          const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+
+          // Update sponsorship with renewed period
+          await prisma.sponsorship.updateMany({
+            where: { stripeSubscriptionId: subscriptionId },
+            data: {
+              currentPeriodStart: new Date(subscription.current_period_start * 1000),
+              currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+              status: subscription.status,
+            },
+          });
+        }
+        break;
+      }
+      case "invoice.payment_failed": {
+        const invoice = event.data.object as {
+          subscription?: string | null;
+          customer_email?: string | null;
+        };
+        const subscriptionId = invoice.subscription?.toString();
+
+        if (subscriptionId) {
+          // Mark sponsorship as past_due
+          await prisma.sponsorship.updateMany({
+            where: { stripeSubscriptionId: subscriptionId },
+            data: {
+              status: "past_due",
+            },
+          });
+
+          // Notify via Slack
+          await sendSlackAlert(
+            `⚠️ Subscription payment failed: ${subscriptionId}\nCustomer: ${invoice.customer_email || 'Unknown'}`
+          );
+        }
+        break;
+      }
       default:
         break;
     }

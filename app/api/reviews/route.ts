@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { CreateReviewSchema } from "@/lib/schemas";
 import { validateRequest, createErrorResponse, createSuccessResponse, formatZodError } from "@/lib/api-utils";
 import { NextRequest } from "next/server";
+import { validateBodySize } from "@/lib/body-size";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -50,6 +51,12 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  // Validate request body size
+  const { valid, response } = validateBodySize(request, request.nextUrl.pathname);
+  if (!valid && response) {
+    return response;
+  }
+
   const session = await auth();
 
   if (!session || !session.user) {

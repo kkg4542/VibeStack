@@ -30,6 +30,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             clientSecret: process.env.DISCORD_CLIENT_SECRET ?? "",
         }),
     ],
+    session: {
+        // Session expires after 30 days of inactivity
+        maxAge: 30 * 24 * 60 * 60, // 30 days
+        // Update session every 24 hours to keep it active
+        updateAge: 24 * 60 * 60, // 24 hours
+    },
     callbacks: {
         async session({ session, user }) {
             if (session.user && user) {

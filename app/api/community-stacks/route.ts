@@ -5,6 +5,7 @@ import {
   createCommunityStack,
   CommunityStackFilters,
 } from '@/lib/data/community-stacks';
+import { validateBodySize } from '@/lib/body-size';
 
 // GET /api/community-stacks - List community stacks
 export async function GET(request: NextRequest) {
@@ -39,6 +40,12 @@ export async function GET(request: NextRequest) {
 
 // POST /api/community-stacks - Create a new community stack
 export async function POST(request: NextRequest) {
+  // Validate request body size
+  const { valid, response } = validateBodySize(request, request.nextUrl.pathname);
+  if (!valid && response) {
+    return response;
+  }
+
   try {
     const session = await auth();
 

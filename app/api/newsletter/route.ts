@@ -1,7 +1,9 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { createErrorResponse } from "@/lib/api-utils";
 import { checkRateLimit, rateLimitConfigs } from "@/lib/redis";
+import { validateBodySize } from "@/lib/body-size";
+import { checkHoneypotFromBody, createHoneypotResponse } from "@/lib/honeypot";
 
 const subscribeSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -9,7 +11,19 @@ const subscribeSchema = z.object({
   lastName: z.string().optional(),
 });
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  // Validate request body size
+  const { valid, response } = validateBodySize(request, request.nextUrl.pathname);
+  if (!valid && response) {
+    return response;
+  }
+
+  // Check honeypot field (bots will fill this, humans won't)
+  const honeypotCheck = await checkHoneypotFromBody(request);
+  if (!honeypotCheck.valid) {
+    return createHoneypotResponse();
+  }
+
   try {
     // Get IP address
     const ip = request.headers.get("x-forwarded-for") || 

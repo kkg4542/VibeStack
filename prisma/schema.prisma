@@ -38,6 +38,9 @@ model Tool {
   @@index([pricing])
   @@index([isFeatured])
   @@index([createdAt])
+  @@index([category, pricing])
+  @@index([category, isFeatured])
+  @@index([pricing, isFeatured])
   @@map("tools")
 }
 
@@ -433,4 +436,27 @@ model UserSavedStack {
   @@index([userId])
   @@index([createdAt])
   @@map("user_saved_stacks")
+}
+
+// Admin Audit Log for tracking all admin actions
+model AuditLog {
+  id          String   @id @default(cuid())
+  userId      String   @map("user_id")
+  action      String   // e.g., "CREATE", "UPDATE", "DELETE", "APPROVE", "REJECT"
+  entity      String   // e.g., "Tool", "Submission", "BlogPost", "Sponsorship"
+  entityId    String?  @map("entity_id")
+  oldValue    String?  @map("old_value") @db.Text
+  newValue    String?  @map("new_value") @db.Text
+  ipAddress   String?  @map("ip_address")
+  userAgent   String?  @map("user_agent")
+  success     Boolean  @default(true)
+  error       String?  @db.Text
+  metadata    Json?    // Additional context
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@index([action])
+  @@index([entity])
+  @@index([createdAt])
+  @@map("audit_logs")
 }

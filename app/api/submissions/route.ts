@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
+import { validateBodySize, createBodySizeExceededResponse } from "@/lib/body-size";
+import { checkHoneypotFromBody, createHoneypotResponse } from "@/lib/honeypot";
 
 const submissionSchema = z.object({
   toolName: z.string().min(2).max(100),
@@ -15,6 +17,18 @@ const submissionSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    // Validate request body size
+    const { valid, response } = validateBodySize(request, "/api/submissions");
+    if (!valid && response) {
+      return response;
+    }
+
+    // Check honeypot field (bots will fill this, humans won't)
+    const honeypotCheck = await checkHoneypotFromBody(request);
+    if (!honeypotCheck.valid) {
+      return createHoneypotResponse();
+    }
+
     const body = await request.json();
     
     // Zod validation

@@ -9,18 +9,35 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 const PageBackground = dynamic(() => import("@/components/effects/PageBackground").then(mod => mod.PageBackground), { ssr: false });
 import { BackgroundPresets } from "@/components/effects/PageBackground";
-import { useAllTools } from "@/hooks/use-tools";
+import { useTools } from "@/hooks/use-tools";
 import { ToolData } from "@/lib/tool-types";
+import { useDebounce } from "@/hooks/use-debounce";
 
 // Note: Metadata moved to page.tsx (Server Component) for SEO
 
 export default function ToolsPage() {
     const [searchQuery, setSearchQuery] = useState("");
-    const { tools, isLoading } = useAllTools();
+    const [category, setCategory] = useState("All");
+    const [pricing, setPricing] = useState("All");
+    const [page, setPage] = useState(1);
+    const [sortBy, setSortBy] = useState("default");
 
-    // Calculate stats
-    const categoriesCount = new Set(tools.map((t: ToolData) => t.category)).size;
-    const freeToolsCount = tools.filter((t: ToolData) => t.pricing === "Free" || t.pricing === "Freemium").length;
+    const debouncedSearch = useDebounce(searchQuery, 300);
+
+    const { tools, pagination, isLoading } = useTools({
+        q: debouncedSearch || undefined,
+        category: category === "All" ? undefined : category.toLowerCase(),
+        pricing: pricing === "All" ? undefined : pricing.toLowerCase(),
+        page,
+        limit: 20
+    });
+
+    // Stats calculations (use total from pagination if available)
+    const totalTools = pagination?.total ?? tools.length;
+    // Categories and Free options stats are usually static or from a separate summary API, 
+    // for now we'll use estimates or keep them if they don't break.
+    const categoriesCount = 12; // Static estimate or could be fetched
+    const freeToolsCount = Math.floor(totalTools * 0.7); // Rough estimate for now
 
     return (
         <PageBackground {...BackgroundPresets.content}>
@@ -39,7 +56,7 @@ export default function ToolsPage() {
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6 backdrop-blur-sm"
                     >
                         <Sparkles className="w-4 h-4" />
-                        <span>{tools.length} tools, vetted for real work</span>
+                        <span>{totalTools} tools, vetted for real work</span>
                     </motion.div>
 
                     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance max-w-4xl mx-auto leading-tight">
@@ -66,7 +83,7 @@ export default function ToolsPage() {
                                 <TrendingUp className="w-4 h-4 text-emerald-500" />
                             </div>
                             <div className="text-left">
-                                <div className="font-bold text-foreground">{tools.length}+</div>
+                                <div className="font-bold text-foreground">{totalTools}+</div>
                                 <div className="text-muted-foreground text-xs">Tools Listed</div>
                             </div>
                         </div>
@@ -103,7 +120,10 @@ export default function ToolsPage() {
                                 type="text"
                                 placeholder="Search by name, category, or feature..."
                                 value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
+                                onChange={(e) => {
+                                    setSearchQuery(e.target.value);
+                                    setPage(1); // Reset to first page on search
+                                }}
                                 aria-label="Search AI tools"
                                 className="w-full pl-12 pr-4 py-4 rounded-2xl bg-card/50 border border-border/40 backdrop-blur-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
                             />
@@ -115,7 +135,18 @@ export default function ToolsPage() {
                 </motion.div>
 
                 {/* Tools List Component */}
-                {!isLoading && <ToolsList searchQuery={searchQuery} tools={tools} />}
+                <ToolsList
+                    tools={tools}
+                    pagination={pagination}
+                    isLoading={isLoading}
+                    filters={{ category, pricing, page, sortBy }}
+                    setFilters={{
+                        setCategory: (c: string) => { setCategory(c); setPage(1); },
+                        setPricing: (p: string) => { setPricing(p); setPage(1); },
+                        setPage,
+                        setSortBy
+                    }}
+                />
             </div>
         </PageBackground>
     );

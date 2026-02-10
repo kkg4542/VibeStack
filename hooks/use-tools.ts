@@ -52,18 +52,20 @@ const createReview = async (data: CreateReviewInput) => {
 
 // Hooks
 export function useTools(params?: Parameters<typeof fetchTools>[0]) {
-  return useQuery({
+  const query = useQuery({
     queryKey: ["tools", params],
     queryFn: () => fetchTools(params),
   });
-}
 
-export function useAllTools() {
-  const query = useTools({ limit: 500 });
   return {
     ...query,
     tools: query.data?.tools ?? [],
+    pagination: query.data?.pagination,
   };
+}
+
+export function useAllTools() {
+  return useTools({ limit: 500 });
 }
 
 export function useTool(slug: string) {

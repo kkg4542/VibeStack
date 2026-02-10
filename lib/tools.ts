@@ -40,7 +40,7 @@ export const tools: Tool[] = [
     {
         slug: "chatgpt",
         title: "GPT-5.2",
-        description: "The new standard for agentic AI.",
+        description: "Frontier AI model for complex reasoning. Industry-leading agent mode for multi-step workflows.",
         icon: ChatGPTIcon,
         category: "Assistance",
         pricing: "Freemium",
@@ -58,7 +58,7 @@ export const tools: Tool[] = [
     {
         slug: "claude",
         title: "Claude by Anthropic",
-        description: "Just released: The new apex of reasoning.",
+        description: "Advanced AI assistant for nuanced tasks. 1M token context handles entire codebases in one session.",
         icon: ClaudeIcon,
         category: "Assistance",
         pricing: "Freemium",
@@ -76,7 +76,7 @@ export const tools: Tool[] = [
     {
         slug: "gemini-code-assist",
         title: "Gemini 3 Pro",
-        description: "Native multimodal reasoning at scale.",
+        description: "Enterprise AI for cloud-native development. Multimodal understanding processes code, docs, and diagrams.",
         icon: Gemini3Icon,
         category: "Coding",
         pricing: "Paid",
@@ -88,7 +88,7 @@ export const tools: Tool[] = [
     {
         slug: "cursor",
         title: "Cursor",
-        description: "The AI-first code editor built for speed.",
+        description: "AI-native code editor that predicts your next move. Agent mode writes full features from prompts.",
         icon: CursorIcon,
         category: "Coding",
         pricing: "Freemium",
@@ -103,7 +103,7 @@ export const tools: Tool[] = [
     {
         slug: "devin",
         title: "Devin",
-        description: "The first autonomous AI software engineer.",
+        description: "Autonomous AI engineer that codes, debugs, and deploys. Works independently from planning to production.",
         icon: DevinIcon,
         category: "Coding",
         pricing: "Paid",
@@ -115,7 +115,7 @@ export const tools: Tool[] = [
     {
         slug: "supermaven",
         title: "Supermaven",
-        description: "The fastest copilot with a 1 million token context.",
+        description: "Ultra-fast code completion withsub-100ms latency. 1M token context sees your entire project.",
         icon: SupermavenIcon,
         category: "Coding",
         pricing: "Freemium",
@@ -127,7 +127,7 @@ export const tools: Tool[] = [
     {
         slug: "ollama",
         title: "Ollama",
-        description: "Get up and running with large language models locally.",
+        description: "Run powerful LLMs locally for full privacy. Supports Llama 3, Mistral, and custom models offline.",
         icon: OllamaIcon,
         category: "Other",
         pricing: "Free",
@@ -139,7 +139,7 @@ export const tools: Tool[] = [
     {
         slug: "github-copilot",
         title: "GitHub Copilot",
-        description: "Your AI pair programmer.",
+        description: "AI pair programmer from GitHub. Context-aware completions trained on billions of public repos.",
         icon: CopilotIcon,
         category: "Coding",
         pricing: "Paid",
@@ -151,7 +151,7 @@ export const tools: Tool[] = [
     {
         slug: "linear",
         title: "Linear",
-        description: "Project management for high-performance teams.",
+        description: "Issue tracker built for high-velocity teams. AI-powered triage and sprint planning.",
         icon: LinearIcon,
         category: "Management",
         pricing: "Freemium",
@@ -164,7 +164,7 @@ export const tools: Tool[] = [
     {
         slug: "notion-ai",
         title: "Notion AI",
-        description: "Your connected workspace, now with intelligence.",
+        description: "All-in-one workspace for teams. AI writes, organizes, and searches your docs and wikis.",
         icon: NotionIcon,
         category: "Productivity",
         pricing: "Paid",
@@ -177,7 +177,7 @@ export const tools: Tool[] = [
     {
         slug: "replit-ai",
         title: "Replit AI",
-        description: "The AI-powered software development platform.",
+        description: "Web-based IDE with instant collaboration. Ship projects without local setup, AI assistance included.",
         icon: ReplitIcon,
         category: "Coding",
         pricing: "Freemium",
@@ -189,7 +189,7 @@ export const tools: Tool[] = [
     {
         slug: "tabnine",
         title: "Tabnine",
-        description: "AI code assistant associated with privacy and security.",
+        description: "Privacy-first AI code assistant. Train on your private codebase, runs locally or in secure cloud.",
         icon: TabnineIcon,
         category: "Coding",
         pricing: "Freemium",
@@ -201,7 +201,7 @@ export const tools: Tool[] = [
     {
         slug: "cody",
         title: "Cody",
-        description: "AI that knows your entire codebase by Sourcegraph.",
+        description: "AI code assistant that adapts to your codebase. Deep context from files, git history, and dependencies.",
         icon: CodyIcon,
         category: "Coding",
         pricing: "Freemium",
@@ -213,7 +213,7 @@ export const tools: Tool[] = [
     {
         slug: "builder-io",
         title: "Builder.io",
-        description: "Visual development platform to ship faster.",
+        description: "Design-to-code platform for product teams. Import from Figma, generate production-ready components.",
         icon: BuilderIoIcon,
         category: "Design",
         pricing: "Freemium",
@@ -225,7 +225,7 @@ export const tools: Tool[] = [
     {
         slug: "v0",
         title: "v0",
-        description: "Generate UI with simple text prompts.",
+        description: "Generate React UIs from text prompts. Built by Vercel, outputs shadcn/ui + Tailwind code.",
         icon: V0Icon,
         category: "Design",
         pricing: "Freemium",
@@ -240,7 +240,7 @@ export const tools: Tool[] = [
     {
         slug: "perplexity",
         title: "Perplexity",
-        description: "Where knowledge begins.",
+        description: "AI-powered answer engine with real-time search. Cites sources for every claim, Pro mode for deep research.",
         icon: PerplexityIcon,
         category: "Assistance",
         pricing: "Freemium",
@@ -252,7 +252,7 @@ export const tools: Tool[] = [
     {
         slug: "lovable",
         title: "Lovable",
-        description: "Build full-stack apps at the speed of thought with AI.",
+        description: "Full-stack app builder with AI. Generates frontend, backend, and database from natural language.",
         icon: LovableIcon,
         category: "Design",
         pricing: "Freemium",
@@ -264,7 +264,7 @@ export const tools: Tool[] = [
     {
         slug: "coderabbit",
         title: "CodeRabbit",
-        description: "AI-powered code reviews that actually understand your context.",
+        description: "AI code reviewer that catches bugs before production. Automated pull request analysis and suggestions.",
         icon: CodeRabbitIcon,
         category: "Coding",
         pricing: "Freemium",
@@ -276,7 +276,7 @@ export const tools: Tool[] = [
     {
         slug: "cosine",
         title: "Cosine",
-        description: "The AI code knowledge base for complex repositories.",
+        description: "AI code intelligence for large repositories. Deep semantic search across millions of lines.",
         icon: CosineIcon,
         category: "Coding",
         pricing: "Freemium",
@@ -288,7 +288,7 @@ export const tools: Tool[] = [
     {
         slug: "aider",
         title: "Aider",
-        description: "Command-line AI pairing that edits code directly in your local files.",
+        description: "Terminal-based AI pair programmer. Edits multiple files, git-aware, works with any LLM.",
         icon: AiderIcon,
         category: "Coding",
         pricing: "Free",
@@ -300,7 +300,7 @@ export const tools: Tool[] = [
     {
         slug: "windsurf",
         title: "Windsurf",
-        description: "The first agentic IDE that flows with you.",
+        description: "Agentic IDE that anticipates your next move. Flow mode writes code while you describe the intent.",
         icon: WindsurfIcon,
         category: "Coding",
         pricing: "Freemium",
@@ -312,7 +312,7 @@ export const tools: Tool[] = [
     {
         slug: "pieces",
         title: "Pieces",
-        description: "AI-enabled code snippet manager that saves and searches your code.",
+        description: "Code snippet manager with AI context. Remembers where you found code, auto-generates docs.",
         icon: PiecesIcon,
         category: "Coding",
         pricing: "Freemium",
@@ -324,7 +324,7 @@ export const tools: Tool[] = [
     {
         slug: "warp",
         title: "Warp",
-        description: "The AI-powered terminal for the 21st century.",
+        description: "Modern terminal with AI command search. Autocomplete for bash, remembers your history.",
         icon: WarpIcon,
         category: "Coding",
         pricing: "Freemium",
@@ -336,7 +336,7 @@ export const tools: Tool[] = [
     {
         slug: "continue",
         title: "Continue",
-        description: "Open-source autopilot for software development in VS Code.",
+        description: "Open-source copilot alternative. Self-host or use cloud, integrates with VS Code and JetBrains.",
         icon: ContinueIcon,
         category: "Coding",
         pricing: "Free",
@@ -348,7 +348,7 @@ export const tools: Tool[] = [
     {
         slug: "stackblitz",
         title: "StackBlitz",
-        description: "Instant dev environments that run in your browser.",
+        description: "Instant dev environments in the browser. No setup, runs Node.js natively via WebContainers.",
         icon: StackBlitzIcon,
         category: "Coding",
         pricing: "Freemium",
@@ -360,7 +360,7 @@ export const tools: Tool[] = [
     {
         slug: "codesandbox",
         title: "CodeSandbox",
-        description: "Cloud development platform for rapid web development.",
+        description: "Cloud IDE for web developers. Live collaboration, DevContainers, connects to GitHub.",
         icon: CodeSandboxIcon,
         category: "Coding",
         pricing: "Freemium",
@@ -372,7 +372,7 @@ export const tools: Tool[] = [
     {
         slug: "huggingface",
         title: "Hugging Face",
-        description: "The AI community building the future with open-source models.",
+        description: "Open-source AI model hub. 500K+ models, datasets, and apps. Run inference or fine-tune.",
         icon: HuggingFaceIcon,
         category: "Assistance",
         pricing: "Freemium",
@@ -384,7 +384,7 @@ export const tools: Tool[] = [
     {
         slug: "midjourney",
         title: "Midjourney",
-        description: "AI-powered image generation from text descriptions.",
+        description: "Text-to-image AI for artists and designers. Photorealistic renders and artistic styles.",
         icon: Palette,
         category: "Design",
         pricing: "Paid",
@@ -396,7 +396,7 @@ export const tools: Tool[] = [
     {
         slug: "dalle",
         title: "DALL-E 3",
-        description: "Create realistic images and art from text descriptions by OpenAI.",
+        description: "OpenAI's image generator integrated with ChatGPT. Highly accurate text rendering in images.",
         icon: DALLEIcon,
         category: "Design",
         pricing: "Paid",
@@ -408,7 +408,7 @@ export const tools: Tool[] = [
     {
         slug: "elevenlabs",
         title: "ElevenLabs",
-        description: "Realistic AI voice generator with emotional range.",
+        description: "AI voice synthesis with emotion control. Clone voices, support 29 languages, broadcast quality.",
         icon: ElevenLabsIcon,
         category: "Productivity",
         pricing: "Freemium",
@@ -420,7 +420,7 @@ export const tools: Tool[] = [
     {
         slug: "gamma",
         title: "Gamma",
-        description: "Create beautiful presentations, documents, and webpages with AI.",
+        description: "AI presentation builder for modern teams. Generates slides from prompts, publish as website.",
         icon: Wand2,
         category: "Productivity",
         pricing: "Freemium",
@@ -432,7 +432,7 @@ export const tools: Tool[] = [
     {
         slug: "jasper",
         title: "Jasper",
-        description: "AI content platform for marketing teams and enterprises.",
+        description: "Enterprise AI writing platform for marketers. Brand voice consistency, SEO optimization built-in.",
         icon: JasperIcon,
         category: "Assistance",
         pricing: "Paid",
@@ -445,7 +445,7 @@ export const tools: Tool[] = [
     {
         slug: "copyai",
         title: "Copy.ai",
-        description: "AI-powered copywriting tool for marketing and sales.",
+        description: "AI copywriter for marketing teams. Email templates, social posts, ad copy in seconds.",
         icon: CopyAiIcon,
         category: "Assistance",
         pricing: "Freemium",
@@ -457,7 +457,7 @@ export const tools: Tool[] = [
     {
         slug: "poe",
         title: "Poe",
-        description: "Platform for AI chatbots from Quora. Access multiple AI models.",
+        description: "Multi-model AI platform from Quora. Chat with GPT-4, Claude, Llama in one interface.",
         icon: PoeIcon,
         category: "Assistance",
         pricing: "Freemium",
@@ -469,7 +469,7 @@ export const tools: Tool[] = [
     {
         slug: "phind",
         title: "Phind",
-        description: "AI search engine for developers with instant answers.",
+        description: "AI search engine for developers. Instant answers with code examples, cites documentation.",
         icon: PhindIcon,
         category: "Assistance",
         pricing: "Freemium",
@@ -481,7 +481,7 @@ export const tools: Tool[] = [
     {
         slug: "descript",
         title: "Descript",
-        description: "All-in-one video and podcast editing with AI.",
+        description: "Video and podcast editor with text-based editing. Transcribe, edit like a doc, AI voices.",
         icon: DescriptIcon,
         category: "Productivity",
         pricing: "Freemium",
@@ -494,7 +494,7 @@ export const tools: Tool[] = [
     {
         slug: "raycast",
         title: "Raycast",
-        description: "Blazingly fast, totally extendable launcher with AI.",
+        description: "Productivity launcher for macOS with AI. Command palette, window management, AI chat.",
         icon: Zap,
         category: "Productivity",
         pricing: "Freemium",
@@ -506,7 +506,7 @@ export const tools: Tool[] = [
     {
         slug: "figma-ai",
         title: "Figma AI",
-        description: "AI features built into Figma for design automation.",
+        description: "AI design automation in Figma. Auto layout suggestions, content generation, design system management.",
         icon: FigmaIcon,
         category: "Design",
         pricing: "Freemium",
@@ -518,7 +518,7 @@ export const tools: Tool[] = [
     {
         slug: "runway",
         title: "Runway",
-        description: "AI-powered video editing and generation platform.",
+        description: "AI video generation and editing. Text-to-video, motion tracking, green screen removal.",
         icon: RunwayIcon,
         category: "Design",
         pricing: "Freemium",
@@ -530,7 +530,7 @@ export const tools: Tool[] = [
     {
         slug: "canva-ai",
         title: "Canva AI",
-        description: "AI-powered design tools for everyone.",
+        description: "Design tool for non-designers. Magic Design creates layouts, Text-to-Image for custom graphics.",
         icon: CanvaIcon,
         category: "Design",
         pricing: "Freemium",
@@ -543,7 +543,7 @@ export const tools: Tool[] = [
     {
         slug: "character-ai",
         title: "Character.ai",
-        description: "Chat with AI characters and create your own.",
+        description: "Interactive AI chatbots with personalities. Create custom characters or chat with community-made ones.",
         icon: CharacterAiIcon,
         category: "Assistance",
         pricing: "Freemium",
@@ -555,7 +555,7 @@ export const tools: Tool[] = [
     {
         slug: "otter-ai",
         title: "Otter.ai",
-        description: "AI meeting assistant that records and transcribes.",
+        description: "AI meeting assistant that transcribes in real-time. Search past meetings, share highlights.",
         icon: OtterIcon,
         category: "Productivity",
         pricing: "Freemium",
@@ -567,7 +567,7 @@ export const tools: Tool[] = [
     {
         slug: "fireflies",
         title: "Fireflies.ai",
-        description: "AI assistant for meetings and voice conversations.",
+        description: "Voice conversation AI for teams. Join meetings, transcribe, extract action items automatically.",
         icon: FirefliesIcon,
         category: "Productivity",
         pricing: "Freemium",
@@ -579,7 +579,7 @@ export const tools: Tool[] = [
     {
         slug: "krisp",
         title: "Krisp",
-        description: "AI-powered noise cancellation for calls.",
+        description: "AI noise cancellation for crystal-clear calls. Removes background noise, echo, and accents.",
         icon: KrispIcon,
         category: "Productivity",
         pricing: "Freemium",
@@ -591,7 +591,7 @@ export const tools: Tool[] = [
     {
         slug: "motion",
         title: "Motion",
-        description: "AI-powered productivity and calendar assistant.",
+        description: "AI calendar that auto-schedules tasks. Prioritizes work, blocks focus time, moves meetings.",
         icon: Calendar,
         category: "Management",
         pricing: "Paid",
@@ -603,7 +603,7 @@ export const tools: Tool[] = [
     {
         slug: "clickup",
         title: "ClickUp",
-        description: "All-in-one productivity platform with AI features.",
+        description: "Project management hub for teams. AI writes docs, summarizes tasks, auto-assigns work.",
         icon: ClickUpIcon,
         category: "Management",
         pricing: "Freemium",
@@ -616,7 +616,7 @@ export const tools: Tool[] = [
     {
         slug: "asana",
         title: "Asana",
-        description: "Work management platform with AI assistant.",
+        description: "Work management for teams at scale. AI suggests workflows, predicts risks, auto-updates status.",
         icon: AsanaIcon,
         category: "Management",
         pricing: "Freemium",
@@ -629,7 +629,7 @@ export const tools: Tool[] = [
     {
         slug: "trello",
         title: "Trello",
-        description: "Visual collaboration tool with AI capabilities.",
+        description: "Visual Kanban boards with automation. Butler AI automates repetitive tasks, integrates with apps.",
         icon: TrelloIcon,
         category: "Management",
         pricing: "Freemium",
@@ -641,7 +641,7 @@ export const tools: Tool[] = [
     {
         slug: "grammarly",
         title: "Grammarly",
-        description: "AI writing assistant for clear communication.",
+        description: "AI writing assistant for grammar and style. Real-time corrections, tone adjustments, plagiarism detection.",
         icon: GrammarlyIcon,
         category: "Productivity",
         pricing: "Freemium",
@@ -654,7 +654,7 @@ export const tools: Tool[] = [
     {
         slug: "quillbot",
         title: "QuillBot",
-        description: "AI paraphrasing and writing tool.",
+        description: "AI paraphrasing tool for writers. Reword text, check grammar, summarize long documents.",
         icon: FileEdit,
         category: "Productivity",
         pricing: "Freemium",
@@ -666,7 +666,7 @@ export const tools: Tool[] = [
     {
         slug: "lumen5",
         title: "Lumen5",
-        description: "AI-powered video creation platform.",
+        description: "Turn blog posts into videos with AI. Auto-generates scenes, picks media, adds music.",
         icon: Video,
         category: "Design",
         pricing: "Freemium",
@@ -678,7 +678,7 @@ export const tools: Tool[] = [
     {
         slug: "synthesia",
         title: "Synthesia",
-        description: "AI video creation with virtual avatars.",
+        description: "AI video with virtual presenters. Text-to-video in 120+ languages, no camera needed.",
         icon: Video,
         category: "Design",
         pricing: "Paid",
@@ -690,7 +690,7 @@ export const tools: Tool[] = [
     {
         slug: "mem",
         title: "Mem",
-        description: "AI-powered notes and knowledge management.",
+        description: "Self-organizing notes with AI. Auto-tags, connects ideas, surfaces relevant notes when you write.",
         icon: MemIcon,
         category: "Productivity",
         pricing: "Freemium",
@@ -702,7 +702,7 @@ export const tools: Tool[] = [
     {
         slug: "reflect",
         title: "Reflect",
-        description: "AI-powered note-taking app with backlinking.",
+        description: "Networked notes with AI assistance. Backlinks connect thoughts, encrypted for privacy.",
         icon: ReflectIcon,
         category: "Productivity",
         pricing: "Paid",

@@ -110,14 +110,32 @@ function ToolCard({ tool }: { tool: ToolData }) {
 }
 
 interface ToolsListProps {
-    searchQuery?: string;
     tools: ToolData[];
+    pagination?: {
+        page: number;
+        limit: number;
+        total: number;
+        totalPages: number;
+        hasMore: boolean;
+    };
+    isLoading: boolean;
+    filters: {
+        category: string;
+        pricing: string;
+        page: number;
+        sortBy: string;
+    };
+    setFilters: {
+        setCategory: (c: string) => void;
+        setPricing: (p: string) => void;
+        setPage: (p: number) => void;
+        setSortBy: (s: string) => void;
+    };
 }
 
-export function ToolsList({ searchQuery = "", tools }: ToolsListProps) {
-    const [category, setCategory] = useState<string>("All");
-    const [pricing, setPricing] = useState<string>("All");
-    const [sortBy, setSortBy] = useState<string>("default");
+export function ToolsList({ tools, pagination, isLoading, filters, setFilters }: ToolsListProps) {
+    const { category, pricing, sortBy, page } = filters;
+    const { setCategory, setPricing, setSortBy, setPage } = setFilters;
     const [compareCount, setCompareCount] = useState(0);
 
     useEffect(() => {
@@ -135,42 +153,11 @@ export function ToolsList({ searchQuery = "", tools }: ToolsListProps) {
     }, []);
 
     // Options
-    const categories = useMemo(
-        () => ["All", ...Array.from(new Set(tools.map((t) => t.category)))],
-        [tools]
-    );
+    const categories = ["All", "Coding", "Design", "Productivity", "Assistance", "Management"]; // Expanded default list
     const pricingModels = ["All", "Free", "Freemium", "Paid"];
-
-    // Filter & Sort Logic
-    const filteredTools = useMemo(() => {
-        const result = tools.filter(t => {
-            const matchCategory = category === "All" || t.category === category;
-            const matchPricing = pricing === "All" || t.pricing === pricing;
-            const matchSearch = !searchQuery ||
-                t.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                t.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                t.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                t.features?.some(f => f.toLowerCase().includes(searchQuery.toLowerCase()));
-            return matchCategory && matchPricing && matchSearch;
-        });
-
-        if (sortBy === "rating") {
-            result.sort((a, b) => (b.review?.rating || 0) - (a.review?.rating || 0));
-        } else if (sortBy === "newest") {
-            // Placeholder: currently no 'createdAt', using reverse order
-            result.reverse();
-        }
-
-        return result;
-    }, [category, pricing, sortBy, searchQuery, tools]);
 
     const featuredTool = useMemo(() => {
         const featured = tools.filter(t => t.isFeatured);
-        // Use deterministic selection based on date or similar to avoid hydration mismatch
-        // For now, just pick the first one or use a consistent seed if possible.
-        // Or better, move this to a client component that mounts, OR just use the first one.
-        // Randomness in SSR/SSG causes hydration mismatch.
-        // Let's use the day of year to rotate it? Or just index 0.
         return featured.length > 0 ? featured[0] : null;
     }, [tools]);
 
@@ -188,7 +175,7 @@ export function ToolsList({ searchQuery = "", tools }: ToolsListProps) {
                     {/* Left Anchor: Tool Count */}
                     <div className="hidden md:flex items-center gap-2 text-sm text-muted-foreground">
                         <span className="flex items-center justify-center w-6 h-6 rounded-full bg-secondary/50 text-xs font-bold text-foreground">
-                            {filteredTools.length}
+                            {pagination?.total ?? tools.length}
                         </span>
                         <span className="font-medium">Tools Available</span>
                     </div>
@@ -266,14 +253,94 @@ export function ToolsList({ searchQuery = "", tools }: ToolsListProps) {
                 </div>
             </div>
 
-            {/* Tools Grid */}
-            < motion.div layout className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3" >
-                <AnimatePresence mode="popLayout">
-                    {filteredTools.map((tool) => (
-                        <ToolCard key={tool.slug} tool={tool} />
-                    ))}
-                </AnimatePresence>
-            </motion.div >
+            {/* Loading Overlay */}
+            <div className="relative">
+                {isLoading && (
+                    <div className="absolute inset-0 z-10 flex items-center justify-center bg-background/20 backdrop-blur-sm rounded-3xl min-h-[400px]">
+                        <div className="flex flex-col items-center gap-4">
+                            <div className="w-10 h-10 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+                            <p className="text-sm font-medium text-muted-foreground">Refreshing tools...</p>
+                        </div>
+                    </div>
+                )}
+
+                {/* Tools Grid */}
+                <motion.div layout className={`grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 transition-opacity duration-300 ${isLoading ? 'opacity-40' : 'opacity-100'}`} >
+                    <AnimatePresence mode="popLayout">
+                        {tools.length > 0 ? (
+                            tools.map((tool) => (
+                                <ToolCard key={tool.slug} tool={tool} />
+                            ))
+                        ) : !isLoading && (
+                            <div className="col-span-full py-20 text-center">
+                                <p className="text-muted-foreground">No tools found matching your criteria.</p>
+                                <Button
+                                    variant="link"
+                                    onClick={() => {
+                                        setCategory("All");
+                                        setPricing("All");
+                                    }}
+                                    className="mt-2 text-indigo-500"
+                                >
+                                    Clear all filters
+                                </Button>
+                            </div>
+                        )}
+                    </AnimatePresence>
+                </motion.div >
+            </div>
+
+            {/* Pagination UI */}
+            {pagination && pagination.totalPages > 1 && (
+                <div className="mt-16 flex items-center justify-center gap-4">
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        disabled={page <= 1 || isLoading}
+                        onClick={() => {
+                            setPage(page - 1);
+                            window.scrollTo({ top: 400, behavior: 'smooth' });
+                        }}
+                        className="rounded-xl"
+                    >
+                        Previous
+                    </Button>
+                    <div className="flex items-center gap-2">
+                        {Array.from({ length: pagination.totalPages }, (_, i) => i + 1)
+                            .filter(p => p === 1 || p === pagination.totalPages || Math.abs(p - page) <= 1)
+                            .map((p, i, arr) => (
+                                <div key={p} className="flex items-center gap-2">
+                                    {i > 0 && arr[i - 1] !== p - 1 && <span className="text-muted-foreground">...</span>}
+                                    <button
+                                        onClick={() => {
+                                            setPage(p);
+                                            window.scrollTo({ top: 400, behavior: 'smooth' });
+                                        }}
+                                        disabled={isLoading}
+                                        className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${page === p
+                                            ? "bg-indigo-500 text-white"
+                                            : "hover:bg-secondary text-muted-foreground"
+                                            }`}
+                                    >
+                                        {p}
+                                    </button>
+                                </div>
+                            ))}
+                    </div>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        disabled={!pagination.hasMore || isLoading}
+                        onClick={() => {
+                            setPage(page + 1);
+                            window.scrollTo({ top: 400, behavior: 'smooth' });
+                        }}
+                        className="rounded-xl"
+                    >
+                        Next
+                    </Button>
+                </div>
+            )}
 
             {/* Floating Compare Bar */}
             <AnimatePresence>

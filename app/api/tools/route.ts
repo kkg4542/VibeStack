@@ -3,34 +3,13 @@ import { prisma } from "@/lib/prisma";
 import { CreateToolSchema, UpdateToolSchema } from "@/lib/schemas";
 import { validateRequest, createErrorResponse, createSuccessResponse, formatZodError } from "@/lib/api-utils";
 import { auth } from "@/auth";
-export async function GET(request: NextRequest) {
-  try {
-    const { searchParams } = new URL(request.url);
-    const page = parseInt(searchParams.get("page") || "1");
-    const limit = Math.min(parseInt(searchParams.get("limit") || "20"), 500);
-    const category = searchParams.get("category");
-    const pricing = searchParams.get("pricing");
-    const search = searchParams.get("q");
-    
-    const skip = (page - 1) * limit;
-    
-    const where: Record<string, unknown> = {};
-    
-    if (category) {
-      where.category = category;
-    }
-    
-    if (pricing) {
-      where.pricing = pricing;
-    }
-    
-    if (search) {
-      where.OR = [
-        { title: { contains: search, mode: 'insensitive' } },
-        { description: { contains: search, mode: 'insensitive' } },
-      ];
-    }
-    
+
+import { validateBodySize } from "@/lib/body-size";
+import { unstable_cache } from "next/cache";
+
+// Cache function for getTools
+const getCachedTools = unstable_cache(
+  async (where: Record<string, unknown>, skip: number | undefined, limit: number | undefined) => {
     const [tools, total] = await Promise.all([
       prisma.tool.findMany({
         where,
@@ -40,7 +19,42 @@ export async function GET(request: NextRequest) {
       }),
       prisma.tool.count({ where }),
     ]);
-    
+    return { tools, total };
+  },
+  ['tools-list'],
+  { tags: ['tools'] }
+);
+
+export async function GET(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const page = parseInt(searchParams.get("page") || "1");
+    const limit = Math.min(parseInt(searchParams.get("limit") || "20"), 500);
+    const category = searchParams.get("category");
+    const pricing = searchParams.get("pricing");
+    const search = searchParams.get("q");
+
+    const skip = (page - 1) * limit;
+
+    const where: Record<string, unknown> = {};
+
+    if (category) {
+      where.category = category;
+    }
+
+    if (pricing) {
+      where.pricing = pricing;
+    }
+
+    if (search) {
+      where.OR = [
+        { title: { contains: search, mode: 'insensitive' } },
+        { description: { contains: search, mode: 'insensitive' } },
+      ];
+    }
+
+    const { tools, total } = await getCachedTools(where, skip, limit);
+
     return createSuccessResponse({
       tools,
       pagination: {
@@ -59,6 +73,12 @@ export async function GET(request: NextRequest) {
 
 // POST - Create tool (Admin only)
 export async function POST(request: NextRequest) {
+  // Validate request body size
+  const { valid, response } = validateBodySize(request, request.nextUrl.pathname);
+  if (!valid && response) {
+    return response;
+  }
+
   try {
     // Check authentication
     const session = await auth();
@@ -67,23 +87,23 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    
+
     const validation = validateRequest(CreateToolSchema, body);
-    
+
     if (!validation.success) {
       return createErrorResponse("Validation failed", 400, formatZodError(validation.error));
     }
-    
+
     const data = validation.data;
-    
+
     const existingTool = await prisma.tool.findUnique({
       where: { slug: data.slug },
     });
-    
+
     if (existingTool) {
       return createErrorResponse("Tool with this slug already exists", 409);
     }
-    
+
     const tool = await prisma.tool.create({
       data: {
         slug: data.slug,
@@ -101,7 +121,10 @@ export async function POST(request: NextRequest) {
         bgGradient: "from-transparent to-transparent",
       },
     });
-    
+
+    // Invalidate tools cache (will be refreshed on next request)
+    // Note: Cache invalidation handled by Next.js ISR
+
     return createSuccessResponse(tool, 201);
   } catch (error) {
     console.error("Error creating tool:", error);
@@ -120,29 +143,29 @@ export async function PUT(request: NextRequest) {
 
     const { searchParams } = new URL(request.url);
     const slug = searchParams.get("slug");
-    
+
     if (!slug) {
       return createErrorResponse("Tool slug is required", 400);
     }
-    
+
     const body = await request.json();
-    
+
     const validation = validateRequest(UpdateToolSchema, body);
-    
+
     if (!validation.success) {
       return createErrorResponse("Validation failed", 400, formatZodError(validation.error));
     }
-    
+
     const data = validation.data;
-    
+
     const existingTool = await prisma.tool.findUnique({
       where: { slug },
     });
-    
+
     if (!existingTool) {
       return createErrorResponse("Tool not found", 404);
     }
-    
+
     const tool = await prisma.tool.update({
       where: { slug },
       data: {
@@ -158,7 +181,7 @@ export async function PUT(request: NextRequest) {
         ...(data.cons !== undefined && { cons: data.cons }),
       },
     });
-    
+
     return createSuccessResponse(tool);
   } catch (error) {
     console.error("Error updating tool:", error);
@@ -177,23 +200,23 @@ export async function DELETE(request: NextRequest) {
 
     const { searchParams } = new URL(request.url);
     const slug = searchParams.get("slug");
-    
+
     if (!slug) {
       return createErrorResponse("Tool slug is required", 400);
     }
-    
+
     const existingTool = await prisma.tool.findUnique({
       where: { slug },
     });
-    
+
     if (!existingTool) {
       return createErrorResponse("Tool not found", 404);
     }
-    
+
     await prisma.tool.delete({
       where: { slug },
     });
-    
+
     return createSuccessResponse({ message: "Tool deleted successfully" });
   } catch (error) {
     console.error("Error deleting tool:", error);

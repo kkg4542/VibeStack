@@ -6,9 +6,11 @@ const withAnalyzer = withBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 });
 
+const isLocalCheck = process.env.NODE_ENV !== 'production' || process.env.NEXT_PUBLIC_APP_URL?.includes('localhost');
+
 const withPWA = require('next-pwa')({
   dest: 'public',
-  disable: process.env.NODE_ENV === 'development',
+  disable: isLocalCheck,
   register: true,
   skipWaiting: true,
 });
@@ -16,7 +18,7 @@ const withPWA = require('next-pwa')({
 const nextConfig: NextConfig = {
   // Environment variables that need to be exposed to the browser should be prefixed with NEXT_PUBLIC_
   // DATABASE_URL should NOT be exposed to the client - it's server-side only
-  
+
   // Resolve lockfile warning
   outputFileTracingRoot: __dirname,
 
@@ -56,20 +58,24 @@ const nextConfig: NextConfig = {
               "img-src 'self' data: blob: https:",
               "font-src 'self' data: https://fonts.gstatic.com",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://www.googletagmanager.com https://www.google-analytics.com",
-              "connect-src 'self' https://api.stripe.com https://www.google-analytics.com https://www.googletagmanager.com https://vitals.vercel-insights.com https://*.ingest.sentry.io https://sentry.io",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://va.vercel-scripts.com",
+              "connect-src 'self' https://api.stripe.com https://www.google-analytics.com https://www.googletagmanager.com https://vitals.vercel-insights.com https://va.vercel-scripts.com https://*.ingest.sentry.io https://sentry.io",
               "frame-src https://js.stripe.com https://hooks.stripe.com",
-              "upgrade-insecure-requests"
-            ].join('; ')
+              "worker-src 'self' blob:",
+              "manifest-src 'self'",
+              "media-src 'self'",
+              "child-src 'self'",
+              !isLocalCheck ? "upgrade-insecure-requests" : ""
+            ].filter(Boolean).join('; ')
           },
           {
             key: 'X-DNS-Prefetch-Control',
             value: 'on'
           },
-          {
+          ...(!isLocalCheck ? [{
             key: 'Strict-Transport-Security',
             value: 'max-age=63072000; includeSubDomains; preload'
-          },
+          }] : []),
           {
             key: 'X-XSS-Protection',
             value: '1; mode=block'
@@ -88,7 +94,31 @@ const nextConfig: NextConfig = {
           },
           {
             key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()'
+            value: 'camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), microphone=()'
+          },
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin'
+          },
+          {
+            key: 'Cross-Origin-Resource-Policy',
+            value: 'same-origin'
+          },
+          {
+            key: 'Cross-Origin-Embedder-Policy',
+            value: 'require-corp'
+          },
+          {
+            key: 'Cache-Control',
+            value: 'no-store, no-cache, must-revalidate, proxy-revalidate'
+          },
+          {
+            key: 'Pragma',
+            value: 'no-cache'
+          },
+          {
+            key: 'Expires',
+            value: '0'
           }
         ]
       }
