@@ -1,6 +1,6 @@
 "use client";
 
-import * as motion from "framer-motion/client";
+import { m } from "framer-motion";
 import { 
     Mail, 
     Calendar, 
@@ -20,8 +20,7 @@ import { PageBackground, BackgroundPresets } from "@/components/effects/PageBack
 import { useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
-import { useActiveSponsorship } from "@/hooks/use-sponsorships";
-import { SponsorshipPlacements } from "@/lib/sponsorships";
+import { designSystem } from "@/lib/design-system";
 
 // Sample newsletter archive data
 const newsletterArchive = [
@@ -88,163 +87,154 @@ const stats = [
     { label: "Issues Sent", value: "24", icon: Zap }
 ];
 
+const fadeInUp = designSystem.animations.fadeInUp;
+
 function NewsletterCard({ issue, index }: { issue: typeof newsletterArchive[0]; index: number }) {
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: index * 0.1 }}
+        <m.div
+            initial={fadeInUp.initial}
+            whileInView={fadeInUp.animate}
+            viewport={{ once: true }}
+            transition={{ ...fadeInUp.transition, delay: index * 0.1 }}
         >
-            <Card className={`border-border/50 hover:border-indigo-500/30 transition-all duration-300 hover:shadow-lg ${issue.featured ? 'border-indigo-500/30 bg-linear-to-br from-indigo-500/5 to-purple-500/5' : ''}`}>
+            <Card className={`${designSystem.cards.interactive} ${issue.featured ? designSystem.cards.highlighted : ''}`}>
                 <CardContent className="p-6">
                     <div className="flex items-start justify-between mb-4">
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <Calendar className="w-4 h-4" />
-                            {issue.date}
-                            <span className="text-border">|</span>
-                            <Clock className="w-4 h-4" />
-                            {issue.readTime}
+                        <div>
+                            <p className="text-sm text-muted-foreground mb-1">{issue.date}</p>
+                            <h3 className="font-bold text-lg mb-2 group-hover:text-vibe-electric transition-colors">
+                                {issue.title}
+                            </h3>
                         </div>
                         {issue.featured && (
-                            <Badge className="bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20">
+                            <Badge className="bg-vibe-electric/10 text-vibe-electric border-vibe-electric/20">
+                                <Sparkles className="w-3 h-3 mr-1" />
                                 Latest
                             </Badge>
                         )}
                     </div>
-
-                    <h3 className="text-xl font-bold mb-2 group-hover:text-indigo-400 transition-colors">
-                        {issue.title}
-                    </h3>
                     
-                    <p className="text-muted-foreground mb-4 line-clamp-2">
+                    <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
                         {issue.description}
                     </p>
-
+                    
                     <div className="flex flex-wrap gap-2 mb-4">
-                        {issue.highlights.map((highlight, i) => (
-                            <Badge key={i} variant="secondary" className="text-xs">
+                        {issue.highlights.map((highlight) => (
+                            <span 
+                                key={highlight}
+                                className="text-xs px-2 py-1 rounded-full bg-background border border-border/50"
+                            >
                                 {highlight}
-                            </Badge>
+                            </span>
                         ))}
                     </div>
-
-                    <Button variant="ghost" className="p-0 h-auto text-indigo-400 hover:text-indigo-300 hover:bg-transparent group">
-                        Read Issue
-                        <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
-                    </Button>
+                    
+                    <div className="flex items-center justify-between text-sm">
+                        <span className="flex items-center gap-1 text-muted-foreground">
+                            <Clock className="w-4 h-4" />
+                            {issue.readTime}
+                        </span>
+                        <Link 
+                            href={`/newsletter/${issue.id}`}
+                            className="flex items-center gap-1 text-vibe-electric hover:text-vibe-cyan transition-colors"
+                        >
+                            Read <ArrowRight className="w-4 h-4" />
+                        </Link>
+                    </div>
                 </CardContent>
             </Card>
-        </motion.div>
+        </m.div>
     );
 }
 
 export default function NewsletterPage() {
     const [email, setEmail] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [sponsorName, setSponsorName] = useState("");
-    const [sponsorUrl, setSponsorUrl] = useState("");
-    const [sponsorEmail, setSponsorEmail] = useState("");
-    const [sponsorCopy, setSponsorCopy] = useState("");
-    const [sponsorLoading, setSponsorLoading] = useState(false);
-    const { data: sponsorData } = useActiveSponsorship(SponsorshipPlacements.newsletter);
-    const activeSponsor = sponsorData?.sponsorship;
 
     const handleSubscribe = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (!email) return;
+
         setIsSubmitting(true);
+        
         try {
-            const res = await fetch("/api/newsletter", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
+            const response = await fetch('/api/newsletter', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email }),
             });
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error || "Failed to subscribe");
-            toast.success(data.message || "Successfully subscribed! Check your inbox for confirmation.");
-            setEmail("");
+
+            if (response.ok) {
+                toast.success("Successfully subscribed! Check your inbox for confirmation.");
+                setEmail("");
+            } else {
+                const data = await response.json();
+                toast.error(data.error || "Failed to subscribe. Please try again.");
+            }
         } catch (error) {
-            toast.error(error instanceof Error ? error.message : "Failed to subscribe.");
+            toast.error("Network error. Please try again.");
         } finally {
             setIsSubmitting(false);
         }
     };
 
-    const handleSponsorCheckout = async () => {
-        setSponsorLoading(true);
-        try {
-            const res = await fetch("/api/sponsorships/checkout", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    placement: SponsorshipPlacements.newsletter,
-                    sponsorName,
-                    sponsorUrl,
-                    sponsorEmail,
-                    sponsorCopy,
-                }),
-            });
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error || "Failed to start sponsorship checkout");
-            window.location.href = data.checkoutUrl;
-        } catch (error) {
-            toast.error(error instanceof Error ? error.message : "Failed to start checkout.");
-        } finally {
-            setSponsorLoading(false);
-        }
-    };
-
     return (
         <PageBackground {...BackgroundPresets.content}>
-            <div className="container max-w-5xl mx-auto px-4">
-                {/* Hero Section */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
+            <div className={`container ${designSystem.spacing.container} mx-auto px-4 py-16 md:py-24`}>
+                {/* Hero */}
+                <m.div
+                    initial={fadeInUp.initial}
+                    animate={fadeInUp.animate}
+                    transition={fadeInUp.transition}
                     className="text-center mb-16"
                 >
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5, delay: 0.1 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6"
+                        className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${designSystem.badges.primary} text-sm font-medium mb-6`}
                     >
                         <Mail className="w-4 h-4" />
                         <span>Weekly Newsletter</span>
-                    </motion.div>
+                    </m.div>
 
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
+                    <h1 className={`${designSystem.typography.hero} mb-6 max-w-4xl mx-auto`}>
                         The VibeStack{" "}
-                        <span className="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
+                        <span className={`bg-clip-text text-transparent bg-gradient-to-r ${designSystem.gradients.text}`}>
                             Newsletter
                         </span>
                     </h1>
 
-                    <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-8">
+                    <m.p
+                        initial={fadeInUp.initial}
+                        animate={fadeInUp.animate}
+                        transition={{ ...fadeInUp.transition, delay: 0.2 }}
+                        className={`${designSystem.typography.subtitle} max-w-3xl mx-auto mb-8`}
+                    >
                         Get the latest AI tools, reviews, and productivity tips delivered to your inbox every Monday. 
                         No spam, just value.
-                    </p>
+                    </m.p>
 
                     {/* Subscribe Form */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
+                    <m.div
+                        initial={fadeInUp.initial}
+                        animate={fadeInUp.animate}
+                        transition={{ ...fadeInUp.transition, delay: 0.3 }}
                         className="max-w-md mx-auto mb-12"
                     >
-                        <form onSubmit={handleSubscribe} className="flex gap-3">
+                        <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
                             <Input
                                 type="email"
                                 placeholder="Enter your email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
-                                className="flex-1 bg-card/50 border-border/40"
+                                className="flex-1 bg-card/50 border-border/40 h-12"
                             />
                             <Button 
                                 type="submit" 
                                 disabled={isSubmitting}
-                                className="rounded-full px-6"
+                                className={`${designSystem.buttons.medium} bg-gradient-to-r from-vibe-electric to-vibe-cyan hover:shadow-lg hover:shadow-vibe-electric/30`}
                             >
                                 {isSubmitting ? "Subscribing..." : "Subscribe"}
                             </Button>
@@ -252,36 +242,43 @@ export default function NewsletterPage() {
                         <p className="text-xs text-muted-foreground mt-3">
                             Join 2,500+ developers. Unsubscribe anytime.
                         </p>
-                    </motion.div>
+                    </m.div>
 
                     {/* Stats */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.3 }}
+                    <m.div
+                        initial={fadeInUp.initial}
+                        animate={fadeInUp.animate}
+                        transition={{ ...fadeInUp.transition, delay: 0.4 }}
                         className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto"
                     >
                         {stats.map((stat, index) => {
                             const Icon = stat.icon;
                             return (
-                                <div key={stat.label} className="text-center">
-                                    <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-indigo-500/10 mb-2">
-                                        <Icon className="w-5 h-5 text-indigo-400" />
+                                <m.div 
+                                    key={stat.label}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.5 + index * 0.1 }}
+                                    className="text-center"
+                                >
+                                    <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-vibe-electric/10 mb-2">
+                                        <Icon className="w-5 h-5 text-vibe-electric" />
                                     </div>
                                     <div className="text-2xl font-bold text-foreground">{stat.value}</div>
                                     <div className="text-xs text-muted-foreground">{stat.label}</div>
-                                </div>
+                                </m.div>
                             );
                         })}
-                    </motion.div>
-                </motion.div>
+                    </m.div>
+                </m.div>
 
                 {/* What to Expect */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                    className="mb-16"
+                <m.div
+                    initial={fadeInUp.initial}
+                    whileInView={fadeInUp.animate}
+                    viewport={{ once: true }}
+                    transition={{ ...fadeInUp.transition, delay: 0.2 }}
+                    className="mb-20"
                 >
                     <div className="text-center mb-8">
                         <h2 className="text-2xl font-bold mb-2">What to Expect</h2>
@@ -298,146 +295,51 @@ export default function NewsletterPage() {
                             {
                                 icon: Zap,
                                 title: "Productivity Tips",
-                                description: "Practical advice on integrating AI into your workflow"
+                                description: "Actionable workflows and techniques to boost your output"
                             },
                             {
-                                icon: TrendingUp,
-                                title: "Industry Insights",
-                                description: "Analysis of trends and predictions in the AI space"
+                                icon: CheckCircle2,
+                                title: "Curated Picks",
+                                description: "Hand-selected tools that actually deliver on their promises"
                             }
                         ].map((item, index) => {
                             const Icon = item.icon;
                             return (
-                                <motion.div
+                                <m.div
                                     key={item.title}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
+                                    initial={fadeInUp.initial}
+                                    whileInView={fadeInUp.animate}
+                                    viewport={{ once: true }}
+                                    transition={{ ...fadeInUp.transition, delay: index * 0.1 }}
                                 >
-                                    <Card className="h-full border-border/50">
-                                        <CardContent className="p-6 text-center">
-                                            <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-indigo-500/10 mb-4">
-                                                <Icon className="w-6 h-6 text-indigo-400" />
+                                    <Card className="text-center h-full">
+                                        <CardContent className="p-6">
+                                            <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-vibe-electric/10 mb-4">
+                                                <Icon className="w-6 h-6 text-vibe-electric" />
                                             </div>
-                                            <h3 className="font-bold mb-2">{item.title}</h3>
-                                            <p className="text-sm text-muted-foreground">{item.description}</p>
+                                            <h3 className="font-bold text-lg mb-2">{item.title}</h3>
+                                            <p className="text-muted-foreground text-sm">{item.description}</p>
                                         </CardContent>
                                     </Card>
-                                </motion.div>
+                                </m.div>
                             );
                         })}
                     </div>
-                </motion.div>
+                </m.div>
 
                 {/* Archive */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.6 }}
-                >
-                    <div className="flex items-center justify-between mb-8">
-                        <div>
-                            <h2 className="text-2xl font-bold mb-1">Archive</h2>
-                            <p className="text-muted-foreground text-sm">Past issues available to read</p>
-                        </div>
-                        <Badge variant="outline">{newsletterArchive.length} issues</Badge>
+                <div>
+                    <div className="text-center mb-8">
+                        <h2 className="text-2xl font-bold mb-2">Newsletter Archive</h2>
+                        <p className="text-muted-foreground">Browse previous issues</p>
                     </div>
 
-                    <div className="space-y-4">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {newsletterArchive.map((issue, index) => (
                             <NewsletterCard key={issue.id} issue={issue} index={index} />
                         ))}
                     </div>
-                </motion.div>
-
-                {/* Bottom CTA */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.8 }}
-                    className="mt-16 text-center"
-                >
-                    <Card className="border-indigo-500/20 bg-linear-to-br from-indigo-500/5 to-purple-500/5">
-                        <CardContent className="p-8">
-                            <Mail className="w-12 h-12 text-indigo-400 mx-auto mb-4" />
-                            <h3 className="text-xl font-bold mb-2">Ready to join?</h3>
-                            <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
-                                Get AI tool recommendations, productivity tips, and industry insights delivered weekly.
-                            </p>
-                            <Button asChild className="rounded-full">
-                                <Link href="/about" className="flex items-center gap-2">
-                                    Subscribe Now
-                                    <CheckCircle2 className="w-4 h-4" />
-                                </Link>
-                            </Button>
-                        </CardContent>
-                    </Card>
-                </motion.div>
-            </div>
-
-            {/* Sponsorship Section */}
-            <div className="container max-w-5xl mx-auto px-4 mt-16">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="mb-12 text-center"
-                >
-                    <h2 className="text-3xl font-bold mb-4">Sponsor the Newsletter</h2>
-                    <p className="text-muted-foreground">
-                        Reach thousands of developers with a dedicated sponsor slot in the next issue.
-                    </p>
-                </motion.div>
-
-                <Card className="border-border/50 bg-card/50">
-                    <CardContent className="p-8">
-                        {activeSponsor ? (
-                            <div className="flex flex-col gap-2">
-                                <Badge className="w-fit bg-emerald-500/10 text-emerald-600 border-emerald-500/20">
-                                    Current Sponsor
-                                </Badge>
-                                <h3 className="text-2xl font-bold">{activeSponsor.sponsorName || "Sponsor"}</h3>
-                                <p className="text-muted-foreground">{activeSponsor.sponsorCopy}</p>
-                                {activeSponsor.sponsorUrl && (
-                                    <Link href={activeSponsor.sponsorUrl} target="_blank" className="text-indigo-400 hover:underline">
-                                        {activeSponsor.sponsorUrl}
-                                    </Link>
-                                )}
-                                {activeSponsor.currentPeriodEnd && (
-                                    <p className="text-xs text-muted-foreground mt-2">
-                                        Active until {new Date(activeSponsor.currentPeriodEnd).toLocaleDateString()}
-                                    </p>
-                                )}
-                            </div>
-                        ) : (
-                            <div className="grid gap-6 md:grid-cols-2">
-                                <div>
-                                    <Badge className="mb-3 bg-indigo-500/10 text-indigo-500 border-indigo-500/20">
-                                        Monthly Sponsorship
-                                    </Badge>
-                                    <h3 className="text-2xl font-bold mb-2">$499 / month</h3>
-                                    <p className="text-muted-foreground mb-4">
-                                        Includes featured placement in the next issue and homepage newsletter section.
-                                    </p>
-                                    <ul className="text-sm text-muted-foreground space-y-2">
-                                        <li>✓ Dedicated sponsor block</li>
-                                        <li>✓ Link + brand mention</li>
-                                        <li>✓ Delivered every Monday</li>
-                                    </ul>
-                                </div>
-                                <div className="space-y-3">
-                                    <Input placeholder="Company name" value={sponsorName} onChange={(e) => setSponsorName(e.target.value)} />
-                                    <Input placeholder="Website URL" value={sponsorUrl} onChange={(e) => setSponsorUrl(e.target.value)} />
-                                    <Input placeholder="Contact email" value={sponsorEmail} onChange={(e) => setSponsorEmail(e.target.value)} />
-                                    <Input placeholder="Short sponsor copy" value={sponsorCopy} onChange={(e) => setSponsorCopy(e.target.value)} />
-                                    <Button className="w-full" onClick={handleSponsorCheckout} disabled={sponsorLoading || !sponsorName || !sponsorUrl || !sponsorEmail}>
-                                        {sponsorLoading ? "Redirecting..." : "Become a Sponsor"}
-                                    </Button>
-                                </div>
-                            </div>
-                        )}
-                    </CardContent>
-                </Card>
+                </div>
             </div>
         </PageBackground>
     );

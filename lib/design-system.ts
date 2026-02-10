@@ -168,6 +168,65 @@ export const designSystem = {
         smooth: 0.4,
         slow: 0.6,
         dramatic: 0.8
+    },
+
+    // Standardized spacing patterns
+    spacing: {
+        section: 'mb-20',
+        sectionLarge: 'mb-24',
+        container: 'max-w-6xl',
+        containerSmall: 'max-w-5xl',
+        heroPadding: 'py-16 md:py-24',
+        contentPadding: 'py-24 md:py-32',
+    },
+
+    // Standardized gradient classes
+    gradients: {
+        // Primary brand gradient (electric cyan to neon magenta)
+        primary: 'from-vibe-electric via-vibe-cyan to-vibe-neon',
+        // Secondary gradient for text (indigo to pink)
+        text: 'from-indigo-400 via-purple-400 to-pink-500',
+        // Background gradient
+        background: 'from-indigo-500/10 via-purple-500/5 to-pink-500/5',
+        // Card highlight gradient
+        card: 'from-vibe-electric/5 via-vibe-cyan/5 to-vibe-neon/5',
+    },
+
+    // Typography hierarchy
+    typography: {
+        hero: 'text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-balance',
+        section: 'text-3xl md:text-4xl font-bold',
+        cardTitle: 'text-xl font-bold',
+        subtitle: 'text-lg text-muted-foreground leading-relaxed',
+        body: 'text-base text-muted-foreground',
+    },
+
+    // Badge styles
+    badges: {
+        primary: 'bg-vibe-electric/10 border-vibe-electric/20 text-vibe-electric',
+        secondary: 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400',
+        accent: 'bg-vibe-neon/10 border-vibe-neon/20 text-vibe-neon',
+    },
+
+    // Button sizes
+    buttons: {
+        large: 'rounded-full h-14 px-8 text-lg',
+        medium: 'rounded-full h-12 px-6',
+        small: 'rounded-full h-10 px-4',
+    },
+
+    // Card variants
+    cards: {
+        default: 'border-border/50 hover:border-vibe-electric/30 transition-all duration-300',
+        highlighted: 'border-vibe-electric/20 bg-gradient-to-br from-vibe-electric/5 to-vibe-cyan/5',
+        interactive: 'border-border/50 hover:border-vibe-electric/30 hover:shadow-lg hover:shadow-vibe-electric/5 transition-all duration-300',
+    },
+
+    // Background presets
+    backgrounds: {
+        grid: 'bg-grid-pattern opacity-30',
+        gradientOrbs: 'bg-gradient-to-b from-background via-vibe-electric/5 to-background',
+        glass: 'bg-card/50 backdrop-blur-sm',
     }
 };
 
