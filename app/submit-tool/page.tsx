@@ -311,13 +311,13 @@ export default function SubmitToolPage() {
                                         <ul className="space-y-3 mb-6 flex-1">
                                             {plan.features.map((feature) => (
                                                 <li key={feature} className="flex items-start gap-2">
-                                                    <Check className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
+                                                    <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
                                                     <span className="text-sm">{feature}</span>
                                                 </li>
                                             ))}
                                             {plan.notIncluded.map((item) => (
                                                 <li key={item} className="flex items-start gap-2 text-muted-foreground">
-                                                    <XCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                                                    <XCircle className="w-4 h-4 mt-0.5 shrink-0" />
                                                     <span className="text-sm line-through">{item}</span>
                                                 </li>
                                             ))}
@@ -358,6 +358,15 @@ export default function SubmitToolPage() {
                                     {pricingPlans.find(p => p.id === selectedPlan)?.name}
                                 </strong>
                             </CardDescription>
+                            <div className="mt-4 p-3 bg-blue-500/10 rounded-md border border-blue-500/20 text-sm text-blue-400 flex items-start gap-2">
+                                <Sparkles className="w-4 h-4 mt-0.5 shrink-0" />
+                                <div>
+                                    Want to get approved faster? Check our
+                                    <Link href="/guidelines" target="_blank" className="font-semibold underline ml-1 hover:text-blue-300">
+                                        Content Quality Guidelines
+                                    </Link> before submitting.
+                                </div>
+                            </div>
                         </CardHeader>
                         <CardContent>
                             <form onSubmit={handleSubmit} className="space-y-6">
@@ -369,6 +378,9 @@ export default function SubmitToolPage() {
                                         value={formData.toolName}
                                         onChange={(e) => setFormData({ ...formData, toolName: e.target.value })}
                                     />
+                                    <p className="text-xs text-muted-foreground">
+                                        Official product name only. No slogans or SEO keywords.
+                                    </p>
                                 </div>
 
                                 <div className="space-y-2">
@@ -380,6 +392,9 @@ export default function SubmitToolPage() {
                                         value={formData.description}
                                         onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                                     />
+                                    <p className="text-xs text-muted-foreground">
+                                        Focus on features and value. Avoid subjective terms like &quot;best&quot;.
+                                    </p>
                                 </div>
 
                                 <div className="space-y-2">
@@ -391,6 +406,9 @@ export default function SubmitToolPage() {
                                         value={formData.websiteUrl}
                                         onChange={(e) => setFormData({ ...formData, websiteUrl: e.target.value })}
                                     />
+                                    <p className="text-xs text-muted-foreground">
+                                        Direct link to the homepage. No tracking parameters.
+                                    </p>
                                 </div>
 
                                 <div className="grid md:grid-cols-2 gap-4">
