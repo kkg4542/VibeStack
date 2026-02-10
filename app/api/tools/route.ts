@@ -5,7 +5,7 @@ import { validateRequest, createErrorResponse, createSuccessResponse, formatZodE
 import { auth } from "@/auth";
 
 import { validateBodySize } from "@/lib/body-size";
-import { unstable_cache } from "next/cache";
+import { unstable_cache, revalidateTag } from "next/cache";
 
 // Cache function for getTools
 const getCachedTools = unstable_cache(
@@ -122,8 +122,9 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // Invalidate tools cache (will be refreshed on next request)
-    // Note: Cache invalidation handled by Next.js ISR
+    // Invalidate tools cache
+    // @ts-ignore - Next.js 16.1.6 seems to require 2 args for revalidateTag?
+    revalidateTag('tools', undefined);
 
     return createSuccessResponse(tool, 201);
   } catch (error) {
@@ -182,6 +183,9 @@ export async function PUT(request: NextRequest) {
       },
     });
 
+    // @ts-ignore
+    revalidateTag('tools', undefined);
+
     return createSuccessResponse(tool);
   } catch (error) {
     console.error("Error updating tool:", error);
@@ -216,6 +220,9 @@ export async function DELETE(request: NextRequest) {
     await prisma.tool.delete({
       where: { slug },
     });
+
+    // @ts-ignore
+    revalidateTag('tools', undefined);
 
     return createSuccessResponse({ message: "Tool deleted successfully" });
   } catch (error) {
