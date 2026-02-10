@@ -55,16 +55,16 @@ export default function ToolsPage() {
             tools: ["Perplexity", "Claude", "Notion AI"]
         },
         {
-            id: "product-team",
-            name: "Product Team Stack",
-            summary: "Planning, specs, and execution without thrash.",
-            tools: ["Linear", "Notion AI", "GitHub Copilot"]
+            id: "fullstack-ai-dev",
+            name: "Full-Stack AI Dev Stack",
+            summary: "Build complete apps with AI-powered coding.",
+            tools: ["Cursor", "GitHub Copilot", "Vercel v0"]
         },
         {
-            id: "design-to-dev",
-            name: "Design-to-Dev Stack",
-            summary: "Design faster, then translate to production.",
-            tools: ["Figma", "v0", "Cursor"]
+            id: "ai-content-creator",
+            name: "AI Content Creator Stack",
+            summary: "Create, edit, and publish content faster.",
+            tools: ["ChatGPT", "Midjourney", "Descript"]
         }
     ];
     const [featuredStacks, setFeaturedStacks] = useState<Array<{
