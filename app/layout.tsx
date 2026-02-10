@@ -13,6 +13,7 @@ import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
 import { ScrollProgress } from "@/components/effects/ScrollProgress";
 import { getCsrfToken } from "@/lib/csrf";
+import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -76,7 +77,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const csrfToken = await getCsrfToken();
-  
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -99,7 +100,9 @@ export default async function RootLayout({
                 <ScrollProgress />
                 <Navbar />
                 <main id="main-content">
-                  {children}
+                  <LazyMotionProvider>
+                    {children}
+                  </LazyMotionProvider>
                 </main>
                 <Footer />
               </QueryProvider>
