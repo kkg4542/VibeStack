@@ -3,7 +3,8 @@
 import { ToolData } from "@/lib/tool-types";
 import { ToolIconRenderer } from "@/components/tools/ToolIconRenderer";
 import Link from "next/link";
-import { FeaturedSpotlight } from "@/components/tools/FeaturedSpotlight";
+import dynamic from "next/dynamic";
+const FeaturedSpotlight = dynamic(() => import("@/components/tools/FeaturedSpotlight").then(mod => mod.FeaturedSpotlight), { ssr: false });
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";

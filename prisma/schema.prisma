@@ -32,6 +32,7 @@ model Tool {
   reviews         Review[]
   sponsorships    Sponsorship[]
   stackTools      StackTool[]
+  communityStacks CommunityStack[]
 
   @@index([category])
   @@index([pricing])
@@ -127,11 +128,16 @@ model User {
   image         String?
   createdAt     DateTime   @default(now()) @map("created_at")
   updatedAt     DateTime   @updatedAt @map("updated_at")
+  communityStackLikes CommunityStackLike[]
+  userSavedStacks    UserSavedStack[]
   accounts      Account[]
   favorites     Favorite[]
   reviews       Review[]
   sessions      Session[]
   communityStacks CommunityStack[]
+  twoFASecret    String?    @map("two_fa_secret")
+  twoFAEnabled   Boolean    @default(false) @map("two_fa_enabled")
+  twoFABackupCodes String[] @map("two_fa_backup_codes")
 
   @@map("users")
 }
@@ -308,7 +314,7 @@ model StackMetrics {
 // Community Curated Stacks
 model CommunityStack {
   id              String   @id @default(cuid())
-  userId          String   @map("user_id")
+  curatorId       String   @map("curator_id")
   name            String
   description     String?
   isPublic        Boolean  @default(true) @map("is_public")
@@ -320,13 +326,16 @@ model CommunityStack {
   likeCount       Int      @default(0) @map("like_count")
   createdAt       DateTime @default(now()) @map("created_at")
   updatedAt       DateTime @updatedAt @map("updated_at")
+  likes         CommunityStackLike[]
+  savedBy       UserSavedStack[]
 
-  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  curator         User     @relation(fields: [curatorId], references: [id], onDelete: Cascade)
   forkedFrom      CommunityStack? @relation("StackForks", fields: [forkedFromId], references: [id])
   forks           CommunityStack[] @relation("StackForks")
+  tools           Tool[]
 
   @@index([isPublic, isFeatured])
-  @@index([userId])
+  @@index([curatorId])
   @@index([createdAt])
   @@map("community_stacks")
 }
@@ -400,6 +409,8 @@ model CommunityStackLike {
   stackId   String   @map("stack_id")
   userId    String   @map("user_id")
   createdAt DateTime @default(now()) @map("created_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stack     CommunityStack @relation(fields: [stackId], references: [id], onDelete: Cascade)
 
   @@unique([stackId, userId])
   @@index([stackId])
@@ -414,6 +425,8 @@ model UserSavedStack {
   stackId   String   @map("stack_id")
   userId    String   @map("user_id")
   createdAt DateTime @default(now()) @map("created_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stack     CommunityStack @relation(fields: [stackId], references: [id], onDelete: Cascade)
 
   @@unique([stackId, userId])
   @@index([stackId])

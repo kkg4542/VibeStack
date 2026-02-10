@@ -6,7 +6,9 @@ import { motion } from "framer-motion";
 import { Search, Sparkles, TrendingUp, Target, Zap } from "lucide-react";
 import { designSystem } from "@/lib/design-system";
 import { useState } from "react";
-import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
+import dynamic from "next/dynamic";
+const PageBackground = dynamic(() => import("@/components/effects/PageBackground").then(mod => mod.PageBackground), { ssr: false });
+import { BackgroundPresets } from "@/components/effects/PageBackground";
 import { useAllTools } from "@/hooks/use-tools";
 import { ToolData } from "@/lib/tool-types";
 
