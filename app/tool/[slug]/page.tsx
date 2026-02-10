@@ -123,7 +123,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                             <div className="flex-1 min-w-0">
                                 {/* Badges */}
                                 <div className="flex flex-wrap items-center gap-3 mb-4">
-                                    <Badge variant="outline" className="text-muted-foreground border-border/30 bg-background/50 backdrop-blur-sm">
+                                    <Badge variant="outline" className="text-muted-foreground border-border/30 bg-muted backdrop-blur-sm">
                                         {tool.category}
                                     </Badge>
                                     <Badge className="bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 border-indigo-500/20">
@@ -224,7 +224,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={designSystem.animations.fadeInUp.transition}
-                            className="bg-card/50 backdrop-blur-sm rounded-3xl p-8 border border-border/50 shadow-lg"
+                            className="bg-white backdrop-blur-sm rounded-3xl p-8 border border-border/50 shadow-lg"
                         >
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="p-2 rounded-lg bg-indigo-500/10">
@@ -315,7 +315,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                             </div>
                             {tool.review ? (
                                 <div className="space-y-6">
-                                    <div className="flex items-center gap-4 p-4 bg-background/50 rounded-2xl border border-border/50">
+                                    <div className="flex items-center gap-4 p-4 bg-muted rounded-2xl border border-border/50">
                                         <div className="flex gap-1">
                                             {[...Array(5)].map((_, i) => (
                                                 <Star key={i} className={`h-6 w-6 ${i < Math.floor(tool.review!.rating) ? 'text-yellow-400 fill-yellow-400' : 'text-zinc-600'}`} />
@@ -390,7 +390,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={designSystem.animations.fadeInUp.transition}
-                            className="bg-card/50 backdrop-blur-sm rounded-3xl p-6 border border-border/50 shadow-lg sticky top-24"
+                            className="bg-white backdrop-blur-sm rounded-3xl p-6 border border-border/50 shadow-lg sticky top-24"
                         >
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="p-2 rounded-lg bg-indigo-500/10">

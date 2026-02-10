@@ -9,10 +9,10 @@ interface GradientTextProps {
 }
 
 const gradientVariants = {
-  vibe: "from-vibe-electric via-vibe-cyan to-vibe-neon",
-  neon: "from-vibe-neon to-vibe-purple",
-  cyan: "from-cyan-400 to-blue-600",
-  purple: "from-vibe-purple to-indigo-600",
+  vibe: "from-indigo-600 via-purple-600 to-pink-600",
+  neon: "from-purple-600 to-pink-600",
+  cyan: "from-cyan-600 to-blue-600",
+  purple: "from-purple-600 to-indigo-700",
   sunset: "from-orange-400 via-pink-500 to-purple-600",
   custom: "",
 };

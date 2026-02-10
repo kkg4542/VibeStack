@@ -22,7 +22,7 @@ const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps & { chil
             },
             hero: {
                 container: "w-full",
-                input: "w-full pl-12 pr-4 py-4 rounded-2xl bg-card/50 border border-border/40 backdrop-blur-sm text-foreground text-lg placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all shadow-sm",
+                input: "w-full pl-12 pr-4 py-4 rounded-2xl bg-white border border-border text-foreground text-lg placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all shadow-sm",
                 icon: "left-4 w-5 h-5"
             },
             mobile: {

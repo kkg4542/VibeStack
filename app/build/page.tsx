@@ -460,7 +460,7 @@ export default function BuildPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6 backdrop-blur-sm"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 text-sm font-medium mb-6 backdrop-blur-sm"
             >
               <Sparkles className="w-4 h-4" />
               <span>AI Stack Finder</span>
@@ -468,7 +468,7 @@ export default function BuildPage() {
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4 text-balance">
               Find Your{" "}
-              <span className="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
                 Vibe Stack
               </span>
             </h1>
@@ -550,7 +550,7 @@ export default function BuildPage() {
                 {/* Stack Reveal */}
                 <div className="bg-linear-to-b from-indigo-500/10 via-purple-500/5 to-pink-500/5 border border-indigo-500/20 rounded-3xl p-8 md:p-12 mb-8">
                   <div className="text-center mb-8">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 text-indigo-400 text-sm font-medium mb-4">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 text-indigo-600 text-sm font-medium mb-4">
                       <Trophy className="w-4 h-4" />
                       <span>Recommended Stack</span>
                     </div>
@@ -599,7 +599,7 @@ export default function BuildPage() {
                   <Card className="mb-8">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
-                        <Lightbulb className="w-5 h-5 text-indigo-400" />
+                        <Lightbulb className="w-5 h-5 text-indigo-600" />
                         Why This Stack?
                       </CardTitle>
                     </CardHeader>
@@ -635,7 +635,7 @@ export default function BuildPage() {
                                       return <Icon className={`w-6 h-6 ${tool.color || "text-foreground"}`} />;
                                     })()}
                                   </div>
-                                  <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-indigo-400 transition-colors" />
+                                  <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-indigo-600 transition-colors" />
                                 </div>
                                 <h3 className="font-bold mb-1">{tool.title}</h3>
                                 <p className="text-xs text-muted-foreground uppercase mb-2">{tool.category}</p>
@@ -695,7 +695,7 @@ export default function BuildPage() {
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
             Find Your{" "}
-            <span className="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
               Vibe Stack
             </span>
           </h1>
@@ -781,9 +781,9 @@ export default function BuildPage() {
                   <Card className="text-center h-full">
                     <CardContent className="p-8">
                       <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-indigo-500/10 mb-6">
-                        <Icon className="w-8 h-8 text-indigo-400" />
+                        <Icon className="w-8 h-8 text-indigo-600" />
                       </div>
-                      <div className="text-3xl font-bold text-indigo-400 mb-1">{item.stat}</div>
+                      <div className="text-3xl font-bold text-indigo-600 mb-1">{item.stat}</div>
                       <div className="text-sm text-muted-foreground mb-4">{item.statLabel}</div>
                       <h3 className="text-xl font-bold mb-2">{item.title}</h3>
                       <p className="text-muted-foreground">{item.description}</p>
@@ -824,7 +824,7 @@ export default function BuildPage() {
                     </div>
                     <p className="text-muted-foreground mb-6 italic">&ldquo;{testimonial.quote}&rdquo;</p>
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 font-bold">
+                      <div className="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-600 font-bold">
                         {testimonial.avatar}
                       </div>
                       <div>

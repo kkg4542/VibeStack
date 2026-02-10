@@ -60,7 +60,7 @@ export default function NotFound() {
                             transition={{ duration: 0.8, delay: 0.2 }}
                             className="text-[12rem] md:text-[16rem] font-bold leading-none tracking-tighter"
                         >
-                            <span className="bg-linear-to-b from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
+                            <span className="bg-linear-to-b from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
                                 404
                             </span>
                         </motion.div>

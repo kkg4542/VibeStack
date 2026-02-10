@@ -254,7 +254,7 @@ export default function SubmitToolPage() {
 
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
                         Submit Your{" "}
-                        <span className="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
+                        <span className="bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
                             AI Tool
                         </span>
                     </h1>

@@ -82,7 +82,7 @@ export default function ConsultingPage() {
 
                         <h1 className="mx-auto max-w-4xl text-5xl font-bold tracking-tight text-foreground sm:text-7xl text-balance leading-tight">
                             Promote Your AI Tool to{" "}
-                            <span className="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
+                            <span className="bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
                                 Thousands of Developers
                             </span>
                         </h1>
@@ -257,7 +257,7 @@ export default function ConsultingPage() {
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={designSystem.animations.fadeInUp.transition}
-                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card/50 p-8 transition-all hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
+                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-white p-8 transition-all hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
                         >
                             <div className="mb-6">
                                 <h3 className="text-xl font-semibold mb-2">Sidebar Ads</h3>
@@ -347,7 +347,7 @@ export default function ConsultingPage() {
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.2 }}
-                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card/50 p-8 transition-all hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
+                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-white p-8 transition-all hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
                         >
                             <div className="mb-6">
                                 <h3 className="text-xl font-semibold mb-2">Newsletter Sponsor</h3>
@@ -393,7 +393,7 @@ export default function ConsultingPage() {
 
                 {/* Sponsor Copy Guidelines */}
                 <section className="container mx-auto px-4 pb-16">
-                    <div className="mx-auto max-w-3xl rounded-2xl border border-border/50 bg-card/50 p-8">
+                    <div className="mx-auto max-w-3xl rounded-2xl border border-border/50 bg-white p-8">
                         <h3 className="text-xl font-semibold text-foreground mb-3">Sponsor Copy Guidelines</h3>
                         <p className="text-muted-foreground mb-4">Keep it clear and honest. We review copy to maintain user trust.</p>
                         <ul className="space-y-2 text-sm text-foreground/80">
@@ -446,7 +446,7 @@ export default function ConsultingPage() {
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={designSystem.animations.fadeInUp.transition}
-                            className="rounded-2xl border border-border/50 bg-card/50 p-6 backdrop-blur-sm"
+                            className="rounded-2xl border border-border/50 bg-white p-6 backdrop-blur-sm"
                         >
                             <div className="mb-4 flex gap-1">
                                 {[...Array(5)].map((_, i) => (
@@ -470,7 +470,7 @@ export default function ConsultingPage() {
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.1 }}
-                            className="rounded-2xl border border-border/50 bg-card/50 p-6 backdrop-blur-sm"
+                            className="rounded-2xl border border-border/50 bg-white p-6 backdrop-blur-sm"
                         >
                             <div className="mb-4 flex gap-1">
                                 {[...Array(5)].map((_, i) => (
@@ -494,7 +494,7 @@ export default function ConsultingPage() {
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.2 }}
-                            className="rounded-2xl border border-border/50 bg-card/50 p-6 backdrop-blur-sm"
+                            className="rounded-2xl border border-border/50 bg-white p-6 backdrop-blur-sm"
                         >
                             <div className="mb-4 flex gap-1">
                                 {[...Array(5)].map((_, i) => (

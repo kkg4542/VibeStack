@@ -236,7 +236,7 @@ export function CategoryPageClient({ category }: CategoryPageClientProps) {
                                     href={`/tool/${tool.slug}`}
                                     className="block relative group h-full"
                                 >
-                                    <Card className="h-full relative overflow-hidden border-border/40 bg-card/50 transition-all duration-300 hover:border-border/80 hover:bg-card/80 hover:shadow-2xl">
+                                    <Card className="h-full relative overflow-hidden border-border/40 bg-white transition-all duration-300 hover:border-border/80 hover:bg-card/80 hover:shadow-2xl">
                                         <div className={`absolute inset-0 bg-linear-to-br ${tool.bgGradient || "from-transparent to-transparent"} opacity-0 transition-opacity duration-500 group-hover:opacity-10`} />
 
                                         <CardHeader className="relative h-full flex flex-col pt-8">

@@ -62,7 +62,7 @@ export default function SubmitStackPage() {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="bg-card/50 backdrop-blur-xl border border-green-500/20 rounded-3xl p-12 shadow-2xl"
+                        className="bg-white backdrop-blur-xl border border-green-500/20 rounded-3xl p-12 shadow-2xl"
                     >
                         <div className="inline-flex p-4 rounded-full bg-green-500/10 mb-6">
                             <CheckCircle2 className="h-12 w-12 text-green-500" />
@@ -102,7 +102,7 @@ export default function SubmitStackPage() {
                     </p>
                 </motion.div>
 
-                <Card className="p-8 bg-card/50 backdrop-blur-sm border-border/50">
+                <Card className="p-8 bg-white backdrop-blur-sm border-border/50">
                     <form onSubmit={handleSubmit} className="space-y-8">
 
                         {/* Stack Name */}
@@ -114,7 +114,7 @@ export default function SubmitStackPage() {
                                 value={stackName}
                                 onChange={(e) => setStackName(e.target.value)}
                                 required
-                                className="bg-background/50"
+                                className="bg-muted"
                             />
                         </div>
 
@@ -127,7 +127,7 @@ export default function SubmitStackPage() {
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
                                 required
-                                className="min-h-[120px] bg-background/50"
+                                className="min-h-[120px] bg-muted"
                             />
                         </div>
 
@@ -161,7 +161,7 @@ export default function SubmitStackPage() {
                                     placeholder="Search for tools to add..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="bg-background/50"
+                                    className="bg-muted"
                                     disabled={selectedTools.length >= 5}
                                 />
 
@@ -207,7 +207,7 @@ export default function SubmitStackPage() {
                                 placeholder="To notify you when it's published"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="bg-background/50"
+                                className="bg-muted"
                             />
                         </div>
 

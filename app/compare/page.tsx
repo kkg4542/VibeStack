@@ -163,7 +163,7 @@ export default function ComparePage() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
                         >
-                            <Card className="h-full border-border/50 bg-card/50 backdrop-blur-sm hover:border-indigo-500/30 transition-colors">
+                            <Card className="h-full border-border/50 bg-white backdrop-blur-sm hover:border-indigo-500/30 transition-colors">
                                 <CardContent className="p-6">
                                     {/* Header */}
                                     <div className="flex items-start justify-between mb-6">

@@ -182,14 +182,14 @@ export const designSystem = {
 
     // Standardized gradient classes
     gradients: {
-        // Primary brand gradient (electric cyan to neon magenta)
-        primary: 'from-vibe-electric via-vibe-cyan to-vibe-neon',
-        // Secondary gradient for text (indigo to pink)
-        text: 'from-indigo-400 via-purple-400 to-pink-500',
+        // Primary brand gradient (indigo to pink for better contrast)
+        primary: 'from-indigo-600 via-purple-600 to-pink-600',
+        // Secondary gradient for text (darker indigo to pink)
+        text: 'from-indigo-600 via-purple-600 to-pink-600',
         // Background gradient
         background: 'from-indigo-500/10 via-purple-500/5 to-pink-500/5',
         // Card highlight gradient
-        card: 'from-vibe-electric/5 via-vibe-cyan/5 to-vibe-neon/5',
+        card: 'from-indigo-500/5 via-purple-500/5 to-pink-500/5',
     },
 
     // Typography hierarchy

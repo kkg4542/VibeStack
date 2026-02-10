@@ -40,7 +40,7 @@ function ToolCard({ tool }: { tool: ToolData }) {
                             <div className={`rounded-lg bg-secondary/80 p-3 ring-1 ring-border shadow-lg ${tool.color || "text-foreground"} group-hover:shadow-indigo-500/20 transition-all duration-300`}>
                                 <ToolIconRenderer slug={tool.slug} className="h-6 w-6" aria-hidden="true" />
                             </div>
-                            <Badge variant="secondary" className="bg-secondary/50 text-xs font-normal text-muted-foreground backdrop-blur-sm">
+                            <Badge variant="secondary" className="bg-secondary text-xs font-normal text-muted-foreground backdrop-blur-sm">
                                 {tool.category}
                             </Badge>
                         </div>
@@ -128,7 +128,7 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
 
                     {/* Left Anchor: Tool Count */}
                     <div className="hidden md:flex items-center gap-2 text-sm text-muted-foreground">
-                        <span className="flex items-center justify-center w-6 h-6 rounded-full bg-secondary/50 text-xs font-bold text-foreground">
+                        <span className="flex items-center justify-center w-6 h-6 rounded-full bg-secondary text-xs font-bold text-foreground">
                             {pagination?.total ?? tools.length}
                         </span>
                         <span className="font-medium">Tools Available</span>
@@ -137,7 +137,7 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                     {/* Right Anchor: Filter Controls */}
                     <div className="flex flex-wrap items-center justify-end gap-3 ml-auto md:ml-0 w-full md:w-auto">
                         {/* Pricing Segmented Control */}
-                        <div className="flex bg-secondary/50 p-1 rounded-lg border border-border/40 dark:border-white/5">
+                        <div className="flex bg-secondary p-1 rounded-lg border border-border/40 dark:border-white/5">
                             {pricingModels.map((p) => (
                                 <button
                                     key={p}
@@ -145,7 +145,7 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                                     aria-pressed={pricing === p}
                                     className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${pricing === p
                                         ? "bg-indigo-500 text-white shadow-md"
-                                        : "text-muted-foreground hover:text-foreground hover:bg-background/50"
+                                        : "text-muted-foreground hover:text-foreground hover:bg-muted"
                                         }`}
                                 >
                                     {p}
@@ -159,7 +159,7 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                                 value={sortBy}
                                 onChange={(e) => setSortBy(e.target.value)}
                                 aria-label="Sort tools"
-                                className="appearance-none bg-secondary/50 border border-border/40 dark:border-white/5 rounded-lg pl-4 pr-10 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground focus:outline-none transition-all cursor-pointer hover:border-border/80"
+                                className="appearance-none bg-secondary border border-border/40 dark:border-white/5 rounded-lg pl-4 pr-10 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground focus:outline-none transition-all cursor-pointer hover:border-border/80"
                             >
                                 <option value="default">Default</option>
                                 <option value="rating">Top Rated</option>

@@ -150,7 +150,7 @@ export default function AboutPage() {
 
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
                         Building the Future of{" "}
-                        <span className="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
+                        <span className="bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
                             AI Productivity
                         </span>
                     </h1>
@@ -249,7 +249,7 @@ export default function AboutPage() {
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-6">
-                        <Card className="border-border/50 bg-card/50">
+                        <Card className="border-border/50 bg-white">
                             <CardContent className="p-6">
                                 <div className="p-3 rounded-xl bg-emerald-500/10 w-fit mb-4">
                                     <ShieldCheck className="h-6 w-6 text-emerald-500" />
@@ -261,7 +261,7 @@ export default function AboutPage() {
                             </CardContent>
                         </Card>
 
-                        <Card className="border-border/50 bg-card/50">
+                        <Card className="border-border/50 bg-white">
                             <CardContent className="p-6">
                                 <div className="p-3 rounded-xl bg-blue-500/10 w-fit mb-4">
                                     <RefreshCw className="h-6 w-6 text-blue-500" />
@@ -273,7 +273,7 @@ export default function AboutPage() {
                             </CardContent>
                         </Card>
 
-                        <Card className="border-border/50 bg-card/50">
+                        <Card className="border-border/50 bg-white">
                             <CardContent className="p-6">
                                 <div className="p-3 rounded-xl bg-violet-500/10 w-fit mb-4">
                                     <Layers className="h-6 w-6 text-violet-500" />
@@ -403,7 +403,7 @@ export default function AboutPage() {
                                 initial={designSystem.animations.fadeInUp.initial}
                                 animate={designSystem.animations.fadeInUp.animate}
                                 transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.9 + index * 0.05 }}
-                                className="flex items-center gap-3 px-6 py-3 rounded-full bg-card/50 border border-border/50"
+                                className="flex items-center gap-3 px-6 py-3 rounded-full bg-white border border-border/50"
                             >
                                 <span className="text-2xl">{partner.logo}</span>
                                 <span className="font-medium">{partner.name}</span>
@@ -435,7 +435,7 @@ export default function AboutPage() {
                                                 value={formData.name}
                                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                                 required
-                                                className="bg-background/50"
+                                                className="bg-muted"
                                             />
                                         </div>
                                         <div>
@@ -446,7 +446,7 @@ export default function AboutPage() {
                                                 value={formData.email}
                                                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                                 required
-                                                className="bg-background/50"
+                                                className="bg-muted"
                                             />
                                         </div>
                                     </div>
@@ -458,7 +458,7 @@ export default function AboutPage() {
                                             onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                                             required
                                             rows={5}
-                                            className="bg-background/50"
+                                            className="bg-muted"
                                         />
                                     </div>
                                     <Button

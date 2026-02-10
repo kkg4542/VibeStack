@@ -201,7 +201,7 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
                                 </div>
                                 <h2 className="text-2xl font-semibold">About This Stack</h2>
                             </div>
-                            <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+                            <Card className="border-border/50 bg-white backdrop-blur-sm">
                                 <CardContent className="p-8">
                                     <p className="text-lg text-muted-foreground leading-relaxed">
                                         {stack.longDescription}
@@ -232,7 +232,7 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
                                         viewport={{ once: true }}
                                         transition={{ duration: 0.4, delay: index * 0.1 }}
                                     >
-                                        <Card className="border-border/50 bg-card/50 hover:border-indigo-500/30 transition-colors group">
+                                        <Card className="border-border/50 bg-white hover:border-indigo-500/30 transition-colors group">
                                             <CardContent className="p-6">
                                                 <div className="flex items-start gap-4">
                                                     <div className="shrink-0 w-12 h-12 rounded-xl bg-linear-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold shadow-lg shadow-indigo-500/20">
@@ -370,7 +370,7 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.1 }}
-                            className="bg-card/50 rounded-3xl border border-border/50 p-6 backdrop-blur-sm"
+                            className="bg-white rounded-3xl border border-border/50 p-6 backdrop-blur-sm"
                         >
                             <h3 className="font-semibold mb-4">Stack Stats</h3>
                             <div className="space-y-4">

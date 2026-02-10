@@ -59,7 +59,7 @@ export function NewsletterSection() {
           transition={designSystem.animations.fadeInUp.transition}
           className="max-w-4xl mx-auto"
         >
-          <div className="relative p-8 md:p-12 rounded-3xl border border-border/50 bg-card/50 backdrop-blur-sm overflow-hidden">
+          <div className="relative p-8 md:p-12 rounded-3xl border border-border bg-white shadow-sm overflow-hidden">
             {/* Glow effect */}
             <div className="absolute inset-0 bg-gradient-to-br from-vibe-electric/5 via-transparent to-vibe-neon/5" />
             
@@ -75,7 +75,7 @@ export function NewsletterSection() {
                 </Badge>
                 <h2 className="text-3xl md:text-4xl font-bold mb-4">
                   Get the Latest{" "}
-                  <span className="text-transparent bg-clip-text bg-linear-to-r from-vibe-electric to-vibe-cyan">
+                  <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-600 to-blue-600">
                     AI Insights
                   </span>
                 </h2>

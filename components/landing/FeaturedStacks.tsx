@@ -33,7 +33,7 @@ export function FeaturedStacks({ stacks }: FeaturedStacksProps) {
             </Badge>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
               Popular{" "}
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-vibe-electric to-vibe-neon">
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600">
                 AI Stacks
               </span>
             </h2>

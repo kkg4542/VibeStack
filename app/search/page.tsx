@@ -102,7 +102,7 @@ export default function SearchPage() {
         const parts = text.split(new RegExp(`(${query})`, 'gi'));
         return parts.map((part, i) =>
             part.toLowerCase() === query.toLowerCase()
-                ? <mark key={i} className="bg-indigo-500/20 text-indigo-400 rounded px-1">{part}</mark>
+                ? <mark key={i} className="bg-indigo-500/20 text-indigo-600 rounded px-1">{part}</mark>
                 : part
         );
     };
@@ -131,14 +131,14 @@ export default function SearchPage() {
                     transition={designSystem.animations.fadeInUp.transition}
                     className="text-center mb-12"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6 backdrop-blur-sm">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 text-sm font-medium mb-6 backdrop-blur-sm">
                         <Sparkles className="w-4 h-4" />
                         <span>Smart Search</span>
                     </div>
 
                     <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-balance">
                         Find Your Perfect{" "}
-                        <span className="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
+                        <span className="bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
                             AI Tool
                         </span>
                     </h1>
@@ -149,7 +149,7 @@ export default function SearchPage() {
 
                     {/* Search Input */}
                     <div className="relative max-w-2xl mx-auto">
-                        <div className="relative bg-card/50 backdrop-blur-sm rounded-2xl border border-border/40 shadow-lg">
+                        <div className="relative bg-white backdrop-blur-sm rounded-2xl border border-border/40 shadow-lg">
                             <div className="flex items-center px-4 py-2">
                                 <Search className="w-5 h-5 text-muted-foreground mr-3" />
                                 <Input

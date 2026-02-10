@@ -46,7 +46,7 @@ export function CommunityStacksPageClient({ stacks, totalCount, filters }: Commu
                             </Badge>
                             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
                                 Community{' '}
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-vibe-electric to-vibe-neon">
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600">
                                     Stacks
                                 </span>
                             </h1>
@@ -182,7 +182,7 @@ export function CommunityStacksPageClient({ stacks, totalCount, filters }: Commu
                                                                 className="w-8 h-8 rounded-full object-cover"
                                                             />
                                                         ) : (
-                                                            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-vibe-electric to-vibe-neon flex items-center justify-center text-xs font-bold text-white">
+                                                            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 flex items-center justify-center text-xs font-bold text-white">
                                                                 {stack.curator.name?.charAt(0) || '?'}
                                                             </div>
                                                         )}

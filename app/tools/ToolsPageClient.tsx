@@ -107,7 +107,7 @@ export default function ToolsPage() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5, delay: 0.1 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6 backdrop-blur-sm"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 text-sm font-medium mb-6 backdrop-blur-sm"
                     >
                         <Sparkles className="w-4 h-4" />
                         <span>{totalTools} tools, vetted for real work</span>
@@ -115,7 +115,7 @@ export default function ToolsPage() {
 
                     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance max-w-4xl mx-auto leading-tight">
                         Skip the hype. Find the{" "}
-                        <span className="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
+                        <span className="bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
                             tools that ship
                         </span>{" "}
                         your work faster.
@@ -168,7 +168,7 @@ export default function ToolsPage() {
                         transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.35 }}
                         className="grid gap-6 md:grid-cols-3 text-left max-w-5xl mx-auto mb-12"
                     >
-                        <div className="rounded-2xl border border-border/40 bg-card/50 p-6">
+                        <div className="rounded-2xl border border-border/40 bg-white p-6">
                             <div className="flex items-center gap-2 mb-3 text-sm text-foreground/80">
                                 <ShieldCheck className="w-4 h-4 text-emerald-500" />
                                 Real-use validation
@@ -177,7 +177,7 @@ export default function ToolsPage() {
                                 We prioritize tools with clear workflows, stable UX, and measurable time-savings.
                             </p>
                         </div>
-                        <div className="rounded-2xl border border-border/40 bg-card/50 p-6">
+                        <div className="rounded-2xl border border-border/40 bg-white p-6">
                             <div className="flex items-center gap-2 mb-3 text-sm text-foreground/80">
                                 <RefreshCw className="w-4 h-4 text-blue-500" />
                                 Monthly rechecks
@@ -186,7 +186,7 @@ export default function ToolsPage() {
                                 Pricing, policies, and features are reviewed on a monthly cadence.
                             </p>
                         </div>
-                        <div className="rounded-2xl border border-border/40 bg-card/50 p-6">
+                        <div className="rounded-2xl border border-border/40 bg-white p-6">
                             <div className="flex items-center gap-2 mb-3 text-sm text-foreground/80">
                                 <Layers className="w-4 h-4 text-violet-500" />
                                 Stack compatibility
@@ -249,14 +249,14 @@ export default function ToolsPage() {
                                         <div className="p-6 flex flex-col h-full">
                                             <div className="flex items-start justify-between mb-4">
                                                 <div>
-                                                    <h3 className="text-lg font-semibold text-foreground mb-1 group-hover:text-indigo-400 transition-colors">
+                                                    <h3 className="text-lg font-semibold text-foreground mb-1 group-hover:text-indigo-600 transition-colors">
                                                         {stack.name}
                                                     </h3>
                                                     <p className="text-sm text-muted-foreground line-clamp-2">
                                                         {"summary" in stack ? stack.summary : (stack.description ?? "A curated stack for faster outcomes.")}
                                                     </p>
                                                 </div>
-                                                <div className="p-2 rounded-full bg-indigo-500/10 text-indigo-400">
+                                                <div className="p-2 rounded-full bg-indigo-500/10 text-indigo-600">
                                                     <Layers className="w-5 h-5" />
                                                 </div>
                                             </div>
@@ -283,7 +283,7 @@ export default function ToolsPage() {
                                                             </div>
                                                         )}
                                                     </div>
-                                                    <div className="flex items-center gap-1 text-xs text-indigo-400 font-medium">
+                                                    <div className="flex items-center gap-1 text-xs text-indigo-600 font-medium">
                                                         View Stack
                                                         <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
                                                     </div>

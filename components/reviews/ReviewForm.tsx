@@ -66,7 +66,7 @@ export function ReviewForm({ toolSlug }: { toolSlug: string }) {
     };
 
     return (
-        <div className="p-6 rounded-xl bg-secondary/30 border border-border/30 backdrop-blur-sm">
+        <div className="p-6 rounded-xl bg-secondary border border-border/30 backdrop-blur-sm">
             <h3 className="text-lg font-semibold mb-4">Write a Review</h3>
 
             <form onSubmit={handleSubmit} className="space-y-4">

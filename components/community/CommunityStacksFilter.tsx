@@ -72,7 +72,7 @@ export function CommunityStacksFilter({ initialFilters }: CommunityStacksFilterP
             placeholder="Search community stacks..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="bg-background/50 h-10"
+            className="bg-muted h-10"
           />
         </div>
         <Button type="submit" variant="secondary">
@@ -96,7 +96,7 @@ export function CommunityStacksFilter({ initialFilters }: CommunityStacksFilterP
               setSortBy(value);
               updateFilters({ sortBy: value });
             }}
-            className="appearance-none bg-background/50 border border-input rounded-md px-3 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+            className="appearance-none bg-muted border border-input rounded-md px-3 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
           >
             {sortOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -116,7 +116,7 @@ export function CommunityStacksFilter({ initialFilters }: CommunityStacksFilterP
               setTimeRange(value);
               updateFilters({ timeRange: value });
             }}
-            className="appearance-none bg-background/50 border border-input rounded-md px-3 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+            className="appearance-none bg-muted border border-input rounded-md px-3 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
           >
             {timeOptions.map((option) => (
               <option key={option.value} value={option.value}>

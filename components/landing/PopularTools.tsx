@@ -44,7 +44,7 @@ export function PopularTools() {
             </Badge>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
               Popular{" "}
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-vibe-electric to-vibe-cyan">
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-purple-600">
                 AI Tools
               </span>
             </h2>

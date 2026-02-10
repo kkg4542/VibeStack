@@ -221,7 +221,7 @@ export default function FavoritesPage() {
 
                         <div className="flex items-center gap-3">
                             {/* View Mode Toggle */}
-                            <div className="flex items-center bg-card/50 rounded-lg border border-border/50 p-1">
+                            <div className="flex items-center bg-white rounded-lg border border-border/50 p-1">
                                 <button
                                     onClick={() => setViewMode('grid')}
                                     className={`p-2 rounded-md transition-colors ${viewMode === 'grid' ? 'bg-indigo-500 text-white' : 'text-muted-foreground hover:text-foreground'}`}
@@ -266,7 +266,7 @@ export default function FavoritesPage() {
                             placeholder="Search favorites..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-10 rounded-full bg-card/50 border-border/50"
+                            className="pl-10 rounded-full bg-white border-border/50"
                         />
                         {searchQuery && (
                             <button
@@ -282,7 +282,7 @@ export default function FavoritesPage() {
                     <select
                         value={selectedCategory}
                         onChange={(e) => setSelectedCategory(e.target.value)}
-                        className="px-4 py-2 rounded-full bg-card/50 border border-border/50 text-sm"
+                        className="px-4 py-2 rounded-full bg-white border border-border/50 text-sm"
                     >
                         <option value="all">All Categories</option>
                         {categories.filter(c => c !== 'all').map(cat => (
@@ -294,7 +294,7 @@ export default function FavoritesPage() {
                     <select
                         value={sortBy}
                         onChange={(e) => setSortBy(e.target.value as SortOption)}
-                        className="px-4 py-2 rounded-full bg-card/50 border border-border/50 text-sm"
+                        className="px-4 py-2 rounded-full bg-white border border-border/50 text-sm"
                     >
                         <option value="newest">Newest First</option>
                         <option value="oldest">Oldest First</option>

@@ -110,7 +110,7 @@ export function StackCardSkeleton() {
 
 export function CategoryCardSkeleton() {
   return (
-    <div className="h-full rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm p-6 space-y-4">
+    <div className="h-full rounded-xl border border-border/50 bg-white border border-border shadow-sm p-6 space-y-4">
       <div className="flex items-start justify-between">
         <VibeSkeleton variant="card" className="h-12 w-12" />
         <VibeSkeleton variant="circle" className="h-6 w-16" />

@@ -19,7 +19,7 @@ const stats = [
     suffix: "+",
     label: "AI Tools",
     description: "Curated and reviewed",
-    color: "from-vibe-electric to-vibe-cyan",
+    color: "from-cyan-600 to-blue-600",
   },
   {
     icon: Layers,
@@ -27,7 +27,7 @@ const stats = [
     suffix: "+",
     label: "AI Stacks",
     description: "Ready-to-use workflows",
-    color: "from-vibe-neon to-vibe-purple",
+    color: "from-purple-600 to-pink-600",
   },
   {
     icon: Users,

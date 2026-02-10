@@ -34,7 +34,7 @@ export default async function TestimonialsPage() {
                         </Badge>
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
                             Loved by{" "}
-                            <span className="text-transparent bg-clip-text bg-linear-to-r from-vibe-electric to-vibe-neon">
+                            <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600">
                                 Developers
                             </span>
                         </h1>
