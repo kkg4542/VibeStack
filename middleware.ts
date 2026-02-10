@@ -1,8 +1,15 @@
-
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
+import { 
+  generateCsrfToken, 
+  validateCsrfToken, 
+  isCsrfProtectedMethod, 
+  isCsrfExcludedPath,
+  CSRF_COOKIE_NAME,
+  CSRF_HEADER_NAME 
+} from "@/lib/csrf";
 
 // Initialize Redis client for rate limiting
 const redis = (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN)
@@ -67,6 +74,7 @@ function getClientIP(req: NextRequest): string {
 
 export async function middleware(req: NextRequest) {
   const ip = getClientIP(req);
+  const response = NextResponse.next();
 
   // Check for HTTPS in production
   if (process.env.NODE_ENV === "production" && req.headers.get("x-forwarded-proto") !== "https") {
@@ -74,6 +82,47 @@ export async function middleware(req: NextRequest) {
       `https://${req.headers.get("host")}${req.nextUrl.pathname}`,
       301
     );
+  }
+
+  // CSRF Protection for state-changing requests
+  const isProtectedMethod = isCsrfProtectedMethod(req.method);
+  const isExcludedPath = isCsrfExcludedPath(req.nextUrl.pathname);
+  
+  if (isProtectedMethod && !isExcludedPath && req.nextUrl.pathname.startsWith("/api")) {
+    const { valid, token } = await validateCsrfToken(req);
+    
+    if (!valid) {
+      return new NextResponse(
+        JSON.stringify({ 
+          error: "Invalid or missing CSRF token",
+          code: "CSRF_INVALID"
+        }), 
+        {
+          status: 403,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    }
+    
+    // Add CSRF token to response header for subsequent requests
+    if (token) {
+      response.headers.set(CSRF_HEADER_NAME, token);
+    }
+  }
+  
+  // Generate new CSRF token for GET requests if not present
+  if (req.method === "GET" && !req.cookies.get(CSRF_COOKIE_NAME)) {
+    const csrfToken = await generateCsrfToken();
+    response.cookies.set(CSRF_COOKIE_NAME, csrfToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/",
+      maxAge: 60 * 60 * 24, // 24 hours
+    });
+    response.headers.set(CSRF_HEADER_NAME, csrfToken);
   }
 
   // Protect only /admin and /api/... (sensitive) routes
@@ -84,7 +133,10 @@ export async function middleware(req: NextRequest) {
       !req.nextUrl.pathname.startsWith("/api/tools") &&
       !req.nextUrl.pathname.startsWith("/api/stacks") &&
       !req.nextUrl.pathname.startsWith("/api/sponsorships") &&
-      !req.nextUrl.pathname.startsWith("/api/blog"));
+      !req.nextUrl.pathname.startsWith("/api/blog") &&
+      !req.nextUrl.pathname.startsWith("/api/csrf") &&
+      !req.nextUrl.pathname.startsWith("/api/webhooks") &&
+      !req.nextUrl.pathname.startsWith("/api/stripe/webhook"));
 
   if (isProtectedPath) {
     // Check rate limiting
@@ -141,8 +193,6 @@ export async function middleware(req: NextRequest) {
           // Clear failed attempts on success
           failedAttempts.delete(ip);
 
-          const response = NextResponse.next();
-
           // Add security headers
           response.headers.set("X-Content-Type-Options", "nosniff");
           response.headers.set("X-Frame-Options", "DENY");
@@ -168,7 +218,6 @@ export async function middleware(req: NextRequest) {
   if (req.nextUrl.pathname.startsWith("/api") && process.env.UPSTASH_REDIS_REST_URL && ratelimit) {
     const { success, limit, remaining } = await ratelimit.api.limit(ip);
 
-    const response = NextResponse.next();
     response.headers.set("X-RateLimit-Limit", limit.toString());
     response.headers.set("X-RateLimit-Remaining", remaining.toString());
 
@@ -186,7 +235,12 @@ export async function middleware(req: NextRequest) {
     return response;
   }
 
-  return NextResponse.next();
+  // Add security headers to all responses
+  response.headers.set("X-Content-Type-Options", "nosniff");
+  response.headers.set("X-Frame-Options", "DENY");
+  response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+
+  return response;
 }
 
 export const config = {

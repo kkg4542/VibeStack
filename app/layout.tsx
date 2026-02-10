@@ -5,12 +5,14 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { QueryProvider } from "@/components/providers/QueryProvider";
+import { CsrfProvider } from "@/components/providers/CsrfProvider";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
 import { ScrollProgress } from "@/components/effects/ScrollProgress";
+import { getCsrfToken } from "@/lib/csrf";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -68,11 +70,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const csrfToken = await getCsrfToken();
+  
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -89,16 +93,18 @@ export default function RootLayout({
           Skip to main content
         </a>
         <ThemeProvider defaultTheme="dark" enableSystem>
-          <SessionProvider>
-            <QueryProvider>
-              <ScrollProgress />
-              <Navbar />
-              <main id="main-content">
-                {children}
-              </main>
-              <Footer />
-            </QueryProvider>
-          </SessionProvider>
+          <CsrfProvider initialToken={csrfToken}>
+            <SessionProvider>
+              <QueryProvider>
+                <ScrollProgress />
+                <Navbar />
+                <main id="main-content">
+                  {children}
+                </main>
+                <Footer />
+              </QueryProvider>
+            </SessionProvider>
+          </CsrfProvider>
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />

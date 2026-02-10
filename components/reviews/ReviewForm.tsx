@@ -7,9 +7,11 @@ import { Star, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import { AuthDialog } from "@/components/auth/AuthDialog";
+import { useCsrfFetch } from "@/hooks/useCsrfFetch";
 
 export function ReviewForm({ toolSlug }: { toolSlug: string }) {
     const { data: session } = useSession();
+    const { csrfFetch } = useCsrfFetch();
     const user = session?.user;
 
     const [rating, setRating] = useState(0);
@@ -34,7 +36,7 @@ export function ReviewForm({ toolSlug }: { toolSlug: string }) {
         setIsSubmitting(true);
 
         try {
-            const res = await fetch("/api/reviews", {
+            const res = await csrfFetch("/api/reviews", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

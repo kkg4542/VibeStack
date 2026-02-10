@@ -29,6 +29,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useCsrfFetch } from "@/hooks/useCsrfFetch";
 
 const pricingPlans = [
     {
@@ -146,6 +147,7 @@ const rejectionReasons = [
 
 export default function SubmitToolPage() {
     const searchParams = useSearchParams();
+    const { csrfFetch } = useCsrfFetch();
     const [selectedPlan, setSelectedPlan] = useState<string>("priority");
     const [formData, setFormData] = useState({
         toolName: "",
@@ -173,7 +175,7 @@ export default function SubmitToolPage() {
         setIsSubmitting(true);
 
         try {
-            const response = await fetch("/api/submissions/checkout", {
+            const response = await csrfFetch("/api/submissions/checkout", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
