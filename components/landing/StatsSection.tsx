@@ -109,7 +109,7 @@ export function StatsSection() {
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
             Trusted by{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-vibe-electric via-vibe-cyan to-vibe-neon">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-vibe-electric via-vibe-cyan to-vibe-neon">
               Developers
             </span>
             {" "}Worldwide
@@ -148,7 +148,7 @@ export function StatsSection() {
 
                     {/* Value */}
                     <div className="text-4xl md:text-5xl font-bold mb-2">
-                      <span className={`text-transparent bg-clip-text bg-gradient-to-r ${stat.color}`}>
+                      <span className={`text-transparent bg-clip-text bg-linear-to-r ${stat.color}`}>
                         <AnimatedNumber 
                           value={stat.value} 
                           suffix={stat.suffix}

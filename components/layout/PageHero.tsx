@@ -48,7 +48,7 @@ export function PageHero({
       <h1 className={`${designSystem.typography.hero} mb-6 ${centered ? 'max-w-4xl mx-auto' : ''}`}>
         {title}{" "}
         {highlightText && (
-          <span className={`bg-clip-text text-transparent bg-gradient-to-r ${designSystem.gradients.text}`}>
+          <span className={`bg-clip-text text-transparent bg-linear-to-r ${designSystem.gradients.text}`}>
             {highlightText}
           </span>
         )}
@@ -87,7 +87,7 @@ export function CTAButton({
   const sizeClass = designSystem.buttons[size];
   
   const variantClasses = {
-    primary: 'bg-gradient-to-r from-vibe-electric to-vibe-cyan hover:shadow-lg hover:shadow-vibe-electric/30 text-white',
+    primary: 'bg-linear-to-r from-vibe-electric to-vibe-cyan hover:shadow-lg hover:shadow-vibe-electric/30 text-white',
     secondary: 'bg-secondary hover:bg-secondary/80',
     outline: 'border border-border/50 hover:border-vibe-electric/50 hover:bg-vibe-electric/5',
   };
@@ -132,7 +132,7 @@ export function SectionHeader({
       <h2 className={`${designSystem.typography.section} mb-4`}>
         {title}{" "}
         {highlightText && (
-          <span className={`text-transparent bg-clip-text bg-gradient-to-r ${designSystem.gradients.text}`}>
+          <span className={`text-transparent bg-clip-text bg-linear-to-r ${designSystem.gradients.text}`}>
             {highlightText}
           </span>
         )}

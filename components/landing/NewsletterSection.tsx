@@ -49,7 +49,7 @@ export function NewsletterSection() {
       <div className="absolute inset-0 bg-gradient-to-b from-background via-vibe-electric/5 to-background" />
       
       {/* Decorative elements */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-vibe-electric/10 via-vibe-cyan/10 to-vibe-neon/10 blur-[120px] rounded-full -z-10" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-linear-to-r from-vibe-electric/10 via-vibe-cyan/10 to-vibe-neon/10 blur-[120px] rounded-full -z-10" />
 
       <div className="container px-4 mx-auto relative z-10">
         <m.div
@@ -75,7 +75,7 @@ export function NewsletterSection() {
                 </Badge>
                 <h2 className="text-3xl md:text-4xl font-bold mb-4">
                   Get the Latest{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-vibe-electric to-vibe-cyan">
+                  <span className="text-transparent bg-clip-text bg-linear-to-r from-vibe-electric to-vibe-cyan">
                     AI Insights
                   </span>
                 </h2>
@@ -122,7 +122,7 @@ export function NewsletterSection() {
                   <Button 
                     type="submit" 
                     disabled={isSubmitting || isSuccess}
-                    className="h-12 px-6 bg-gradient-to-r from-vibe-electric to-vibe-cyan hover:shadow-lg hover:shadow-vibe-electric/30 transition-all duration-300"
+                    className="h-12 px-6 bg-linear-to-r from-vibe-electric to-vibe-cyan hover:shadow-lg hover:shadow-vibe-electric/30 transition-all duration-300"
                   >
                     {isSuccess ? (
                       <>

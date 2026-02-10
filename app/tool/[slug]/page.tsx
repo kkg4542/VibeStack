@@ -33,9 +33,30 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const tool = await getToolBySlug(slug);
     if (!tool) return { title: "Tool Not Found" };
 
+    const url = `https://usevibestack.com/tool/${tool.slug}`;
+
     return {
-        title: `${tool.title} Review - AI Productivity Lab`,
+        title: `${tool.title} Review & Features - AI Productivity Lab`,
         description: tool.description,
+        openGraph: {
+            title: `${tool.title} - VibeStack AI Tools`,
+            description: tool.description,
+            url: url,
+            type: "website",
+            images: [
+                {
+                    url: `https://usevibestack.com/api/og?title=${encodeURIComponent(tool.title)}`,
+                    width: 1200,
+                    height: 630,
+                    alt: tool.title,
+                }
+            ]
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: tool.title,
+            description: tool.description,
+        }
     };
 }
 
@@ -416,10 +437,12 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                         "description": tool.description,
                         "applicationCategory": tool.category + "Application",
                         "operatingSystem": "Web, Cloud",
+                        "url": `https://usevibestack.com/tool/${tool.slug}`,
                         "offers": {
                             "@type": "Offer",
                             "price": tool.pricing === "Free" ? "0" : "Varies",
-                            "priceCurrency": "USD"
+                            "priceCurrency": "USD",
+                            "availability": "https://schema.org/InStock"
                         },
                         "aggregateRating": tool.review ? {
                             "@type": "AggregateRating",
@@ -427,7 +450,11 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                             "reviewCount": "1",
                             "bestRating": "5",
                             "worstRating": "1"
-                        } : undefined
+                        } : undefined,
+                        "publisher": {
+                            "@type": "Organization",
+                            "name": "VibeStack"
+                        }
                     })
                 }}
             />

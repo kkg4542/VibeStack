@@ -132,7 +132,7 @@ export function StackInsights({ insights }: StackInsightsProps) {
                       whileInView={{ width: `${(tool.usage / 100) * 100}%` }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: index * 0.1 }}
-                      className="h-full bg-gradient-to-r from-vibe-electric to-vibe-purple rounded-full"
+                      className="h-full bg-linear-to-r from-vibe-electric to-vibe-purple rounded-full"
                     />
                   </div>
                   <span className="text-sm text-muted-foreground w-12 text-right">{tool.usage}%</span>

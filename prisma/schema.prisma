@@ -393,3 +393,31 @@ model StackAdoption {
   @@index([userId])
   @@map("stack_adoptions")
 }
+
+// Community Stack Likes (for popularity metrics)
+model CommunityStackLike {
+  id        String   @id @default(cuid())
+  stackId   String   @map("stack_id")
+  userId    String   @map("user_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([stackId, userId])
+  @@index([stackId])
+  @@index([userId])
+  @@index([createdAt])
+  @@map("community_stack_likes")
+}
+
+// User Saved Stacks (for "My Stacks" feature)
+model UserSavedStack {
+  id        String   @id @default(cuid())
+  stackId   String   @map("stack_id")
+  userId    String   @map("user_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([stackId, userId])
+  @@index([stackId])
+  @@index([userId])
+  @@index([createdAt])
+  @@map("user_saved_stacks")
+}

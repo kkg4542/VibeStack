@@ -57,8 +57,8 @@ export function Navbar() {
                 <div className="container mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
                     {/* Logo area */}
                     <div className="flex items-center gap-2">
-                        <Link id="navbar-logo" href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
-                            <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
+                        <Link id="navbar-logo" href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80" aria-label="VibeStack Home">
+                            <span className="text-xl font-bold tracking-tight bg-linear-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
                                 VibeStack
                             </span>
                         </Link>
@@ -181,7 +181,8 @@ export function Navbar() {
                             size="icon"
                             onClick={() => setIsOpen(true)}
                             className="md:hidden text-muted-foreground"
-                            aria-label="Open menu"
+                            aria-label="Open navigation menu"
+                            aria-expanded={isOpen}
                         >
                             <Menu className="h-5 w-5" />
                         </Button>

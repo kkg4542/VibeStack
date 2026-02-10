@@ -1,4 +1,5 @@
 import { unstable_cache } from "next/cache";
+import { prisma } from "@/lib/prisma";
 
 // Cache durations
 const CACHE_1MIN = 60;
@@ -41,129 +42,38 @@ export interface CommunityStackFilters {
   timeRange?: 'all' | 'week' | 'month' | 'year';
 }
 
-// Mock data for community stacks
-const mockCommunityStacks: CommunityStackWithDetails[] = [
-  {
-    id: "cs_001",
-    name: "AI Content Creator Suite",
-    description: "Perfect combination of tools for creating viral content with AI assistance. Includes writing, image generation, and video editing.",
-    isPublic: true,
-    isFeatured: true,
-    featuredOrder: 1,
-    viewCount: 3420,
-    saveCount: 128,
-    likeCount: 89,
-    createdAt: new Date("2024-01-15"),
-    updatedAt: new Date("2024-01-15"),
+// Helper function to convert Prisma CommunityStack to CommunityStackWithDetails
+function mapToCommunityStackWithDetails(stack: any): CommunityStackWithDetails {
+  return {
+    id: stack.id,
+    name: stack.name,
+    description: stack.description,
+    isPublic: stack.isPublic,
+    isFeatured: stack.isFeatured,
+    featuredOrder: stack.featuredOrder,
+    viewCount: stack.viewCount,
+    saveCount: stack._count?.savedBy || 0,
+    likeCount: stack._count?.likes || 0,
+    createdAt: stack.createdAt,
+    updatedAt: stack.updatedAt,
     curator: {
-      id: "user_001",
-      name: "Sarah Chen",
-      image: null,
+      id: stack.curator.id,
+      name: stack.curator.name,
+      image: stack.curator.image,
     },
-    tools: [],
-    forkedFrom: null,
-  },
-  {
-    id: "cs_002",
-    name: "Developer Productivity Stack",
-    description: "My go-to tools for shipping code faster. AI-powered coding assistants, documentation generators, and deployment automation.",
-    isPublic: true,
-    isFeatured: true,
-    featuredOrder: 2,
-    viewCount: 2890,
-    saveCount: 95,
-    likeCount: 72,
-    createdAt: new Date("2024-02-01"),
-    updatedAt: new Date("2024-02-01"),
-    curator: {
-      id: "user_002",
-      name: "Alex Rodriguez",
-      image: null,
-    },
-    tools: [],
-    forkedFrom: null,
-  },
-  {
-    id: "cs_003",
-    name: "Design System Starter",
-    description: "Everything you need to build a scalable design system. From component libraries to asset management.",
-    isPublic: true,
-    isFeatured: false,
-    featuredOrder: 0,
-    viewCount: 1850,
-    saveCount: 64,
-    likeCount: 45,
-    createdAt: new Date("2024-02-10"),
-    updatedAt: new Date("2024-02-10"),
-    curator: {
-      id: "user_003",
-      name: "Maya Patel",
-      image: null,
-    },
-    tools: [],
-    forkedFrom: null,
-  },
-  {
-    id: "cs_004",
-    name: "Solo Founder Toolkit",
-    description: "The exact stack I used to launch my SaaS to $10k MRR in 3 months. No-code, low-code, and AI tools that actually work.",
-    isPublic: true,
-    isFeatured: true,
-    featuredOrder: 3,
-    viewCount: 5210,
-    saveCount: 234,
-    likeCount: 156,
-    createdAt: new Date("2024-01-20"),
-    updatedAt: new Date("2024-01-20"),
-    curator: {
-      id: "user_004",
-      name: "James Wilson",
-      image: null,
-    },
-    tools: [],
-    forkedFrom: null,
-  },
-  {
-    id: "cs_005",
-    name: "Data Science Pipeline",
-    description: "Complete workflow for data cleaning, analysis, visualization, and model training. Used by our data science team daily.",
-    isPublic: true,
-    isFeatured: false,
-    featuredOrder: 0,
-    viewCount: 1230,
-    saveCount: 42,
-    likeCount: 28,
-    createdAt: new Date("2024-02-15"),
-    updatedAt: new Date("2024-02-15"),
-    curator: {
-      id: "user_005",
-      name: "Emily Zhang",
-      image: null,
-    },
-    tools: [],
-    forkedFrom: null,
-  },
-  {
-    id: "cs_006",
-    name: "Marketing Automation Flow",
-    description: "Automate your entire marketing funnel from lead capture to nurture campaigns. Saves 20+ hours per week.",
-    isPublic: true,
-    isFeatured: false,
-    featuredOrder: 0,
-    viewCount: 2150,
-    saveCount: 78,
-    likeCount: 53,
-    createdAt: new Date("2024-01-28"),
-    updatedAt: new Date("2024-01-28"),
-    curator: {
-      id: "user_006",
-      name: "David Kim",
-      image: null,
-    },
-    tools: [],
-    forkedFrom: null,
-  },
-];
+    tools: stack.tools.map((tool: any) => ({
+      id: tool.id,
+      name: tool.title,
+      slug: tool.slug,
+      category: tool.category,
+      pricing: tool.pricing,
+    })),
+    forkedFrom: stack.forkedFrom ? {
+      id: stack.forkedFrom.id,
+      name: stack.forkedFrom.name,
+    } : null,
+  };
+}
 
 // Get all public community stacks with filtering and sorting
 export const getCommunityStacks = unstable_cache(
@@ -173,17 +83,18 @@ export const getCommunityStacks = unstable_cache(
   }> => {
     const { search, sortBy = 'popular', timeRange = 'all' } = filters;
 
-    let filteredStacks = [...mockCommunityStacks];
+    // Build where clause
+    const where: any = {
+      isPublic: true,
+    };
 
     // Apply search filter
     if (search) {
-      const searchLower = search.toLowerCase();
-      filteredStacks = filteredStacks.filter(
-        stack => 
-          stack.name.toLowerCase().includes(searchLower) ||
-          stack.description?.toLowerCase().includes(searchLower) ||
-          stack.curator.name?.toLowerCase().includes(searchLower)
-      );
+      where.OR = [
+        { name: { contains: search, mode: 'insensitive' } },
+        { description: { contains: search, mode: 'insensitive' } },
+        { curator: { name: { contains: search, mode: 'insensitive' } } },
+      ];
     }
 
     // Apply time range filter
@@ -201,34 +112,83 @@ export const getCommunityStacks = unstable_cache(
           startDate = new Date(now.setFullYear(now.getFullYear() - 1));
           break;
       }
-      filteredStacks = filteredStacks.filter(stack => stack.createdAt >= startDate);
+      where.createdAt = { gte: startDate };
     }
 
-    // Apply sorting
+    // Build orderBy
+    let orderBy: any = {};
     switch (sortBy) {
       case 'newest':
-        filteredStacks.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+        orderBy = { createdAt: 'desc' };
         break;
       case 'mostSaved':
-        filteredStacks.sort((a, b) => b.saveCount - a.saveCount);
+        orderBy = { savedBy: { _count: 'desc' } };
         break;
       case 'mostViewed':
-        filteredStacks.sort((a, b) => b.viewCount - a.viewCount);
+        orderBy = { viewCount: 'desc' };
         break;
       case 'popular':
       default:
-        filteredStacks.sort((a, b) => {
-          const scoreA = a.likeCount * 3 + a.saveCount * 2 + a.viewCount;
-          const scoreB = b.likeCount * 3 + b.saveCount * 2 + b.viewCount;
-          return scoreB - scoreA;
-        });
+        // For popularity, we'll fetch and sort manually
+        orderBy = { createdAt: 'desc' };
         break;
     }
 
-    const totalCount = filteredStacks.length;
-    const stacks = filteredStacks.slice(offset, offset + limit);
+    // Fetch stacks with counts
+    const stacks = await prisma.communityStack.findMany({
+      where,
+      include: {
+        curator: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+          },
+        },
+        tools: {
+          select: {
+            id: true,
+            title: true,
+            slug: true,
+            category: true,
+            pricing: true,
+          },
+        },
+        forkedFrom: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        _count: {
+          select: {
+            likes: true,
+            savedBy: true,
+          },
+        },
+      },
+      orderBy,
+      take: limit,
+      skip: offset,
+    });
 
-    return { stacks, totalCount };
+    // For popular sorting, we need to calculate score and sort manually
+    let sortedStacks = stacks;
+    if (sortBy === 'popular') {
+      sortedStacks = stacks.sort((a, b) => {
+        const scoreA = (a._count?.likes || 0) * 3 + (a._count?.savedBy || 0) * 2 + a.viewCount;
+        const scoreB = (b._count?.likes || 0) * 3 + (b._count?.savedBy || 0) * 2 + b.viewCount;
+        return scoreB - scoreA;
+      });
+    }
+
+    // Get total count
+    const totalCount = await prisma.communityStack.count({ where });
+
+    return {
+      stacks: sortedStacks.map(mapToCommunityStackWithDetails),
+      totalCount,
+    };
   },
   ['community-stacks'],
   { revalidate: CACHE_5MIN }
@@ -237,10 +197,48 @@ export const getCommunityStacks = unstable_cache(
 // Get featured community stacks
 export const getFeaturedCommunityStacks = unstable_cache(
   async (limit: number = 6): Promise<CommunityStackWithDetails[]> => {
-    return mockCommunityStacks
-      .filter(stack => stack.isFeatured)
-      .sort((a, b) => a.featuredOrder - b.featuredOrder)
-      .slice(0, limit);
+    const stacks = await prisma.communityStack.findMany({
+      where: {
+        isFeatured: true,
+        isPublic: true,
+      },
+      include: {
+        curator: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+          },
+        },
+        tools: {
+          select: {
+            id: true,
+            title: true,
+            slug: true,
+            category: true,
+            pricing: true,
+          },
+        },
+        forkedFrom: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        _count: {
+          select: {
+            likes: true,
+            savedBy: true,
+          },
+        },
+      },
+      orderBy: {
+        featuredOrder: 'asc',
+      },
+      take: limit,
+    });
+
+    return stacks.map(mapToCommunityStackWithDetails);
   },
   ['featured-community-stacks'],
   { revalidate: CACHE_5MIN }
@@ -249,7 +247,43 @@ export const getFeaturedCommunityStacks = unstable_cache(
 // Get a single community stack by ID
 export const getCommunityStackById = unstable_cache(
   async (id: string): Promise<CommunityStackWithDetails | null> => {
-    return mockCommunityStacks.find(stack => stack.id === id) || null;
+    const stack = await prisma.communityStack.findUnique({
+      where: { id },
+      include: {
+        curator: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+          },
+        },
+        tools: {
+          select: {
+            id: true,
+            title: true,
+            slug: true,
+            category: true,
+            pricing: true,
+          },
+        },
+        forkedFrom: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        _count: {
+          select: {
+            likes: true,
+            savedBy: true,
+          },
+        },
+      },
+    });
+
+    if (!stack) return null;
+
+    return mapToCommunityStackWithDetails(stack);
   },
   ['community-stack-detail'],
   { revalidate: CACHE_5MIN }
@@ -258,9 +292,46 @@ export const getCommunityStackById = unstable_cache(
 // Get community stacks by user
 export const getUserCommunityStacks = unstable_cache(
   async (userId: string): Promise<CommunityStackWithDetails[]> => {
-    return mockCommunityStacks
-      .filter(stack => stack.curator.id === userId)
-      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+    const stacks = await prisma.communityStack.findMany({
+      where: {
+        curatorId: userId,
+      },
+      include: {
+        curator: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+          },
+        },
+        tools: {
+          select: {
+            id: true,
+            title: true,
+            slug: true,
+            category: true,
+            pricing: true,
+          },
+        },
+        forkedFrom: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        _count: {
+          select: {
+            likes: true,
+            savedBy: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    return stacks.map(mapToCommunityStackWithDetails);
   },
   ['user-community-stacks'],
   { revalidate: CACHE_5MIN }
@@ -276,30 +347,43 @@ export async function createCommunityStack(data: {
 }) {
   const { userId, name, description, toolIds, isPublic = true } = data;
 
-  // In a real implementation, this would create a database record
-  // For now, just return a mock response
-  const newStack: CommunityStackWithDetails = {
-    id: `cs_${Date.now()}`,
-    name,
-    description: description || null,
-    isPublic,
-    isFeatured: false,
-    featuredOrder: 0,
-    viewCount: 0,
-    saveCount: 0,
-    likeCount: 0,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    curator: {
-      id: userId,
-      name: 'Anonymous',
-      image: null,
+  const newStack = await prisma.communityStack.create({
+    data: {
+      name,
+      description,
+      isPublic,
+      curatorId: userId,
+      tools: {
+        connect: toolIds.map(id => ({ id })),
+      },
     },
-    tools: [],
-    forkedFrom: null,
-  };
+    include: {
+      curator: {
+        select: {
+          id: true,
+          name: true,
+          image: true,
+        },
+      },
+      tools: {
+        select: {
+          id: true,
+          title: true,
+          slug: true,
+          category: true,
+          pricing: true,
+        },
+      },
+      _count: {
+        select: {
+          likes: true,
+          savedBy: true,
+        },
+      },
+    },
+  });
 
-  return newStack;
+  return mapToCommunityStackWithDetails(newStack);
 }
 
 // Update a community stack
@@ -310,85 +394,302 @@ export async function updateCommunityStack(
     name?: string;
     description?: string;
     isPublic?: boolean;
+    toolIds?: string[];
   }
 ) {
-  // In a real implementation, this would update the database
-  const stack = mockCommunityStacks.find(s => s.id === id);
-  
-  if (!stack) {
+  // Verify ownership
+  const existingStack = await prisma.communityStack.findFirst({
+    where: {
+      id,
+      curatorId: userId,
+    },
+  });
+
+  if (!existingStack) {
     throw new Error('Stack not found or unauthorized');
   }
 
-  if (stack.curator.id !== userId) {
-    throw new Error('Stack not found or unauthorized');
-  }
+  const { toolIds, ...updateData } = data;
 
-  return { ...stack, ...data, updatedAt: new Date() };
+  const updatedStack = await prisma.communityStack.update({
+    where: { id },
+    data: {
+      ...updateData,
+      ...(toolIds && {
+        tools: {
+          set: toolIds.map(id => ({ id })),
+        },
+      }),
+    },
+    include: {
+      curator: {
+        select: {
+          id: true,
+          name: true,
+          image: true,
+        },
+      },
+      tools: {
+        select: {
+          id: true,
+          title: true,
+          slug: true,
+          category: true,
+          pricing: true,
+        },
+      },
+      _count: {
+        select: {
+          likes: true,
+          savedBy: true,
+        },
+      },
+    },
+  });
+
+  return mapToCommunityStackWithDetails(updatedStack);
 }
 
 // Delete a community stack
 export async function deleteCommunityStack(id: string, userId: string) {
-  const stack = mockCommunityStacks.find(s => s.id === id);
+  // Verify ownership
+  const existingStack = await prisma.communityStack.findFirst({
+    where: {
+      id,
+      curatorId: userId,
+    },
+  });
 
-  if (!stack) {
+  if (!existingStack) {
     throw new Error('Stack not found or unauthorized');
   }
 
-  if (stack.curator.id !== userId) {
-    throw new Error('Stack not found or unauthorized');
-  }
+  await prisma.communityStack.delete({
+    where: { id },
+  });
 
-  // In a real implementation, this would delete from database
   return true;
 }
 
 // Increment view count
 export async function incrementCommunityStackView(stackId: string) {
-  // In a real implementation, this would update the database
-  console.log(`View incremented for community stack: ${stackId}`);
+  await prisma.communityStack.update({
+    where: { id: stackId },
+    data: {
+      viewCount: {
+        increment: 1,
+      },
+    },
+  });
 }
 
 // Toggle like
 export async function toggleCommunityStackLike(stackId: string, userId: string) {
-  // TODO: Implement with a separate CommunityStackLike table
-  console.log(`Toggle like for stack ${stackId} by user ${userId}`);
-  return { liked: true };
+  // Check if like already exists
+  const existingLike = await prisma.communityStackLike.findUnique({
+    where: {
+      stackId_userId: {
+        stackId,
+        userId,
+      },
+    },
+  });
+
+  if (existingLike) {
+    // Unlike
+    await prisma.communityStackLike.delete({
+      where: {
+        stackId_userId: {
+          stackId,
+          userId,
+        },
+      },
+    });
+    return { liked: false };
+  } else {
+    // Like
+    await prisma.communityStackLike.create({
+      data: {
+        stackId,
+        userId,
+      },
+    });
+    return { liked: true };
+  }
+}
+
+// Check if user has liked a stack
+export async function hasUserLikedStack(stackId: string, userId: string): Promise<boolean> {
+  const like = await prisma.communityStackLike.findUnique({
+    where: {
+      stackId_userId: {
+        stackId,
+        userId,
+      },
+    },
+  });
+
+  return !!like;
 }
 
 // Save stack to user's collection
 export async function saveCommunityStack(stackId: string, userId: string) {
-  // TODO: Implement with a separate UserSavedStack table
-  console.log(`Stack ${stackId} saved by user ${userId}`);
-  return { saved: true };
+  // Check if already saved
+  const existingSave = await prisma.userSavedStack.findUnique({
+    where: {
+      stackId_userId: {
+        stackId,
+        userId,
+      },
+    },
+  });
+
+  if (existingSave) {
+    // Unsave
+    await prisma.userSavedStack.delete({
+      where: {
+        stackId_userId: {
+          stackId,
+          userId,
+        },
+      },
+    });
+    return { saved: false };
+  } else {
+    // Save
+    await prisma.userSavedStack.create({
+      data: {
+        stackId,
+        userId,
+      },
+    });
+    return { saved: true };
+  }
+}
+
+// Check if user has saved a stack
+export async function hasUserSavedStack(stackId: string, userId: string): Promise<boolean> {
+  const saved = await prisma.userSavedStack.findUnique({
+    where: {
+      stackId_userId: {
+        stackId,
+        userId,
+      },
+    },
+  });
+
+  return !!saved;
+}
+
+// Get saved stacks for a user
+export async function getSavedStacksForUser(userId: string): Promise<CommunityStackWithDetails[]> {
+  const savedStacks = await prisma.userSavedStack.findMany({
+    where: {
+      userId,
+    },
+    include: {
+      stack: {
+        include: {
+          curator: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+            },
+          },
+          tools: {
+            select: {
+              id: true,
+              title: true,
+              slug: true,
+              category: true,
+              pricing: true,
+            },
+          },
+          forkedFrom: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+          _count: {
+            select: {
+              likes: true,
+              savedBy: true,
+            },
+          },
+        },
+      },
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+
+  return savedStacks.map((saved: any) => mapToCommunityStackWithDetails(saved.stack));
 }
 
 // Fork a community stack
 export async function forkCommunityStack(stackId: string, userId: string) {
-  const originalStack = mockCommunityStacks.find(s => s.id === stackId);
+  const originalStack = await prisma.communityStack.findUnique({
+    where: { id: stackId },
+    include: {
+      tools: {
+        select: {
+          id: true,
+        },
+      },
+    },
+  });
 
   if (!originalStack) {
     throw new Error('Original stack not found');
   }
 
-  const forkedStack: CommunityStackWithDetails = {
-    ...originalStack,
-    id: `cs_${Date.now()}`,
-    name: `${originalStack.name} (Fork)`,
-    curator: {
-      id: userId,
-      name: 'Anonymous',
-      image: null,
+  const forkedStack = await prisma.communityStack.create({
+    data: {
+      name: `${originalStack.name} (Fork)`,
+      description: originalStack.description,
+      isPublic: true,
+      isFeatured: false,
+      featuredOrder: 0,
+      curatorId: userId,
+      forkedFromId: originalStack.id,
+      tools: {
+        connect: originalStack.tools.map((tool: any) => ({ id: tool.id })),
+      },
     },
-    viewCount: 0,
-    saveCount: 0,
-    likeCount: 0,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    forkedFrom: {
-      id: originalStack.id,
-      name: originalStack.name,
+    include: {
+      curator: {
+        select: {
+          id: true,
+          name: true,
+          image: true,
+        },
+      },
+      tools: {
+        select: {
+          id: true,
+          title: true,
+          slug: true,
+          category: true,
+          pricing: true,
+        },
+      },
+      forkedFrom: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      _count: {
+        select: {
+          likes: true,
+          savedBy: true,
+        },
+      },
     },
-  };
+  });
 
-  return forkedStack;
+  return mapToCommunityStackWithDetails(forkedStack);
 }

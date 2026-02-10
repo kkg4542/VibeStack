@@ -40,7 +40,7 @@ function ToolCard({ tool }: { tool: ToolData }) {
     };
 
     return (
-        <motion.div
+        <motion.article
             layout
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -53,9 +53,10 @@ function ToolCard({ tool }: { tool: ToolData }) {
             <Link
                 id={`tool-card-${tool.slug}`}
                 href={`/tool/${tool.slug}`}
-                className="block relative group h-full"
+                className="block relative group h-full focus-visible:ring-2 focus-visible:ring-primary rounded-3xl outline-none"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
+                aria-label={`View details for ${tool.title}`}
             >
                 <motion.div
                     style={{
@@ -66,7 +67,7 @@ function ToolCard({ tool }: { tool: ToolData }) {
                     className="h-full"
                 >
                     <Card className="h-full relative overflow-hidden border-border/40 bg-card/50 transition-all duration-300 hover:border-border/80 hover:bg-card/80 hover:shadow-2xl">
-                        <div className={`absolute inset-0 bg-linear-to-br ${tool.bgGradient || "from-transparent to-transparent"} opacity-0 transition-opacity duration-500 group-hover:opacity-10`} />
+                        <div className={`absolute inset-0 bg-linear-to-br ${tool.bgGradient || "from-transparent to-transparent"} opacity-0 transition-opacity duration-500 group-hover:opacity-10`} aria-hidden="true" />
 
                         <CardHeader className="relative h-full flex flex-col pt-8" style={{ transformStyle: "preserve-3d" }}>
                             <div className="mb-4 flex items-center justify-between gap-4" style={{ transform: "translateZ(30px)", transformStyle: "preserve-3d" }}>
@@ -83,7 +84,7 @@ function ToolCard({ tool }: { tool: ToolData }) {
                                         transform: "translateZ(60px)",
                                     }}
                                 >
-                                    <ToolIconRenderer slug={tool.slug} className="h-6 w-6" />
+                                    <ToolIconRenderer slug={tool.slug} className="h-6 w-6" aria-hidden="true" />
                                 </motion.div>
                                 <Badge variant="secondary" className="bg-secondary/50 text-xs font-normal text-muted-foreground backdrop-blur-sm" style={{ transform: "translateZ(20px)" }}>
                                     {tool.category}
@@ -103,7 +104,7 @@ function ToolCard({ tool }: { tool: ToolData }) {
                     </Card>
                 </motion.div>
             </Link>
-        </motion.div>
+        </motion.article>
     );
 }
 
@@ -199,6 +200,7 @@ export function ToolsList({ searchQuery = "", tools }: ToolsListProps) {
                                 <button
                                     key={p}
                                     onClick={() => setPricing(p)}
+                                    aria-pressed={pricing === p}
                                     className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${pricing === p
                                         ? "bg-indigo-500 text-white shadow-md"
                                         : "text-muted-foreground hover:text-foreground hover:bg-background/50"
@@ -214,6 +216,7 @@ export function ToolsList({ searchQuery = "", tools }: ToolsListProps) {
                             <select
                                 value={sortBy}
                                 onChange={(e) => setSortBy(e.target.value)}
+                                aria-label="Sort tools"
                                 className="appearance-none bg-secondary/50 border border-border/40 dark:border-white/5 rounded-lg pl-4 pr-10 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground focus:outline-none transition-all cursor-pointer hover:border-border/80"
                             >
                                 <option value="default">Default</option>
@@ -231,6 +234,7 @@ export function ToolsList({ searchQuery = "", tools }: ToolsListProps) {
                             <button
                                 key={cat}
                                 onClick={() => setCategory(cat)}
+                                aria-pressed={category === cat}
                                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${category === cat
                                     ? "bg-indigo-500 text-white border-indigo-500 shadow-md shadow-indigo-500/20"
                                     : "bg-transparent text-muted-foreground border-transparent hover:bg-secondary/80 hover:text-foreground"

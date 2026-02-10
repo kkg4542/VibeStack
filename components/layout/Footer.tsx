@@ -58,7 +58,7 @@ export function Footer() {
                     {/* Brand Column */}
                     <div className="md:col-span-2 space-y-6">
                         <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
-                            <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
+                            <span className="text-xl font-bold tracking-tight bg-linear-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
                                 VibeStack
                             </span>
                         </Link>

@@ -167,7 +167,7 @@ export function VibeHero() {
             
             <div className="h-20 md:h-28 flex items-center justify-center">
               <h1 
-                className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-vibe-electric via-vibe-cyan to-vibe-neon"
+                className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-transparent bg-clip-text bg-linear-to-r from-vibe-electric via-vibe-cyan to-vibe-neon"
                 aria-live="polite"
                 aria-atomic="true"
               >
@@ -197,7 +197,7 @@ export function VibeHero() {
           >
             <div className="relative group">
               {/* Glow effect */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-vibe-electric via-vibe-cyan to-vibe-neon rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-1000" />
+              <div className="absolute -inset-1 bg-linear-to-r from-vibe-electric via-vibe-cyan to-vibe-neon rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-1000" />
               
               {/* Terminal window */}
               <div className="relative terminal-window">
@@ -243,7 +243,7 @@ export function VibeHero() {
                 href="/build"
                 className={buttonVariants({ variant: "default", size: "lg" }) + 
                   " h-14 px-10 text-base font-semibold rounded-full " +
-                  "bg-gradient-to-r from-vibe-electric to-vibe-cyan " +
+                  "bg-linear-to-r from-vibe-electric to-vibe-cyan " +
                   "hover:shadow-lg hover:shadow-vibe-electric/30 " +
                   "transition-all duration-300 group"
                 }

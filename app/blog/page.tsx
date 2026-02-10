@@ -178,6 +178,7 @@ export default function BlogListingPage() {
                                                 <button
                                                     key={cat}
                                                     onClick={() => setSelectedCategory(cat)}
+                                                    aria-pressed={selectedCategory === cat}
                                                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${selectedCategory === cat
                                                         ? "bg-indigo-500 text-white shadow-md"
                                                         : "bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground"
@@ -201,6 +202,7 @@ export default function BlogListingPage() {
                                                 <button
                                                     key={option.value}
                                                     onClick={() => setSortBy(option.value as SortOption)}
+                                                    aria-pressed={sortBy === option.value}
                                                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${sortBy === option.value
                                                         ? "bg-indigo-500 text-white shadow-md"
                                                         : "bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground"
@@ -255,7 +257,7 @@ export default function BlogListingPage() {
 
                                 <div className="grid md:grid-cols-2 gap-6">
                                     {featuredPosts.map((post, index) => (
-                                        <motion.div
+                                        <motion.article
                                             key={post.slug}
                                             initial={{ opacity: 0, y: 20 }}
                                             whileInView={{ opacity: 1, y: 0 }}
@@ -264,11 +266,12 @@ export default function BlogListingPage() {
                                         >
                                             <Link href={`/blog/${post.slug}`} className="group block h-full">
                                                 <Card className="h-full border-border/40 bg-card/50 overflow-hidden transition-all duration-300 hover:border-indigo-500/50 hover:bg-card/80 hover:-translate-y-1 hover:shadow-2xl hover:shadow-indigo-500/10 p-0 gap-0">
-                                                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-secondary/50">
+                                                    <div className="relative aspect-16/10 w-full overflow-hidden bg-secondary/50">
                                                         <Image
                                                             src={post.image}
-                                                            alt={post.title}
+                                                            alt={`Featured image for: ${post.title}`}
                                                             fill
+                                                            priority={index < 2}
                                                             sizes="(max-width: 768px) 100vw, 50vw"
                                                             className="object-cover transition-transform duration-700 group-hover:scale-105"
                                                         />
@@ -289,23 +292,23 @@ export default function BlogListingPage() {
                                                         <div className="flex items-center justify-between text-xs text-muted-foreground">
                                                             <div className="flex items-center gap-4">
                                                                 <span className="flex items-center gap-1">
-                                                                    <User className="w-3 h-3" />
-                                                                    {post.author}
+                                                                    <User className="w-3 h-3" aria-hidden="true" />
+                                                                    <span className="sr-only">Author: </span>{post.author}
                                                                 </span>
                                                                 <span className="flex items-center gap-1">
-                                                                    <Clock className="w-3 h-3" />
-                                                                    {post.readTime}
+                                                                    <Clock className="w-3 h-3" aria-hidden="true" />
+                                                                    <span className="sr-only">Read time: </span>{post.readTime}
                                                                 </span>
                                                             </div>
                                                             <span className="flex items-center gap-1">
-                                                                <Calendar className="w-3 h-3" />
-                                                                {post.date}
+                                                                <Calendar className="w-3 h-3" aria-hidden="true" />
+                                                                <span className="sr-only">Date: </span>{post.date}
                                                             </span>
                                                         </div>
                                                     </div>
                                                 </Card>
                                             </Link>
-                                        </motion.div>
+                                        </motion.article>
                                     ))}
                                 </div>
                             </motion.div>
@@ -355,7 +358,7 @@ export default function BlogListingPage() {
                                     className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
                                 >
                                     {(searchQuery || selectedCategory !== "All" ? filteredPosts : regularPosts).map((post, index) => (
-                                        <motion.div
+                                        <motion.article
                                             key={post.slug}
                                             variants={designSystem.animations.fadeInUp}
                                             transition={{ ...designSystem.animations.fadeInUp.transition, delay: index * 0.05 }}
@@ -365,7 +368,7 @@ export default function BlogListingPage() {
                                                     <div className="relative aspect-video w-full overflow-hidden bg-secondary/50">
                                                         <Image
                                                             src={post.image}
-                                                            alt={post.title}
+                                                            alt={`Article thumbnail: ${post.title}`}
                                                             fill
                                                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                                             className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -378,10 +381,10 @@ export default function BlogListingPage() {
                                                                 <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 group-hover:bg-primary/20 transition-colors">
                                                                     {post.category}
                                                                 </Badge>
-                                                                <span>•</span>
+                                                                <span aria-hidden="true">•</span>
                                                                 <span className="flex items-center">
-                                                                    <Clock className="mr-1 h-3 w-3" />
-                                                                    {post.readTime}
+                                                                    <Clock className="mr-1 h-3 w-3" aria-hidden="true" />
+                                                                    <span className="sr-only">Read time: </span>{post.readTime}
                                                                 </span>
                                                             </div>
                                                             <CardTitle className="text-lg group-hover:text-primary transition-colors text-foreground line-clamp-2">
@@ -393,18 +396,18 @@ export default function BlogListingPage() {
                                                                 {post.excerpt}
                                                             </CardDescription>
                                                             <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground pt-4 border-t border-border/50">
-                                                                <User className="h-3 w-3" />
-                                                                {post.author}
+                                                                <User className="h-3 w-3" aria-hidden="true" />
+                                                                <span className="sr-only">Author: </span> {post.author}
                                                                 <span className="ml-auto flex items-center">
-                                                                    <Calendar className="mr-1 h-3 w-3" />
-                                                                    {post.date}
+                                                                    <Calendar className="mr-1 h-3 w-3" aria-hidden="true" />
+                                                                    <span className="sr-only">Date: </span> {post.date}
                                                                 </span>
                                                             </div>
                                                         </CardContent>
                                                     </div>
                                                 </Card>
                                             </Link>
-                                        </motion.div>
+                                        </motion.article>
                                     ))}
                                 </motion.div>
                             )}
