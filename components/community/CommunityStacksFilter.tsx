@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Search, SlidersHorizontal, Clock, TrendingUp, Heart, Eye, X } from 'lucide-react';
+import { SlidersHorizontal, Clock, TrendingUp, Heart, Eye, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { SearchInput } from "@/components/ui/search-input";
 import { Badge } from '@/components/ui/badge';
 import { CommunityStackFilters } from '@/lib/data/community-stacks';
 
@@ -29,14 +29,14 @@ const timeOptions = [
 export function CommunityStacksFilter({ initialFilters }: CommunityStacksFilterProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  
+
   const [search, setSearch] = useState(initialFilters.search || '');
   const [sortBy, setSortBy] = useState<CommunityStackFilters['sortBy']>(initialFilters.sortBy || 'popular');
   const [timeRange, setTimeRange] = useState<CommunityStackFilters['timeRange']>(initialFilters.timeRange || 'all');
 
   const updateFilters = (updates: Partial<CommunityStackFilters>) => {
     const params = new URLSearchParams(searchParams.toString());
-    
+
     Object.entries(updates).forEach(([key, value]) => {
       if (value && value !== 'all') {
         params.set(key, value);
@@ -44,7 +44,7 @@ export function CommunityStacksFilter({ initialFilters }: CommunityStacksFilterP
         params.delete(key);
       }
     });
-    
+
     router.push(`/community-stacks?${params.toString()}`);
   };
 
@@ -66,13 +66,13 @@ export function CommunityStacksFilter({ initialFilters }: CommunityStacksFilterP
     <div className="mb-8 space-y-4">
       {/* Search Bar */}
       <form onSubmit={handleSearch} className="flex gap-2">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
+        <div className="flex-1">
+          <SearchInput
+            variant="compact"
             placeholder="Search community stacks..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="pl-10 bg-background/50"
+            className="bg-background/50 h-10"
           />
         </div>
         <Button type="submit" variant="secondary">
@@ -129,8 +129,8 @@ export function CommunityStacksFilter({ initialFilters }: CommunityStacksFilterP
 
         {/* Clear Filters */}
         {hasActiveFilters && (
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             size="sm"
             onClick={clearFilters}
             className="text-muted-foreground hover:text-foreground gap-1"
@@ -147,7 +147,7 @@ export function CommunityStacksFilter({ initialFilters }: CommunityStacksFilterP
           {search && (
             <Badge variant="secondary" className="gap-1">
               Search: {search}
-              <button 
+              <button
                 onClick={() => {
                   setSearch('');
                   updateFilters({ search: undefined });
@@ -161,7 +161,7 @@ export function CommunityStacksFilter({ initialFilters }: CommunityStacksFilterP
           {sortBy !== 'popular' && (
             <Badge variant="secondary" className="gap-1">
               Sort: {sortOptions.find(o => o.value === sortBy)?.label}
-              <button 
+              <button
                 onClick={() => {
                   setSortBy('popular');
                   updateFilters({ sortBy: 'popular' });
@@ -175,7 +175,7 @@ export function CommunityStacksFilter({ initialFilters }: CommunityStacksFilterP
           {timeRange !== 'all' && (
             <Badge variant="secondary" className="gap-1">
               Time: {timeOptions.find(o => o.value === timeRange)?.label}
-              <button 
+              <button
                 onClick={() => {
                   setTimeRange('all');
                   updateFilters({ timeRange: 'all' });

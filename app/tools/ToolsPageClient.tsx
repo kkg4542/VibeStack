@@ -3,15 +3,17 @@
 import { Metadata } from "next";
 import { ToolsList } from "./ToolsList";
 import { motion } from "framer-motion";
-import { Search, Sparkles, TrendingUp, Target, Zap } from "lucide-react";
+import { Search, Sparkles, TrendingUp, Target, Zap, ShieldCheck, RefreshCw, Layers } from "lucide-react";
 import { designSystem } from "@/lib/design-system";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 const PageBackground = dynamic(() => import("@/components/effects/PageBackground").then(mod => mod.PageBackground), { ssr: false });
 import { BackgroundPresets } from "@/components/effects/PageBackground";
 import { useTools } from "@/hooks/use-tools";
 import { ToolData } from "@/lib/tool-types";
 import { useDebounce } from "@/hooks/use-debounce";
+import Link from "next/link";
+import { SearchInput } from "@/components/ui/search-input";
 
 // Note: Metadata moved to page.tsx (Server Component) for SEO
 
@@ -38,6 +40,57 @@ export default function ToolsPage() {
     // for now we'll use estimates or keep them if they don't break.
     const categoriesCount = 12; // Static estimate or could be fetched
     const freeToolsCount = Math.floor(totalTools * 0.7); // Rough estimate for now
+    const starterStackFallbacks = [
+        {
+            id: "indie-builder",
+            name: "Indie Builder Stack",
+            summary: "Ship an MVP with speed and low overhead.",
+            tools: ["Cursor", "v0", "Claude"]
+        },
+        {
+            id: "research-writing",
+            name: "Research & Writing Stack",
+            summary: "From research to publishable drafts in one flow.",
+            tools: ["Perplexity", "Claude", "Notion AI"]
+        },
+        {
+            id: "product-team",
+            name: "Product Team Stack",
+            summary: "Planning, specs, and execution without thrash.",
+            tools: ["Linear", "Notion AI", "GitHub Copilot"]
+        },
+        {
+            id: "design-to-dev",
+            name: "Design-to-Dev Stack",
+            summary: "Design faster, then translate to production.",
+            tools: ["Figma", "v0", "Cursor"]
+        }
+    ];
+    const [featuredStacks, setFeaturedStacks] = useState<Array<{
+        id: string;
+        idField: string;
+        name: string;
+        description: string | null;
+        tools: { name: string; slug: string }[];
+    }>>([]);
+
+    useEffect(() => {
+        let isMounted = true;
+        fetch("/api/stacks/featured?limit=4")
+            .then((res) => res.json())
+            .then((data) => {
+                if (!isMounted) return;
+                if (Array.isArray(data?.stacks) && data.stacks.length > 0) {
+                    setFeaturedStacks(data.stacks);
+                }
+            })
+            .catch(() => {
+                // Fallback is handled by render
+            });
+        return () => {
+            isMounted = false;
+        };
+    }, []);
 
     return (
         <PageBackground {...BackgroundPresets.content}>
@@ -107,6 +160,42 @@ export default function ToolsPage() {
                         </div>
                     </motion.div>
 
+                    {/* Trust Signals */}
+                    <motion.div
+                        initial={designSystem.animations.fadeInUp.initial}
+                        animate={designSystem.animations.fadeInUp.animate}
+                        transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.35 }}
+                        className="grid gap-6 md:grid-cols-3 text-left max-w-5xl mx-auto mb-12"
+                    >
+                        <div className="rounded-2xl border border-border/40 bg-card/50 p-6">
+                            <div className="flex items-center gap-2 mb-3 text-sm text-foreground/80">
+                                <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                                Real-use validation
+                            </div>
+                            <p className="text-sm text-muted-foreground">
+                                We prioritize tools with clear workflows, stable UX, and measurable time-savings.
+                            </p>
+                        </div>
+                        <div className="rounded-2xl border border-border/40 bg-card/50 p-6">
+                            <div className="flex items-center gap-2 mb-3 text-sm text-foreground/80">
+                                <RefreshCw className="w-4 h-4 text-blue-500" />
+                                Monthly rechecks
+                            </div>
+                            <p className="text-sm text-muted-foreground">
+                                Pricing, policies, and features are reviewed on a monthly cadence.
+                            </p>
+                        </div>
+                        <div className="rounded-2xl border border-border/40 bg-card/50 p-6">
+                            <div className="flex items-center gap-2 mb-3 text-sm text-foreground/80">
+                                <Layers className="w-4 h-4 text-violet-500" />
+                                Stack compatibility
+                            </div>
+                            <p className="text-sm text-muted-foreground">
+                                We evaluate how tools work together, not just in isolation.
+                            </p>
+                        </div>
+                    </motion.div>
+
                     {/* Search Bar */}
                     <motion.div
                         initial={designSystem.animations.fadeInUp.initial}
@@ -115,9 +204,8 @@ export default function ToolsPage() {
                         className="max-w-2xl mx-auto relative"
                     >
                         <div className="relative">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                            <input
-                                type="text"
+                            <SearchInput
+                                variant="hero"
                                 placeholder="Search by name, category, or feature..."
                                 value={searchQuery}
                                 onChange={(e) => {
@@ -125,7 +213,6 @@ export default function ToolsPage() {
                                     setPage(1); // Reset to first page on search
                                 }}
                                 aria-label="Search AI tools"
-                                className="w-full pl-12 pr-4 py-4 rounded-2xl bg-card/50 border border-border/40 backdrop-blur-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
                             />
                         </div>
                         <p className="text-xs text-muted-foreground mt-3">
@@ -133,6 +220,51 @@ export default function ToolsPage() {
                         </p>
                     </motion.div>
                 </motion.div>
+
+                {/* Starter Stacks */}
+                <section className="mb-16">
+                    <div className="flex items-end justify-between gap-6 mb-6">
+                        <div>
+                            <h2 className="text-2xl font-semibold text-foreground">Starter Stacks</h2>
+                            <p className="text-sm text-muted-foreground">
+                                Proven combinations you can adopt immediately.
+                            </p>
+                        </div>
+                    </div>
+                    <div className="grid gap-6 md:grid-cols-2">
+                        {(featuredStacks.length > 0 ? featuredStacks : starterStackFallbacks).map((stack) => (
+                            <div
+                                key={stack.name}
+                                className="rounded-2xl border border-border/40 bg-card/50 p-6"
+                            >
+                                <div className="flex items-center justify-between gap-4 mb-2">
+                                    <div className="text-lg font-semibold text-foreground">{stack.name}</div>
+                                    {"idField" in stack && (
+                                        <Link
+                                            href={`/stack/${stack.idField}`}
+                                            className="text-xs text-indigo-400 hover:text-indigo-300"
+                                        >
+                                            View Stack
+                                        </Link>
+                                    )}
+                                </div>
+                                <p className="text-sm text-muted-foreground mb-4">
+                                    {"summary" in stack ? stack.summary : (stack.description ?? "A curated stack for faster outcomes.")}
+                                </p>
+                                <div className="flex flex-wrap gap-2 text-xs">
+                                    {stack.tools.map((tool) => (
+                                        <span
+                                            key={typeof tool === "string" ? tool : tool.slug}
+                                            className="rounded-full border border-border/40 bg-background/60 px-3 py-1 text-muted-foreground"
+                                        >
+                                            {typeof tool === "string" ? tool : tool.name}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </section>
 
                 {/* Tools List Component */}
                 <ToolsList

@@ -20,7 +20,10 @@ import {
     Lightbulb,
     Code2,
     Palette,
-    Clock
+    Clock,
+    ShieldCheck,
+    RefreshCw,
+    Layers
 } from "lucide-react";
 import * as motion from "framer-motion/client";
 import { designSystem } from "@/lib/design-system";
@@ -230,6 +233,57 @@ export default function AboutPage() {
                                 </motion.div>
                             );
                         })}
+                    </div>
+                </motion.div>
+
+                {/* Verification Process */}
+                <motion.div
+                    initial={designSystem.animations.fadeInUp.initial}
+                    animate={designSystem.animations.fadeInUp.animate}
+                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.3 }}
+                    className="mb-20"
+                >
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl font-bold mb-4">How We Vet Tools</h2>
+                        <p className="text-muted-foreground">Our recommendations are backed by real-use validation and ongoing checks.</p>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-6">
+                        <Card className="border-border/50 bg-card/50">
+                            <CardContent className="p-6">
+                                <div className="p-3 rounded-xl bg-emerald-500/10 w-fit mb-4">
+                                    <ShieldCheck className="h-6 w-6 text-emerald-500" />
+                                </div>
+                                <h3 className="text-xl font-semibold mb-2">Real-use Validation</h3>
+                                <p className="text-muted-foreground">
+                                    We prioritize tools with clear workflows, stable UX, and measurable time savings.
+                                </p>
+                            </CardContent>
+                        </Card>
+
+                        <Card className="border-border/50 bg-card/50">
+                            <CardContent className="p-6">
+                                <div className="p-3 rounded-xl bg-blue-500/10 w-fit mb-4">
+                                    <RefreshCw className="h-6 w-6 text-blue-500" />
+                                </div>
+                                <h3 className="text-xl font-semibold mb-2">Monthly Rechecks</h3>
+                                <p className="text-muted-foreground">
+                                    Pricing, policies, and feature changes are reviewed on a monthly cadence.
+                                </p>
+                            </CardContent>
+                        </Card>
+
+                        <Card className="border-border/50 bg-card/50">
+                            <CardContent className="p-6">
+                                <div className="p-3 rounded-xl bg-violet-500/10 w-fit mb-4">
+                                    <Layers className="h-6 w-6 text-violet-500" />
+                                </div>
+                                <h3 className="text-xl font-semibold mb-2">Stack Compatibility</h3>
+                                <p className="text-muted-foreground">
+                                    We evaluate how tools work together, not just in isolation.
+                                </p>
+                            </CardContent>
+                        </Card>
                     </div>
                 </motion.div>
 

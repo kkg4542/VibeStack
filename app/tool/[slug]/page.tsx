@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { getToolBySlug, getTools } from "@/lib/tools-db";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Check, ArrowLeft, Star, Heart, Scale, Sparkles, TrendingUp, Target, Zap } from "lucide-react";
+import { ExternalLink, Check, ArrowLeft, Star, Heart, Scale, Sparkles, TrendingUp, Target, Zap, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { RelatedTools } from "@/components/tools/RelatedTools";
 import { Metadata } from "next";
@@ -128,6 +128,10 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                     </Badge>
                                     <Badge className="bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 border-indigo-500/20">
                                         {tool.pricing}
+                                    </Badge>
+                                    <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20">
+                                        <ShieldCheck className="h-3 w-3 mr-1" />
+                                        Vetted
                                     </Badge>
                                     {tool.isFeatured && (
                                         <Badge className="bg-amber-500/10 text-amber-400 border-amber-500/20">

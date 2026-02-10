@@ -27,6 +27,10 @@ const faqCategories = [
                 answer: "VibeStack is a curated platform that helps developers discover and compare the best AI productivity tools. We cut through the hype to find tools that actually deliver value, with real reviews and practical recommendations."
             },
             {
+                question: "Why should I trust these recommendations?",
+                answer: "We prioritize tools that demonstrate real workflow impact. Each listing is reviewed for usability, pricing clarity, and how well it fits common stacks. We recheck pricing and policies on a monthly cadence."
+            },
+            {
                 question: "Is VibeStack free to use?",
                 answer: "Yes! VibeStack is completely free for users. We earn through affiliate links when you discover tools through our platform, but this never affects our recommendations or rankings."
             },
@@ -54,7 +58,7 @@ const faqCategories = [
             },
             {
                 question: "How often are tools updated?",
-                answer: "We continuously monitor the AI tool ecosystem and update our database weekly. New tools are added, pricing is verified, and reviews are curated regularly."
+                answer: "We monitor the AI tool ecosystem weekly and recheck pricing and policy changes monthly. New tools are added continuously, and existing listings are reviewed for relevance and accuracy."
             }
         ]
     },

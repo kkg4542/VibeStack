@@ -16,6 +16,7 @@ import {
     BookOpen,
     Zap
 } from "lucide-react";
+import { SearchInput } from "@/components/ui/search-input";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import * as motion from "framer-motion/client";
@@ -141,20 +142,20 @@ export default function NotFound() {
                         className="max-w-xl mx-auto mb-8"
                     >
                         <div className="relative">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                            <Input
-                                type="text"
+                            <SearchInput
+                                variant="hero"
                                 placeholder="Search for tools, stacks, or articles..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-12 pr-32 py-6 rounded-2xl bg-card/50 border-border/40 backdrop-blur-sm text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-indigo-500/50"
-                            />
-                            <Button
-                                type="submit"
-                                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full"
+                                className="pr-32"
                             >
-                                Search
-                            </Button>
+                                <Button
+                                    type="submit"
+                                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full"
+                                >
+                                    Search
+                                </Button>
+                            </SearchInput>
                         </div>
                     </motion.form>
 

@@ -9,7 +9,6 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import {
     X,
-    Search,
     History,
     TrendingUp,
     Sparkles,
@@ -21,6 +20,7 @@ import {
     Zap,
     Heart
 } from "lucide-react";
+import { SearchInput } from "@/components/ui/search-input";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useAllTools } from "@/hooks/use-tools";
@@ -154,16 +154,12 @@ export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
                             {/* Search */}
                             <div className="p-4">
                                 <form onSubmit={handleSearch}>
-                                    <div className="relative">
-                                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                                        <Input
-                                            type="text"
-                                            placeholder="Search tools, stacks..."
-                                            value={searchQuery}
-                                            onChange={(e) => setSearchQuery(e.target.value)}
-                                            className="pl-10 pr-4 py-5 rounded-xl bg-secondary/50 border-0"
-                                        />
-                                    </div>
+                                    <SearchInput
+                                        variant="mobile"
+                                        placeholder="Search tools, stacks..."
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                    />
                                 </form>
                             </div>
 
