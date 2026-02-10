@@ -3,7 +3,8 @@
 import { Metadata } from "next";
 import { ToolsList } from "./ToolsList";
 import { m } from "framer-motion";
-import { Search, Sparkles, TrendingUp, Target, Zap, ShieldCheck, RefreshCw, Layers } from "lucide-react";
+import { Search, Sparkles, TrendingUp, Target, Zap, ShieldCheck, RefreshCw, Layers, ArrowRight } from "lucide-react";
+import { VibeCard } from "@/components/ui/VibeCard";
 import { designSystem } from "@/lib/design-system";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
@@ -233,35 +234,65 @@ export default function ToolsPage() {
                     </div>
                     <div className="grid gap-6 md:grid-cols-2">
                         {(featuredStacks.length > 0 ? featuredStacks : starterStackFallbacks).map((stack) => (
-                            <div
+                            <m.div
                                 key={stack.name}
-                                className="rounded-2xl border border-border/40 bg-card/50 p-6"
+                                whileHover={{ y: -4 }}
+                                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                             >
-                                <div className="flex items-center justify-between gap-4 mb-2">
-                                    <div className="text-lg font-semibold text-foreground">{stack.name}</div>
-                                    {"idField" in stack && (
-                                        <Link
-                                            href={`/stack/${stack.idField}`}
-                                            className="text-xs text-indigo-400 hover:text-indigo-300"
-                                        >
-                                            View Stack
-                                        </Link>
-                                    )}
-                                </div>
-                                <p className="text-sm text-muted-foreground mb-4">
-                                    {"summary" in stack ? stack.summary : (stack.description ?? "A curated stack for faster outcomes.")}
-                                </p>
-                                <div className="flex flex-wrap gap-2 text-xs">
-                                    {stack.tools.map((tool) => (
-                                        <span
-                                            key={typeof tool === "string" ? tool : tool.slug}
-                                            className="rounded-full border border-border/40 bg-background/60 px-3 py-1 text-muted-foreground"
-                                        >
-                                            {typeof tool === "string" ? tool : tool.name}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
+                                <Link href={"idField" in stack ? `/stack/${stack.idField}` : "#"} className="block h-full">
+                                    <VibeCard
+                                        className="h-full"
+                                        tiltStrength={5}
+                                        glowOnHover={true}
+                                        depth={10}
+                                    >
+                                        <div className="p-6 flex flex-col h-full">
+                                            <div className="flex items-start justify-between mb-4">
+                                                <div>
+                                                    <h3 className="text-lg font-semibold text-foreground mb-1 group-hover:text-indigo-400 transition-colors">
+                                                        {stack.name}
+                                                    </h3>
+                                                    <p className="text-sm text-muted-foreground line-clamp-2">
+                                                        {"summary" in stack ? stack.summary : (stack.description ?? "A curated stack for faster outcomes.")}
+                                                    </p>
+                                                </div>
+                                                <div className="p-2 rounded-full bg-indigo-500/10 text-indigo-400">
+                                                    <Layers className="w-5 h-5" />
+                                                </div>
+                                            </div>
+
+                                            <div className="mt-auto">
+                                                <div className="flex items-center justify-between pt-4 border-t border-border/40">
+                                                    <div className="flex -space-x-3">
+                                                        {stack.tools.slice(0, 4).map((tool, i) => {
+                                                            const name = typeof tool === "string" ? tool : tool.name;
+                                                            return (
+                                                                <div
+                                                                    key={i}
+                                                                    className="w-8 h-8 rounded-full bg-background border-2 border-border flex items-center justify-center text-[10px] font-bold text-muted-foreground shadow-xs ring-2 ring-background z-10"
+                                                                    title={name}
+                                                                    style={{ zIndex: 10 - i }}
+                                                                >
+                                                                    {name.charAt(0)}
+                                                                </div>
+                                                            );
+                                                        })}
+                                                        {stack.tools.length > 4 && (
+                                                            <div className="w-8 h-8 rounded-full bg-background border-2 border-border flex items-center justify-center text-[10px] font-medium text-muted-foreground shadow-xs ring-2 ring-background z-0 pl-1">
+                                                                +{stack.tools.length - 4}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <div className="flex items-center gap-1 text-xs text-indigo-400 font-medium">
+                                                        View Stack
+                                                        <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </VibeCard>
+                                </Link>
+                            </m.div>
                         ))}
                     </div>
                 </section>
