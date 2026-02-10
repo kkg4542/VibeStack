@@ -2,7 +2,7 @@
 
 import { Metadata } from "next";
 import { ToolsList } from "./ToolsList";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Search, Sparkles, TrendingUp, Target, Zap, ShieldCheck, RefreshCw, Layers } from "lucide-react";
 import { designSystem } from "@/lib/design-system";
 import { useEffect, useState } from "react";
@@ -95,14 +95,14 @@ export default function ToolsPage() {
     return (
         <PageBackground {...BackgroundPresets.content}>
             <div className="container max-w-6xl mx-auto px-4">
-                <motion.div
+                <m.div
                     initial={designSystem.animations.fadeInUp.initial}
                     animate={designSystem.animations.fadeInUp.animate}
                     transition={designSystem.animations.fadeInUp.transition}
                     className="text-center mb-16"
                 >
                     {/* Badge */}
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5, delay: 0.1 }}
@@ -110,7 +110,7 @@ export default function ToolsPage() {
                     >
                         <Sparkles className="w-4 h-4" />
                         <span>{totalTools} tools, vetted for real work</span>
-                    </motion.div>
+                    </m.div>
 
                     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance max-w-4xl mx-auto leading-tight">
                         Skip the hype. Find the{" "}
@@ -125,7 +125,7 @@ export default function ToolsPage() {
                     </p>
 
                     {/* Quick Stats */}
-                    <motion.div
+                    <m.div
                         initial={designSystem.animations.fadeInUp.initial}
                         animate={designSystem.animations.fadeInUp.animate}
                         transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.3 }}
@@ -158,10 +158,10 @@ export default function ToolsPage() {
                                 <div className="text-muted-foreground text-xs">Free Options</div>
                             </div>
                         </div>
-                    </motion.div>
+                    </m.div>
 
                     {/* Trust Signals */}
-                    <motion.div
+                    <m.div
                         initial={designSystem.animations.fadeInUp.initial}
                         animate={designSystem.animations.fadeInUp.animate}
                         transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.35 }}
@@ -194,10 +194,10 @@ export default function ToolsPage() {
                                 We evaluate how tools work together, not just in isolation.
                             </p>
                         </div>
-                    </motion.div>
+                    </m.div>
 
                     {/* Search Bar */}
-                    <motion.div
+                    <m.div
                         initial={designSystem.animations.fadeInUp.initial}
                         animate={designSystem.animations.fadeInUp.animate}
                         transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.4 }}
@@ -218,8 +218,8 @@ export default function ToolsPage() {
                         <p className="text-xs text-muted-foreground mt-3">
                             Try searching &quot;coding&quot;, &quot;free&quot;, or &quot;design&quot;
                         </p>
-                    </motion.div>
-                </motion.div>
+                    </m.div>
+                </m.div>
 
                 {/* Starter Stacks */}
                 <section className="mb-16">

@@ -88,6 +88,7 @@ export async function middleware(req: NextRequest) {
   }
 
   // Check for HTTPS in production (skip for localhost)
+  // Check for HTTPS in production (skip for localhost)
   const host = req.headers.get("host") || "";
   if (
     process.env.NODE_ENV === "production" &&

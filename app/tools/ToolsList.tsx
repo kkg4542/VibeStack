@@ -8,7 +8,7 @@ const FeaturedSpotlight = dynamic(() => import("@/components/tools/FeaturedSpotl
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { m, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { CompareButton } from "@/components/tools/CompareButton";
 import { Scale, ArrowRight, Filter, ChevronDown } from "lucide-react";
 import { useEffect, useState, useMemo } from "react";
@@ -41,7 +41,7 @@ function ToolCard({ tool }: { tool: ToolData }) {
     };
 
     return (
-        <motion.article
+        <m.article
             layout
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -59,7 +59,7 @@ function ToolCard({ tool }: { tool: ToolData }) {
                 onMouseLeave={handleMouseLeave}
                 aria-label={`View details for ${tool.title}`}
             >
-                <motion.div
+                <m.div
                     style={{
                         rotateX,
                         rotateY,
@@ -72,7 +72,7 @@ function ToolCard({ tool }: { tool: ToolData }) {
 
                         <CardHeader className="relative h-full flex flex-col pt-8" style={{ transformStyle: "preserve-3d" }}>
                             <div className="mb-4 flex items-center justify-between gap-4" style={{ transform: "translateZ(30px)", transformStyle: "preserve-3d" }}>
-                                <motion.div
+                                <m.div
                                     whileHover={{
                                         z: 50,
                                         scale: 1.2,
@@ -86,7 +86,7 @@ function ToolCard({ tool }: { tool: ToolData }) {
                                     }}
                                 >
                                     <ToolIconRenderer slug={tool.slug} className="h-6 w-6" aria-hidden="true" />
-                                </motion.div>
+                                </m.div>
                                 <Badge variant="secondary" className="bg-secondary/50 text-xs font-normal text-muted-foreground backdrop-blur-sm" style={{ transform: "translateZ(20px)" }}>
                                     {tool.category}
                                 </Badge>
@@ -103,9 +103,9 @@ function ToolCard({ tool }: { tool: ToolData }) {
                             </div>
                         </CardHeader>
                     </Card>
-                </motion.div>
+                </m.div>
             </Link>
-        </motion.article>
+        </m.article>
     );
 }
 
@@ -265,7 +265,7 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                 )}
 
                 {/* Tools Grid */}
-                <motion.div layout className={`grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 transition-opacity duration-300 ${isLoading ? 'opacity-40' : 'opacity-100'}`} >
+                <m.div layout className={`grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 transition-opacity duration-300 ${isLoading ? 'opacity-40' : 'opacity-100'}`} >
                     <AnimatePresence mode="popLayout">
                         {tools.length > 0 ? (
                             tools.map((tool) => (
@@ -287,7 +287,7 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                             </div>
                         )}
                     </AnimatePresence>
-                </motion.div >
+                </m.div >
             </div>
 
             {/* Pagination UI */}
@@ -346,7 +346,7 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
             <AnimatePresence>
                 {
                     compareCount > 0 && (
-                        <motion.div
+                        <m.div
                             initial={{ y: 100, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             exit={{ y: 100, opacity: 0 }}
@@ -369,7 +369,7 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                                     </Link>
                                 </Button>
                             </div>
-                        </motion.div>
+                        </m.div>
                     )
                 }
             </AnimatePresence >
