@@ -1,6 +1,6 @@
 "use client";
 
-import { getToolIcon } from "@/lib/tool-icons";
+import { getToolIcon } from "@/components/icons/tool-icons";
 
 interface ToolIconRendererProps {
   slug: string;

@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Tool } from "@/lib/tools-db";
-import { getToolIcon } from "@/lib/tool-icons";
+import { ToolData } from "@/lib/tool-types";
+import { getToolIcon } from "@/components/icons/tool-icons";
 
 interface Props {
     currentSlug: string;
     category: string;
     pricing?: string;
-    tools: Tool[];
+    tools: ToolData[];
 }
 
 export function RelatedTools({ currentSlug, category, pricing, tools }: Props) {

@@ -3,7 +3,7 @@
 import * as motion from "framer-motion/client";
 import { designSystem } from "@/lib/design-system";
 import { useAllTools } from "@/hooks/use-tools";
-import { getToolIcon } from "@/lib/tool-icons";
+import { getToolIcon } from "@/components/icons/tool-icons";
 import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";

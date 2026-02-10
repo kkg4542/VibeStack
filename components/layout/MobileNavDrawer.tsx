@@ -24,7 +24,7 @@ import { SearchInput } from "@/components/ui/search-input";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useAllTools } from "@/hooks/use-tools";
-import { getToolIcon } from "@/lib/tool-icons";
+import { getToolIcon } from "@/components/icons/tool-icons";
 import { ToolData } from "@/lib/tool-types";
 
 interface MobileNavDrawerProps {

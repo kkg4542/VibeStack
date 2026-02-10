@@ -13,6 +13,9 @@ import {
   Sparkles
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { VibeCard } from "@/components/primitives/VibeCard";
+import { Section } from "@/components/primitives/Section";
+import { GradientText } from "@/components/primitives/GradientText";
 import { designSystem } from "@/lib/design-system";
 
 const categories = [
@@ -80,7 +83,7 @@ const categories = [
 
 export function ToolCategories() {
   return (
-    <section className="py-24 md:py-32 relative overflow-hidden">
+    <Section spacing="large" className="relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background/50 to-background" />
 
@@ -88,7 +91,7 @@ export function ToolCategories() {
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-vibe-purple/10 blur-[120px] rounded-full -z-10" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-vibe-electric/10 blur-[100px] rounded-full -z-10" />
 
-      <div className="container px-4 mx-auto relative z-10">
+      <div className="relative z-10">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <m.div
@@ -106,9 +109,7 @@ export function ToolCategories() {
             </Badge>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
               Find Your Perfect{" "}
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-vibe-neon to-vibe-purple">
-                AI Tool
-              </span>
+              <GradientText variant="neon">AI Tool</GradientText>
             </h2>
             <p className="text-lg text-muted-foreground">
               Explore our curated collection of AI tools organized by category.
@@ -133,14 +134,13 @@ export function ToolCategories() {
                   ease: [0.16, 1, 0.3, 1]
                 }}
               >
-                <Link
-                  href={`/categories/${category.id}`}
-                  className="group block h-full"
-                >
-                  <div className="relative h-full p-6 rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm hover:border-border transition-all duration-300 hover:shadow-lg hover:shadow-vibe-electric/5">
-                    {/* Glow effect on hover */}
-                    <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
-
+                <Link href={`/categories/${category.id}`} className="block h-full">
+                  <VibeCard
+                    variant="glass"
+                    hover="both"
+                    spotlight
+                    className="h-full p-6"
+                  >
                     <div className="relative z-10">
                       {/* Icon & Count */}
                       <div className="flex items-start justify-between mb-4">
@@ -173,18 +173,18 @@ export function ToolCategories() {
                       </div>
 
                       {/* CTA */}
-                      <div className="flex items-center text-sm text-vibe-electric group-hover:text-vibe-cyan transition-colors">
+                      <div className="flex items-center text-sm text-vibe-electric hover:text-vibe-cyan transition-colors">
                         <span>Explore category</span>
                         <ArrowRight className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>
-                  </div>
+                  </VibeCard>
                 </Link>
               </m.div>
             );
           })}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

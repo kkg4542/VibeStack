@@ -130,14 +130,9 @@ chore: 빌드, 패키지 매니저 설정 등
 
 ### 12. AI 도구 데이터 관리
 ```typescript
-// lib/tools.ts - 단일 진실 공급원 (Single Source of Truth)
-export const tools: Tool[] = [
-  {
-    slug: 'cursor',
-    title: 'Cursor',
-    // ... 모든 메타데이터
-  }
-]
+// 단일 진실 공급원 (Single Source of Truth)
+// ✅ Database + lib/tools-db.ts (Prisma 기반)
+// ✅ /api/tools API 응답을 클라이언트에서 사용
 
 // ❌ 금지: 하드코딩된 도구 이름, URL
 // ❌ 금지: components/에서 tools 데이터 직접 수정

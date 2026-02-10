@@ -8,7 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { useAllTools } from "@/hooks/use-tools";
-import { getToolIcon } from "@/lib/tool-icons";
+import { getToolIcon } from "@/components/icons/tool-icons";
 import { stacks } from "@/lib/stacks";
 import { useSession } from "next-auth/react";
 import * as motion from "framer-motion/client";

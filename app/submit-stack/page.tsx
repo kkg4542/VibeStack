@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { useAllTools } from "@/hooks/use-tools";
-import { getToolIcon } from "@/lib/tool-icons";
+import { getToolIcon } from "@/components/icons/tool-icons";
 import { ToolData } from "@/lib/tool-types";
 
 export default function SubmitStackPage() {

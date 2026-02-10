@@ -7,15 +7,19 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { VibeCard } from "@/components/ui/VibeCard";
 import { designSystem } from "@/lib/design-system";
-import { tools } from "@/lib/tools";
+import { useTools } from "@/hooks/use-tools";
+import { ToolData } from "@/lib/tool-types";
 import { ToolIconRenderer } from "@/components/tools/ToolIconRenderer";
 
-// Get featured/popular tools
-const popularTools = tools
-  .filter((tool) => tool.isFeatured || tool.review)
-  .slice(0, 8);
-
 export function PopularTools() {
+  const { tools, isLoading } = useTools({ limit: 50 });
+  const popularTools = tools
+    .filter((tool: ToolData) => tool.isFeatured || tool.review)
+    .slice(0, 8);
+
+  if (isLoading) {
+    return null;
+  }
   return (
     <section className="py-24 md:py-32 relative overflow-hidden">
       {/* Background */}
@@ -66,7 +70,7 @@ export function PopularTools() {
 
         {/* Tools Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {popularTools.map((tool, index) => (
+          {popularTools.map((tool: ToolData, index: number) => (
             <m.div
               key={tool.slug}
               initial={{ opacity: 0, y: 20 }}

@@ -15,7 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useAllTools } from "@/hooks/use-tools";
-import { getToolIcon } from "@/lib/tool-icons";
+import { getToolIcon } from "@/components/icons/tool-icons";
 import { cn } from "@/lib/utils";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { ReviewList } from "@/components/reviews/ReviewList";

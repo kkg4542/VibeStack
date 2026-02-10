@@ -13,6 +13,7 @@ export interface ToolData {
   bgGradient?: string | null;
   tier?: string | null;
   isFeatured?: boolean | null;
+  icon?: string | null;
   adCopy?: string | null;
   review?: {
     content: string;

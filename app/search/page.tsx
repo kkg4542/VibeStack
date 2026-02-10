@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { ToolData } from "@/lib/tool-types";
 import { useAllTools } from "@/hooks/use-tools";
-import { getToolIcon } from "@/lib/tool-icons";
+import { getToolIcon } from "@/components/icons/tool-icons";
 import { stacks, Stack } from "@/lib/stacks";
 import { trackSearchQuery } from "@/lib/analytics";
 import * as motion from "framer-motion/client";

@@ -12,6 +12,7 @@ import { SidebarAd } from "@/components/tools/SidebarAd";
 import { ReviewList } from "@/components/reviews/ReviewList";
 import { ReviewForm } from "@/components/reviews/ReviewForm";
 import { ExitIntentPopup } from "@/components/ui/ExitIntentPopup";
+import { ToolIconRenderer } from "@/components/tools/ToolIconRenderer";
 import * as motion from "framer-motion/client";
 import { designSystem } from "@/lib/design-system";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
@@ -68,7 +69,6 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
         notFound();
     }
 
-    const Icon = tool.icon;
     const allTools = await getTools();
 
     return (
@@ -110,7 +110,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                 transition={{ duration: 0.5, delay: 0.2 }}
                             >
                                 <div className={`p-6 rounded-3xl bg-linear-to-br ${tool.bgGradient} border border-border/20 shadow-2xl shadow-indigo-500/10`}>
-                                    <Icon className="h-16 w-16 text-foreground" />
+                                    <ToolIconRenderer slug={tool.slug} className="h-16 w-16 text-foreground" />
                                 </div>
                                 {tool.review && (
                                     <div className="mt-4 flex items-center justify-center gap-1 bg-yellow-500/10 rounded-full px-3 py-1">

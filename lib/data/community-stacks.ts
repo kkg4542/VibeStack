@@ -1,5 +1,6 @@
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 
 // Cache durations
 const CACHE_1MIN = 60;
@@ -42,8 +43,41 @@ export interface CommunityStackFilters {
   timeRange?: 'all' | 'week' | 'month' | 'year';
 }
 
+type CommunityStackQueryResult = Prisma.CommunityStackGetPayload<{
+  include: {
+    curator: {
+      select: {
+        id: true;
+        name: true;
+        image: true;
+      };
+    };
+    tools: {
+      select: {
+        id: true;
+        title: true;
+        slug: true;
+        category: true;
+        pricing: true;
+      };
+    };
+    forkedFrom: {
+      select: {
+        id: true;
+        name: true;
+      };
+    };
+    _count: {
+      select: {
+        likes: true;
+        savedBy: true;
+      };
+    };
+  };
+}>;
+
 // Helper function to convert Prisma CommunityStack to CommunityStackWithDetails
-function mapToCommunityStackWithDetails(stack: any): CommunityStackWithDetails {
+function mapToCommunityStackWithDetails(stack: CommunityStackQueryResult): CommunityStackWithDetails {
   return {
     id: stack.id,
     name: stack.name,
@@ -61,7 +95,7 @@ function mapToCommunityStackWithDetails(stack: any): CommunityStackWithDetails {
       name: stack.curator.name,
       image: stack.curator.image,
     },
-    tools: stack.tools.map((tool: any) => ({
+    tools: stack.tools.map((tool) => ({
       id: tool.id,
       name: tool.title,
       slug: tool.slug,
@@ -84,7 +118,7 @@ export const getCommunityStacks = unstable_cache(
     const { search, sortBy = 'popular', timeRange = 'all' } = filters;
 
     // Build where clause
-    const where: any = {
+    const where: Prisma.CommunityStackWhereInput = {
       isPublic: true,
     };
 
@@ -116,7 +150,7 @@ export const getCommunityStacks = unstable_cache(
     }
 
     // Build orderBy
-    let orderBy: any = {};
+    let orderBy: Prisma.CommunityStackOrderByWithRelationInput = {};
     switch (sortBy) {
       case 'newest':
         orderBy = { createdAt: 'desc' };
@@ -383,7 +417,10 @@ export async function createCommunityStack(data: {
     },
   });
 
-  return mapToCommunityStackWithDetails(newStack);
+  return mapToCommunityStackWithDetails({
+    ...newStack,
+    forkedFrom: null
+  });
 }
 
 // Update a community stack
@@ -447,7 +484,7 @@ export async function updateCommunityStack(
     },
   });
 
-  return mapToCommunityStackWithDetails(updatedStack);
+  return mapToCommunityStackWithDetails(updatedStack as any);
 }
 
 // Delete a community stack

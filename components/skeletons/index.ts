@@ -22,3 +22,14 @@ export {
     SearchPageSkeleton,
     SearchResultsSkeleton,
 } from "./SearchSkeletons";
+
+// VibeStack Design System Skeletons
+export {
+    VibeSkeleton,
+    SkeletonGroup,
+    ToolCardSkeleton as VibeToolCardSkeleton,
+    StackCardSkeleton as VibeStackCardSkeleton,
+    CategoryCardSkeleton,
+    GridSkeleton,
+    PageSkeleton,
+} from "./VibeSkeleton";

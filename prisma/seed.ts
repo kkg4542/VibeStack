@@ -19,8 +19,8 @@ async function main() {
                 pricing: tool.pricing,
                 websiteUrl: tool.websiteUrl,
                 affiliateUrl: tool.affiliateUrl,
-                color: tool.color,
-                bgGradient: tool.bgGradient,
+                color: tool.color ?? "text-foreground",
+                bgGradient: tool.bgGradient ?? "from-transparent to-transparent",
                 features: tool.features ?? [],
             },
             create: {
@@ -31,8 +31,8 @@ async function main() {
                 pricing: tool.pricing,
                 websiteUrl: tool.websiteUrl,
                 affiliateUrl: tool.affiliateUrl,
-                color: tool.color,
-                bgGradient: tool.bgGradient,
+                color: tool.color ?? "text-foreground",
+                bgGradient: tool.bgGradient ?? "from-transparent to-transparent",
                 features: tool.features ?? [],
             },
         });

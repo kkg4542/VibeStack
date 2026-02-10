@@ -8,7 +8,7 @@ import { ArrowLeft, CheckCircle2, ExternalLink, Zap, Users, Star, Heart, Trendin
 import { Stack } from "@/lib/stacks";
 import { ToolData } from "@/lib/tool-types";
 import { useAllTools } from "@/hooks/use-tools";
-import { getToolIcon } from "@/lib/tool-icons";
+import { getToolIcon } from "@/components/icons/tool-icons";
 import { SocialShare } from "@/components/ui/SocialShare";
 import { useState, useEffect } from "react";
 import * as motion from "framer-motion/client";

@@ -1,5 +1,3 @@
-import { tools } from "./tools";
-
 export interface Stack {
     id: string;
     name: string;
@@ -194,8 +192,4 @@ export const stacks: Stack[] = [
 
 export function getStackById(id: string): Stack | undefined {
     return stacks.find(stack => stack.id === id);
-}
-
-export function getStackTools(stack: Stack) {
-    return stack.tools.map(slug => tools.find(t => t.slug === slug)).filter(Boolean);
 }
