@@ -8,38 +8,13 @@ const FeaturedSpotlight = dynamic(() => import("@/components/tools/FeaturedSpotl
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { m, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
+import { VibeCard } from "@/components/ui/VibeCard";
 import { CompareButton } from "@/components/tools/CompareButton";
 import { Scale, ArrowRight, Filter, ChevronDown } from "lucide-react";
 import { useEffect, useState, useMemo } from "react";
 
 function ToolCard({ tool }: { tool: ToolData }) {
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-
-    const mouseXSpring = useSpring(x);
-    const mouseYSpring = useSpring(y);
-
-    const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
-    const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const width = rect.width;
-        const height = rect.height;
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
-        const xPct = mouseX / width - 0.5;
-        const yPct = mouseY / height - 0.5;
-        x.set(xPct);
-        y.set(yPct);
-    };
-
-    const handleMouseLeave = () => {
-        x.set(0);
-        y.set(0);
-    };
-
     return (
         <m.article
             layout
@@ -47,63 +22,42 @@ function ToolCard({ tool }: { tool: ToolData }) {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.2 }}
-            style={{
-                perspective: "1000px",
-            }}
         >
             <Link
                 id={`tool-card-${tool.slug}`}
                 href={`/tool/${tool.slug}`}
-                className="block relative group h-full focus-visible:ring-2 focus-visible:ring-primary rounded-3xl outline-none"
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
+                className="block h-full focus-visible:ring-2 focus-visible:ring-primary rounded-3xl outline-none"
                 aria-label={`View details for ${tool.title}`}
             >
-                <m.div
-                    style={{
-                        rotateX,
-                        rotateY,
-                        transformStyle: "preserve-3d",
-                    }}
+                <VibeCard
                     className="h-full"
+                    tiltStrength={5}
+                    glowOnHover={true}
+                    depth={10}
                 >
-                    <Card className="h-full relative overflow-hidden border-border/40 bg-card/50 transition-all duration-300 hover:border-border/80 hover:bg-card/80 hover:shadow-2xl">
-                        <div className={`absolute inset-0 bg-linear-to-br ${tool.bgGradient || "from-transparent to-transparent"} opacity-0 transition-opacity duration-500 group-hover:opacity-10`} aria-hidden="true" />
-
-                        <CardHeader className="relative h-full flex flex-col pt-8" style={{ transformStyle: "preserve-3d" }}>
-                            <div className="mb-4 flex items-center justify-between gap-4" style={{ transform: "translateZ(30px)", transformStyle: "preserve-3d" }}>
-                                <m.div
-                                    whileHover={{
-                                        z: 50,
-                                        scale: 1.2,
-                                        translateY: -8,
-                                    }}
-                                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                                    className={`rounded-lg bg-secondary/80 p-3 ring-1 ring-border shadow-lg ${tool.color || "text-foreground"} group-hover:shadow-indigo-500/20`}
-                                    style={{
-                                        transformStyle: "preserve-3d",
-                                        transform: "translateZ(60px)",
-                                    }}
-                                >
-                                    <ToolIconRenderer slug={tool.slug} className="h-6 w-6" aria-hidden="true" />
-                                </m.div>
-                                <Badge variant="secondary" className="bg-secondary/50 text-xs font-normal text-muted-foreground backdrop-blur-sm" style={{ transform: "translateZ(20px)" }}>
-                                    {tool.category}
-                                </Badge>
+                    <div className="flex flex-col h-full p-6">
+                        <div className="mb-4 flex items-center justify-between gap-4">
+                            <div className={`rounded-lg bg-secondary/80 p-3 ring-1 ring-border shadow-lg ${tool.color || "text-foreground"} group-hover:shadow-indigo-500/20 transition-all duration-300`}>
+                                <ToolIconRenderer slug={tool.slug} className="h-6 w-6" aria-hidden="true" />
                             </div>
-                            <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300" style={{ transform: "translateZ(40px)" }}>
-                                {tool.title}
-                            </CardTitle>
-                            <CardDescription className="text-muted-foreground/90 line-clamp-2 mt-2 leading-relaxed" style={{ transform: "translateZ(30px)" }}>
-                                {tool.description}
-                            </CardDescription>
+                            <Badge variant="secondary" className="bg-secondary/50 text-xs font-normal text-muted-foreground backdrop-blur-sm">
+                                {tool.category}
+                            </Badge>
+                        </div>
 
-                            <div className="mt-auto pt-6 flex justify-end" style={{ transform: "translateZ(40px)" }}>
-                                <CompareButton toolSlug={tool.slug} toolTitle={tool.title} />
-                            </div>
-                        </CardHeader>
-                    </Card>
-                </m.div>
+                        <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300 mb-2">
+                            {tool.title}
+                        </h3>
+
+                        <p className="text-muted-foreground/90 line-clamp-2 leading-relaxed text-sm mb-4 flex-grow">
+                            {tool.description}
+                        </p>
+
+                        <div className="pt-4 flex justify-end border-t border-border/40 mt-auto">
+                            <CompareButton toolSlug={tool.slug} toolTitle={tool.title} />
+                        </div>
+                    </div>
+                </VibeCard>
             </Link>
         </m.article>
     );
