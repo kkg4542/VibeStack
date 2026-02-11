@@ -35,7 +35,7 @@ export default function ConsultingPage() {
         {
             title: "AI Workflow Audit",
             description: "We analyze your current development process and identify bottlenecks where AI agents can accelerate output by 10x.",
-            icon: <Terminal className="h-6 w-6 text-indigo-400" />,
+            icon: <Terminal className="h-6 w-6 text-vibe-purple" />,
             features: ["Codebase Analysis", "Agent Integration Plan", "ROI Estmation"],
         },
         {
@@ -55,7 +55,7 @@ export default function ConsultingPage() {
     return (
         <main className="relative min-h-screen bg-background pt-24 pb-20 overflow-hidden">
             {/* Ambient Background Glows */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 z-0 h-[60vh] w-full max-w-[1200px] bg-indigo-500/10 dark:bg-indigo-500/20 blur-[140px] rounded-full px-4" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 z-0 h-[60vh] w-full max-w-[1200px] bg-vibe-purple/10 dark:bg-vibe-purple/20 blur-[140px] rounded-full px-4" />
             <div className="absolute top-[20%] left-[10%] z-0 h-[30vh] w-[30vh] bg-purple-500/10 blur-[100px] rounded-full animate-pulse" />
             <div className="absolute top-[40%] right-[10%] z-0 h-[30vh] w-[30vh] bg-blue-500/10 blur-[100px] rounded-full animate-pulse" style={{ animationDelay: "2s" }} />
 
@@ -71,17 +71,17 @@ export default function ConsultingPage() {
                         animate={designSystem.animations.fadeInUp.animate}
                         transition={designSystem.animations.fadeInUp.transition}
                     >
-                        <div className="mx-auto mb-6 flex max-w-fit items-center rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-2 text-sm font-medium text-indigo-400 backdrop-blur-md">
+                        <div className="mx-auto mb-6 flex max-w-fit items-center rounded-full border border-vibe-electric/30 bg-vibe-electric/10 px-4 py-2 text-sm font-medium text-vibe-electric backdrop-blur-md">
                             <span className="mr-2 flex h-2 w-2 relative">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-vibe-electric opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-vibe-electric"></span>
                             </span>
                             Now Accepting Partners for Q1 2026
                         </div>
 
                         <h1 className="mx-auto max-w-4xl text-5xl font-bold tracking-tight text-foreground sm:text-7xl text-balance leading-tight">
                             Promote Your AI Tool to{" "}
-                            <span className="bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                            <span className="bg-linear-to-r from-vibe-electric via-vibe-purple to-vibe-pink bg-clip-text text-transparent">
                                 Thousands of Developers
                             </span>
                         </h1>
@@ -94,7 +94,7 @@ export default function ConsultingPage() {
                         <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
                             <Button
                                 size="lg"
-                                className="rounded-full shadow-lg shadow-indigo-500/20 px-8 text-base h-12"
+                                className="rounded-full shadow-lg shadow-vibe-electric/20 px-8 text-base h-12"
                                 onClick={() => handleCheckout('featuredSpotlight')}
                                 disabled={loading}
                             >
@@ -127,24 +127,24 @@ export default function ConsultingPage() {
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={designSystem.animations.fadeInUp.transition}
-                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card p-8 transition-all hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
+                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card p-8 transition-all hover:-translate-y-1 hover:border-vibe-electric/30 hover:shadow-2xl hover:shadow-vibe-electric/10"
                         >
-                            <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/50 ring-1 ring-border group-hover:bg-indigo-500/10 group-hover:ring-indigo-500/30 transition-colors">
-                                <Rocket className="h-6 w-6 text-pink-400" />
+                            <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/50 ring-1 ring-border group-hover:bg-vibe-electric/10 group-hover:ring-vibe-electric/30 transition-colors">
+                                <Rocket className="h-6 w-6 text-vibe-pink" />
                             </div>
                             <h3 className="mb-3 text-2xl font-semibold text-foreground">Featured Spotlight</h3>
                             <p className="mb-6 text-muted-foreground">Top-of-home placement with a Featured badge and priority visibility for new visitors.</p>
                             <ul className="space-y-3">
                                 <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-indigo-500" />
+                                    <Check className="mr-3 h-4 w-4 text-vibe-electric" />
                                     Top of homepage placement
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-indigo-500" />
+                                    <Check className="mr-3 h-4 w-4 text-vibe-electric" />
                                     &quot;Featured&quot; badge on listing
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-indigo-500" />
+                                    <Check className="mr-3 h-4 w-4 text-vibe-electric" />
                                     Monthly performance report
                                 </li>
                             </ul>
@@ -155,24 +155,24 @@ export default function ConsultingPage() {
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.1 }}
-                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card p-8 transition-all hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
+                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card p-8 transition-all hover:-translate-y-1 hover:border-vibe-electric/30 hover:shadow-2xl hover:shadow-vibe-electric/10"
                         >
-                            <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/50 ring-1 ring-border group-hover:bg-indigo-500/10 group-hover:ring-indigo-500/30 transition-colors">
-                                <Zap className="h-6 w-6 text-purple-400" />
+                            <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/50 ring-1 ring-border group-hover:bg-vibe-electric/10 group-hover:ring-vibe-electric/30 transition-colors">
+                                <Zap className="h-6 w-6 text-vibe-purple" />
                             </div>
                             <h3 className="mb-3 text-2xl font-semibold text-foreground">Sidebar Ads</h3>
                             <p className="mb-6 text-muted-foreground">Category-targeted sidebar placement for high-intent visitors exploring tools.</p>
                             <ul className="space-y-3">
                                 <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-indigo-500" />
+                                    <Check className="mr-3 h-4 w-4 text-vibe-electric" />
                                     Category page sidebar placement
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-indigo-500" />
+                                    <Check className="mr-3 h-4 w-4 text-vibe-electric" />
                                     Monthly impressions estimate (initial range)
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-indigo-500" />
+                                    <Check className="mr-3 h-4 w-4 text-vibe-electric" />
                                     Click and conversion summary
                                 </li>
                             </ul>
@@ -183,28 +183,28 @@ export default function ConsultingPage() {
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.2 }}
-                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card p-8 transition-all hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
+                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card p-8 transition-all hover:-translate-y-1 hover:border-vibe-electric/30 hover:shadow-2xl hover:shadow-vibe-electric/10"
                         >
-                            <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/50 ring-1 ring-border group-hover:bg-indigo-500/10 group-hover:ring-indigo-500/30 transition-colors">
-                                <Terminal className="h-6 w-6 text-indigo-400" />
+                            <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/50 ring-1 ring-border group-hover:bg-vibe-electric/10 group-hover:ring-vibe-electric/30 transition-colors">
+                                <Terminal className="h-6 w-6 text-vibe-purple" />
                             </div>
                             <h3 className="mb-3 text-2xl font-semibold text-foreground">Newsletter Sponsor</h3>
                             <p className="mb-6 text-muted-foreground">Exclusive sponsor slot in our monthly newsletter sent to 15,000+ developers. Send date confirmed 5 days in advance.</p>
                             <ul className="space-y-3">
                                 <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-indigo-500" />
+                                    <Check className="mr-3 h-4 w-4 text-vibe-electric" />
                                     One sponsor per monthly newsletter
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-indigo-500" />
+                                    <Check className="mr-3 h-4 w-4 text-vibe-electric" />
                                     Sent to 15,000+ verified developer emails
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-indigo-500" />
+                                    <Check className="mr-3 h-4 w-4 text-vibe-electric" />
                                     60-120 character ad copy (we review for clarity)
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-indigo-500" />
+                                    <Check className="mr-3 h-4 w-4 text-vibe-electric" />
                                     Click and conversion tracking included
                                 </li>
                             </ul>
@@ -256,7 +256,7 @@ export default function ConsultingPage() {
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={designSystem.animations.fadeInUp.transition}
-                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-white p-8 transition-all hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
+                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-white p-8 transition-all hover:-translate-y-1 hover:border-vibe-electric/30 hover:shadow-2xl hover:shadow-vibe-electric/10"
                         >
                             <div className="mb-6">
                                 <h3 className="text-xl font-semibold mb-2">Sidebar Ads</h3>
@@ -267,19 +267,19 @@ export default function ConsultingPage() {
                             </div>
                             <ul className="space-y-3 mb-8">
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
                                     <span>Category page sidebar placement</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
                                     <span>Estimated 3–8k monthly impressions</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
                                     <span>Click and conversion summary</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
                                     <span>One copy or image update included</span>
                                 </li>
                             </ul>
@@ -300,10 +300,10 @@ export default function ConsultingPage() {
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.1 }}
-                            className="group relative overflow-hidden rounded-3xl border-2 border-indigo-500/50 bg-linear-to-b from-indigo-500/10 to-card/50 p-8 shadow-xl shadow-indigo-500/20 transition-all hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-500/30"
+                            className="group relative overflow-hidden rounded-3xl border-2 border-vibe-electric/50 bg-linear-to-b from-vibe-electric/10 to-card/50 p-8 shadow-xl shadow-vibe-electric/20 transition-all hover:-translate-y-2 hover:shadow-2xl hover:shadow-vibe-electric/30"
                         >
                             <div className="absolute top-4 right-4">
-                                <Badge className="bg-indigo-500 text-white border-indigo-500">Most Popular</Badge>
+                                <Badge className="bg-vibe-electric text-white border-vibe-electric">Most Popular</Badge>
                             </div>
                             <div className="mb-6">
                                 <h3 className="text-xl font-semibold mb-2">Featured Spotlight</h3>
@@ -314,19 +314,19 @@ export default function ConsultingPage() {
                             </div>
                             <ul className="space-y-3 mb-8">
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
                                     <span>Home hero placement</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
                                     <span>Priority visibility for new visitors</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
                                     <span>&quot;Featured&quot; badge on listing</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
                                     <span>Monthly performance report</span>
                                 </li>
                             </ul>
@@ -346,7 +346,7 @@ export default function ConsultingPage() {
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.2 }}
-                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-white p-8 transition-all hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10"
+                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-white p-8 transition-all hover:-translate-y-1 hover:border-vibe-electric/30 hover:shadow-2xl hover:shadow-vibe-electric/10"
                         >
                             <div className="mb-6">
                                 <h3 className="text-xl font-semibold mb-2">Newsletter Sponsor</h3>
@@ -357,19 +357,19 @@ export default function ConsultingPage() {
                             </div>
                             <ul className="space-y-3 mb-8">
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
                                     <span>Sent to 15,000+ developer subscribers</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
                                     <span>One exclusive slot per month (first week preferred)</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
                                     <span>Copy approval 3 days before send</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-indigo-500 mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
                                     <span>Full click analytics within 48 hours</span>
                                 </li>
                             </ul>
@@ -408,8 +408,8 @@ export default function ConsultingPage() {
                     <div className="container mx-auto px-4">
                         <div className="grid gap-12 md:grid-cols-3">
                             <div className="text-center">
-                                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-indigo-500/10">
-                                    <TrendingUp className="h-8 w-8 text-indigo-500" />
+                                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-vibe-electric/10">
+                                    <TrendingUp className="h-8 w-8 text-vibe-electric" />
                                 </div>
                                 <div className="text-4xl font-bold text-foreground mb-2">50K+</div>
                                 <p className="text-muted-foreground">Monthly Visitors</p>
@@ -456,7 +456,7 @@ export default function ConsultingPage() {
                                 &quot;VibeStack drove 500+ quality signups in our first month. The developer audience is exactly who we needed to reach.&quot;
                             </p>
                             <div className="flex items-center gap-3">
-                                <div className="h-10 w-10 rounded-full bg-indigo-500/20" />
+                                <div className="h-10 w-10 rounded-full bg-vibe-purple/20" />
                                 <div>
                                     <div className="font-semibold text-sm text-foreground">Sarah Chen</div>
                                     <div className="text-xs text-muted-foreground">VP Marketing, DevTools Inc</div>
@@ -521,11 +521,11 @@ export default function ConsultingPage() {
                         whileInView={designSystem.animations.fadeInUp.animate}
                         viewport={{ once: true }}
                         transition={designSystem.animations.fadeInUp.transition}
-                        className="relative overflow-hidden rounded-3xl border border-indigo-500/20 bg-linear-to-br from-indigo-500/10 via-purple-500/5 to-pink-500/10 p-12 lg:p-16 text-center backdrop-blur-sm"
+                        className="relative overflow-hidden rounded-3xl border border-vibe-electric/20 bg-linear-to-br from-vibe-electric/10 via-vibe-purple/5 to-vibe-pink/10 p-12 lg:p-16 text-center backdrop-blur-sm"
                     >
                         <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-size-[20px_20px]" />
                         <div className="relative z-10 max-w-3xl mx-auto">
-                            <Mail className="w-16 h-16 mx-auto mb-6 text-indigo-400" />
+                            <Mail className="w-16 h-16 mx-auto mb-6 text-vibe-electric" />
                             <h2 className="text-3xl sm:text-4xl font-bold mb-4">Ready to Get Started?</h2>
                             <p className="text-lg text-muted-foreground mb-8">
                                 Let&apos;s discuss how we can help you reach thousands of developers actively searching for tools like yours.
@@ -533,7 +533,7 @@ export default function ConsultingPage() {
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                 <Button
                                     size="lg"
-                                    className="rounded-full shadow-lg shadow-indigo-500/20 px-8"
+                                    className="rounded-full shadow-lg shadow-vibe-electric/20 px-8"
                                     onClick={() => handleCheckout('featuredSpotlight')}
                                     disabled={loading}
                                 >

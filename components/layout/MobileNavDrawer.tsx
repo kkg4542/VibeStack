@@ -42,7 +42,7 @@ const categories = [
 const quickLinks = [
     { href: "/", label: "Home", icon: Home, color: "from-blue-500 to-cyan-500" },
     { href: "/build", label: "Find Stack", icon: Layers, color: "from-violet-500 to-pink-500" },
-    { href: "/tools", label: "AI Tools", icon: Wrench, color: "from-indigo-500 to-purple-500" },
+    { href: "/tools", label: "AI Tools", icon: Wrench, color: "from-vibe-electric to-vibe-purple" },
     { href: "/blog", label: "Blog", icon: Newspaper, color: "from-emerald-500 to-teal-500" },
     { href: "/favorites", label: "Favorites", icon: Heart, color: "from-rose-500 to-pink-500" },
 ];
@@ -179,14 +179,14 @@ export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
                                                 onClick={() => handleLinkClick(link.href)}
                                             >
                                                 <Card className={`border-0 transition-all duration-200 ${isActive
-                                                    ? 'bg-indigo-500/10 border-indigo-500/30'
+                                                    ? 'bg-vibe-electric/10 border-vibe-electric/30'
                                                     : 'bg-secondary/30 hover:bg-secondary/50'
                                                     }`}>
                                                     <CardContent className="p-3 flex items-center gap-3">
                                                         <div className={`p-2 rounded-lg bg-linear-to-br ${link.color}`}>
                                                             <Icon className="h-4 w-4 text-white" />
                                                         </div>
-                                                        <span className={`text-sm font-medium ${isActive ? 'text-indigo-400' : ''}`}>
+                                                        <span className={`text-sm font-medium ${isActive ? 'text-vibe-electric' : ''}`}>
                                                             {link.label}
                                                         </span>
                                                     </CardContent>
@@ -281,7 +281,7 @@ export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
                                         >
                                             <Badge
                                                 variant="secondary"
-                                                className="cursor-pointer hover:bg-indigo-500/10 hover:text-indigo-400 transition-colors"
+                                                className="cursor-pointer hover:bg-vibe-electric/10 hover:text-vibe-electric transition-colors"
                                             >
                                                 {tag}
                                             </Badge>
@@ -293,7 +293,7 @@ export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
 
                         {/* Swipe Indicator */}
                         <div className="absolute left-0 top-0 bottom-0 w-1 bg-linear-to-b from-transparent via-border/50 to-transparent">
-                            <div className="absolute top-1/2 -translate-y-1/2 left-0 w-1 h-16 bg-indigo-500/30 rounded-full" />
+                            <div className="absolute top-1/2 -translate-y-1/2 left-0 w-1 h-16 bg-vibe-electric/30 rounded-full" />
                         </div>
                     </motion.div>
                 </>

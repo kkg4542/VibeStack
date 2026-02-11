@@ -92,7 +92,7 @@ export default function SubmitStackPage() {
                     animate={{ opacity: 1, y: 0 }}
                     className="mb-8 text-center"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-electric text-sm font-medium mb-6">
                         <Sparkles className="w-4 h-4" />
                         <span>Community Contributions</span>
                     </div>
@@ -141,12 +141,12 @@ export default function SubmitStackPage() {
                                     const tool = allTools.find((t: ToolData) => t.slug === slug);
                                     if (!tool) return null;
                                     return (
-                                        <Badge key={slug} variant="secondary" className="pl-2 pr-1 py-1 gap-1 text-sm bg-indigo-500/10 hover:bg-indigo-500/20 border-indigo-500/20 text-indigo-300">
+                                        <Badge key={slug} variant="secondary" className="pl-2 pr-1 py-1 gap-1 text-sm bg-vibe-electric/10 hover:bg-vibe-electric/20 border-vibe-electric/20 text-indigo-300">
                                             {tool.title}
                                             <button
                                                 type="button"
                                                 onClick={() => removeTool(slug)}
-                                                className="hover:bg-indigo-500/20 rounded-full p-0.5"
+                                                className="hover:bg-vibe-electric/20 rounded-full p-0.5"
                                             >
                                                 <X className="h-3 w-3" />
                                             </button>
@@ -214,7 +214,7 @@ export default function SubmitStackPage() {
                         <Button
                             type="submit"
                             size="lg"
-                            className="w-full h-12 rounded-full font-semibold shadow-lg shadow-indigo-500/20"
+                            className="w-full h-12 rounded-full font-semibold shadow-lg shadow-vibe-electric/20"
                             disabled={isSubmitting || !stackName || !description || selectedTools.length === 0}
                         >
                             {isSubmitting ? (

@@ -97,7 +97,7 @@ export function ReviewForm({ toolSlug }: { toolSlug: string }) {
 
                 <Textarea
                     placeholder="Share your experience with this tool..."
-                    className="min-h-[100px] bg-secondary/50 border-border/30 focus:border-indigo-500"
+                    className="min-h-[100px] bg-secondary/50 border-border/30 focus:border-vibe-electric"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                     required

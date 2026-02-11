@@ -102,7 +102,7 @@ export default function SearchPage() {
         const parts = text.split(new RegExp(`(${query})`, 'gi'));
         return parts.map((part, i) =>
             part.toLowerCase() === query.toLowerCase()
-                ? <mark key={i} className="bg-indigo-500/20 text-indigo-600 rounded px-1">{part}</mark>
+                ? <mark key={i} className="bg-vibe-electric/20 text-vibe-electric rounded px-1">{part}</mark>
                 : part
         );
     };
@@ -131,14 +131,14 @@ export default function SearchPage() {
                     transition={designSystem.animations.fadeInUp.transition}
                     className="text-center mb-12"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 text-sm font-medium mb-6 backdrop-blur-sm">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-electric text-sm font-medium mb-6 backdrop-blur-sm">
                         <Sparkles className="w-4 h-4" />
                         <span>Smart Search</span>
                     </div>
 
                     <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-balance">
                         Find Your Perfect{" "}
-                        <span className="bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                        <span className="bg-linear-to-r from-vibe-electric via-purple-600 to-pink-600 bg-clip-text text-transparent">
                             AI Tool
                         </span>
                     </h1>
@@ -180,7 +180,7 @@ export default function SearchPage() {
                                     variant="outline"
                                     size="sm"
                                     onClick={() => handleSearch(filter.value)}
-                                    className="rounded-full text-xs border-border/50 hover:border-indigo-500/50 hover:bg-indigo-500/5"
+                                    className="rounded-full text-xs border-border/50 hover:border-vibe-electric/50 hover:bg-vibe-electric/5"
                                 >
                                     {filter.label}
                                 </Button>
@@ -201,8 +201,8 @@ export default function SearchPage() {
                         {searchTools.length > 0 && (
                             <div>
                                 <div className="flex items-center gap-2 mb-4">
-                                    <div className="p-1.5 rounded-lg bg-indigo-500/10">
-                                        <Sparkles className="w-4 h-4 text-indigo-500" />
+                                    <div className="p-1.5 rounded-lg bg-vibe-electric/10">
+                                        <Sparkles className="w-4 h-4 text-vibe-electric" />
                                     </div>
                                     <h2 className="text-xl font-semibold">
                                         Tools
@@ -229,7 +229,7 @@ export default function SearchPage() {
                                                             </div>
                                                             <div className="flex-1 min-w-0">
                                                                 <div className="flex items-center gap-2 mb-1">
-                                                                    <h3 className="text-lg font-semibold group-hover:text-indigo-500 transition-colors">
+                                                                    <h3 className="text-lg font-semibold group-hover:text-vibe-electric transition-colors">
                                                                         {highlightMatch(tool.title)}
                                                                     </h3>
                                                                     <Badge variant="outline" className="text-xs shrink-0">
@@ -245,7 +245,7 @@ export default function SearchPage() {
                                                                     </Badge>
                                                                 </div>
                                                             </div>
-                                                            <ArrowRight className="h-5 w-5 text-muted-foreground/30 group-hover:text-indigo-500 transition-colors shrink-0 self-center" />
+                                                            <ArrowRight className="h-5 w-5 text-muted-foreground/30 group-hover:text-vibe-electric transition-colors shrink-0 self-center" />
                                                         </div>
                                                     </CardContent>
                                                 </Card>
@@ -280,7 +280,7 @@ export default function SearchPage() {
                                                 <Card className="hover:bg-accent/50 transition-colors cursor-pointer border-border/50 group">
                                                     <CardContent className="p-4">
                                                         <div className="flex items-start gap-4">
-                                                            <div className="shrink-0 w-12 h-12 rounded-xl bg-linear-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center text-2xl">
+                                                            <div className="shrink-0 w-12 h-12 rounded-xl bg-linear-to-br from-vibe-electric/20 to-purple-500/20 flex items-center justify-center text-2xl">
                                                                 {stack.icon}
                                                             </div>
                                                             <div className="flex-1 min-w-0">
@@ -375,7 +375,7 @@ export default function SearchPage() {
                                             variant="outline"
                                             size="sm"
                                             onClick={() => handleSearch(search)}
-                                            className="rounded-full border-border/50 hover:border-indigo-500/50"
+                                            className="rounded-full border-border/50 hover:border-vibe-electric/50"
                                         >
                                             {search}
                                         </Button>
@@ -387,8 +387,8 @@ export default function SearchPage() {
                         {/* Trending Searches */}
                         <div>
                             <div className="flex items-center gap-2 mb-4">
-                                <div className="p-1.5 rounded-lg bg-indigo-500/10">
-                                    <TrendingUp className="h-4 w-4 text-indigo-500" />
+                                <div className="p-1.5 rounded-lg bg-vibe-electric/10">
+                                    <TrendingUp className="h-4 w-4 text-vibe-electric" />
                                 </div>
                                 <h2 className="text-lg font-semibold">Trending Searches</h2>
                             </div>
@@ -399,7 +399,7 @@ export default function SearchPage() {
                                         variant="outline"
                                         size="sm"
                                         onClick={() => handleSearch(search)}
-                                        className="rounded-full border-border/50 hover:border-indigo-500/50 hover:bg-indigo-500/5"
+                                        className="rounded-full border-border/50 hover:border-vibe-electric/50 hover:bg-vibe-electric/5"
                                     >
                                         {search}
                                     </Button>

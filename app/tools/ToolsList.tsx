@@ -37,7 +37,7 @@ function ToolCard({ tool }: { tool: ToolData }) {
                 >
                     <div className="flex flex-col h-full p-6">
                         <div className="mb-4 flex items-center justify-between gap-4">
-                            <div className={`rounded-lg bg-secondary/80 p-3 ring-1 ring-border shadow-lg ${tool.color || "text-foreground"} group-hover:shadow-indigo-500/20 transition-all duration-300`}>
+                            <div className={`rounded-lg bg-secondary/80 p-3 ring-1 ring-border shadow-lg ${tool.color || "text-foreground"} group-hover:shadow-vibe-electric/20 transition-all duration-300`}>
                                 <ToolIconRenderer slug={tool.slug} className="h-6 w-6" aria-hidden="true" />
                             </div>
                             <Badge variant="secondary" className="bg-secondary text-xs font-normal text-muted-foreground backdrop-blur-sm">
@@ -144,7 +144,7 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                                     onClick={() => setPricing(p)}
                                     aria-pressed={pricing === p}
                                     className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${pricing === p
-                                        ? "bg-indigo-500 text-white shadow-md"
+                                        ? "bg-vibe-electric text-white shadow-md"
                                         : "text-muted-foreground hover:text-foreground hover:bg-muted"
                                         }`}
                                 >
@@ -178,7 +178,7 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                                 onClick={() => setCategory(cat)}
                                 aria-pressed={category === cat}
                                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${category === cat
-                                    ? "bg-indigo-500 text-white border-indigo-500 shadow-md shadow-indigo-500/20"
+                                    ? "bg-vibe-electric text-white border-vibe-electric shadow-md shadow-vibe-electric/20"
                                     : "bg-transparent text-muted-foreground border-transparent hover:bg-secondary/80 hover:text-foreground"
                                     }`}
                             >
@@ -198,7 +198,7 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                             <Link
                                 key={cat}
                                 href={`/categories/${cat.toLowerCase()}`}
-                                className="text-xs text-indigo-400 hover:text-indigo-300 transition-colors"
+                                className="text-xs text-vibe-electric hover:text-vibe-cyan transition-colors"
                             >
                                 {cat}
                             </Link>
@@ -212,7 +212,7 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                 {isLoading && (
                     <div className="absolute inset-0 z-10 flex items-center justify-center bg-background/20 backdrop-blur-sm rounded-3xl min-h-[400px]">
                         <div className="flex flex-col items-center gap-4">
-                            <div className="w-10 h-10 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+                            <div className="w-10 h-10 border-4 border-vibe-electric border-t-transparent rounded-full animate-spin" />
                             <p className="text-sm font-medium text-muted-foreground">Refreshing tools...</p>
                         </div>
                     </div>
@@ -234,7 +234,7 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                                         setCategory("All");
                                         setPricing("All");
                                     }}
-                                    className="mt-2 text-indigo-500"
+                                    className="mt-2 text-vibe-electric"
                                 >
                                     Clear all filters
                                 </Button>
@@ -272,7 +272,7 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                                         }}
                                         disabled={isLoading}
                                         className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${page === p
-                                            ? "bg-indigo-500 text-white"
+                                            ? "bg-vibe-electric text-white"
                                             : "hover:bg-secondary text-muted-foreground"
                                             }`}
                                     >
@@ -306,17 +306,17 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                             exit={{ y: 100, opacity: 0 }}
                             className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 pointer-events-none"
                         >
-                            <div className="bg-indigo-600 text-white px-6 py-4 rounded-2xl shadow-2xl border border-white/20 backdrop-blur-xl flex items-center gap-6 pointer-events-auto">
+                                <div className="bg-vibe-electric text-white px-6 py-4 rounded-2xl shadow-2xl border border-white/20 backdrop-blur-xl flex items-center gap-6 pointer-events-auto">
                                 <div className="flex items-center gap-3">
                                     <div className="bg-white/20 p-2 rounded-lg">
                                         <Scale className="h-5 w-5" />
                                     </div>
                                     <div>
                                         <p className="text-sm font-bold">{compareCount} Tool{compareCount > 1 ? 's' : ''} Selected</p>
-                                        <p className="text-xs text-indigo-100">Compare features side-by-side</p>
+                                        <p className="text-xs text-vibe-electric/80">Compare features side-by-side</p>
                                     </div>
                                 </div>
-                                <Button asChild size="sm" className="bg-white text-indigo-600 hover:bg-indigo-50 rounded-xl font-bold group">
+                                <Button asChild size="sm" className="bg-white text-vibe-electric hover:bg-vibe-electric/10 rounded-xl font-bold group">
                                     <Link href="/compare" className="flex items-center gap-2">
                                         Compare Now
                                         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

@@ -84,7 +84,7 @@ export default async function RootLayout({
         <GoogleAnalytics />
       </head>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground selection:bg-indigo-500/30 selection:text-indigo-200`}
+        className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground selection:bg-vibe-electric/30 selection:text-indigo-200`}
         suppressHydrationWarning
       >
         <a

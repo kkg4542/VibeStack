@@ -1,132 +1,68 @@
 "use client";
 
-import { m } from "framer-motion";
-import { Star, Twitter, TrendingUp, Clock, DollarSign, Quote } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { VibeCard } from "@/components/ui/VibeCard";
-import { VerifiedTestimonial } from "@/lib/data/stacks";
+import { TestimonialCard } from "./TestimonialCard";
+
+// Define the interface locally or import from where it's defined (we will ensure it's exported from stacks.ts or similar)
+// For now, let's look at what getVerifiedTestimonials returns.
+// The prisma query returns Testimonial & { tool: ..., stack: ..., user: ... }
+// We need to map this to what TestimonialCard expects.
+// TestimonialCard expects:
+// interface TestimonialWithRelations {
+//     id: string;
+//     content: string;
+//     rating: number;
+//     userName: string | null;
+//     ...
+// }
+
+// We will rely on the mapped data passed from the parent page.
+
+export interface TestimonialWithRelations {
+    id: string;
+    content: string;
+    rating: number;
+    userName: string | null;
+    userHandle: string | null;
+    userRole: string | null;
+    userCompany: string | null;
+    userAvatar: string | null;
+    metrics: any;
+    socialProof: any;
+    tool?: { title: string; slug: string } | null;
+    stack?: { name: string; idField: string } | null;
+    verified: boolean;
+}
 
 interface TestimonialsGridProps {
-    testimonials: VerifiedTestimonial[];
+    testimonials: any[]; // We'll accept the raw Prisma return and map it here or assume it's already mapped?
+    // Let's assume the parent component maps it to the shape TestimonialCard needs, 
+    // OR we change TestimonialCard to accept the Prisma shape.
+    // Making the parent (page.tsx) do the mapping is cleanest.
 }
 
 export function TestimonialsGrid({ testimonials }: TestimonialsGridProps) {
+    if (!testimonials || testimonials.length === 0) {
+        return (
+            <div className="text-center py-20">
+                <p className="text-muted-foreground">No testimonials found yet.</p>
+            </div>
+        );
+    }
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
-            {testimonials.map((testimonial, index) => (
-                <m.div
-                    key={testimonial.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{
-                        duration: 0.5,
-                        delay: index * 0.05,
-                        ease: [0.16, 1, 0.3, 1]
-                    }}
-                    className="h-full"
-                >
-                    <VibeCard
-                        className="h-full flex flex-col"
-                        tiltStrength={3}
-                        glowOnHover={true}
-                        depth={10}
-                    >
-                        <div className="p-8 flex flex-col h-full">
-                            {/* Header: User Info & Verification */}
-                            <div className="flex items-start justify-between mb-6">
-                                <div className="flex items-center gap-3">
-                                    <Avatar className="h-10 w-10 ring-2 ring-vibe-electric/10">
-                                        <AvatarImage src={testimonial.user.avatar || undefined} alt={testimonial.user.name} />
-                                        <AvatarFallback className="bg-linear-to-br from-vibe-electric/20 to-vibe-purple/20 text-vibe-electric font-semibold text-sm">
-                                            {testimonial.user.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
-                                        </AvatarFallback>
-                                    </Avatar>
-                                    <div>
-                                        <div className="font-semibold text-sm leading-none mb-1">
-                                            {testimonial.user.name}
-                                        </div>
-                                        <div className="text-xs text-muted-foreground">
-                                            {testimonial.user.role} at {testimonial.user.company}
-                                        </div>
-                                    </div>
-                                </div>
-                                {testimonial.user.verified && (
-                                    <div className="text-vibe-cyan" title="Verified User">
-                                        <Twitter className="w-4 h-4" />
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* Rating */}
-                            <div className="flex gap-1 mb-4">
-                                {[...Array(5)].map((_, i) => (
-                                    <Star
-                                        key={i}
-                                        className={`w-4 h-4 ${i < testimonial.rating ? 'fill-yellow-400 text-yellow-400' : 'fill-muted text-muted'}`}
-                                    />
-                                ))}
-                            </div>
-
-                            {/* Content */}
-                            <div className="relative mb-6 grow">
-                                <Quote className="absolute -top-2 -left-2 w-6 h-6 text-vibe-electric/10 -z-10 transform -scale-x-100" />
-                                <p className="text-foreground/90 leading-relaxed text-base">
-                                    &quot;{testimonial.content}&quot;
-                                </p>
-                            </div>
-
-                            {/* Metrics Section (if available) */}
-                            {testimonial.metrics && (
-                                <div className="grid grid-cols-3 gap-2 py-4 border-t border-b border-white/5 mb-4">
-                                    {testimonial.metrics.productivityGain && (
-                                        <div className="text-center">
-                                            <div className="text-xs text-muted-foreground mb-1">Productivity</div>
-                                            <div className="text-sm font-bold text-vibe-electric items-center justify-center flex gap-1">
-                                                <TrendingUp className="w-3 h-3" />
-                                                {testimonial.metrics.productivityGain}
-                                            </div>
-                                        </div>
-                                    )}
-                                    {testimonial.metrics.timeSaved && (
-                                        <div className="text-center border-l border-white/5">
-                                            <div className="text-xs text-muted-foreground mb-1">Time Saved</div>
-                                            <div className="text-sm font-bold text-vibe-purple items-center justify-center flex gap-1">
-                                                <Clock className="w-3 h-3" />
-                                                {testimonial.metrics.timeSaved}
-                                            </div>
-                                        </div>
-                                    )}
-                                    {testimonial.metrics.roi && (
-                                        <div className="text-center border-l border-white/5">
-                                            <div className="text-xs text-muted-foreground mb-1">ROI</div>
-                                            <div className="text-sm font-bold text-vibe-neon items-center justify-center flex gap-1">
-                                                <DollarSign className="w-3 h-3" />
-                                                {testimonial.metrics.roi}
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                            )}
-
-                            {/* Footer: Stack/Tool & Date */}
-                            <div className="mt-auto pt-2 flex items-center justify-between text-xs text-muted-foreground">
-                                <div>
-                                    {testimonial.stackName && (
-                                        <span className="inline-flex items-center">
-                                            Using <Badge variant="secondary" className="ml-2 h-5 text-[10px] px-1.5">{testimonial.stackName}</Badge>
-                                        </span>
-                                    )}
-                                </div>
-                                <div>
-                                    {new Date(testimonial.createdAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-                                </div>
-                            </div>
-                        </div>
-                    </VibeCard>
-                </m.div>
-            ))}
+            {testimonials.map((testimonial, index) => {
+                // Map Prisma result to TestimonialCard props if needed
+                // Assuming the passing data structure matches closely enough or is mapped in page.tsx
+                // Let's adjust usages in TestimonialsPage
+                return (
+                    <TestimonialCard
+                        key={testimonial.id}
+                        testimonial={testimonial}
+                        index={index}
+                    />
+                );
+            })}
         </div>
     );
 }

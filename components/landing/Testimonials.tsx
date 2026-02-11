@@ -36,7 +36,7 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
         </Badge>
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
           Loved by{" "}
-          <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600">
+          <span className="text-transparent bg-clip-text bg-linear-to-r from-vibe-electric via-vibe-purple to-vibe-pink">
             developers worldwide
           </span>
         </h2>

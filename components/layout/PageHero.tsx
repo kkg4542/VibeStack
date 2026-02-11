@@ -87,7 +87,7 @@ export function CTAButton({
   const sizeClass = designSystem.buttons[size];
   
   const variantClasses = {
-    primary: 'bg-linear-to-r from-indigo-600 to-purple-600 hover:shadow-lg hover:shadow-indigo-500/30 text-white',
+    primary: 'bg-linear-to-r from-vibe-electric to-vibe-purple hover:shadow-lg hover:shadow-vibe-electric/30 text-white',
     secondary: 'bg-secondary hover:bg-secondary/80',
     outline: 'border border-border/50 hover:border-vibe-electric/50 hover:bg-vibe-electric/5',
   };

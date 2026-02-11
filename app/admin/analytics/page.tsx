@@ -184,7 +184,7 @@ export default function AnalyticsPage() {
                     <div className="flex items-center gap-4">
                       <div className="w-32 h-2 bg-muted rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-indigo-500"
+                          className="h-full bg-vibe-electric"
                           style={{
                             width: `${(tool.clicks / (data?.clickStats[0]?.clicks || 1)) * 100}%`,
                           }}

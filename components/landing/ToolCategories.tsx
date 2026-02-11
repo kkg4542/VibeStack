@@ -65,7 +65,7 @@ const categories = [
     description: "Project management with AI-powered insights",
     icon: Briefcase,
     count: 8,
-    color: "from-blue-400 to-indigo-600",
+    color: "from-blue-400 to-vibe-purple",
     bgColor: "bg-blue-500/10",
     tools: ["Linear", "ClickUp", "Asana", "Trello"],
   },
@@ -153,7 +153,7 @@ export function ToolCategories() {
                       </div>
 
                       {/* Title & Description */}
-                      <h3 className="text-xl font-bold mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r group-hover:from-indigo-600 group-hover:to-purple-600 transition-all duration-300">
+                      <h3 className="text-xl font-bold mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r group-hover:from-vibe-electric group-hover:to-vibe-purple transition-all duration-300">
                         {category.name}
                       </h3>
                       <p className="text-sm text-muted-foreground mb-4">

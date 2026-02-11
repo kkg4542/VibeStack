@@ -96,9 +96,9 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                     transition={{ ...designSystem.animations.fadeInUp.transition, duration: 0.8 }}
                     className="mb-16"
                 >
-                    <div className="bg-linear-to-br from-indigo-500/5 via-purple-500/5 to-pink-500/5 rounded-3xl p-8 md:p-12 border border-indigo-500/10 relative overflow-hidden">
+                    <div className="bg-linear-to-br from-vibe-electric/5 via-vibe-purple/5 to-vibe-pink/5 rounded-3xl p-8 md:p-12 border border-vibe-electric/10 relative overflow-hidden">
                         {/* Decorative Elements */}
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 blur-[100px] rounded-full" />
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-vibe-electric/10 blur-[100px] rounded-full" />
                         <div className="absolute bottom-0 left-0 w-48 h-48 bg-purple-500/10 blur-[80px] rounded-full" />
 
                         <div className="relative z-10 flex flex-col lg:flex-row gap-8 items-start">
@@ -109,7 +109,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                 animate={{ scale: 1, opacity: 1 }}
                                 transition={{ duration: 0.5, delay: 0.2 }}
                             >
-                                <div className={`p-6 rounded-3xl bg-linear-to-br ${tool.bgGradient} border border-border/20 shadow-2xl shadow-indigo-500/10`}>
+                                <div className={`p-6 rounded-3xl bg-linear-to-br ${tool.bgGradient} border border-border/20 shadow-2xl shadow-vibe-electric/10`}>
                                     <ToolIconRenderer slug={tool.slug} className="h-16 w-16 text-foreground" />
                                 </div>
                                 {tool.review && (
@@ -126,7 +126,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                     <Badge variant="outline" className="text-muted-foreground border-border/30 bg-muted backdrop-blur-sm">
                                         {tool.category}
                                     </Badge>
-                                    <Badge className="bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 border-indigo-500/20">
+                                    <Badge className="bg-vibe-electric/10 text-vibe-electric hover:bg-vibe-electric/20 border-vibe-electric/20">
                                         {tool.pricing}
                                     </Badge>
                                     <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20">
@@ -227,8 +227,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                             className="bg-white backdrop-blur-sm rounded-3xl p-8 border border-border/50 shadow-lg"
                         >
                             <div className="flex items-center gap-3 mb-6">
-                                <div className="p-2 rounded-lg bg-indigo-500/10">
-                                    <Sparkles className="h-5 w-5 text-indigo-500" />
+                                <div className="p-2 rounded-lg bg-vibe-electric/10">
+                                    <Sparkles className="h-5 w-5 text-vibe-electric" />
                                 </div>
                                 <h2 className="text-2xl font-semibold text-foreground">Key Features</h2>
                             </div>
@@ -242,8 +242,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                         transition={{ duration: 0.4, delay: index * 0.1 }}
                                         className="flex items-start gap-4 p-4 rounded-2xl bg-secondary/30 hover:bg-secondary/50 transition-colors"
                                     >
-                                        <div className="p-1.5 rounded-full bg-indigo-500/20 shrink-0 mt-0.5">
-                                            <Check className="h-4 w-4 text-indigo-400" />
+                                        <div className="p-1.5 rounded-full bg-vibe-electric/20 shrink-0 mt-0.5">
+                                            <Check className="h-4 w-4 text-vibe-electric" />
                                         </div>
                                         <span className="text-lg text-foreground">{feature}</span>
                                     </motion.li>
@@ -305,11 +305,11 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={designSystem.animations.fadeInUp.transition}
-                            className="bg-linear-to-br from-indigo-500/5 to-purple-500/5 rounded-3xl p-8 border border-indigo-500/10"
+                            className="bg-linear-to-br from-vibe-electric/5 to-vibe-purple/5 rounded-3xl p-8 border border-vibe-electric/10"
                         >
                             <div className="flex items-center gap-3 mb-6">
-                                <div className="p-2 rounded-lg bg-indigo-500/10">
-                                    <Star className="h-5 w-5 text-indigo-500" />
+                                <div className="p-2 rounded-lg bg-vibe-electric/10">
+                                    <Star className="h-5 w-5 text-vibe-electric" />
                                 </div>
                                 <h2 className="text-2xl font-semibold">Expert Review</h2>
                             </div>
@@ -393,8 +393,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                             className="bg-white backdrop-blur-sm rounded-3xl p-6 border border-border/50 shadow-lg sticky top-24"
                         >
                             <div className="flex items-center gap-3 mb-6">
-                                <div className="p-2 rounded-lg bg-indigo-500/10">
-                                    <Target className="h-5 w-5 text-indigo-500" />
+                                <div className="p-2 rounded-lg bg-vibe-electric/10">
+                                    <Target className="h-5 w-5 text-vibe-electric" />
                                 </div>
                                 <h3 className="font-semibold text-foreground">Tool Details</h3>
                             </div>

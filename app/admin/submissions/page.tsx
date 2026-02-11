@@ -54,7 +54,7 @@ export default async function AdminSubmissionsPage() {
                       {tool && (
                         <Link
                           href={`/tool/${tool.slug}`}
-                          className="text-xs text-indigo-400 hover:underline"
+                          className="text-xs text-vibe-electric hover:underline"
                         >
                           View live tool
                         </Link>

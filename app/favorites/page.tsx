@@ -224,13 +224,13 @@ export default function FavoritesPage() {
                             <div className="flex items-center bg-white rounded-lg border border-border/50 p-1">
                                 <button
                                     onClick={() => setViewMode('grid')}
-                                    className={`p-2 rounded-md transition-colors ${viewMode === 'grid' ? 'bg-indigo-500 text-white' : 'text-muted-foreground hover:text-foreground'}`}
+                                    className={`p-2 rounded-md transition-colors ${viewMode === 'grid' ? 'bg-vibe-electric text-white' : 'text-muted-foreground hover:text-foreground'}`}
                                 >
                                     <Grid3X3 className="h-4 w-4" />
                                 </button>
                                 <button
                                     onClick={() => setViewMode('list')}
-                                    className={`p-2 rounded-md transition-colors ${viewMode === 'list' ? 'bg-indigo-500 text-white' : 'text-muted-foreground hover:text-foreground'}`}
+                                    className={`p-2 rounded-md transition-colors ${viewMode === 'list' ? 'bg-vibe-electric text-white' : 'text-muted-foreground hover:text-foreground'}`}
                                 >
                                     <List className="h-4 w-4" />
                                 </button>
@@ -322,7 +322,7 @@ export default function FavoritesPage() {
                             }
                         </p>
                         <div className="flex gap-3 justify-center">
-                            <Button asChild className="rounded-full shadow-lg shadow-indigo-500/20">
+                            <Button asChild className="rounded-full shadow-lg shadow-vibe-electric/20">
                                 <Link href="/tools">Browse Tools</Link>
                             </Button>
                             <Button asChild variant="outline" className="rounded-full">
@@ -343,7 +343,7 @@ export default function FavoritesPage() {
                                 transition={designSystem.animations.fadeInUp.transition}
                             >
                                 <div className="flex items-center gap-3 mb-4">
-                                    <Sparkles className="w-5 h-5 text-indigo-500" />
+                                    <Sparkles className="w-5 h-5 text-vibe-electric" />
                                     <h2 className="text-xl font-semibold">Tools ({favoriteTools.length})</h2>
                                 </div>
 
@@ -362,7 +362,7 @@ export default function FavoritesPage() {
                                                 animate={designSystem.animations.fadeInUp.animate}
                                                 transition={{ ...designSystem.animations.fadeInUp.transition, delay: index * 0.05 }}
                                             >
-                                                <Card className={`group border-border/50 hover:border-indigo-500/50 hover:bg-accent/50 transition-all duration-300 ${viewMode === 'list' ? 'flex items-center p-4' : ''
+                                                <Card className={`group border-border/50 hover:border-vibe-electric/50 hover:bg-accent/50 transition-all duration-300 ${viewMode === 'list' ? 'flex items-center p-4' : ''
                                                     }`}>
                                                     <CardContent className={viewMode === 'list' ? 'p-0 flex-1' : 'p-4'}>
                                                         <div className={`flex items-start gap-3 ${viewMode === 'list' ? '' : 'mb-3'}`}>
@@ -374,7 +374,7 @@ export default function FavoritesPage() {
                                                                     })()}
                                                                 </div>
                                                                 <div className="min-w-0">
-                                                                    <h3 className="font-semibold group-hover:text-indigo-500 transition-colors truncate">
+                                                                    <h3 className="font-semibold group-hover:text-vibe-electric transition-colors truncate">
                                                                         {tool.title}
                                                                     </h3>
                                                                     <p className="text-xs text-muted-foreground">{tool.category}</p>
@@ -431,7 +431,7 @@ export default function FavoritesPage() {
                                                     <CardContent className="p-4">
                                                         <div className="flex items-start justify-between">
                                                             <Link href={`/stack/${stack.id}`} className="flex items-center gap-3 flex-1">
-                                                                <div className="shrink-0 w-12 h-12 rounded-xl bg-linear-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center text-2xl">
+                                                                <div className="shrink-0 w-12 h-12 rounded-xl bg-linear-to-br from-vibe-electric/20 to-vibe-purple/20 flex items-center justify-center text-2xl">
                                                                     {stack.icon}
                                                                 </div>
                                                                 <div className="min-w-0">

@@ -176,7 +176,7 @@ export function VibeHero() {
 
           <div className="h-24 md:h-32 flex items-center justify-center overflow-visible">
             <h1
-              className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-transparent bg-clip-text bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 pb-4"
+              className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-transparent bg-clip-text bg-linear-to-r from-vibe-electric via-vibe-purple to-vibe-pink pb-4"
               aria-live="polite"
               aria-atomic="true"
             >

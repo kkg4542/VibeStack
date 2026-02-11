@@ -96,7 +96,7 @@ export function AffiliateLink({
         target="_blank"
         rel="noopener noreferrer"
         onClick={handleClick}
-        className="font-medium text-indigo-400 hover:underline truncate max-w-[150px]"
+        className="font-medium text-vibe-electric hover:underline truncate max-w-[150px]"
       >
         {children}
       </a>
@@ -106,7 +106,7 @@ export function AffiliateLink({
   return (
     <Button
       size="lg"
-      className={`rounded-full shadow-lg shadow-indigo-500/20 ${className || ""}`}
+      className={`rounded-full shadow-lg shadow-vibe-electric/20 ${className || ""}`}
       asChild
     >
       <a

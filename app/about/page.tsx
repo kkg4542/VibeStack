@@ -150,7 +150,7 @@ export default function AboutPage() {
 
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
                         Building the Future of{" "}
-                        <span className="bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                        <span className="bg-linear-to-r from-vibe-electric via-vibe-purple to-vibe-pink bg-clip-text text-transparent">
                             AI Productivity
                         </span>
                     </h1>
@@ -168,11 +168,11 @@ export default function AboutPage() {
                     transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.1 }}
                     className="grid md:grid-cols-2 gap-6 mb-20"
                 >
-                    <Card className="border-indigo-500/20 bg-linear-to-br from-indigo-500/5 to-purple-500/5">
+                    <Card className="border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-vibe-purple/5">
                         <CardContent className="p-8">
                             <div className="flex items-center gap-3 mb-4">
-                                <div className="p-3 rounded-xl bg-indigo-500/10">
-                                    <Target className="h-6 w-6 text-indigo-500" />
+                                <div className="p-3 rounded-xl bg-vibe-electric/10">
+                                    <Target className="h-6 w-6 text-vibe-electric" />
                                 </div>
                                 <h2 className="text-2xl font-bold">Our Mission</h2>
                             </div>
@@ -221,7 +221,7 @@ export default function AboutPage() {
                                     animate={designSystem.animations.fadeInUp.animate}
                                     transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.3 + index * 0.1 }}
                                 >
-                                    <Card className="h-full border-border/50 hover:border-indigo-500/30 transition-colors group">
+                                    <Card className="h-full border-border/50 hover:border-vibe-electric/30 transition-colors group">
                                         <CardContent className="p-6">
                                             <div className={`p-3 rounded-xl bg-linear-to-br ${value.color} w-fit mb-4 group-hover:scale-110 transition-transform`}>
                                                 <Icon className="h-6 w-6 text-white" />
@@ -318,7 +318,7 @@ export default function AboutPage() {
                                             }`}
                                     >
                                         {/* Timeline Dot */}
-                                        <div className="absolute left-4 md:left-1/2 w-8 h-8 bg-indigo-500 rounded-full border-4 border-background md:-translate-x-1/2 z-10 flex items-center justify-center">
+                                        <div className="absolute left-4 md:left-1/2 w-8 h-8 bg-vibe-electric rounded-full border-4 border-background md:-translate-x-1/2 z-10 flex items-center justify-center">
                                             <Icon className="h-4 w-4 text-white" />
                                         </div>
 
@@ -358,13 +358,13 @@ export default function AboutPage() {
                                 animate={designSystem.animations.fadeInUp.animate}
                                 transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.7 + index * 0.1 }}
                             >
-                                <Card className="text-center border-border/50 hover:border-indigo-500/30 transition-colors">
+                                <Card className="text-center border-border/50 hover:border-vibe-electric/30 transition-colors">
                                     <CardContent className="p-6">
-                                        <div className="w-20 h-20 rounded-full bg-linear-to-br from-indigo-500 to-purple-500 mx-auto mb-4 flex items-center justify-center text-2xl font-bold text-white">
+                                        <div className="w-20 h-20 rounded-full bg-linear-to-br from-vibe-electric to-purple-500 mx-auto mb-4 flex items-center justify-center text-2xl font-bold text-white">
                                             {member.avatar}
                                         </div>
                                         <h3 className="text-lg font-semibold mb-1">{member.name}</h3>
-                                        <p className="text-sm text-indigo-400 mb-3">{member.role}</p>
+                                        <p className="text-sm text-vibe-electric mb-3">{member.role}</p>
                                         <p className="text-sm text-muted-foreground mb-4">{member.bio}</p>
                                         <div className="flex justify-center gap-2">
                                             <a href={member.social.twitter} className="p-2 rounded-full bg-secondary/50 hover:bg-secondary transition-colors">
@@ -424,7 +424,7 @@ export default function AboutPage() {
                             <p className="text-muted-foreground">Have a question or suggestion? We&apos;d love to hear from you.</p>
                         </div>
 
-                        <Card className="border-indigo-500/20 bg-linear-to-br from-indigo-500/5 to-purple-500/5">
+                        <Card className="border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-purple-500/5">
                             <CardContent className="p-8">
                                 <form onSubmit={handleSubmit} className="space-y-6">
                                     <div className="grid sm:grid-cols-2 gap-4">
@@ -463,7 +463,7 @@ export default function AboutPage() {
                                     </div>
                                     <Button
                                         type="submit"
-                                        className="w-full rounded-full h-12 shadow-lg shadow-indigo-500/20"
+                                        className="w-full rounded-full h-12 shadow-lg shadow-vibe-electric/20"
                                         disabled={isSubmitting}
                                     >
                                         {isSubmitting ? (
@@ -481,7 +481,7 @@ export default function AboutPage() {
                                     <p className="text-sm text-muted-foreground mb-4">Or reach us directly at</p>
                                     <a
                                         href="mailto:hello@usevibestack.com"
-                                        className="inline-flex items-center gap-2 text-indigo-400 hover:text-indigo-300 transition-colors"
+                                        className="inline-flex items-center gap-2 text-vibe-electric hover:text-indigo-300 transition-colors"
                                     >
                                         <Mail className="h-4 w-4" />
                                         hello@usevibestack.com

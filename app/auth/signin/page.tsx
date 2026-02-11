@@ -87,13 +87,13 @@ export default function SignInPage() {
                         className="hidden lg:block"
                     >
                         <div className="mb-8">
-                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6">
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-electric text-sm font-medium mb-6">
                                 <Sparkles className="w-4 h-4" />
                                 <span>Join the Community</span>
                             </div>
                             <h1 className="text-4xl font-bold mb-4 text-balance">
                                 Unlock the Full{" "}
-                                <span className="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
+                                <span className="bg-linear-to-r from-vibe-electric via-purple-400 to-pink-500 bg-clip-text text-transparent">
                                     VibeStack
                                 </span>{" "}
                                 Experience
@@ -113,9 +113,9 @@ export default function SignInPage() {
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
                                     >
-                                        <Card className="border-border/50 bg-card/50 backdrop-blur-sm hover:border-indigo-500/30 transition-colors group">
+                                        <Card className="border-border/50 bg-card/50 backdrop-blur-sm hover:border-vibe-electric/30 transition-colors group">
                                             <CardContent className="p-4 flex items-start gap-4">
-                                                <div className="p-3 rounded-xl bg-indigo-500/10 text-indigo-400 group-hover:scale-110 transition-transform">
+                                                <div className="p-3 rounded-xl bg-vibe-electric/10 text-vibe-electric group-hover:scale-110 transition-transform">
                                                     <Icon className="h-5 w-5" />
                                                 </div>
                                                 <div>
@@ -141,7 +141,7 @@ export default function SignInPage() {
                                     {['DK', 'JS', 'MR'].map((initials, i) => (
                                         <div 
                                             key={i} 
-                                            className="w-8 h-8 rounded-full bg-linear-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-xs font-bold text-white border-2 border-background"
+                                            className="w-8 h-8 rounded-full bg-linear-to-br from-vibe-electric to-purple-500 flex items-center justify-center text-xs font-bold text-white border-2 border-background"
                                         >
                                             {initials}
                                         </div>
@@ -169,7 +169,7 @@ export default function SignInPage() {
                             <CardContent className="p-8">
                                 {/* Logo & Title */}
                                 <div className="text-center mb-8">
-                                    <div className="inline-flex p-3 rounded-2xl bg-linear-to-br from-indigo-500 to-purple-500 mb-4 shadow-lg shadow-indigo-500/20">
+                                    <div className="inline-flex p-3 rounded-2xl bg-linear-to-br from-vibe-electric to-purple-500 mb-4 shadow-lg shadow-vibe-electric/20">
                                         <Sparkles className="h-8 w-8 text-white" />
                                     </div>
                                     <h2 className="text-2xl font-bold mb-2">Welcome Back</h2>
@@ -306,7 +306,7 @@ export default function SignInPage() {
                                     const Icon = benefit.icon;
                                     return (
                                         <div key={benefit.title} className="flex items-center gap-2 text-sm">
-                                            <Icon className="h-4 w-4 text-indigo-400" />
+                                            <Icon className="h-4 w-4 text-vibe-electric" />
                                             <span className="text-muted-foreground">{benefit.title}</span>
                                         </div>
                                     );

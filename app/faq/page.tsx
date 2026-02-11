@@ -150,14 +150,14 @@ export default function FAQPage() {
                     transition={designSystem.animations.fadeInUp.transition}
                     className="text-center mb-12"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-electric text-sm font-medium mb-6">
                         <HelpCircle className="w-4 h-4" />
                         <span>FAQ</span>
                     </div>
 
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
                         Frequently Asked{" "}
-                        <span className="bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                        <span className="bg-linear-to-r from-vibe-electric via-purple-600 to-pink-600 bg-clip-text text-transparent">
                             Questions
                         </span>
                     </h1>
@@ -191,8 +191,8 @@ export default function FAQPage() {
                                 transition={{ ...designSystem.animations.fadeInUp.transition, delay: categoryIndex * 0.1 }}
                             >
                                 <div className="flex items-center gap-3 mb-6">
-                                    <div className="p-2 rounded-lg bg-indigo-500/10">
-                                        <Icon className="w-5 h-5 text-indigo-400" />
+                                    <div className="p-2 rounded-lg bg-vibe-electric/10">
+                                        <Icon className="w-5 h-5 text-vibe-electric" />
                                     </div>
                                     <h2 className="text-xl font-bold">{category.title}</h2>
                                 </div>
@@ -239,7 +239,7 @@ export default function FAQPage() {
                     transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.5 }}
                     className="mt-16 text-center"
                 >
-                    <Card className="border-indigo-500/20 bg-linear-to-br from-indigo-500/5 to-purple-500/5">
+                    <Card className="border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-purple-500/5">
                         <CardContent className="p-8">
                             <h3 className="text-xl font-bold mb-2">Still have questions?</h3>
                             <p className="text-muted-foreground mb-6">

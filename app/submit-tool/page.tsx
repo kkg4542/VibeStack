@@ -246,7 +246,7 @@ export default function SubmitToolPage() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5, delay: 0.1 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-electric text-sm font-medium mb-6"
                     >
                         <Upload className="w-4 h-4" />
                         <span>For Tool Creators</span>
@@ -254,7 +254,7 @@ export default function SubmitToolPage() {
 
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
                         Submit Your{" "}
-                        <span className="bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                        <span className="bg-linear-to-r from-vibe-electric via-vibe-purple to-vibe-pink bg-clip-text text-transparent">
                             AI Tool
                         </span>
                     </h1>
@@ -286,17 +286,17 @@ export default function SubmitToolPage() {
                             >
                                 <Card
                                     className={`h-full cursor-pointer transition-all ${selectedPlan === plan.id
-                                        ? "border-indigo-500 ring-2 ring-indigo-500/20"
-                                        : "border-border/50 hover:border-indigo-500/30"
+                                        ? "border-vibe-electric ring-2 ring-vibe-electric/20"
+                                        : "border-border/50 hover:border-vibe-electric/30"
                                         }`}
                                     onClick={() => setSelectedPlan(plan.id)}
                                 >
                                     {plan.popular && (
                                         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                                            <Badge className="bg-indigo-500 text-white">
-                                                <TrendingUp className="w-3 h-3 mr-1" />
-                                                Most Popular
-                                            </Badge>
+                                        <Badge className="bg-vibe-electric text-white">
+                                            <TrendingUp className="w-3 h-3 mr-1" />
+                                            Most Popular
+                                        </Badge>
                                         </div>
                                     )}
                                     <CardHeader className="pb-4">
@@ -354,7 +354,7 @@ export default function SubmitToolPage() {
                         <CardHeader>
                             <CardTitle>Tool Information</CardTitle>
                             <CardDescription>
-                                Tell us about your AI tool. Selected tier: <strong className="text-indigo-400">
+                                Tell us about your AI tool. Selected tier: <strong className="text-vibe-electric">
                                     {pricingPlans.find(p => p.id === selectedPlan)?.name}
                                 </strong>
                             </CardDescription>
@@ -512,9 +512,9 @@ export default function SubmitToolPage() {
                                     <Card className="h-full border-border/50">
                                         <CardContent className="p-6">
                                             <div className="flex items-start gap-4">
-                                                <div className="p-3 rounded-xl bg-indigo-500/10">
-                                                    <Icon className="w-6 h-6 text-indigo-400" />
-                                                </div>
+                                            <div className="p-3 rounded-xl bg-vibe-electric/10">
+                                                <Icon className="w-6 h-6 text-vibe-electric" />
+                                            </div>
                                                 <div className="flex-1">
                                                     <div className="flex items-center gap-2 mb-1">
                                                         <h3 className="font-bold">{item.title}</h3>

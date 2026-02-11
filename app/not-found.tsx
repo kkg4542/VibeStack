@@ -60,7 +60,7 @@ export default function NotFound() {
                             transition={{ duration: 0.8, delay: 0.2 }}
                             className="text-[12rem] md:text-[16rem] font-bold leading-none tracking-tighter"
                         >
-                            <span className="bg-linear-to-b from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                            <span className="bg-linear-to-b from-vibe-electric via-purple-600 to-pink-600 bg-clip-text text-transparent">
                                 404
                             </span>
                         </motion.div>
@@ -118,7 +118,7 @@ export default function NotFound() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.4 }}
                     >
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-electric text-sm font-medium mb-6">
                             <Compass className="w-4 h-4" />
                             <span>Lost in the Stack?</span>
                         </div>
@@ -166,7 +166,7 @@ export default function NotFound() {
                         transition={{ duration: 0.6, delay: 0.7 }}
                         className="flex flex-wrap justify-center gap-3"
                     >
-                        <Button asChild variant="default" className="rounded-full h-12 px-6 shadow-lg shadow-indigo-500/20">
+                        <Button asChild variant="default" className="rounded-full h-12 px-6 shadow-lg shadow-vibe-electric/20">
                             <Link href="/">
                                 <Home className="mr-2 h-4 w-4" />
                                 Go Home
@@ -199,8 +199,8 @@ export default function NotFound() {
                     {/* Popular Tools */}
                     <div>
                         <div className="flex items-center gap-3 mb-6">
-                            <div className="p-2 rounded-lg bg-indigo-500/10">
-                                <Zap className="h-5 w-5 text-indigo-500" />
+                            <div className="p-2 rounded-lg bg-vibe-electric/10">
+                                <Zap className="h-5 w-5 text-vibe-electric" />
                             </div>
                             <h2 className="text-xl font-semibold">Popular Tools</h2>
                         </div>
@@ -213,7 +213,7 @@ export default function NotFound() {
                                     transition={{ duration: 0.4, delay: 0.9 + index * 0.1 }}
                                 >
                                     <Link href={`/tool/${tool.slug}`}>
-                                        <Card className="border-border/50 hover:border-indigo-500/50 hover:bg-accent/50 transition-all duration-300 group cursor-pointer">
+                                        <Card className="border-border/50 hover:border-vibe-electric/50 hover:bg-accent/50 transition-all duration-300 group cursor-pointer">
                                             <CardContent className="p-4 flex items-center gap-4">
                                                 <div className={`p-2.5 rounded-lg bg-linear-to-br ${tool.bgGradient || "from-slate-500/60 to-slate-800/60"}`}>
                                                     {(() => {
@@ -222,7 +222,7 @@ export default function NotFound() {
                                                     })()}
                                                 </div>
                                                 <div className="flex-1">
-                                                    <h3 className="font-semibold group-hover:text-indigo-500 transition-colors">
+                                                    <h3 className="font-semibold group-hover:text-vibe-electric transition-colors">
                                                         {tool.title}
                                                     </h3>
                                                     <p className="text-sm text-muted-foreground line-clamp-1">
@@ -305,7 +305,7 @@ export default function NotFound() {
                                 </Button>
                             </Link>
                             <Link href="/consulting">
-                                <Button variant="ghost" className="rounded-full text-indigo-400 hover:text-indigo-300">
+                                <Button variant="ghost" className="rounded-full text-vibe-electric hover:text-indigo-300">
                                     Contact Support
                                     <ArrowLeft className="ml-2 h-4 w-4 rotate-180" />
                                 </Button>

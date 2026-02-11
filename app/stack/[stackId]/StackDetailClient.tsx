@@ -4,22 +4,29 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowLeft, CheckCircle2, ExternalLink, Zap, Users, Star, Heart, TrendingUp, Target, DollarSign, Sparkles, ArrowRight } from "lucide-react";
+import { ArrowLeft, CheckCircle2, ExternalLink, Zap, Users, Star, Heart, TrendingUp, Target, DollarSign, Sparkles, ArrowRight, BarChart } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Stack } from "@/lib/stacks";
 import { ToolData } from "@/lib/tool-types";
 import { useAllTools } from "@/hooks/use-tools";
 import { getToolIcon } from "@/components/icons/tool-icons";
 import { SocialShare } from "@/components/ui/SocialShare";
 import { useState, useEffect } from "react";
-import * as motion from "framer-motion/client";
+import { m } from "framer-motion";
 import { designSystem } from "@/lib/design-system";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 
 interface StackDetailClientProps {
     stack: Stack;
+    metrics?: {
+        views: number;
+        saves: number;
+        shares: number;
+        popularityScore: number;
+    } | null;
 }
 
-export function StackDetailClient({ stack }: StackDetailClientProps) {
+export function StackDetailClient({ stack, metrics }: StackDetailClientProps) {
     const { tools } = useAllTools();
     // Lazy initialization to avoid setState in effect
     const [isFavorite, setIsFavorite] = useState(() => {
@@ -47,7 +54,7 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
         <PageBackground {...BackgroundPresets.content}>
             <div className="container max-w-6xl mx-auto px-4">
                 {/* Back Link */}
-                <motion.div
+                <m.div
                     initial={designSystem.animations.fadeInUp.initial}
                     animate={designSystem.animations.fadeInUp.animate}
                     transition={designSystem.animations.fadeInUp.transition}
@@ -59,18 +66,18 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
                         <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
                         Back to Stack Finder
                     </Link>
-                </motion.div>
+                </m.div>
 
                 {/* Hero Section - Enhanced */}
-                <motion.div
+                <m.div
                     initial={designSystem.animations.fadeInUp.initial}
                     animate={designSystem.animations.fadeInUp.animate}
                     transition={designSystem.animations.fadeInUp.transition}
                     className="mb-16"
                 >
-                    <div className="bg-linear-to-br from-indigo-500/5 via-purple-500/5 to-pink-500/5 rounded-3xl p-8 md:p-12 border border-indigo-500/10 relative overflow-hidden">
+                    <div className="bg-linear-to-br from-vibe-electric/5 via-vibe-purple/5 to-vibe-pink/5 rounded-3xl p-8 md:p-12 border border-vibe-electric/10 relative overflow-hidden">
                         {/* Decorative Elements */}
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 blur-[100px] rounded-full" />
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-vibe-electric/10 blur-[100px] rounded-full" />
                         <div className="absolute bottom-0 left-0 w-48 h-48 bg-purple-500/10 blur-[80px] rounded-full" />
 
                         <div className="relative z-10">
@@ -78,17 +85,17 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
                                 <div className="flex-1">
                                     {/* Icon & Tags */}
                                     <div className="flex items-center gap-4 mb-6">
-                                        <motion.div
+                                        <m.div
                                             initial={{ scale: 0.8, opacity: 0 }}
                                             animate={{ scale: 1, opacity: 1 }}
                                             transition={{ duration: 0.5, delay: 0.2 }}
                                             className="text-6xl"
                                         >
                                             {stack.icon}
-                                        </motion.div>
+                                        </m.div>
                                         <div className="flex flex-wrap gap-2">
                                             {stack.tags.map((tag) => (
-                                                <Badge key={tag} variant="secondary" className="text-xs bg-indigo-500/10 text-indigo-400 border-indigo-500/20">
+                                                <Badge key={tag} variant="secondary" className="text-xs bg-vibe-electric/10 text-vibe-electric border-vibe-electric/20">
                                                     {tag}
                                                 </Badge>
                                             ))}
@@ -160,15 +167,15 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
                                 </div>
 
                                 {/* Cost Card */}
-                                <motion.div
+                                <m.div
                                     initial={designSystem.animations.fadeInUp.initial}
                                     animate={designSystem.animations.fadeInUp.animate}
                                     transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.3 }}
                                 >
-                                    <Card className="bg-linear-to-b from-indigo-500/10 to-card/50 border-indigo-500/20 min-w-[200px]">
+                                    <Card className="bg-linear-to-b from-vibe-electric/10 to-card/50 border-vibe-electric/20 min-w-[200px]">
                                         <CardContent className="p-6 text-center">
-                                            <div className="inline-flex p-3 rounded-full bg-indigo-500/10 mb-4">
-                                                <DollarSign className="h-6 w-6 text-indigo-400" />
+                                            <div className="inline-flex p-3 rounded-full bg-vibe-electric/10 mb-4">
+                                                <DollarSign className="h-6 w-6 text-vibe-electric" />
                                             </div>
                                             <h3 className="text-sm font-semibold text-muted-foreground mb-2">Total Cost</h3>
                                             <div className="text-4xl font-bold text-foreground mb-2">
@@ -179,25 +186,25 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
                                             </p>
                                         </CardContent>
                                     </Card>
-                                </motion.div>
+                                </m.div>
                             </div>
                         </div>
                     </div>
-                </motion.div>
+                </m.div>
 
                 <div className="grid lg:grid-cols-3 gap-8">
                     {/* Main Content */}
                     <div className="lg:col-span-2 space-y-12">
                         {/* About This Stack */}
-                        <motion.section
+                        <m.section
                             initial={designSystem.animations.fadeInUp.initial}
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={designSystem.animations.fadeInUp.transition}
                         >
                             <div className="flex items-center gap-3 mb-6">
-                                <div className="p-2 rounded-lg bg-indigo-500/10">
-                                    <Sparkles className="h-5 w-5 text-indigo-500" />
+                                <div className="p-2 rounded-lg bg-vibe-electric/10">
+                                    <Sparkles className="h-5 w-5 text-vibe-electric" />
                                 </div>
                                 <h2 className="text-2xl font-semibold">About This Stack</h2>
                             </div>
@@ -208,10 +215,10 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
                                     </p>
                                 </CardContent>
                             </Card>
-                        </motion.section>
+                        </m.section>
 
                         {/* Workflow Section */}
-                        <motion.section
+                        <m.section
                             initial={designSystem.animations.fadeInUp.initial}
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
@@ -225,33 +232,33 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
                             </div>
                             <div className="space-y-4">
                                 {stack.workflow.map((step, index) => (
-                                    <motion.div
+                                    <m.div
                                         key={index}
                                         initial={{ opacity: 0, x: -20 }}
                                         whileInView={{ opacity: 1, x: 0 }}
                                         viewport={{ once: true }}
                                         transition={{ duration: 0.4, delay: index * 0.1 }}
                                     >
-                                        <Card className="border-border/50 bg-white hover:border-indigo-500/30 transition-colors group">
+                                        <Card className="border-border/50 bg-white hover:border-vibe-electric/30 transition-colors group">
                                             <CardContent className="p-6">
                                                 <div className="flex items-start gap-4">
-                                                    <div className="shrink-0 w-12 h-12 rounded-xl bg-linear-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold shadow-lg shadow-indigo-500/20">
+                                                    <div className="shrink-0 w-12 h-12 rounded-xl bg-linear-to-br from-vibe-electric to-vibe-purple flex items-center justify-center text-white font-bold shadow-lg shadow-vibe-electric/20">
                                                         {index + 1}
                                                     </div>
                                                     <div className="flex-1">
                                                         <p className="text-foreground text-lg leading-relaxed">{step}</p>
                                                     </div>
-                                                    <ArrowRight className="h-5 w-5 text-muted-foreground/30 group-hover:text-indigo-500 transition-colors" />
+                                                    <ArrowRight className="h-5 w-5 text-muted-foreground/30 group-hover:text-vibe-electric transition-colors" />
                                                 </div>
                                             </CardContent>
                                         </Card>
-                                    </motion.div>
+                                    </m.div>
                                 ))}
                             </div>
-                        </motion.section>
+                        </m.section>
 
                         {/* Tools in Stack */}
-                        <motion.section
+                        <m.section
                             initial={designSystem.animations.fadeInUp.initial}
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
@@ -267,7 +274,7 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
                                 {stackTools.map((tool, index) => {
                                     if (!tool) return null;
                                     return (
-                                        <motion.div
+                                        <m.div
                                             key={tool.slug}
                                             initial={{ opacity: 0, y: 20 }}
                                             whileInView={{ opacity: 1, y: 0 }}
@@ -275,7 +282,7 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
                                             transition={{ duration: 0.4, delay: index * 0.1 }}
                                         >
                                             <Link href={`/tool/${tool.slug}`}>
-                                                <Card className="h-full border-border/50 hover:border-indigo-500/50 hover:bg-accent/50 transition-all duration-300 group">
+                                                <Card className="h-full border-border/50 hover:border-vibe-electric/50 hover:bg-accent/50 transition-all duration-300 group">
                                                     <CardContent className="p-6">
                                                         <div className="flex items-start justify-between mb-4">
                                                             <div className={`p-3 rounded-xl bg-linear-to-br ${tool.bgGradient || "from-slate-500/60 to-slate-800/60"}`}>
@@ -284,7 +291,7 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
                                                                     return <Icon className="h-6 w-6 text-white" />;
                                                                 })()}
                                                             </div>
-                                                            <ExternalLink className="h-5 w-5 text-muted-foreground/30 group-hover:text-indigo-500 transition-colors" />
+                                                            <ExternalLink className="h-5 w-5 text-muted-foreground/30 group-hover:text-vibe-electric transition-colors" />
                                                         </div>
                                                         <h3 className="text-lg font-bold mb-1">{tool.title}</h3>
                                                         <p className="text-xs text-muted-foreground uppercase tracking-wider mb-3">{tool.category}</p>
@@ -297,14 +304,14 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
                                                     </CardContent>
                                                 </Card>
                                             </Link>
-                                        </motion.div>
+                                        </m.div>
                                     );
                                 })}
                             </div>
-                        </motion.section>
+                        </m.section>
 
                         {/* Ideal For Section */}
-                        <motion.section
+                        <m.section
                             initial={designSystem.animations.fadeInUp.initial}
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
@@ -318,7 +325,7 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
                             </div>
                             <div className="flex flex-wrap gap-3">
                                 {stack.idealFor.map((item, index) => (
-                                    <motion.div
+                                    <m.div
                                         key={item}
                                         initial={{ opacity: 0, scale: 0.9 }}
                                         whileInView={{ opacity: 1, scale: 1 }}
@@ -329,21 +336,21 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
                                             <CheckCircle2 className="h-3.5 w-3.5 mr-2 text-emerald-500" />
                                             {item}
                                         </Badge>
-                                    </motion.div>
+                                    </m.div>
                                 ))}
                             </div>
-                        </motion.section>
+                        </m.section>
                     </div>
 
                     {/* Sidebar */}
                     <aside className="space-y-6">
                         {/* CTA Card */}
-                        <motion.div
+                        <m.div
                             initial={designSystem.animations.fadeInUp.initial}
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={designSystem.animations.fadeInUp.transition}
-                            className="bg-linear-to-br from-indigo-500/10 to-purple-500/10 rounded-3xl border border-indigo-500/20 p-6 backdrop-blur-sm sticky top-24"
+                            className="bg-linear-to-br from-vibe-electric/10 to-vibe-purple/10 rounded-3xl border border-vibe-electric/20 p-6 backdrop-blur-sm sticky top-24"
                         >
                             <h3 className="text-xl font-bold mb-4">Ready to Build?</h3>
                             <p className="text-sm text-muted-foreground mb-6">
@@ -351,7 +358,7 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
                             </p>
                             <div className="space-y-3">
                                 <Link href="/build">
-                                    <Button className="w-full rounded-full shadow-lg shadow-indigo-500/20">
+                                    <Button className="w-full rounded-full shadow-lg shadow-vibe-electric/20">
                                         <Sparkles className="mr-2 h-4 w-4" />
                                         Find Your Stack
                                     </Button>
@@ -362,10 +369,35 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
                                     </Button>
                                 </Link>
                             </div>
-                        </motion.div>
+                        </m.div>
+
+                        {/* Curator Profile */}
+                        {stack.curatedBy && (
+                            <m.div
+                                initial={designSystem.animations.fadeInUp.initial}
+                                whileInView={designSystem.animations.fadeInUp.animate}
+                                viewport={{ once: true }}
+                                transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.2 }}
+                                className="bg-white rounded-3xl border border-border/50 p-6 backdrop-blur-sm"
+                            >
+                                <h3 className="font-semibold mb-4">Curated By</h3>
+                                <div className="flex items-center gap-4">
+                                    <Avatar className="h-12 w-12 border-2 border-background ring-2 ring-border/50">
+                                        <AvatarImage src={stack.curatedBy.avatar} alt={stack.curatedBy.name} />
+                                        <AvatarFallback className="bg-vibe-purple/10 text-vibe-purple font-semibold">
+                                            {stack.curatedBy.name.charAt(0)}
+                                        </AvatarFallback>
+                                    </Avatar>
+                                    <div>
+                                        <div className="font-bold text-foreground text-sm">{stack.curatedBy.name}</div>
+                                        <div className="text-xs text-muted-foreground">{stack.curatedBy.role}</div>
+                                    </div>
+                                </div>
+                            </m.div>
+                        )}
 
                         {/* Stack Stats */}
-                        <motion.div
+                        <m.div
                             initial={designSystem.animations.fadeInUp.initial}
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
@@ -391,7 +423,51 @@ export function StackDetailClient({ stack }: StackDetailClientProps) {
                                     <span className="font-medium">{stack.idealFor.length} types</span>
                                 </div>
                             </div>
-                        </motion.div>
+                        </m.div>
+
+                        {/* Community Insights (Analytics) */}
+                        <m.div
+                            initial={designSystem.animations.fadeInUp.initial}
+                            whileInView={designSystem.animations.fadeInUp.animate}
+                            viewport={{ once: true }}
+                            transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.3 }}
+                            className="bg-linear-to-br from-slate-900 to-slate-800 text-white rounded-3xl border border-white/10 p-6 backdrop-blur-sm relative overflow-hidden"
+                        >
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-vibe-electric/20 blur-[60px] rounded-full" />
+
+                            <div className="flex items-center gap-2 mb-6 relative z-10">
+                                <BarChart className="w-5 h-5 text-vibe-electric" />
+                                <h3 className="font-semibold">Community Insights</h3>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4 relative z-10">
+                                <div className="bg-white/5 rounded-2xl p-4 border border-white/5">
+                                    <div className="text-muted-foreground text-xs mb-1">Views</div>
+                                    <div className="text-2xl font-bold flex items-center gap-2">
+                                        {(metrics?.views || (stack.shareCount || 0) * 3.5).toLocaleString()}
+                                    </div>
+                                </div>
+                                <div className="bg-white/5 rounded-2xl p-4 border border-white/5">
+                                    <div className="text-muted-foreground text-xs mb-1">Shares</div>
+                                    <div className="text-2xl font-bold text-vibe-electric">
+                                        {(metrics?.shares || stack.shareCount || 0).toLocaleString()}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="mt-4 pt-4 border-t border-white/10 relative z-10">
+                                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                                    <span>Popularity Score</span>
+                                    <span className="text-vibe-electric font-bold">{metrics?.popularityScore || 98}/100</span>
+                                </div>
+                                <div className="w-full bg-white/10 h-1.5 rounded-full mt-2 overflow-hidden">
+                                    <div
+                                        className="bg-vibe-electric h-full rounded-full"
+                                        style={{ width: `${metrics?.popularityScore || 98}%` }}
+                                    />
+                                </div>
+                            </div>
+                        </m.div>
                     </aside>
                 </div>
             </div>

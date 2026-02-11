@@ -102,7 +102,7 @@ export function ExitIntentPopup({ toolSlug, toolName }: ExitIntentPopupProps) {
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-md px-4"
           >
-            <Card className="relative overflow-hidden border-indigo-500/20">
+            <Card className="relative overflow-hidden border-vibe-electric/20">
               {/* Close button */}
               <button
                 onClick={handleClose}
@@ -112,14 +112,14 @@ export function ExitIntentPopup({ toolSlug, toolName }: ExitIntentPopupProps) {
               </button>
 
               {/* Decorative gradient */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500" />
+              <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-vibe-electric via-vibe-purple to-vibe-pink" />
 
               <CardContent className="p-8">
                 {!isSubmitted ? (
                   <>
                     <div className="text-center mb-6">
-                      <div className="w-16 h-16 rounded-full bg-indigo-500/10 flex items-center justify-center mx-auto mb-4">
-                        <Gift className="w-8 h-8 text-indigo-500" />
+                      <div className="w-16 h-16 rounded-full bg-vibe-electric/10 flex items-center justify-center mx-auto mb-4">
+                        <Gift className="w-8 h-8 text-vibe-electric" />
                       </div>
                       <h3 className="text-2xl font-bold mb-2">
                         Wait! Don&apos;t Miss Out

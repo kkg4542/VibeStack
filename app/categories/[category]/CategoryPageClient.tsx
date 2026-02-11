@@ -44,7 +44,7 @@ const categoryInfo: Record<string, {
 }> = {
     Coding: {
         icon: Code2,
-        gradient: "from-blue-500 via-indigo-500 to-purple-500",
+        gradient: "from-blue-500 via-vibe-electric to-purple-500",
         description: "AI-powered coding assistants and development tools that help you write better code faster.",
         features: ["Code completion", "Bug detection", "Code review", "Documentation generation"]
     },
@@ -122,7 +122,7 @@ export function CategoryPageClient({ category }: CategoryPageClientProps) {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5, delay: 0.1 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-electric text-sm font-medium mb-6"
                     >
                         <Sparkles className="w-4 h-4" />
                         <span>{categoryTools.length} Tools Available</span>
@@ -279,7 +279,7 @@ export function CategoryPageClient({ category }: CategoryPageClientProps) {
                     transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.7 }}
                     className="mt-16 text-center"
                 >
-                    <Card className="border-indigo-500/20 bg-linear-to-br from-indigo-500/5 to-purple-500/5">
+                    <Card className="border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-purple-500/5">
                         <CardHeader className="p-8">
                             <h3 className="text-xl font-bold mb-2">Explore Other Categories</h3>
                             <p className="text-muted-foreground mb-6">

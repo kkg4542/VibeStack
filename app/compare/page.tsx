@@ -65,8 +65,8 @@ export default function ComparePage() {
         return (
             <main className="min-h-screen bg-background relative overflow-hidden pt-32 pb-20 px-4">
                 <div className="container max-w-2xl mx-auto text-center">
-                    <div className="inline-flex p-4 rounded-full bg-indigo-500/10 mb-4">
-                        <Scale className="h-8 w-8 text-indigo-400 animate-pulse" />
+                    <div className="inline-flex p-4 rounded-full bg-vibe-electric/10 mb-4">
+                        <Scale className="h-8 w-8 text-vibe-electric animate-pulse" />
                     </div>
                     <p className="text-muted-foreground">Loading comparison...</p>
                 </div>
@@ -83,14 +83,14 @@ export default function ComparePage() {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5 }}
                     >
-                        <div className="inline-flex p-6 bg-indigo-500/10 rounded-full w-24 h-24 mx-auto mb-6 items-center justify-center border border-indigo-500/20">
-                            <Scale className="h-12 w-12 text-indigo-400" />
+                        <div className="inline-flex p-6 bg-vibe-electric/10 rounded-full w-24 h-24 mx-auto mb-6 items-center justify-center border border-vibe-electric/20">
+                            <Scale className="h-12 w-12 text-vibe-electric" />
                         </div>
                         <h1 className="text-4xl font-bold mb-4 text-balance">Compare AI Tools</h1>
                         <p className="text-muted-foreground text-lg mb-8">
                             Select up to 3 tools from our directory to compare them side-by-side and find the perfect fit for your workflow.
                         </p>
-                        <Button asChild className="rounded-full shadow-lg shadow-indigo-500/20 px-8 h-12">
+                        <Button asChild className="rounded-full shadow-lg shadow-vibe-electric/20 px-8 h-12">
                             <Link href="/tools">Browse Tools Directory</Link>
                         </Button>
                     </motion.div>
@@ -144,8 +144,8 @@ export default function ComparePage() {
                     className="mb-12"
                 >
                     <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 rounded-lg bg-indigo-500/10">
-                            <Scale className="h-6 w-6 text-indigo-400" />
+                        <div className="p-2 rounded-lg bg-vibe-electric/10">
+                            <Scale className="h-6 w-6 text-vibe-electric" />
                         </div>
                         <h1 className="text-3xl md:text-4xl font-bold text-balance">Tool Comparison</h1>
                     </div>
@@ -163,7 +163,7 @@ export default function ComparePage() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
                         >
-                            <Card className="h-full border-border/50 bg-white backdrop-blur-sm hover:border-indigo-500/30 transition-colors">
+                            <Card className="h-full border-border/50 bg-white backdrop-blur-sm hover:border-vibe-electric/30 transition-colors">
                                 <CardContent className="p-6">
                                     {/* Header */}
                                     <div className="flex items-start justify-between mb-6">
@@ -205,7 +205,7 @@ export default function ComparePage() {
                                     {/* Pricing */}
                                     <div className="mb-6">
                                         <h3 className="text-sm font-medium text-muted-foreground mb-2">Pricing</h3>
-                                        <Badge className="bg-indigo-500/10 text-indigo-400 border-indigo-500/20 text-sm py-1 px-3">
+                                        <Badge className="bg-vibe-electric/10 text-vibe-electric border-vibe-electric/20 text-sm py-1 px-3">
                                             {tool.pricing}
                                         </Badge>
                                     </div>

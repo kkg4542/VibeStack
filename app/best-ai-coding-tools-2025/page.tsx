@@ -36,13 +36,13 @@ export default async function BestAICodingToolsPage() {
         initial={designSystem.animations.fadeInUp.initial}
         animate={designSystem.animations.fadeInUp.animate}
         transition={designSystem.animations.fadeInUp.transition}
-        className="bg-linear-to-b from-indigo-950/20 to-background border-b border-border/50"
+        className="bg-linear-to-b from-vibe-electric/10 to-background border-b border-border/50"
       >
         <div className="container max-w-6xl mx-auto px-4 py-20 text-center">
           <Badge variant="secondary" className="mb-4">
             2025 Updated
           </Badge>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 bg-linear-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent text-balance">
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 bg-linear-to-r from-vibe-electric via-vibe-purple to-vibe-pink bg-clip-text text-transparent text-balance">
             Top 10 Best AI Coding Tools
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -91,13 +91,13 @@ export default async function BestAICodingToolsPage() {
             {codingTools.map((tool, index) => (
               <motion.div
                 key={tool.slug}
-                className="relative bg-card border rounded-xl p-6 hover:border-indigo-500/50 transition-colors"
+                className="relative bg-card border rounded-xl p-6 hover:border-vibe-electric/50 transition-colors"
                 initial={designSystem.animations.fadeInUp.initial}
                 whileInView={designSystem.animations.fadeInUp.animate}
                 viewport={{ once: true }}
                 transition={{ ...designSystem.animations.fadeInUp.transition, delay: index * 0.1 }}
               >
-                <div className="absolute -left-3 -top-3 w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                <div className="absolute -left-3 -top-3 w-12 h-12 bg-vibe-electric rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg">
                   {index + 1}
                 </div>
                 <div className="ml-8">
@@ -106,7 +106,7 @@ export default async function BestAICodingToolsPage() {
                       <div className="flex items-center gap-3 mb-2">
                         <h3 className="text-2xl font-bold">{tool.title}</h3>
                         {tool.isFeatured && (
-                          <Badge variant="default" className="bg-indigo-500">
+                          <Badge variant="default" className="bg-vibe-electric">
                             Featured
                           </Badge>
                         )}
@@ -275,12 +275,12 @@ export default async function BestAICodingToolsPage() {
         </section>
 
         {/* CTA */}
-        <div className="mt-16 p-8 bg-linear-to-r from-indigo-950/30 to-purple-950/30 rounded-xl border border-indigo-500/20 text-center">
+        <div className="mt-16 p-8 bg-linear-to-r from-vibe-electric/10 to-vibe-purple/10 rounded-xl border border-vibe-electric/20 text-center">
           <h2 className="text-2xl font-bold mb-4">Ready to Boost Your Productivity?</h2>
           <p className="text-muted-foreground mb-6">
             Browse our complete collection of AI tools and find the perfect stack for your workflow.
           </p>
-          <Button asChild size="lg" className="bg-indigo-500 hover:bg-indigo-600">
+          <Button asChild size="lg" className="bg-vibe-electric hover:bg-vibe-electric/90">
             <Link href="/tools">
               Explore All Tools
             </Link>

@@ -26,8 +26,8 @@ export default function ContentGuidelinesPage() {
                     {/* Images Section */}
                     <section>
                         <div className="flex items-center gap-3 mb-4">
-                            <div className="p-2 bg-indigo-500/10 rounded-lg">
-                                <ImageIcon className="w-5 h-5 text-indigo-500" />
+                            <div className="p-2 bg-vibe-electric/10 rounded-lg">
+                                <ImageIcon className="w-5 h-5 text-vibe-electric" />
                             </div>
                             <h2 className="text-2xl font-semibold">1. Images & Visuals</h2>
                         </div>

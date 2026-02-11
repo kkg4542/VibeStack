@@ -33,6 +33,7 @@ model Tool {
   sponsorships    Sponsorship[]
   stackTools      StackTool[]
   communityStacks CommunityStack[]
+  testimonials    Testimonial[]
 
   @@index([category])
   @@index([pricing])
@@ -45,20 +46,23 @@ model Tool {
 }
 
 model Stack {
-  id              String      @id @default(cuid())
-  idField         String      @unique @map("id_field")
+  id              String          @id @default(cuid())
+  idField         String          @unique @map("id_field")
   name            String
   description     String?
-  longDescription String?     @map("long_description")
-  totalPrice      String?     @map("total_price")
+  longDescription String?         @map("long_description")
+  totalPrice      String?         @map("total_price")
   tags            String[]
-  idealFor        String[]    @map("ideal_for")
+  idealFor        String[]        @map("ideal_for")
   workflow        String[]
   icon            String?
   color           String?
-  createdAt       DateTime    @default(now()) @map("created_at")
-  updatedAt       DateTime    @updatedAt @map("updated_at")
+  createdAt       DateTime        @default(now()) @map("created_at")
+  updatedAt       DateTime        @updatedAt @map("updated_at")
   stackTools      StackTool[]
+  stackMetrics    StackMetrics?
+  testimonials    Testimonial[]
+  stackViews      StackView[]
 
   @@map("stacks")
 }
@@ -138,6 +142,8 @@ model User {
   reviews       Review[]
   sessions      Session[]
   communityStacks CommunityStack[]
+  testimonials  Testimonial[]
+  stackViews    StackView[]
   twoFASecret    String?    @map("two_fa_secret")
   twoFAEnabled   Boolean    @default(false) @map("two_fa_enabled")
   twoFABackupCodes String[] @map("two_fa_backup_codes")
@@ -272,7 +278,12 @@ model Sponsorship {
 // Verified User Testimonials
 model Testimonial {
   id              String   @id @default(cuid())
-  userId          String   @map("user_id")
+  userId          String?  @map("user_id")
+  userName        String?  @map("user_name")
+  userHandle      String?  @map("user_handle")
+  userRole        String?  @map("user_role")
+  userCompany     String?  @map("user_company")
+  userAvatar      String?  @map("user_avatar")
   stackId         String?  @map("stack_id")
   toolId          String?  @map("tool_id")
   rating          Int
@@ -286,6 +297,11 @@ model Testimonial {
   socialProof     Json?    // { likes: 42, retweets: 12, comments: [] }
   createdAt       DateTime @default(now()) @map("created_at")
   updatedAt       DateTime @updatedAt @map("updated_at")
+  
+  // Relations
+  user            User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  stack           Stack?   @relation(fields: [stackId], references: [id], onDelete: SetNull)
+  tool            Tool?    @relation(fields: [toolId], references: [id], onDelete: SetNull)
 
   @@index([verified, featured])
   @@index([stackId, featured])
@@ -297,6 +313,7 @@ model Testimonial {
 model StackMetrics {
   id                    String   @id @default(cuid())
   stackId               String   @unique @map("stack_id")
+  stack                 Stack    @relation(fields: [stackId], references: [id], onDelete: Cascade)
   views                 Int      @default(0)
   saves                 Int      @default(0)
   shares                Int      @default(0)
@@ -436,6 +453,21 @@ model UserSavedStack {
   @@index([userId])
   @@index([createdAt])
   @@map("user_saved_stacks")
+}
+
+// Stack Views (for analytics)
+model StackView {
+  id          String   @id @default(cuid())
+  stackId     String   @map("stack_id")
+  stack       Stack    @relation(fields: [stackId], references: [id], onDelete: Cascade)
+  userId      String?  @map("user_id")
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  sessionId   String?  @map("session_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  
+  @@index([stackId, createdAt])
+  @@index([userId])
+  @@map("stack_views")
 }
 
 // Admin Audit Log for tracking all admin actions

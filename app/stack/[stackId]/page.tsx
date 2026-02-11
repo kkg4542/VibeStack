@@ -35,6 +35,8 @@ export async function generateStaticParams() {
     }));
 }
 
+import { getStackMetrics } from "@/lib/data/stacks";
+
 export default async function StackDetailPage({ params }: Props) {
     const { stackId } = await params;
     const stack = stacks.find(s => s.id === stackId);
@@ -43,5 +45,7 @@ export default async function StackDetailPage({ params }: Props) {
         notFound();
     }
 
-    return <StackDetailClient stack={stack} />;
+    const metrics = await getStackMetrics(stackId);
+
+    return <StackDetailClient stack={stack} metrics={metrics} />;
 }

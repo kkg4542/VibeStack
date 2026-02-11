@@ -155,7 +155,7 @@ function StatusBadge({ status }: { status: string }) {
 
 function ChangeTypeBadge({ type }: { type: string }) {
     const styles = {
-        feature: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
+        feature: "bg-vibe-electric/10 text-vibe-electric dark:text-vibe-electric",
         improvement: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
         fix: "bg-amber-500/10 text-amber-600 dark:text-amber-400"
     };
@@ -178,14 +178,14 @@ export default function RoadmapPage() {
                     transition={designSystem.animations.fadeInUp.transition}
                     className="text-center mb-16"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-electric text-sm font-medium mb-6">
                         <MapPin className="w-4 h-4" />
                         <span>Roadmap & Updates</span>
                     </div>
 
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
                         Our Journey{" "}
-                        <span className="bg-linear-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">
+                        <span className="bg-linear-to-r from-vibe-electric via-purple-400 to-pink-500 bg-clip-text text-transparent">
                             & Roadmap
                         </span>
                     </h1>
@@ -204,7 +204,7 @@ export default function RoadmapPage() {
                     className="mb-20"
                 >
                     <div className="flex items-center gap-3 mb-8">
-                        <Rocket className="w-6 h-6 text-indigo-400" />
+                        <Rocket className="w-6 h-6 text-vibe-electric" />
                         <h2 className="text-2xl font-bold">Product Roadmap</h2>
                     </div>
 
@@ -237,7 +237,7 @@ export default function RoadmapPage() {
                                         {/* Content */}
                                         <div className={`ml-12 md:ml-0 md:w-[calc(50%-2rem)] ${isLeft ? 'md:text-right md:pr-8' : 'md:pl-8'
                                             }`}>
-                                            <Card className="border-border/50 hover:border-indigo-500/30 transition-colors">
+                                            <Card className="border-border/50 hover:border-vibe-electric/30 transition-colors">
                                                 <CardContent className="p-6">
                                                     <div className={`flex items-center gap-2 mb-3 ${isLeft ? 'md:justify-end' : ''}`}>
                                                         <StatusBadge status={item.status} />
@@ -278,7 +278,7 @@ export default function RoadmapPage() {
                     className="mb-20"
                 >
                     <div className="flex items-center gap-3 mb-8">
-                        <Sparkles className="w-6 h-6 text-indigo-400" />
+                        <Sparkles className="w-6 h-6 text-vibe-electric" />
                         <h2 className="text-2xl font-bold">Changelog</h2>
                     </div>
 
@@ -298,7 +298,7 @@ export default function RoadmapPage() {
                                                 <p className="text-sm text-muted-foreground">{release.date}</p>
                                             </div>
                                             {index === 0 && (
-                                                <Badge className="bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20">
+                                                <Badge className="bg-vibe-electric/10 text-vibe-electric dark:text-vibe-electric border-vibe-electric/20">
                                                     Latest
                                                 </Badge>
                                             )}
@@ -326,9 +326,9 @@ export default function RoadmapPage() {
                     transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.8 }}
                     className="text-center"
                 >
-                    <Card className="border-indigo-500/20 bg-linear-to-br from-indigo-500/5 to-purple-500/5">
+                    <Card className="border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-purple-500/5">
                         <CardContent className="p-8">
-                            <Zap className="w-12 h-12 text-indigo-400 mx-auto mb-4" />
+                            <Zap className="w-12 h-12 text-vibe-electric mx-auto mb-4" />
                             <h3 className="text-xl font-bold mb-2">Have a feature idea?</h3>
                             <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
                                 We&apos;re building VibeStack for you. Share your ideas and help shape the future of the platform.
