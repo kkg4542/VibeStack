@@ -126,14 +126,22 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withSentryConfig(withAnalyzer(withPWA(nextConfig)), {
+const hasSentryToken = !!process.env.SENTRY_AUTH_TOKEN;
+
+const sentryConfig = {
   org: "vibestack",
   project: "vibestack-web",
   silent: !process.env.CI,
   widenClientFileUpload: true,
   tunnelRoute: "/monitoring",
   sourcemaps: {
-    disable: false,
+    disable: !hasSentryToken,
   },
   authToken: process.env.SENTRY_AUTH_TOKEN,
-});
+};
+
+const configWithPWA = withAnalyzer(withPWA(nextConfig));
+
+export default hasSentryToken
+  ? withSentryConfig(configWithPWA, sentryConfig)
+  : configWithPWA;
