@@ -9,9 +9,10 @@ interface Props {
     category: string;
     pricing?: string;
     tools: ToolData[];
+    title?: string;
 }
 
-export function RelatedTools({ currentSlug, category, pricing, tools }: Props) {
+export function RelatedTools({ currentSlug, category, pricing, tools, title = "Related Tools" }: Props) {
     // Smart algorithm: prioritize same category, then similar pricing
     const relatedTools = tools
         .filter((t) => t.slug !== currentSlug)
@@ -32,7 +33,7 @@ export function RelatedTools({ currentSlug, category, pricing, tools }: Props) {
 
     return (
         <section className="mt-24">
-            <h2 className="text-2xl font-bold mb-6">Related Tools</h2>
+            <h2 className="text-2xl font-bold mb-6">{title}</h2>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                 {relatedTools.map((tool) => (
                     <Link

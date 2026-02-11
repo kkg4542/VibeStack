@@ -16,6 +16,7 @@ import { ToolIconRenderer } from "@/components/tools/ToolIconRenderer";
 import * as motion from "framer-motion/client";
 import { designSystem } from "@/lib/design-system";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
+import { SimpleAccordionItem } from "@/components/ui/simple-accordion";
 
 interface Props {
     params: { slug: string };
@@ -218,41 +219,62 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                 {/* Content Grid */}
                 <div className="grid lg:grid-cols-3 gap-8">
                     <div className="lg:col-span-2 space-y-8">
-                        {/* Key Features - Enhanced */}
-                        <motion.section
-                            initial={designSystem.animations.fadeInUp.initial}
-                            whileInView={designSystem.animations.fadeInUp.animate}
-                            viewport={{ once: true }}
-                            transition={designSystem.animations.fadeInUp.transition}
-                            className="bg-white backdrop-blur-sm rounded-3xl p-8 border border-border/50 shadow-lg"
-                        >
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="p-2 rounded-lg bg-vibe-electric/10">
-                                    <Sparkles className="h-5 w-5 text-vibe-electric" />
+                        {/* Key Features - Desktop */}
+                        <div className="hidden md:block">
+                            <motion.section
+                                initial={designSystem.animations.fadeInUp.initial}
+                                whileInView={designSystem.animations.fadeInUp.animate}
+                                viewport={{ once: true }}
+                                transition={designSystem.animations.fadeInUp.transition}
+                                className="bg-white backdrop-blur-sm rounded-3xl p-8 border border-border/50 shadow-lg"
+                            >
+                                <div className="flex items-center gap-3 mb-6">
+                                    <div className="p-2 rounded-lg bg-vibe-electric/10">
+                                        <Sparkles className="h-5 w-5 text-vibe-electric" />
+                                    </div>
+                                    <h2 className="text-2xl font-semibold text-foreground">Key Features</h2>
                                 </div>
-                                <h2 className="text-2xl font-semibold text-foreground">Key Features</h2>
-                            </div>
-                            <ul className="space-y-4">
-                                {tool.features?.map((feature, index) => (
-                                    <motion.li
-                                        key={feature}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ duration: 0.4, delay: index * 0.1 }}
-                                        className="flex items-start gap-4 p-4 rounded-2xl bg-secondary/30 hover:bg-secondary/50 transition-colors"
-                                    >
-                                        <div className="p-1.5 rounded-full bg-vibe-electric/20 shrink-0 mt-0.5">
-                                            <Check className="h-4 w-4 text-vibe-electric" />
-                                        </div>
-                                        <span className="text-lg text-foreground">{feature}</span>
-                                    </motion.li>
-                                )) || <p className="text-muted-foreground">No features listed.</p>}
-                            </ul>
-                        </motion.section>
+                                <ul className="space-y-4">
+                                    {tool.features?.map((feature, index) => (
+                                        <motion.li
+                                            key={feature}
+                                            initial={{ opacity: 0, x: -20 }}
+                                            whileInView={{ opacity: 1, x: 0 }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 0.4, delay: index * 0.1 }}
+                                            className="flex items-start gap-4 p-4 rounded-2xl bg-secondary/30 hover:bg-secondary/50 transition-colors"
+                                        >
+                                            <div className="p-1.5 rounded-full bg-vibe-electric/20 shrink-0 mt-0.5">
+                                                <Check className="h-4 w-4 text-vibe-electric" />
+                                            </div>
+                                            <span className="text-lg text-foreground">{feature}</span>
+                                        </motion.li>
+                                    )) || <p className="text-muted-foreground">No features listed.</p>}
+                                </ul>
+                            </motion.section>
+                        </div>
 
-                        {/* Pros & Cons Section - Enhanced */}
-                        <div className="grid sm:grid-cols-2 gap-6">
+                        {/* Key Features - Mobile Accordion */}
+                        <div className="md:hidden">
+                            <SimpleAccordionItem title="Key Features" icon={Sparkles} defaultOpen={true}>
+                                <ul className="space-y-4">
+                                    {tool.features?.map((feature) => (
+                                        <li
+                                            key={feature}
+                                            className="flex items-start gap-3 p-3 rounded-xl bg-secondary/30"
+                                        >
+                                            <div className="p-1 rounded-full bg-vibe-electric/20 shrink-0 mt-0.5">
+                                                <Check className="h-3 w-3 text-vibe-electric" />
+                                            </div>
+                                            <span className="text-base text-foreground">{feature}</span>
+                                        </li>
+                                    )) || <p className="text-muted-foreground">No features listed.</p>}
+                                </ul>
+                            </SimpleAccordionItem>
+                        </div>
+
+                        {/* Pros & Cons Section - Desktop */}
+                        <div className="hidden md:grid sm:grid-cols-2 gap-6">
                             <motion.section
                                 initial={designSystem.animations.fadeInUp.initial}
                                 whileInView={designSystem.animations.fadeInUp.animate}
@@ -297,6 +319,31 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                     )) || <p className="text-sm text-muted-foreground">Information pending.</p>}
                                 </ul>
                             </motion.section>
+                        </div>
+
+                        {/* Pros & Cons - Mobile Accordion */}
+                        <div className="md:hidden space-y-4">
+                            <SimpleAccordionItem title="Pros" icon={Check} defaultOpen={false}>
+                                <ul className="space-y-3">
+                                    {tool.pros?.map((pro) => (
+                                        <li key={pro} className="flex items-start gap-3 text-foreground/80">
+                                            <div className="mt-1.5 h-2 w-2 rounded-full bg-emerald-400 shrink-0" />
+                                            {pro}
+                                        </li>
+                                    )) || <p className="text-sm text-muted-foreground">Information pending.</p>}
+                                </ul>
+                            </SimpleAccordionItem>
+
+                            <SimpleAccordionItem title="Cons" icon={ExternalLink} defaultOpen={false}>
+                                <ul className="space-y-3">
+                                    {tool.cons?.map((con) => (
+                                        <li key={con} className="flex items-start gap-3 text-foreground/80">
+                                            <div className="mt-1.5 h-2 w-2 rounded-full bg-rose-400 shrink-0" />
+                                            {con}
+                                        </li>
+                                    )) || <p className="text-sm text-muted-foreground">Information pending.</p>}
+                                </ul>
+                            </SimpleAccordionItem>
                         </div>
 
                         {/* In-depth Review - Enhanced */}
@@ -366,6 +413,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                             category={tool.category}
                             pricing={tool.pricing}
                             tools={allTools}
+                            title={`Top Alternatives to ${tool.title}`}
                         />
                     </div>
 
@@ -434,32 +482,64 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "SoftwareApplication",
-                        "name": tool.title,
-                        "description": tool.description,
-                        "applicationCategory": tool.category + "Application",
-                        "operatingSystem": "Web, Cloud",
-                        "url": `https://usevibestack.com/tool/${tool.slug}`,
-                        "offers": {
-                            "@type": "Offer",
-                            "price": tool.pricing === "Free" ? "0" : "Varies",
-                            "priceCurrency": "USD",
-                            "availability": "https://schema.org/InStock"
+                    __html: JSON.stringify([
+                        {
+                            "@context": "https://schema.org",
+                            "@type": "SoftwareApplication",
+                            "name": tool.title,
+                            "description": tool.description,
+                            "applicationCategory": tool.category + "Application",
+                            "operatingSystem": "Web, Cloud",
+                            "url": `https://usevibestack.com/tool/${tool.slug}`,
+                            "offers": {
+                                "@type": "Offer",
+                                "price": tool.pricing === "Free" ? "0" : "Varies",
+                                "priceCurrency": "USD",
+                                "availability": "https://schema.org/InStock"
+                            },
+                            "aggregateRating": tool.review ? {
+                                "@type": "AggregateRating",
+                                "ratingValue": tool.review.rating,
+                                "reviewCount": "1",
+                                "bestRating": "5",
+                                "worstRating": "1"
+                            } : undefined,
+                            "publisher": {
+                                "@type": "Organization",
+                                "name": "VibeStack"
+                            }
                         },
-                        "aggregateRating": tool.review ? {
-                            "@type": "AggregateRating",
-                            "ratingValue": tool.review.rating,
-                            "reviewCount": "1",
-                            "bestRating": "5",
-                            "worstRating": "1"
-                        } : undefined,
-                        "publisher": {
-                            "@type": "Organization",
-                            "name": "VibeStack"
+                        {
+                            "@context": "https://schema.org",
+                            "@type": "BreadcrumbList",
+                            "itemListElement": [
+                                {
+                                    "@type": "ListItem",
+                                    "position": 1,
+                                    "name": "Home",
+                                    "item": "https://usevibestack.com"
+                                },
+                                {
+                                    "@type": "ListItem",
+                                    "position": 2,
+                                    "name": "Tools",
+                                    "item": "https://usevibestack.com/tools"
+                                },
+                                {
+                                    "@type": "ListItem",
+                                    "position": 3,
+                                    "name": tool.category,
+                                    "item": `https://usevibestack.com/tools?category=${encodeURIComponent(tool.category)}`
+                                },
+                                {
+                                    "@type": "ListItem",
+                                    "position": 4,
+                                    "name": tool.title,
+                                    "item": `https://usevibestack.com/tool/${tool.slug}`
+                                }
+                            ]
                         }
-                    })
+                    ])
                 }}
             />
 
