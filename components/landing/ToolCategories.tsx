@@ -13,7 +13,7 @@ import {
   Sparkles
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { VibeCard } from "@/components/primitives/VibeCard";
+import { VibeCard } from "@/components/ui/VibeCard";
 import { Section } from "@/components/primitives/Section";
 import { GradientText } from "@/components/primitives/GradientText";
 import { designSystem } from "@/lib/design-system";

@@ -1,4 +1,6 @@
 export { Container } from "./Container";
 export { Section } from "./Section";
-export { VibeCard } from "./VibeCard";
 export { GradientText } from "./GradientText";
+
+// VibeCard is now in @/components/ui/VibeCard
+export { VibeCard } from "@/components/ui/VibeCard";
