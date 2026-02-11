@@ -292,7 +292,7 @@ export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
                         </div>
 
                         {/* Swipe Indicator */}
-                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-border/50 to-transparent">
+                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-linear-to-b from-transparent via-border/50 to-transparent">
                             <div className="absolute top-1/2 -translate-y-1/2 left-0 w-1 h-16 bg-indigo-500/30 rounded-full" />
                         </div>
                     </motion.div>

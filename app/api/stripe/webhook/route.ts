@@ -59,11 +59,10 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("Stripe webhook error:", error);
     try {
       await sendSlackAlert(`Stripe webhook signature error: ${String(error)}`);
     } catch (slackError) {
-      console.error("Failed to send Slack alert:", slackError);
+      // Slack alert failed
     }
     return NextResponse.json({ error: "Webhook signature verification failed" }, { status: 400 });
   }
@@ -102,7 +101,7 @@ export async function POST(request: NextRequest) {
               websiteUrl: submission.websiteUrl,
             });
           } catch (error) {
-            console.error("Failed to send approval email:", error);
+            // Email sending failed
           }
         }
 
@@ -174,7 +173,7 @@ export async function POST(request: NextRequest) {
                 reason: "Checkout session expired",
               });
             } catch (error) {
-              console.error("Failed to send failure email:", error);
+              // Email sending failed
             }
           }
         }
@@ -200,14 +199,14 @@ export async function POST(request: NextRequest) {
                 toolName: paymentIntent.metadata?.toolName || "your tool",
                 reason: "Payment failed",
               });
-            } catch (error) {
-              console.error("Failed to send failure email:", error);
-            }
-          }
-        }
-        break;
-      }
-      case "charge.refunded": {
+  } catch (error) {
+    // Email sending failed
+  }
+}
+}
+break;
+}
+case "charge.refunded": {
         const charge = event.data.object as {
           payment_intent?: string | null;
         };
@@ -319,11 +318,10 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ received: true });
   } catch (error) {
-    console.error("Stripe webhook handler error:", error);
     try {
       await sendSlackAlert(`Stripe webhook handler error: ${String(error)}`);
     } catch (slackError) {
-      console.error("Failed to send Slack alert:", slackError);
+      // Slack alert failed
     }
     if (webhookEventId) {
       await prisma.webhookEvent.update({

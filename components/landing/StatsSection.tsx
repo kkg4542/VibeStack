@@ -93,7 +93,7 @@ export function StatsSection() {
   return (
     <section className="py-24 md:py-32 relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-vibe-purple/5 to-background" />
+      <div className="absolute inset-0 bg-linear-to-b from-background via-vibe-purple/5 to-background" />
       
       {/* Decorative grid */}
       <div className="absolute inset-0 bg-grid-pattern opacity-30" />
@@ -138,11 +138,11 @@ export function StatsSection() {
               >
                 <div className="relative p-8 rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm text-center hover:border-vibe-electric/30 transition-all duration-300 hover:shadow-lg hover:shadow-vibe-electric/5">
                   {/* Glow effect */}
-                  <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
+                  <div className={`absolute inset-0 rounded-2xl bg-linear-to-br ${stat.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
                   
                   <div className="relative z-10">
                     {/* Icon */}
-                    <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${stat.color} bg-opacity-10 mb-4`}>
+                    <div className={`inline-flex p-3 rounded-xl bg-linear-to-br ${stat.color} bg-opacity-10 mb-4`}>
                       <Icon className="w-6 h-6 text-white" />
                     </div>
 

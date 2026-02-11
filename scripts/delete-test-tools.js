@@ -32,6 +32,9 @@ async function findAndDeleteTestTools() {
                 console.log(`  ✓ Deleted: ${tool.title}`);
             }
             console.log('\nAll test tools deleted!');
+            
+            // Clear cache after deletion
+            await clearToolsCache();
         } else {
             console.log('No test tools found in database.');
         }
@@ -41,6 +44,26 @@ async function findAndDeleteTestTools() {
         console.error('Full error:', error);
     } finally {
         await prisma.$disconnect();
+    }
+}
+
+async function clearToolsCache() {
+    try {
+        console.log('\nClearing tools cache...');
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+        const response = await fetch(`${baseUrl}/api/admin/revalidate-tools`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        
+        if (response.ok) {
+            console.log('✓ Cache cleared successfully');
+        } else {
+            console.log('⚠ Cache clear failed, but tools were deleted');
+        }
+    } catch (error) {
+        console.log('⚠ Could not clear cache:', error.message);
+        console.log('  You may need to restart the server or wait 60 seconds for cache to expire');
     }
 }
 

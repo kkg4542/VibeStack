@@ -46,7 +46,7 @@ export function NewsletterSection() {
   return (
     <section className="py-24 md:py-32 relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-vibe-electric/5 to-background" />
+      <div className="absolute inset-0 bg-linear-to-b from-background via-vibe-electric/5 to-background" />
       
       {/* Decorative elements */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-linear-to-r from-vibe-electric/10 via-vibe-cyan/10 to-vibe-neon/10 blur-[120px] rounded-full -z-10" />
@@ -61,7 +61,7 @@ export function NewsletterSection() {
         >
           <div className="relative p-8 md:p-12 rounded-3xl border border-border bg-white shadow-sm overflow-hidden">
             {/* Glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-vibe-electric/5 via-transparent to-vibe-neon/5" />
+            <div className="absolute inset-0 bg-linear-to-br from-vibe-electric/5 via-transparent to-vibe-neon/5" />
             
             <div className="relative z-10">
               {/* Header */}

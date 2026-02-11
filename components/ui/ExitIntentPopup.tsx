@@ -74,7 +74,7 @@ export function ExitIntentPopup({ toolSlug, toolName }: ExitIntentPopupProps) {
 
       setIsSubmitted(true);
     } catch (error) {
-      console.error("Error capturing email:", error);
+      // Error handled silently
     }
   };
 

@@ -63,7 +63,6 @@ export async function POST(request: NextRequest) {
       message: "Submission created successfully"
     });
   } catch (error) {
-    console.error("Error creating submission:", error);
     return NextResponse.json(
       { error: "Failed to create submission" },
       { status: 500 }

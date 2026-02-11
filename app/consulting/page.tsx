@@ -27,7 +27,6 @@ export default function ConsultingPage() {
                 throw new Error('No checkout URL returned');
             }
         } catch (error) {
-            console.error('Checkout failed:', error);
             alert('Failed to start checkout. Please contact us at hello@usevibestack.com');
             setLoading(false);
         }

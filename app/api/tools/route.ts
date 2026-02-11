@@ -22,7 +22,7 @@ const getCachedTools = unstable_cache(
     return { tools, total };
   },
   ['tools-list'],
-  { tags: ['tools'] }
+  { tags: ['tools'], revalidate: 60 } // 60초마다 캐시 갱신
 );
 
 export async function GET(request: NextRequest) {
@@ -66,7 +66,6 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("Error fetching tools:", error);
     return createErrorResponse("Failed to fetch tools", 500);
   }
 }
@@ -128,7 +127,6 @@ export async function POST(request: NextRequest) {
 
     return createSuccessResponse(tool, 201);
   } catch (error) {
-    console.error("Error creating tool:", error);
     return createErrorResponse("Failed to create tool", 500);
   }
 }
@@ -188,7 +186,6 @@ export async function PUT(request: NextRequest) {
 
     return createSuccessResponse(tool);
   } catch (error) {
-    console.error("Error updating tool:", error);
     return createErrorResponse("Failed to update tool", 500);
   }
 }
@@ -226,7 +223,6 @@ export async function DELETE(request: NextRequest) {
 
     return createSuccessResponse({ message: "Tool deleted successfully" });
   } catch (error) {
-    console.error("Error deleting tool:", error);
     return createErrorResponse("Failed to delete tool", 500);
   }
 }

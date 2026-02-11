@@ -60,6 +60,9 @@ async function deleteProductionTestTools() {
         }
 
         console.log('\n✅ Test tools deletion complete!');
+        
+        // Clear cache after deletion
+        await clearToolsCache();
 
     } catch (error) {
         console.error('❌ Error:', error.message);
@@ -69,6 +72,27 @@ async function deleteProductionTestTools() {
     } finally {
         await prisma.$disconnect();
         console.log('\nDatabase connection closed.');
+    }
+}
+
+async function clearToolsCache() {
+    try {
+        console.log('\nClearing tools cache...');
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+        const response = await fetch(`${baseUrl}/api/admin/revalidate-tools`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        
+        if (response.ok) {
+            console.log('✓ Cache cleared successfully');
+        } else {
+            console.log('⚠ Cache clear failed - you may need to redeploy or wait 60 seconds');
+        }
+    } catch (error) {
+        console.log('⚠ Could not clear cache:', error.message);
+        console.log('  For production: redeploy the application');
+        console.log('  For local: restart the server or wait 60 seconds');
     }
 }
 

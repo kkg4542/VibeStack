@@ -218,14 +218,14 @@ export const designSystem = {
     // Card variants
     cards: {
         default: 'border-border/50 hover:border-vibe-electric/30 transition-all duration-300',
-        highlighted: 'border-vibe-electric/20 bg-gradient-to-br from-vibe-electric/5 to-vibe-cyan/5',
+        highlighted: 'border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-vibe-cyan/5',
         interactive: 'border-border/50 hover:border-vibe-electric/30 hover:shadow-lg hover:shadow-vibe-electric/5 transition-all duration-300',
     },
 
     // Background presets
     backgrounds: {
         grid: 'bg-grid-pattern opacity-30',
-        gradientOrbs: 'bg-gradient-to-b from-background via-vibe-electric/5 to-background',
+        gradientOrbs: 'bg-linear-to-b from-background via-vibe-electric/5 to-background',
         glass: 'bg-card/50 backdrop-blur-sm',
     }
 };

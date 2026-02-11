@@ -85,7 +85,7 @@ export function ToolCategories() {
   return (
     <Section spacing="large" className="relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/50 to-background" />
+      <div className="absolute inset-0 bg-linear-to-b from-background via-background/50 to-background" />
 
       {/* Decorative elements */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-vibe-purple/10 blur-[120px] rounded-full -z-10" />
@@ -145,7 +145,7 @@ export function ToolCategories() {
                       {/* Icon & Count */}
                       <div className="flex items-start justify-between mb-4">
                         <div className={`p-3 rounded-xl ${category.bgColor}`}>
-                          <Icon className={`w-6 h-6 text-transparent bg-clip-text bg-gradient-to-br ${category.color}`} />
+                          <Icon className={`w-6 h-6 text-transparent bg-clip-text bg-linear-to-br ${category.color}`} />
                         </div>
                         <span className="text-xs text-muted-foreground bg-background/50 px-2 py-1 rounded-full">
                           {category.count} tools

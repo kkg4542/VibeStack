@@ -197,7 +197,7 @@ export default function SubmitToolPage() {
                 setSubmitted(true);
             }
         } catch (error) {
-            console.error("Submission error:", error);
+            // Error handled by form state
         } finally {
             setIsSubmitting(false);
         }

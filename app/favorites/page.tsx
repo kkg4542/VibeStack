@@ -53,7 +53,7 @@ export default function FavoritesPage() {
                     setFavorites(formatted);
                 }
             } catch (error) {
-                console.error('Failed to load favorites:', error);
+                // Error handled silently
             }
         } else {
             const saved = localStorage.getItem("vibestack-favorites");
@@ -153,7 +153,7 @@ export default function FavoritesPage() {
                     body: JSON.stringify({ toolId: id }),
                 });
             } catch (error) {
-                console.error('Failed to remove favorite:', error);
+                // Error handled silently
             }
         }
 

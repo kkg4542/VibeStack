@@ -56,8 +56,7 @@ export async function GET(request: NextRequest) {
             byType,
             recentFailures,
         });
-    } catch (error) {
-        console.error("Error fetching webhook stats:", error);
-        return createErrorResponse("Failed to fetch webhook stats", 500);
-    }
+  } catch (error) {
+    return createErrorResponse("Failed to fetch webhook stats", 500);
+  }
 }

@@ -69,7 +69,6 @@ export async function DELETE(request: NextRequest) {
         });
 
     } catch (error) {
-        console.error("Error deleting test tools:", error);
         return createErrorResponse(
             error instanceof Error ? error.message : "Failed to delete test tools",
             500

@@ -23,7 +23,7 @@ export function PopularTools() {
   return (
     <section className="py-24 md:py-32 relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-vibe-electric/5 to-background" />
+      <div className="absolute inset-0 bg-linear-to-b from-background via-vibe-electric/5 to-background" />
 
       <div className="container px-4 mx-auto relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">

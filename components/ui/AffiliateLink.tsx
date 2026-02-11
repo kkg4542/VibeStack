@@ -71,7 +71,7 @@ export function AffiliateLink({
         }),
       });
     } catch (error) {
-      console.error("Failed to track click:", error);
+      // Error handled silently
     }
   };
 

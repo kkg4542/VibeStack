@@ -57,7 +57,7 @@ export function HowItWorks() {
                             <div className="hidden md:block absolute top-16 left-1/2 w-full h-0.5 bg-linear-to-r from-primary/50 to-transparent" />
                         )}
 
-                        <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-purple-500/20 ${step.color} mb-6 relative z-10 shadow-lg`}>
+                        <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-linear-to-br from-primary/20 to-purple-500/20 ${step.color} mb-6 relative z-10 shadow-lg`}>
                             <step.icon className="w-8 h-8" />
                         </div>
 

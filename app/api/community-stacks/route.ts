@@ -30,7 +30,6 @@ export async function GET(request: NextRequest) {
       hasMore: offset + stacks.length < totalCount,
     });
   } catch (error) {
-    console.error('Error fetching community stacks:', error);
     return NextResponse.json(
       { error: 'Failed to fetch community stacks' },
       { status: 500 }

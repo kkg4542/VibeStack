@@ -84,7 +84,7 @@ export function VibeCard({
       } : undefined}
       className={cn(
         "relative overflow-hidden rounded-2xl",
-        "bg-gradient-to-br from-white/5 to-white/0",
+        "bg-linear-to-br from-white/5 to-white/0",
         "border border-white/10",
         "backdrop-blur-xl",
         "transition-colors duration-300",
@@ -137,7 +137,7 @@ export function VibeCard({
 
       {/* Ambient glow on hover */}
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-br from-vibe-electric/5 via-transparent to-vibe-neon/5" />
+        <div className="absolute inset-0 bg-linear-to-br from-vibe-electric/5 via-transparent to-vibe-neon/5" />
       </div>
     </m.div>
   );

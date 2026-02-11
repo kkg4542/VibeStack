@@ -119,7 +119,7 @@ export function FeaturedStacks({ stacks }: FeaturedStacksProps) {
                       {/* Curator Info (Authority) */}
                       {stack.curator ? (
                         <div className="flex items-center gap-3 pt-6 border-t border-foreground/10">
-                          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-vibe-electric to-vibe-neon flex items-center justify-center text-xs font-bold text-white">
+                          <div className="w-8 h-8 rounded-full bg-linear-to-br from-vibe-electric to-vibe-neon flex items-center justify-center text-xs font-bold text-white">
                             {stack.curator.name.charAt(0)}
                           </div>
                           <div className="flex-1 min-w-0">

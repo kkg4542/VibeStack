@@ -203,7 +203,6 @@ export async function middleware(req: NextRequest) {
 
         // Require environment variables
         if (!validUser || !validPwd) {
-          console.error("ADMIN_USER and ADMIN_PASSWORD must be set");
           return new NextResponse("Server configuration error", { status: 500 });
         }
 
@@ -220,7 +219,7 @@ export async function middleware(req: NextRequest) {
           return response;
         }
       } catch (error) {
-        console.error("Auth parsing error:", error);
+        // Auth parsing failed
       }
     }
 

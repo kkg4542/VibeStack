@@ -36,13 +36,13 @@ export default async function BestAICodingToolsPage() {
         initial={designSystem.animations.fadeInUp.initial}
         animate={designSystem.animations.fadeInUp.animate}
         transition={designSystem.animations.fadeInUp.transition}
-        className="bg-gradient-to-b from-indigo-950/20 to-background border-b border-border/50"
+        className="bg-linear-to-b from-indigo-950/20 to-background border-b border-border/50"
       >
         <div className="container max-w-6xl mx-auto px-4 py-20 text-center">
           <Badge variant="secondary" className="mb-4">
             2025 Updated
           </Badge>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent text-balance">
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 bg-linear-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent text-balance">
             Top 10 Best AI Coding Tools
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -275,7 +275,7 @@ export default async function BestAICodingToolsPage() {
         </section>
 
         {/* CTA */}
-        <div className="mt-16 p-8 bg-gradient-to-r from-indigo-950/30 to-purple-950/30 rounded-xl border border-indigo-500/20 text-center">
+        <div className="mt-16 p-8 bg-linear-to-r from-indigo-950/30 to-purple-950/30 rounded-xl border border-indigo-500/20 text-center">
           <h2 className="text-2xl font-bold mb-4">Ready to Boost Your Productivity?</h2>
           <p className="text-muted-foreground mb-6">
             Browse our complete collection of AI tools and find the perfect stack for your workflow.

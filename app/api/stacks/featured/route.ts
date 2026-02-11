@@ -10,7 +10,6 @@ export async function GET(request: Request) {
         const stacks = await getFeaturedStacks(limit);
         return NextResponse.json({ stacks });
     } catch (error) {
-        console.error("Failed to fetch featured stacks:", error);
         return NextResponse.json({ stacks: [] }, { status: 200 });
     }
 }

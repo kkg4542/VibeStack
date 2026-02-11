@@ -93,7 +93,7 @@ export function StackInsights({ insights }: StackInsightsProps) {
                       whileInView={{ height: `${height}%` }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: index * 0.1 }}
-                      className="w-full max-w-[40px] bg-gradient-to-t from-vibe-electric/20 to-vibe-electric rounded-t-lg relative group"
+                      className="w-full max-w-[40px] bg-linear-to-t from-vibe-electric/20 to-vibe-electric rounded-t-lg relative group"
                     >
                       {/* Tooltip */}
                       <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-background border border-vibe-electric/30 px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">

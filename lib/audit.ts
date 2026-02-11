@@ -91,7 +91,6 @@ export async function logAdminAction(
     });
   } catch (error) {
     // Don't throw - audit logging should not break the application
-    console.error("Failed to write audit log:", error);
   }
 }
 

@@ -62,7 +62,6 @@ export async function POST(request: NextRequest) {
     const MAILCHIMP_DC = process.env.MAILCHIMP_DC;
 
     if (!MAILCHIMP_API_KEY || !MAILCHIMP_LIST_ID || !MAILCHIMP_DC) {
-      console.error("Mailchimp environment variables not set");
       return createErrorResponse("Server configuration error", 500);
     }
 
@@ -101,11 +100,9 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      console.error("Mailchimp error:", error);
       return createErrorResponse("Failed to subscribe. Please try again.", 500);
     }
   } catch (error) {
-    console.error("Newsletter subscription error:", error);
     return createErrorResponse("An error occurred. Please try again.", 500);
   }
 }

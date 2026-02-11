@@ -45,7 +45,6 @@ export async function GET(request: NextRequest) {
 
     return createSuccessResponse(reviews);
   } catch (error) {
-    console.error("Failed to fetch reviews:", error);
     return createErrorResponse("Failed to fetch reviews", 500);
   }
 }
@@ -114,7 +113,6 @@ export async function POST(request: NextRequest) {
 
     return createSuccessResponse(review, 201);
   } catch (error) {
-    console.error("Failed to create review:", error);
     return createErrorResponse(error instanceof Error ? error.message : "Failed to create review", 500);
   }
 }

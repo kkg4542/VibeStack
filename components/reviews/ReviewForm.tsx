@@ -58,7 +58,6 @@ export function ReviewForm({ toolSlug }: { toolSlug: string }) {
             // Dispatch event to update list
             window.dispatchEvent(new Event("review-submitted"));
         } catch (error) {
-            console.error(error);
             toast.error(error instanceof Error ? error.message : "Failed to submit review");
         } finally {
             setIsSubmitting(false);
