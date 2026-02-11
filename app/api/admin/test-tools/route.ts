@@ -60,7 +60,8 @@ export async function DELETE(request: NextRequest) {
 
         // Revalidate tools cache
         const { revalidateTag } = await import('next/cache');
-        revalidateTag('tools');
+        // @ts-ignore - Next.js 16.1.6 requires 2 args for revalidateTag
+        revalidateTag('tools', undefined);
 
         return createSuccessResponse({
             message: `Successfully deleted ${deleted.length} test tool(s)`,
