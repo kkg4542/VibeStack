@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { m } from "framer-motion";
-import { 
-  Mail, 
-  Sparkles, 
+import {
+  Mail,
+  Sparkles,
   Zap,
   Bell,
   ArrowRight,
@@ -31,14 +31,14 @@ export function NewsletterSection() {
     if (!email) return;
 
     setIsSubmitting(true);
-    
+
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     setIsSubmitting(false);
     setIsSuccess(true);
     setEmail("");
-    
+
     // Reset success state after 3 seconds
     setTimeout(() => setIsSuccess(false), 3000);
   };
@@ -47,7 +47,7 @@ export function NewsletterSection() {
     <section className="py-24 md:py-32 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-linear-to-b from-background via-vibe-electric/5 to-background" />
-      
+
       {/* Decorative elements */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-linear-to-r from-vibe-electric/10 via-vibe-cyan/10 to-vibe-neon/10 blur-[120px] rounded-full -z-10" />
 
@@ -59,15 +59,15 @@ export function NewsletterSection() {
           transition={designSystem.animations.fadeInUp.transition}
           className="max-w-4xl mx-auto"
         >
-          <div className="relative p-8 md:p-12 rounded-3xl border border-border bg-white shadow-sm overflow-hidden">
+          <div className="relative p-8 md:p-12 rounded-3xl border border-border bg-white dark:bg-card shadow-sm overflow-hidden">
             {/* Glow effect */}
             <div className="absolute inset-0 bg-linear-to-br from-vibe-electric/5 via-transparent to-vibe-neon/5" />
-            
+
             <div className="relative z-10">
               {/* Header */}
               <div className="text-center mb-8">
-                <Badge 
-                  variant="outline" 
+                <Badge
+                  variant="outline"
                   className="mb-4 border-vibe-electric/20 bg-vibe-electric/5 text-vibe-electric"
                 >
                   <Mail className="mr-2 h-3 w-3" />
@@ -80,7 +80,7 @@ export function NewsletterSection() {
                   </span>
                 </h2>
                 <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-                  Join 5,000+ developers receiving weekly updates on new AI tools, 
+                  Join 5,000+ developers receiving weekly updates on new AI tools,
                   stack recommendations, and exclusive deals.
                 </p>
               </div>
@@ -119,8 +119,8 @@ export function NewsletterSection() {
                       required
                     />
                   </div>
-                  <Button 
-                    type="submit" 
+                  <Button
+                    type="submit"
                     disabled={isSubmitting || isSuccess}
                     className="h-12 px-6 bg-linear-to-r from-vibe-electric to-vibe-cyan hover:shadow-lg hover:shadow-vibe-electric/30 transition-all duration-300"
                   >
