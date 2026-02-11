@@ -26,14 +26,12 @@ export function PopularTools() {
       <div className="absolute inset-0 bg-gradient-to-b from-background via-vibe-electric/5 to-background" />
 
       <div className="container px-4 mx-auto relative z-10">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-16">
           <m.div
             initial={designSystem.animations.fadeInUp.initial}
             whileInView={designSystem.animations.fadeInUp.animate}
             viewport={{ once: true }}
             transition={designSystem.animations.fadeInUp.transition}
-            className="max-w-2xl"
           >
             <Badge
               variant="outline"
@@ -42,7 +40,7 @@ export function PopularTools() {
               <TrendingUp className="mr-2 h-3 w-3" />
               Trending Now
             </Badge>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
               Popular{" "}
               <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-purple-600">
                 AI Tools
@@ -51,20 +49,6 @@ export function PopularTools() {
             <p className="text-lg text-muted-foreground">
               Discover the most loved AI tools by our community of builders and creators.
             </p>
-          </m.div>
-
-          <m.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <Link href="/tools">
-              <Button variant="outline" className="group">
-                View All Tools
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
           </m.div>
         </div>
 
@@ -140,6 +124,15 @@ export function PopularTools() {
               </Link>
             </m.div>
           ))}
+        </div>
+
+        <div className="mt-16 text-center">
+          <Link href="/tools">
+            <Button variant="outline" size="lg" className="group rounded-full px-8">
+              View All Tools
+              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
