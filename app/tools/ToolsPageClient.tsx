@@ -168,7 +168,7 @@ export default function ToolsPage() {
                         transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.35 }}
                         className="grid gap-6 md:grid-cols-3 text-left max-w-5xl mx-auto mb-12"
                     >
-                        <div className="rounded-2xl border border-border/40 bg-white p-6">
+                        <div className="rounded-2xl border border-border/40 bg-card backdrop-blur-sm p-6">
                             <div className="flex items-center gap-2 mb-3 text-sm text-foreground/80">
                                 <ShieldCheck className="w-4 h-4 text-emerald-500" />
                                 Real-use validation
@@ -177,7 +177,7 @@ export default function ToolsPage() {
                                 We prioritize tools with clear workflows, stable UX, and measurable time-savings.
                             </p>
                         </div>
-                        <div className="rounded-2xl border border-border/40 bg-white p-6">
+                        <div className="rounded-2xl border border-border/40 bg-card backdrop-blur-sm p-6">
                             <div className="flex items-center gap-2 mb-3 text-sm text-foreground/80">
                                 <RefreshCw className="w-4 h-4 text-blue-500" />
                                 Monthly rechecks
@@ -186,7 +186,7 @@ export default function ToolsPage() {
                                 Pricing, policies, and features are reviewed on a monthly cadence.
                             </p>
                         </div>
-                        <div className="rounded-2xl border border-border/40 bg-white p-6">
+                        <div className="rounded-2xl border border-border/40 bg-card backdrop-blur-sm p-6">
                             <div className="flex items-center gap-2 mb-3 text-sm text-foreground/80">
                                 <Layers className="w-4 h-4 text-violet-500" />
                                 Stack compatibility
