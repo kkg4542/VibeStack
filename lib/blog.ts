@@ -708,5 +708,115 @@ export const blogPosts: BlogPost[] = [
       <h3>The Future</h3>
       <p>By 2027, we'll have agents for every knowledge work task. They'll coordinate with each other, forming "flash teams" that can execute complex multi-step workflows. The developers who learn to build these agents now will be the architects of the next software era.</p>
     `
+  },
+  // 21. Sora Video Generation
+  {
+    slug: "sora-video-generation-revolution",
+    title: "상상을 현실로: Sora가 불러온 비디오 생성 AI의 혁명",
+    excerpt: "단순한 텍스트 프롬프트가 60초짜리 초현실적 시네마틱 영상으로 변하는 마법. OpenAI Sora가 엔터테인먼트 산업의 문법을 어떻게 파괴하고 있는지 심층 분석합니다.",
+    date: "Mar 11, 2026",
+    author: "VibeStack AI",
+    category: "Generative AI",
+    readTime: "7 min read",
+    image: "/images/blog/sora-video-gen.png",
+    tags: ["Sora", "Video AI", "World Models"],
+    content: `
+      <h2>텍스트-투-비디오의 진정한 특이점</h2>
+      <p>오래전부터 '텍스트를 영상으로' 변환하려는 얕은 시도는 많았습니다. 하지만 OpenAI가 선보인 <strong>Sora(소라)</strong>는 단순히 픽셀을 이어 붙이는 시각적 눈속임이 아닙니다. 이 모델은 카메라 앵글이 움직일 때 그림자가 어떻게 변해야 하는지, 중력과 질감이 3D 공간 안에서 어떻게 상호작용하는지 깨우친 <strong>'진정한 물리 세계 모델(World Model)'</strong>에 가깝습니다.</p>
+      
+      <h3>할리우드의 위기와 독립 크리에이터의 해방</h3>
+      <p>수백만 달러가 들던 거대한 로케이션 촬영, CG 렌더링 팜의 시대는 종말을 고하고 있습니다. Sora는 노트북 한 대와 프롬프트 한 줄만으로 블록버스터급 시퀀스를 렌더링해 냅니다. 이는 자본에 묶여있던 스토리텔러들에게 무한한 해방을 의미합니다. 내가 상상한 세계관이 곧바로 화면 위에 재생되는 놀라운 경험은 1인 영화 제작이라는 새로운 장르를 탄생시키고 있습니다.</p>
+
+      <h3>일시적인 충격을 넘어선 지속가능성</h3>
+      <p>초기에는 사람의 손가락 기형이나 물리학적 환각 현상(Hallucination)이 있었지만, 파라미터가 거대해질수록 이러한 노이즈는 기하급수적으로 줄어들고 있습니다. 결국 "프롬프트 엔지니어링"은 "시네마틱 디렉팅" 기술과 융합되며, 단순히 영상을 만드는 법을 넘어 어떤 이야기를 할 것인가 하는 본질적 역량이 더욱 중요해졌습니다.</p>
+    `
+  },
+  // 22. AI Wearables
+  {
+    slug: "ai-wearables-post-smartphone",
+    title: "포스트 스마트폰 시대: AI 웨어러블 디바이스의 역습",
+    excerpt: "화면 너머의 인터페이스, 이제 AI는 우리 옷깃에 스며들고 있습니다. Humane Pin부터 차세대 AI 어시스턴트까지 폼팩터의 진화를 조명합니다.",
+    date: "Mar 10, 2026",
+    author: "VibeStack AI",
+    category: "Hardware",
+    readTime: "6 min read",
+    image: "/images/blog/ai-wearables.png",
+    tags: ["Wearables", "Hardware", "UI/UX"],
+    content: `
+      <h2>직사각형 화면의 한계를 부수다</h2>
+      <p>지난 15년간 우리의 주의력은 손바닥만 한 직사각형 유리 화면에 사로잡혀 있었습니다. 그러나 최근 등장하고 있는 AI 기반 웨어러블 기기들은 이 '스크린의 독재'를 끝내려 하고 있습니다.</p>
+      
+      <h3>앰비언트 컴퓨팅(Ambient Computing)의 도래</h3>
+      <p>사용자가 화면을 쳐다보며 앱을 켜고 터치할 필요가 사라졌습니다. 옷깃에 부착된 렌즈와 센서는 사용자의 환경을 시각과 청각으로 실시간 인지합니다. 상대방의 언어를 실시간으로 번역해 주고, 눈앞에 있는 식재료를 보고 레시피를 제안하며, 복잡한 회의 내용을 요약하여 레이저 빔 형태로 손바닥 위에 투사합니다.</p>
+
+      <h3>목적 기반 인터랙션(Intent-based Interaction)</h3>
+      <p>우리는 더 이상 앱을 실행하지 않습니다. 그저 <strong>"내일 아침 비행기 일정에 맞춰 알람을 맞춰주고 공항 가는 택시 예약해 줘"</strong>라고 중얼거리기만 하면 됩니다. 앱 없는 생태계(App-less environment)로의 전환. 인터페이스가 사라질 때, 오히려 가장 강력한 사용자 경험이 완성됩니다. 미래는 우리가 바라보는 곳이 곧 스크린이 되는 세상이 될 것입니다.</p>
+    `
+  },
+  // 23. Reasoning Models
+  {
+    slug: "q-star-reasoning-models",
+    title: "추론의 도약: System-2 사고를 탑재한 새로운 AI의 등장",
+    excerpt: "단순히 다음 단어를 예측하는 것을 넘어, 생각하고 검증하며 논리적 해답을 찾는 '추론 모델(Reasoning Models)'이 AGI로 가는 가장 강력한 징검다리가 되다.",
+    date: "Mar 09, 2026",
+    author: "VibeStack AI",
+    category: "Deep Dive",
+    readTime: "9 min read",
+    image: "/images/blog/reasoning-models.png",
+    tags: ["AGI", "Reasoning", "System-2"],
+    content: `
+      <h2>System-1 직관에서 System-2 숙고로</h2>
+      <p>기존의 대규모 언어 모델(LLM)들은 기본적으로 통계적 확률에 기반한 '빠른 직관(System-1)'에 의존해 왔습니다. 그래서 종종 거침없이 거짓말을 하거나(환각), 복잡한 수학 문제를 풀다 중간에 길을 잃기도 했죠. 그러나 최근 AI 연구의 핵심 트렌드는 <strong>논리적 추론(Reasoning)</strong> 능력을 갖춘 모델의 등장입니다.</p>
+
+      <h3>검증 가능한 사고 체인 (Chain of Verification)</h3>
+      <p>최신 추론 모델들은 수학 증명이나 복잡한 법률 자문, 다단계 코딩 문제를 풀 때 답을 바로 내뱉지 않습니다. 내부적으로 스스로 질문을 던지고, 답을 구원한 후, 다시 자신의 논리적 허점을 테스트하는 '검증 루프'를 수천 번 반복합니다. 이는 강화학습과 몬테카를로 트리 탐색(MCTS) 기법을 융합하여 '진짜 정답'을 연역적으로 찾아내는 거대한 분기점입니다.</p>
+
+      <h3>AGI를 향한 결정적 퍼즐</h3>
+      <p>언어 생성 능력을 넘어 순수한 '논리 엔진'으로 진화하는 AI. 이 모델들이 코드 최적화, 신약 구조 설계, 물리학 연구의 새로운 방정식을 도출하기 시작하면서 인간의 발상을 보조하는 것을 넘어 스스로 창조의 영역으로 들어서고 있습니다.</p>
+    `
+  },
+  // 24. Autonomous Agent Swarms
+  {
+    slug: "autonomous-agents-swarm-intelligence",
+    title: "스웜 인텔리전스: 자율형 AI 에이전트들의 군집 지성",
+    excerpt: "AI 에이전트 하나로는 부족합니다. 개발자, 디자이너, 마케터 역할을 분담하여 서로 소통하고 결과물을 도출하는 '다중 에이전트 군집(Agent Swarms)'의 세계.",
+    date: "Mar 08, 2026",
+    author: "VibeStack AI",
+    category: "Future",
+    readTime: "8 min read",
+    image: "/images/blog/autonomous-agents.png",
+    tags: ["Autonomous Agents", "Swarm", "Automation"],
+    content: `
+      <h2>혼자서 일하는 AI의 시대는 끝났다</h2>
+      <p>어제까지만 해도 우리는 챗봇 창에서 AI와 1:1 대화를 나눴습니다. 하지만 오늘날의 '소프트웨어 기업 2.0'은 AI가 독립적으로 기능하지 않습니다. 각각의 특화된 능력을 가진 다수의 에이전트가 그물망처럼 엮여 군집을 이루는 <strong>다중 에이전트 시스템(Multi-Agent System)</strong>이 핵심 구조로 떠올랐습니다.</p>
+
+      <h3>AI 에이전트 오피스</h3>
+      <p>프로젝트 매니저 에이전트가 Jira 티켓을 쪼갭니다. 프론트엔드 에이전트가 코드를 작성하면, 디자인 검수 에이전트가 레이아웃을 확인하고, QA 에이전트가 무작위 스트레스 테스트를 진행합니다. 그 사이 보안 에이전트는 코드의 취약점을 점검합니다. 이 모든 것이 인간의 개입 없이 밀리초(ms) 단위로 상호 소통하며 진행됩니다.</p>
+
+      <h3>스웜 지성(Swarm Intelligence)의 파괴력</h3>
+      <p>이 군집 지성의 가장 놀라운 점은 단일 모델로 해결할 수 없는 복합적인 문제들을 '협업'을 통해 자체 해결한다는 점입니다. 에이전트들은 서로 논쟁하고, 코드 리뷰를 남기며 더 나은 로직으로 진화합니다. 인류가 조직을 만들어 문명을 건설했듯, AI도 협업을 통해 스스로의 한계를 넘고 있습니다.</p>
+    `
+  },
+  // 25. Local On-Device AI
+  {
+    slug: "local-ai-on-device-future",
+    title: "클라우드 종속성 탈피: 온디바이스(On-Device) 로컬 AI의 매력",
+    excerpt: "프라이버시 침해 없이, 비행기 안에서도 오프라인으로 작동하는 AI. NPU의 발전과 경량화 모델(sLLM)이 스마트폰에 완벽한 보안의 지능을 선물합니다.",
+    date: "Mar 07, 2026",
+    author: "VibeStack AI",
+    category: "Security",
+    readTime: "7 min read",
+    image: "/images/blog/local-ai-mobile.png",
+    tags: ["Local AI", "On-Device", "sLLM"],
+    content: `
+      <h2>오프라인에서도 멈추지 않는 두뇌</h2>
+      <p>모든 데이터를 수천 킬로미터 떨어진 클라우드 서버로 보내고, 다시 응답을 받는 지연(Latency)의 시대는 끝나가고 있습니다. 애플리케이션 프로세서 내부에 신경망 처리 장치(NPU)가 비약적으로 발전하면서, 무거운 딥러닝 모델들이 우리의 휴대폰, 노트북, 스마트 워치 위인 장치(On-Device)에서 <strong>'로컬 엣지(Edge)'</strong> 연산을 수행하기 시작했습니다.</p>
+
+      <h3>경량화된 거인들 (sLLM의 반란)</h3>
+      <p>수천억 개의 파라미터를 가진 거대 모델 대신, 양자화(Quantization)와 가지치기를 거친 수십억 파라미터 수준의 sLLM(Small Large Language Model)들이 무서운 성능을 보여주고 있습니다. 거대한 클라우드 서버 없이도 주머니 속 기기에서 초당 100토큰을 생성하는 시대가 열렸습니다.</p>
+
+      <h3>궁극의 프라이버시 인프라</h3>
+      <p>우리의 카카오톡 대화 내용, 민감한 금융 정보, 사적인 사진 앨범을 분석할 때 이 데이터가 네트워크를 타고 밖으로 나가지 않는다는 것은 엄청난 보안 패러다임의 변화를 의미합니다. 로컬 AI는 기업 환경과 개인의 삶 모두에서 '해킹할 수 없는 지능'으로 자리 잡게 될 것입니다.</p>
+    `
   }
 ];
