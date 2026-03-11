@@ -5,10 +5,12 @@ import { PopularTools } from "@/components/landing/PopularTools";
 import { FeaturedStacks } from "@/components/landing/FeaturedStacks";
 import { StatsSection } from "@/components/landing/StatsSection";
 import { HowItWorks } from "@/components/landing/HowItWorks";
-import { Testimonials } from "@/components/landing/Testimonials";
-import { NewsletterSection } from "@/components/landing/NewsletterSection";
-import { CTASection } from "@/components/landing/CTASection";
-import { ExitIntentPopup } from "@/components/ui/ExitIntentPopup";
+import dynamic from "next/dynamic";
+
+const Testimonials = dynamic(() => import("@/components/landing/Testimonials").then(mod => mod.Testimonials));
+const NewsletterSection = dynamic(() => import("@/components/landing/NewsletterSection").then(mod => mod.NewsletterSection));
+const CTASection = dynamic(() => import("@/components/landing/CTASection").then(mod => mod.CTASection));
+const ExitIntentPopup = dynamic(() => import("@/components/ui/ExitIntentPopup").then(mod => mod.ExitIntentPopup));
 
 export default async function Home() {
   // Fetch data on the server
@@ -17,8 +19,26 @@ export default async function Home() {
     getFeaturedStacks(6),
   ]);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "VibeStack",
+    "url": "https://usevibestack.com",
+    "description": "Curated AI tools for developers. Discover the best tools to accelerate your workflow.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://usevibestack.com/tools?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      
       {/* Hero Section */}
       <VibeHero />
       

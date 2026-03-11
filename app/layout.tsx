@@ -29,6 +29,13 @@ const jetbrainsMono = JetBrains_Mono({
   preload: false,
 });
 
+export const viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
+  ],
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://usevibestack.com"),
   title: {
@@ -45,12 +52,19 @@ export const metadata: Metadata = {
     title: "VibeStack - AI Productivity Lab",
     description: "Curated AI tools for developers. Discover the best tools to accelerate your workflow.",
     siteName: "VibeStack",
+    images: [{
+      url: "/opengraph-image.png",
+      width: 1200,
+      height: 630,
+      alt: "VibeStack - AI Productivity Lab",
+    }],
   },
   twitter: {
     card: "summary_large_image",
     title: "VibeStack - AI Productivity Lab",
     description: "Curated AI tools for developers.",
     creator: "@vibestack",
+    images: ["/twitter-image.png"],
   },
   verification: {
     other: {
