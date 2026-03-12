@@ -16,6 +16,8 @@ const withPWA = require('next-pwa')({
 });
 
 const nextConfig: NextConfig = {
+  // Hide technology stack from attackers
+  poweredByHeader: false,
   // Environment variables that need to be exposed to the browser should be prefixed with NEXT_PUBLIC_
   // DATABASE_URL should NOT be exposed to the client - it's server-side only
 
