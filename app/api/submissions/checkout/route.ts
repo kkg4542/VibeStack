@@ -1,6 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getStripe } from "@/lib/stripe";
+import { z } from "zod";
+import { validateBodySize } from "@/lib/body-size";
+
+const checkoutSchema = z.object({
+  toolName: z.string().min(2).max(100),
+  description: z.string().min(10).max(2000),
+  websiteUrl: z.string().url(),
+  category: z.string().min(1).max(50),
+  pricing: z.string().min(1).max(50),
+  email: z.string().email(),
+  tier: z.enum(["free", "priority", "premium"]).default("free"),
+});
 
 const PRICE_IDS: Record<string, string | undefined> = {
   priority: process.env.STRIPE_SUBMISSION_PRIORITY_PRICE_ID,
@@ -17,16 +29,27 @@ function getBaseUrl(request: NextRequest): string {
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const { toolName, description, websiteUrl, category, pricing, email, tier } = body;
-
-    if (!toolName || !description || !websiteUrl || !category || !pricing || !email) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    // Validate request body size
+    const { valid: sizeValid, response: sizeResponse } = validateBodySize(request, "/api/submissions");
+    if (!sizeValid && sizeResponse) {
+      return sizeResponse;
     }
 
-    const normalizedTier = tier || "free";
+    const body = await request.json();
+
+    // Zod validation
+    const validationResult = checkoutSchema.safeParse(body);
+    if (!validationResult.success) {
+      return NextResponse.json(
+        { error: "Validation failed", details: validationResult.error.issues },
+        { status: 400 }
+      );
+    }
+
+    const { toolName, description, websiteUrl, category, pricing, email, tier } = validationResult.data;
+
     const amount =
-      normalizedTier === "free" ? 0 : normalizedTier === "priority" ? 4900 : 14900;
+      tier === "free" ? 0 : tier === "priority" ? 4900 : 14900;
 
     const submission = await prisma.submission.create({
       data: {
@@ -36,13 +59,13 @@ export async function POST(request: NextRequest) {
         category,
         pricing,
         email: email.toLowerCase().trim(),
-        tier: normalizedTier,
+        tier,
         amount,
-        status: normalizedTier === "free" ? "pending" : "pending_payment",
+        status: tier === "free" ? "pending" : "pending_payment",
       },
     });
 
-    if (normalizedTier === "free") {
+    if (tier === "free") {
       return NextResponse.json({
         success: true,
         submissionId: submission.id,
@@ -50,7 +73,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const priceId = PRICE_IDS[normalizedTier];
+    const priceId = PRICE_IDS[tier];
     if (!priceId) {
       return NextResponse.json(
         { error: "Stripe price ID not configured for this tier" },
@@ -69,7 +92,7 @@ export async function POST(request: NextRequest) {
       cancel_url: `${baseUrl}/submit-tool?canceled=1&submission=${submission.id}`,
       metadata: {
         submissionId: submission.id,
-        tier: normalizedTier,
+        tier,
         type: "submission",
         toolName: submission.toolName,
       },
@@ -81,10 +104,10 @@ export async function POST(request: NextRequest) {
       checkoutUrl: session.url,
     });
   } catch (error) {
-    console.error("Error creating submission checkout:", error);
     return NextResponse.json(
       { error: "Failed to create submission checkout" },
       { status: 500 }
     );
   }
 }
+

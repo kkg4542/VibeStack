@@ -1,13 +1,15 @@
-import speakeasy from 'speakeasy';
-import QRCode from 'qrcode';
 import { prisma } from '@/lib/prisma';
 
 const TOTP_ISSUER = 'VibeStack Admin';
 
 /**
  * Generate a new TOTP secret for a user
+ * Uses dynamic imports for speakeasy and qrcode
  */
 export async function generateTOTPSecret(userId: string) {
+  const speakeasy = (await import('speakeasy')).default;
+  const QRCode = (await import('qrcode')).default;
+
   // Generate secret
   const secret = speakeasy.generateSecret({
     name: `VibeStack (${userId})`,
@@ -28,7 +30,9 @@ export async function generateTOTPSecret(userId: string) {
 /**
  * Verify a TOTP token
  */
-export function verifyTOTP(token: string, secret: string): boolean {
+export async function verifyTOTP(token: string, secret: string): Promise<boolean> {
+  const speakeasy = (await import('speakeasy')).default;
+
   return speakeasy.totp.verify({
     secret,
     encoding: 'base32',
@@ -42,7 +46,7 @@ export function verifyTOTP(token: string, secret: string): boolean {
  */
 export async function enable2FA(userId: string, token: string, secret: string) {
   // Verify the token first
-  const isValid = verifyTOTP(token, secret);
+  const isValid = await verifyTOTP(token, secret);
   
   if (!isValid) {
     throw new Error('Invalid verification code');
@@ -88,35 +92,76 @@ export async function is2FAEnabled(userId: string): Promise<boolean> {
 }
 
 /**
- * Generate backup codes
+ * Generate cryptographically secure backup codes
+ * Uses crypto.getRandomValues() instead of Math.random()
  */
 export function generateBackupCodes(): string[] {
   const codes: string[] = [];
+  const charset = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Removed similar chars (0/O, 1/I)
+  
   for (let i = 0; i < 10; i++) {
-    // Generate 8-character alphanumeric code
-    const code = Math.random().toString(36).substring(2, 10).toUpperCase();
+    const bytes = new Uint8Array(8);
+    crypto.getRandomValues(bytes);
+    let code = '';
+    for (let j = 0; j < 8; j++) {
+      code += charset[bytes[j] % charset.length];
+    }
     codes.push(code);
   }
   return codes;
 }
 
 /**
- * Verify backup code
+ * Hash a backup code using SHA-256 for secure storage
  */
-export async function verifyBackupCode(userId: string, code: string): Promise<boolean> {
-  // In production, you would hash and store backup codes
-  // For now, this is a placeholder
-  return false;
+async function hashBackupCode(code: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(code.toUpperCase().trim());
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = new Uint8Array(hashBuffer);
+  return Array.from(hashArray, (b) => b.toString(16).padStart(2, '0')).join('');
 }
 
 /**
- * Store backup codes (hashed)
+ * Verify backup code against stored hashes
+ */
+export async function verifyBackupCode(userId: string, code: string): Promise<boolean> {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { twoFABackupCodes: true },
+  });
+
+  if (!user?.twoFABackupCodes || user.twoFABackupCodes.length === 0) {
+    return false;
+  }
+
+  const hashedInput = await hashBackupCode(code);
+
+  // Find and consume the matching backup code
+  const matchIndex = user.twoFABackupCodes.indexOf(hashedInput);
+  if (matchIndex === -1) {
+    return false;
+  }
+
+  // Remove the used backup code (one-time use)
+  const remainingCodes = [...user.twoFABackupCodes];
+  remainingCodes.splice(matchIndex, 1);
+
+  await prisma.user.update({
+    where: { id: userId },
+    data: { twoFABackupCodes: remainingCodes },
+  });
+
+  return true;
+}
+
+/**
+ * Store backup codes (hashed with SHA-256)
  */
 export async function storeBackupCodes(userId: string, codes: string[]) {
-  // In production, hash each code before storing
-  // This is a placeholder implementation
-  const hashedCodes = codes.map(code => 
-    Buffer.from(code).toString('base64')
+  // Hash each code before storing
+  const hashedCodes = await Promise.all(
+    codes.map(code => hashBackupCode(code))
   );
 
   await prisma.user.update({

@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { auth } from "@/auth";
 
 export type AuditAction =
   | "CREATE"
@@ -96,15 +97,16 @@ export async function logAdminAction(
 
 /**
  * Create an audit log wrapper for API route handlers
+ * Uses server-side auth() session instead of client-provided headers
  */
 export function withAuditLog(
   handler: (request: NextRequest) => Promise<Response>,
   auditConfig: Omit<AuditLogEntry, "userId" | "success" | "error">
 ) {
   return async (request: NextRequest): Promise<Response> => {
-    // Get user from session (you'll need to pass the user ID)
-    // For now, we'll get it from the request context or a custom header
-    const userId = request.headers.get("x-admin-user-id") || "unknown";
+    // Get user from server-side session — never trust client headers
+    const session = await auth();
+    const userId = session?.user?.id || "unknown";
 
     try {
       const response = await handler(request);

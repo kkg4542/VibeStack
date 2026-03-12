@@ -161,7 +161,8 @@ export function isCsrfExcludedPath(path: string): boolean {
     '/api/auth',
     '/api/webhooks',
     '/api/stripe/webhook',
-    '/api/admin', // Admin endpoints are protected by Basic Auth
+    // Note: /api/admin is NOT excluded — CSRF protection is required
+    // even though endpoints are protected by Basic Auth
   ];
 
   return excludedPaths.some(excluded => path.startsWith(excluded));

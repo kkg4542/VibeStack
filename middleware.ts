@@ -36,11 +36,28 @@ const ratelimit = redis ? {
   }),
 } : null;
 
-// Store failed attempts per IP
+// Store failed attempts per IP with periodic cleanup
 const failedAttempts = new Map<string, { count: number; resetTime: number }>();
+const MAX_TRACKED_IPS = 10000;
+
+// Periodic cleanup of expired entries to prevent memory leaks
+function cleanupExpiredAttempts() {
+  const now = Date.now();
+  for (const [ip, attempt] of failedAttempts.entries()) {
+    if (now > attempt.resetTime) {
+      failedAttempts.delete(ip);
+    }
+  }
+}
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now();
+
+  // Cleanup if map is getting too large
+  if (failedAttempts.size > MAX_TRACKED_IPS) {
+    cleanupExpiredAttempts();
+  }
+
   const attempt = failedAttempts.get(ip);
 
   if (!attempt || now > attempt.resetTime) {
@@ -56,6 +73,27 @@ function isRateLimited(ip: string): boolean {
   }
 
   return false;
+}
+
+/**
+ * Timing-safe string comparison to prevent timing attacks on credentials
+ */
+async function timingSafeEqual(a: string, b: string): Promise<boolean> {
+  const encoder = new TextEncoder();
+  const aBytes = encoder.encode(a);
+  const bBytes = encoder.encode(b);
+
+  // Hash both values to ensure constant-time comparison regardless of length
+  const aHash = new Uint8Array(await crypto.subtle.digest("SHA-256", aBytes));
+  const bHash = new Uint8Array(await crypto.subtle.digest("SHA-256", bBytes));
+
+  if (aHash.length !== bHash.length) return false;
+
+  let result = 0;
+  for (let i = 0; i < aHash.length; i++) {
+    result |= aHash[i] ^ bHash[i];
+  }
+  return result === 0;
 }
 
 function getClientIP(req: NextRequest): string {
@@ -206,7 +244,10 @@ export async function middleware(req: NextRequest) {
           return new NextResponse("Server configuration error", { status: 500 });
         }
 
-        if (user === validUser && pwd === validPwd) {
+        const isUserValid = await timingSafeEqual(user, validUser);
+        const isPwdValid = await timingSafeEqual(pwd, validPwd);
+
+        if (isUserValid && isPwdValid) {
           // Clear failed attempts on success
           failedAttempts.delete(ip);
 

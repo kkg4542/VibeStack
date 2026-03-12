@@ -28,21 +28,22 @@ export function getMaxBodySize(pathname: string): number {
 export function checkBodySize(
   request: NextRequest,
   maxSize: number = DEFAULT_MAX_SIZE
-): { valid: boolean; size: number } {
+): { valid: boolean; size: number; needsStreamCheck: boolean } {
   const contentLength = request.headers.get("content-length");
   
   if (!contentLength) {
-    // If no content-length, we'll check during body parsing
-    return { valid: true, size: 0 };
+    // No content-length header — flag for stream-based check during body parsing
+    return { valid: true, size: 0, needsStreamCheck: true };
   }
   
   const size = parseInt(contentLength, 10);
   
-  if (isNaN(size)) {
-    return { valid: true, size: 0 };
+  if (isNaN(size) || size < 0) {
+    // Invalid content-length header — reject the request
+    return { valid: false, size: 0, needsStreamCheck: false };
   }
   
-  return { valid: size <= maxSize, size };
+  return { valid: size <= maxSize, size, needsStreamCheck: false };
 }
 
 export function createBodySizeExceededResponse(maxSize: number): NextResponse {

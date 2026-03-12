@@ -24,7 +24,7 @@ interface SessionInfo {
 export async function checkAdminSession(request: NextRequest): Promise<SessionInfo> {
   const session = await auth();
   
-  if (!session) {
+  if (!session || !session.user) {
     return {
       isValid: false,
       expiresAt: null,
@@ -33,21 +33,41 @@ export async function checkAdminSession(request: NextRequest): Promise<SessionIn
     };
   }
   
-  // Get session expiration from request headers or cookies
-  const sessionExpiry = request.cookies.get("next-auth.session-token")?.value ||
-                       request.cookies.get("__Secure-next-auth.session-token")?.value;
+  // Check for session expiration using the session's built-in expires field
+  const sessionExpires = (session as any).expires;
   
-  // For JWT sessions, we need to check the token expiration
-  // This is a simplified check - in production, decode and verify JWT
-  const now = Date.now();
-  const maxAge = ADMIN_SESSION_CONFIG.maxAge * 1000; // Convert to ms
+  if (sessionExpires) {
+    const expiresAt = new Date(sessionExpires);
+    const now = Date.now();
+    const timeRemainingMs = expiresAt.getTime() - now;
+    const timeRemaining = Math.max(0, Math.floor(timeRemainingMs / 1000));
+    
+    // Apply admin-specific max age (stricter than general session)
+    const adminMaxAgeMs = ADMIN_SESSION_CONFIG.maxAge * 1000;
+    const adminTimeRemaining = Math.min(timeRemaining, ADMIN_SESSION_CONFIG.maxAge);
+    
+    if (timeRemainingMs <= 0) {
+      return {
+        isValid: false,
+        expiresAt,
+        timeRemaining: 0,
+        shouldWarn: false,
+      };
+    }
+    
+    return {
+      isValid: true,
+      expiresAt,
+      timeRemaining: adminTimeRemaining,
+      shouldWarn: timeRemaining <= ADMIN_SESSION_CONFIG.warningThreshold,
+    };
+  }
   
-  // Assume session started when cookie was set (simplified)
-  // In production, store session start time in database
+  // If no expiration info available, session is valid but apply default timeout
   return {
     isValid: true,
-    expiresAt: new Date(now + maxAge),
-    timeRemaining: maxAge / 1000,
+    expiresAt: new Date(Date.now() + ADMIN_SESSION_CONFIG.maxAge * 1000),
+    timeRemaining: ADMIN_SESSION_CONFIG.maxAge,
     shouldWarn: false,
   };
 }
@@ -102,11 +122,3 @@ export async function requireReauthentication(
   return now - lastAuth > maxAgeMs;
 }
 
-/**
- * Extend admin session (call this on user activity)
- */
-export async function extendAdminSession(): Promise<void> {
-  // In a real implementation, this would update the session in the database
-  // or refresh the JWT token
-  // For now, this is a placeholder
-}
