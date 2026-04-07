@@ -53,7 +53,7 @@ export function Navbar() {
 
     return (
         <LazyMotionProvider>
-            <header className="fixed top-0 z-50 w-full border-b border-white/5 backdrop-blur-obsidian bg-noise/10">
+            <header className="fixed top-0 z-50 w-full border-b border-border/50 backdrop-blur-obsidian bg-noise/[0.02] dark:bg-noise/[0.1]">
                 <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
                     {/* Logo area */}
                     <div className="flex items-center gap-2">
