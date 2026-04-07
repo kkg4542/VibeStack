@@ -1,5 +1,6 @@
 import { prisma } from "./prisma";
 import { ToolData } from "@/lib/tool-types";
+import { tools } from "./tools";
 
 export async function getTools(): Promise<ToolData[]> {
     try {
@@ -22,6 +23,7 @@ export async function getTools(): Promise<ToolData[]> {
         }));
     } catch (error) {
         console.error("Failed to fetch tools from database:", error);
+        if (tools && tools.length > 0) return tools; // Fallback to hardcoded array
         return []; // Fallback to empty array to allow build to continue
     }
 }
@@ -48,6 +50,6 @@ export async function getToolBySlug(slug: string): Promise<ToolData | null> {
         };
     } catch (error) {
         console.error(`Failed to fetch tool ${slug} from database:`, error);
-        return null;
+        return tools.find(t => t.slug === slug) || null;
     }
 }

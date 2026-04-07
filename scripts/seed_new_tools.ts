@@ -1,6 +1,8 @@
-import { ToolData } from './tool-types';
+import { PrismaClient } from '@prisma/client';
 
-export const tools: ToolData[] = [
+const prisma = new PrismaClient();
+
+const newTools = [
   {
     slug: "bolt-new",
     title: "Bolt.new",
@@ -14,6 +16,7 @@ export const tools: ToolData[] = [
     pros: ["Zero setup time", "Great for next.js projects", "Live preview"],
     cons: ["Only for web frameworks", "Cloud dependency"],
     isFeatured: true,
+    tier: "free"
   },
   {
     slug: "windsurf-ide",
@@ -28,6 +31,7 @@ export const tools: ToolData[] = [
     pros: ["Very fast AI responses", "Deep context understanding", "Built-in intelligent chat"],
     cons: ["Paid only", "Requires learning new workflows"],
     isFeatured: true,
+    tier: "premium"
   },
   {
     slug: "openai-sora",
@@ -42,6 +46,7 @@ export const tools: ToolData[] = [
     pros: ["Unmatched quality", "Understands physical dynamics", "Longer video generations"],
     cons: ["Not widely available yet", "High cost API"],
     isFeatured: true,
+    tier: "enterprise"
   },
   {
     slug: "devin-ai",
@@ -56,6 +61,7 @@ export const tools: ToolData[] = [
     pros: ["Can handle complex tickets alone", "Learns from its mistakes", "Works 24/7"],
     cons: ["Still in early access", "Can be unpredictable on large monolithic legacy codebases"],
     isFeatured: true,
+    tier: "premium"
   },
   {
     slug: "galileo-ai",
@@ -70,5 +76,28 @@ export const tools: ToolData[] = [
     pros: ["Speeds up initial wireframing", "Outputs real Figma layers", "Modern design defaults"],
     cons: ["Can produce generic designs", "Requires manual polish"],
     isFeatured: true,
+    tier: "free"
   }
 ];
+
+async function main() {
+    console.log('Seeding new AI tools...');
+    for (const tool of newTools) {
+        await prisma.tool.upsert({
+            where: { slug: tool.slug },
+            update: tool,
+            create: tool,
+        });
+        console.log(`Inserted: ${tool.title}`);
+    }
+    console.log('Done!');
+}
+
+main()
+    .catch((e) => {
+        console.error(e);
+        process.exit(1);
+    })
+    .finally(async () => {
+        await prisma.$disconnect();
+    });
