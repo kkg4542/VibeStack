@@ -840,8 +840,8 @@ export const blogPosts: BlogPost[] = [
   },
   // 27. Apple Intelligence
   {
-    slug: "apple-intelligence-ios19",
-    title: "Apple Intelligence iOS 19: 당신의 아이폰이 하나의 에이전트가 되다",
+    slug: "apple-intelligence-ios26",
+    title: "Apple Intelligence iOS 26: 당신의 아이폰이 하나의 에이전트가 되다",
     excerpt: "앱의 경계를 허물고 기기 전반에 퍼진 온디바이스 AI. 완벽한 프라이버시와 극한의 편의성을 잡은 애플의 새로운 시도.",
     date: "Apr 06, 2026",
     author: "Alice Kim",
@@ -851,7 +851,7 @@ export const blogPosts: BlogPost[] = [
     tags: ["Apple", "iOS", "On-Device"],
     content: `
       <h2>App-less 인터페이스의 시작</h2>
-      <p>iOS 19에 탑재된 Apple Intelligence는 앱과 앱 사이의 벽을 무너뜨렸습니다. '내일 회의록 요약해서 메일로 보내고, 일정 캘린더에 추가해둬'라는 음성 명령 하나면, 백그라운드에서 AI가 스스로 여러 앱을 조작하여 임무를 완수합니다.</p>
+      <p>iOS 26에 탑재된 Apple Intelligence는 앱과 앱 사이의 벽을 무너뜨렸습니다. '내일 회의록 요약해서 메일로 보내고, 일정 캘린더에 추가해둬'라는 음성 명령 하나면, 백그라운드에서 AI가 스스로 여러 앱을 조작하여 임무를 완수합니다.</p>
 
       <h3>개인정보 보호의 절대 강자</h3>
       <p>Private Cloud Compute 인프라와 로컬 NPU의 결합으로 철저한 프라이버시를 보장하면서도 막강한 사용자 경험을 제공합니다. 클라우드에 온전히 의존하던 기존의 AI와는 차원이 다른 보안이 가장 큰 무기입니다.</p>
