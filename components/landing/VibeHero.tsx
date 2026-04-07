@@ -25,6 +25,8 @@ export function VibeHero() {
   const [isMounted, setIsMounted] = useState(false);
   const shouldReduceMotion = useReducedMotion();
   const elegantEase = designSystem.animations.elegantEase;
+  const springStiff = designSystem.motion.spring.stiff;
+  const springLoose = designSystem.motion.spring.loose;
 
   // Text scramble effect
   const scrambleText = useCallback((targetText: string) => {
@@ -94,35 +96,37 @@ export function VibeHero() {
         {/* Grid pattern */}
         <div className="absolute inset-0 bg-grid-pattern opacity-50" />
 
-        {/* Animated gradient orbs */}
+        {/* Animated gradient orbs with noise texture */}
         <m.div
-          className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full"
+          className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-noise"
           style={{
             background: "radial-gradient(circle, rgba(0, 217, 255, 0.15) 0%, transparent 70%)",
+            filter: "blur(40px)",
           }}
           animate={shouldReduceMotion ? {} : {
-            x: [0, 30, 0],
-            y: [0, -30, 0],
-            scale: [1, 1.1, 1],
+            x: [0, 40, 0],
+            y: [0, -40, 0],
+            scale: [1, 1.15, 1],
           }}
           transition={{
-            duration: 8,
+            duration: 12,
             repeat: Infinity,
             ease: "easeInOut",
           }}
         />
         <m.div
-          className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] rounded-full"
+          className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] rounded-full bg-noise"
           style={{
             background: "radial-gradient(circle, rgba(255, 0, 255, 0.1) 0%, transparent 70%)",
+            filter: "blur(60px)",
           }}
           animate={shouldReduceMotion ? {} : {
-            x: [0, -40, 0],
-            y: [0, 40, 0],
-            scale: [1, 1.2, 1],
+            x: [0, -60, 0],
+            y: [0, 60, 0],
+            scale: [1, 1.25, 1],
           }}
           transition={{
-            duration: 10,
+            duration: 15,
             repeat: Infinity,
             ease: "easeInOut",
             delay: 2,
@@ -138,7 +142,7 @@ export function VibeHero() {
             rotate: [0, 180, 360],
           }}
           transition={{
-            duration: 20,
+            duration: 25,
             repeat: Infinity,
             ease: "linear",
           }}
@@ -162,21 +166,21 @@ export function VibeHero() {
         </m.div>
 
         {/* Rotating Headline with Scramble Effect */}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <m.div
             key={`text-${currentIndex}`}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5, ease: elegantEase }}
-            className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground/80"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.05 }}
+            transition={springStiff}
+            className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-foreground/90 uppercase"
           >
             {currentHeadline.text}
           </m.div>
 
-          <div className="h-24 md:h-32 flex items-center justify-center overflow-visible">
+          <div className="h-28 md:h-36 flex items-center justify-center overflow-visible">
             <h1
-              className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-transparent bg-clip-text bg-linear-to-r from-vibe-electric via-vibe-purple to-vibe-pink pb-4"
+              className="text-6xl md:text-8xl lg:text-[120px] font-black tracking-tighter text-transparent bg-clip-text bg-linear-to-r from-vibe-electric via-vibe-purple to-vibe-pink pb-4 leading-none"
               aria-live="polite"
               aria-atomic="true"
             >

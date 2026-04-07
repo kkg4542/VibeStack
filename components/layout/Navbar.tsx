@@ -53,12 +53,12 @@ export function Navbar() {
 
     return (
         <LazyMotionProvider>
-            <header className="fixed top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl supports-backdrop-filter:bg-background/60">
-                <div className="container mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
+            <header className="fixed top-0 z-50 w-full border-b border-white/5 backdrop-blur-obsidian bg-noise/10">
+                <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
                     {/* Logo area */}
                     <div className="flex items-center gap-2">
                         <Link id="navbar-logo" href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80" aria-label="VibeStack Home">
-                            <span className="text-xl font-bold tracking-tight bg-linear-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
+                            <span className="text-2xl font-black tracking-tighter bg-linear-to-r from-vibe-electric via-vibe-purple to-vibe-pink bg-clip-text text-transparent italic">
                                 VibeStack
                             </span>
                         </Link>

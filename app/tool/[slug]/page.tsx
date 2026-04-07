@@ -40,6 +40,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     return {
         title: `${tool.title} Review & Features - AI Productivity Lab`,
         description: tool.description,
+        alternates: {
+            canonical: url,
+        },
         openGraph: {
             title: `${tool.title} - VibeStack AI Tools`,
             description: tool.description,

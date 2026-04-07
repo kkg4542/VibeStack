@@ -14,6 +14,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { ScrollProgress } from "@/components/effects/ScrollProgress";
 import { getCsrfToken } from "@/lib/csrf";
 import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
+import { GrainOverlay } from "@/components/effects/GrainOverlay";
+import { CustomCursor } from "@/components/effects/CustomCursor";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -45,6 +47,9 @@ export const metadata: Metadata = {
   description: "Curated AI tools for developers. Discover the best tools to accelerate your workflow, from coding assistants to project management.",
   keywords: ["AI", "Developer Tools", "Productivity", "Coding", "Linear", "Cursor", "Vibe Coding"],
   authors: [{ name: "David Kim" }],
+  alternates: {
+    canonical: "https://usevibestack.com",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -112,6 +117,8 @@ export default async function RootLayout({
             <SessionProvider>
               <QueryProvider>
                 <ScrollProgress />
+                <GrainOverlay />
+                <CustomCursor />
                 <Navbar />
                 <main id="main-content">
                   <LazyMotionProvider>

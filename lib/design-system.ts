@@ -145,11 +145,33 @@ export const designSystem = {
     colors: {
         electric: '#00d9ff',
         neon: '#ff00ff',
-        deep: '#0a0a1a',
+        deep: '#030308', // Deepened for Obsidian effect
+        obsidian: '#05050A', // New obsidian tint
         cyan: '#00f0ff',
         purple: '#b829dd',
         pink: '#ff006e',
-        glow: 'rgba(0, 217, 255, 0.15)'
+        glow: 'rgba(0, 217, 255, 0.15)',
+        slate: '#0F172A',
+    },
+
+    // VibeStack Easing & Motion Physics
+    motion: {
+        spring: {
+            stiff: { type: 'spring' as const, stiffness: 400, damping: 30 },
+            snappy: { type: 'spring' as const, stiffness: 500, damping: 25 },
+            gentle: { type: 'spring' as const, stiffness: 100, damping: 15 },
+            loose: { type: 'spring' as const, stiffness: 50, damping: 20 },
+        },
+        physics: {
+            hover: {
+                y: -4,
+                scale: 1.02,
+                transition: { type: 'spring' as const, stiffness: 400, damping: 17 }
+            },
+            magical: {
+                transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }
+            }
+        }
     },
 
     // VibeStack Easing Functions

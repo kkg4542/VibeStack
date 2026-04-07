@@ -43,44 +43,13 @@ export interface StackWithMetrics {
 export const getFeaturedStacks = unstable_cache(
   async (limit: number = 6): Promise<StackWithMetrics[]> => {
     // Get featured stacks with highest popularity scores
-    const stacks = await prisma.stack.findMany({
-      where: {
-        // Use stacks that have metrics data
-        stackMetrics: {
-          isNot: null,
-        },
-      },
-      include: {
-        stackTools: {
-          include: {
-            tool: {
-              select: {
-                id: true,
-                title: true,
-                slug: true,
-                category: true,
-                pricing: true,
-              },
-            },
-          },
-          take: 5,
-        },
-        stackMetrics: true,
-      },
-      take: limit,
-      orderBy: {
-        stackMetrics: {
-          popularityScore: 'desc',
-        },
-      },
-    });
-
-    // If no stacks with metrics exist, fall back to id-based selection
-    if (stacks.length === 0) {
-      const fallbackStacks = await prisma.stack.findMany({
+    let stacks: any[] = [];
+    try {
+      stacks = await prisma.stack.findMany({
         where: {
-          idField: {
-            in: ["10x-engineer", "product-designer", "magic-wand"],
+          // Use stacks that have metrics data
+          stackMetrics: {
+            isNot: null,
           },
         },
         include: {
@@ -98,9 +67,50 @@ export const getFeaturedStacks = unstable_cache(
             },
             take: 5,
           },
+          stackMetrics: true,
         },
         take: limit,
+        orderBy: {
+          stackMetrics: {
+            popularityScore: 'desc',
+          },
+        },
       });
+    } catch (error) {
+      console.error("Failed to fetch featured stacks from database:", error);
+    }
+
+    // If no stacks with metrics exist, fall back to id-based selection
+    if (stacks.length === 0) {
+      let fallbackStacks: any[] = [];
+      try {
+        fallbackStacks = await prisma.stack.findMany({
+          where: {
+            idField: {
+              in: ["10x-engineer", "product-designer", "magic-wand"],
+            },
+          },
+          include: {
+            stackTools: {
+              include: {
+                tool: {
+                  select: {
+                    id: true,
+                    title: true,
+                    slug: true,
+                    category: true,
+                    pricing: true,
+                  },
+                },
+              },
+              take: 5,
+            },
+          },
+          take: limit,
+        });
+      } catch (error) {
+        console.error("Failed to fetch fallback stacks from database:", error);
+      }
 
       return fallbackStacks.map((stack) => ({
         id: stack.id,
@@ -168,31 +178,36 @@ export const getFeaturedStacks = unstable_cache(
 // Get popular stacks sorted by metrics
 export const getPopularStacks = unstable_cache(
   async (limit: number = 10): Promise<StackWithMetrics[]> => {
-    const stacks = await prisma.stack.findMany({
-      take: limit,
-      include: {
-        stackTools: {
-          include: {
-            tool: {
-              select: {
-                id: true,
-                title: true,
-                slug: true,
-                category: true,
-                pricing: true,
+    let stacks: any[] = [];
+    try {
+      stacks = await prisma.stack.findMany({
+        take: limit,
+        include: {
+          stackTools: {
+            include: {
+              tool: {
+                select: {
+                  id: true,
+                  title: true,
+                  slug: true,
+                  category: true,
+                  pricing: true,
+                },
               },
             },
+            take: 5,
           },
-          take: 5,
+          stackMetrics: true,
         },
-        stackMetrics: true,
-      },
-      orderBy: {
-        stackMetrics: {
-          popularityScore: 'desc',
+        orderBy: {
+          stackMetrics: {
+            popularityScore: 'desc',
+          },
         },
-      },
-    });
+      });
+    } catch (error) {
+      console.error("Failed to fetch popular stacks from database:", error);
+    }
 
     return stacks.map((stack) => ({
       id: stack.id,
