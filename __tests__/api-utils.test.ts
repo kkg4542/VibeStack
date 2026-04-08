@@ -10,48 +10,91 @@ describe('API Utils', () => {
     });
 
     it('should validate correct data', () => {
-      const result = validateRequest(schema, { name: 'John', age: 30 });
+      // Arrange
+      const inputData = { name: 'John', age: 30 };
+      
+      // Act
+      const result = validateRequest(schema, inputData);
+      
+      // Assert
       expect(result.success).toBe(true);
       if (result.success) {
-        expect(result.data).toEqual({ name: 'John', age: 30 });
+        expect(result.data).toEqual(inputData);
       }
     });
 
     it('should fail validation for invalid data', () => {
-      const result = validateRequest(schema, { name: '', age: -1 });
+      // Arrange
+      const invalidData = { name: '', age: -1 };
+      
+      // Act
+      const result = validateRequest(schema, invalidData);
+      
+      // Assert
       expect(result.success).toBe(false);
     });
   });
 
   describe('createErrorResponse', () => {
     it('should create error response with default status', () => {
-      const response = createErrorResponse('Test error');
+      // Arrange
+      const errorMessage = 'Test error';
+      
+      // Act
+      const response = createErrorResponse(errorMessage);
+      
+      // Assert
       expect(response.status).toBe(400);
     });
 
     it('should create error response with custom status', () => {
-      const response = createErrorResponse('Not found', 404);
-      expect(response.status).toBe(404);
+      // Arrange
+      const errorMessage = 'Not found';
+      const customStatus = 404;
+      
+      // Act
+      const response = createErrorResponse(errorMessage, customStatus);
+      
+      // Assert
+      expect(response.status).toBe(customStatus);
     });
   });
 
   describe('createSuccessResponse', () => {
     it('should create success response with default status', () => {
-      const response = createSuccessResponse({ data: 'test' });
+      // Arrange
+      const responseData = { data: 'test' };
+      
+      // Act
+      const response = createSuccessResponse(responseData);
+      
+      // Assert
       expect(response.status).toBe(200);
     });
 
     it('should create success response with custom status', () => {
-      const response = createSuccessResponse({ data: 'created' }, 201);
-      expect(response.status).toBe(201);
+      // Arrange
+      const responseData = { data: 'created' };
+      const customStatus = 201;
+      
+      // Act
+      const response = createSuccessResponse(responseData, customStatus);
+      
+      // Assert
+      expect(response.status).toBe(customStatus);
     });
   });
 
   describe('formatZodError', () => {
     it('should format ZodError correctly', () => {
+      // Arrange
       const schema = z.object({ name: z.string() });
-      const result = schema.safeParse({ name: 123 });
+      const invalidData = { name: 123 };
       
+      // Act
+      const result = schema.safeParse(invalidData);
+      
+      // Assert
       if (!result.success) {
         const formatted = formatZodError(result.error);
         expect(formatted).toHaveLength(1);

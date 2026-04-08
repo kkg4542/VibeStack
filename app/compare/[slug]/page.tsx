@@ -48,18 +48,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 // Generate static params for popular combinations (optional, implementation for top tools)
 export async function generateStaticParams() {
     const tools = await getTools();
-    const comparisons = [];
 
     // Generate comparisons for tools in the same category
-    for (let i = 0; i < tools.length; i++) {
-        for (let j = i + 1; j < tools.length; j++) {
-            if (tools[i].category === tools[j].category) {
-                comparisons.push({
-                    slug: `${tools[i].slug}-vs-${tools[j].slug}`
-                });
-            }
-        }
-    }
+    const comparisons = tools.flatMap((t1, i) => 
+        tools.slice(i + 1)
+             .filter(t2 => t1.category === t2.category)
+             .map(t2 => ({ slug: `${t1.slug}-vs-${t2.slug}` }))
+    );
 
     // Limit to avoiding excessively large build if many tools
     return comparisons.slice(0, 50);

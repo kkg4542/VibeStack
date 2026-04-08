@@ -20,10 +20,7 @@ function pickFeatures(features: string[], max: number): string[] {
     const clean = (features || [])
         .map((f) => f?.trim())
         .filter((f): f is string => !!f);
-    const unique: string[] = [];
-    for (const f of clean) {
-        if (!unique.includes(f)) unique.push(f);
-    }
+    const unique = Array.from(new Set(clean));
     return unique.slice(0, max);
 }
 

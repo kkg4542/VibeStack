@@ -96,19 +96,13 @@ export async function is2FAEnabled(userId: string): Promise<boolean> {
  * Uses crypto.getRandomValues() instead of Math.random()
  */
 export function generateBackupCodes(): string[] {
-  const codes: string[] = [];
   const charset = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Removed similar chars (0/O, 1/I)
   
-  for (let i = 0; i < 10; i++) {
+  return Array.from({ length: 10 }, () => {
     const bytes = new Uint8Array(8);
     crypto.getRandomValues(bytes);
-    let code = '';
-    for (let j = 0; j < 8; j++) {
-      code += charset[bytes[j] % charset.length];
-    }
-    codes.push(code);
-  }
-  return codes;
+    return Array.from(bytes).map(b => charset[b % charset.length]).join('');
+  });
 }
 
 /**

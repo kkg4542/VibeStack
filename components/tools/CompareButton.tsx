@@ -34,8 +34,8 @@ export function CompareButton({ toolSlug, toolTitle }: CompareButtonProps) {
                 alert("You can compare up to 3 tools at a time.");
                 return;
             }
-            compareList.push(toolSlug);
-            localStorage.setItem("compareTools", JSON.stringify(compareList));
+            const newList = [...compareList, toolSlug];
+            localStorage.setItem("compareTools", JSON.stringify(newList));
             setIsAdded(true);
         }
 
