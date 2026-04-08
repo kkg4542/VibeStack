@@ -84,7 +84,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
               margin: 0,
             }}
           >
-            {tool.name}
+            {tool.title}
           </h1>
           <p
             style={{
@@ -109,11 +109,11 @@ export default async function Image({ params }: { params: { slug: string } }) {
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <span style={{ fontSize: 32, fontWeight: 'bold', color: '#fcd34d' }}>
-              ★ {tool.rating?.toFixed(1) || '0.0'}
+              VibeStack Directory
             </span>
           </div>
           <div style={{ fontSize: 32, fontWeight: 700, fontStyle: 'italic', color: '#818cf8' }}>
-            VibeStack
+            usevibestack.com
           </div>
         </div>
       </div>
