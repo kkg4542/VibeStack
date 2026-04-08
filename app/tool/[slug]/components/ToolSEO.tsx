@@ -1,6 +1,5 @@
 export function ToolSEO({ tool }: { tool: any }) {
   return (
-            {/* Structured Data for SEO */}
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{

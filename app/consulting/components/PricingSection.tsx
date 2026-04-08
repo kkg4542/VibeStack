@@ -11,7 +11,6 @@ interface PricingSectionProps {
 
 export function PricingSection({ handleCheckout, loading }: PricingSectionProps) {
   return (
-                {/* Pricing Section */}
                 <section className="container mx-auto px-4 py-24">
                     <div className="mb-16 text-center">
                         <h2 className="text-3xl font-bold text-foreground mb-4">Transparent Pricing</h2>

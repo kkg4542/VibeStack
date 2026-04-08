@@ -4,7 +4,6 @@ import { designSystem } from "@/lib/design-system";
 
 export function Testimonials() {
   return (
-                {/* Testimonials */}
                 <section className="container mx-auto px-4 py-24">
                     <div className="mb-16 text-center">
                         <h2 className="text-3xl font-bold text-foreground mb-4">What Our Partners Say</h2>
