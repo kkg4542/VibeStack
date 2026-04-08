@@ -6,7 +6,12 @@ import { VibeCard } from "@/components/ui/VibeCard";
 import { Badge } from "@/components/ui/badge";
 import { StackInsights as StackInsightsType } from "@/lib/data/stacks";
 import { designSystem } from "@/lib/design-system";
-import { AdoptionTrendChart } from "./AdoptionTrendChart";
+import dynamic from "next/dynamic";
+
+const AdoptionTrendChart = dynamic(
+  () => import('./AdoptionTrendChart').then(mod => mod.AdoptionTrendChart),
+  { ssr: false, loading: () => <div className="h-[250px] w-full animate-pulse bg-zinc-800/50 rounded-xl" /> }
+);
 
 interface StackInsightsProps {
   insights: StackInsightsType;
