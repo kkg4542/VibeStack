@@ -4,15 +4,7 @@ import { getStripe } from "@/lib/stripe";
 import { z } from "zod";
 import { validateBodySize } from "@/lib/body-size";
 
-const checkoutSchema = z.object({
-  toolName: z.string().min(2).max(100),
-  description: z.string().min(10).max(2000),
-  websiteUrl: z.string().url(),
-  category: z.string().min(1).max(50),
-  pricing: z.string().min(1).max(50),
-  email: z.string().email(),
-  tier: z.enum(["free", "priority", "premium"]).default("free"),
-});
+import { checkoutSchema } from "@/lib/validations/forms";
 
 const PRICE_IDS: Record<string, string | undefined> = {
   priority: process.env.STRIPE_SUBMISSION_PRIORITY_PRICE_ID,

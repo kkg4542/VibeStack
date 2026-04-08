@@ -5,11 +5,7 @@ import { checkRateLimit, rateLimitConfigs } from "@/lib/redis";
 import { validateBodySize } from "@/lib/body-size";
 import { checkHoneypotFromBody, createHoneypotResponse } from "@/lib/honeypot";
 
-const subscribeSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  firstName: z.string().optional(),
-  lastName: z.string().optional(),
-});
+import { subscribeSchema } from "@/lib/validations/forms";
 
 export async function POST(request: NextRequest) {
   // Validate request body size

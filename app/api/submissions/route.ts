@@ -4,16 +4,7 @@ import { z } from "zod";
 import { validateBodySize, createBodySizeExceededResponse } from "@/lib/body-size";
 import { checkHoneypotFromBody, createHoneypotResponse } from "@/lib/honeypot";
 
-const submissionSchema = z.object({
-  toolName: z.string().min(2).max(100),
-  description: z.string().min(10).max(2000),
-  websiteUrl: z.string().url(),
-  category: z.string().min(1),
-  pricing: z.string().min(1),
-  email: z.string().email(),
-  tier: z.enum(["free", "priority", "premium"]).default("free"),
-  amount: z.number().default(0),
-});
+import { submissionSchema } from "@/lib/validations/forms";
 
 export async function POST(request: NextRequest) {
   try {
