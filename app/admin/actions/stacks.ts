@@ -152,6 +152,5 @@ export async function deleteStack(id: string) {
     revalidatePath("/stacks");
   } catch (error) {
     console.error("Failed to delete stack:", error);
-    return { error: "Failed to delete stack" };
   }
 }

@@ -92,6 +92,5 @@ export async function deleteBlogPost(id: string) {
     revalidatePath("/blog");
   } catch (error) {
     console.error("Failed to delete blog post:", error);
-    return { error: "Failed to delete blog post" };
   }
 }

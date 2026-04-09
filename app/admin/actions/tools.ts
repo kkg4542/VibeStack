@@ -120,6 +120,5 @@ export async function deleteTool(id: string) {
     revalidatePath("/tools");
   } catch (error) {
     console.error("Failed to delete tool:", error);
-    return { error: "Failed to delete tool" };
   }
 }
