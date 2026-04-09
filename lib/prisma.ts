@@ -25,17 +25,7 @@ export const prisma = globalForPrisma.prisma ?? prismaClientSingleton();
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
-// Handle graceful shutdown
-process.on('beforeExit', async () => {
-  await prisma.$disconnect();
-});
-
-process.on('SIGINT', async () => {
-  await prisma.$disconnect();
-  process.exit(0);
-});
-
-process.on('SIGTERM', async () => {
-  await prisma.$disconnect();
-  process.exit(0);
-});
+// Note: Graceful shutdown handlers (SIGINT, SIGTERM, beforeExit) are
+// intentionally omitted — they don't work in Edge Runtime or serverless
+// environments (Vercel), and can accumulate during development hot reload.
+// Prisma Client manages connection pool cleanup automatically.

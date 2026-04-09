@@ -40,9 +40,15 @@ export default function Error({
                     We apologize for the inconvenience.
                 </p>
 
-                {error.message && (
+                {process.env.NODE_ENV === "development" && error.message && (
                     <p className="text-sm text-muted-foreground/70 mb-8 font-mono bg-muted/50 p-3 rounded-lg">
                         {error.message}
+                    </p>
+                )}
+
+                {process.env.NODE_ENV !== "development" && (
+                    <p className="text-sm text-muted-foreground/70 mb-8">
+                        An unexpected error occurred. Please try again or contact support if the problem persists.
                     </p>
                 )}
 

@@ -58,7 +58,7 @@ export function Footer() {
                     {/* Brand Column */}
                     <div className="md:col-span-2 space-y-6">
                         <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
-                            <span className="text-xl font-bold tracking-tight bg-linear-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
+                            <span className="text-xl font-bold tracking-tight bg-linear-to-r from-vibe-electric via-vibe-purple to-vibe-pink bg-clip-text text-transparent">
                                 VibeStack
                             </span>
                         </Link>
@@ -66,7 +66,7 @@ export function Footer() {
                             The AI Productivity Lab. We curate the best AI tools to help developers build faster and better.
                         </p>
                         <div className="flex gap-4">
-                            <a href="https://x.com" target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+                            <a href="https://x.com/vibestack" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Follow VibeStack on X">
                                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
                                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                                 </svg>

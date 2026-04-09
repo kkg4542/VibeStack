@@ -36,7 +36,9 @@ const ratelimit = redis ? {
   }),
 } : null;
 
-// Store failed attempts per IP with periodic cleanup
+// In-memory failed attempt tracking — secondary defense only.
+// WARNING: This Map is NOT shared across serverless instances or Edge workers.
+// Primary rate limiting should rely on Redis (Upstash) below.
 const failedAttempts = new Map<string, { count: number; resetTime: number }>();
 const MAX_TRACKED_IPS = 10000;
 
@@ -125,7 +127,6 @@ export async function middleware(req: NextRequest) {
     withCORS(req, response);
   }
 
-  // Check for HTTPS in production (skip for localhost)
   // Check for HTTPS in production (skip for localhost)
   const host = req.headers.get("host") || "";
   if (

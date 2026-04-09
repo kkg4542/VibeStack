@@ -1,9 +1,12 @@
 import { Redis } from "@upstash/redis";
 
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL || "",
-  token: process.env.UPSTASH_REDIS_REST_TOKEN || "",
-});
+// Only initialize Redis when credentials are available to prevent startup crashes
+const redis = (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN)
+  ? new Redis({
+      url: process.env.UPSTASH_REDIS_REST_URL,
+      token: process.env.UPSTASH_REDIS_REST_TOKEN,
+    })
+  : null;
 
 export type CacheKey = 
   | `tool:${string}`
@@ -21,7 +24,7 @@ interface CacheOptions {
 const DEFAULT_TTL = 3600; // 1 hour
 
 export async function getCache<T>(key: CacheKey): Promise<T | null> {
-  if (!process.env.UPSTASH_REDIS_REST_URL) {
+  if (!redis) {
     return null;
   }
 
@@ -39,7 +42,7 @@ export async function setCache<T>(
   data: T,
   options: CacheOptions = {}
 ): Promise<void> {
-  if (!process.env.UPSTASH_REDIS_REST_URL) {
+  if (!redis) {
     return;
   }
 
@@ -52,7 +55,7 @@ export async function setCache<T>(
 }
 
 export async function deleteCache(key: CacheKey): Promise<void> {
-  if (!process.env.UPSTASH_REDIS_REST_URL) {
+  if (!redis) {
     return;
   }
 
@@ -64,7 +67,7 @@ export async function deleteCache(key: CacheKey): Promise<void> {
 }
 
 export async function invalidateCachePattern(pattern: string): Promise<void> {
-  if (!process.env.UPSTASH_REDIS_REST_URL) {
+  if (!redis) {
     return;
   }
 

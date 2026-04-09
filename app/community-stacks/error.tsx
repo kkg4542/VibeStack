@@ -25,7 +25,7 @@ export default function CommunityStacksError({
                 <div className="space-y-3">
                     <h2 className="text-3xl font-bold tracking-tight text-foreground">Community Stacks Unavailable</h2>
                     <p className="text-muted-foreground">
-                        We're having trouble loading the community stacks database right now.
+                        We&apos;re having trouble loading the community stacks database right now.
                     </p>
                 </div>
                 <div className="flex justify-center gap-4 pt-4">

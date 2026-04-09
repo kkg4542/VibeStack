@@ -26,7 +26,7 @@ export default function ToolError({
                 <div className="space-y-3">
                     <h2 className="text-3xl font-bold tracking-tight text-foreground">Failed to load tool</h2>
                     <p className="text-muted-foreground">
-                        We encountered an unexpected error while retrieving this tool's data. 
+                        We encountered an unexpected error while retrieving this tool&apos;s data. 
                         This might be a temporary database interruption.
                     </p>
                 </div>

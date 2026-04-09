@@ -23,6 +23,11 @@ export function CustomCursor() {
   const sprY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
+    // Skip cursor on touch devices — CSS 'hidden md:block' only hides visually,
+    // but event listeners still fire causing unnecessary overhead on mobile
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isTouchDevice) return;
+
     const onMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);

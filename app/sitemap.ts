@@ -7,7 +7,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = "https://usevibestack.com";
     const tools = await getTools();
 
-    // Static pages
+    // Static pages — use a fixed date (updated manually on major changes)
+    const staticLastModified = new Date("2026-04-01");
     const staticPages = [
         "",
         "/tools",
@@ -18,15 +19,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         "/submit-stack",
     ].map((route) => ({
         url: `${baseUrl}${route}`,
-        lastModified: new Date(),
+        lastModified: staticLastModified,
         changeFrequency: "weekly" as const,
         priority: route === "" ? 1 : 0.8,
     }));
 
-    // Tool pages
+    // Tool pages — use actual updatedAt from DB
     const toolPages = tools.map((tool) => ({
         url: `${baseUrl}/tool/${tool.slug}`,
-        lastModified: new Date(),
+        lastModified: tool.updatedAt ?? new Date(),
         changeFrequency: "weekly" as const,
         priority: 0.9,
     }));
@@ -34,12 +35,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Stack pages
     const stackPages = stacks.map((stack) => ({
         url: `${baseUrl}/stack/${stack.id}`,
-        lastModified: new Date(),
+        lastModified: staticLastModified,
         changeFrequency: "weekly" as const,
         priority: 0.9,
     }));
 
-    // Blog pages
+    // Blog pages — use actual publication dates
     const blogPages = blogPosts.map((post) => ({
         url: `${baseUrl}/blog/${post.slug}`,
         lastModified: new Date(post.date),

@@ -604,6 +604,10 @@ html {
 
 /* Selection Animation */
 ::selection {
+  @apply bg-indigo-500/20 text-indigo-900;
+}
+
+.dark ::selection {
   @apply bg-indigo-500/30 text-indigo-200;
 }
 
@@ -820,19 +824,7 @@ html {
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Noise Texture Overlay */
-.noise-overlay {
-  position: relative;
-}
 
-.noise-overlay::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  opacity: 0.03;
-  pointer-events: none;
-}
 
 /* Grid Pattern Background */
 .bg-grid-pattern {

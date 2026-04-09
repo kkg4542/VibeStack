@@ -2,7 +2,7 @@ import { VibeSkeleton, SkeletonGroup, GridSkeleton } from "@/components/skeleton
 
 export default function Loading() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background" aria-busy="true" role="status" aria-label="Loading page content">
       {/* Navbar Skeleton */}
       <div className="border-b border-border/50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
