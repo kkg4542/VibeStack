@@ -56,26 +56,29 @@ export async function POST(request: NextRequest) {
         }
     }
 
-    // 2. Reposition ChatGPT next to Claude
-    try {
-        const claude = await prisma.tool.findUnique({ where: { slug: 'claude' } });
-        const chatgpt = await prisma.tool.findUnique({ where: { slug: 'chatgpt' } });
+    // 2. Reposition Top 3 Major Tools
+    const topTools = [
+        { slug: 'gemini-code-assist', title: 'Gemini 3.1 Pro', date: '2030-01-03T00:00:00Z' },
+        { slug: 'claude', title: 'Claude', date: '2030-01-02T00:00:00Z' },
+        { slug: 'chatgpt', title: 'ChatGPT 5.3', date: '2030-01-01T00:00:00Z' },
+    ];
 
-        if (claude && chatgpt) {
-            // Set ChatGPT's createdAt to be slightly after Claude's 
-            // so it appears next to it in 'createdAt desc' ordering.
-            // Using +1000ms ensures it's above/next in default sort
-            const newDate = new Date(claude.createdAt.getTime() + 1000);
-            await prisma.tool.update({
-                where: { slug: 'chatgpt' },
-                data: { createdAt: newDate },
-            });
-            results.push(`✅ Repositioned ChatGPT next to Claude (New createdAt: ${newDate.toISOString()})`);
-        } else {
-            results.push('⚠ Could not find Claude or ChatGPT to reposition');
+    for (const [index, { slug, date }] of topTools.entries()) {
+        try {
+            const tool = await prisma.tool.findUnique({ where: { slug } });
+            if (tool) {
+                await prisma.tool.update({
+                    where: { slug },
+                    data: { 
+                        createdAt: new Date(date),
+                        isFeatured: true 
+                    },
+                });
+                results.push(`✅ Prioritized ${slug} to top position ${index + 1} (isFeatured: true)`);
+            }
+        } catch (error) {
+            results.push(`✗ Failed prioritizing ${slug}: ${error}`);
         }
-    } catch (error) {
-        results.push(`✗ Failed repositioning: ${error}`);
     }
 
     return NextResponse.json({ results });
