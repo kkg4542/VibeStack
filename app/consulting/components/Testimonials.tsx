@@ -1,5 +1,5 @@
 import { Award } from "lucide-react";
-import * as motion from "framer-motion/client";
+import { MotionDiv, MotionSection, MotionLi, MotionSpan, MotionP, MotionH1, MotionH2, MotionH3 } from "@/components/ui/motion-wrapper";
 import { designSystem } from "@/lib/design-system";
 
 export function Testimonials() {
@@ -11,7 +11,7 @@ export function Testimonials() {
                     </div>
 
                     <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
-                        <motion.div
+                        <MotionDiv
                             initial={designSystem.animations.fadeInUp.initial}
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
@@ -33,9 +33,9 @@ export function Testimonials() {
                                     <div className="text-xs text-muted-foreground">VP Marketing, DevTools Inc</div>
                                 </div>
                             </div>
-                        </motion.div>
+                        </MotionDiv>
 
-                        <motion.div
+                        <MotionDiv
                             initial={designSystem.animations.fadeInUp.initial}
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
@@ -57,9 +57,9 @@ export function Testimonials() {
                                     <div className="text-xs text-muted-foreground">Growth Lead, AI Startup</div>
                                 </div>
                             </div>
-                        </motion.div>
+                        </MotionDiv>
 
-                        <motion.div
+                        <MotionDiv
                             initial={designSystem.animations.fadeInUp.initial}
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
@@ -81,7 +81,7 @@ export function Testimonials() {
                                     <div className="text-xs text-muted-foreground">Founder, CodeFlow</div>
                                 </div>
                             </div>
-                        </motion.div>
+                        </MotionDiv>
                     </div>
                 </section>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import * as motion from "framer-motion/client";
+import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -41,7 +41,7 @@ interface AccordionTriggerProps {
 // Since we are using this for "Mobile Only" sections that are open on desktop (different layout), 
 // we will control state locally or let the user toggle.
 
-export function SimpleAccordionItem({ title, children, defaultOpen = false, icon: Icon }: { title: string, children: React.ReactNode, defaultOpen?: boolean, icon?: any }) {
+export function SimpleAccordionItem({ title, children, defaultOpen = false, icon }: { title: string, children: React.ReactNode, defaultOpen?: boolean, icon?: React.ReactNode }) {
     const [isOpen, setIsOpen] = React.useState(defaultOpen);
 
     return (
@@ -51,9 +51,9 @@ export function SimpleAccordionItem({ title, children, defaultOpen = false, icon
                 className="flex items-center justify-between w-full p-4 text-left font-medium transition-colors hover:bg-muted/50"
             >
                 <div className="flex items-center gap-3">
-                    {Icon && (
+                    {icon && (
                         <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                            <Icon className="h-4 w-4" />
+                            {icon}
                         </div>
                     )}
                     <span className="text-lg font-semibold">{title}</span>

@@ -12,7 +12,7 @@ import { useAllTools } from "@/hooks/use-tools";
 import { getToolIcon } from "@/components/icons/tool-icons";
 import { stacks, Stack } from "@/lib/stacks";
 import { trackSearchQuery } from "@/lib/analytics";
-import * as motion from "framer-motion/client";
+import { motion } from "framer-motion";
 import { designSystem } from "@/lib/design-system";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 

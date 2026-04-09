@@ -150,7 +150,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 
                         {/* Key Features - Mobile Accordion */}
                         <div className="md:hidden">
-                            <SimpleAccordionItem title="Key Features" icon={Sparkles} defaultOpen={true}>
+                            <SimpleAccordionItem title="Key Features" icon={<Sparkles className="h-4 w-4" />} defaultOpen={true}>
                                 <ul className="space-y-4">
                                     {tool.features?.map((feature) => (
                                         <li
@@ -217,7 +217,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 
                         {/* Pros & Cons - Mobile Accordion */}
                         <div className="md:hidden space-y-4">
-                            <SimpleAccordionItem title="Pros" icon={Check} defaultOpen={false}>
+                            <SimpleAccordionItem title="Pros" icon={<Check className="h-4 w-4" />} defaultOpen={false}>
                                 <ul className="space-y-3">
                                     {tool.pros?.map((pro) => (
                                         <li key={pro} className="flex items-start gap-3 text-foreground/80">
@@ -228,7 +228,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                 </ul>
                             </SimpleAccordionItem>
 
-                            <SimpleAccordionItem title="Cons" icon={ExternalLink} defaultOpen={false}>
+                            <SimpleAccordionItem title="Cons" icon={<ExternalLink className="h-4 w-4" />} defaultOpen={false}>
                                 <ul className="space-y-3">
                                     {tool.cons?.map((con) => (
                                         <li key={con} className="flex items-start gap-3 text-foreground/80">

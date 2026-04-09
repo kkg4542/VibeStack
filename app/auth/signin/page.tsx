@@ -19,7 +19,7 @@ import {
     Lock
 } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
-import * as motion from "framer-motion/client";
+import { motion } from "framer-motion";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 
 const benefits = [

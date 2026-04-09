@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Check, X, Scale, Share2, Sparkles, Star, ExternalLink, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
-import * as motion from "framer-motion/client";
+import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 

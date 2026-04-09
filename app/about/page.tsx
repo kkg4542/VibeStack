@@ -25,7 +25,7 @@ import {
     RefreshCw,
     Layers
 } from "lucide-react";
-import * as motion from "framer-motion/client";
+import { motion } from "framer-motion";
 import { designSystem } from "@/lib/design-system";
 import { useState } from "react";
 import { toast } from "sonner";

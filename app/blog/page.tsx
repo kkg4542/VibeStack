@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, User, Search, ArrowRight, BookOpen, TrendingUp, Sparkles, Filter, X, ChevronDown } from "lucide-react";
-import * as motion from "framer-motion/client";
+import { motion } from "framer-motion";
 import { designSystem } from "@/lib/design-system";
 import { useState, useMemo } from "react";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";

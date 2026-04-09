@@ -1,6 +1,6 @@
 "use client";
 
-import * as motion from "framer-motion/client";
+import { motion } from "framer-motion";
 import { designSystem } from "@/lib/design-system";
 import { useAllTools } from "@/hooks/use-tools";
 import { getToolIcon } from "@/components/icons/tool-icons";

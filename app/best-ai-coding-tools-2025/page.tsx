@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Star, ExternalLink } from "lucide-react";
-import * as motion from "framer-motion/client";
+import { MotionDiv, MotionSection, MotionLi, MotionSpan, MotionP, MotionH1, MotionH2, MotionH3 } from "@/components/ui/motion-wrapper";
 import { designSystem } from "@/lib/design-system";
 
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ export default async function BestAICodingToolsPage() {
   return (
     <main className="min-h-screen bg-background">
       {/* Hero Section */}
-      <motion.div
+      <MotionDiv
         initial={designSystem.animations.fadeInUp.initial}
         animate={designSystem.animations.fadeInUp.animate}
         transition={designSystem.animations.fadeInUp.transition}
@@ -50,7 +50,7 @@ export default async function BestAICodingToolsPage() {
             the best tools to supercharge your development workflow.
           </p>
         </div>
-      </motion.div>
+      </MotionDiv>
 
       <div className="container max-w-6xl mx-auto px-4 py-12">
         {/* Introduction */}
@@ -80,7 +80,7 @@ export default async function BestAICodingToolsPage() {
         <Separator className="my-12" />
 
         {/* Top 10 List */}
-        <motion.section
+        <MotionSection
           initial={designSystem.animations.fadeInUp.initial}
           whileInView={designSystem.animations.fadeInUp.animate}
           viewport={{ once: true }}
@@ -89,7 +89,7 @@ export default async function BestAICodingToolsPage() {
           <h2 className="text-3xl font-bold mb-8 text-center">The Rankings</h2>
           <div className="space-y-8">
             {codingTools.map((tool, index) => (
-              <motion.div
+              <MotionDiv
                 key={tool.slug}
                 className="relative bg-card border rounded-xl p-6 hover:border-vibe-electric/50 transition-colors"
                 initial={designSystem.animations.fadeInUp.initial}
@@ -164,10 +164,10 @@ export default async function BestAICodingToolsPage() {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </MotionDiv>
             ))}
           </div>
-        </motion.section>
+        </MotionSection>
 
         <Separator className="my-12" />
 

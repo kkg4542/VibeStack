@@ -5,7 +5,7 @@ import { ArrowRight, Check, Rocket, Shield, Terminal, Zap, TrendingUp, Users, Aw
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import * as motion from "framer-motion/client";
+import { motion } from "framer-motion";
 import { designSystem } from "@/lib/design-system";
 import { ServicesGrid } from "./components/ServicesGrid";
 import { PricingSection } from "./components/PricingSection";

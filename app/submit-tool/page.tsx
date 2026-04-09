@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import * as motion from "framer-motion/client";
+import { motion } from "framer-motion";
 import {
     Upload,
     CheckCircle2,

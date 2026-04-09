@@ -19,7 +19,7 @@ import {
 import { SearchInput } from "@/components/ui/search-input";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import * as motion from "framer-motion/client";
+import { motion } from "framer-motion";
 import { useAllTools } from "@/hooks/use-tools";
 import { blogPosts } from "@/lib/blog";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";

@@ -1,7 +1,7 @@
 import { Check, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import * as motion from "framer-motion/client";
+import { MotionDiv, MotionSection, MotionLi, MotionSpan, MotionP, MotionH1, MotionH2, MotionH3 } from "@/components/ui/motion-wrapper";
 import { designSystem } from "@/lib/design-system";
 
 interface PricingSectionProps {
@@ -19,7 +19,7 @@ export function PricingSection({ handleCheckout, loading }: PricingSectionProps)
 
                     <div className="grid gap-8 md:grid-cols-3 max-w-5xl mx-auto">
                         {/* Starter */}
-                        <motion.div
+                        <MotionDiv
                             initial={designSystem.animations.fadeInUp.initial}
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
@@ -60,10 +60,10 @@ export function PricingSection({ handleCheckout, loading }: PricingSectionProps)
                                 {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
                                 Get Started
                             </Button>
-                        </motion.div>
+                        </MotionDiv>
 
                         {/* Professional - Highlighted */}
-                        <motion.div
+                        <MotionDiv
                             initial={designSystem.animations.fadeInUp.initial}
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
@@ -106,10 +106,10 @@ export function PricingSection({ handleCheckout, loading }: PricingSectionProps)
                                 {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
                                 Get Started
                             </Button>
-                        </motion.div>
+                        </MotionDiv>
 
                         {/* Enterprise */}
-                        <motion.div
+                        <MotionDiv
                             initial={designSystem.animations.fadeInUp.initial}
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
@@ -150,7 +150,7 @@ export function PricingSection({ handleCheckout, loading }: PricingSectionProps)
                                 {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
                                 Get Started
                             </Button>
-                        </motion.div>
+                        </MotionDiv>
                     </div>
 
                     <p className="text-center text-sm text-muted-foreground mt-8">

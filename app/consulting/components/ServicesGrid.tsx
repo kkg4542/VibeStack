@@ -1,5 +1,5 @@
 import { Check, Rocket, Terminal, Zap } from "lucide-react";
-import * as motion from "framer-motion/client";
+import { MotionDiv, MotionSection, MotionLi, MotionSpan, MotionP, MotionH1, MotionH2, MotionH3 } from "@/components/ui/motion-wrapper";
 import { designSystem } from "@/lib/design-system";
 
 export function ServicesGrid() {
@@ -11,7 +11,7 @@ export function ServicesGrid() {
                     </div>
 
                     <div className="grid gap-8 md:grid-cols-3">
-                        <motion.div
+                        <MotionDiv
                             initial={designSystem.animations.fadeInUp.initial}
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
@@ -37,9 +37,9 @@ export function ServicesGrid() {
                                     Monthly performance report
                                 </li>
                             </ul>
-                        </motion.div>
+                        </MotionDiv>
 
-                        <motion.div
+                        <MotionDiv
                             initial={designSystem.animations.fadeInUp.initial}
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
@@ -65,9 +65,9 @@ export function ServicesGrid() {
                                     Click and conversion summary
                                 </li>
                             </ul>
-                        </motion.div>
+                        </MotionDiv>
 
-                        <motion.div
+                        <MotionDiv
                             initial={designSystem.animations.fadeInUp.initial}
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
@@ -97,7 +97,7 @@ export function ServicesGrid() {
                                     Click and conversion tracking included
                                 </li>
                             </ul>
-                        </motion.div>
+                        </MotionDiv>
                     </div>
                 </section>
   );

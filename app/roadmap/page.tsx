@@ -1,6 +1,6 @@
 "use client";
 
-import * as motion from "framer-motion/client";
+import { motion } from "framer-motion";
 import {
     MapPin,
     CheckCircle2,

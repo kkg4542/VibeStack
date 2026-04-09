@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ToolIconRenderer } from '@/components/tools/ToolIconRenderer';
-import * as motion from "framer-motion/client";
+import { MotionDiv, MotionSection, MotionLi, MotionSpan, MotionP, MotionH1, MotionH2, MotionH3 } from "@/components/ui/motion-wrapper";
 import { designSystem } from '@/lib/design-system';
 
 interface Props {
@@ -82,7 +82,7 @@ export default async function ComparisonSlugPage({ params }: Props) {
         <PageBackground {...BackgroundPresets.content}>
             <div className="container mx-auto max-w-7xl px-4 py-8">
                 {/* Header */}
-                <motion.div
+                <MotionDiv
                     initial={designSystem.animations.fadeInUp.initial}
                     animate={designSystem.animations.fadeInUp.animate}
                     transition={designSystem.animations.fadeInUp.transition}
@@ -103,10 +103,10 @@ export default async function ComparisonSlugPage({ params }: Props) {
                             </Button>
                         </Link>
                     </div>
-                </motion.div>
+                </MotionDiv>
 
                 {/* Title Section */}
-                <motion.div
+                <MotionDiv
                     initial={designSystem.animations.fadeInUp.initial}
                     animate={designSystem.animations.fadeInUp.animate}
                     transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.1 }}
@@ -125,12 +125,12 @@ export default async function ComparisonSlugPage({ params }: Props) {
                     <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                         Detailed analytic comparison to help you choose the right {tool1.category.toLowerCase()} tool for your needs.
                     </p>
-                </motion.div>
+                </MotionDiv>
 
                 {/* Comparison Cards (Side by Side) */}
                 <div className="grid md:grid-cols-2 gap-8 mb-16 max-w-5xl mx-auto">
                     {selectedTools.map((tool, index) => (
-                        <motion.div
+                        <MotionDiv
                             key={tool.slug}
                             initial={{ opacity: 0, x: index === 0 ? -20 : 20 }}
                             animate={{ opacity: 1, x: 0 }}
@@ -177,12 +177,12 @@ export default async function ComparisonSlugPage({ params }: Props) {
                                     </div>
                                 </CardContent>
                             </Card>
-                        </motion.div>
+                        </MotionDiv>
                     ))}
                 </div>
 
                 {/* Feature Comparison Table */}
-                <motion.div
+                <MotionDiv
                     initial={designSystem.animations.fadeInUp.initial}
                     whileInView={designSystem.animations.fadeInUp.animate}
                     viewport={{ once: true }}
@@ -256,10 +256,10 @@ export default async function ComparisonSlugPage({ params }: Props) {
                             </div>
                         </div>
                     </Card>
-                </motion.div>
+                </MotionDiv>
 
                 {/* FAQ Section (Auto-generated) */}
-                <motion.div
+                <MotionDiv
                     initial={designSystem.animations.fadeInUp.initial}
                     whileInView={designSystem.animations.fadeInUp.animate}
                     viewport={{ once: true }}
@@ -283,7 +283,7 @@ export default async function ComparisonSlugPage({ params }: Props) {
                             </p>
                         </div>
                     </div>
-                </motion.div>
+                </MotionDiv>
             </div>
         </PageBackground>
     );
