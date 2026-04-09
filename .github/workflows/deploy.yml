@@ -21,6 +21,32 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
+      - name: Validate Database URLs
+        run: |
+          check_url() {
+            local name=$1
+            local url=$2
+            if [ -z "$url" ]; then
+              echo "❌ $name is missing!"
+              exit 1
+            fi
+            if [[ ! "$url" =~ ^postgres(ql)?:// ]]; then
+              echo "❌ $name has an invalid scheme! It should start with postgresql:// or postgres://"
+              echo "Current prefix: ${url:0:10}..."
+              exit 1
+            fi
+            if [[ "$url" == \"*\" || "$url" == \'*\' ]]; then
+              echo "❌ $name contains unnecessary quotes at the start/end!"
+              exit 1
+            fi
+            echo "✅ $name format looks valid."
+          }
+          check_url "DATABASE_URL" "$DATABASE_URL"
+          check_url "DIRECT_URL" "$DIRECT_URL"
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DIRECT_URL: ${{ secrets.DIRECT_URL }}
+
       - name: Generate Prisma Client
         run: npx prisma generate
         env:
