@@ -20,9 +20,8 @@ import { SimpleAccordionItem } from "@/components/ui/simple-accordion";
 
 import { ToolHero } from "./components/ToolHero";
 import { ToolSEO } from "./components/ToolSEO";
-interface Props {
-    params: { slug: string };
-}
+
+
 
 // Generate static params for all tools
 export async function generateStaticParams() {
