@@ -135,7 +135,7 @@ export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
                                 <div className="p-2 rounded-lg bg-linear-to-br from-blue-500 to-cyan-500">
                                     <Sparkles className="h-4 w-4 text-white" />
                                 </div>
-                                <span className="text-lg font-bold bg-linear-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
+                                <span className="text-lg font-black tracking-tighter bg-linear-to-r from-vibe-electric via-vibe-purple to-vibe-pink bg-clip-text text-transparent italic">
                                     VibeStack
                                 </span>
                             </div>
