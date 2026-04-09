@@ -27,7 +27,7 @@ const categories = [
     count: 24,
     color: "from-vibe-electric to-vibe-cyan",
     bgColor: "bg-vibe-electric/10",
-    tools: ["Cursor", "GitHub Copilot", "Claude Code", "Windsurf"],
+    tools: ["Cursor", "GitHub Copilot", "Claude", "Windsurf"],
   },
   {
     id: "design",
@@ -47,7 +47,7 @@ const categories = [
     count: 18,
     color: "from-emerald-400 to-emerald-600",
     bgColor: "bg-emerald-500/10",
-    tools: ["ChatGPT", "Claude", "Gemini", "Perplexity"],
+    tools: ["ChatGPT 5.3", "Claude", "Gemini 3.1 Pro", "Perplexity"],
   },
   {
     id: "productivity",
