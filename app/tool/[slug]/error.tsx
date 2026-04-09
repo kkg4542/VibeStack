@@ -29,6 +29,12 @@ export default function ToolError({
                         We encountered an unexpected error while retrieving this tool&apos;s data. 
                         This might be a temporary database interruption.
                     </p>
+                    {/* TEMP: Show actual error for debugging */}
+                    <div className="mt-4 p-4 bg-red-500/10 text-red-400 text-sm text-left rounded-lg overflow-auto">
+                        <p className="font-bold">Error Details:</p>
+                        <pre>{error.message}</pre>
+                        {error.stack && <pre className="mt-2 text-xs opacity-70">{error.stack}</pre>}
+                    </div>
                 </div>
                 <div className="flex justify-center gap-4 pt-4">
                     <Button onClick={() => reset()} variant="default" className="rounded-full">
