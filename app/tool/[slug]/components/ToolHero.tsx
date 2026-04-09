@@ -1,4 +1,4 @@
-import * as motion from "framer-motion/client";
+import { MotionDiv, MotionSection, MotionLi, MotionSpan, MotionP, MotionH1, MotionH2, MotionH3 } from "@/components/ui/motion-wrapper";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Star, ShieldCheck, Sparkles, Target, Zap, TrendingUp, Heart, Scale } from "lucide-react";
@@ -10,7 +10,7 @@ import Link from "next/link";
 
 export function ToolHero({ tool }: { tool: any }) {
   return (
-                <motion.div
+                <MotionDiv
                     initial={designSystem.animations.fadeInUp.initial}
                     animate={designSystem.animations.fadeInUp.animate}
                     transition={{ ...designSystem.animations.fadeInUp.transition, duration: 0.8 }}
@@ -23,7 +23,7 @@ export function ToolHero({ tool }: { tool: any }) {
 
                         <div className="relative z-10 flex flex-col lg:flex-row gap-8 items-start">
                             {/* Icon & Rating */}
-                            <motion.div
+                            <MotionDiv
                                 className="shrink-0"
                                 initial={{ scale: 0.8, opacity: 0 }}
                                 animate={{ scale: 1, opacity: 1 }}
@@ -38,7 +38,7 @@ export function ToolHero({ tool }: { tool: any }) {
                                         <span className="text-sm font-bold text-yellow-400">{tool.review.rating}</span>
                                     </div>
                                 )}
-                            </motion.div>
+                            </MotionDiv>
 
                             <div className="flex-1 min-w-0">
                                 {/* Badges */}
@@ -133,6 +133,6 @@ export function ToolHero({ tool }: { tool: any }) {
                             </div>
                         </div>
                     </div>
-                </motion.div>
+                </MotionDiv>
   );
 }

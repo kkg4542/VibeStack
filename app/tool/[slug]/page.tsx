@@ -14,7 +14,7 @@ import { ReviewList } from "@/components/reviews/ReviewList";
 import { ReviewForm } from "@/components/reviews/ReviewForm";
 import { ExitIntentPopup } from "@/components/ui/ExitIntentPopup";
 import { ToolIconRenderer } from "@/components/tools/ToolIconRenderer";
-import * as motion from "framer-motion/client";
+import { MotionDiv, MotionSection, MotionLi, MotionSpan, MotionP, MotionH1, MotionH2, MotionH3 } from "@/components/ui/motion-wrapper";
 import { designSystem } from "@/lib/design-system";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { SimpleAccordionItem } from "@/components/ui/simple-accordion";
@@ -93,7 +93,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
         <PageBackground {...BackgroundPresets.content}>
             <div className="container max-w-6xl mx-auto px-4">
                 {/* Back Link */}
-                <motion.div
+                <MotionDiv
                     initial={designSystem.animations.fadeInUp.initial}
                     animate={designSystem.animations.fadeInUp.animate}
                     transition={designSystem.animations.fadeInUp.transition}
@@ -105,7 +105,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                         <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
                         Back to Tools
                     </Link>
-                </motion.div>
+                </MotionDiv>
 
                 {/* Hero Section - Enhanced */}
                 <ToolHero tool={tool} />
@@ -115,7 +115,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                     <div className="lg:col-span-2 space-y-8">
                         {/* Key Features - Desktop */}
                         <div className="hidden md:block">
-                            <motion.section
+                            <MotionSection
                                 initial={designSystem.animations.fadeInUp.initial}
                                 whileInView={designSystem.animations.fadeInUp.animate}
                                 viewport={{ once: true }}
@@ -130,7 +130,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                 </div>
                                 <ul className="space-y-4">
                                     {tool.features?.map((feature, index) => (
-                                        <motion.li
+                                        <MotionLi
                                             key={feature}
                                             initial={{ opacity: 0, x: -20 }}
                                             whileInView={{ opacity: 1, x: 0 }}
@@ -142,10 +142,10 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                                 <Check className="h-4 w-4 text-vibe-electric" />
                                             </div>
                                             <span className="text-lg text-foreground">{feature}</span>
-                                        </motion.li>
+                                        </MotionLi>
                                     )) || <p className="text-muted-foreground">No features listed.</p>}
                                 </ul>
-                            </motion.section>
+                            </MotionSection>
                         </div>
 
                         {/* Key Features - Mobile Accordion */}
@@ -169,7 +169,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 
                         {/* Pros & Cons Section - Desktop */}
                         <div className="hidden md:grid sm:grid-cols-2 gap-6">
-                            <motion.section
+                            <MotionSection
                                 initial={designSystem.animations.fadeInUp.initial}
                                 whileInView={designSystem.animations.fadeInUp.animate}
                                 viewport={{ once: true }}
@@ -190,8 +190,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                         </li>
                                     )) || <p className="text-sm text-muted-foreground">Information pending.</p>}
                                 </ul>
-                            </motion.section>
-                            <motion.section
+                            </MotionSection>
+                            <MotionSection
                                 initial={designSystem.animations.fadeInUp.initial}
                                 whileInView={designSystem.animations.fadeInUp.animate}
                                 viewport={{ once: true }}
@@ -212,7 +212,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                         </li>
                                     )) || <p className="text-sm text-muted-foreground">Information pending.</p>}
                                 </ul>
-                            </motion.section>
+                            </MotionSection>
                         </div>
 
                         {/* Pros & Cons - Mobile Accordion */}
@@ -241,7 +241,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                         </div>
 
                         {/* In-depth Review - Enhanced */}
-                        <motion.section
+                        <MotionSection
                             initial={designSystem.animations.fadeInUp.initial}
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
@@ -276,10 +276,10 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                             ) : (
                                 <p className="text-muted-foreground italic">Full review coming soon.</p>
                             )}
-                        </motion.section>
+                        </MotionSection>
 
                         {/* User Reviews */}
-                        <motion.section
+                        <MotionSection
                             initial={designSystem.animations.fadeInUp.initial}
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
@@ -299,7 +299,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                 <ReviewForm toolSlug={tool.slug} />
                                 <ReviewList toolSlug={tool.slug} />
                             </div>
-                        </motion.section>
+                        </MotionSection>
 
                         {/* Similar Tools */}
                         <RelatedTools
@@ -327,7 +327,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                         })()}
 
                         {/* Tool Details Card */}
-                        <motion.div
+                        <MotionDiv
                             initial={designSystem.animations.fadeInUp.initial}
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
@@ -367,7 +367,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                     </AffiliateLink>
                                 </div>
                             </div>
-                        </motion.div>
+                        </MotionDiv>
                     </aside>
                 </div>
             </div>
