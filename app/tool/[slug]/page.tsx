@@ -68,13 +68,27 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ToolPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    const tool = await getToolBySlug(slug);
+    
+    let tool;
+    let allTools;
+    
+    try {
+        tool = await getToolBySlug(slug);
+    } catch (e) {
+        console.error("[ToolPage] getToolBySlug failed:", e);
+        throw e;
+    }
 
     if (!tool) {
         notFound();
     }
 
-    const allTools = await getTools();
+    try {
+        allTools = await getTools();
+    } catch (e) {
+        console.error("[ToolPage] getTools failed:", e);
+        allTools = [];
+    }
 
     return (
         <PageBackground {...BackgroundPresets.content}>
