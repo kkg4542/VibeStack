@@ -43,7 +43,8 @@ export async function adminLogin(formData: FormData) {
     const token = await getAdminTokenHash();
     
     // Set HTTP-Only Secure cookie
-    cookies().set("vibestack_admin", token, {
+    const cookieStore = await cookies();
+    cookieStore.set("vibestack_admin", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
@@ -61,6 +62,7 @@ export async function adminLogin(formData: FormData) {
  * Logs out the admin by deleting the cookie
  */
 export async function adminLogout() {
-  cookies().delete("vibestack_admin");
+  const cookieStore = await cookies();
+  cookieStore.delete("vibestack_admin");
   redirect("/admin/login");
 }
