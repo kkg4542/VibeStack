@@ -53,7 +53,6 @@ export async function createTool(formData: FormData) {
     revalidatePath("/tools");
   } catch (error) {
     console.error("Failed to create tool:", error);
-    return { error: "Failed to create tool" };
   }
 
   redirect("/admin/tools");
@@ -104,7 +103,6 @@ export async function updateTool(id: string, formData: FormData) {
     revalidatePath("/tools");
   } catch (error) {
     console.error("Failed to update tool:", error);
-    return { error: "Failed to update tool" };
   }
 
   redirect("/admin/tools");

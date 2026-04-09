@@ -23,7 +23,7 @@ export async function getAdminTokenHash(): Promise<string> {
  * Validates admin credentials against environment variables and sets 
  * a secure HTTP-Only cookie if correct.
  */
-export async function adminLogin(formData: FormData) {
+export async function adminLogin(_prevState: { error: string | null }, formData: FormData): Promise<{ error: string | null }> {
   const username = formData.get("username") as string;
   const password = formData.get("password") as string;
   

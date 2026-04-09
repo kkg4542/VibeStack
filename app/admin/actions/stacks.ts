@@ -67,7 +67,6 @@ export async function createStack(formData: FormData) {
     revalidatePath("/stacks");
   } catch (error) {
     console.error("Failed to create stack:", error);
-    return { error: "Failed to create stack" };
   }
 
   redirect("/admin/stacks");
@@ -136,7 +135,6 @@ export async function updateStack(id: string, formData: FormData) {
     revalidatePath("/stacks");
   } catch (error) {
     console.error("Failed to update stack:", error);
-    return { error: "Failed to update stack" };
   }
 
   redirect("/admin/stacks");

@@ -37,7 +37,6 @@ export async function createBlogPost(formData: FormData) {
     revalidatePath("/blog");
   } catch (error) {
     console.error("Failed to create blog post:", error);
-    return { error: "Failed to create blog post" };
   }
 
   redirect("/admin/blog");
@@ -76,7 +75,6 @@ export async function updateBlogPost(id: string, formData: FormData) {
     revalidatePath("/blog");
   } catch (error) {
     console.error("Failed to update blog post:", error);
-    return { error: "Failed to update blog post" };
   }
 
   redirect("/admin/blog");
