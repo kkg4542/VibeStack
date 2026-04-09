@@ -1,0 +1,237 @@
+
+> vibestack@0.1.0 dev
+> next dev --webpack
+
+▲ Next.js 16.1.6 (webpack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.246:3000
+- Environments: .env
+- Experiments (use with caution):
+  · optimizePackageImports
+
+✓ Starting...
+> [PWA] PWA support is disabled
+> [PWA] PWA support is disabled
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+⚠ ./node_modules/@prisma/instrumentation/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./node_modules/@prisma/instrumentation/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+./node_modules/@prisma/instrumentation/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js
+./node_modules/@prisma/instrumentation/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js
+./node_modules/@prisma/instrumentation/node_modules/@opentelemetry/instrumentation/build/esm/index.js
+./node_modules/@prisma/instrumentation/dist/index.js
+./node_modules/@sentry/node/build/cjs/integrations/tracing/prisma.js
+./node_modules/@sentry/node/build/cjs/index.js
+./node_modules/@sentry/nextjs/build/cjs/index.server.js
+Sentry Logger [log]: Initializing SDK...
+Sentry Logger [log]: Initializing Sentry: process: 64850, thread: main.
+Sentry Logger [warn]: No DSN provided, client will not send events.
+Sentry Logger [log]: SDK initialized from CommonJS
+Sentry Logger [log]: @opentelemetry/api: Registered a global for diag v1.9.0.
+Sentry Logger [log]: @opentelemetry/api: Registered a global for trace v1.9.0.
+Sentry Logger [log]: @opentelemetry/api: Registered a global for propagation v1.9.0.
+Sentry Logger [log]: @opentelemetry/api: Registered a global for context v1.9.0.
+Sentry Logger [log]: SDK successfully initialized
+✓ Ready in 2.7s
+○ Compiling /instrumentation ...
+Sentry Logger [log]: [Tracing] Starting sampled root span
+  op: < unknown op >
+  name: GET
+  ID: 58ddb4b10eba927c
+⚠ ./node_modules/@prisma/instrumentation/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./node_modules/@prisma/instrumentation/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+./node_modules/@prisma/instrumentation/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js
+./node_modules/@prisma/instrumentation/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js
+./node_modules/@prisma/instrumentation/node_modules/@opentelemetry/instrumentation/build/esm/index.js
+./node_modules/@prisma/instrumentation/dist/index.js
+./node_modules/@sentry/node/build/cjs/integrations/tracing/prisma.js
+./node_modules/@sentry/node/build/cjs/index.js
+./node_modules/@sentry/nextjs/build/cjs/index.server.js
+⚠ ./node_modules/@prisma/instrumentation/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./node_modules/@prisma/instrumentation/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+./node_modules/@prisma/instrumentation/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js
+./node_modules/@prisma/instrumentation/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js
+./node_modules/@prisma/instrumentation/node_modules/@opentelemetry/instrumentation/build/esm/index.js
+./node_modules/@prisma/instrumentation/dist/index.js
+./node_modules/@sentry/node/build/cjs/integrations/tracing/prisma.js
+./node_modules/@sentry/node/build/cjs/index.js
+./node_modules/@sentry/nextjs/build/cjs/index.server.js
+./app/global-error.tsx
+
+./node_modules/@prisma/instrumentation/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./node_modules/@prisma/instrumentation/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+./node_modules/@prisma/instrumentation/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js
+./node_modules/@prisma/instrumentation/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js
+./node_modules/@prisma/instrumentation/node_modules/@opentelemetry/instrumentation/build/esm/index.js
+./node_modules/@prisma/instrumentation/dist/index.js
+./node_modules/@sentry/node/build/cjs/integrations/tracing/prisma.js
+./node_modules/@sentry/node/build/cjs/index.js
+./node_modules/@sentry/nextjs/build/cjs/index.server.js
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve page components: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve page components
+  ID: eb924f86d79064e2
+  parent ID: 58ddb4b10eba927c
+  root ID: 58ddb4b10eba927c
+  root description: GET
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "resolve page components" with ID eb924f86d79064e2
+prisma:info Starting a postgresql pool with 21 connections in PgBouncer mode.
+prisma:error 
+Invalid `prisma.tool.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+Failed to fetch tools from database: Error [PrismaClientInitializationError]: 
+Invalid `prisma.tool.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at async getTools (lib/tools-db.ts:7:25)
+    at async Object.generateStaticParams (app/tool/[slug]/page.tsx:29:19)
+   5 | export async function getTools(): Promise<ToolData[]> {
+   6 |     try {
+>  7 |         const dbTools = await prisma.tool.findMany();
+     |                         ^
+   8 |         return dbTools.map(tool => ({
+   9 |             slug: tool.slug,
+  10 |             title: tool.title, {
+  clientVersion: '5.22.0',
+  errorCode: undefined
+}
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for render route (app) /tool/[slug]: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: render route (app) /tool/[slug]
+  ID: d1fdf772510da27f
+  parent ID: 58ddb4b10eba927c
+  root ID: 58ddb4b10eba927c
+  root description: /tool/[slug]
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for build component tree: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: build component tree
+  ID: 9648274a8da91f92
+  parent ID: d1fdf772510da27f
+  root ID: 58ddb4b10eba927c
+  root description: /tool/[slug]
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: e895c4e56782b6a9
+  parent ID: 9648274a8da91f92
+  root ID: 58ddb4b10eba927c
+  root description: /tool/[slug]
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve root layout server component" with ID e895c4e56782b6a9
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for resolve segment modules: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: resolve segment modules
+  ID: 37ebad5764ed288f
+  parent ID: 9648274a8da91f92
+  root ID: 58ddb4b10eba927c
+  root description: /tool/[slug]
+Sentry Logger [log]: [Tracing] Finishing "function.nextjs" span "resolve page server component "/tool/[slug]"" with ID 37ebad5764ed288f
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "build component tree" with ID 9648274a8da91f92
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for generateMetadata /tool/[slug]/page: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: generateMetadata /tool/[slug]/page
+  ID: 2e135a11e2e255b1
+  parent ID: d1fdf772510da27f
+  root ID: 58ddb4b10eba927c
+  root description: /tool/[slug]
+prisma:info Starting a postgresql pool with 21 connections in PgBouncer mode.
+prisma:error 
+Invalid `prisma.tool.findUnique()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+prisma:error 
+Invalid `prisma.tool.findUnique()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+Failed to fetch tool chatgpt from database: Error [PrismaClientInitializationError]: 
+Invalid `prisma.tool.findUnique()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at async getToolBySlug (lib/tools-db.ts:33:22)
+    at async ToolPage (app/tool/[slug]/page.tsx:75:16)
+  31 | export async function getToolBySlug(slug: string): Promise<ToolData | null> {
+  32 |     try {
+> 33 |         const tool = await prisma.tool.findUnique({ where: { slug } });
+     |                      ^
+  34 |         if (!tool) return null;
+  35 |         return {
+  36 |             slug: tool.slug, {
+  clientVersion: '5.22.0',
+  errorCode: undefined
+}
+Failed to fetch tool chatgpt from database: Error [PrismaClientInitializationError]: 
+Invalid `prisma.tool.findUnique()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at async getToolBySlug (lib/tools-db.ts:33:22)
+    at async Module.generateMetadata (app/tool/[slug]/page.tsx:37:18)
+  31 | export async function getToolBySlug(slug: string): Promise<ToolData | null> {
+  32 |     try {
+> 33 |         const tool = await prisma.tool.findUnique({ where: { slug } });
+     |                      ^
+  34 |         if (!tool) return null;
+  35 |         return {
+  36 |             slug: tool.slug, {
+  clientVersion: '5.22.0',
+  errorCode: undefined
+}
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "generateMetadata /tool/[slug]/page" with ID 2e135a11e2e255b1
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "render route (app) /tool/[slug]" with ID d1fdf772510da27f
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for start response: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: start response
+  ID: 3e17fb0fe5036c0a
+  parent ID: d1fdf772510da27f
+  root ID: 58ddb4b10eba927c
+  root description: /tool/[slug]
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "start response" with ID 3e17fb0fe5036c0a
+ GET /tool/chatgpt 200 in 5.1s (compile: 4.5s, generate-params: 613ms, render: 597ms)
+Sentry Logger [log]: [Tracing] Inheriting parent's sampled decision for NextNodeServer.clientComponentLoading: true
+Sentry Logger [log]: [Tracing] Starting sampled span
+  op: < unknown op >
+  name: NextNodeServer.clientComponentLoading
+  ID: a88119a6fa5f7798
+  parent ID: 58ddb4b10eba927c
+  root ID: 58ddb4b10eba927c
+  root description: /tool/[slug]
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" span "NextNodeServer.clientComponentLoading" with ID a88119a6fa5f7798
+Sentry Logger [log]: [Tracing] Finishing "< unknown op >" root span "GET /tool/[slug]" with ID 58ddb4b10eba927c
+Sentry Logger [log]: SpanExporter exported 9 spans, 0 spans are waiting for their parent spans to finish
+Sentry Logger [error]: Transport disabled
+[?25h

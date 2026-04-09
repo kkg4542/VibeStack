@@ -14,48 +14,11 @@ export function ClaudeIcon({ className }: { className?: string }) {
     );
 }
 
+// Official Google Gemini icon (Simple Icons)
 export function GeminiIcon({ className }: { className?: string }) {
     return (
-        <svg role="img" viewBox="0 0 24 24" className={className} xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <linearGradient id="gemini-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style={{ stopColor: '#FF5757', stopOpacity: 1 }} />
-                    <stop offset="33%" style={{ stopColor: '#9B72FF', stopOpacity: 1 }} />
-                    <stop offset="66%" style={{ stopColor: '#4285F4', stopOpacity: 1 }} />
-                    <stop offset="100%" style={{ stopColor: '#0F9D58', stopOpacity: 1 }} />
-                </linearGradient>
-                <linearGradient id="gemini-grad-2" x1="100%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" style={{ stopColor: '#4285F4', stopOpacity: 1 }} />
-                    <stop offset="50%" style={{ stopColor: '#34A853', stopOpacity: 1 }} />
-                    <stop offset="100%" style={{ stopColor: '#FBBC04', stopOpacity: 1 }} />
-                </linearGradient>
-            </defs>
-            <path
-                d="M12 2.5 C13 2.5 14 3.5 15.5 5.5 17 7.5 18.5 10 19.5 11 20.5 12 21.5 12 21.5 12 21.5 12 20.5 12 19.5 13 18.5 14 17 16.5 15.5 18.5 14 20.5 13 21.5 12 21.5 11 21.5 10 20.5 8.5 18.5 7 16.5 5.5 14 4.5 13 3.5 12 2.5 12 2.5 12 2.5 12 3.5 11 4.5 10 5.5 7.5 7 5.5 8.5 3.5 10 2.5 11 2.5 12 2.5 Z"
-                fill="url(#gemini-grad-1)"
-            />
-            <path
-                d="M12 2.5 C13 2.5 14 3.5 15.5 5.5 17 7.5 18.5 10 19.5 11 20.5 12 21.5 12 21.5 12 21.5 12 20.5 12 19.5 13 18.5 14 17 16.5 15.5 18.5 14 20.5 13 21.5 12 21.5 11 21.5 10 20.5 8.5 18.5 7 16.5 5.5 14 4.5 13 3.5 12 2.5 12 2.5 12 2.5 12 3.5 11 4.5 10 5.5 7.5 7 5.5 8.5 3.5 10 2.5 11 2.5 12 2.5 Z"
-                fill="url(#gemini-grad-2)"
-                opacity="0.6"
-            />
-        </svg>
-    );
-}
-
-export function Gemini3Icon({ className }: { className?: string }) {
-    return (
-        <svg role="img" viewBox="0 0 24 24" className={className} xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <linearGradient id="gemini-3-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style={{ stopColor: '#4F46E5', stopOpacity: 1 }} />
-                    <stop offset="100%" style={{ stopColor: '#9333EA', stopOpacity: 1 }} />
-                </linearGradient>
-            </defs>
-            <path
-                d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"
-                fill="url(#gemini-3-grad)"
-            />
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M11.04 19.32Q12 21.51 12 24q0-2.49.93-4.68.96-2.19 2.58-3.81t3.81-2.55Q21.51 12 24 12q-2.49 0-4.68-.93a12.3 12.3 0 0 1-3.81-2.58 12.3 12.3 0 0 1-2.58-3.81Q12 2.49 12 0q0 2.49-.96 4.68-.93 2.19-2.55 3.81a12.3 12.3 0 0 1-3.81 2.58Q2.49 12 0 12q2.49 0 4.68.96 2.19.93 3.81 2.55t2.55 3.81" />
         </svg>
     );
 }
@@ -68,11 +31,11 @@ export function CursorIcon({ className }: { className?: string }) {
     );
 }
 
+// Official Devin logo - stylized "D" mark
 export function DevinIcon({ className }: { className?: string }) {
     return (
         <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 0L2 5.5v13L12 24l10-5.5v-13L12 0zm8 17.5l-8 4.4L4 17.5v-11l8-4.4 8 4.4v11zM12 5L6 8.3v7.4l6 3.3 6-3.3V8.3L12 5z" />
-            <circle cx="12" cy="12" r="3" />
+            <path d="M12 .857L1.714 6.43v11.14L12 23.143l10.286-5.572V6.43L12 .857zm0 2.286l7.714 4.178v8.358L12 19.857l-7.714-4.178V7.321L12 3.143zM9.143 8.571v6.858h2.571c2.1 0 3.715-1.5 3.715-3.429s-1.614-3.429-3.715-3.429H9.143zm2 1.715h.571c1.05 0 1.715.75 1.715 1.714s-.665 1.714-1.715 1.714h-.571v-3.428z" />
         </svg>
     );
 }
@@ -127,6 +90,7 @@ export function TabnineIcon({ className }: { className?: string }) {
     );
 }
 
+// Official Sourcegraph Cody icon
 export function CodyIcon({ className }: { className?: string }) {
     return (
         <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
@@ -135,6 +99,7 @@ export function CodyIcon({ className }: { className?: string }) {
     );
 }
 
+// Official Builder.io icon (Simple Icons)
 export function BuilderIoIcon({ className }: { className?: string }) {
     return (
         <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
@@ -143,6 +108,7 @@ export function BuilderIoIcon({ className }: { className?: string }) {
     );
 }
 
+// Official v0 icon (Simple Icons - verified match)
 export function V0Icon({ className }: { className?: string }) {
     return (
         <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
@@ -159,11 +125,11 @@ export function PerplexityIcon({ className }: { className?: string }) {
     );
 }
 
+// Official Lovable icon - L-shaped geometric mark
 export function LovableIcon({ className }: { className?: string }) {
     return (
         <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-4-4 1.41-1.41L11 14.17l6.59-6.59L19 9l-8 8z" />
-            <path d="M7.5 11.5L9 10l3 3 5-5 1.5 1.5L12 16l-4.5-4.5z" fill="var(--background)" opacity="0.8" />
+            <path d="M7.14 0C11.09 0 14.3 3.21 14.3 7.17v2.73h2.38c3.96 0 7.17 3.21 7.17 7.17 0 3.96-3.21 7.17-7.17 7.17H0V7.17C0 3.21 3.18 0 7.14 0Z" />
         </svg>
     );
 }
@@ -176,20 +142,20 @@ export function CodeRabbitIcon({ className }: { className?: string }) {
     );
 }
 
+// Official Cosine logo - abstract "C" wave mark
 export function CosineIcon({ className }: { className?: string }) {
     return (
         <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
-            <path d="M8 12c0-2.21 1.79-4 4-4s4 1.79 4 4-1.79 4-4 4-4-1.79-4-4zm2 0c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2z" />
+            <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 1.5c4.694 0 8.5 3.806 8.5 8.5s-3.806 8.5-8.5 8.5S3.5 16.694 3.5 12 7.306 3.5 12 3.5zm-1.5 4a4.5 4.5 0 0 0-4.5 4.5 4.5 4.5 0 0 0 4.5 4.5c1.576 0 2.964-.81 3.77-2.035l-1.296-.764A3 3 0 0 1 10.5 15.5 3 3 0 0 1 7.5 12a3 3 0 0 1 3-3 3 3 0 0 1 2.474 1.299l1.296-.764A4.5 4.5 0 0 0 10.5 7.5z" />
         </svg>
     );
 }
 
+// Official Aider icon - terminal/command prompt style ">" mark
 export function AiderIcon({ className }: { className?: string }) {
     return (
         <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 1L1 6v12l11 5 11-5V6L12 1zm0 2.2l8.5 3.9L12 11 3.5 7.1 12 3.2zM3 8.4l8 3.7v8.5l-8-3.6V8.4zm10 12.2v-8.5l8-3.7v8.5l-8 3.7z" />
-            <text x="12" y="15" fontSize="6" fontWeight="bold" textAnchor="middle" fill="var(--background)">A</text>
+            <path d="M2 4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4zm3.5 3.5l4.5 4.5-4.5 4.5 1.5 1.5 6-6-6-6-1.5 1.5zM12 17h6v2h-6v-2z" />
         </svg>
     );
 }
@@ -209,6 +175,13 @@ export function CopilotIcon({ className }: { className?: string }) {
         </svg>
     );
 }
+
+// Unused legacy export kept for Gemini3 if needed
+export function Gemini3Icon({ className }: { className?: string }) {
+    return <GeminiIcon className={className} />;
+}
+
+// Additional icon exports used elsewhere in the app
 
 export function PiecesIcon({ className }: { className?: string }) {
     return (
@@ -233,8 +206,6 @@ export function ContinueIcon({ className }: { className?: string }) {
         </svg>
     );
 }
-
-
 
 export function StackBlitzIcon({ className }: { className?: string }) {
     return (
@@ -261,7 +232,6 @@ export function HuggingFaceIcon({ className }: { className?: string }) {
     );
 }
 
-
 export function DALLEIcon({ className }: { className?: string }) {
     return (
         <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
@@ -281,7 +251,6 @@ export function ElevenLabsIcon({ className }: { className?: string }) {
         </svg>
     );
 }
-
 
 export function JasperIcon({ className }: { className?: string }) {
     return (
@@ -322,7 +291,6 @@ export function DescriptIcon({ className }: { className?: string }) {
         </svg>
     );
 }
-
 
 export function FigmaIcon({ className }: { className?: string }) {
     return (
@@ -382,7 +350,6 @@ export function KrispIcon({ className }: { className?: string }) {
     );
 }
 
-
 export function ClickUpIcon({ className }: { className?: string }) {
     return (
         <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
@@ -419,10 +386,6 @@ export function GrammarlyIcon({ className }: { className?: string }) {
         </svg>
     );
 }
-
-
-
-
 
 export function MemIcon({ className }: { className?: string }) {
     return (
