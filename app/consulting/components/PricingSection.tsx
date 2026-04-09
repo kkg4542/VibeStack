@@ -24,7 +24,7 @@ export function PricingSection({ handleCheckout, loading }: PricingSectionProps)
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={designSystem.animations.fadeInUp.transition}
-                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-white p-8 transition-all hover:-translate-y-1 hover:border-vibe-electric/30 hover:shadow-2xl hover:shadow-vibe-electric/10"
+                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card p-8 transition-all hover:-translate-y-1 hover:border-vibe-electric/30 hover:shadow-2xl hover:shadow-vibe-electric/10"
                         >
                             <div className="mb-6">
                                 <h3 className="text-xl font-semibold mb-2">Sidebar Ads</h3>
@@ -114,7 +114,7 @@ export function PricingSection({ handleCheckout, loading }: PricingSectionProps)
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.2 }}
-                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-white p-8 transition-all hover:-translate-y-1 hover:border-vibe-electric/30 hover:shadow-2xl hover:shadow-vibe-electric/10"
+                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card p-8 transition-all hover:-translate-y-1 hover:border-vibe-electric/30 hover:shadow-2xl hover:shadow-vibe-electric/10"
                         >
                             <div className="mb-6">
                                 <h3 className="text-xl font-semibold mb-2">Newsletter Sponsor</h3>

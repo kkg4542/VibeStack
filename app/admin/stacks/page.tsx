@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Pencil, Trash2, Layers } from "lucide-react";
+import { deleteStack } from "@/app/admin/actions/stacks";
 
 async function getStacks() {
   return await prisma.stack.findMany({
@@ -72,9 +73,11 @@ export default async function AdminStacksPage() {
                           <Pencil className="h-4 w-4" />
                         </Link>
                       </Button>
-                      <Button variant="ghost" size="icon" className="text-red-600">
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
+                      <form action={deleteStack.bind(null, stack.id)}>
+                        <Button type="submit" variant="ghost" size="icon" className="text-red-600 hover:bg-red-500/10 hover:text-red-600">
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </form>
                     </div>
                   </td>
                 </tr>

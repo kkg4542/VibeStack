@@ -16,7 +16,7 @@ export function Testimonials() {
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={designSystem.animations.fadeInUp.transition}
-                            className="rounded-2xl border border-border/50 bg-white p-6 backdrop-blur-sm"
+                            className="rounded-2xl border border-border/50 bg-card p-6 backdrop-blur-sm"
                         >
                             <div className="mb-4 flex gap-1">
                                 {[...Array(5)].map((_, i) => (
@@ -40,7 +40,7 @@ export function Testimonials() {
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.1 }}
-                            className="rounded-2xl border border-border/50 bg-white p-6 backdrop-blur-sm"
+                            className="rounded-2xl border border-border/50 bg-card p-6 backdrop-blur-sm"
                         >
                             <div className="mb-4 flex gap-1">
                                 {[...Array(5)].map((_, i) => (
@@ -64,7 +64,7 @@ export function Testimonials() {
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.2 }}
-                            className="rounded-2xl border border-border/50 bg-white p-6 backdrop-blur-sm"
+                            className="rounded-2xl border border-border/50 bg-card p-6 backdrop-blur-sm"
                         >
                             <div className="mb-4 flex gap-1">
                                 {[...Array(5)].map((_, i) => (

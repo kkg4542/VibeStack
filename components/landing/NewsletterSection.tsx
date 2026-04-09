@@ -59,7 +59,7 @@ export function NewsletterSection() {
           transition={designSystem.animations.fadeInUp.transition}
           className="max-w-4xl mx-auto"
         >
-          <div className="relative p-8 md:p-12 rounded-3xl border border-border bg-white dark:bg-card shadow-sm overflow-hidden">
+          <div className="relative p-8 md:p-12 rounded-3xl border border-border bg-card shadow-sm overflow-hidden">
             {/* Glow effect */}
             <div className="absolute inset-0 bg-linear-to-br from-vibe-electric/5 via-transparent to-vibe-neon/5" />
 

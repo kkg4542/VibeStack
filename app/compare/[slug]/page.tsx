@@ -138,7 +138,7 @@ export default async function ComparisonSlugPage({ params }: Props) {
                             className="relative"
                         >
                             <div className="absolute inset-0 bg-linear-to-br from-vibe-electric/5 to-transparent rounded-3xl blur-xl" />
-                            <Card className="h-full border-border/50 bg-white/50 dark:bg-card/50 backdrop-blur-md shadow-xl hover:shadow-2xl transition-all duration-300">
+                            <Card className="h-full border-border/50 bg-card/50 backdrop-blur-md shadow-xl hover:shadow-2xl transition-all duration-300">
                                 <CardContent className="p-8">
                                     <div className="flex items-center gap-4 mb-6">
                                         <div className={`p-4 rounded-2xl bg-linear-to-br ${tool.bgGradient || "from-slate-500 to-slate-800"} shadow-lg`}>
@@ -188,7 +188,7 @@ export default async function ComparisonSlugPage({ params }: Props) {
                     viewport={{ once: true }}
                     className="max-w-4xl mx-auto"
                 >
-                    <Card className="overflow-hidden border-border/50 bg-white/80 dark:bg-card/80 backdrop-blur">
+                    <Card className="overflow-hidden border-border/50 bg-card/80 backdrop-blur">
                         <div className="p-6 md:p-8">
                             <h2 className="text-2xl font-bold mb-6 text-center">Feature Breakdown</h2>
                             <div className="overflow-x-auto">

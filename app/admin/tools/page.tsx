@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Pencil, Trash2 } from "lucide-react";
+import { deleteTool } from "@/app/admin/actions/tools";
 
 async function getTools() {
   return await prisma.tool.findMany({
@@ -80,9 +81,11 @@ export default async function AdminToolsPage() {
                           <Pencil className="h-4 w-4" />
                         </Link>
                       </Button>
-                      <Button variant="ghost" size="icon" className="text-red-600">
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
+                      <form action={deleteTool.bind(null, tool.id)}>
+                        <Button type="submit" variant="ghost" size="icon" className="text-red-600 hover:bg-red-500/10 hover:text-red-600">
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </form>
                     </div>
                   </td>
                 </tr>

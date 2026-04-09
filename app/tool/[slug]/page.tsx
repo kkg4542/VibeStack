@@ -108,7 +108,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                 whileInView={designSystem.animations.fadeInUp.animate}
                                 viewport={{ once: true }}
                                 transition={designSystem.animations.fadeInUp.transition}
-                                className="bg-white backdrop-blur-sm rounded-3xl p-8 border border-border/50 shadow-lg"
+                                className="bg-card backdrop-blur-sm rounded-3xl p-8 border border-border/50 shadow-lg"
                             >
                                 <div className="flex items-center gap-3 mb-6">
                                     <div className="p-2 rounded-lg bg-vibe-electric/10">
@@ -320,7 +320,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={designSystem.animations.fadeInUp.transition}
-                            className="bg-white backdrop-blur-sm rounded-3xl p-6 border border-border/50 shadow-lg sticky top-24"
+                            className="bg-card backdrop-blur-sm rounded-3xl p-6 border border-border/50 shadow-lg sticky top-24"
                         >
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="p-2 rounded-lg bg-vibe-electric/10">

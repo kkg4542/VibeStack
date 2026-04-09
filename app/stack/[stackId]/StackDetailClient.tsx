@@ -208,7 +208,7 @@ export function StackDetailClient({ stack, metrics }: StackDetailClientProps) {
                                 </div>
                                 <h2 className="text-2xl font-semibold">About This Stack</h2>
                             </div>
-                            <Card className="border-border/50 bg-white backdrop-blur-sm">
+                            <Card className="border-border/50 bg-card backdrop-blur-sm">
                                 <CardContent className="p-8">
                                     <p className="text-lg text-muted-foreground leading-relaxed">
                                         {stack.longDescription}
@@ -239,7 +239,7 @@ export function StackDetailClient({ stack, metrics }: StackDetailClientProps) {
                                         viewport={{ once: true }}
                                         transition={{ duration: 0.4, delay: index * 0.1 }}
                                     >
-                                        <Card className="border-border/50 bg-white hover:border-vibe-electric/30 transition-colors group">
+                                        <Card className="border-border/50 bg-card hover:border-vibe-electric/30 transition-colors group">
                                             <CardContent className="p-6">
                                                 <div className="flex items-start gap-4">
                                                     <div className="shrink-0 w-12 h-12 rounded-xl bg-linear-to-br from-vibe-electric to-vibe-purple flex items-center justify-center text-white font-bold shadow-lg shadow-vibe-electric/20">
@@ -378,7 +378,7 @@ export function StackDetailClient({ stack, metrics }: StackDetailClientProps) {
                                 whileInView={designSystem.animations.fadeInUp.animate}
                                 viewport={{ once: true }}
                                 transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.2 }}
-                                className="bg-white rounded-3xl border border-border/50 p-6 backdrop-blur-sm"
+                                className="bg-card rounded-3xl border border-border/50 p-6 backdrop-blur-sm"
                             >
                                 <h3 className="font-semibold mb-4">Curated By</h3>
                                 <div className="flex items-center gap-4">
@@ -402,7 +402,7 @@ export function StackDetailClient({ stack, metrics }: StackDetailClientProps) {
                             whileInView={designSystem.animations.fadeInUp.animate}
                             viewport={{ once: true }}
                             transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.1 }}
-                            className="bg-white rounded-3xl border border-border/50 p-6 backdrop-blur-sm"
+                            className="bg-card rounded-3xl border border-border/50 p-6 backdrop-blur-sm"
                         >
                             <h3 className="font-semibold mb-4">Stack Stats</h3>
                             <div className="space-y-4">

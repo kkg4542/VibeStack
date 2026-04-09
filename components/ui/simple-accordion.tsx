@@ -45,7 +45,7 @@ export function SimpleAccordionItem({ title, children, defaultOpen = false, icon
     const [isOpen, setIsOpen] = React.useState(defaultOpen);
 
     return (
-        <div className="border border-border/50 rounded-2xl bg-white/50 dark:bg-card/50 backdrop-blur-sm overflow-hidden mb-4">
+        <div className="border border-border/50 rounded-2xl bg-card/50 backdrop-blur-sm overflow-hidden mb-4">
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="flex items-center justify-between w-full p-4 text-left font-medium transition-colors hover:bg-muted/50"

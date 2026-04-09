@@ -153,7 +153,7 @@ export default function ConsultingPage() {
 
                 {/* Sponsor Copy Guidelines */}
                 <section className="container mx-auto px-4 pb-16">
-                    <div className="mx-auto max-w-3xl rounded-2xl border border-border/50 bg-white p-8">
+                    <div className="mx-auto max-w-3xl rounded-2xl border border-border/50 bg-card p-8">
                         <h3 className="text-xl font-semibold text-foreground mb-3">Sponsor Copy Guidelines</h3>
                         <p className="text-muted-foreground mb-4">Keep it clear and honest. We review copy to maintain user trust.</p>
                         <ul className="space-y-2 text-sm text-foreground/80">

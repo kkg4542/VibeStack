@@ -149,7 +149,7 @@ export default function SearchPage() {
 
                     {/* Search Input */}
                     <div className="relative max-w-2xl mx-auto">
-                        <div className="relative bg-white backdrop-blur-sm rounded-2xl border border-border/40 shadow-lg">
+                        <div className="relative bg-card backdrop-blur-sm rounded-2xl border border-border/40 shadow-lg">
                             <div className="flex items-center px-4 py-2">
                                 <Search className="w-5 h-5 text-muted-foreground mr-3" />
                                 <Input

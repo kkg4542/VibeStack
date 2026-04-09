@@ -221,56 +221,46 @@ export async function middleware(req: NextRequest) {
       }
     }
 
-    // Basic Auth
-    const basicAuth = req.headers.get("authorization");
+    // Custom Cookie-based Auth for Admin
+    if (req.nextUrl.pathname.startsWith("/admin/login")) {
+      // Allow access to login page
+      return response;
+    }
 
-    if (basicAuth) {
-      try {
-        const authValue = basicAuth.split(" ")[1];
-        const decoded = atob(authValue);
-        const separatorIndex = decoded.indexOf(":");
+    const adminCookie = req.cookies.get("vibestack_admin")?.value;
+    let isAuthenticated = false;
 
-        if (separatorIndex === -1) {
-          throw new Error("Invalid auth format");
+    if (adminCookie) {
+      const validPwd = process.env.ADMIN_PASSWORD;
+      if (validPwd) {
+        // Compute expected hash
+        const encoder = new TextEncoder();
+        const data = encoder.encode(validPwd + "vibestack_admin_salt_7391");
+        const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const expectedHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        
+        if (adminCookie === expectedHash) {
+          isAuthenticated = true;
         }
-
-        const user = decoded.substring(0, separatorIndex);
-        const pwd = decoded.substring(separatorIndex + 1);
-
-        const validUser = process.env.ADMIN_USER;
-        const validPwd = process.env.ADMIN_PASSWORD;
-
-        // Require environment variables
-        if (!validUser || !validPwd) {
-          return new NextResponse("Server configuration error", { status: 500 });
-        }
-
-        const isUserValid = await timingSafeEqual(user, validUser);
-        const isPwdValid = await timingSafeEqual(pwd, validPwd);
-
-        if (isUserValid && isPwdValid) {
-          // Clear failed attempts on success
-          failedAttempts.delete(ip);
-
-          // Add security headers
-          response.headers.set("X-Content-Type-Options", "nosniff");
-          response.headers.set("X-Frame-Options", "DENY");
-          response.headers.set("X-XSS-Protection", "1; mode=block");
-          response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
-
-          return response;
-        }
-      } catch (error) {
-        // Auth parsing failed
       }
     }
 
-    return new NextResponse("Authentication required", {
-      status: 401,
-      headers: {
-        "WWW-Authenticate": 'Basic realm="Secure Admin Area"',
-      },
-    });
+    if (isAuthenticated) {
+      // Clear failed attempts on success
+      failedAttempts.delete(ip);
+
+      // Add security headers
+      response.headers.set("X-Content-Type-Options", "nosniff");
+      response.headers.set("X-Frame-Options", "DENY");
+      response.headers.set("X-XSS-Protection", "1; mode=block");
+      response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+
+      return response;
+    }
+
+    // Redirect to custom login form instead of basic auth popup
+    return NextResponse.redirect(new URL("/admin/login", req.url));
   }
 
   // API rate limiting

@@ -62,7 +62,7 @@ export default function SubmitStackPage() {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="bg-white backdrop-blur-xl border border-green-500/20 rounded-3xl p-12 shadow-2xl"
+                        className="bg-card backdrop-blur-xl border border-green-500/20 rounded-3xl p-12 shadow-2xl"
                     >
                         <div className="inline-flex p-4 rounded-full bg-green-500/10 mb-6">
                             <CheckCircle2 className="h-12 w-12 text-green-500" />
@@ -102,7 +102,7 @@ export default function SubmitStackPage() {
                     </p>
                 </motion.div>
 
-                <Card className="p-8 bg-white backdrop-blur-sm border-border/50">
+                <Card className="p-8 bg-card backdrop-blur-sm border-border/50">
                     <form onSubmit={handleSubmit} className="space-y-8">
 
                         {/* Stack Name */}
