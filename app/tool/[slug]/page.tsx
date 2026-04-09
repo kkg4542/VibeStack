@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getToolBySlug, getTools } from "@/lib/tools-db";
+import { ToolData } from "@/lib/tool-types";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Check, ArrowLeft, Star, Heart, Scale, Sparkles, TrendingUp, Target, Zap, ShieldCheck } from "lucide-react";
@@ -68,8 +69,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ToolPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    let tool: any;
-    let allTools: any[] = [];
+    let tool: ToolData | null = null;
+    let allTools: ToolData[] = [];
     try {
         tool = await getToolBySlug(slug);
     } catch (e) {
