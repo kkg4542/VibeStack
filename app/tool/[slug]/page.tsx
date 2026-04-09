@@ -68,10 +68,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ToolPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    
-    let tool;
-    let allTools;
-    
+    let tool: any;
+    let allTools: any[] = [];
     try {
         tool = await getToolBySlug(slug);
     } catch (e) {
