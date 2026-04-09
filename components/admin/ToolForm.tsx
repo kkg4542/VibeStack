@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import Link from "next/link";
 
@@ -116,7 +115,13 @@ export function ToolForm({ tool }: { tool?: ToolLike }) {
             </div>
             
             <div className="flex items-center space-x-2 md:col-span-2 pt-2">
-              <Checkbox id="isFeatured" name="isFeatured" defaultChecked={tool?.isFeatured} />
+              <input 
+                type="checkbox" 
+                id="isFeatured" 
+                name="isFeatured" 
+                defaultChecked={tool?.isFeatured} 
+                className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+              />
               <Label htmlFor="isFeatured" className="cursor-pointer">Featured Tool</Label>
             </div>
           </div>
