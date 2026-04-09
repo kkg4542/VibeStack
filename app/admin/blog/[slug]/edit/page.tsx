@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 
-export default async function EditBlogPage({ params }: { params: { slug: string } }) {
+export default async function EditBlogPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const post = await prisma.blogPost.findUnique({
-    where: { slug: params.slug },
+    where: { slug },
   });
 
   if (!post) {

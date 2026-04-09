@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 
-export default async function EditToolPage({ params }: { params: { slug: string } }) {
+export default async function EditToolPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const tool = await prisma.tool.findUnique({
-    where: { slug: params.slug },
+    where: { slug },
   });
 
   if (!tool) {

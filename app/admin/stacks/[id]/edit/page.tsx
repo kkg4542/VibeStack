@@ -5,13 +5,14 @@ import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 
-export default async function EditStackPage({ params }: { params: { id: string } }) {
+export default async function EditStackPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   // Try finding by id or idField since the route uses [id] but link passes idField
   const stack = await prisma.stack.findFirst({
     where: {
       OR: [
-        { id: params.id },
-        { idField: params.id }
+        { id },
+        { idField: id }
       ]
     },
     include: {
