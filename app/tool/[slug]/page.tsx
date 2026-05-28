@@ -89,8 +89,70 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
         allTools = [];
     }
 
+    // Structured data for Google rich results.
+    // SoftwareApplication: enables the tool to appear in Google's app/software cards.
+    // BreadcrumbList: shows breadcrumb trail in search results.
+    // We deliberately omit AggregateRating until we have real review counts —
+    // emitting fake/single-review ratings violates Google's structured data policy.
+    const canonicalUrl = `https://usevibestack.com/tool/${tool.slug}`;
+    const ogImage = `https://usevibestack.com/api/og?title=${encodeURIComponent(tool.title)}`;
+    const isFree = tool.pricing === "Free" || tool.pricing === "Freemium";
+
+    const softwareJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        name: tool.title,
+        description: tool.description,
+        applicationCategory:
+            tool.category === "Coding" ? "DeveloperApplication" : "BusinessApplication",
+        operatingSystem: "Web",
+        url: canonicalUrl,
+        image: ogImage,
+        sameAs: [tool.websiteUrl],
+        offers: {
+            "@type": "Offer",
+            price: isFree ? "0" : undefined,
+            priceCurrency: "USD",
+            availability: "https://schema.org/InStock",
+            url: tool.affiliateUrl || tool.websiteUrl,
+        },
+    };
+
+    const breadcrumbJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+            {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://usevibestack.com",
+            },
+            {
+                "@type": "ListItem",
+                position: 2,
+                name: "Tools",
+                item: "https://usevibestack.com/tools",
+            },
+            {
+                "@type": "ListItem",
+                position: 3,
+                name: tool.title,
+                item: canonicalUrl,
+            },
+        ],
+    };
+
     return (
         <PageBackground {...BackgroundPresets.content}>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+            />
             <div className="container max-w-6xl mx-auto px-4">
                 {/* Back Link */}
                 <MotionDiv

@@ -28,6 +28,7 @@ const navItems = [
     { href: "/build", label: "Find Stack", icon: Wand2 },
     { href: "/tools", label: "Tools", icon: Search },
     { href: "/blog", label: "Blog", icon: FileText },
+    { href: "/pricing", label: "Pricing", icon: Sparkles },
 ];
 
 export function Navbar() {
@@ -74,6 +75,15 @@ export function Navbar() {
                                     }`}
                             >
                                 Blog
+                            </Link>
+                            <Link
+                                id="nav-link-pricing"
+                                href="/pricing"
+                                aria-current={pathname === '/pricing' ? 'page' : undefined}
+                                className={`text-sm font-medium transition-colors hover:text-foreground ${pathname === '/pricing' ? 'text-foreground' : 'text-muted-foreground'
+                                    }`}
+                            >
+                                Pricing
                             </Link>
                             <Link
                                 id="nav-link-faq"

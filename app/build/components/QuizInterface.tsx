@@ -19,6 +19,7 @@ import { getToolIcon } from "@/components/icons/tool-icons";
 import { cn } from "@/lib/utils";
 import { designSystem } from "@/lib/design-system";
 import type { Tool } from "@prisma/client";
+import { QuizLeadCapture } from "@/components/landing/QuizLeadCapture";
 
 export type StackRecommendation = {
   name: string;
@@ -478,6 +479,13 @@ function StackRecommendationResult({
             </div>
           </CardContent>
         </Card>
+
+        {/* Lead capture — fires right after the user sees the "why" */}
+        <QuizLeadCapture
+          stackName={stack.name}
+          stackPrice={stack.totalPrice}
+          toolSlugs={stack.tools}
+        />
 
         {/* Tools Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
