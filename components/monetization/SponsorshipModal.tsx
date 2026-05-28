@@ -9,7 +9,12 @@ import { SponsorshipPlacements } from "@/lib/sponsorships";
 import { toast } from "sonner";
 import { SponsorshipPlanCard } from "./SponsorshipPlanCard";
 
-export function SponsorshipModal() {
+interface SponsorshipModalProps {
+    /** Custom trigger element. Defaults to the compact "Advertise with us" button. */
+    trigger?: React.ReactNode;
+}
+
+export function SponsorshipModal({ trigger }: SponsorshipModalProps = {}) {
     const [selectedPlan, setSelectedPlan] = useState<"Standard" | "Premium">("Premium");
     const [sponsorName, setSponsorName] = useState("");
     const [sponsorUrl, setSponsorUrl] = useState("");
@@ -76,10 +81,12 @@ export function SponsorshipModal() {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline" size="sm" className="hidden border-indigo-500/30 bg-indigo-500/5 text-indigo-400 hover:bg-indigo-500/10 hover:text-indigo-300 md:inline-flex">
-                    <Rocket className="mr-2 h-3.5 w-3.5" />
-                    Advertise with us
-                </Button>
+                {trigger ?? (
+                    <Button variant="outline" size="sm" className="hidden border-indigo-500/30 bg-indigo-500/5 text-indigo-400 hover:bg-indigo-500/10 hover:text-indigo-300 md:inline-flex">
+                        <Rocket className="mr-2 h-3.5 w-3.5" />
+                        Advertise with us
+                    </Button>
+                )}
             </DialogTrigger>
             <DialogContent className="sm:max-w-3xl bg-zinc-950 border-zinc-800 p-0 overflow-hidden gap-0">
                 <DialogHeader className="p-6 pb-2 text-center">

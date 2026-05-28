@@ -100,7 +100,7 @@ const TRACKS: Track[] = [
           "Do-follow backlink (SEO)",
           "Permanent listing while active",
         ],
-        cta: { label: "Become a sponsor", href: "/consulting#sponsor" },
+        cta: { label: "Become a sponsor", href: "/sponsor" },
       },
       {
         name: "Premium Sponsor",
@@ -113,7 +113,7 @@ const TRACKS: Track[] = [
           "Social media shoutout",
           "Priority support",
         ],
-        cta: { label: "Go premium sponsor", href: "/consulting#sponsor" },
+        cta: { label: "Go premium sponsor", href: "/sponsor" },
         highlight: true,
       },
     ],
