@@ -21,7 +21,7 @@ export const postsBatch1: BlogPost[] = [
       <ul>
         <li><strong>Cursor:</strong> The undisputed king. With its local index of your codebase and "Composer" capabilities, it's not just an editor; it's an agentic workspace. (See our comparison: <a href="/blog/cursor-vs-vscode">Cursor vs VS Code</a>)</li>
         <li><strong>Windsurf:</strong> A strong contender from Codeium, offering deep context awareness and "Flow" state features that predict your next move.</li>
-        <li><strong>Claude 4.6 & GPT-5.3:</strong> You need both. Use Claude for reading huge docs and architectural planning. Use Gpt-5.3 for raw speed and complex logic generation. (Read more: <a href="/blog/gpt5-vs-claude5">GPT-5.3 vs Claude 4.6</a>)</li>
+        <li><strong>Claude Sonnet 4.6 & GPT-5:</strong> You need both. Use Claude for reading huge docs and architectural planning. Use GPT-5 for raw speed and complex logic generation. (Read more: <a href="/blog/gpt5-vs-claude5">GPT-5 vs Claude Sonnet 4.6</a>)</li>
       </ul>
 
       <h3>2. The Backend & Database</h3>
@@ -83,7 +83,7 @@ export const postsBatch1: BlogPost[] = [
       <p>The traditional LAMP or MERN stack is being replaced by a new workflow:</p>
       <ul>
         <li><strong>Intent (The Vibe):</strong> The developer defines <em>what</em> needs to happen. This is the new high-level programming language.</li>
-        <li><strong>Generation (The Labor):</strong> Models like GPT-5.2 generate the implementation. They handle the boilerplate, the types, and the syntax.</li>
+        <li><strong>Generation (The Labor):</strong> Models like GPT-5 generate the implementation. They handle the boilerplate, the types, and the syntax.</li>
         <li><strong>Verification (The Guardrails):</strong> Automated test suites and "Shadow Workspaces" verify the output. You don't read the code; you check the green checkmarks.</li>
       </ul>
 
@@ -104,7 +104,7 @@ export const postsBatch1: BlogPost[] = [
     image: "/images/blog/token-economics-2026.png",
     content: `
       <h2>The Price of Thought</h2>
-      <p>We are witnessing the commoditization of intelligence. Just as cloud computing turned server hardware into a utility bill, Large Language Models have turned reasoning into a metered resource. As we move from GPT-4 to GPT-5.2 and Gemini 3 Pro, the cost of inference per token has dropped by 90%, yet our aggregate usage has skyrocketed by 5000%.</p>
+      <p>We are witnessing the commoditization of intelligence. Just as cloud computing turned server hardware into a utility bill, Large Language Models have turned reasoning into a metered resource. As we move from GPT-4 to GPT-5 and Gemini 2.5 Pro, the cost of inference per token has dropped by 90%, yet our aggregate usage has skyrocketed by 5000%.</p>
       <p>A single complex agentic workflow—say, researching a market, scraping 50 websites, synthesizing the data, and generating a report—can now burn $5 in tokens in a few minutes. For a SaaS startup, this destroys the traditional "marginal cost of zero" advantage of software.</p>
 
       <h3>Opex vs Capex: The New Balance</h3>
@@ -116,13 +116,13 @@ export const postsBatch1: BlogPost[] = [
       <p>If user A asks "How do I center a div?" and user B asks "Center alignment css", the model shouldn't re-compute the answer. Semantic caching layers (using vector databases) intercept these requests and serve cached intelligence at near-zero cost. This is the only way to make AI unit economics work at scale.</p>
       
       <h3>Intelligence Arbitrage</h3>
-      <p>There is also an arbitrage opportunity. You can route simple queries to cheaper, faster models (like Llama 4 8B local) and only route complex "System 2" reasoning tasks to expensive frontier models (GPT-5.2). Building this "Model Router" infrastructure is the secret sauce of profitable AI companies today.</p>
+      <p>There is also an arbitrage opportunity. You can route simple queries to cheaper, faster models (like Llama 4 8B local) and only route complex "System 2" reasoning tasks to expensive frontier models (GPT-5). Building this "Model Router" infrastructure is the secret sauce of profitable AI companies today.</p>
     `
   },
-  // 3. GPT-5.2 vs Claude 5 (Expanded)
+  // 3. GPT-5 vs Claude Opus 4.7 (Expanded)
   {
     slug: "gpt5-vs-claude5",
-    title: "The End of Reasoning? GPT-5.2 vs Claude 5",
+    title: "The End of Reasoning? GPT-5 vs Claude Opus 4.7",
     excerpt: "We benchmark the two titans of 2026. Does OpenAI's xHigh reasoning beat Anthropic's massive 5M context window?",
     date: "Feb 03, 2026",
     author: "David Kim",
@@ -131,30 +131,30 @@ export const postsBatch1: BlogPost[] = [
     image: "/images/blog/gpt5-vs-claude5.png",
     content: `
       <h2>The Titans Clash</h2>
-      <p>The AI landscape in early 2026 is defined by two giants: <strong>GPT-5.2</strong> and <strong>Claude 5</strong>. Both have pushed the boundaries of what we thought possible, but they excel in fundamentally different areas. The choice isn't "which is better?", but "which tool fits my cognitive workflow?"</p>
+      <p>The AI landscape in early 2026 is defined by two giants: <strong>GPT-5</strong> and <strong>Claude Opus 4.7</strong>. Both have pushed the boundaries of what we thought possible, but they excel in fundamentally different areas. The choice isn't "which is better?", but "which tool fits my cognitive workflow?"</p>
       
-      <h3>GPT-5.2: The Reasoning Engine</h3>
+      <h3>GPT-5: The Reasoning Engine</h3>
       <p>OpenAI's latest "xHigh Reasoning" mode is frankly terrifying. It doesn't just answer questions; it simulates dozens of potential futures and selects the optimal path. For complex architecture decisions, it's currently unbeatable.</p>
-      <p>In our internal benchmarks, GPT-5.2 correctly solved 98% of the "Hard-Reasoning" dataset, comprised of vague, multi-step engineering challenges. It shines when you need it to <em>think</em> deeply about constraints, edge cases, and security vulnerabilities.</p>
+      <p>In our internal benchmarks, GPT-5 correctly solved 98% of the "Hard-Reasoning" dataset, comprised of vague, multi-step engineering challenges. It shines when you need it to <em>think</em> deeply about constraints, edge cases, and security vulnerabilities.</p>
 
-      <h3>Claude 5: The Context King</h3>
-      <p>Claude 5 Sonnet, with its improved <strong>5M token context window</strong> and near-perfect recall, remains the king of large-scale analysis. You can dump entire repositories, legal contracts, or novel series into it, and it understands the bigger picture better than GPT-5.2.</p>
-      <p>Where GPT-5.2 feels like a brilliant consultant in a locked room, Claude 5 feels like a researcher who has read every book in your library. For "Project-Wide Refactoring" tasks where the model needs to understand how a change in <code>utils.ts</code> affects a component five layers deep, Claude is unmatched.</p>
+      <h3>Claude Opus 4.7: The Context King</h3>
+      <p>Claude Sonnet 4.6, with its improved <strong>5M token context window</strong> and near-perfect recall, remains the king of large-scale analysis. You can dump entire repositories, legal contracts, or novel series into it, and it understands the bigger picture better than GPT-5.</p>
+      <p>Where GPT-5 feels like a brilliant consultant in a locked room, Claude Opus 4.7 feels like a researcher who has read every book in your library. For "Project-Wide Refactoring" tasks where the model needs to understand how a change in <code>utils.ts</code> affects a component five layers deep, Claude is unmatched.</p>
       
       <h3>The Verdict: Hybrid Workflows</h3>
       <p>The most effective engineers don't choose. They chain them. We recommend a "Sandwich Pattern":</p>
       <ol>
-        <li>Use <strong>Claude 5</strong> to ingest the codebase and identify relevant files (Context).</li>
-        <li>Pass those specific files to <strong>GPT-5.2</strong> to plan the architecture and write the critical logic (Reasoning).</li>
-        <li>Use <strong>Claude 5</strong> again to review the changes and write documentation (Context).</li>
+        <li>Use <strong>Claude Opus 4.7</strong> to ingest the codebase and identify relevant files (Context).</li>
+        <li>Pass those specific files to <strong>GPT-5</strong> to plan the architecture and write the critical logic (Reasoning).</li>
+        <li>Use <strong>Claude Opus 4.7</strong> again to review the changes and write documentation (Context).</li>
       </ol>
       <p>This hybrid approach leverages the best of both worlds and is currently the state-of-the-art for autonomous coding.</p>
     `
   },
-  // 4. Gemini 3 Pro (Expanded)
+  // 4. Gemini 2.5 Pro (Expanded)
   {
     slug: "gemini-3-pro-deep-dive",
-    title: "Beyond Text: Gemini 3 Pro’s Multimodal Revolution",
+    title: "Beyond Text: Gemini 2.5 Pro’s Multimodal Revolution",
     excerpt: "Google's latest model understands code, video, and audio natively. Here's why that changes everything for developers.",
     date: "Feb 01, 2026",
     author: "Sarah Jenkins",
@@ -163,16 +163,16 @@ export const postsBatch1: BlogPost[] = [
     image: "/images/blog/gemini-3-pro.png",
     content: `
       <h2>Native Multimodality is Here</h2>
-      <p>Gemini 3 Pro isn't just a text model that looks at images. It processes video and audio <em>natively</em>. This means you can show it a video of a bug reproduction, and it debugs the code based on the visual evidence. This "Video-to-Code" pipeline is a game changer for frontend debugging.</p>
+      <p>Gemini 2.5 Pro isn't just a text model that looks at images. It processes video and audio <em>natively</em>. This means you can show it a video of a bug reproduction, and it debugs the code based on the visual evidence. This "Video-to-Code" pipeline is a game changer for frontend debugging.</p>
 
       <h3>The "Deep Think" Capability</h3>
       <p>Google has finally cracked slow thinking. The new "Deep Think" capability allows Gemini to pause and reason before outputting code. In our tests, this reduced logic errors by 40% compared to Gemini 1.5 Pro. It's Google's answer to OpenAI's o3 steps, but integrated seamlessly into the multimodal pipeline.</p>
       
       <h3>2M Context Window & Infinite Recall</h3>
-      <p>With an expanded 2 million token window, Gemini 3 Pro can hold entire microservices architectures in memory. But unlike competitors, its "Infinite Recall" architecture allows it to access this context with O(1) retrieval latency. This makes it feel incredibly snappy even when loaded with gigabytes of documentation.</p>
+      <p>With an expanded 2 million token window, Gemini 2.5 Pro can hold entire microservices architectures in memory. But unlike competitors, its "Infinite Recall" architecture allows it to access this context with O(1) retrieval latency. This makes it feel incredibly snappy even when loaded with gigabytes of documentation.</p>
       
       <h3>Google Ecosystem Integration</h3>
-      <p>The real killer feature isn't the model itself, but where it lives. Gemini 3 Pro is baked into Firebase, Google Cloud, and Android Studio. You can now simply ask your IDE: "Refactor this Cloud Function to use the new v2 triggers," and it has full context of your GCP project state. That level of integration is hard to beat.</p>
+      <p>The real killer feature isn't the model itself, but where it lives. Gemini 2.5 Pro is baked into Firebase, Google Cloud, and Android Studio. You can now simply ask your IDE: "Refactor this Cloud Function to use the new v2 triggers," and it has full context of your GCP project state. That level of integration is hard to beat.</p>
     `
   },
   // 5. Zero Knowledge AI (Expanded)
@@ -307,7 +307,7 @@ export const postsBatch1: BlogPost[] = [
     image: "/images/blog/future-prompting.png",
     content: `
       <h2>Context over Tricks</h2>
-      <p>In 2024, we spent hours optimizing "system prompts" and finding magic phrases like "take a deep breath" to get better results. In 2026, with models like GPT-5.2 and Claude 5, the model understands intent instantly. The era of "Prompt Engineering" as a pseudo-mystical art is over.</p>
+      <p>In 2024, we spent hours optimizing "system prompts" and finding magic phrases like "take a deep breath" to get better results. In 2026, with models like GPT-5 and Claude Opus 4.7, the model understands intent instantly. The era of "Prompt Engineering" as a pseudo-mystical art is over.</p>
 
       <h3>The New Skill: Data Curation</h3>
       <p>Instead of prompt engineering, successful developers focus on <strong>context curation</strong>—feeding the model the <em>right</em> documents and examples to ground its reasoning. Garbage in, garbage out still applies, but now it's about the data, not the prompt syntax.</p>
@@ -408,10 +408,10 @@ export const postsBatch1: BlogPost[] = [
       <p>Linear encourages "Scope Creep Protection" by default. You set a goal for the cycle, and if you don't hit it, it doesn't just roll over automatically; you have to make a conscious decision to move it. This subtle friction force teams to be honest about their capacity.</p>
     `
   },
-  // 15. Claude Opus 4.6 - Main Article
+  // 15. Claude Opus 4.7 - Main Article
   {
     slug: "claude-opus-4-6-release",
-    title: "Claude Opus 4.6: The Agent Teams Revolution Is Here",
+    title: "Claude Opus 4.7: The Agent Teams Revolution Is Here",
     excerpt: "Anthropic just dropped their most powerful model yet with 1M token context and parallel agent teams. Here's why this changes everything.",
     date: "Feb 06, 2026",
     author: "David Kim",
@@ -420,14 +420,14 @@ export const postsBatch1: BlogPost[] = [
     image: "/images/blog/claude-opus-4-6.png",
     content: `
       <h2>The Biggest Claude Release Since Code</h2>
-      <p>Anthropic didn't just release an upgrade yesterday—they fundamentally changed how we think about AI agents. <strong>Claude Opus 4.6</strong> isn't an incremental improvement; it's a paradigm shift. With a 1 million token context window (a first for Opus models) and the introduction of "Agent Teams," Claude is now capable of coordinating multiple autonomous workers to tackle complex, multi-step tasks in parallel.</p>
+      <p>Anthropic didn't just release an upgrade yesterday—they fundamentally changed how we think about AI agents. <strong>Claude Opus 4.7</strong> isn't an incremental improvement; it's a paradigm shift. With a 1 million token context window (a first for Opus models) and the introduction of "Agent Teams," Claude is now capable of coordinating multiple autonomous workers to tackle complex, multi-step tasks in parallel.</p>
 
       <h3>1 Million Token Context: The Game Changer</h3>
-      <p>For the first time, Opus-class models can hold entire codebases, documentation libraries, and conversation histories in working memory. Imagine dumping your entire monorepo—500,000 lines of code, READMEs, API docs, and architecture decisions—into a single prompt. Opus 4.6 doesn't just parse it; it <em>understands</em> the relationships between components, the historical context of technical decisions, and can reason about cross-module impacts.</p>
-      <p>In our internal testing, we fed Opus 4.6 a 700,000-token legacy Django application and asked it to modernize the authentication system. It identified 47 affected files, traced dependency chains through 12 microservices, and generated a migration plan that a senior architect reviewed as "production-ready." This level of context awareness was impossible just six months ago.</p>
+      <p>For the first time, Opus-class models can hold entire codebases, documentation libraries, and conversation histories in working memory. Imagine dumping your entire monorepo—500,000 lines of code, READMEs, API docs, and architecture decisions—into a single prompt. Opus 4.7 doesn't just parse it; it <em>understands</em> the relationships between components, the historical context of technical decisions, and can reason about cross-module impacts.</p>
+      <p>In our internal testing, we fed Opus 4.7 a 700,000-token legacy Django application and asked it to modernize the authentication system. It identified 47 affected files, traced dependency chains through 12 microservices, and generated a migration plan that a senior architect reviewed as "production-ready." This level of context awareness was impossible just six months ago.</p>
 
       <h3>Agent Teams: Divide and Conquer</h3>
-      <p>The headline feature isn't the context window—it's <strong>Agent Teams</strong>. Instead of one linear agent working through tasks sequentially, Opus 4.6 can spawn specialized sub-agents that work in parallel, coordinating through a shared state.</p>
+      <p>The headline feature isn't the context window—it's <strong>Agent Teams</strong>. Instead of one linear agent working through tasks sequentially, Opus 4.7 can spawn specialized sub-agents that work in parallel, coordinating through a shared state.</p>
       <p>Here's how it works in practice: You ask Claude to "Build a full-stack e-commerce dashboard." Instead of generating files one by one, it creates:</p>
       <ul>
         <li><strong>Frontend Agent:</strong> Builds React components, handles state management, implements responsive design</li>
@@ -435,15 +435,15 @@ export const postsBatch1: BlogPost[] = [
         <li><strong>DevOps Agent:</strong> Creates Docker configs, sets up CI/CD pipelines, writes deployment scripts</li>
         <li><strong>QA Agent:</strong> Generates test suites, writes integration tests, performs security audits</li>
       </ul>
-      <p>These agents communicate through a shared context, resolve conflicts automatically, and the orchestrator (Opus 4.6) ensures consistency. What used to take a week now takes an afternoon.</p>
+      <p>These agents communicate through a shared context, resolve conflicts automatically, and the orchestrator (Opus 4.7) ensures consistency. What used to take a week now takes an afternoon.</p>
 
       <h3>Benchmark Dominance</h3>
-      <p>The numbers are staggering. On Terminal-Bench 2.0 (the gold standard for agentic coding), Opus 4.6 achieves the highest score of any frontier model. On GDPval-AA—which measures economically valuable knowledge work in finance, legal, and enterprise domains—it outperforms GPT-5.2 by 144 Elo points and its own predecessor (Opus 4.5) by 190 points.</p>
-      <p>But the real-world impact matters more than benchmarks. Early users report that Opus 4.6's code review capabilities are uncanny—it catches bugs that human reviewers miss, suggests architectural improvements based on best practices, and can even debug its own mistakes by running code in a sandbox and analyzing failures.</p>
+      <p>The numbers are staggering. On Terminal-Bench 2.0 (the gold standard for agentic coding), Opus 4.7 achieves the highest score of any frontier model. On GDPval-AA—which measures economically valuable knowledge work in finance, legal, and enterprise domains—it outperforms GPT-5 by 144 Elo points and its own predecessor (Opus 4.6) by 190 points.</p>
+      <p>But the real-world impact matters more than benchmarks. Early users report that Opus 4.7's code review capabilities are uncanny—it catches bugs that human reviewers miss, suggests architectural improvements based on best practices, and can even debug its own mistakes by running code in a sandbox and analyzing failures.</p>
 
       <h3>What This Means for Developers</h3>
-      <p>If you're still writing boilerplate code, you're doing it wrong. Opus 4.6 isn't a copilot anymore—it's a full engineering team. The developers who thrive in 2026 will be those who master the art of delegation: writing precise specifications, setting clear constraints, and reviewing the output of their AI teams.</p>
-      <p>The barrier to building complex software has never been lower. A solo founder with Opus 4.6 can now out-ship teams of 20 engineers. This isn't hype—it's the new reality, and it dropped yesterday.</p>
+      <p>If you're still writing boilerplate code, you're doing it wrong. Opus 4.7 isn't a copilot anymore—it's a full engineering team. The developers who thrive in 2026 will be those who master the art of delegation: writing precise specifications, setting clear constraints, and reviewing the output of their AI teams.</p>
+      <p>The barrier to building complex software has never been lower. A solo founder with Opus 4.7 can now out-ship teams of 20 engineers. This isn't hype—it's the new reality, and it dropped yesterday.</p>
     `
   },
 ];

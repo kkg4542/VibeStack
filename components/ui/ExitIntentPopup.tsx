@@ -59,18 +59,23 @@ export function ExitIntentPopup({ toolSlug, toolName }: ExitIntentPopupProps) {
     if (!email || !email.includes("@")) return;
 
     try {
-      await fetch("/api/analytics/email-capture", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          email,
-          source: "exit_intent",
-          toolSlug: toolSlug || null,
-          metadata: toolName ? JSON.stringify({ toolName }) : null
-        })
-      });
+      await Promise.all([
+        fetch("/api/analytics/email-capture", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email,
+            source: "exit_intent",
+            toolSlug: toolSlug || null,
+            metadata: toolName ? JSON.stringify({ toolName }) : null
+          })
+        }),
+        fetch("/api/newsletter", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email })
+        }),
+      ]);
 
       setIsSubmitted(true);
     } catch (error) {

@@ -9,6 +9,7 @@ import { ToolData } from "@/lib/tool-types";
 import { ToolIconRenderer } from "@/components/tools/ToolIconRenderer";
 import { useActiveSponsorship } from "@/hooks/use-sponsorships";
 import { SponsorshipPlacements } from "@/lib/sponsorships";
+import { AffiliateLink } from "@/components/ui/AffiliateLink";
 
 interface FeaturedSpotlightProps {
     tool: ToolData;
@@ -64,13 +65,14 @@ export function FeaturedSpotlight({ tool }: FeaturedSpotlightProps) {
                                 <ArrowRight className="ml-2 h-5 w-5" />
                             </Link>
                         </Button>
-                        <Link
-                            href={activeTool.websiteUrl}
-                            target="_blank"
-                            className="text-sm font-medium text-muted-foreground hover:text-indigo-600 dark:hover:text-white transition-colors"
+                        <AffiliateLink
+                            url={activeTool.affiliateUrl || activeTool.websiteUrl}
+                            toolSlug={activeTool.slug}
+                            toolName={activeTool.title}
+                            variant="link"
                         >
                             Visit Official Site
-                        </Link>
+                        </AffiliateLink>
                     </div>
                 </div>
             </div>

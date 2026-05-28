@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { designSystem } from "@/lib/design-system";
+import { trackNewsletterSubscribe } from "@/lib/analytics";
 
 const benefits = [
   { icon: Sparkles, text: "Weekly AI tool discoveries" },
@@ -25,22 +26,40 @@ export function NewsletterSection() {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
+    if (!email || !email.includes("@")) {
+      setErrorMessage("Please enter a valid email address");
+      return;
+    }
 
     setIsSubmitting(true);
+    setErrorMessage("");
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
 
-    setIsSubmitting(false);
-    setIsSuccess(true);
-    setEmail("");
+      const data = await response.json();
 
-    // Reset success state after 3 seconds
-    setTimeout(() => setIsSuccess(false), 3000);
+      if (response.ok) {
+        trackNewsletterSubscribe(email);
+        setIsSuccess(true);
+        setEmail("");
+        setTimeout(() => setIsSuccess(false), 4000);
+      } else {
+        setErrorMessage(data.error || "Failed to subscribe. Please try again.");
+      }
+    } catch {
+      setErrorMessage("An error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -80,8 +99,8 @@ export function NewsletterSection() {
                   </span>
                 </h2>
                 <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-                  Join 5,000+ developers receiving weekly updates on new AI tools,
-                  stack recommendations, and exclusive deals.
+                  Weekly updates on new AI tools, stack recommendations, and
+                  exclusive deals — straight to your inbox.
                 </p>
               </div>
 
@@ -142,6 +161,11 @@ export function NewsletterSection() {
                     )}
                   </Button>
                 </div>
+                {errorMessage && (
+                  <p className="text-xs text-red-500 text-center mt-3" role="alert">
+                    {errorMessage}
+                  </p>
+                )}
                 <p className="text-xs text-muted-foreground text-center mt-3">
                   No spam, ever. Unsubscribe anytime.
                 </p>

@@ -10,16 +10,13 @@ import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
 import { designSystem } from "@/lib/design-system";
 
 const headlines = [
-  { text: "Find Your Perfect", highlight: "AI Stack" },
-  { text: "Build 10x Faster with", highlight: "Vibe Coding" },
-  { text: "Curated Tools for", highlight: "Modern Builders" },
-  { text: "Stop Searching.", highlight: "Start Building." },
+  { text: "Find Your AI Stack in", highlight: "60 Seconds" },
 ];
 
 const scrambleChars = "!@#$%^&*()_+-=[]{}|;:,.<>?";
 
 export function VibeHero() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const currentIndex = 0;
   const [displayText, setDisplayText] = useState(headlines[0].highlight);
   const [isScrambling, setIsScrambling] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -74,18 +71,8 @@ export function VibeHero() {
     return () => clearTimeout(timer);
   }, [scrambleText]);
 
-  // Rotate headlines
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => {
-        const nextIndex = (prev + 1) % headlines.length;
-        scrambleText(headlines[nextIndex].highlight);
-        return nextIndex;
-      });
-    }, 4000);
-
-    return () => clearInterval(timer);
-  }, [scrambleText]);
+  // Headlines no longer rotate — single fixed value prop for clarity.
+  // Initial scramble effect on mount is preserved above.
 
   const currentHeadline = headlines[currentIndex];
 
@@ -196,9 +183,9 @@ export function VibeHero() {
           transition={{ duration: 0.6, delay: 0.2, ease: elegantEase }}
           className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed"
         >
-          Stop searching for tools. Start using proven workflows.
+          Answer 5 questions. Get a hand-curated stack of AI tools
           <br className="hidden md:block" />
-          Curated AI stacks for developers, designers, and creators.
+          matched to your role, budget, and workflow — free.
         </m.p>
 
         {/* Terminal-style Command Input */}

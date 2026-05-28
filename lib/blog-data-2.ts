@@ -1,9 +1,9 @@
 import { BlogPost } from "./blog-types";
 export const postsBatch2: BlogPost[] = [
-  // 16. GPT-5.3 Codex vs Claude 4.6 Comparison
+  // 16. GPT-5 Codex vs Claude Sonnet 4.6 Comparison
   {
     slug: "gpt-5-3-codex-vs-claude-4-6",
-    title: "AI Wars: GPT-5.3 Codex vs Claude Opus 4.6",
+    title: "AI Wars: GPT-5 Codex vs Claude Opus 4.7",
     excerpt: "OpenAI and Anthropic released competing models on the same day. We tested both for 48 hours straight. Here's the winner.",
     date: "Feb 06, 2026",
     author: "Sarah Jenkins",
@@ -12,7 +12,7 @@ export const postsBatch2: BlogPost[] = [
     image: "/images/blog/gpt-vs-claude-2026.png",
     content: `
       <h2>The Same-Day Showdown</h2>
-      <p>February 5th, 2026 will be remembered as the day AI competition reached fever pitch. Within minutes of each other, OpenAI dropped <strong>GPT-5.3 Codex</strong> and Anthropic released <strong>Claude Opus 4.6</strong>. Both claim to be the ultimate coding model. Both promise agentic capabilities. Both can't be the best. So we locked ourselves in a room for 48 hours and tested them head-to-head on real-world tasks.</p>
+      <p>February 5th, 2026 will be remembered as the day AI competition reached fever pitch. Within minutes of each other, OpenAI dropped <strong>GPT-5 Codex</strong> and Anthropic released <strong>Claude Opus 4.7</strong>. Both claim to be the ultimate coding model. Both promise agentic capabilities. Both can't be the best. So we locked ourselves in a room for 48 hours and tested them head-to-head on real-world tasks.</p>
 
       <h3>The Test Suite</h3>
       <p>We designed a brutal gauntlet:</p>
@@ -24,17 +24,17 @@ export const postsBatch2: BlogPost[] = [
       </ul>
 
       <h3>Round 1: Raw Coding Speed</h3>
-      <p><strong>Winner: GPT-5.3 Codex</strong></p>
+      <p><strong>Winner: GPT-5 Codex</strong></p>
       <p>OpenAI's model is <em>fast</em>. Scary fast. It generated the entire Stripe integration—complete with tests, error handling, and documentation—in 8 minutes. Claude took 14 minutes. Codex seems optimized for velocity, spitting out code at 120 tokens/second versus Claude's 85.</p>
       <p>But speed isn't everything. When we reviewed the outputs, Codex had 3 critical bugs: missing idempotency keys, improper webhook signature verification, and a race condition in the database transaction. Claude's code compiled and passed all tests on the first run.</p>
 
       <h3>Round 2: Context Understanding</h3>
-      <p><strong>Winner: Claude Opus 4.6</strong> (by a mile)</p>
+      <p><strong>Winner: Claude Opus 4.7</strong> (by a mile)</p>
       <p>This is where Claude's 1M token window shines. When refactoring the legacy React app, Claude ingested all 50,000 lines, understood the custom webpack configuration, identified deprecated lifecycle methods, and mapped out a migration strategy that preserved business logic. It even caught edge cases in the authentication flow that the original developers had missed.</p>
-      <p>GPT-5.3 Codex hit its context limit halfway through. It had to work in chunks, losing the big picture. The resulting code worked but missed cross-cutting concerns—state management wasn't properly migrated, and several components lost their styling because Codex didn't see the global CSS dependencies.</p>
+      <p>GPT-5 Codex hit its context limit halfway through. It had to work in chunks, losing the big picture. The resulting code worked but missed cross-cutting concerns—state management wasn't properly migrated, and several components lost their styling because Codex didn't see the global CSS dependencies.</p>
 
       <h3>Round 3: Agentic Workflows</h3>
-      <p><strong>Winner: Claude Opus 4.6</strong></p>
+      <p><strong>Winner: Claude Opus 4.7</strong></p>
       <p>The collaborative whiteboard task required coordinating multiple technologies: WebRTC for peer connections, CRDTs for conflict resolution, canvas rendering, and a signaling server. Claude's Agent Teams feature split this into parallel workstreams:</p>
       <ul>
         <li>Frontend agent built the React canvas components</li>
@@ -42,16 +42,16 @@ export const postsBatch2: BlogPost[] = [
         <li>CRDT agent implemented the conflict resolution algorithm</li>
         <li>Integration agent wired everything together</li>
       </ul>
-      <p>Total time: 47 minutes. GPT-5.3 Codex, working sequentially, took 2 hours 18 minutes. More importantly, Claude's parallel agents caught a bug in the CRDT implementation that would have caused data loss in production.</p>
+      <p>Total time: 47 minutes. GPT-5 Codex, working sequentially, took 2 hours 18 minutes. More importantly, Claude's parallel agents caught a bug in the CRDT implementation that would have caused data loss in production.</p>
 
       <h3>Round 4: Debugging Subtle Issues</h3>
       <p><strong>Winner: Tie</strong></p>
       <p>Both models handled the Go race condition admirably. Codex identified the issue faster (3 minutes vs Claude's 7), but Claude provided a more thorough explanation of <em>why</em> the race occurred and suggested architectural changes to prevent similar issues. For a senior developer who just needs the fix, Codex wins. For a team that needs to learn from the mistake, Claude wins.</p>
 
       <h3>The Verdict</h3>
-      <p><strong>Choose GPT-5.3 Codex if:</strong> You need quick prototypes, fast iterations, and you're experienced enough to catch bugs. It's the better "typing assistant."</p>
-      <p><strong>Choose Claude Opus 4.6 if:</strong> You're building production systems, working with large codebases, or need complex tasks coordinated. It's the better "engineering partner."</p>
-      <p>For most serious development work in 2026, Claude Opus 4.6 is the clear winner. But the real power move? Use both. Let Codex draft the code, let Claude review and refactor it. That's the ultimate workflow.</p>
+      <p><strong>Choose GPT-5 Codex if:</strong> You need quick prototypes, fast iterations, and you're experienced enough to catch bugs. It's the better "typing assistant."</p>
+      <p><strong>Choose Claude Opus 4.7 if:</strong> You're building production systems, working with large codebases, or need complex tasks coordinated. It's the better "engineering partner."</p>
+      <p>For most serious development work in 2026, Claude Opus 4.7 is the clear winner. But the real power move? Use both. Let Codex draft the code, let Claude review and refactor it. That's the ultimate workflow.</p>
     `
   },
   // 17. Microsoft Maia 200
@@ -182,7 +182,7 @@ export const postsBatch2: BlogPost[] = [
       <p>Open source means you can fine-tune. A startup we work with fine-tuned Llama 4 on their 500,000 lines of proprietary code. The resulting model outperforms GPT-4 on their specific codebase because it learned their patterns, conventions, and internal libraries. You can't do this with closed APIs.</p>
 
       <h3>The New Normal</h3>
-      <p>In 2026, there's no reason to use closed-source models for 80% of tasks. The open source ecosystem has caught up. Use GPT-5.2 for the hardest reasoning tasks, but run Llama 4 locally for everything else. Your wallet—and your privacy—will thank you.</p>
+      <p>In 2026, there's no reason to use closed-source models for 80% of tasks. The open source ecosystem has caught up. Use GPT-5 for the hardest reasoning tasks, but run Llama 4 locally for everything else. Your wallet—and your privacy—will thank you.</p>
     `
   },
   // 20. AI Agent Marketplaces
@@ -243,7 +243,7 @@ export const postsBatch2: BlogPost[] = [
       </ul>
 
       <h3>The Developer Opportunity</h3>
-      <p>This is the biggest opportunity since the App Store. A single developer can build a specialized agent in a weekend using tools like LangChain, Vercel AI SDK, and Claude Opus 4.6. If it solves a real problem, it can generate $10K-$100K/month with no employees.</p>
+      <p>This is the biggest opportunity since the App Store. A single developer can build a specialized agent in a weekend using tools like LangChain, Vercel AI SDK, and Claude Opus 4.7. If it solves a real problem, it can generate $10K-$100K/month with no employees.</p>
       <p>The moat isn't technical—it's domain expertise. The best agents are built by people who deeply understand the problem space: ex-accountants building tax agents, ex-recruiters building hiring agents, ex-lawyers building contract review agents.</p>
 
       <h3>The Future</h3>
@@ -360,20 +360,20 @@ export const postsBatch2: BlogPost[] = [
       <p>우리의 카카오톡 대화 내용, 민감한 금융 정보, 사적인 사진 앨범을 분석할 때 이 데이터가 네트워크를 타고 밖으로 나가지 않는다는 것은 엄청난 보안 패러다임의 변화를 의미합니다. 로컬 AI는 기업 환경과 개인의 삶 모두에서 '해킹할 수 없는 지능'으로 자리 잡게 될 것입니다.</p>
     `
   },
-  // 26. GPT-5.5 Vision
+  // 26. GPT-5 Vision
   {
     slug: "gpt-5-5-vision-next-gen",
-    title: "GPT-5.5 Vision의 등장: 세상을 보는 AI의 새로운 기준",
-    excerpt: "단순히 이미지를 설명하는 것을 넘어 실시간으로 공간을 이해하고 코드로 변환하는 GPT-5.5 멀티모달 업데이트 리뷰.",
+    title: "GPT-5 Vision의 등장: 세상을 보는 AI의 새로운 기준",
+    excerpt: "단순히 이미지를 설명하는 것을 넘어 실시간으로 공간을 이해하고 코드로 변환하는 GPT-5 멀티모달 업데이트 리뷰.",
     date: "Apr 07, 2026",
     author: "David Kim",
     category: "News",
     readTime: "8 min read",
     image: "/images/blog/blog_gpt5_5.png",
-    tags: ["GPT-5.5", "Vision AI", "Multimodal"],
+    tags: ["GPT-5", "Vision AI", "Multimodal"],
     content: `
       <h2>Vision AI의 한계를 넘다</h2>
-      <p>최근 발표된 GPT-5.5 Vision 업데이트는 기존 멀티모달 AI의 한계를 완전히 부수었습니다. 사진 속에 숨겨진 공간의 기하학적 구조를 파악하고, 단 한 장의 사진으로 실시간 3D 환경을 렌더링 할 수 있는 능력을 갖췄습니다.</p>
+      <p>최근 발표된 GPT-5 Vision 업데이트는 기존 멀티모달 AI의 한계를 완전히 부수었습니다. 사진 속에 숨겨진 공간의 기하학적 구조를 파악하고, 단 한 장의 사진으로 실시간 3D 환경을 렌더링 할 수 있는 능력을 갖췄습니다.</p>
 
       <h3>개발자를 위한 시각적 디버깅</h3>
       <p>UI 레이아웃의 어긋난 픽셀이나 미묘하게 틀어진 flexbox 속성을 스크린샷만으로 정확히 짚어내며, 즉각적으로 수리된 코드를 반환합니다. <strong>'프론트엔드 시각 오류 해결의 구세주'</strong>라는 타이틀이 아깝지 않은 성능을 보여주고 있습니다.</p>
