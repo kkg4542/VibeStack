@@ -2,6 +2,7 @@ import { MetadataRoute } from "next";
 import { getTools } from "@/lib/tools-db";
 import { blogPosts } from "@/lib/blog";
 import { stacks } from "@/lib/stacks";
+import { BEST_CATEGORIES } from "@/lib/best-categories";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = "https://usevibestack.com";
@@ -50,5 +51,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.7,
     }));
 
-    return [...staticPages, ...toolPages, ...stackPages, ...blogPages];
+    // Programmatic "Best AI [Category] Tools" landing pages
+    const bestPages = BEST_CATEGORIES.map((c) => ({
+        url: `${baseUrl}/best/${c.slug}`,
+        lastModified: staticLastModified,
+        changeFrequency: "weekly" as const,
+        priority: 0.9,
+    }));
+
+    return [...staticPages, ...toolPages, ...stackPages, ...blogPages, ...bestPages];
 }
