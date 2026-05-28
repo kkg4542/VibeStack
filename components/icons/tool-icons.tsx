@@ -21,6 +21,15 @@ import {
   AiderIcon,
   WindsurfIcon,
   CopilotIcon,
+  ElevenLabsIcon,
+  DescriptIcon,
+  RunwayIcon,
+  MidjourneyIcon,
+  FramerIcon,
+  VercelIcon,
+  BoltIcon,
+  SoraIcon,
+  GalileoIcon,
 } from "@/components/icons/AiIcons";
 import { ComponentType } from "react";
 
@@ -49,6 +58,15 @@ const baseIconMap: Record<string, ToolIcon> = {
   cosine: CosineIcon,
   aider: AiderIcon,
   windsurf: WindsurfIcon,
+  elevenlabs: ElevenLabsIcon,
+  descript: DescriptIcon,
+  runway: RunwayIcon,
+  midjourney: MidjourneyIcon,
+  framer: FramerIcon,
+  vercel: VercelIcon,
+  bolt: BoltIcon,
+  sora: SoraIcon,
+  galileo: GalileoIcon,
 };
 
 // Aliases for common slug variations
@@ -63,6 +81,10 @@ const iconAliases: Record<string, string> = {
   "builder-io": "builder",
   "notion-ai": "notion",
   "replit-ai": "replit",
+  "bolt-new": "bolt",
+  "openai-sora": "sora",
+  "galileo-ai": "galileo",
+  "v0-by-vercel": "v0",
 };
 
 /**

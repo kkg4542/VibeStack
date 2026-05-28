@@ -402,3 +402,60 @@ export function ReflectIcon({ className }: { className?: string }) {
         </svg>
     );
 }
+
+// Official Midjourney sail/boat mark
+export function MidjourneyIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.369 17.787c-2.892.27-5.91 1.055-8.65 3.123 1.752-3.78 4.176-7.692 9.106-9.564.158-.06.207-.26.092-.385-1.586-1.717-5.39-2.225-7.584-2.135-.108-1.317-.524-2.81-1.318-3.92a.221.221 0 0 0-.385.063C12.69 6.34 12.39 8.32 12.5 10.06c-1.39.49-3.16 1.49-4.16 2.95a.221.221 0 0 0 .15.34c1.05.15 2.32.07 3.42-.2-.36 1.39-.4 3.14.04 4.6a.221.221 0 0 0 .39.06c.7-1.01 1.3-2.42 1.6-3.74 1.96 1.4 4.78 2.27 7.05 2.27.85 0 1.5-.06 1.74-.09a.221.221 0 0 0 .15-.37 6.93 6.93 0 0 0-.66-.43Z" />
+        </svg>
+    );
+}
+
+// Framer logo (triangular folds)
+export function FramerIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 0h16v8h-8zM4 8h8l8 8H4zM4 16h8v8z" />
+        </svg>
+    );
+}
+
+// Vercel triangle
+export function VercelIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 1.608 24 22.392H0Z" />
+        </svg>
+    );
+}
+
+// Bolt lightning mark
+export function BoltIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 2 3 14h7l-1 8 10-12h-7z" />
+        </svg>
+    );
+}
+
+// Sora — abstract aperture/spiral for OpenAI's video model
+export function SoraIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 3a9 9 0 0 1 0 18M12 3a9 9 0 0 0 0 18" strokeWidth="1.5" />
+            <path d="M3 12h18" strokeWidth="1.5" />
+        </svg>
+    );
+}
+
+// Galileo — generative UI sparkle/frame
+export function GalileoIcon({ className }: { className?: string }) {
+    return (
+        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2l2.4 5.6L20 10l-5.6 2.4L12 18l-2.4-5.6L4 10l5.6-2.4z" />
+            <circle cx="18.5" cy="18.5" r="2" />
+        </svg>
+    );
+}
