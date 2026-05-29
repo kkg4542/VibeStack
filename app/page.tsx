@@ -1,4 +1,5 @@
 import { getVerifiedTestimonials, getFeaturedStacks } from "@/lib/data/stacks";
+import { getTools } from "@/lib/tools-db";
 import { VibeHero } from "@/components/landing/VibeHero";
 import { ToolCategories } from "@/components/landing/ToolCategories";
 import { PopularTools } from "@/components/landing/PopularTools";
@@ -14,10 +15,26 @@ const ExitIntentPopup = dynamic(() => import("@/components/ui/ExitIntentPopup").
 
 export default async function Home() {
   // Fetch data on the server
-  const [testimonials, featuredStacks] = await Promise.all([
+  const [testimonials, featuredStacks, allTools] = await Promise.all([
     getVerifiedTestimonials(6),
     getFeaturedStacks(6),
+    getTools(),
   ]);
+
+  // Real per-category tool counts (category id → count) for the category cards.
+  const categoryIdByName: Record<string, string> = {
+    Coding: "coding",
+    Design: "design",
+    Assistance: "assistance",
+    Productivity: "productivity",
+    Management: "management",
+    Other: "other",
+  };
+  const categoryCounts = allTools.reduce<Record<string, number>>((acc, t) => {
+    const id = categoryIdByName[t.category];
+    if (id) acc[id] = (acc[id] || 0) + 1;
+    return acc;
+  }, {});
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -43,7 +60,7 @@ export default async function Home() {
       <VibeHero />
       
       {/* Tool Categories - Browse by category */}
-      <ToolCategories />
+      <ToolCategories counts={categoryCounts} />
       
       {/* Popular Tools - Trending AI tools */}
       <PopularTools />

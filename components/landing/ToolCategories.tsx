@@ -24,64 +24,69 @@ const categories = [
     name: "AI Coding",
     description: "Code faster with AI-powered IDEs and assistants",
     icon: Code2,
-    count: 24,
     color: "from-vibe-electric to-vibe-cyan",
     bgColor: "bg-vibe-electric/10",
-    tools: ["Cursor", "GitHub Copilot", "Claude", "Windsurf"],
+    iconColor: "text-vibe-electric",
+    tools: ["Cursor", "GitHub Copilot", "Windsurf", "Bolt.new"],
   },
   {
     id: "design",
     name: "AI Design",
     description: "Create stunning visuals with generative AI",
     icon: Palette,
-    count: 12,
     color: "from-vibe-neon to-vibe-purple",
     bgColor: "bg-vibe-neon/10",
-    tools: ["Midjourney", "DALL-E", "Figma AI", "Canva"],
+    iconColor: "text-vibe-neon",
+    tools: ["Midjourney", "v0", "Framer", "Runway"],
   },
   {
     id: "assistance",
     name: "AI Assistants",
     description: "Supercharge your workflow with smart helpers",
     icon: MessageSquare,
-    count: 18,
     color: "from-emerald-400 to-emerald-600",
     bgColor: "bg-emerald-500/10",
-    tools: ["ChatGPT 5.3", "Claude", "Gemini 3.1 Pro", "Perplexity"],
+    iconColor: "text-emerald-400",
+    tools: ["ChatGPT", "Claude", "Gemini", "Perplexity"],
   },
   {
     id: "productivity",
     name: "Productivity",
     description: "Automate tasks and streamline your process",
     icon: Zap,
-    count: 15,
     color: "from-amber-400 to-orange-500",
     bgColor: "bg-amber-500/10",
-    tools: ["Notion", "Mem", "Otter", "Grammarly"],
+    iconColor: "text-amber-400",
+    tools: ["Notion AI"],
   },
   {
     id: "management",
     name: "Management",
     description: "Project management with AI-powered insights",
     icon: Briefcase,
-    count: 8,
     color: "from-blue-400 to-vibe-purple",
     bgColor: "bg-blue-500/10",
-    tools: ["Linear", "ClickUp", "Asana", "Trello"],
+    iconColor: "text-blue-400",
+    tools: ["Linear"],
   },
   {
     id: "other",
     name: "More Tools",
     description: "Explore specialized AI tools for every need",
     icon: Lightbulb,
-    count: 32,
     color: "from-pink-400 to-rose-600",
     bgColor: "bg-pink-500/10",
-    tools: ["ElevenLabs", "Runway", "Descript", "Hugging Face"],
+    iconColor: "text-pink-400",
+    tools: ["ElevenLabs", "Descript", "Vercel"],
   },
 ];
 
-export function ToolCategories() {
+interface ToolCategoriesProps {
+  /** Real per-category tool counts from the DB, keyed by category id. */
+  counts?: Record<string, number>;
+}
+
+export function ToolCategories({ counts }: ToolCategoriesProps = {}) {
   return (
     <Section spacing="large" className="relative overflow-hidden">
       {/* Background */}
@@ -145,11 +150,13 @@ export function ToolCategories() {
                       {/* Icon & Count */}
                       <div className="flex items-start justify-between mb-4">
                         <div className={`p-3 rounded-xl ${category.bgColor}`}>
-                          <Icon className={`w-6 h-6 text-transparent bg-clip-text bg-linear-to-br ${category.color}`} />
+                          <Icon className={`w-6 h-6 ${category.iconColor}`} />
                         </div>
-                        <span className="text-xs text-muted-foreground bg-background/50 px-2 py-1 rounded-full">
-                          {category.count} tools
-                        </span>
+                        {counts?.[category.id] ? (
+                          <span className="text-xs text-muted-foreground bg-background/50 px-2 py-1 rounded-full">
+                            {counts[category.id]} {counts[category.id] === 1 ? "tool" : "tools"}
+                          </span>
+                        ) : null}
                       </div>
 
                       {/* Title & Description */}

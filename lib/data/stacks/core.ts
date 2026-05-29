@@ -95,13 +95,8 @@ export const getFeaturedStacks = unstable_cache(
           category: st.tool.category,
           pricing: st.tool.pricing,
         })),
-        metrics: {
-          views: 1200,
-          saves: 45,
-          avgRating: 4.5,
-          reviewCount: 23,
-          popularityScore: 85,
-        },
+        // No fabricated engagement — the card hides metrics when null.
+        metrics: null,
         curator: null,
       }));
     }

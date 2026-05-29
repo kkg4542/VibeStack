@@ -7,7 +7,7 @@ const steps = [
     {
         icon: Search,
         title: "Explore",
-        description: "Browse 100+ curated AI tools across all categories",
+        description: "Browse hand-curated AI tools across every category",
         color: "text-blue-500"
     },
     {
