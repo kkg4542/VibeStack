@@ -36,7 +36,7 @@ import { pricingPlans, criteria } from "./data";
 export default function SubmitToolPage() {
     const searchParams = useSearchParams();
     const { csrfFetch } = useCsrfFetch();
-    const [selectedPlan, setSelectedPlan] = useState<string>("priority");
+    const [selectedPlan, setSelectedPlan] = useState<string>("free");
     const [formData, setFormData] = useState({
         toolName: "",
         description: "",

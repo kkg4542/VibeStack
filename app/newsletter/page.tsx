@@ -21,63 +21,18 @@ import { toast } from "sonner";
 import { useCsrfFetch } from "@/hooks/useCsrfFetch";
 import { designSystem } from "@/lib/design-system";
 
-// Sample newsletter archive data
-const newsletterArchive = [
-    {
-        id: "feb-2026",
-        title: "February 2026: The Rise of AI Agents",
-        date: "February 1, 2026",
-        readTime: "5 min read",
-        description: "This month we explore the latest breakthrough in AI agents, featuring GPT-5.2's autonomous capabilities and the new wave of agent-first development tools.",
-        highlights: ["GPT-5.2 Agent Mode", "Claude 5 Sonnet", "10 New Tools Added"],
-        featured: true
-    },
-    {
-        id: "jan-2026",
-        title: "January 2026: AI Coding Wars",
-        date: "January 1, 2026",
-        readTime: "4 min read",
-        description: "Cursor vs Windsurf vs Cody - we break down the top AI code editors and help you choose the right one for your workflow.",
-        highlights: ["Cursor Review", "Windsurf Analysis", "Code Editor Comparison"],
-        featured: false
-    },
-    {
-        id: "dec-2025",
-        title: "December 2025: Year in Review",
-        date: "December 1, 2025",
-        readTime: "7 min read",
-        description: "Looking back at the biggest AI tool launches of 2025 and predicting what's coming in 2026. Plus our top picks for every category.",
-        highlights: ["2025 Highlights", "2026 Predictions", "Best of 2025 Awards"],
-        featured: false
-    },
-    {
-        id: "nov-2025",
-        title: "November 2025: Design Tools Revolution",
-        date: "November 1, 2025",
-        readTime: "4 min read",
-        description: "AI-powered design tools are changing how creatives work. From v0 to Midjourney v7, we cover the latest innovations.",
-        highlights: ["v0 Deep Dive", "Midjourney v7", "Design Tool Comparison"],
-        featured: false
-    },
-    {
-        id: "oct-2025",
-        title: "October 2025: Productivity Power-Ups",
-        date: "October 1, 2025",
-        readTime: "5 min read",
-        description: "Supercharge your workflow with these AI productivity tools. Notion AI, Mem, and Reflect compared head-to-head.",
-        highlights: ["Notion AI Review", "Mem Analysis", "Workflow Automation"],
-        featured: false
-    },
-    {
-        id: "sep-2025",
-        title: "September 2025: Getting Started with AI",
-        date: "September 1, 2025",
-        readTime: "6 min read",
-        description: "New to AI tools? This guide covers everything you need to know to get started, from ChatGPT basics to advanced prompting techniques.",
-        highlights: ["AI 101 Guide", "Prompt Engineering", "Tool Selection Tips"],
-        featured: false
-    }
-];
+// Newsletter archive — populated with real issues once we start sending.
+// (No fabricated back-issues.)
+interface NewsletterIssue {
+    id: string;
+    title: string;
+    date: string;
+    readTime: string;
+    description: string;
+    highlights: string[];
+    featured: boolean;
+}
+const newsletterArchive: NewsletterIssue[] = [];
 
 const stats = [
     { label: "Cadence", value: "Weekly", icon: Calendar },
@@ -326,19 +281,21 @@ export default function NewsletterPage() {
                     </div>
                 </m.div>
 
-                {/* Archive */}
-                <div>
-                    <div className="text-center mb-8">
-                        <h2 className="text-2xl font-bold mb-2">Newsletter Archive</h2>
-                        <p className="text-muted-foreground">Browse previous issues</p>
-                    </div>
+                {/* Archive — shown once we have real issues to display */}
+                {newsletterArchive.length > 0 && (
+                    <div>
+                        <div className="text-center mb-8">
+                            <h2 className="text-2xl font-bold mb-2">Newsletter Archive</h2>
+                            <p className="text-muted-foreground">Browse previous issues</p>
+                        </div>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {newsletterArchive.map((issue, index) => (
-                            <NewsletterCard key={issue.id} issue={issue} index={index} />
-                        ))}
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {newsletterArchive.map((issue, index) => (
+                                <NewsletterCard key={issue.id} issue={issue} index={index} />
+                            ))}
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
         </PageBackground>
     );

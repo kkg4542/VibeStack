@@ -6,9 +6,7 @@ import { Check, Rocket, Sparkles, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { SponsorshipPlacements } from "@/lib/sponsorships";
-import { toast } from "sonner";
 import { SponsorshipPlanCard } from "./SponsorshipPlanCard";
-import { useCsrfFetch } from "@/hooks/useCsrfFetch";
 
 interface SponsorshipModalProps {
     /** Custom trigger element. Defaults to the compact "Advertise with us" button. */
@@ -16,13 +14,11 @@ interface SponsorshipModalProps {
 }
 
 export function SponsorshipModal({ trigger }: SponsorshipModalProps = {}) {
-    const { csrfFetch } = useCsrfFetch();
     const [selectedPlan, setSelectedPlan] = useState<"Standard" | "Premium">("Premium");
     const [sponsorName, setSponsorName] = useState("");
     const [sponsorUrl, setSponsorUrl] = useState("");
     const [sponsorEmail, setSponsorEmail] = useState("");
     const [toolSlug, setToolSlug] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
 
     const plans = [
         {
@@ -56,27 +52,20 @@ export function SponsorshipModal({ trigger }: SponsorshipModalProps = {}) {
 
     const currentPlan = plans.find(p => p.name === selectedPlan) || plans[1];
 
-    const handleCheckout = async () => {
-        try {
-            setIsLoading(true);
-            const res = await csrfFetch("/api/sponsorships/checkout", {
-                method: "POST",
-                body: JSON.stringify({
-                    placement: currentPlan.placement,
-                    sponsorName,
-                    sponsorUrl,
-                    sponsorEmail,
-                    toolSlug,
-                }),
-            });
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error || "Failed to start checkout");
-            window.location.href = data.checkoutUrl;
-        } catch (error) {
-            toast.error(error instanceof Error ? error.message : "Checkout failed");
-        } finally {
-            setIsLoading(false);
-        }
+    // Contact-based for now (self-serve billing re-enabled once traffic
+    // justifies it). Opens a pre-filled email to our inbox.
+    const handleContact = () => {
+        const subject = `Sponsorship inquiry — ${currentPlan.name} (${currentPlan.price}/mo)`;
+        const body = [
+            `Plan: ${currentPlan.name} (${currentPlan.price}/mo)`,
+            `Company: ${sponsorName || "-"}`,
+            `Website: ${sponsorUrl || "-"}`,
+            `Tool to feature: ${toolSlug || "-"}`,
+            "",
+            "Tell us a bit about what you'd like to promote:",
+        ].join("\n");
+        window.location.href =
+            `mailto:hello@usevibestack.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     };
 
     return (
@@ -145,14 +134,14 @@ export function SponsorshipModal({ trigger }: SponsorshipModalProps = {}) {
                                 ? "bg-indigo-600 hover:bg-indigo-500 shadow-indigo-500/20"
                                 : "bg-blue-600 hover:bg-blue-500 shadow-blue-500/20"
                         )}
-                        onClick={handleCheckout}
-                        disabled={isLoading || !sponsorName || !sponsorUrl || !sponsorEmail || !toolSlug}
+                        onClick={handleContact}
+                        disabled={!sponsorName || !sponsorUrl || !sponsorEmail}
                     >
-                        {isLoading ? "Redirecting..." : `Proceed with ${currentPlan.name}`}
+                        {`Contact us about ${currentPlan.name}`}
                     </Button>
                     <p className="text-xs text-zinc-500 flex items-center justify-center gap-2">
                         <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-                        Secure monthly billing via Stripe. Cancel anytime.
+                        We&apos;ll reply within 1 business day with availability &amp; next steps.
                     </p>
                 </div>
             </DialogContent>

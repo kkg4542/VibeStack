@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowRight, Check, Megaphone, Rocket, Sparkles } from "lucide-react";
+import { ArrowRight, Check, Megaphone, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
@@ -51,34 +51,7 @@ const TRACKS: Track[] = [
           "Community reviews enabled",
         ],
         cta: { label: "Submit for free", href: "/submit-tool" },
-      },
-      {
-        name: "Priority",
-        price: "$49",
-        description: "Skip the queue + social shoutout.",
-        features: [
-          "Everything in Free",
-          "24–48 hour review",
-          "Twitter/X announcement",
-          "LinkedIn post",
-          "Priority support",
-        ],
-        cta: { label: "Submit with priority", href: "/submit-tool" },
         highlight: true,
-      },
-      {
-        name: "Premium",
-        price: "$149",
-        description: "Maximum visibility and promotion.",
-        features: [
-          "Everything in Priority",
-          "Featured badge",
-          "Homepage spotlight (48h)",
-          "Newsletter feature",
-          "Dedicated blog mention",
-          "1-week sidebar ad",
-        ],
-        cta: { label: "Go premium", href: "/submit-tool" },
       },
     ],
   },
@@ -100,7 +73,7 @@ const TRACKS: Track[] = [
           "Do-follow backlink (SEO)",
           "Permanent listing while active",
         ],
-        cta: { label: "Become a sponsor", href: "/sponsor" },
+        cta: { label: "Contact us", href: "/sponsor" },
       },
       {
         name: "Premium Sponsor",
@@ -113,56 +86,8 @@ const TRACKS: Track[] = [
           "Social media shoutout",
           "Priority support",
         ],
-        cta: { label: "Go premium sponsor", href: "/sponsor" },
+        cta: { label: "Contact us", href: "/sponsor" },
         highlight: true,
-      },
-    ],
-  },
-  {
-    id: "consulting",
-    icon: Sparkles,
-    badge: "For Teams",
-    title: "Hire VibeStack to build it",
-    subtitle:
-      "Need a custom AI workflow, agent, or integration? We work with teams 1-on-1.",
-    plans: [
-      {
-        name: "AI Workflow Audit",
-        price: "$99",
-        description: "We map your dev process and identify 10x wins.",
-        features: [
-          "Codebase + workflow review",
-          "Agent integration plan",
-          "ROI estimate",
-          "1-hour review call",
-        ],
-        cta: { label: "Book audit", href: "/consulting" },
-      },
-      {
-        name: "Custom Agent Build",
-        price: "$199",
-        description: "Specialized agents on your private data.",
-        features: [
-          "Private LLM setup",
-          "Custom vector DB",
-          "Slack / Discord integration",
-          "30-day support",
-        ],
-        cta: { label: "Start a build", href: "/consulting" },
-        highlight: true,
-      },
-      {
-        name: "AI Strategy Retainer",
-        price: "$149",
-        period: "/mo",
-        description: "Ongoing partnership for AI-first teams.",
-        features: [
-          "Monthly strategy session",
-          "Tool selection guidance",
-          "Roadmap reviews",
-          "Async Slack support",
-        ],
-        cta: { label: "Become a partner", href: "/consulting" },
       },
     ],
   },

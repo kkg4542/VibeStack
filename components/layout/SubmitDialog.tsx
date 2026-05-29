@@ -13,38 +13,29 @@ import {
 import { Plus, Star, X } from "lucide-react";
 import { useState } from "react";
 import { SponsorshipPlacements } from "@/lib/sponsorships";
-import { toast } from "sonner";
-import { useCsrfFetch } from "@/hooks/useCsrfFetch";
 
 export function SubmitDialog() {
-    const { csrfFetch } = useCsrfFetch();
     const [sponsorName, setSponsorName] = useState("");
     const [sponsorUrl, setSponsorUrl] = useState("");
     const [sponsorEmail, setSponsorEmail] = useState("");
     const [toolSlug, setToolSlug] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
+    const isLoading = false;
 
+    // Contact-based for now — opens a pre-filled email instead of self-serve
+    // checkout (re-enabled once traffic justifies paid placements).
     const startCheckout = async (placement: string) => {
-        try {
-            setIsLoading(true);
-            const res = await csrfFetch("/api/sponsorships/checkout", {
-                method: "POST",
-                body: JSON.stringify({
-                    placement,
-                    sponsorName,
-                    sponsorUrl,
-                    sponsorEmail,
-                    toolSlug,
-                }),
-            });
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error || "Failed to start checkout");
-            window.location.href = data.checkoutUrl;
-        } catch (error) {
-            toast.error(error instanceof Error ? error.message : "Checkout failed");
-        } finally {
-            setIsLoading(false);
-        }
+        const label = placement === SponsorshipPlacements.featuredSpotlight ? "Featured Listing" : "Basic Listing";
+        const subject = `Advertising inquiry — ${label}`;
+        const body = [
+            `Plan: ${label}`,
+            `Company: ${sponsorName || "-"}`,
+            `Website: ${sponsorUrl || "-"}`,
+            `Tool to feature: ${toolSlug || "-"}`,
+            "",
+            "Tell us a bit about what you'd like to promote:",
+        ].join("\n");
+        window.location.href =
+            `mailto:hello@usevibestack.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     };
     return (
         <Dialog>
@@ -95,12 +86,12 @@ export function SubmitDialog() {
                                 variant="outline"
                                 className="w-full h-12 rounded-xl border-white/10 bg-white/5 text-white hover:bg-white/10 hover:border-white/20 transition-all font-medium"
                                 onClick={() => startCheckout(SponsorshipPlacements.sidebarAd)}
-                                disabled={isLoading || !sponsorName || !sponsorUrl || !sponsorEmail || !toolSlug}
+                                disabled={!sponsorName || !sponsorUrl || !sponsorEmail}
                             >
-                                {isLoading ? "Redirecting..." : "Get Started"}
+                                Contact us
                             </Button>
                             <p className="mt-3 text-center text-[10px] text-zinc-500 uppercase tracking-wider font-medium">
-                                Monthly billing via Stripe
+                                We reply within 1 business day
                             </p>
                         </div>
                     </div>
@@ -128,7 +119,7 @@ export function SubmitDialog() {
                             <ul className="space-y-3 pt-4">
                                 {[
                                     "⚡️ Instant 24h Approval",
-                                    "🔥 Pinned to Homepage (High Traffic)",
+                                    "🔥 Pinned to the homepage",
                                     "💌 Newsletter feature",
                                     "🔗 Do-follow SEO Backlink",
                                     "🎨 Custom Verified Badge"
@@ -145,12 +136,12 @@ export function SubmitDialog() {
                             <Button
                                 className="w-full h-12 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold shadow-lg shadow-indigo-500/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
                                 onClick={() => startCheckout(SponsorshipPlacements.featuredSpotlight)}
-                                disabled={isLoading || !sponsorName || !sponsorUrl || !sponsorEmail || !toolSlug}
+                                disabled={!sponsorName || !sponsorUrl || !sponsorEmail}
                             >
-                                {isLoading ? "Redirecting..." : "Get Featured Now"}
+                                Contact us to get featured
                             </Button>
                             <p className="mt-3 text-center text-[10px] text-indigo-300/40 uppercase tracking-wider font-medium">
-                                Monthly billing via Stripe
+                                We reply within 1 business day
                             </p>
                         </div>
                     </div>

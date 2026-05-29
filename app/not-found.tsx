@@ -304,7 +304,7 @@ export default function NotFound() {
                                     Advanced Search
                                 </Button>
                             </Link>
-                            <Link href="/consulting">
+                            <Link href="/about">
                                 <Button variant="ghost" className="rounded-full text-vibe-electric hover:text-indigo-300">
                                     Contact Support
                                     <ArrowLeft className="ml-2 h-4 w-4 rotate-180" />

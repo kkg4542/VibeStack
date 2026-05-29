@@ -1,59 +1,23 @@
 import { Zap, Shield, Star, Clock, ExternalLink } from "lucide-react";
 
+// Submissions are free for now. Paid placement is handled via the dedicated
+// /sponsor funnel (contact-based) rather than a self-serve submission tier.
 export const pricingPlans = [
     {
         id: "free",
         name: "Free Submission",
         price: "$0",
-        description: "Basic listing with standard review time",
+        description: "Get your AI tool reviewed and listed — no cost.",
         features: [
-            "Standard listing on VibeStack",
-            "1-2 week review process",
-            "Basic tool information",
-            "Community reviews enabled"
+            "Listing on VibeStack once approved",
+            "Basic tool information & description",
+            "Community reviews enabled",
+            "Eligible for our curated stacks"
         ],
         notIncluded: [
-            "Priority review",
-            "Featured placement",
-            "Social media promotion"
+            "Featured/homepage placement (see /sponsor)"
         ],
         cta: "Submit for Free",
-        popular: false
-    },
-    {
-        id: "priority",
-        name: "Priority Submission",
-        price: "$49",
-        description: "Fast-track review with social promotion",
-        features: [
-            "Everything in Free",
-            "24-48 hour review process",
-            "Twitter/X announcement",
-            "LinkedIn post",
-            "Priority support"
-        ],
-        notIncluded: [
-            "Featured badge",
-            "Homepage placement"
-        ],
-        cta: "Submit with Priority",
-        popular: true
-    },
-    {
-        id: "premium",
-        name: "Premium Submission",
-        price: "$149",
-        description: "Maximum visibility and promotion",
-        features: [
-            "Everything in Priority",
-            "Featured badge",
-            "Homepage spotlight (48 hours)",
-            "Newsletter feature",
-            "Dedicated blog mention",
-            "1-week featured sidebar ad"
-        ],
-        notIncluded: [],
-        cta: "Submit Premium",
         popular: false
     }
 ];
