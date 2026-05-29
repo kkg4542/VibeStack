@@ -6,6 +6,7 @@ import { X, Mail, Download, Gift } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
+import { useCsrfFetch } from "@/hooks/useCsrfFetch";
 
 interface ExitIntentPopupProps {
   toolSlug?: string;
@@ -13,6 +14,7 @@ interface ExitIntentPopupProps {
 }
 
 export function ExitIntentPopup({ toolSlug, toolName }: ExitIntentPopupProps) {
+  const { csrfFetch } = useCsrfFetch();
   const [isVisible, setIsVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -60,9 +62,8 @@ export function ExitIntentPopup({ toolSlug, toolName }: ExitIntentPopupProps) {
 
     try {
       await Promise.all([
-        fetch("/api/analytics/email-capture", {
+        csrfFetch("/api/analytics/email-capture", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             email,
             source: "exit_intent",
@@ -70,9 +71,8 @@ export function ExitIntentPopup({ toolSlug, toolName }: ExitIntentPopupProps) {
             metadata: toolName ? JSON.stringify({ toolName }) : null
           })
         }),
-        fetch("/api/newsletter", {
+        csrfFetch("/api/newsletter", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email })
         }),
       ]);

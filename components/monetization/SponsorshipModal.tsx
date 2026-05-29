@@ -8,6 +8,7 @@ import { useState } from "react";
 import { SponsorshipPlacements } from "@/lib/sponsorships";
 import { toast } from "sonner";
 import { SponsorshipPlanCard } from "./SponsorshipPlanCard";
+import { useCsrfFetch } from "@/hooks/useCsrfFetch";
 
 interface SponsorshipModalProps {
     /** Custom trigger element. Defaults to the compact "Advertise with us" button. */
@@ -15,6 +16,7 @@ interface SponsorshipModalProps {
 }
 
 export function SponsorshipModal({ trigger }: SponsorshipModalProps = {}) {
+    const { csrfFetch } = useCsrfFetch();
     const [selectedPlan, setSelectedPlan] = useState<"Standard" | "Premium">("Premium");
     const [sponsorName, setSponsorName] = useState("");
     const [sponsorUrl, setSponsorUrl] = useState("");
@@ -57,9 +59,8 @@ export function SponsorshipModal({ trigger }: SponsorshipModalProps = {}) {
     const handleCheckout = async () => {
         try {
             setIsLoading(true);
-            const res = await fetch("/api/sponsorships/checkout", {
+            const res = await csrfFetch("/api/sponsorships/checkout", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     placement: currentPlan.placement,
                     sponsorName,

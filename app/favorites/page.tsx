@@ -16,6 +16,7 @@ import { designSystem } from "@/lib/design-system";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { FavoriteWithTool } from "@/lib/schemas";
 import type { Tool } from "@prisma/client";
+import { useCsrfFetch } from "@/hooks/useCsrfFetch";
 
 type FavoriteItem = {
     id: string;
@@ -28,6 +29,7 @@ type SortOption = 'newest' | 'oldest' | 'name';
 
 export default function FavoritesPage() {
     const { data: session } = useSession();
+    const { csrfFetch } = useCsrfFetch();
     const { tools } = useAllTools();
     const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
@@ -147,9 +149,8 @@ export default function FavoritesPage() {
     const removeFavorite = async (id: string, type: 'tool' | 'stack') => {
         if (session?.user?.id && type === 'tool') {
             try {
-                await fetch('/api/favorites', {
+                await csrfFetch('/api/favorites', {
                     method: 'DELETE',
-                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ toolId: id }),
                 });
             } catch (error) {
@@ -167,9 +168,8 @@ export default function FavoritesPage() {
             if (session?.user?.id) {
                 for (const fav of favorites) {
                     if (fav.type === 'tool') {
-                        await fetch('/api/favorites', {
+                        await csrfFetch('/api/favorites', {
                             method: 'DELETE',
-                            headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ toolId: fav.id }),
                         });
                     }

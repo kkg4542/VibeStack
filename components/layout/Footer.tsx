@@ -7,8 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { trackNewsletterSubscribe } from "@/lib/analytics";
+import { useCsrfFetch } from "@/hooks/useCsrfFetch";
 
 export function Footer() {
+    const { csrfFetch } = useCsrfFetch();
     const [email, setEmail] = useState("");
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
     const [message, setMessage] = useState("");
@@ -26,11 +28,8 @@ export function Footer() {
         setMessage("");
 
         try {
-            const response = await fetch("/api/newsletter", {
+            const response = await csrfFetch("/api/newsletter", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
                 body: JSON.stringify({ email }),
             });
 

@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import { FavoriteWithTool } from "@/lib/schemas";
+import { useCsrfFetch } from "@/hooks/useCsrfFetch";
 
 type FavoriteItem = {
     id: string;
@@ -12,6 +13,7 @@ type FavoriteItem = {
 
 export function useFavorites() {
     const { data: session, status } = useSession();
+    const { csrfFetch } = useCsrfFetch();
     const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -62,9 +64,8 @@ export function useFavorites() {
                     for (const item of parsed) {
                         if (item.type === 'tool') {
                             try {
-                                await fetch('/api/favorites', {
+                                await csrfFetch('/api/favorites', {
                                     method: 'POST',
-                                    headers: { 'Content-Type': 'application/json' },
                                     body: JSON.stringify({ toolId: item.id }),
                                 });
                             } catch (error) {
@@ -98,9 +99,8 @@ export function useFavorites() {
         if (session?.user?.id && type === 'tool') {
             // Save to DB for tools
             try {
-                const response = await fetch('/api/favorites', {
+                const response = await csrfFetch('/api/favorites', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ toolId: id }),
                 });
                 if (response.ok) {
@@ -121,9 +121,8 @@ export function useFavorites() {
         if (session?.user?.id) {
             // Remove from DB
             try {
-                const response = await fetch('/api/favorites', {
+                const response = await csrfFetch('/api/favorites', {
                     method: 'DELETE',
-                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ toolId: id }),
                 });
                 if (response.ok) {
@@ -149,9 +148,8 @@ export function useFavorites() {
             // Clear all from DB (would need a batch delete endpoint)
             for (const fav of favorites) {
                 if (fav.type === 'tool') {
-                    await fetch('/api/favorites', {
+                    await csrfFetch('/api/favorites', {
                         method: 'DELETE',
-                        headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ toolId: fav.id }),
                     });
                 }

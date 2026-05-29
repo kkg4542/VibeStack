@@ -14,8 +14,10 @@ import { Plus, Star, X } from "lucide-react";
 import { useState } from "react";
 import { SponsorshipPlacements } from "@/lib/sponsorships";
 import { toast } from "sonner";
+import { useCsrfFetch } from "@/hooks/useCsrfFetch";
 
 export function SubmitDialog() {
+    const { csrfFetch } = useCsrfFetch();
     const [sponsorName, setSponsorName] = useState("");
     const [sponsorUrl, setSponsorUrl] = useState("");
     const [sponsorEmail, setSponsorEmail] = useState("");
@@ -25,9 +27,8 @@ export function SubmitDialog() {
     const startCheckout = async (placement: string) => {
         try {
             setIsLoading(true);
-            const res = await fetch("/api/sponsorships/checkout", {
+            const res = await csrfFetch("/api/sponsorships/checkout", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     placement,
                     sponsorName,

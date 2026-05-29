@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { designSystem } from "@/lib/design-system";
 import { trackNewsletterSubscribe } from "@/lib/analytics";
+import { useCsrfFetch } from "@/hooks/useCsrfFetch";
 
 const benefits = [
   { icon: Sparkles, text: "Weekly AI tool discoveries" },
@@ -23,6 +24,7 @@ const benefits = [
 ];
 
 export function NewsletterSection() {
+  const { csrfFetch } = useCsrfFetch();
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -39,9 +41,8 @@ export function NewsletterSection() {
     setErrorMessage("");
 
     try {
-      const response = await fetch("/api/newsletter", {
+      const response = await csrfFetch("/api/newsletter", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
 

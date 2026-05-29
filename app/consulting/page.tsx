@@ -12,27 +12,13 @@ import { PricingSection } from "./components/PricingSection";
 import { Testimonials } from "./components/Testimonials";
 
 export default function ConsultingPage() {
-    const [loading, setLoading] = useState(false);
+    const [loading] = useState(false);
 
-    async function handleCheckout(placement: string) {
-        setLoading(true);
-        try {
-            const res = await fetch('/api/sponsorships/checkout', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ placement })
-            });
-
-            const data = await res.json();
-            if (data.checkoutUrl) {
-                window.location.href = data.checkoutUrl;
-            } else {
-                throw new Error('No checkout URL returned');
-            }
-        } catch (error) {
-            alert('Failed to start checkout. Please contact us at hello@usevibestack.com');
-            setLoading(false);
-        }
+    // Sponsorship checkout lives on the dedicated /sponsor funnel (which has the
+    // tool picker + CSRF-protected Stripe flow). These buttons route there
+    // instead of calling a parallel, mismatched checkout.
+    async function handleCheckout(_placement: string) {
+        window.location.href = "/sponsor";
     }
     const services = [
         {

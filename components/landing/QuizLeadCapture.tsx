@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { trackNewsletterSubscribe } from "@/lib/analytics";
+import { useCsrfFetch } from "@/hooks/useCsrfFetch";
 
 interface QuizLeadCaptureProps {
   stackName: string;
@@ -24,6 +25,7 @@ export function QuizLeadCapture({
   stackPrice,
   toolSlugs,
 }: QuizLeadCaptureProps) {
+  const { csrfFetch } = useCsrfFetch();
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -41,14 +43,12 @@ export function QuizLeadCapture({
 
     try {
       await Promise.all([
-        fetch("/api/newsletter", {
+        csrfFetch("/api/newsletter", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email }),
         }),
-        fetch("/api/analytics/email-capture", {
+        csrfFetch("/api/analytics/email-capture", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             email,
             source: "quiz",

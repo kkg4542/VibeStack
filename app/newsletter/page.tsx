@@ -20,6 +20,7 @@ import { PageBackground, BackgroundPresets } from "@/components/effects/PageBack
 import { useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
+import { useCsrfFetch } from "@/hooks/useCsrfFetch";
 import { designSystem } from "@/lib/design-system";
 
 // Sample newsletter archive data
@@ -148,6 +149,7 @@ function NewsletterCard({ issue, index }: { issue: typeof newsletterArchive[0]; 
 }
 
 export default function NewsletterPage() {
+    const { csrfFetch } = useCsrfFetch();
     const [email, setEmail] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -158,9 +160,8 @@ export default function NewsletterPage() {
         setIsSubmitting(true);
         
         try {
-            const response = await fetch('/api/newsletter', {
+            const response = await csrfFetch('/api/newsletter', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email }),
             });
 

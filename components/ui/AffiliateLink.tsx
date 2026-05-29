@@ -3,7 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 import { trackAffiliateClick } from "@/lib/analytics";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useCsrfFetch } from "@/hooks/useCsrfFetch";
 
 interface AffiliateLinkProps {
   url: string;
@@ -24,6 +25,7 @@ export function AffiliateLink({
   className,
   abTestVariant
 }: AffiliateLinkProps) {
+  const { csrfFetch } = useCsrfFetch();
   // Initialize state with lazy function to avoid setState in useEffect
   const [abVariant, setAbVariant] = useState<"A" | "B" | "C">(() => {
     if (abTestVariant) {
@@ -58,11 +60,8 @@ export function AffiliateLink({
 
     // Track in our database
     try {
-      await fetch("/api/analytics/affiliate-click", {
+      await csrfFetch("/api/analytics/affiliate-click", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify({
           toolSlug,
           toolName,
