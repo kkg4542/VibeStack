@@ -177,7 +177,7 @@ export function SubmitDialog() {
                         />
                         <input
                             className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white"
-                            placeholder="Tool slug (required)"
+                            placeholder="Tool to feature (optional)"
                             value={toolSlug}
                             onChange={(e) => setToolSlug(e.target.value)}
                         />

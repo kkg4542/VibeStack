@@ -29,19 +29,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid placement" }, { status: 400 });
     }
 
+    // toolSlug is optional — advertisers shouldn't need to know an internal
+    // slug to pay. If they provide a valid one we link it now; otherwise the
+    // tool is attached later from the admin sponsorship view.
     let toolId: string | null = null;
-    if (placement !== SponsorshipPlacements.newsletter && !toolSlug) {
-      return NextResponse.json(
-        { error: "toolSlug is required for this placement" },
-        { status: 400 }
-      );
-    }
     if (toolSlug) {
       const tool = await prisma.tool.findUnique({ where: { slug: toolSlug } });
-      if (!tool) {
-        return NextResponse.json({ error: "Tool not found" }, { status: 404 });
+      if (tool) {
+        toolId = tool.id;
       }
-      toolId = tool.id;
     }
 
     const stripe = getStripe();
@@ -51,8 +47,8 @@ export async function POST(request: NextRequest) {
       mode: "subscription",
       line_items: [{ price: PRICE_IDS[placement]!, quantity: 1 }],
       customer_email: sponsorEmail || undefined,
-      success_url: `${baseUrl}/newsletter?success=1`,
-      cancel_url: `${baseUrl}/newsletter?canceled=1`,
+      success_url: `${baseUrl}/sponsor?success=1`,
+      cancel_url: `${baseUrl}/sponsor?canceled=1`,
       metadata: {
         type: "sponsorship",
         placement,
