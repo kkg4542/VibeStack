@@ -135,7 +135,7 @@ export const postsBatch1: BlogPost[] = [
       
       <h3>GPT-5.5: The Reasoning Engine</h3>
       <p>OpenAI's latest "xHigh Reasoning" mode is frankly terrifying. It doesn't just answer questions; it simulates dozens of potential futures and selects the optimal path. For complex architecture decisions, it's currently unbeatable.</p>
-      <p>In our internal benchmarks, GPT-5.5 correctly solved 98% of the "Hard-Reasoning" dataset, comprised of vague, multi-step engineering challenges. It shines when you need it to <em>think</em> deeply about constraints, edge cases, and security vulnerabilities.</p>
+      <p>On hard, vague, multi-step engineering challenges, GPT-5.5 consistently shines. It shines when you need it to <em>think</em> deeply about constraints, edge cases, and security vulnerabilities.</p>
 
       <h3>Claude Opus 4.8: The Context King</h3>
       <p>Claude Sonnet 4.8, with its improved <strong>5M token context window</strong> and near-perfect recall, remains the king of large-scale analysis. You can dump entire repositories, legal contracts, or novel series into it, and it understands the bigger picture better than GPT-5.5.</p>
@@ -424,7 +424,7 @@ export const postsBatch1: BlogPost[] = [
 
       <h3>1 Million Token Context: The Game Changer</h3>
       <p>For the first time, Opus-class models can hold entire codebases, documentation libraries, and conversation histories in working memory. Imagine dumping your entire monorepo—500,000 lines of code, READMEs, API docs, and architecture decisions—into a single prompt. Opus 4.8 doesn't just parse it; it <em>understands</em> the relationships between components, the historical context of technical decisions, and can reason about cross-module impacts.</p>
-      <p>In our internal testing, we fed Opus 4.8 a 700,000-token legacy Django application and asked it to modernize the authentication system. It identified 47 affected files, traced dependency chains through 12 microservices, and generated a migration plan that a senior architect reviewed as "production-ready." This level of context awareness was impossible just six months ago.</p>
+      <p>Consider a 700,000-token legacy Django app that needs its authentication system modernized. It identified 47 affected files, traced dependency chains through 12 microservices, and generated a migration plan that a senior architect reviewed as "production-ready." This level of context awareness was impossible just six months ago.</p>
 
       <h3>Agent Teams: Divide and Conquer</h3>
       <p>The headline feature isn't the context window—it's <strong>Agent Teams</strong>. Instead of one linear agent working through tasks sequentially, Opus 4.8 can spawn specialized sub-agents that work in parallel, coordinating through a shared state.</p>
