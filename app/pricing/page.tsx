@@ -65,8 +65,7 @@ const TRACKS: Track[] = [
     plans: [
       {
         name: "Standard Sponsor",
-        price: "$99",
-        period: "/mo",
+        price: "Custom",
         description: "Great for indie hackers and bootstrapped startups.",
         features: [
           "Featured in 'All Tools' list",
@@ -77,8 +76,7 @@ const TRACKS: Track[] = [
       },
       {
         name: "Premium Sponsor",
-        price: "$299",
-        period: "/mo",
+        price: "Custom",
         description: "Maximum visibility for serious brands.",
         features: [
           "Homepage 'Essential Tools' spot",

@@ -47,8 +47,8 @@ const audience = [
 const placements = [
   {
     name: "Sidebar Ad",
-    price: "$99",
-    period: "/mo",
+    price: "Custom",
+    period: "",
     highlight: false,
     blurb: "Great for indie hackers & early-stage startups.",
     features: [
@@ -60,8 +60,8 @@ const placements = [
   },
   {
     name: "Homepage Spotlight",
-    price: "$299",
-    period: "/mo",
+    price: "Custom",
+    period: "",
     highlight: true,
     blurb: "Maximum visibility for serious brands.",
     features: [

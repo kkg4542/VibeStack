@@ -49,7 +49,9 @@ export function SponsorshipPlanCard({ plan, selectedPlan, setSelectedPlan }: Spo
             <div className="mb-4">
                 <div className="text-4xl font-bold text-white">
                     {plan.price}
-                    <span className="text-sm font-normal text-zinc-500 ml-1">/mo</span>
+                    {plan.price !== "Custom" && (
+                        <span className="text-sm font-normal text-zinc-500 ml-1">/mo</span>
+                    )}
                 </div>
                 <p className="text-sm text-zinc-400 mt-2 min-h-[40px]">
                     {plan.description}

@@ -68,8 +68,8 @@ export function SubmitDialog() {
 
                         <div className="my-8 space-y-4">
                             <div className="flex items-baseline gap-1">
-                                <span className="text-4xl font-bold text-white tracking-tight">$99</span>
-                                <span className="text-zinc-500 text-sm">/ month</span>
+                                <span className="text-4xl font-bold text-white tracking-tight">Custom</span>
+                                <span className="text-zinc-500 text-sm">pricing</span>
                             </div>
                             <ul className="space-y-3 pt-4">
                                 {["Basic tool profile page", "Standard search visibility", "7-14 day review queue", "Community support"].map((item) => (
@@ -113,8 +113,8 @@ export function SubmitDialog() {
 
                         <div className="relative z-10 my-8 space-y-4">
                             <div className="flex items-baseline gap-1">
-                                <span className="text-4xl font-bold text-white tracking-tight">$299</span>
-                                <span className="text-indigo-200/60 text-sm font-medium">/ month</span>
+                                <span className="text-4xl font-bold text-white tracking-tight">Custom</span>
+                                <span className="text-indigo-200/60 text-sm font-medium">pricing</span>
                             </div>
                             <ul className="space-y-3 pt-4">
                                 {[

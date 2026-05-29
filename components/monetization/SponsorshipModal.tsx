@@ -23,7 +23,7 @@ export function SponsorshipModal({ trigger }: SponsorshipModalProps = {}) {
     const plans = [
         {
             name: "Standard",
-            price: "$99",
+            price: "Custom",
             description: "Great for indie hackers & startups.",
             features: [
                 "Featured in 'All Tools' List",
@@ -36,7 +36,7 @@ export function SponsorshipModal({ trigger }: SponsorshipModalProps = {}) {
         },
         {
             name: "Premium",
-            price: "$299",
+            price: "Custom",
             description: "Maximum visibility for serious brands.",
             features: [
                 "Homepage 'Essential Tools' Spot",
@@ -55,9 +55,9 @@ export function SponsorshipModal({ trigger }: SponsorshipModalProps = {}) {
     // Contact-based for now (self-serve billing re-enabled once traffic
     // justifies it). Opens a pre-filled email to our inbox.
     const handleContact = () => {
-        const subject = `Sponsorship inquiry — ${currentPlan.name} (${currentPlan.price}/mo)`;
+        const subject = `Sponsorship inquiry — ${currentPlan.name} plan`;
         const body = [
-            `Plan: ${currentPlan.name} (${currentPlan.price}/mo)`,
+            `Plan: ${currentPlan.name}`,
             `Company: ${sponsorName || "-"}`,
             `Website: ${sponsorUrl || "-"}`,
             `Tool to feature: ${toolSlug || "-"}`,

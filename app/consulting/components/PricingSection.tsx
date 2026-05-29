@@ -29,8 +29,8 @@ export function PricingSection({ handleCheckout, loading }: PricingSectionProps)
                             <div className="mb-6">
                                 <h3 className="text-xl font-semibold mb-2">Sidebar Ads</h3>
                                 <div className="flex items-baseline gap-2">
-                                    <span className="text-4xl font-bold text-foreground">$99</span>
-                                    <span className="text-muted-foreground">/month</span>
+                                    <span className="text-4xl font-bold text-foreground">Custom</span>
+                                    <span className="text-muted-foreground">pricing</span>
                                 </div>
                             </div>
                             <ul className="space-y-3 mb-8">
@@ -76,8 +76,8 @@ export function PricingSection({ handleCheckout, loading }: PricingSectionProps)
                             <div className="mb-6">
                                 <h3 className="text-xl font-semibold mb-2">Featured Spotlight</h3>
                                 <div className="flex items-baseline gap-2">
-                                    <span className="text-4xl font-bold text-foreground">$199</span>
-                                    <span className="text-muted-foreground">/month</span>
+                                    <span className="text-4xl font-bold text-foreground">Custom</span>
+                                    <span className="text-muted-foreground">pricing</span>
                                 </div>
                             </div>
                             <ul className="space-y-3 mb-8">
@@ -119,8 +119,8 @@ export function PricingSection({ handleCheckout, loading }: PricingSectionProps)
                             <div className="mb-6">
                                 <h3 className="text-xl font-semibold mb-2">Newsletter Sponsor</h3>
                                 <div className="flex items-baseline gap-2">
-                                    <span className="text-4xl font-bold text-foreground">$149</span>
-                                    <span className="text-muted-foreground">/month</span>
+                                    <span className="text-4xl font-bold text-foreground">Custom</span>
+                                    <span className="text-muted-foreground">pricing</span>
                                 </div>
                             </div>
                             <ul className="space-y-3 mb-8">
