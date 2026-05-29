@@ -159,7 +159,7 @@ export function ExitIntentPopup({ toolSlug, toolName }: ExitIntentPopupProps) {
                         {toolName ? "Get Discount Alerts" : "Get Free Guide"}
                       </Button>
                       <p className="text-xs text-center text-muted-foreground">
-                        No spam, unsubscribe anytime. Join 15,000+ developers.
+                        No spam. Unsubscribe anytime.
                       </p>
                     </form>
                   </>

@@ -6,8 +6,6 @@ import {
     Calendar, 
     ArrowRight, 
     Sparkles,
-    TrendingUp,
-    Users,
     Zap,
     CheckCircle2,
     Clock
@@ -82,10 +80,10 @@ const newsletterArchive = [
 ];
 
 const stats = [
-    { label: "Subscribers", value: "2,500+", icon: Users },
-    { label: "Weekly Issue", value: "Every Monday", icon: Calendar },
-    { label: "Open Rate", value: "45%", icon: TrendingUp },
-    { label: "Issues Sent", value: "24", icon: Zap }
+    { label: "Cadence", value: "Weekly", icon: Calendar },
+    { label: "Cost", value: "Free", icon: Sparkles },
+    { label: "Spam", value: "Zero", icon: CheckCircle2 },
+    { label: "Unsubscribe", value: "1-click", icon: Zap }
 ];
 
 const fadeInUp = designSystem.animations.fadeInUp;
@@ -241,7 +239,7 @@ export default function NewsletterPage() {
                             </Button>
                         </form>
                         <p className="text-xs text-muted-foreground mt-3">
-                            Join 2,500+ developers. Unsubscribe anytime.
+                            No spam. Unsubscribe anytime.
                         </p>
                     </m.div>
 

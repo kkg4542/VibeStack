@@ -11,7 +11,6 @@ import {
     Zap,
     Heart,
     Rocket,
-    Users,
     Mail,
     Twitter,
     Github,
@@ -53,15 +52,9 @@ const timeline = [
         icon: Lightbulb
     },
     {
-        year: "2024",
-        title: "Community Growth",
-        description: "Reached 10,000+ developers using our curated recommendations.",
-        icon: Users
-    },
-    {
         year: "2025",
         title: "AI Stack Finder",
-        description: "Launched the interactive tool to help developers find their perfect stack.",
+        description: "Launched the interactive quiz to help developers find their perfect stack.",
         icon: Code2
     },
     {
@@ -97,15 +90,6 @@ const values = [
         icon: Heart,
         color: "from-red-500 to-pink-500"
     }
-];
-
-const partners = [
-    { name: "Vercel", logo: "▲" },
-    { name: "OpenAI", logo: "◯" },
-    { name: "Anthropic", logo: "◈" },
-    { name: "GitHub", logo: "◎" },
-    { name: "Linear", logo: "◐" },
-    { name: "Notion", logo: "◼" }
 ];
 
 export default function AboutPage() {
@@ -384,33 +368,6 @@ export default function AboutPage() {
                     </div>
                 </motion.div>
 
-                {/* Partners */}
-                <motion.div
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.8 }}
-                    className="mb-20"
-                >
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold mb-4">Trusted By Industry Leaders</h2>
-                        <p className="text-muted-foreground">Companies that believe in our mission</p>
-                    </div>
-
-                    <div className="flex flex-wrap justify-center gap-8">
-                        {partners.map((partner, index) => (
-                            <motion.div
-                                key={partner.name}
-                                initial={designSystem.animations.fadeInUp.initial}
-                                animate={designSystem.animations.fadeInUp.animate}
-                                transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.9 + index * 0.05 }}
-                                className="flex items-center gap-3 px-6 py-3 rounded-full bg-secondary/20 backdrop-blur-md border border-border/50 hover:border-vibe-electric/30 transition-colors"
-                            >
-                                <span className="text-2xl">{partner.logo}</span>
-                                <span className="font-medium">{partner.name}</span>
-                            </motion.div>
-                        ))}
-                    </div>
-                </motion.div>
 
                 {/* Contact Section */}
                 <motion.div

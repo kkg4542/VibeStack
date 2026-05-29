@@ -129,33 +129,15 @@ export default function SignInPage() {
                             })}
                         </div>
 
-                        {/* Stats */}
+                        {/* Value line */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.4, delay: 0.6 }}
-                            className="mt-8 flex items-center gap-6"
+                            className="mt-8 flex items-center gap-2 text-sm text-muted-foreground"
                         >
-                            <div className="flex items-center gap-2">
-                                <div className="flex -space-x-2">
-                                    {['DK', 'JS', 'MR'].map((initials, i) => (
-                                        <div 
-                                            key={i} 
-                                            className="w-8 h-8 rounded-full bg-linear-to-br from-vibe-electric to-purple-500 flex items-center justify-center text-xs font-bold text-white border-2 border-background"
-                                        >
-                                            {initials}
-                                        </div>
-                                    ))}
-                                </div>
-                                <span className="text-sm text-muted-foreground">+2,500 developers</span>
-                            </div>
-                            <div className="h-4 w-px bg-border" />
-                            <div className="flex items-center gap-1">
-                                {[...Array(5)].map((_, i) => (
-                                    <Star key={i} className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                                ))}
-                                <span className="text-sm text-muted-foreground ml-1">4.9/5</span>
-                            </div>
+                            <Star className="h-4 w-4 text-vibe-electric" />
+                            Save your favorite tools and build your own AI stack — free.
                         </motion.div>
                     </motion.div>
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, Check, Rocket, Shield, Terminal, Zap, TrendingUp, Users, Award, Mail, Loader2 } from "lucide-react";
+import { ArrowRight, Check, Rocket, Shield, Terminal, Zap, Mail, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -147,35 +147,6 @@ export default function ConsultingPage() {
                             <li>Required: product name + one-sentence value</li>
                             <li>Avoid: exaggerated claims and guarantees</li>
                         </ul>
-                    </div>
-                </section>
-
-                {/* Stats Section */}
-                <section className="border-y border-border/40 bg-secondary/5 py-20">
-                    <div className="container mx-auto px-4">
-                        <div className="grid gap-12 md:grid-cols-3">
-                            <div className="text-center">
-                                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-vibe-electric/10">
-                                    <TrendingUp className="h-8 w-8 text-vibe-electric" />
-                                </div>
-                                <div className="text-4xl font-bold text-foreground mb-2">50K+</div>
-                                <p className="text-muted-foreground">Monthly Visitors</p>
-                            </div>
-                            <div className="text-center">
-                                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-purple-500/10">
-                                    <Users className="h-8 w-8 text-purple-500" />
-                                </div>
-                                <div className="text-4xl font-bold text-foreground mb-2">15K+</div>
-                                <p className="text-muted-foreground">Newsletter Subscribers</p>
-                            </div>
-                            <div className="text-center">
-                                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-pink-500/10">
-                                    <Award className="h-8 w-8 text-pink-500" />
-                                </div>
-                                <div className="text-4xl font-bold text-foreground mb-2">92%</div>
-                                <p className="text-muted-foreground">Developer Audience</p>
-                            </div>
-                        </div>
                     </div>
                 </section>
 

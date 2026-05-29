@@ -78,7 +78,7 @@ export function ServicesGrid() {
                                 <Terminal className="h-6 w-6 text-vibe-purple" />
                             </div>
                             <h3 className="mb-3 text-2xl font-semibold text-foreground">Newsletter Sponsor</h3>
-                            <p className="mb-6 text-muted-foreground">Exclusive sponsor slot in our monthly newsletter sent to 15,000+ developers. Send date confirmed 5 days in advance.</p>
+                            <p className="mb-6 text-muted-foreground">Exclusive sponsor slot in our monthly newsletter sent to our newsletter subscribers. Send date confirmed 5 days in advance.</p>
                             <ul className="space-y-3">
                                 <li className="flex items-center text-sm text-foreground/80">
                                     <Check className="mr-3 h-4 w-4 text-vibe-electric" />
@@ -86,7 +86,7 @@ export function ServicesGrid() {
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
                                     <Check className="mr-3 h-4 w-4 text-vibe-electric" />
-                                    Sent to 15,000+ verified developer emails
+                                    Featured in our weekly newsletter
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
                                     <Check className="mr-3 h-4 w-4 text-vibe-electric" />

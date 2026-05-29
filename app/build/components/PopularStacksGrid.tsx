@@ -142,7 +142,7 @@ export function PopularStacksGrid({ onStackClick }: PopularStacksGridProps) {
     >
       <div className="text-center mb-12">
         <h2 className="text-3xl font-bold mb-4">Popular Stacks</h2>
-        <p className="text-muted-foreground">Editor&apos;s picks trusted by thousands of developers</p>
+        <p className="text-muted-foreground">Editor&apos;s picks — hand-curated workflows</p>
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

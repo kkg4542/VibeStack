@@ -7,7 +7,7 @@ export function Testimonials() {
                 <section className="container mx-auto px-4 py-24">
                     <div className="mb-16 text-center">
                         <h2 className="text-3xl font-bold text-foreground mb-4">What Our Partners Say</h2>
-                        <p className="text-muted-foreground">Trusted by leading AI companies and developer tools.</p>
+                        <p className="text-muted-foreground">Curated AI workflow guidance for builders.</p>
                     </div>
 
                     <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">

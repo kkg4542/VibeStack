@@ -126,7 +126,7 @@ export function PricingSection({ handleCheckout, loading }: PricingSectionProps)
                             <ul className="space-y-3 mb-8">
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
                                     <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
-                                    <span>Sent to 15,000+ developer subscribers</span>
+                                    <span>Featured in our weekly newsletter</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
                                     <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />

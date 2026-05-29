@@ -2,11 +2,11 @@
 
 import { m, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
-import { 
-  Wrench, 
-  Users, 
-  Layers, 
+import {
+  Wrench,
+  Layers,
   Star,
+  FileText,
   TrendingUp,
   Zap
 } from "lucide-react";
@@ -15,36 +15,35 @@ import { designSystem } from "@/lib/design-system";
 const stats = [
   {
     icon: Wrench,
-    value: 75,
+    value: 30,
     suffix: "+",
     label: "AI Tools",
-    description: "Curated and reviewed",
+    description: "Hand-picked & reviewed",
     color: "from-cyan-600 to-blue-600",
   },
   {
     icon: Layers,
-    value: 50,
-    suffix: "+",
-    label: "AI Stacks",
+    value: 7,
+    suffix: "",
+    label: "Curated Stacks",
     description: "Ready-to-use workflows",
     color: "from-purple-600 to-pink-600",
   },
   {
-    icon: Users,
-    value: 2000,
+    icon: FileText,
+    value: 36,
     suffix: "+",
-    label: "Developers",
-    description: "Trust VibeStack",
+    label: "Guides",
+    description: "Comparisons & reviews",
     color: "from-emerald-400 to-emerald-600",
   },
   {
     icon: Star,
-    value: 4.9,
-    suffix: "/5",
-    label: "Average Rating",
-    description: "From verified users",
+    value: 100,
+    suffix: "%",
+    label: "Free",
+    description: "No account needed",
     color: "from-amber-400 to-orange-500",
-    isDecimal: true,
   },
 ];
 
@@ -108,14 +107,13 @@ export function StatsSection() {
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-            Trusted by{" "}
+            Everything you need to{" "}
             <span className="text-transparent bg-clip-text bg-linear-to-r from-vibe-electric via-vibe-cyan to-vibe-neon">
-              Developers
+              build with AI
             </span>
-            {" "}Worldwide
           </h2>
           <p className="text-lg text-muted-foreground">
-            Join thousands of developers who have discovered their perfect AI stack through VibeStack.
+            Hand-picked tools, ready-to-use stacks, and honest comparison guides — free to browse.
           </p>
         </m.div>
 
@@ -149,10 +147,9 @@ export function StatsSection() {
                     {/* Value */}
                     <div className="text-4xl md:text-5xl font-bold mb-2">
                       <span className={`text-transparent bg-clip-text bg-linear-to-r ${stat.color}`}>
-                        <AnimatedNumber 
-                          value={stat.value} 
+                        <AnimatedNumber
+                          value={stat.value}
                           suffix={stat.suffix}
-                          isDecimal={stat.isDecimal}
                         />
                       </span>
                     </div>

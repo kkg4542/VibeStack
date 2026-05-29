@@ -44,7 +44,7 @@ export function SponsorshipModal({ trigger }: SponsorshipModalProps = {}) {
             description: "Maximum visibility for serious brands.",
             features: [
                 "Homepage 'Essential Tools' Spot",
-                "Newsletter Mention (5k+ subs)",
+                "Newsletter mention",
                 "Social Media Shoutout",
                 "Priority Support",
             ],

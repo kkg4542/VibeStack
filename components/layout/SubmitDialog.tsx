@@ -116,7 +116,7 @@ export function SubmitDialog() {
                             </div>
                             <DialogTitle className="text-2xl font-bold text-white">Featured Listing</DialogTitle>
                             <DialogDescription className="mt-2 text-sm text-indigo-200/80 leading-relaxed">
-                                Get instant approval and reach 50,000+ developers with premium placement.
+                                Premium placement across the homepage and tool listings.
                             </DialogDescription>
                         </DialogHeader>
 
@@ -129,7 +129,7 @@ export function SubmitDialog() {
                                 {[
                                     "⚡️ Instant 24h Approval",
                                     "🔥 Pinned to Homepage (High Traffic)",
-                                    "💌 Newsletter Feature (5k+ Subs)",
+                                    "💌 Newsletter feature",
                                     "🔗 Do-follow SEO Backlink",
                                     "🎨 Custom Verified Badge"
                                 ].map((item) => (

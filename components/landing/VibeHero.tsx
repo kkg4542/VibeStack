@@ -278,17 +278,7 @@ export function VibeHero() {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="flex items-center gap-4 mt-8 text-sm text-muted-foreground"
         >
-          <div className="flex -space-x-2">
-            {[1, 2, 3, 4].map((i) => (
-              <div
-                key={i}
-                className="w-8 h-8 rounded-full bg-linear-to-br from-vibe-electric/30 to-vibe-neon/30 border-2 border-background flex items-center justify-center text-xs font-medium"
-              >
-                {String.fromCharCode(64 + i)}
-              </div>
-            ))}
-          </div>
-          <span>Trusted by <strong className="text-foreground">2,000+</strong> developers</span>
+          <span>Hand-picked AI tools · Updated weekly · Free to browse</span>
         </m.div>
       </div>
 
