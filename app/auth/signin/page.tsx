@@ -99,7 +99,7 @@ export default function SignInPage() {
                                 Experience
                             </h1>
                             <p className="text-lg text-muted-foreground">
-                                Join thousands of developers discovering the best AI tools for their workflow.
+                                Discover and compare the best AI tools for your workflow.
                             </p>
                         </div>
 

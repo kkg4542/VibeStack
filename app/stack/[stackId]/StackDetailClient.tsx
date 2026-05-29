@@ -425,7 +425,8 @@ export function StackDetailClient({ stack, metrics }: StackDetailClientProps) {
                             </div>
                         </m.div>
 
-                        {/* Community Insights (Analytics) */}
+                        {/* Community Insights — only when we have real metrics */}
+                        {metrics && (
                         <m.div
                             initial={designSystem.animations.fadeInUp.initial}
                             whileInView={designSystem.animations.fadeInUp.animate}
@@ -468,6 +469,7 @@ export function StackDetailClient({ stack, metrics }: StackDetailClientProps) {
                                 </div>
                             </div>
                         </m.div>
+                        )}
                     </aside>
                 </div>
             </div>

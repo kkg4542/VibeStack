@@ -5,7 +5,6 @@ import { PageBackground, BackgroundPresets } from "@/components/effects/PageBack
 import { BuildPageHero } from "./components/BuildPageHero";
 import { PopularStacksGrid } from "./components/PopularStacksGrid";
 import { WhyStacksMatter } from "./components/WhyStacksMatter";
-import { TestimonialsSection } from "./components/TestimonialsSection";
 import { CTASection } from "./components/CTASection";
 import { QuizInterface } from "./components/QuizInterface";
 
@@ -37,7 +36,6 @@ export default function BuildPage() {
         <BuildPageHero onStartQuiz={startQuiz} />
         <PopularStacksGrid onStackClick={startQuiz} />
         <WhyStacksMatter />
-        <TestimonialsSection />
         <CTASection onStartQuiz={startQuiz} />
       </div>
     </PageBackground>

@@ -9,7 +9,6 @@ import { motion } from "framer-motion";
 import { designSystem } from "@/lib/design-system";
 import { ServicesGrid } from "./components/ServicesGrid";
 import { PricingSection } from "./components/PricingSection";
-import { Testimonials } from "./components/Testimonials";
 
 export default function ConsultingPage() {
     const [loading] = useState(false);
@@ -20,6 +19,7 @@ export default function ConsultingPage() {
     async function handleCheckout(_placement: string) {
         window.location.href = "/sponsor";
     }
+    // (Testimonials section removed — no fabricated client quotes.)
     const services = [
         {
             title: "AI Workflow Audit",
@@ -150,7 +150,6 @@ export default function ConsultingPage() {
                     </div>
                 </section>
 
-                <Testimonials />
 
                 {/* Final CTA */}
                 <section className="container mx-auto px-4 py-20">

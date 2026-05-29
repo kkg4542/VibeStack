@@ -41,7 +41,7 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
           </span>
         </h2>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Join thousands of developers who trust VibeStack for their AI tool needs
+          Real stories from people building with AI
         </p>
       </m.div>
 
