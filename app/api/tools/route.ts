@@ -6,19 +6,27 @@ import { auth } from "@/auth";
 
 import { validateBodySize } from "@/lib/body-size";
 import { unstable_cache, revalidateTag } from "next/cache";
+import { POPULARITY_ORDER } from "@/lib/tools-db";
 
-// Cache function for getTools
+function popularityRank(slug: string): number {
+  const i = POPULARITY_ORDER.indexOf(slug);
+  return i === -1 ? Number.MAX_SAFE_INTEGER : i;
+}
+
+// Cache function for getTools. We fetch all matching rows, sort by the curated
+// popularity order in-memory (the dataset is small), then paginate — so popular
+// tools surface first across every page.
 const getCachedTools = unstable_cache(
-  async (where: Record<string, unknown>, skip: number | undefined, limit: number | undefined) => {
-    const [tools, total] = await Promise.all([
-      prisma.tool.findMany({
-        where,
-        skip,
-        take: limit,
-        orderBy: { createdAt: "desc" },
-      }),
-      prisma.tool.count({ where }),
-    ]);
+  async (where: Record<string, unknown>, skip: number, limit: number | undefined) => {
+    const all = await prisma.tool.findMany({ where });
+    all.sort((a, b) => {
+      const ra = popularityRank(a.slug);
+      const rb = popularityRank(b.slug);
+      if (ra !== rb) return ra - rb;
+      return a.title.localeCompare(b.title);
+    });
+    const total = all.length;
+    const tools = limit === undefined ? all.slice(skip) : all.slice(skip, skip + limit);
     return { tools, total };
   },
   ['tools-list'],
