@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { Heart } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { getVerifiedTestimonials } from "@/lib/data/stacks";
@@ -39,14 +40,29 @@ export default async function TestimonialsPage() {
                             </span>
                         </h1>
                         <p className="text-xl text-muted-foreground">
-                            See how VibeStack is helping teams build better software, faster.
-                            Join thousands of satisfied developers optimizing their workflow.
+                            See how developers use VibeStack to find tools and build their AI stack faster.
                         </p>
                     </div>
                 </div>
 
-                {/* Testimonials Grid */}
-                <TestimonialsGrid testimonials={testimonials} />
+                {/* Testimonials Grid (or empty state) */}
+                {testimonials.length > 0 ? (
+                    <TestimonialsGrid testimonials={testimonials} />
+                ) : (
+                    <div className="text-center max-w-xl mx-auto py-12">
+                        <p className="text-lg text-muted-foreground mb-6">
+                            We&apos;re collecting stories from real users. Used VibeStack to
+                            build your stack? We&apos;d love to feature you.
+                        </p>
+                        <Link
+                            href="mailto:hello@usevibestack.com?subject=My%20VibeStack%20story"
+                            className="inline-flex items-center gap-2 rounded-full border border-vibe-electric/30 bg-vibe-electric/5 px-5 py-2.5 text-sm font-medium text-vibe-electric hover:bg-vibe-electric/10 transition-colors"
+                        >
+                            <Heart className="h-4 w-4" />
+                            Share your story
+                        </Link>
+                    </div>
+                )}
             </div>
         </div>
     );

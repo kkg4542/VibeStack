@@ -57,8 +57,8 @@ export default async function Home() {
       {/* How It Works */}
       <HowItWorks />
       
-      {/* Testimonials */}
-      <Testimonials testimonials={testimonials} />
+      {/* Testimonials — only render when we have real, verified ones */}
+      {testimonials.length > 0 && <Testimonials testimonials={testimonials} />}
       
       {/* Newsletter */}
       <NewsletterSection />
