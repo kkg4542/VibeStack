@@ -140,7 +140,9 @@ export default function PricingPage() {
                 {/* Plans */}
                 <div
                   className={`grid gap-6 ${
-                    track.plans.length === 2
+                    track.plans.length === 1
+                      ? "max-w-md mx-auto"
+                      : track.plans.length === 2
                       ? "md:grid-cols-2 max-w-4xl mx-auto"
                       : "md:grid-cols-3"
                   }`}
@@ -154,12 +156,6 @@ export default function PricingPage() {
                           : "border-border bg-card"
                       }`}
                     >
-                      {plan.highlight && (
-                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-vibe-electric px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-background">
-                          Most Popular
-                        </div>
-                      )}
-
                       <div className="mb-4">
                         <div className="text-sm font-semibold text-muted-foreground mb-2">
                           {plan.name}

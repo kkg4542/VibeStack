@@ -63,7 +63,7 @@ export default async function Home() {
       <ToolCategories counts={categoryCounts} />
       
       {/* Popular Tools - Trending AI tools */}
-      <PopularTools />
+      <PopularTools tools={allTools} />
       
       {/* Featured Stacks - Curated workflows */}
       <FeaturedStacks stacks={featuredStacks} />

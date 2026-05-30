@@ -58,12 +58,12 @@ export function FeaturedStacks({ stacks }: FeaturedStacksProps) {
             >
               <Link href={`/stack/${stack.idField}`} className="group block h-full">
                 <VibeCard
-                  className="h-full"
-                  tiltStrength={8}
-                  glowOnHover={true}
-                  depth={20}
+                  variant="glass"
+                  hover="both"
+                  spotlight
+                  className="h-full p-6"
                 >
-                  <div className="h-full flex flex-col p-6 sm:p-8">
+                  <div className="h-full flex flex-col">
                     {/* Icon & Title */}
                     <div className="flex items-start justify-between mb-6">
                       <div className="flex items-center gap-4">

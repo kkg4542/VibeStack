@@ -7,17 +7,19 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { VibeCard } from "@/components/ui/VibeCard";
 import { designSystem } from "@/lib/design-system";
-import { useTools } from "@/hooks/use-tools";
 import { ToolData } from "@/lib/tool-types";
 import { ToolIconRenderer } from "@/components/tools/ToolIconRenderer";
 
-export function PopularTools() {
-  const { tools, isLoading } = useTools({ limit: 50 });
+interface PopularToolsProps {
+  tools: ToolData[];
+}
+
+export function PopularTools({ tools }: PopularToolsProps) {
   const popularTools = tools
     .filter((tool: ToolData) => tool.isFeatured || tool.review)
     .slice(0, 8);
 
-  if (isLoading) {
+  if (popularTools.length === 0) {
     return null;
   }
   return (
@@ -68,12 +70,12 @@ export function PopularTools() {
             >
               <Link href={`/tool/${tool.slug}`} className="group block h-full">
                 <VibeCard
-                  className="h-full"
-                  tiltStrength={6}
-                  glowOnHover={true}
-                  depth={15}
+                  variant="glass"
+                  hover="both"
+                  spotlight
+                  className="h-full p-6"
                 >
-                  <div className="h-full flex flex-col p-5">
+                  <div className="h-full flex flex-col">
                     {/* Icon & Title */}
                     <div className="flex items-start gap-3 mb-4">
                       <div className={`p-2.5 rounded-xl ${tool.bgGradient}`}>
