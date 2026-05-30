@@ -25,8 +25,26 @@ export function useCsrfFetch() {
     const method = (options.method ?? 'GET').toUpperCase();
     const stateChangingMethods = ['POST', 'PUT', 'PATCH', 'DELETE'];
     
-    if (!skipCsrf && stateChangingMethods.includes(method) && csrfToken) {
-      headers.set('x-csrf-token', csrfToken);
+    if (!skipCsrf && stateChangingMethods.includes(method)) {
+      let tokenToUse = csrfToken;
+      // Fallback: if the provider hasn't resolved a token yet (cold start /
+      // first visit before the /api/csrf fetch lands), fetch it inline so we
+      // never POST without the header.
+      if (!tokenToUse) {
+        try {
+          const r = await fetch('/api/csrf', { credentials: 'include' });
+          if (r.ok) {
+            const data = await r.json();
+            tokenToUse = data.token ?? null;
+          }
+        } catch {
+          // ignore — request will go without the header and surface the
+          // server-side error to the user
+        }
+      }
+      if (tokenToUse) {
+        headers.set('x-csrf-token', tokenToUse);
+      }
     }
     
     // Set default content type for JSON if not specified

@@ -182,18 +182,13 @@ export async function middleware(req: NextRequest) {
     response.headers.set(CSRF_HEADER_NAME, csrfToken);
   }
 
-  // Protect only /admin and /api/... (sensitive) routes
+  // Protect ONLY admin surface: /admin pages and /api/admin/* routes.
+  // All other public API endpoints (newsletter, favorites, reviews,
+  // submissions, community-stacks, analytics, etc.) rely on CSRF +
+  // rate limiting alone, not admin password.
   const isProtectedPath =
     req.nextUrl.pathname.startsWith("/admin") ||
-    (req.nextUrl.pathname.startsWith("/api") &&
-      !req.nextUrl.pathname.startsWith("/api/auth") &&
-      !req.nextUrl.pathname.startsWith("/api/tools") &&
-      !req.nextUrl.pathname.startsWith("/api/stacks") &&
-      !req.nextUrl.pathname.startsWith("/api/sponsorships") &&
-      !req.nextUrl.pathname.startsWith("/api/blog") &&
-      !req.nextUrl.pathname.startsWith("/api/csrf") &&
-      !req.nextUrl.pathname.startsWith("/api/webhooks") &&
-      !req.nextUrl.pathname.startsWith("/api/stripe/webhook"));
+    req.nextUrl.pathname.startsWith("/api/admin");
 
   if (isProtectedPath) {
     // Check rate limiting
