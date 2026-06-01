@@ -18,6 +18,8 @@ import { MotionDiv, MotionSection, MotionLi, MotionSpan, MotionP, MotionH1, Moti
 import { designSystem } from "@/lib/design-system";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { SimpleAccordionItem } from "@/components/ui/simple-accordion";
+import { getExtendedContent } from "@/lib/tool-extended-content";
+import sanitizeHtml from "sanitize-html";
 
 import { ToolHero } from "./components/ToolHero";
 import { ToolSEO } from "./components/ToolSEO";
@@ -89,6 +91,19 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
         allTools = [];
     }
 
+    const extended = getExtendedContent(slug);
+    const extendedOverviewHtml = extended
+        ? sanitizeHtml(extended.overviewHtml, {
+              allowedTags: [
+                  "p", "br", "strong", "b", "em", "i", "u", "h2", "h3", "h4",
+                  "ul", "ol", "li", "a", "blockquote", "code",
+              ],
+              allowedAttributes: {
+                  a: ["href", "title", "target", "rel"],
+              },
+          })
+        : null;
+
     // Structured data for Google rich results.
     // SoftwareApplication: enables the tool to appear in Google's app/software cards.
     // BreadcrumbList: shows breadcrumb trail in search results.
@@ -117,6 +132,22 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
             url: tool.affiliateUrl || tool.websiteUrl,
         },
     };
+
+    const faqJsonLd =
+        extended?.faq && extended.faq.length > 0
+            ? {
+                  "@context": "https://schema.org",
+                  "@type": "FAQPage",
+                  mainEntity: extended.faq.map((item) => ({
+                      "@type": "Question",
+                      name: item.q,
+                      acceptedAnswer: {
+                          "@type": "Answer",
+                          text: item.a,
+                      },
+                  })),
+              }
+            : null;
 
     const breadcrumbJsonLd = {
         "@context": "https://schema.org",
@@ -153,6 +184,12 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
             />
+            {faqJsonLd && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+                />
+            )}
             <div className="container max-w-6xl mx-auto px-4">
                 {/* Back Link */}
                 <MotionDiv
@@ -301,6 +338,104 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                 </ul>
                             </SimpleAccordionItem>
                         </div>
+
+                        {/* Extended Editorial Content (per-slug long-form) */}
+                        {extended && (
+                            <MotionSection
+                                initial={designSystem.animations.fadeInUp.initial}
+                                whileInView={designSystem.animations.fadeInUp.animate}
+                                viewport={{ once: true }}
+                                transition={designSystem.animations.fadeInUp.transition}
+                                className="bg-card backdrop-blur-sm rounded-3xl p-8 border border-border/50 shadow-lg space-y-10"
+                            >
+                                {extendedOverviewHtml && (
+                                    <div>
+                                        <div className="flex items-center gap-3 mb-6">
+                                            <div className="p-2 rounded-lg bg-vibe-electric/10">
+                                                <Sparkles className="h-5 w-5 text-vibe-electric" />
+                                            </div>
+                                            <h2 className="text-2xl font-semibold text-foreground">
+                                                In-Depth Overview
+                                            </h2>
+                                        </div>
+                                        <div
+                                            className="prose prose-invert prose-zinc max-w-none prose-a:text-vibe-electric"
+                                            dangerouslySetInnerHTML={{ __html: extendedOverviewHtml }}
+                                        />
+                                    </div>
+                                )}
+
+                                {extended.useCases && extended.useCases.length > 0 && (
+                                    <div>
+                                        <div className="flex items-center gap-3 mb-6">
+                                            <div className="p-2 rounded-lg bg-vibe-electric/10">
+                                                <Target className="h-5 w-5 text-vibe-electric" />
+                                            </div>
+                                            <h2 className="text-2xl font-semibold text-foreground">Use Cases</h2>
+                                        </div>
+                                        <div className="grid sm:grid-cols-2 gap-4">
+                                            {extended.useCases.map((uc) => (
+                                                <div
+                                                    key={uc.title}
+                                                    className="p-5 rounded-2xl bg-secondary/30 border border-border/50"
+                                                >
+                                                    <h3 className="font-semibold text-foreground mb-2">
+                                                        {uc.title}
+                                                    </h3>
+                                                    <p className="text-sm text-muted-foreground leading-relaxed">
+                                                        {uc.body}
+                                                    </p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {extended.pricingDetail && (
+                                    <div>
+                                        <div className="flex items-center gap-3 mb-4">
+                                            <div className="p-2 rounded-lg bg-vibe-electric/10">
+                                                <Zap className="h-5 w-5 text-vibe-electric" />
+                                            </div>
+                                            <h2 className="text-2xl font-semibold text-foreground">
+                                                Pricing Detail
+                                            </h2>
+                                        </div>
+                                        <p className="text-muted-foreground leading-relaxed">
+                                            {extended.pricingDetail}
+                                        </p>
+                                    </div>
+                                )}
+
+                                {extended.faq && extended.faq.length > 0 && (
+                                    <div>
+                                        <div className="flex items-center gap-3 mb-6">
+                                            <div className="p-2 rounded-lg bg-vibe-electric/10">
+                                                <ShieldCheck className="h-5 w-5 text-vibe-electric" />
+                                            </div>
+                                            <h2 className="text-2xl font-semibold text-foreground">
+                                                Frequently Asked Questions
+                                            </h2>
+                                        </div>
+                                        <div className="space-y-4">
+                                            {extended.faq.map((item) => (
+                                                <div
+                                                    key={item.q}
+                                                    className="p-5 rounded-2xl bg-secondary/30 border border-border/50"
+                                                >
+                                                    <h3 className="font-semibold text-foreground mb-2">
+                                                        {item.q}
+                                                    </h3>
+                                                    <p className="text-muted-foreground leading-relaxed">
+                                                        {item.a}
+                                                    </p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </MotionSection>
+                        )}
 
                         {/* In-depth Review - Enhanced */}
                         <MotionSection
