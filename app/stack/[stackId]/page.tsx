@@ -18,12 +18,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         };
     }
 
+    const url = `https://usevibestack.com/stack/${stackId}`;
+
     return {
         title: `${stack.name} | VibeStack`,
         description: stack.description,
+        alternates: { canonical: url },
         openGraph: {
             title: `${stack.name} | AI Stack for ${stack.idealFor.join(", ")}`,
             description: stack.description,
+            url,
             type: "website",
         }
     };

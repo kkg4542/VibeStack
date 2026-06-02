@@ -31,10 +31,18 @@ const descriptions: Record<string, string> = {
 export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {
     const { category: categorySlug } = await params;
     const category = categoryMap[categorySlug] || categorySlug;
-    
+    const url = `https://usevibestack.com/categories/${categorySlug}`;
+
     return {
         title: `${category} AI Tools - Best ${category} Tools 2026 | VibeStack`,
         description: descriptions[category] || `Discover the best ${category} AI tools curated by VibeStack.`,
+        alternates: { canonical: url },
+        openGraph: {
+            title: `${category} AI Tools - Best ${category} Tools 2026 | VibeStack`,
+            description: descriptions[category] || `Discover the best ${category} AI tools curated by VibeStack.`,
+            url,
+            type: "website",
+        },
     };
 }
 

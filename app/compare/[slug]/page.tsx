@@ -33,13 +33,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     const title = `${tool1.title} vs ${tool2.title}: Which implementation is better in 2026?`;
     const description = `Detailed comparison of ${tool1.title} and ${tool2.title}. Compare features, pricing, pros & cons, and user reviews to decide which tool fits your stack.`;
+    const url = `https://usevibestack.com/compare/${slug}`;
 
     return {
         title,
         description,
+        alternates: { canonical: url },
         openGraph: {
             title,
             description,
+            url,
             type: 'article',
         }
     };
