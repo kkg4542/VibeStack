@@ -53,3 +53,10 @@ public/rss.xml
 # Testing
 playwright-report
 test-results
+
+# Marketing screenshots (regenerated via npm run screenshots:ph)
+marketing/ph-screenshots/
+
+# Tool maker contacts (regenerated via npm run extract:contacts;
+# contains scraped emails — keep local)
+marketing/tool-contacts.csv

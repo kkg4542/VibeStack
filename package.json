@@ -9,7 +9,9 @@
     "lint": "eslint .",
     "test": "vitest",
     "test:e2e": "playwright test",
-    "generate:rss": "tsx scripts/generate-rss.ts"
+    "generate:rss": "tsx scripts/generate-rss.ts",
+    "screenshots:ph": "tsx scripts/ph-screenshots.ts",
+    "extract:contacts": "tsx scripts/extract-tool-contacts.ts"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.1",
