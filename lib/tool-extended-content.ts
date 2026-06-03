@@ -1113,6 +1113,526 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
             },
         ],
     },
+
+    linear: {
+        overviewHtml: `
+            <p><strong>Linear</strong> is a project and issue tracker built for software teams who value speed and focus. Where <a href="/tool/jira">Jira</a> optimizes for depth and configurability, Linear optimizes for the opposite: a fast, keyboard-driven, opinionated experience that gets out of the way. It has become the tool of choice for many startups and product teams who found heavier trackers slowing them down, and in 2026 it has layered in AI agents and AI-assisted workflows without compromising that speed-first identity.</p>
+
+            <p>The plan structure is simple. <strong>Free</strong> supports unlimited members with a cap on issues and is genuinely enough for small teams to run real work. <strong>Basic (around $8/user/mo)</strong> raises limits, and <strong>Business (around $14/user/mo)</strong> adds advanced features, more integrations, and AI capabilities. Enterprise (custom) brings SSO, advanced security, and scale. Pricing is per active user, billed monthly or annually.</p>
+
+            <p>Its strengths are speed, design, and opinion. Linear is fast, every interaction is keyboard-accessible, and its strong defaults mean teams spend time shipping rather than configuring. The product's cycles, projects, and roadmap features encode a particular, effective way of working — which is exactly why teams who align with that philosophy love it.</p>
+
+            <p>The honest weaknesses: that same opinionatedness means Linear is less configurable than Jira, so teams with complex, non-standard processes can hit its guardrails. It is built primarily for software development, so cross-functional, non-engineering teams may find <a href="/tool/asana">Asana</a> or <a href="/tool/clickup">ClickUp</a> a better fit. And as it adds features, some worry it could drift from its lean roots. See <a href="/compare/jira-vs-linear">Jira vs Linear</a>.</p>
+
+            <p>Who it is for: startups and product/engineering teams who want a fast, focused, well-designed tracker with strong defaults. Who it is not for: organizations needing deep configurability for complex workflows (Jira), or cross-functional teams whose work spans far beyond software.</p>
+        `,
+        useCases: [
+            {
+                title: "Fast issue tracking for product teams",
+                body: "Linear's core: a fast, keyboard-driven tracker where creating, triaging, and updating issues feels instant. Product and engineering teams adopt it specifically to escape the friction of heavier tools and keep momentum on shipping.",
+            },
+            {
+                title: "Cycle-based planning",
+                body: "Linear's cycles (its take on sprints) and projects encode an effective, opinionated workflow. Teams use them to plan in short iterations with clear scope, leaning on Linear's strong defaults instead of configuring everything from scratch.",
+            },
+            {
+                title: "AI-assisted triage and workflows",
+                body: "With its 2026 AI agents and AI-assisted features, Linear helps draft issues, summarize, and automate routine triage — adding intelligence without slowing down the fast core experience the tool is known for.",
+            },
+        ],
+        pricingDetail:
+            "Linear keeps pricing simple: Free (unlimited members with an issue cap, enough for small teams), Basic (around $8/user/mo), Business (around $14/user/mo, adding advanced features, more integrations, and AI), and Enterprise (custom, with SSO and advanced security). Billing is per active user, monthly or annual, with the usual annual discount. Because exact figures shift, confirm current numbers on Linear's site before quoting them to a team. The main thing to weigh is not the price — which is reasonable — but whether Linear's opinionated, software-focused workflow matches how your team actually works.",
+        faq: [
+            {
+                q: "Linear or Jira — which should we use?",
+                a: "Linear is faster, cleaner, and opinionated — ideal for startups and product teams who value speed over configurability. Jira is deeper and more customizable — better for large or complex engineering organizations, especially in the Atlassian ecosystem. Choose based on whether you want lightness or depth. See our Jira vs Linear comparison.",
+            },
+            {
+                q: "Is Linear's free plan enough?",
+                a: "For small teams, often yes. The free plan supports unlimited members with a cap on issues, which covers real work for early-stage teams. You move to a paid tier when you hit the issue limit or need advanced features, integrations, and AI capabilities.",
+            },
+            {
+                q: "Is Linear only for software teams?",
+                a: "It is built primarily for software development — its cycles, projects, and workflows reflect how engineering teams ship. Some cross-functional teams use it, but if your work spans marketing, ops, and other non-engineering functions heavily, a broader tool like Asana or ClickUp usually fits better.",
+            },
+            {
+                q: "Does Linear have AI features?",
+                a: "Yes. In 2026 Linear added AI agents and AI-assisted workflows — helping draft issues, summarize, and automate triage — on its higher tiers. The notable thing is that it added these without compromising the fast, focused experience that defines the product.",
+            },
+            {
+                q: "Why do teams switch to Linear?",
+                a: "Almost always for speed and focus. Teams frustrated by slow, over-configurable trackers move to Linear for its fast, keyboard-driven interface and strong opinionated defaults, which let them spend time shipping rather than configuring. The trade-off is less flexibility for unusual workflows.",
+            },
+        ],
+    },
+
+    monday: {
+        overviewHtml: `
+            <p><strong>Monday.com</strong> is a highly visual "Work OS" — a flexible platform for managing projects, CRM, operations, and more through colorful, customizable boards. Its appeal is approachability: teams can shape it to almost any workflow without technical skill, and the bright, visual interface makes status obvious at a glance. In 2026 it bundles AI features (monday AI) for automations, content generation, and surfacing insights across boards.</p>
+
+            <p>The plan structure spans several tiers. <strong>Free</strong> is limited to a small number of seats and basic boards. <strong>Basic (around $9/seat/mo)</strong> and <strong>Standard (around $12/seat/mo)</strong> add timeline views, automations, and integrations, with Standard being the common starting point for real teams. <strong>Pro (around $19/seat/mo)</strong> brings advanced automations, time tracking, and more AI, and Enterprise (custom) adds governance and scale. Pricing is per seat and scales quickly with team size.</p>
+
+            <p>Its strengths are flexibility and visual clarity. Monday adapts to project management, sales pipelines, marketing calendars, and operations workflows equally well, and non-technical teams onboard quickly because the interface is intuitive and satisfying to use. For organizations that want one adaptable system across many departments, it is a strong fit.</p>
+
+            <p>The honest weaknesses: per-seat pricing climbs fast for larger teams, and seats are often sold in tiers (e.g. 3, 5) that force you to pay for unused seats. The flexibility can also become clutter without discipline, and heavy users sometimes find the AI features shallower than the marketing suggests. Teams comparing options also look at <a href="/tool/asana">Asana</a> (cleaner, goal-focused) and <a href="/tool/clickup">ClickUp</a> (more features per dollar). See <a href="/compare/asana-vs-monday">Asana vs Monday.com</a>.</p>
+
+            <p>Who it is for: cross-functional teams who want a flexible, visual platform that adapts across departments without technical setup. Who it is not for: cost-sensitive teams wary of per-seat pricing, or teams who want depth in one domain rather than broad adaptability.</p>
+        `,
+        useCases: [
+            {
+                title: "Visual project and operations management",
+                body: "Monday's signature use: colorful, customizable boards that make project and operations status obvious at a glance. Teams shape boards to their workflow — tasks, pipelines, calendars — and the visual interface keeps everyone aligned without digging.",
+            },
+            {
+                title: "Cross-department Work OS",
+                body: "Because monday adapts to project management, CRM, marketing, and operations alike, organizations use it as a single platform across departments. One tool covering many functions reduces tool sprawl for teams that value consistency.",
+            },
+            {
+                title: "AI-assisted automation",
+                body: "monday AI adds automations, content generation, and insight-surfacing across boards — automating status updates, drafting content, and flagging risks. It layers intelligence onto the visual workflow without requiring technical setup.",
+            },
+        ],
+        pricingDetail:
+            "Monday.com offers Free (limited seats and basic boards), Basic (around $9/seat/mo), Standard (around $12/seat/mo, the common real-team starting point with timeline views and automations), Pro (around $19/seat/mo, advanced automations, time tracking, more AI), and Enterprise (custom). The pricing traps to know: it is per seat and climbs quickly with team size, and seats are often sold in fixed tiers (3, 5, etc.), so you can end up paying for unused seats. Confirm current per-seat numbers on monday's site, as they adjust periodically.",
+        faq: [
+            {
+                q: "Asana or Monday.com — which is better?",
+                a: "Both are strong cross-functional work tools. Monday is more visual, colorful, and broadly adaptable across departments; Asana is cleaner with stronger goal-tracking and reporting. The choice usually comes down to whether your team prefers Monday's flexible, visual style or Asana's structured clarity. See our Asana vs Monday.com comparison.",
+            },
+            {
+                q: "How does Monday.com's seat pricing work?",
+                a: "Pricing is per seat and often sold in fixed tiers (such as 3 or 5 seats), so you may pay for seats you don't fully use, and costs climb quickly as the team grows. Budget by total seats across the tiers rather than the headline per-seat number.",
+            },
+            {
+                q: "Is the free Monday.com plan usable?",
+                a: "Only for very small teams or trials — the free tier is limited in seats and features. Most real teams start on Standard (around $12/seat/mo) for timeline views, automations, and integrations. Factor the per-seat cost into your decision early.",
+            },
+            {
+                q: "What can monday AI do?",
+                a: "monday AI adds automations, content generation, and insight-surfacing across your boards — drafting updates, automating routine steps, and flagging risks. It is genuinely useful for cutting manual work, though some heavy users find it shallower than the marketing implies.",
+            },
+            {
+                q: "Is Monday.com good for software teams?",
+                a: "It can work, but it is a general Work OS rather than a developer-specific tool. Engineering teams who want deep agile workflows usually prefer Jira or Linear, while monday shines for cross-functional and operations work where visual flexibility matters more than dev-specific features.",
+            },
+        ],
+    },
+
+    airtable: {
+        overviewHtml: `
+            <p><strong>Airtable</strong> is a spreadsheet-database hybrid that lets teams build flexible, relational apps without code — combining the familiarity of a spreadsheet with the structure of a database and an interface designer on top. In 2026 it relaunched as an AI-native platform: its assistant, <strong>Omni</strong> (which unified the earlier Cobuilder and Assistant features in June 2025), can build production-ready apps with data, automations, and interfaces from natural-language conversation — and, notably, asking Omni to build and iterate on apps comes at no additional cost.</p>
+
+            <p>The plan structure: <strong>Free</strong> includes unlimited bases but caps records at 1,000 per base and 5 editors, with 250 AI credits per editor for testing AI fields. <strong>Team ($20/user/mo annually)</strong> raises records to 50,000 per base with 25,000 automation runs and more AI credits. <strong>Business ($45/user/mo annually)</strong> adds 125,000 records, SSO, admin controls, and premium extensions. Enterprise is custom. Crucially, you are billed only for users with edit permissions — read-only collaborators and form submitters are free.</p>
+
+            <p>Its strengths are structured flexibility and the new AI-native app building. Where a spreadsheet sprawls into chaos, Airtable keeps data relational and queryable, and Omni now lets non-developers spin up real internal apps conversationally. For teams managing structured data — content calendars, CRMs, inventories, project trackers — it hits a sweet spot between a spreadsheet and a custom-built app.</p>
+
+            <p>The honest weaknesses: the free tier's 1,000-record cap is hit fast by any real dataset, pushing teams to paid plans, and per-editor pricing adds up. Analysis-type AI questions consume credits (around 10 credits per response), so heavy AI use has a metered cost beyond app-building. For pure documents and notes, <a href="/tool/notion-ai">Notion</a> or <a href="/tool/coda">Coda</a> fit better — Airtable's strength is structured, relational data, not free-form docs.</p>
+
+            <p>Who it is for: teams managing structured, relational data who want to build flexible internal apps — now conversationally via Omni — without code. Who it is not for: teams whose work is mostly documents and notes (use Notion/Coda), or those whose datasets quickly blow past the free record limits on a tight budget.</p>
+        `,
+        useCases: [
+            {
+                title: "No-code internal apps with Omni",
+                body: "Airtable's 2026 headline: Omni builds production-ready apps — data, automations, interfaces — from natural-language conversation, at no extra cost. Non-developers spin up internal tools (trackers, CRMs, request systems) by describing what they need rather than configuring from scratch.",
+            },
+            {
+                title: "Structured data management",
+                body: "Where spreadsheets sprawl, Airtable keeps data relational and queryable — content calendars, inventories, project databases. The interface designer turns that data into usable views for the team, bridging spreadsheet familiarity and database structure.",
+            },
+            {
+                title: "Lightweight CRM and pipelines",
+                body: "Teams use Airtable to run CRMs and pipelines without dedicated software — linking records, automating follow-ups, and building custom views. Its flexibility makes it a fast way to stand up a structured system tailored to a specific process.",
+            },
+        ],
+        pricingDetail:
+            "Airtable offers Free ($0, unlimited bases but 1,000 records/base, 5 editors, 250 AI credits/editor, 100 automation runs/mo), Team ($20/user/mo annually or $24 monthly — 50,000 records/base, 25,000 automation runs, more AI credits), Business ($45/user/mo annually or $54 monthly — 125,000 records, SSO, admin controls, premium extensions), and Enterprise Scale (custom). Billing applies only to users with edit permissions; read-only collaborators and form submitters are free. The traps: the free 1,000-record cap is hit quickly by real datasets, and AI analysis questions consume credits (~10 per response), so heavy AI use is metered on top of the plan — though building apps with Omni itself is free.",
+        faq: [
+            {
+                q: "Is building apps with Airtable's AI free?",
+                a: "Yes — asking Omni to build and iterate on your apps comes at no additional cost. What does consume credits is AI analysis (questions about your data cost around 10 credits per response). So app-building via Omni is free, but heavy data-analysis AI use draws down your monthly credit allowance.",
+            },
+            {
+                q: "What is Airtable Omni?",
+                a: "Omni is Airtable's integrated AI assistant, which in June 2025 unified the older Cobuilder and Assistant features into one conversational surface. It can build production-ready apps with data, automations, and interfaces, research the web, analyze data, and create or update records — all through natural-language conversation.",
+            },
+            {
+                q: "Is the free Airtable plan enough?",
+                a: "For small projects and testing, yes, but the 1,000-records-per-base cap is the binding limit — real datasets exceed it quickly, pushing you to Team ($20/user/mo) for 50,000 records. The free tier is best for evaluating Airtable and Omni rather than running production data.",
+            },
+            {
+                q: "Airtable or Notion — which should I use?",
+                a: "Airtable is for structured, relational data and no-code apps — think databases, CRMs, and trackers. Notion is for documents, notes, and knowledge with lighter databases attached. If your center of gravity is structured data and app-building, Airtable; if it is docs and knowledge, Notion. Many teams use both.",
+            },
+            {
+                q: "How does Airtable bill for users?",
+                a: "On Team and Business plans you are charged only for users with edit permissions on at least one base. Read-only collaborators, form submitters, and share-link viewers are free. This makes it cheaper to share data widely while paying only for the people who actually build and edit.",
+            },
+        ],
+    },
+
+    runway: {
+        overviewHtml: `
+            <p><strong>Runway</strong> is a pioneer of AI video generation and a broader AI creative suite, best known for pushing text-to-video and image-to-video forward with its Gen-series models. For filmmakers, motion designers, and creative professionals, Runway has been one of the most capable tools for turning prompts and images into moving footage, alongside a deep set of editing and effects tools (inpainting, motion brush, green screen, and more).</p>
+
+            <p>Pricing runs on a credit system across tiers. <strong>Free</strong> gives a one-time credit allotment to try generation, with watermarked output and limits. <strong>Standard (around $15/mo)</strong>, <strong>Pro (around $35/mo)</strong>, and <strong>Unlimited (around $95/mo)</strong> raise credit allowances, resolution, and features, with Unlimited adding a relaxed-mode for unlimited (slower) generations. Enterprise is custom. Credits are consumed per generation, scaling with length and model.</p>
+
+            <p>Its strengths are video quality and creative control. Runway is built for people who care about the craft — it pairs strong generative models with professional editing tools, so it is not just "type a prompt, get a clip" but a genuine production environment. For creative work where video is the deliverable and quality matters, it is among the most capable options.</p>
+
+            <p>The honest weaknesses: AI video is credit-hungry, and serious work burns through allowances fast — costs can climb quickly for heavy users. Generative video still has consistency and artifact limitations that require iteration, and for users who just want occasional clips, the dedicated subscription is harder to justify than image tools. Compared with <a href="/tool/openai-sora">Sora</a>, the two trade leadership on quality and availability; <a href="/tool/midjourney">Midjourney</a> remains the benchmark for still images. </p>
+
+            <p>Who it is for: filmmakers, motion designers, and creative professionals who want capable AI video generation paired with real editing tools. Who it is not for: casual users wanting the occasional clip (the credit costs and subscription are hard to justify), or anyone needing perfectly consistent, artifact-free video today.</p>
+        `,
+        useCases: [
+            {
+                title: "AI video generation",
+                body: "Runway's core: generating video from text or images with its Gen-series models. Filmmakers and creators use it to produce footage, b-roll, and effects shots that would be expensive or impossible to film, iterating quickly on visual ideas.",
+            },
+            {
+                title: "Professional editing and VFX",
+                body: "Beyond generation, Runway includes inpainting, motion brush, green screen, and other tools, making it a genuine production environment rather than a one-shot generator. Creators combine generative and editing tools in one place to finish real work.",
+            },
+            {
+                title: "Concept and pre-visualization",
+                body: "Directors and designers use Runway to pre-visualize scenes and concepts before committing resources — generating mood-setting footage and visual tests that communicate an idea far better than storyboards or stills.",
+            },
+        ],
+        pricingDetail:
+            "Runway uses a credit-based model: Free (one-time credit allotment, watermarked output, limits), Standard (around $15/mo), Pro (around $35/mo), Unlimited (around $95/mo, adding a relaxed mode for unlimited slower generations), and Enterprise (custom). Annual billing discounts apply. The key mechanic: credits are consumed per generation and scale with clip length and the model used, so AI video gets expensive fast — heavy users on lower tiers exhaust credits quickly. Confirm current prices and credit allowances on Runway's site, as generative-video pricing changes often.",
+        faq: [
+            {
+                q: "Why do Runway credits run out so fast?",
+                a: "Because AI video generation is computationally expensive — credits are consumed per generation and scale with clip length and model quality. Serious creative work involves a lot of iteration, so heavy users on Standard or Pro burn through allowances quickly. The Unlimited tier's relaxed mode helps for high-volume, less time-sensitive work.",
+            },
+            {
+                q: "Runway or Sora — which is better for AI video?",
+                a: "Both are leaders in AI video and trade the lead on quality and availability over time. Runway pairs generation with a deep professional editing suite, making it a fuller production environment; Sora is known for raw quality and physical realism. The best choice depends on which models are strongest at the moment and whether you need Runway's editing tools.",
+            },
+            {
+                q: "Is Runway's free plan enough to evaluate it?",
+                a: "It is enough to try generation and see the quality, but the one-time credit allotment, watermarks, and limits mean you cannot do real production work on it. Treat Free as a demo; serious use requires a paid tier with a recurring credit allowance.",
+            },
+            {
+                q: "Is Runway just for video?",
+                a: "Video generation is its headline, but Runway is a broader creative suite with image tools, editing, and VFX features like inpainting, motion brush, and green screen. It is designed as a production environment for creative professionals, not solely a text-to-video generator.",
+            },
+            {
+                q: "Is AI video ready for professional use?",
+                a: "It is increasingly capable but still has consistency and artifact limitations that require iteration and careful selection. Professionals use Runway successfully for b-roll, concept work, effects, and pre-visualization, but fully replacing traditional production for polished, consistent footage still takes effort and review.",
+            },
+        ],
+    },
+
+    elevenlabs: {
+        overviewHtml: `
+            <p><strong>ElevenLabs</strong> is the leading AI voice platform, best known for producing remarkably natural-sounding text-to-speech and voice cloning. In 2026 it spans a full audio stack — text-to-speech, voice cloning, dubbing, sound effects, music, and conversational AI agents — all under one credit system. For anyone who needs high-quality synthetic voice, from audiobook narration to app voiceovers to AI phone agents, it sets the quality benchmark.</p>
+
+            <p>The pricing has seven tiers built on credits, where one credit maps to roughly one character of text. <strong>Free</strong> gives 10,000 credits/month (about ten minutes of speech) but with no commercial rights and required attribution. <strong>Starter ($5/mo)</strong> unlocks commercial rights and instant voice cloning. <strong>Creator ($22/mo)</strong> adds professional voice cloning and 100,000 characters. <strong>Pro ($99/mo)</strong>, <strong>Scale ($330/mo)</strong>, and <strong>Business ($1,320/mo)</strong> raise volume for production use, with Enterprise custom. Conversational AI agents are billed separately at roughly $0.08–0.12 per minute.</p>
+
+            <p>Its strengths are voice quality and breadth. ElevenLabs' output is consistently the most natural in the market, its voice cloning is powerful (instant and professional tiers), and the platform covers nearly every audio-AI need in one place. For creators and developers building voice into products, it is the default choice.</p>
+
+            <p>The honest weaknesses: the credit-to-character model means long-form or high-volume audio gets expensive, and serious production can require the higher tiers. The free tier's lack of commercial rights and required attribution make it strictly a trial. And powerful voice cloning raises real ethical and consent considerations that responsible users must handle carefully. For full video/podcast editing rather than pure voice, <a href="/tool/descript">Descript</a> is a better fit.</p>
+
+            <p>Who it is for: creators, developers, and businesses who need top-quality AI voice — narration, voiceovers, dubbing, or conversational agents. Who it is not for: casual users whose needs fit a free tier with attribution, or anyone needing a full video/podcast editor rather than a voice engine.</p>
+        `,
+        useCases: [
+            {
+                title: "Narration and voiceover",
+                body: "ElevenLabs' core: turning scripts into natural-sounding narration for audiobooks, videos, e-learning, and app voiceovers. Its quality is the market benchmark, making synthetic voice viable where it previously sounded too robotic to use.",
+            },
+            {
+                title: "Voice cloning and dubbing",
+                body: "With instant and professional voice cloning, creators replicate a specific voice for consistent narration, and the dubbing tools translate content into other languages while preserving voice character — powerful for scaling content across markets (with proper consent).",
+            },
+            {
+                title: "Conversational AI agents",
+                body: "Developers build voice agents — phone assistants, in-app voices — on ElevenLabs' conversational AI, billed per minute (roughly $0.08–0.12). The natural voice quality makes these agents feel far less robotic than older text-to-speech systems.",
+            },
+        ],
+        pricingDetail:
+            "ElevenLabs has seven credit-based tiers (1 credit ≈ 1 character): Free ($0, 10,000 credits/mo ≈ ten minutes, no commercial rights, attribution required), Starter ($5/mo, commercial rights + instant voice cloning), Creator ($22/mo, 100,000 characters + professional voice cloning), Pro ($99/mo, 500,000 characters), Scale ($330/mo, 2M characters), Business ($1,320/mo), and Enterprise (custom). Annual billing saves ~17%. Conversational AI agents are billed separately at roughly $0.08–0.12/minute by model tier. The trap: long-form or high-volume audio consumes credits fast, so production work can require stepping up tiers — budget by total characters, not just the monthly sticker price.",
+        faq: [
+            {
+                q: "Can I use ElevenLabs audio commercially?",
+                a: "Only on paid plans. The free tier explicitly excludes commercial rights and requires attributing ElevenLabs. Commercial usage rights begin at the Starter tier ($5/mo), which also unlocks instant voice cloning. If you plan to publish or monetize the audio, you need at least Starter.",
+            },
+            {
+                q: "How do ElevenLabs credits work?",
+                a: "Credits map directly to characters of text — using the standard Multilingual v2 model, 1 credit equals 1 character. Each plan includes a monthly credit allowance (10,000 on Free up to millions on higher tiers). Long-form or high-volume audio consumes credits quickly, so budget by total characters you expect to generate.",
+            },
+            {
+                q: "How good is ElevenLabs' voice cloning?",
+                a: "It is among the best available, offered in two forms: Instant Voice Cloning (from a short sample, on Starter+) and Professional Voice Cloning (higher fidelity, on Creator+). It is powerful enough that responsible use requires proper consent for any voice you clone — an important ethical consideration.",
+            },
+            {
+                q: "ElevenLabs or Descript — which do I need?",
+                a: "ElevenLabs is a voice engine — best for high-quality text-to-speech, cloning, dubbing, and voice agents. Descript is a full video and podcast editor with AI tools built in. If you need synthetic voice or voice infrastructure, ElevenLabs; if you need to edit recorded video/audio content, Descript.",
+            },
+            {
+                q: "How much do ElevenLabs voice agents cost?",
+                a: "Conversational AI agents are billed separately from the character-based plans, at roughly $0.08/minute (Standard), $0.10/minute (Turbo), and $0.12/minute (Premium) depending on the model tier. This per-minute model is distinct from the credit/character system used for text-to-speech.",
+            },
+        ],
+    },
+
+    descript: {
+        overviewHtml: `
+            <p><strong>Descript</strong> is an AI-powered video and podcast editor with a defining trick: it lets you edit audio and video by editing text. It transcribes your recording, and deleting a word from the transcript deletes it from the media. Combined with its AI assistant <strong>Underlord</strong> and tools like Studio Sound, filler-word removal, and AI eye-contact correction, it has made professional-quality content editing accessible to people who are not video editors.</p>
+
+            <p>The plan structure: <strong>Free</strong> includes about one media hour per month but with watermarked exports and no AI credits or Underlord access — strictly for trying the editor. <strong>Hobbyist ($16/user/mo annually)</strong> raises transcription to ~10 hours with basic AI. <strong>Creator ($24/user/mo annually)</strong> is the go-to for podcasters and YouTubers, adding Studio Sound, full Underlord, and 4K exports. <strong>Business ($50/user/mo annually)</strong> targets small video teams with ~30 hours, and Enterprise is custom. AI features draw on AI credits tracked per plan.</p>
+
+            <p>Its strengths are accessibility and a genuinely novel workflow. Text-based editing removes the intimidation of timeline editors, and the AI cleanup tools (Studio Sound for audio, filler-word removal, eye contact) handle tedious post-production automatically. For podcasters, YouTubers, and teams producing regular content, it dramatically lowers the skill and time required.</p>
+
+            <p>The honest weaknesses: the free tier is too limited for real work (1 hour, watermarks, no AI), so meaningful use requires a paid plan, and AI features are metered by credits that heavy users can exhaust. For complex, high-end video production, dedicated NLEs (Premiere, DaVinci) still offer more control. And for pure voice generation rather than editing recorded content, <a href="/tool/elevenlabs">ElevenLabs</a> is the right tool.</p>
+
+            <p>Who it is for: podcasters, YouTubers, and content teams who want fast, accessible video/audio editing with AI cleanup. Who it is not for: high-end video professionals needing a full NLE's control, or anyone whose need is voice generation rather than editing existing recordings.</p>
+        `,
+        useCases: [
+            {
+                title: "Text-based video and podcast editing",
+                body: "Descript's signature: edit media by editing its transcript — delete a word, delete the audio. This removes the intimidation of timeline editing and lets podcasters and creators cut, rearrange, and clean up content as easily as editing a document.",
+            },
+            {
+                title: "AI audio and video cleanup",
+                body: "Tools like Studio Sound (audio enhancement), filler-word removal, and AI eye-contact correction automate tedious post-production. Creators use them to make raw recordings sound and look professional without manual editing expertise.",
+            },
+            {
+                title: "Underlord AI assistance",
+                body: "Underlord, Descript's AI assistant, helps with editing tasks, generating content, and speeding up the production workflow. For regular content producers, it takes on routine steps so they can focus on the creative parts.",
+            },
+        ],
+        pricingDetail:
+            "Descript has five tiers: Free ($0, ~1 media hour/month, watermarked exports, no AI credits or Underlord), Hobbyist ($16/user/mo annually or $24 monthly, ~10 hours, basic AI), Creator ($24/user/mo annually or $35 monthly, the podcaster/YouTuber go-to with Studio Sound, full Underlord, 4K exports), Business ($50/user/mo annually or $65 monthly, ~30 hours for small teams), and Enterprise (custom). AI features consume AI credits tracked per plan. The trap: the free tier is strictly a trial (1 hour, watermarks, no AI), so any real content work needs at least Creator — and heavy AI use can exhaust credits before the period resets.",
+        faq: [
+            {
+                q: "How does Descript's text-based editing work?",
+                a: "Descript transcribes your recording, then lets you edit the media by editing the transcript — deleting a word from the text removes it from the audio and video. This makes editing as approachable as word processing, which is the core reason non-editors can produce polished content with it.",
+            },
+            {
+                q: "Is the free Descript plan enough?",
+                a: "Only for trying it. Free includes about one media hour per month with watermarked exports and no AI credits or Underlord access. Real content work — podcasts, YouTube videos — requires at least Creator ($24/user/mo) for the AI tools, Studio Sound, and unwatermarked 4K exports.",
+            },
+            {
+                q: "What is Underlord?",
+                a: "Underlord is Descript's AI assistant, which helps with editing tasks, content generation, and streamlining the production workflow. It is available with full functionality from the Creator tier and is part of what makes Descript more than a basic editor — it actively assists the editing process.",
+            },
+            {
+                q: "Descript or a traditional video editor?",
+                a: "Descript wins on accessibility and speed for talking-head content, podcasts, and tutorials — its text-based workflow and AI cleanup are far faster for those. For complex, high-end video production with fine control over every frame, dedicated NLEs like Premiere or DaVinci Resolve still offer more.",
+            },
+            {
+                q: "Does Descript handle voice generation?",
+                a: "It has some AI voice features, but its focus is editing recorded video and audio, not generating synthetic voice from scratch. If your primary need is high-quality text-to-speech, voice cloning, or voice agents, ElevenLabs is the dedicated tool; Descript is for editing content you have recorded.",
+            },
+        ],
+    },
+
+    vercel: {
+        overviewHtml: `
+            <p><strong>Vercel</strong> is the deployment and hosting platform built by the creators of Next.js, and the default home for modern front-end and full-stack JavaScript apps. Its pitch is frictionless deploys: connect a Git repository and every push ships to a fast global edge network with preview URLs for every branch. Around that core it has built an AI ecosystem — <a href="/tool/v0-by-vercel">v0</a> for AI UI generation and the Vercel AI SDK for building AI features into apps — making it as much an AI-app platform as a host in 2026.</p>
+
+            <p>The plan structure: <strong>Hobby (Free)</strong> is genuinely useful for personal projects and prototypes, with generous limits, preview deploys, and HTTPS. <strong>Pro (around $20/user/mo)</strong> adds team collaboration, more compute and bandwidth, analytics, and higher limits. <strong>Enterprise</strong> (custom) brings SLAs, advanced security, and dedicated support. A crucial detail: on top of the subscription, Vercel charges <strong>usage-based fees</strong> for bandwidth, function execution, and other resources, which can grow with traffic.</p>
+
+            <p>Its strengths are developer experience and ecosystem fit. For Next.js apps especially, nothing matches the smoothness of Vercel's deploy flow, preview environments, and edge performance. The integration with v0 and the AI SDK means you can design, build, and ship AI-powered apps within one coherent ecosystem.</p>
+
+            <p>The honest weaknesses: the usage-based pricing on top of the subscription is the recurring surprise — a viral app or heavy traffic can produce bills well above the $20 base, and developers have been caught out by this. It is also optimized for the JS/Next.js world, so other stacks see less benefit, and for simple static sites cheaper hosts suffice. For the UI-generation piece specifically, see <a href="/tool/v0-by-vercel">v0</a>.</p>
+
+            <p>Who it is for: developers and teams building modern front-end or full-stack JS apps — especially Next.js — who want the smoothest deploy experience and an integrated AI ecosystem. Who it is not for: projects on other stacks, simple static sites where a cheaper host suffices, or teams who need fully predictable costs and dislike usage-based billing.</p>
+        `,
+        useCases: [
+            {
+                title: "Frictionless Git-based deploys",
+                body: "Vercel's core: connect a repository and every push deploys to a fast global edge network, with a unique preview URL for every branch and pull request. For modern web teams, this deploy-and-preview flow is the smoothest available, especially for Next.js.",
+            },
+            {
+                title: "Hosting AI-powered apps",
+                body: "With the Vercel AI SDK and tight integration with v0, Vercel is a natural home for AI-powered applications — you can build AI features with the SDK and deploy them on infrastructure designed for fast, edge-served responses, all in one ecosystem.",
+            },
+            {
+                title: "Preview environments for collaboration",
+                body: "Every branch gets a live preview URL, so teams review real, deployed versions of changes before merging. Designers, PMs, and stakeholders can see and comment on actual working pages rather than local screenshots, tightening the feedback loop.",
+            },
+        ],
+        pricingDetail:
+            "Vercel offers Hobby (free, generous limits for personal projects with preview deploys and HTTPS), Pro (around $20/user/mo, adding team collaboration, more compute and bandwidth, analytics, and higher limits), and Enterprise (custom, with SLAs and advanced security). The critical thing to understand: on top of the subscription, Vercel bills usage-based fees for bandwidth, serverless/edge function execution, and other resources. A high-traffic or viral app can generate costs well beyond the $20 base — this is the most common billing surprise. Monitor usage and set spend limits if cost predictability matters.",
+        faq: [
+            {
+                q: "Why might my Vercel bill exceed the $20 Pro price?",
+                a: "Because Vercel charges usage-based fees on top of the subscription — for bandwidth, function execution, and other resources. A high-traffic or viral app can push these well beyond the base $20, which is the most common surprise for Vercel users. Set spending limits and monitor usage if predictable costs matter.",
+            },
+            {
+                q: "Is Vercel only for Next.js?",
+                a: "It is optimized for Next.js (which Vercel created) and the broader JS/front-end ecosystem, where it shines. It supports other frameworks too, but the deepest benefits — performance optimizations, integrations, deploy smoothness — are greatest for Next.js apps. Other stacks see less advantage.",
+            },
+            {
+                q: "Is the free Hobby plan enough?",
+                a: "For personal projects, prototypes, and small sites, yes — Hobby is genuinely useful with generous limits, preview deploys, and HTTPS. You move to Pro when you need team collaboration, more compute and bandwidth, or commercial usage, which the Hobby plan's terms don't cover.",
+            },
+            {
+                q: "How does Vercel relate to v0?",
+                a: "Both are made by Vercel and designed to work together: v0 generates AI-powered UI and code, which deploys seamlessly to Vercel's hosting. Together with the Vercel AI SDK, they form an ecosystem for designing, building, and shipping AI-powered apps. See our v0 page for the UI-generation side.",
+            },
+            {
+                q: "Is Vercel good for static sites?",
+                a: "It works well, but for simple static sites a cheaper or free host may suffice — Vercel's real value is in dynamic, full-stack, and AI-powered apps with edge functions and previews. If all you need is static hosting, you may not need everything Vercel offers (or its usage-based pricing).",
+            },
+        ],
+    },
+
+    "devin-ai": {
+        overviewHtml: `
+            <p><strong>Devin</strong>, made by Cognition, is marketed as an autonomous AI software engineer — an agent you assign tasks to, which then plans, writes, tests, and iterates on code largely on its own, working asynchronously in its own environment rather than as an in-editor assistant. It represents the most ambitious end of AI coding: not autocomplete or a pair programmer, but a system meant to take a ticket and return a pull request.</p>
+
+            <p>The most important 2026 news is price. With <strong>Devin 2.0</strong>, Cognition slashed the entry price from $500/mo to a <strong>Core plan starting at $20</strong>, with pay-as-you-go billing at $2.25 per ACU (Agentic Computing Unit — roughly 15 minutes of active autonomous work). The <strong>Team plan ($500/mo)</strong> includes 250 ACUs at a slightly better $2.00 rate with unlimited concurrent sessions (Core caps at 10). Enterprise is custom. This drop made Devin accessible to individual developers for the first time.</p>
+
+            <p>Its strength is genuine autonomy on well-scoped tasks. For clearly defined, self-contained work — fixing a bug, implementing a small feature, writing tests, doing a migration — Devin can take the task and return working code with little supervision, running multiple sessions in parallel. For teams wanting to offload routine engineering chores, that asynchronous, fire-and-forget model is genuinely different from editor-based tools.</p>
+
+            <p>The honest weaknesses: autonomy is also the risk — Devin can confidently go down wrong paths on ambiguous or complex tasks, and ACU-based billing means a task that spirals costs real money with less visibility than a flat subscription. It works best on well-scoped work and still needs human review. For interactive, in-editor development most engineers still prefer <a href="/tool/cursor">Cursor</a> or <a href="/tool/github-copilot">GitHub Copilot</a>, using Devin as a complement for delegatable tasks rather than a replacement.</p>
+
+            <p>Who it is for: developers and teams who want to delegate well-scoped engineering tasks to an autonomous agent that works asynchronously. Who it is not for: those wanting interactive, in-editor assistance (use Cursor/Copilot), or anyone uncomfortable with usage-based costs on tasks that can occasionally run long.</p>
+        `,
+        useCases: [
+            {
+                title: "Delegating well-scoped tasks",
+                body: "Devin's sweet spot: hand it a clearly defined, self-contained task — a bug fix, a small feature, a test suite, a migration — and it plans, codes, tests, and returns a pull request asynchronously, with little supervision. For routine, delegatable work it functions like an extra engineer.",
+            },
+            {
+                title: "Parallel asynchronous work",
+                body: "Because Devin works in its own environment rather than your editor, you can run multiple sessions at once (unlimited on Team), assigning several tasks in parallel. Teams use this to offload a batch of routine chores simultaneously rather than doing them one by one.",
+            },
+            {
+                title: "Migrations and repetitive refactors",
+                body: "Large, mechanical jobs — framework migrations, repetitive refactors across many files — suit Devin's autonomous model well, since the work is well-defined but tedious. It grinds through the repetition while engineers review the output.",
+            },
+        ],
+        pricingDetail:
+            "After the Devin 2.0 launch, pricing dropped dramatically: Core starts at $20 with pay-as-you-go billing at $2.25 per ACU (Agentic Computing Unit ≈ 15 minutes of active autonomous work), capped at 10 concurrent sessions; Team is $500/mo including 250 ACUs at a better $2.00 rate with unlimited concurrent sessions; Enterprise is custom. The shift from a flat $500 entry to a $20 usage-based Core made Devin accessible to individuals for the first time. The trap: ACU billing means a task that spirals or runs long costs real money with less predictability than a subscription — scope tasks well and watch ACU consumption.",
+        faq: [
+            {
+                q: "How much does Devin cost now?",
+                a: "With Devin 2.0, Cognition cut the entry price from $500/mo to a Core plan starting at $20, with pay-as-you-go billing at $2.25 per ACU. The Team plan is $500/mo with 250 ACUs at $2.00 each and unlimited concurrent sessions. This made Devin accessible to individual developers for the first time.",
+            },
+            {
+                q: "What is an ACU?",
+                a: "An ACU (Agentic Computing Unit) is Devin's normalized measure of resources used while actively working — VM time, model inference, and bandwidth. One ACU represents roughly 15 minutes of active autonomous work. You are billed per ACU consumed, so cost scales with how much actual work a task requires.",
+            },
+            {
+                q: "Is Devin better than Cursor or GitHub Copilot?",
+                a: "They are different categories. Devin is an autonomous agent you delegate whole tasks to, working asynchronously; Cursor and Copilot are interactive, in-editor assistants. Most engineers still prefer in-editor tools for day-to-day coding and use Devin to offload well-scoped, delegatable tasks. They complement rather than replace each other.",
+            },
+            {
+                q: "Can Devin really work autonomously?",
+                a: "On well-scoped, self-contained tasks, yes — it can plan, code, test, and return a pull request with little supervision. But autonomy is also its risk: on ambiguous or complex work it can confidently go down wrong paths, so human review remains essential. It is best treated as a capable junior engineer, not a hands-off replacement.",
+            },
+            {
+                q: "What's the risk with Devin's pricing?",
+                a: "ACU-based billing means costs scale with actual work, so a task that spirals or runs longer than expected consumes more ACUs and costs more — with less predictability than a flat subscription. Scope tasks clearly and monitor ACU consumption to avoid surprises, especially on the pay-as-you-go Core plan.",
+            },
+        ],
+    },
+
+    "microsoft-copilot": {
+        overviewHtml: `
+            <p><strong>Microsoft Copilot</strong> is Microsoft's consumer AI assistant — a chat, search, and image-generation tool integrated across Windows, Edge, and Bing. It is positioned as the everyday AI companion for the Microsoft ecosystem: built into the operating system and browser most people already use, with web-grounded answers and image generation, free to start. It is distinct from <a href="/tool/microsoft-365-copilot">Microsoft 365 Copilot</a>, which is the paid, Office-integrated version for work documents.</p>
+
+            <p>The pricing is straightforward freemium. <strong>Free</strong> gives conversational AI, web-grounded answers, and image generation, built into Windows and Edge. <strong>Copilot Pro (around $20/mo)</strong> adds priority access to the latest models, faster performance during peak times, and enhanced image generation. For most consumers the free tier covers everyday needs, with Pro aimed at heavier individual users.</p>
+
+            <p>Its strengths are accessibility and integration. Because Copilot is built into Windows and Edge, it is the AI that is simply <em>there</em> for hundreds of millions of users — no install, no separate app, free to use. For quick questions, web-grounded answers with citations, and casual image generation within the Microsoft environment, it is convenient and capable.</p>
+
+            <p>The honest weaknesses: on hard reasoning, coding, or specialized tasks it generally trails the frontier offerings of <a href="/tool/chatgpt">ChatGPT</a> and <a href="/tool/claude">Claude</a>, and the experience can feel inconsistent across its many surfaces (Windows, Edge, web, mobile). It is a strong default for Microsoft users but rarely the most capable choice for demanding work. Note also that the consumer Copilot is separate from the work-focused Microsoft 365 Copilot, which is a different product and price.</p>
+
+            <p>Who it is for: Windows and Edge users who want a free, built-in AI assistant for everyday questions, web answers, and casual image generation. Who it is not for: users with demanding reasoning, coding, or specialized needs (a frontier assistant serves better), or those seeking deep Office-document integration (that is Microsoft 365 Copilot).</p>
+        `,
+        useCases: [
+            {
+                title: "Built-in everyday assistant",
+                body: "Copilot's main role: the AI that is simply present in Windows and Edge for everyday questions, quick help, and web-grounded answers. For hundreds of millions of Microsoft users, it is the zero-setup, free assistant always within reach.",
+            },
+            {
+                title: "Web-grounded search and answers",
+                body: "Built on Bing, Copilot provides conversational answers grounded in live web results with citations — useful for quick research and fact-checking directly in the browser without switching to a separate tool.",
+            },
+            {
+                title: "Casual image generation",
+                body: "Copilot includes image generation, letting users create visuals from prompts for free within the Microsoft environment. For casual, occasional image needs it is convenient, though dedicated tools produce higher-quality results.",
+            },
+        ],
+        pricingDetail:
+            "Microsoft Copilot (the consumer assistant) is freemium: Free includes conversational AI, web-grounded answers, and image generation, built into Windows and Edge. Copilot Pro (around $20/mo) adds priority access to the latest models, faster performance during peak times, and enhanced image generation for heavier individual users. Important distinction: this consumer Copilot is separate from Microsoft 365 Copilot, the paid Office-integrated product (Business ~$18–21/user/mo) that works inside Word, Excel, and Teams. Don't confuse the two — they are different products at different prices for different needs.",
+        faq: [
+            {
+                q: "What's the difference between Microsoft Copilot and Microsoft 365 Copilot?",
+                a: "Microsoft Copilot is the free consumer assistant built into Windows, Edge, and Bing for chat, web answers, and image generation. Microsoft 365 Copilot is the paid, work-focused product (~$18–21/user/mo) that integrates into Word, Excel, PowerPoint, Outlook, and Teams to work on your documents. Same brand, different products and prices.",
+            },
+            {
+                q: "Is Microsoft Copilot free?",
+                a: "Yes — the consumer Copilot is free, with conversational AI, web-grounded answers, and image generation built into Windows and Edge. Copilot Pro (around $20/mo) adds priority model access, faster peak performance, and enhanced image generation for users who want more.",
+            },
+            {
+                q: "Is Microsoft Copilot as good as ChatGPT?",
+                a: "For everyday questions and web-grounded answers, it is convenient and capable, especially given it's free and built into Windows. But on hard reasoning, coding, and specialized tasks it generally trails frontier assistants like ChatGPT and Claude. It is a strong default rather than the most powerful option.",
+            },
+            {
+                q: "Where can I use Microsoft Copilot?",
+                a: "It is integrated across Windows (built into the OS), Edge (in the browser), Bing (search), and available on the web and mobile apps. This ubiquity within the Microsoft ecosystem is its main advantage — though the experience can feel somewhat inconsistent across these different surfaces.",
+            },
+            {
+                q: "Is Copilot Pro worth $20/month?",
+                a: "For most casual users, the free tier is enough. Copilot Pro makes sense if you use it heavily and want priority access to the latest models, faster responses during peak times, and better image generation. If you mainly need occasional answers, the free version covers it.",
+            },
+        ],
+    },
+
+    "microsoft-365-copilot": {
+        overviewHtml: `
+            <p><strong>Microsoft 365 Copilot</strong> is the AI assistant woven directly into the Microsoft Office apps — Word, Excel, PowerPoint, Outlook, and Teams. Unlike a standalone chatbot, its whole value is that it works on <em>your</em> content: drafting documents, analyzing spreadsheets, building presentations, summarizing email threads, and recapping Teams meetings, all grounded in your organization's files and data via Microsoft Graph. For enterprises already standardized on Office, it brings AI to where work already happens.</p>
+
+            <p>The pricing has a free-and-paid structure that is easy to misread. <strong>Microsoft 365 Copilot Chat</strong> is available at no additional cost for eligible Microsoft 365 users, but it does <em>not</em> connect to your Office apps — it can't read your emails, summarize your meetings, or analyze your Excel data. The full in-app experience requires a paid add-on: <strong>Business (around $18–21/user/mo)</strong> on top of a qualifying Microsoft 365 plan, or <strong>Enterprise (around $30/user/mo)</strong>. The promotional $18 Business rate runs through mid-2026 before rising.</p>
+
+            <p>Its strengths are deep integration and enterprise grounding. Because it operates inside the Office apps on your real documents and data, it can do things no external assistant can — summarize the specific email thread, build a deck from your existing files, analyze your actual spreadsheet — all within Microsoft's enterprise security and compliance boundary. For large organizations, that combination is uniquely valuable.</p>
+
+            <p>The honest weaknesses: the cost is significant — a paid add-on per user <em>on top of</em> an existing Microsoft 365 subscription — and output quality varies by app, with some integrations stronger than others. The free Copilot Chat tier's lack of document connection confuses buyers who expect the full experience. For individuals or teams not deep in Office, a general assistant or <a href="/tool/notion-ai">Notion AI</a> may deliver more value per dollar. It is also distinct from the free consumer <a href="/tool/microsoft-copilot">Microsoft Copilot</a>.</p>
+
+            <p>Who it is for: enterprises and teams standardized on Microsoft Office who want AI grounded in their real documents, email, and meetings within Microsoft's security boundary. Who it is not for: individuals or small teams not heavily invested in Office, or anyone unwilling to pay an add-on on top of their existing Microsoft 365 subscription.</p>
+        `,
+        useCases: [
+            {
+                title: "AI across Word, Excel, and PowerPoint",
+                body: "Microsoft 365 Copilot's core: drafting documents in Word, analyzing and formulating in Excel, and building presentations in PowerPoint — all working on your actual files. It brings AI assistance into the apps where the work already happens rather than a separate window.",
+            },
+            {
+                title: "Email and meeting intelligence",
+                body: "In Outlook and Teams, Copilot summarizes long email threads, drafts replies, and recaps meetings — including what you missed and the action items. For information-heavy roles, this recall and summarization across communications is a major time saver.",
+            },
+            {
+                title: "Enterprise-grounded answers",
+                body: "Through Microsoft Graph, Copilot answers grounded in your organization's documents and data within Microsoft's security and compliance boundary. It can pull from your real files to answer work questions, something external assistants can't do safely.",
+            },
+        ],
+        pricingDetail:
+            "Microsoft 365 Copilot has a free-and-paid structure that's easy to misread. Copilot Chat is included at no additional cost for eligible Microsoft 365 users — but it does NOT connect to your Office apps (no reading email, summarizing meetings, or analyzing Excel). The full in-app experience requires a paid add-on: Business (around $18–21/user/mo, with the $18 promotional annual rate running through June 30, 2026 before rising to $21) on top of a qualifying Microsoft 365 plan, or Enterprise (around $30/user/mo). The key trap: the meaningful AI requires both an existing Microsoft 365 subscription and the Copilot add-on, so the real cost is the sum of both.",
+        faq: [
+            {
+                q: "Is Microsoft 365 Copilot free?",
+                a: "Partly. Microsoft 365 Copilot Chat is included at no extra cost for eligible Microsoft 365 users, but it does not connect to your Office apps — it can't read your email, summarize meetings, or analyze your spreadsheets. The full in-app experience requires a paid add-on (Business ~$18–21/user/mo or Enterprise ~$30) on top of your Microsoft 365 plan.",
+            },
+            {
+                q: "What does Microsoft 365 Copilot actually cost?",
+                a: "The meaningful version requires two things: a qualifying Microsoft 365 subscription plus the Copilot add-on (around $18–21/user/mo for Business, with $18 promotional through June 2026, or ~$30 for Enterprise). The real cost is the sum of both — the add-on price alone understates it if you're not already on Microsoft 365.",
+            },
+            {
+                q: "How is this different from the free Microsoft Copilot?",
+                a: "Microsoft Copilot is the free consumer assistant in Windows, Edge, and Bing for chat and web answers. Microsoft 365 Copilot is the paid, work-focused product that integrates into Word, Excel, PowerPoint, Outlook, and Teams to work on your actual documents and data. Same brand, very different products.",
+            },
+            {
+                q: "Is Microsoft 365 Copilot worth it?",
+                a: "For enterprises deeply standardized on Office, yes — its ability to work on your real documents, email, and meetings within Microsoft's security boundary is something no external assistant can match. For individuals or teams not heavily invested in Office, a general assistant or Notion AI often delivers more value per dollar.",
+            },
+            {
+                q: "What can Microsoft 365 Copilot do that ChatGPT can't?",
+                a: "It operates inside your Office apps on your actual content — summarizing the specific email thread, building a deck from your existing files, analyzing your real spreadsheet, recapping your Teams meeting — all grounded in your organization's data via Microsoft Graph and within enterprise compliance. A general assistant like ChatGPT has no access to that internal context.",
+            },
+        ],
+    },
 };
 
 export function getExtendedContent(slug: string): ToolExtendedContent | null {
