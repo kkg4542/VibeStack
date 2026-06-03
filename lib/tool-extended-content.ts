@@ -593,6 +593,526 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
             },
         ],
     },
+
+    "v0-by-vercel": {
+        overviewHtml: `
+            <p><strong>v0</strong>, made by Vercel, is an AI tool that turns prompts into production-ready UI — React and Tailwind components, full pages, and increasingly complete front ends — with a strong bias toward clean, modern, shippable code. Because it comes from Vercel, it deploys to Vercel in one click and syncs with GitHub, making it the most natural choice for teams already in the Next.js ecosystem. A major February 2026 update added Git integration and a full VS Code-style editor, turning it from a component generator into something closer to a complete build environment.</p>
+
+            <p>The pricing is credit-based across five tiers. <strong>Free</strong> gives $5 in monthly credits and up to 200 projects with Design Mode and GitHub sync — enough to evaluate it seriously. <strong>Premium ($20/mo)</strong> adds $20 of monthly credits, Figma imports, the v0 API, and higher limits. All plans access the three model tiers (Mini, Pro, Max), differing mainly in credits and collaboration.</p>
+
+            <p>Its strength is output quality and ecosystem fit. v0's generated code is unusually clean and idiomatic — real React and Tailwind a developer would be comfortable maintaining, not throwaway scaffolding. For anyone building on Next.js and deploying to Vercel, the end-to-end flow from prompt to deployed page is the smoothest available.</p>
+
+            <p>The honest weaknesses: the credit system means costs scale with how much you generate, and heavy users burn through the $20 Premium credits faster than expected. It is also the most opinionated tool here — it strongly favors the React/Tailwind/Vercel stack, so it is less useful if you work in other frameworks. Compared with <a href="/tool/bolt-new">Bolt.new</a> and <a href="/tool/lovable">Lovable</a>, v0 is more UI-and-developer-focused; Bolt and Lovable lean toward full-stack and non-developers respectively. See <a href="/compare/v0-by-vercel-vs-bolt-new">v0 vs Bolt.new</a>.</p>
+
+            <p>Who it is for: developers and designers in the React/Next.js/Vercel ecosystem who want high-quality UI generation with a clean deploy path. Who it is not for: teams on other stacks, or anyone who wants a full-stack app builder for non-developers rather than a UI-first developer tool.</p>
+        `,
+        useCases: [
+            {
+                title: "Production-ready UI generation",
+                body: "v0's core strength: describe a component or page and get clean, idiomatic React + Tailwind that a developer can actually maintain. It compresses the from-scratch UI phase while producing code good enough to keep, not just prototype with.",
+            },
+            {
+                title: "Figma-to-code for Premium users",
+                body: "On Premium, designers import Figma designs and turn them into working components, bridging the design-to-code gap inside the Vercel ecosystem. This is especially valuable for teams already using Figma as their design source of truth.",
+            },
+            {
+                title: "Rapid Next.js prototyping and deploy",
+                body: "Because v0 deploys to Vercel in one click and syncs with GitHub, teams go from prompt to a live, shareable URL in minutes. For Next.js projects this end-to-end loop is the smoothest of any AI builder.",
+            },
+        ],
+        pricingDetail:
+            "v0 has five credit-based tiers: Free ($0, $5 monthly credits, up to 200 projects, Design Mode, GitHub sync), Premium ($20/mo, $20 monthly credits, Figma imports, v0 API, higher limits), Team ($30/user/mo), Business ($100/user/mo), and Enterprise (custom). All tiers access the three model tiers (Mini, Pro, Max) and differ in credits, daily limits, and collaboration. Purchased credits expire after one year. The pricing trap: generation cost scales with complexity, so heavy users on Premium can exhaust their $20 credit pool and need to buy more — budget by how much you actually generate, not by the flat sticker price.",
+        faq: [
+            {
+                q: "Is v0's generated code actually production-ready?",
+                a: "More than most. v0 outputs clean, idiomatic React and Tailwind that developers are generally comfortable maintaining, rather than throwaway scaffolding. It is one of v0's main differentiators — the code quality is high enough to keep, especially within the Next.js ecosystem it targets.",
+            },
+            {
+                q: "How does v0's credit system work?",
+                a: "Each plan includes monthly credits that fuel AI generations on a token basis. Free gives $5/mo, Premium $20/mo, with the option to buy more. Generation cost scales with complexity, so two users on the same plan can have very different mileage depending on how much they build.",
+            },
+            {
+                q: "v0 or Bolt.new — which should I use?",
+                a: "v0 is UI-and-developer-focused with the cleanest React/Tailwind output and tight Vercel integration. Bolt.new leans more full-stack, generating complete apps in the browser. Choose v0 if you live in the Next.js/Vercel ecosystem and care about UI code quality; choose Bolt for fast end-to-end full-stack builds. See our v0 vs Bolt.new comparison.",
+            },
+            {
+                q: "Do I need to use Vercel to use v0?",
+                a: "No, but it is clearly designed for the Vercel ecosystem. You can export the code and host it anywhere, but the one-click deploy, GitHub sync, and overall workflow are smoothest if you deploy to Vercel and build on Next.js.",
+            },
+            {
+                q: "What did the February 2026 update add?",
+                a: "It added Git integration, a full VS Code-style editor, and improved previews — turning v0 from a component generator into a more complete build environment. Notably, pricing did not change with the update.",
+            },
+        ],
+    },
+
+    "bolt-new": {
+        overviewHtml: `
+            <p><strong>Bolt.new</strong>, built by StackBlitz, is an in-browser AI app builder that generates, runs, and deploys full-stack web applications from a prompt — entirely in the browser, with no local setup. Its distinguishing technical trick is WebContainers: it runs a real Node.js environment in the browser tab, so the generated app actually executes live as you build it, with a real preview rather than a mockup.</p>
+
+            <p>Pricing is token-based. The <strong>Free</strong> plan is genuinely functional — 1M tokens per month with a 300K daily limit, no credit card required — enough for real learning and prototyping, though deployed sites carry Bolt branding and cannot use a custom domain. <strong>Pro ($25/mo)</strong> gives 10M+ tokens, removes the daily limit, adds token rollover, custom domains, and drops the branding. A key detail: tokens are consumed mostly by syncing your project's file system to the AI, so <em>larger projects cost more per message</em> regardless of how small your change is.</p>
+
+            <p>Its strength is the genuine full-stack, run-it-live experience with zero setup. For developers who want to go from idea to a working, deployed full-stack app fast — and who are comfortable reading and steering the generated code — Bolt is one of the most capable options, particularly for Next.js and modern JS frameworks.</p>
+
+            <p>The honest weaknesses: the token economics are the real catch. Because tokens scale with codebase size, costs climb as your project grows, and heavy users can burn through even the Pro allotment on a larger app. Like all AI builders, it also struggles as complexity increases. Compared with <a href="/tool/lovable">Lovable</a> (full-stack but aimed at non-developers) and <a href="/tool/v0-by-vercel">v0</a> (UI-and-developer-focused), Bolt sits in the middle: full-stack, but best for developers. See <a href="/compare/bolt-new-vs-lovable">Bolt.new vs Lovable</a>.</p>
+
+            <p>Who it is for: developers who want a zero-setup, run-live, full-stack builder and can steer the generated code. Who it is not for: complete non-coders (Lovable is gentler), or anyone building a large app where token costs will scale uncomfortably.</p>
+        `,
+        useCases: [
+            {
+                title: "Zero-setup full-stack prototyping",
+                body: "Bolt's signature use: describe an app and watch it build and run live in the browser via WebContainers — no local environment, no install. For quickly testing a full-stack idea with real execution, it removes all the setup friction.",
+            },
+            {
+                title: "Learning by building",
+                body: "Because the free tier is genuinely functional and the app runs live, beginners use Bolt to learn modern web development by watching working code get generated and being able to tweak it immediately, with instant feedback.",
+            },
+            {
+                title: "Fast client demos",
+                body: "Developers spin up a working, deployed full-stack demo for a client or stakeholder in a single session. On Pro, custom domains and no Bolt branding make these demos look professional rather than like a prototype.",
+            },
+        ],
+        pricingDetail:
+            "Bolt offers Free (1M tokens/month, 300K daily limit, no credit card, but Bolt branding and no custom domain), Pro ($25/mo or ~$22.50 annually, 10M+ tokens, no daily limit, token rollover for up to two months, custom domains, no branding), and Teams ($30/member/month). The crucial pricing mechanic: Bolt is token-based and most tokens are consumed syncing your project's files to the AI — so the larger your codebase, the more each message costs, independent of how small the edit is. Heavy users on bigger projects can exhaust even the Pro allotment, so budget by project size, not just message count.",
+        faq: [
+            {
+                q: "What makes Bolt.new different from other AI app builders?",
+                a: "WebContainers — Bolt runs a real Node.js environment inside the browser tab, so the app you build actually executes live as you go, with a real preview rather than a static mockup. Combined with zero local setup, this run-it-live experience is its main differentiator.",
+            },
+            {
+                q: "Why do my Bolt tokens run out so fast?",
+                a: "Because tokens are consumed mostly by syncing your project's file system to the AI, not just by your prompt length. As your codebase grows, each message costs more tokens regardless of how small the change is. This is the most common surprise for users on larger projects.",
+            },
+            {
+                q: "Is the free Bolt plan enough?",
+                a: "For learning and prototyping, yes — 1M tokens/month with a 300K daily limit and no credit card is genuinely functional. The limits are the Bolt branding on deployed sites and no custom domain, so anything client-facing or production-ready pushes you to Pro at $25/mo.",
+            },
+            {
+                q: "Bolt.new or Lovable — which is right for me?",
+                a: "Both build full-stack apps, but Bolt is aimed at developers who want to steer the code and run it live, while Lovable is gentler and targeted at non-developers. Choose Bolt if you can read and direct the generated code; choose Lovable if you want the AI to handle as much of the stack as possible. See our Bolt.new vs Lovable comparison.",
+            },
+            {
+                q: "Can I use my own domain with Bolt?",
+                a: "Only on paid plans. The free tier deploys with Bolt branding and no custom domain support. Pro ($25/mo) and Teams add custom domains and remove the branding, which is why anything beyond prototyping generally requires upgrading.",
+            },
+        ],
+    },
+
+    "windsurf-ide": {
+        overviewHtml: `
+            <p><strong>Windsurf</strong> (formerly Codeium) is an AI-first code editor whose headline feature is <strong>Cascade</strong> — an agent that reads your codebase, plans multi-step changes, and executes them across files from a plain-language description. It is the most direct competitor to <a href="/tool/cursor">Cursor</a>: both are VS Code-style AI editors built around a powerful multi-file agent, and choosing between them is one of the more common decisions developers face in 2026.</p>
+
+            <p>Windsurf went through a significant pricing overhaul on March 19, 2026, <strong>retiring its credit-based system in favor of daily and weekly quotas</strong>, and raising Pro from $15 to $20/mo. The <strong>Free</strong> tier includes unlimited Tab autocomplete (which never touches quota) plus a light daily/weekly quota for Cascade and Chat — in practice good for two to three days of real coding per period before the quota runs dry. <strong>Pro ($20/mo)</strong> and <strong>Max ($200/mo)</strong> raise those quotas substantially.</p>
+
+            <p>Its strengths are a genuinely strong agent and a clean, fast editor. Cascade's plan-then-execute flow is well regarded, the editor is responsive, and because it is VS Code-based, migration is painless. For developers who want Cursor-style agentic editing, Windsurf is the main alternative and is often slightly cheaper at the Pro tier.</p>
+
+            <p>The honest weaknesses: the free quota is genuinely tight — two or three days of real use and you are blocked until it resets, which pushes serious users to pay quickly. The 2026 switch from credits to quotas was disruptive for existing users, and the product's identity has shifted repeatedly (Codeium → Windsurf, credits → quotas). For most developers the practical question is simply Windsurf vs Cursor; they are close enough that pricing, quota feel, and personal preference decide it. See <a href="/compare/cursor-vs-windsurf-ide">Cursor vs Windsurf</a>.</p>
+
+            <p>Who it is for: developers who want a strong, affordable agentic AI editor and prefer Windsurf's Cascade flow or pricing. Who it is not for: anyone who needs heavy daily agent use on the free tier (the quota is too tight), or developers already happy in Cursor with no reason to switch.</p>
+        `,
+        useCases: [
+            {
+                title: "Multi-step agentic changes with Cascade",
+                body: "Cascade is Windsurf's core: describe a change in plain language and it reads the codebase, builds a step-by-step plan, and executes across files. For refactors and feature work that span multiple files, this plan-then-do flow is its main draw.",
+            },
+            {
+                title: "Free unlimited autocomplete",
+                body: "Windsurf's Tab autocomplete is unlimited even on the free tier and never consumes quota. Developers who mainly want fast, AI-powered completions — without heavy agent use — can run on Free indefinitely for that specific workflow.",
+            },
+            {
+                title: "Migrating from VS Code or Cursor",
+                body: "Because Windsurf is VS Code-based, developers move over with their extensions and settings intact. Those evaluating Cursor alternatives use it as a near drop-in to compare Cascade against Cursor's agent on their own codebase.",
+            },
+        ],
+        pricingDetail:
+            "After the March 19, 2026 overhaul, Windsurf offers Free ($0, unlimited Tab autocomplete plus a light daily/weekly quota for Cascade and Chat), Pro ($20/mo, up from $15), Max ($200/mo), Teams ($40/user/mo), and Enterprise (custom), with 17–20% off on annual billing. The big change: the old credit system was retired in favor of daily and weekly quotas. The trap to know: the free quota realistically lasts only two to three days of active coding before it runs dry, so anyone using the agent seriously will need Pro quickly — Tab autocomplete is the only truly unlimited free feature.",
+        faq: [
+            {
+                q: "Is Windsurf better than Cursor?",
+                a: "They are very close — both are VS Code-style AI editors built around a strong multi-file agent (Cascade for Windsurf, Composer for Cursor). Windsurf is often slightly cheaper at Pro and some prefer Cascade's plan-then-execute flow. The honest answer is that the decision usually comes down to pricing feel and personal preference. See our Cursor vs Windsurf comparison.",
+            },
+            {
+                q: "What happened to Codeium?",
+                a: "Codeium rebranded to Windsurf in late 2024, evolving from a pure autocomplete extension into a full AI code editor. If you used Codeium previously, Windsurf is its direct continuation with a much larger feature set centered on the Cascade agent.",
+            },
+            {
+                q: "How long does the free Windsurf plan last?",
+                a: "Tab autocomplete is unlimited and free forever, but Cascade and Chat run on a light daily/weekly quota that, in practice, lasts only two to three days of real coding before resetting. Serious agent users will need Pro ($20/mo) to avoid constantly hitting the quota.",
+            },
+            {
+                q: "What changed with Windsurf's pricing in 2026?",
+                a: "On March 19, 2026, Windsurf retired its credit-based billing and replaced it with daily and weekly quotas, and raised Pro from $15 to $20/mo. This makes usage more predictable per period but removed the flexibility of carrying credits.",
+            },
+            {
+                q: "What is Cascade?",
+                a: "Cascade is Windsurf's agentic feature — the equivalent of Cursor's Composer. You describe what you want in plain language and Cascade reads your codebase, builds a step-by-step plan, and executes the changes across files, which you then review.",
+            },
+        ],
+    },
+
+    replit: {
+        overviewHtml: `
+            <p><strong>Replit</strong> is a browser-based development platform that combines a full coding environment, hosting, databases, and an AI agent into one place — no local setup required. Its 2026 identity centers on <strong>Replit Agent</strong>, which can build and deploy working applications from a prompt, making Replit a popular choice for people who want to go from idea to live app without configuring anything locally.</p>
+
+            <p>The plan structure shifted in early 2026. <strong>Starter (Free)</strong> gives 1,200 minutes of development time per month, basic AI, one published app, and limited daily Agent credits — enough to learn and experiment. <strong>Core ($20/mo, or $25 monthly)</strong> unlocks full Replit Agent access, unlimited apps, more compute, and $25 in monthly usage credits. The old Teams plan is being replaced by a new <strong>Pro tier ($100/mo)</strong> for up to 15 builders with pooled credits, rolling out in February 2026.</p>
+
+            <p>Its strength is being genuinely all-in-one and accessible. For education, hackathons, quick experiments, and non-developers building their first app, Replit removes every setup barrier — you open a browser tab and you are coding, with the Agent able to scaffold and deploy for you. The collaborative, run-anywhere nature is hard to match.</p>
+
+            <p>The honest weaknesses: Replit combines subscription tiers with <strong>usage-based charges that frequently surprise people</strong>, especially on AI-intensive Agent work — the bill can climb beyond the base subscription faster than expected. The Agent, like all such tools, is probabilistic and makes mistakes, and for sustained professional engineering many developers still prefer a local setup with <a href="/tool/cursor">Cursor</a> or <a href="/tool/github-copilot">GitHub Copilot</a>. See <a href="/compare/cursor-vs-replit">Cursor vs Replit</a>.</p>
+
+            <p>Who it is for: learners, educators, hackathon builders, and non-developers who want a zero-setup, all-in-one environment with an AI agent that can deploy. Who it is not for: professional teams doing sustained engineering (a local setup is usually better), or anyone who needs predictable costs and dislikes usage-based billing surprises.</p>
+        `,
+        useCases: [
+            {
+                title: "Zero-setup app building with Agent",
+                body: "Replit Agent builds and deploys working apps from a prompt inside the browser. For non-developers and quick experiments, this removes all environment setup — you describe what you want and get a live, hosted result.",
+            },
+            {
+                title: "Education and learning to code",
+                body: "Replit's all-in-one browser environment is widely used in classrooms and self-teaching because there is nothing to install and projects are instantly shareable. Students code, run, and collaborate from any device.",
+            },
+            {
+                title: "Hackathons and rapid experiments",
+                body: "When speed matters, Replit's combination of editor, hosting, database, and Agent in one place lets teams ship a working prototype in hours. The instant deploy and collaboration make it a hackathon staple.",
+            },
+        ],
+        pricingDetail:
+            "Replit offers Starter (free, 1,200 dev minutes/month, basic AI, one published app, limited daily Agent credits), Core ($20/mo annually, $25 monthly — full Agent access, unlimited apps, more compute, $25 in monthly usage credits, custom domains, PostgreSQL), and a new Pro tier ($100/mo, up to 15 builders with pooled credits, one-month rollover) replacing the old Teams plan as of February 20, 2026. The major pricing trap: on top of the subscription, Replit charges usage-based fees that often surprise teams — AI-intensive Agent work can push the real monthly bill well beyond the base plan. Watch usage credits closely if you lean on the Agent.",
+        faq: [
+            {
+                q: "Why is my Replit bill higher than the subscription price?",
+                a: "Because Replit layers usage-based charges on top of the subscription. AI-intensive Agent work consumes usage credits, and once you exhaust your monthly allotment, additional usage is billed — which frequently surprises teams. If you rely heavily on the Agent, monitor your credit consumption closely.",
+            },
+            {
+                q: "What is Replit Agent?",
+                a: "Replit Agent is the AI that builds and deploys applications from a natural-language prompt, all within Replit's browser environment. It is powerful but probabilistic — it can make mistakes — so review its output rather than assuming it is correct, especially for anything important.",
+            },
+            {
+                q: "Is the free Replit plan enough?",
+                a: "For learning and small experiments, yes — Starter gives 1,200 dev minutes/month, basic AI, one published app, and limited Agent credits. Anyone building seriously or using the Agent heavily will need Core ($20/mo) for full access and more credits.",
+            },
+            {
+                q: "Is Replit good for professional development?",
+                a: "It is excellent for learning, prototyping, education, and quick deploys, but for sustained professional engineering many developers still prefer a local setup with a tool like Cursor or GitHub Copilot. Replit's strength is accessibility and all-in-one convenience, not heavy production workflows. See our Cursor vs Replit comparison.",
+            },
+            {
+                q: "What happened to the Replit Teams plan?",
+                a: "It is being replaced by a new Pro tier at $100/month, launched around February 20, 2026, supporting up to 15 builders with pooled credits, one-month credit rollover, and priority support. Existing Teams users were migrated to the new structure.",
+            },
+        ],
+    },
+
+    "gemini-code-assist": {
+        overviewHtml: `
+            <p><strong>Gemini Code Assist</strong> is Google's AI coding assistant, powered by the Gemini model family and integrated into popular IDEs and Google Cloud. Its standout feature has been an unusually generous <strong>free tier for individuals</strong> — up to 6,000 code-related requests and 240 chat requests per day — which made it one of the most accessible serious coding assistants available.</p>
+
+            <p><strong>Important 2026 caveat:</strong> Google announced that Gemini Code Assist IDE extensions and the Gemini CLI will <strong>stop serving requests for the individual, Google AI Pro, and Google AI Ultra tiers starting June 18, 2026</strong>, directing users to migrate to <strong>Antigravity</strong> and the Antigravity CLI. If you are evaluating it as an individual today, factor this transition in — the product is actively changing form. The paid Standard (~$19–23/user/mo) and Enterprise (~$45–54/user/mo) tiers, aimed at Google Cloud organizations, continue with full Cloud integration.</p>
+
+            <p>Its strengths are the free tier's generosity, tight integration with Google Cloud services, and the underlying Gemini models' strong performance. For developers already in the Google Cloud ecosystem, the Enterprise tier's awareness of your cloud resources and services is a genuine advantage that editor-only tools cannot match.</p>
+
+            <p>The honest weaknesses: the looming June 2026 migration to Antigravity creates real uncertainty for individual users, the tool is most valuable inside Google Cloud (less compelling outside it), and for general-purpose agentic editing tools like <a href="/tool/cursor">Cursor</a> and <a href="/tool/github-copilot">GitHub Copilot</a> are more mature. It is best understood as the right choice for Google Cloud shops rather than a universal recommendation. See <a href="/compare/cursor-vs-gemini-code-assist">Cursor vs Gemini Code Assist</a>.</p>
+
+            <p>Who it is for: developers and teams building on Google Cloud who want AI assistance aware of their cloud environment, and individuals who want a generous free tier (with the Antigravity transition in mind). Who it is not for: teams outside the Google ecosystem, or anyone wanting the most mature standalone agentic editor.</p>
+        `,
+        useCases: [
+            {
+                title: "AI coding inside Google Cloud",
+                body: "For teams building on Google Cloud, Gemini Code Assist's Enterprise tier is aware of your cloud services and resources, offering suggestions grounded in your actual infrastructure. This Cloud-native awareness is its strongest differentiator.",
+            },
+            {
+                title: "High-volume free individual use",
+                body: "The free individual tier's allowance — up to 6,000 code requests and 240 chat requests per day — let solo developers use a serious assistant without paying. Note the June 2026 migration to Antigravity if you rely on this.",
+            },
+            {
+                title: "In-IDE completions and chat",
+                body: "Within supported IDEs, it provides code completions and a chat assistant powered by Gemini models, handling the everyday autocomplete-and-ask workflow most developers want from an assistant.",
+            },
+        ],
+        pricingDetail:
+            "Gemini Code Assist offers a Free tier for individuals (up to 6,000 code requests and 240 chat requests per day on Gemini models), Standard (~$19–22.8/user/mo), and Enterprise (~$45–54/user/mo) with full Google Cloud integration, plus 17% off annually. The critical thing to know before adopting it as an individual: Google will stop serving Gemini Code Assist IDE extensions and the Gemini CLI for the individual, Google AI Pro, and Google AI Ultra tiers starting June 18, 2026, directing users to migrate to Antigravity and the Antigravity CLI. The paid Cloud-oriented tiers continue, but individual users should plan around this transition.",
+        faq: [
+            {
+                q: "Is Gemini Code Assist being discontinued?",
+                a: "For individuals, it is transitioning. Google announced that Gemini Code Assist IDE extensions and the Gemini CLI will stop serving the individual, Google AI Pro, and Google AI Ultra tiers starting June 18, 2026, with users directed to migrate to Antigravity and the Antigravity CLI. The paid Standard and Enterprise tiers for Google Cloud organizations continue.",
+            },
+            {
+                q: "How generous is the free tier?",
+                a: "Unusually generous — up to 6,000 code-related requests and 240 chat requests per day on Gemini models, which is far more than most free coding assistants offer. Just be aware of the June 2026 migration to Antigravity if you depend on the individual tier.",
+            },
+            {
+                q: "Is Gemini Code Assist worth it outside Google Cloud?",
+                a: "It is most compelling inside the Google Cloud ecosystem, where the Enterprise tier is aware of your cloud services and resources. Outside that ecosystem, more mature standalone tools like Cursor or GitHub Copilot are usually a better all-round choice. See our Cursor vs Gemini Code Assist comparison.",
+            },
+            {
+                q: "What models power Gemini Code Assist?",
+                a: "It runs on Google's Gemini model family. The underlying models are strong performers, and the Enterprise tier pairs them with Google Cloud integration so suggestions can account for your actual cloud environment.",
+            },
+            {
+                q: "What is Antigravity?",
+                a: "Antigravity is the product Google is directing Gemini Code Assist individual users toward as the IDE extensions and CLI are retired for those tiers in June 2026. If you are an individual user, plan to migrate to Antigravity and its CLI to avoid disruption.",
+            },
+        ],
+    },
+
+    jira: {
+        overviewHtml: `
+            <p><strong>Jira</strong>, made by Atlassian, is the dominant issue tracker and project management tool for software teams. For agile development — sprints, backlogs, scrum and kanban boards, and detailed issue workflows — it is the industry default, deeply entrenched in how most engineering organizations plan and track work. In 2026 it folds in <strong>Atlassian Intelligence</strong>, AI that helps draft issues, summarize work, surface dependencies via natural language, and assist with editing.</p>
+
+            <p>The plan structure: <strong>Free</strong> covers up to 10 users with scrum/kanban boards, agile reporting, and custom workflows — genuinely usable for small teams. <strong>Standard (~$7.91/user/mo)</strong> adds scale and permissions, while <strong>Premium (~$14.54/user/mo)</strong> is where the AI lives — Atlassian Intelligence is included at no extra charge, along with advanced roadmaps, automation, and a 99.9% SLA. <strong>Enterprise</strong> (custom) adds centralized security and unlimited sites.</p>
+
+            <p>Its strengths are depth and ecosystem. Nothing matches Jira's configurability for complex software workflows, its reporting, or its integration ecosystem — and it ties tightly into the rest of Atlassian (Confluence, Bitbucket). For large engineering teams with intricate processes, that depth is exactly why it remains the standard.</p>
+
+            <p>The honest weaknesses: that same depth makes Jira heavy and complex — it can feel like overkill and slow down small teams who do not need its machinery, and the AI features only arrive at the Premium tier. Teams wanting a lighter, faster experience often prefer <a href="/tool/linear">Linear</a>, and those wanting an all-in-one flexible workspace look at <a href="/tool/clickup">ClickUp</a> or <a href="/tool/asana">Asana</a>. See <a href="/compare/jira-vs-linear">Jira vs Linear</a>.</p>
+
+            <p>Who it is for: software teams — especially larger ones — that need deep agile workflows, configurability, and the Atlassian ecosystem. Who it is not for: small teams who want speed and simplicity, or anyone who finds Jira's complexity outweighs its power for their scale.</p>
+        `,
+        useCases: [
+            {
+                title: "Agile software development",
+                body: "Jira's core: managing sprints, backlogs, and scrum/kanban boards with detailed issue workflows. For engineering teams running agile, it is the default tool, with the reporting and configurability to support complex development processes at scale.",
+            },
+            {
+                title: "Cross-project roadmaps and dependencies",
+                body: "On Premium, advanced roadmaps map cross-project dependencies, and Atlassian Intelligence helps surface related issues via natural language. Large organizations use this to coordinate work spanning many teams and projects.",
+            },
+            {
+                title: "Atlassian ecosystem integration",
+                body: "Teams already using Confluence and Bitbucket use Jira as the connective tissue of their workflow — issues link to docs and code, creating an integrated planning-to-shipping pipeline that standalone trackers cannot replicate.",
+            },
+        ],
+        pricingDetail:
+            "Jira has four tiers: Free (up to 10 users, scrum/kanban boards, agile reporting, custom workflows, 2GB storage), Standard (~$7.91/user/mo, more scale and permissions), Premium (~$14.54/user/mo, up to 300 users), and Enterprise (custom). The key thing for AI buyers: Atlassian Intelligence is included at no extra charge but only from the Premium tier — Free and Standard users do not get the AI features. Annual billing saves up to 20%. For very large self-hosted deployments, Jira Data Center starts at around $51,000/year, a different league entirely.",
+        faq: [
+            {
+                q: "Which Jira plan includes AI?",
+                a: "Atlassian Intelligence is included at no extra cost starting with the Premium tier (~$14.54/user/mo). Free and Standard plans do not include the AI features, so if AI-assisted issue drafting, summarizing, and dependency surfacing matter to you, you need Premium or Enterprise.",
+            },
+            {
+                q: "Is Jira's free plan actually usable?",
+                a: "Yes, for small teams. The free tier supports up to 10 users with scrum and kanban boards, agile reporting, and custom workflows — enough to run real agile development. The main limits are 2GB storage and the lack of AI and advanced roadmap features.",
+            },
+            {
+                q: "Jira or Linear — which should we use?",
+                a: "Jira is deeper, more configurable, and the standard for large or complex engineering organizations, especially within the Atlassian ecosystem. Linear is faster, simpler, and favored by teams who value speed and a clean experience over configurability. Choose based on whether you need depth or lightness. See our Jira vs Linear comparison.",
+            },
+            {
+                q: "Is Jira too complex for a small team?",
+                a: "It can be. Jira's power comes from depth and configurability, which is overkill for small teams with simple needs and can slow them down. If your team wants to move fast without heavy setup, a lighter tool like Linear is often a better fit than Jira's full machinery.",
+            },
+            {
+                q: "Does Jira work well with other Atlassian tools?",
+                a: "Yes — that is one of its biggest advantages. Jira integrates tightly with Confluence (docs) and Bitbucket (code), letting issues link to documentation and source. For teams already in the Atlassian ecosystem, this connected workflow is a major reason to choose it.",
+            },
+        ],
+    },
+
+    clickup: {
+        overviewHtml: `
+            <p><strong>ClickUp</strong> is an all-in-one productivity platform that combines tasks, docs, goals, dashboards, and more into a single highly customizable workspace. Its pitch is consolidation — replace several separate tools with one — and it backs that up with an unusually feature-dense product and a genuinely useful free tier. Its AI layer, <strong>ClickUp Brain</strong>, adds writing, summarizing, and AI fields, plus agents and automations.</p>
+
+            <p>The plan structure: <strong>Free Forever</strong> includes unlimited tasks and members (capped at 100MB storage, which small teams hit quickly). <strong>Unlimited ($7/user/mo)</strong> is the strongest value — unlimited storage, dashboards, and Gantt charts at a price that undercuts most competitors. <strong>Business ($12/user/mo)</strong> adds automation, workload views, and SSO. The crucial catch: <strong>ClickUp Brain (AI) is a separate add-on — around $7–9/user/mo on top of any plan — and is not included in any workspace tier</strong>.</p>
+
+            <p>Its strengths are breadth and value. Few tools pack as many features per dollar, and for teams who want one flexible system instead of separate apps for tasks, docs, and goals, ClickUp is compelling — the $7 Unlimited tier in particular is hard to beat on raw capability per dollar.</p>
+
+            <p>The honest weaknesses: the feature density that is a strength is also overwhelming — ClickUp has a real learning curve and can feel cluttered, and users occasionally report performance issues. The biggest gotcha is pricing: <strong>AI is not included</strong>, so a team expecting AI features is really looking at the plan price <em>plus</em> the Brain add-on, which can roughly double the per-seat cost. Teams comparing options also look at <a href="/tool/asana">Asana</a>, <a href="/tool/monday">Monday.com</a>, and <a href="/tool/notion-ai">Notion</a>.</p>
+
+            <p>Who it is for: teams who want a single, highly customizable, feature-rich workspace at strong value and don't mind a learning curve. Who it is not for: teams wanting simplicity out of the box, or anyone who assumed AI was included and is surprised by the separate Brain add-on cost.</p>
+        `,
+        useCases: [
+            {
+                title: "Consolidating multiple tools",
+                body: "ClickUp's main pitch: replace separate apps for tasks, docs, goals, and dashboards with one workspace. Teams tired of juggling tools adopt it to centralize work, and the breadth genuinely covers most project-management needs in a single place.",
+            },
+            {
+                title: "Customizable project tracking",
+                body: "With custom views, fields, statuses, and automations, teams shape ClickUp to their exact workflow rather than adapting to a rigid structure. This flexibility is why it appeals to teams with non-standard processes.",
+            },
+            {
+                title: "AI-assisted work with Brain",
+                body: "ClickUp Brain adds AI writing, summarizing, AI fields, and agents on top of the workspace — drafting updates, summarizing tasks, and automating routine work. Note it is a paid add-on (~$7–9/user/mo) separate from the workspace plan.",
+            },
+        ],
+        pricingDetail:
+            "ClickUp has four core tiers: Free Forever ($0, unlimited tasks and members but 100MB storage), Unlimited ($7/user/mo annually, the value sweet spot with unlimited storage, dashboards, Gantt), Business ($12/user/mo annually, $19 monthly — adds 250+ automations, workload views, SSO), and Enterprise (custom), with a Business Plus option around $19. The critical pricing trap: ClickUp Brain (AI) is NOT included in any workspace plan — it is a separate add-on at roughly $7–9/user/mo (with an Everything AI option around $28). A team expecting AI should budget the plan price plus Brain, which can nearly double the per-seat cost. Annual billing saves 30–40%.",
+        faq: [
+            {
+                q: "Is AI included in ClickUp's plans?",
+                a: "No — this is the most important pricing catch. ClickUp Brain (the AI) is a separate add-on at roughly $7–9/user/month on top of any workspace plan (Free, Unlimited, Business, Enterprise). A team that wants AI features needs to budget the plan price plus Brain, which can nearly double the per-seat cost.",
+            },
+            {
+                q: "Which ClickUp plan is the best value?",
+                a: "For most teams, Unlimited at $7/user/month — it adds unlimited storage, dashboards, and Gantt charts at a price that undercuts most competitors. The Free tier is genuinely usable but its 100MB storage cap is hit quickly once you attach files.",
+            },
+            {
+                q: "Is ClickUp hard to learn?",
+                a: "It can be. The feature density that makes ClickUp powerful also makes it overwhelming for new users, and it has a real learning curve. Teams that want something simple out of the box may find it cluttered; teams that want maximum flexibility tend to appreciate it once configured.",
+            },
+            {
+                q: "ClickUp or Notion — which should we choose?",
+                a: "ClickUp is more of a structured project-management platform (tasks, dashboards, Gantt), while Notion is a flexible docs-and-databases workspace. Choose ClickUp for project and task management at scale; choose Notion if your center of gravity is documents and knowledge. Many teams use one as primary and the other for specific needs.",
+            },
+            {
+                q: "Does ClickUp have performance issues?",
+                a: "Some users report occasional slowness, particularly in large, heavily-customized workspaces. It is not universal, but the same breadth of features that makes ClickUp capable can make it heavier than simpler, more focused tools. Test it with your real workload before committing a large team.",
+            },
+        ],
+    },
+
+    asana: {
+        overviewHtml: `
+            <p><strong>Asana</strong> is a work management platform for coordinating tasks, projects, and goals across teams. Where some tools target engineers specifically, Asana aims broadly at cross-functional work — marketing, operations, product, and beyond — with a clean interface and strong reporting. In 2026 it adds <strong>AI Studio</strong>, which lets teams build AI-powered workflows and automate routine work, included at a basic level starting from the Starter tier.</p>
+
+            <p>The plan structure: the <strong>Personal</strong> plan is free for small groups (up to 10 users with basic features but no timelines, goals, or automations). <strong>Starter ($10.99/user/mo)</strong> adds timeline and Gantt views, unlimited automations, dashboards, forms, and AI Studio Basic with 50,000 monthly credits. <strong>Advanced ($24.99/user/mo)</strong> brings goals, portfolios, workload tracking, and deeper integrations. <strong>Enterprise</strong> (custom) adds governance and scale.</p>
+
+            <p>Its strengths are clarity and cross-team coordination. Asana is easier to onboard than heavier tools, its reporting and goal-tracking are strong, and it works well for organizations coordinating many types of work rather than just software. The inclusion of AI Studio Basic from the Starter tier means AI is available without jumping to the top plan.</p>
+
+            <p>The honest weaknesses: the free Personal tier is limited (no timelines, goals, or automations), so real use generally requires a paid plan, and per-seat costs add up for larger teams. For pure software development, engineering teams often prefer <a href="/tool/jira">Jira</a> or <a href="/tool/linear">Linear</a>; for maximum flexibility and feature density, <a href="/tool/clickup">ClickUp</a> packs more per dollar. Asana's sweet spot is clean cross-functional coordination rather than deep specialization. See <a href="/compare/asana-vs-monday">Asana vs Monday.com</a>.</p>
+
+            <p>Who it is for: cross-functional teams who want a clean, well-organized work management tool with strong reporting and approachable onboarding. Who it is not for: engineering teams needing deep agile tooling (Jira/Linear), or very small teams who can't justify paying past the limited free tier.</p>
+        `,
+        useCases: [
+            {
+                title: "Cross-functional project coordination",
+                body: "Asana's strength: coordinating projects across marketing, operations, product, and other teams in one clean system. Its approachable interface and strong reporting make it well-suited to organizations managing many types of work, not just software.",
+            },
+            {
+                title: "Goals and portfolio tracking",
+                body: "On Advanced and above, teams track individual, team, and org-wide goals and manage portfolios of projects with workload views. Leadership uses this to connect day-to-day work to higher-level objectives across the organization.",
+            },
+            {
+                title: "AI-powered workflow automation",
+                body: "AI Studio lets teams build AI workflows that take on routine, manual work — included at a basic level (50,000 monthly credits) from the Starter tier. Teams automate intake, triage, and status updates without needing the top plan.",
+            },
+        ],
+        pricingDetail:
+            "Asana offers Personal (free, up to 10 users with basic features but no timelines, goals, or automations), Starter ($10.99/user/mo annually — timeline/Gantt, unlimited automations, dashboards, forms, plus AI Studio Basic with 50,000 monthly credits), Advanced ($24.99/user/mo annually — goals, portfolios, workload, advanced integrations), and Enterprise/Enterprise+ (custom). AI Studio comes in Basic (included, rate-limited), Plus (paid), and Pro (paid, annual) options. The thing to note: the free tier is genuinely limited — no timelines, goals, or automations — so most teams that need real project management will be on Starter or above, where per-seat costs add up at scale.",
+        faq: [
+            {
+                q: "Does Asana include AI?",
+                a: "Yes — AI Studio is available from the Starter tier, with AI Studio Basic included (50,000 monthly credits, rate-limited) and paid Plus and Pro options for heavier use. Unlike some competitors where AI is a separate add-on, Asana includes entry-level AI capabilities starting at Starter.",
+            },
+            {
+                q: "Is Asana's free plan enough?",
+                a: "Only for very basic use. The free Personal plan supports up to 10 users but lacks timelines, goals, and automations — the features most teams actually need for real project management. Serious use generally requires Starter ($10.99/user/mo) or above.",
+            },
+            {
+                q: "Asana or Monday.com — which is better?",
+                a: "Both are strong cross-functional work management tools. Asana is known for clean organization, strong goal-tracking, and approachable reporting; Monday.com is more visual and highly customizable. The choice often comes down to whether your team prefers Asana's structured clarity or Monday's colorful flexibility. See our Asana vs Monday.com comparison.",
+            },
+            {
+                q: "Is Asana good for software teams?",
+                a: "It can work, but dedicated engineering teams often prefer Jira or Linear for deep agile workflows. Asana's strength is cross-functional coordination across marketing, ops, and product rather than specialized software development. If your work spans many functions, Asana fits; if it is pure engineering, consider a dev-focused tool.",
+            },
+            {
+                q: "What is AI Studio?",
+                a: "AI Studio is Asana's framework for building AI-powered workflows that automate routine, manual work — intake, triage, status updates, and more. It comes in Basic (included from Starter, with limits), Plus, and Pro tiers, letting teams add AI automation without moving to the top plan.",
+            },
+        ],
+    },
+
+    gamma: {
+        overviewHtml: `
+            <p><strong>Gamma</strong> is an AI-native tool for creating presentations, documents, and webpages from a prompt. Instead of starting with a blank slide and fighting alignment and formatting, you describe what you want and Gamma generates a polished, on-brand deck you then refine in an editor designed around AI rather than around traditional slide software. It is one of the clearest answers to "I need a good-looking presentation and I don't want to spend hours in PowerPoint."</p>
+
+            <p>The pricing runs on AI credits. <strong>Free</strong> gives 400 one-time credits — enough to generate a handful of real presentations — with Gamma branding on your work. <strong>Plus ($12/mo, or $8 annually)</strong> removes the branding, gives 1,000 refreshing monthly credits, unlocks better image models, and doubles the cards-per-prompt limit. <strong>Pro ($25/mo, or $15 annually)</strong> adds premium AI models, API access, custom fonts, analytics, and 4,000 monthly credits. Team and Business tiers add shared themes and admin controls.</p>
+
+            <p>Its strength is speed to a good-looking result. For anyone who needs a presentation, pitch, or one-page site fast and values design polish without design skill, Gamma's prompt-to-deck flow is genuinely faster than building manually, and the default output looks intentional rather than templated-cheap.</p>
+
+            <p>The honest weaknesses: it offers less fine-grained control than PowerPoint or Keynote, so designers who want pixel-level control can find it limiting, and at scale its output can take on a recognizable "Gamma look." The credit system also meters generation — heavy users on Free or Plus can run out, and credits generally do not roll over. For polished marketing graphics outside the deck format, <a href="/tool/canva">Canva</a> is more versatile. </p>
+
+            <p>Who it is for: founders, marketers, and professionals who need good-looking presentations and docs fast without slide-software fiddling. Who it is not for: designers who want precise control over every element, or heavy users who would chafe at the credit limits and the recognizable default style.</p>
+        `,
+        useCases: [
+            {
+                title: "Fast presentation generation",
+                body: "Gamma's core: describe a topic and get a polished, on-brand deck in moments, then refine it. For pitches, internal updates, and client presentations, it removes the slow, fiddly part of slide-building while producing something that looks intentional.",
+            },
+            {
+                title: "Pitch and sales decks",
+                body: "Founders and sales teams use Gamma to produce investor and sales decks quickly, iterating on structure and design through prompts rather than manual formatting. The polished defaults make early drafts presentable without a designer.",
+            },
+            {
+                title: "One-page sites and documents",
+                body: "Beyond slides, Gamma generates webpages and documents from prompts, letting users publish a simple landing page or a formatted doc without separate tools. It is a fast path to a shareable, good-looking page.",
+            },
+        ],
+        pricingDetail:
+            "Gamma runs on AI credits: Free ($0, 400 one-time credits, Gamma branding), Plus ($12/mo or $8 annually — 1,000 refreshing monthly credits, no branding, advanced image models, 20 cards per prompt), Pro ($25/mo or $15 annually — premium AI models, API access, custom fonts, analytics, 4,000 monthly credits), Ultra ($100/mo), plus Team ($20/seat/mo, min 2) and Business ($40/seat/mo). The mechanics to know: generation is metered by credits, and on most plans unused credits do not roll over. Free's 400 credits are one-time (not refreshing), so once exhausted you need to upgrade to keep generating. Annual billing is required to hit the advertised lower rates.",
+        faq: [
+            {
+                q: "How do Gamma's credits work?",
+                a: "Gamma meters AI generation with credits. Free gives 400 one-time credits (not refreshing), Plus gives 1,000 refreshing monthly credits, and Pro gives 4,000. On most plans unused credits do not roll over. Once Free's one-time credits are gone, you must upgrade to keep generating.",
+            },
+            {
+                q: "Is the free Gamma plan enough?",
+                a: "For trying it out, yes — 400 one-time credits generate a handful of real presentations. But because those credits are one-time rather than refreshing, and free work carries Gamma branding, regular users quickly move to Plus ($12/mo) for refreshing credits and no badge.",
+            },
+            {
+                q: "Is Gamma better than PowerPoint?",
+                a: "For speed and getting to a good-looking draft, often yes — Gamma's prompt-to-deck flow is far faster than building slides manually. But PowerPoint and Keynote offer more fine-grained control. Gamma trades precision for speed and design polish; choose based on whether you value getting it done fast or controlling every detail.",
+            },
+            {
+                q: "Do Gamma presentations look generic?",
+                a: "The defaults look polished, but at scale Gamma's output can take on a recognizable style. With custom themes, fonts (on Pro), and your own content you can differentiate, but as with any template-driven tool, leaning entirely on defaults produces decks that resemble other Gamma decks.",
+            },
+            {
+                q: "Can I use Gamma for more than slides?",
+                a: "Yes. Beyond presentations, Gamma generates documents and webpages from prompts, so you can produce a simple one-page site or a formatted document in the same tool. It is positioned as a general 'create polished content from a prompt' tool, not just a deck maker.",
+            },
+        ],
+    },
+
+    framer: {
+        overviewHtml: `
+            <p><strong>Framer</strong> is a website builder that combines designer-grade visual control with AI assistance and production hosting — letting you design a site visually and publish it live without hand-coding. It occupies a distinct space: more design-focused and polished than typical site builders, but more accessible than coding a site from scratch. Its AI features include <strong>AI Wireframer</strong> for generating layouts and <strong>AI Workshop</strong> as a coding assistant, plus AI translation and third-party AI plugins (OpenAI, Anthropic, Gemini).</p>
+
+            <p>Framer overhauled its pricing in October 2025. The current tiers are <strong>Free</strong> (design and try, with Framer branding and a framer.website subdomain), <strong>Basic ($10/mo annually)</strong> which removes branding and adds a free custom domain and 30 site pages, <strong>Pro ($30/mo annually)</strong> with 150 pages, more CMS capacity, staging, roles, and analytics, and <strong>Scale ($100/mo)</strong> and Enterprise for larger needs. Monthly billing runs noticeably higher than annual.</p>
+
+            <p>Its strength is design quality with real publishing. Framer produces genuinely polished, animated, responsive sites that look custom-designed, and it handles hosting, CMS, and SEO basics so you ship a real site, not just a mockup. For designers, marketers, and founders who want a beautiful site without a developer, it hits a sweet spot.</p>
+
+            <p>The honest weaknesses: it has a steeper learning curve than drag-and-drop builders aimed at total beginners, the page and CMS limits on lower tiers can force an upgrade as a site grows, and it is a website tool — not an interface-design tool for app UI, where <a href="/tool/figma">Figma</a> is the right choice. For quick marketing graphics rather than full sites, <a href="/tool/canva">Canva</a> is more appropriate. Framer is best when the deliverable is a polished, published website.</p>
+
+            <p>Who it is for: designers, marketers, and founders who want to design and publish a beautiful, custom-feeling website without coding. Who it is not for: people who want the simplest possible drag-and-drop builder, or those designing app interfaces rather than websites (use Figma).</p>
+        `,
+        useCases: [
+            {
+                title: "Designer-quality marketing sites",
+                body: "Framer's core: building polished, animated, responsive marketing and landing sites that look custom-coded, then publishing them live with hosting included. Designers and founders use it to ship beautiful sites without handing off to a developer.",
+            },
+            {
+                title: "AI-assisted layout with Wireframer",
+                body: "AI Wireframer generates layout structures from prompts, giving a starting point that designers refine. Combined with AI Workshop (a coding assistant) and AI plugins, it speeds up the from-scratch phase of building a site.",
+            },
+            {
+                title: "CMS-driven content sites",
+                body: "Framer's built-in CMS lets teams run blogs, case-study libraries, and other structured content with design control. Higher tiers raise the CMS item and collection limits for content-heavy sites.",
+            },
+        ],
+        pricingDetail:
+            "After its October 2025 overhaul, Framer offers Free ($0, design and try with Framer branding and a subdomain), Basic ($10/mo annually, $15 monthly — removes branding, free custom domain, 30 pages, 1 CMS collection), Pro ($30/mo annually, $45 monthly — 150 pages, 10 CMS collections, 2,500 CMS items, staging, roles, redirects, 90-day analytics), Scale ($100/mo annually, with expandable add-ons), and Enterprise (custom). The older Mini ($5) and several other tiers were removed in the overhaul. The trap: page, CMS-item, and bandwidth limits on lower tiers can force an upgrade as a site grows, and monthly billing is meaningfully more expensive than annual.",
+        faq: [
+            {
+                q: "Is Framer a website builder or a design tool?",
+                a: "Both, in a sense — you design visually and publish a live, hosted website from the same tool. It is more design-focused than typical site builders but is specifically for building and shipping websites, not for designing app interfaces (that is Figma's domain).",
+            },
+            {
+                q: "What AI features does Framer have?",
+                a: "Framer includes AI Wireframer for generating layouts, AI Workshop as a coding assistant, AI translation, and integrations with third-party AI (OpenAI, Anthropic, Gemini) for content and image generation. These speed up building but the core value is still the visual design-and-publish workflow.",
+            },
+            {
+                q: "Is the free Framer plan usable for a real site?",
+                a: "For trying it or building a template, yes, but a real published site generally needs Basic ($10/mo) or higher — the free tier shows Framer branding and uses a framer.website subdomain. Basic removes branding and adds a free custom domain and 30 pages.",
+            },
+            {
+                q: "Framer or Figma — which do I need?",
+                a: "Framer is for designing and publishing actual websites; Figma is for interface design, design systems, and developer handoff. If your deliverable is a live website, Framer; if it is app UI or a design system, Figma. They solve different problems and many teams use both.",
+            },
+            {
+                q: "Did Framer's pricing change recently?",
+                a: "Yes. In October 2025 Framer overhauled its pricing, removing older tiers like Mini ($5) and restructuring into Free, Basic ($10), Pro ($30), Scale ($100), and Enterprise. Annual billing is required to hit the advertised rates; monthly billing is meaningfully higher.",
+            },
+        ],
+    },
 };
 
 export function getExtendedContent(slug: string): ToolExtendedContent | null {
