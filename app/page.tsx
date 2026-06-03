@@ -1,5 +1,7 @@
 import { getVerifiedTestimonials, getFeaturedStacks } from "@/lib/data/stacks";
 import { getTools } from "@/lib/tools-db";
+import { stacks } from "@/lib/stacks";
+import { blogPosts } from "@/lib/blog";
 import { VibeHero } from "@/components/landing/VibeHero";
 import { ToolCategories } from "@/components/landing/ToolCategories";
 import { PopularTools } from "@/components/landing/PopularTools";
@@ -68,8 +70,12 @@ export default async function Home() {
       {/* Featured Stacks - Curated workflows */}
       <FeaturedStacks stacks={featuredStacks} />
       
-      {/* Stats - Trust indicators */}
-      <StatsSection />
+      {/* Stats - Trust indicators (live counts so they never go stale) */}
+      <StatsSection
+        toolCount={allTools.length}
+        stackCount={stacks.length}
+        guideCount={blogPosts.length}
+      />
       
       {/* How It Works */}
       <HowItWorks />

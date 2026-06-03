@@ -12,40 +12,62 @@ import {
 } from "lucide-react";
 import { designSystem } from "@/lib/design-system";
 
-const stats = [
-  {
-    icon: Wrench,
-    value: 30,
-    suffix: "+",
-    label: "AI Tools",
-    description: "Hand-picked & reviewed",
-    color: "from-cyan-600 to-blue-600",
-  },
-  {
-    icon: Layers,
-    value: 7,
-    suffix: "",
-    label: "Curated Stacks",
-    description: "Ready-to-use workflows",
-    color: "from-purple-600 to-pink-600",
-  },
-  {
-    icon: FileText,
-    value: 36,
-    suffix: "+",
-    label: "Guides",
-    description: "Comparisons & reviews",
-    color: "from-emerald-400 to-emerald-600",
-  },
-  {
-    icon: Star,
-    value: 100,
-    suffix: "%",
-    label: "Free",
-    description: "No account needed",
-    color: "from-amber-400 to-orange-500",
-  },
-];
+export interface StatsSectionProps {
+  /** Total AI tools in the directory. Falls back to a safe default. */
+  toolCount?: number;
+  /** Total curated stacks. */
+  stackCount?: number;
+  /** Total guides (blog articles + comparisons). */
+  guideCount?: number;
+}
+
+/**
+ * Round a count down to a clean "30+", "45+" style floor so the displayed
+ * number stays truthful (we have *at least* this many) and doesn't churn on
+ * every single addition. e.g. 48 -> 45, 41 -> 40, 7 -> 7.
+ */
+function floorToShowcase(n: number): number {
+  if (n < 10) return n; // small counts shown exactly (e.g. stacks)
+  if (n < 50) return Math.floor(n / 5) * 5; // nearest 5 below
+  return Math.floor(n / 10) * 10; // nearest 10 below
+}
+
+function buildStats(toolCount: number, stackCount: number, guideCount: number) {
+  return [
+    {
+      icon: Wrench,
+      value: floorToShowcase(toolCount),
+      suffix: "+",
+      label: "AI Tools",
+      description: "Hand-picked & reviewed",
+      color: "from-cyan-600 to-blue-600",
+    },
+    {
+      icon: Layers,
+      value: stackCount,
+      suffix: "",
+      label: "Curated Stacks",
+      description: "Ready-to-use workflows",
+      color: "from-purple-600 to-pink-600",
+    },
+    {
+      icon: FileText,
+      value: floorToShowcase(guideCount),
+      suffix: "+",
+      label: "Guides",
+      description: "Comparisons & reviews",
+      color: "from-emerald-400 to-emerald-600",
+    },
+    {
+      icon: Star,
+      value: 100,
+      suffix: "%",
+      label: "Free",
+      description: "No account needed",
+      color: "from-amber-400 to-orange-500",
+    },
+  ];
+}
 
 function AnimatedNumber({ 
   value, 
@@ -88,7 +110,12 @@ function AnimatedNumber({
   );
 }
 
-export function StatsSection() {
+export function StatsSection({
+  toolCount = 45,
+  stackCount = 7,
+  guideCount = 40,
+}: StatsSectionProps = {}) {
+  const stats = buildStats(toolCount, stackCount, guideCount);
   return (
     <section className="py-24 md:py-32 relative overflow-hidden">
       {/* Background */}
