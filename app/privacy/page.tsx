@@ -1,3 +1,11 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Privacy Policy",
+    description: "How VibeStack collects, uses, and protects your personal information.",
+    alternates: { canonical: "https://usevibestack.com/privacy" },
+};
+
 export default function PrivacyPage() {
     return (
         <main className="container max-w-4xl mx-auto px-4 pt-32 pb-20">

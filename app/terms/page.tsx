@@ -1,3 +1,11 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Terms of Service",
+    description: "The terms and conditions governing your use of VibeStack.",
+    alternates: { canonical: "https://usevibestack.com/terms" },
+};
+
 export default function TermsPage() {
     return (
         <main className="container max-w-4xl mx-auto px-4 pt-32 pb-20">

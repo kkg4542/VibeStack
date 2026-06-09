@@ -4,6 +4,13 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { ArrowLeft, CheckCircle2, AlertTriangle, FileText, Image as ImageIcon, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Content Guidelines",
+    description: "Editorial standards and submission guidelines for tools and stacks featured on VibeStack.",
+    alternates: { canonical: "https://usevibestack.com/guidelines" },
+};
 
 export default function ContentGuidelinesPage() {
     return (

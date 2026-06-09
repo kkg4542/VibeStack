@@ -6,8 +6,9 @@ import { getVerifiedTestimonials } from "@/lib/data/stacks";
 import { TestimonialsGrid } from "@/components/testimonials/TestimonialsGrid";
 
 export const metadata: Metadata = {
-    title: "Testimonials - VibeStack",
+    title: "Testimonials",
     description: "See what developers and product teams are saying about VibeStack.",
+    alternates: { canonical: "https://usevibestack.com/testimonials" },
 };
 
 export default async function TestimonialsPage() {

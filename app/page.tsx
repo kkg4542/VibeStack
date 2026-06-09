@@ -9,6 +9,11 @@ import { FeaturedStacks } from "@/components/landing/FeaturedStacks";
 import { StatsSection } from "@/components/landing/StatsSection";
 import { HowItWorks } from "@/components/landing/HowItWorks";
 import dynamic from "next/dynamic";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "https://usevibestack.com" },
+};
 
 const Testimonials = dynamic(() => import("@/components/landing/Testimonials").then(mod => mod.Testimonials));
 const NewsletterSection = dynamic(() => import("@/components/landing/NewsletterSection").then(mod => mod.NewsletterSection));

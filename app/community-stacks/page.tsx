@@ -3,8 +3,9 @@ import { getCommunityStacks, CommunityStackFilters } from '@/lib/data/community-
 import { CommunityStacksPageClient } from './CommunityStacksPageClient';
 
 export const metadata: Metadata = {
-  title: 'Community Stacks | VibeStack',
+  title: 'Community Stacks',
   description: 'Discover and share AI tool stacks curated by the community. Find the perfect workflow for your needs.',
+  alternates: { canonical: 'https://usevibestack.com/community-stacks' },
 };
 
 export default async function CommunityStacksPage(props: {

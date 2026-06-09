@@ -49,9 +49,6 @@ export const metadata: Metadata = {
   description: "Curated AI tools for developers. Discover the best tools to accelerate your workflow, from coding assistants to project management.",
   keywords: ["AI", "Developer Tools", "Productivity", "Coding", "Linear", "Cursor", "Vibe Coding"],
   authors: [{ name: "David Kim" }],
-  alternates: {
-    canonical: "https://usevibestack.com",
-  },
   openGraph: {
     type: "website",
     locale: "en_US",
