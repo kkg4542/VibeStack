@@ -143,6 +143,41 @@ export default async function BestCategoryPage({
           </ul>
         </section>
 
+        {/* At-a-glance comparison table */}
+        {ranked.length > 0 ? (
+          <section className="mb-12">
+            <h2 className="text-lg font-bold mb-4">At a glance</h2>
+            <div className="overflow-x-auto rounded-2xl border border-border">
+              <table className="w-full text-left text-sm">
+                <thead>
+                  <tr className="border-b border-border bg-secondary/40 text-xs uppercase tracking-wide text-muted-foreground">
+                    <th className="px-4 py-3 font-semibold">#</th>
+                    <th className="px-4 py-3 font-semibold">Tool</th>
+                    <th className="px-4 py-3 font-semibold">Pricing</th>
+                    <th className="px-4 py-3 font-semibold hidden sm:table-cell">Standout features</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {ranked.map((tool, i) => (
+                    <tr key={tool.slug} className="border-b border-border/50 last:border-0">
+                      <td className="px-4 py-3 font-bold text-vibe-electric">{i + 1}</td>
+                      <td className="px-4 py-3">
+                        <Link href={`/tool/${tool.slug}`} className="font-semibold hover:text-vibe-electric transition-colors">
+                          {tool.title}
+                        </Link>
+                      </td>
+                      <td className="px-4 py-3 text-muted-foreground">{tool.pricing}</td>
+                      <td className="px-4 py-3 text-muted-foreground hidden sm:table-cell">
+                        {(tool.features ?? []).slice(0, 3).join(", ") || "—"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        ) : null}
+
         {/* Ranked list */}
         {ranked.length === 0 ? (
           <p className="text-muted-foreground mb-12">
@@ -226,6 +261,18 @@ export default async function BestCategoryPage({
             ))}
           </div>
         )}
+
+        {/* Long-form editorial body */}
+        {copy.body?.length ? (
+          <section className="mb-16">
+            <h2 className="text-2xl font-bold mb-6">How to choose</h2>
+            <div className="space-y-4 text-muted-foreground leading-relaxed [&_a]:text-vibe-electric [&_a]:hover:underline [&_strong]:text-foreground">
+              {copy.body.map((para, i) => (
+                <p key={i} dangerouslySetInnerHTML={{ __html: para }} />
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         {/* FAQ */}
         <section className="mb-16">
