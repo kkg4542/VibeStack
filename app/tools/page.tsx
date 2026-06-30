@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import ToolsPageClient from "./ToolsPageClient";
+import { SiteDirectory } from "@/components/seo/SiteDirectory";
 
 export const metadata: Metadata = {
     title: "AI Tools Directory",
@@ -19,5 +20,12 @@ export const metadata: Metadata = {
 };
 
 export default function ToolsPage() {
-    return <ToolsPageClient />;
+    return (
+        <>
+            <ToolsPageClient />
+            <div className="container max-w-6xl mx-auto px-4">
+                <SiteDirectory />
+            </div>
+        </>
+    );
 }

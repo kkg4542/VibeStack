@@ -50,7 +50,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Tool pages
     const toolPages = tools.map((tool) => ({
         url: `${baseUrl}/tool/${tool.slug}`,
-        lastModified: tool.updatedAt ?? new Date(),
+        lastModified: tool.updatedAt ? new Date(tool.updatedAt) : staticLastModified,
         changeFrequency: "weekly" as const,
         priority: 0.9,
     }));
