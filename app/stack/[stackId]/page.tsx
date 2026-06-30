@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     if (!stack) {
         return {
-            title: "Stack Not Found | VibeStack",
+            title: "Stack Not Found",
             description: "The requested AI stack could not be found."
         };
     }
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const url = `https://usevibestack.com/stack/${stackId}`;
 
     return {
-        title: `${stack.name} | VibeStack`,
+        title: stack.name,
         description: stack.description,
         alternates: { canonical: url },
         openGraph: {

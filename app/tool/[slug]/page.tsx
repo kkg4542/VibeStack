@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
             type: "website",
             images: [
                 {
-                    url: `https://usevibestack.com/api/og?title=${encodeURIComponent(tool.title)}`,
+                    url: `${url}/opengraph-image`,
                     width: 1200,
                     height: 630,
                     alt: tool.title,
@@ -110,7 +110,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
     // We deliberately omit AggregateRating until we have real review counts —
     // emitting fake/single-review ratings violates Google's structured data policy.
     const canonicalUrl = `https://usevibestack.com/tool/${tool.slug}`;
-    const ogImage = `https://usevibestack.com/api/og?title=${encodeURIComponent(tool.title)}`;
+    const ogImage = `${canonicalUrl}/opengraph-image`;
     const isFree = tool.pricing === "Free" || tool.pricing === "Freemium";
 
     const softwareJsonLd = {

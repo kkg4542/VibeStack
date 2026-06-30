@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
     const url = `https://usevibestack.com/categories/${categorySlug}`;
 
     return {
-        title: `${category} AI Tools - Best ${category} Tools 2026 | VibeStack`,
+        title: `${category} AI Tools - Best ${category} Tools 2026`,
         description: descriptions[category] || `Discover the best ${category} AI tools curated by VibeStack.`,
         alternates: { canonical: url },
         openGraph: {
