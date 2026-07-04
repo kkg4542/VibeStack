@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getTools } from "@/lib/tools-db";
 import { CategoryPageClient } from "./CategoryPageClient";
 
 // Generate static paths for all categories
@@ -49,10 +50,13 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
 export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
     const { category: categorySlug } = await params;
     const category = categoryMap[categorySlug];
-    
+
     if (!category) {
         notFound();
     }
-    
-    return <CategoryPageClient category={category} />;
+
+    const allTools = await getTools();
+    const categoryTools = allTools.filter((tool) => tool.category === category);
+
+    return <CategoryPageClient category={category} tools={categoryTools} />;
 }

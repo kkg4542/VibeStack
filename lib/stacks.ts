@@ -27,7 +27,7 @@ export const stacks: Stack[] = [
         longDescription: "Perfect for beginners and rapid prototyping. This stack combines the power of AI-generated UI with component-based development. Transform your ideas into production-ready interfaces in minutes.",
         totalPrice: "$0/mo",
         tags: ["UI Design", "No-Code", "Beginner", "Free"],
-        tools: ["v0", "builder-io"],
+        tools: ["v0-by-vercel", "builder-io"],
         idealFor: ["Rapid prototyping", "Beginners", "MVPs", "Landing pages"],
         workflow: [
             "1. Describe your UI in natural language",
@@ -45,7 +45,7 @@ export const stacks: Stack[] = [
         longDescription: "For designers who want to ship. This stack bridges the gap between design and development, allowing seamless conversion from Figma to responsive web applications.",
         totalPrice: "$19+/mo",
         tags: ["UI Design", "Professional", "Figma", "Production"],
-        tools: ["builder-io", "v0"],
+        tools: ["builder-io", "v0-by-vercel"],
         idealFor: ["Professional designers", "Design teams", "Agencies", "Production apps"],
         workflow: [
             "1. Design in Figma as usual",
@@ -63,7 +63,7 @@ export const stacks: Stack[] = [
         longDescription: "The perfect starting point for anyone learning to code. Get instant explanations, suggestions, and real-time assistance in a fully cloud-based environment.",
         totalPrice: "$0/mo",
         tags: ["Learning", "Beginner", "Coding", "Free"],
-        tools: ["cursor", "replit-ai"],
+        tools: ["cursor", "replit"],
         idealFor: ["Coding beginners", "Students", "Bootcamps", "Self-taught developers"],
         workflow: [
             "1. Open Replit - no setup required",
@@ -81,7 +81,7 @@ export const stacks: Stack[] = [
         longDescription: "For developers who want to move at maximum speed. This stack combines autonomous coding agents with smart project management to handle even the most complex workflows.",
         totalPrice: "$40+/mo",
         tags: ["Advanced", "Pro", "Autonomous", "Productivity"],
-        tools: ["devin", "supermaven", "linear"],
+        tools: ["devin-ai", "supermaven", "linear"],
         idealFor: ["Senior developers", "Startups", "Complex projects", "Fast shipping"],
         workflow: [
             "1. Define tasks in Linear",

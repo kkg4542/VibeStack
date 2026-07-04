@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { designSystem } from "@/lib/design-system";
-import { useAllTools } from "@/hooks/use-tools";
 import { getToolIcon } from "@/components/icons/tool-icons";
 import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -19,21 +18,13 @@ import {
     Box,
     ArrowLeft,
     TrendingUp,
-    Star,
     Sparkles
 } from "lucide-react";
-import { useMemo } from "react";
-import type { Tool } from "@prisma/client";
-
-interface ExtendedTool extends Tool {
-    review?: {
-        rating: number;
-    };
-    pricing: string; // Ensure pricing is typed as string match
-}
+import type { ToolData } from "@/lib/tool-types";
 
 interface CategoryPageClientProps {
     category: string;
+    tools: ToolData[];
 }
 
 const categoryInfo: Record<string, {
@@ -80,18 +71,11 @@ const categoryInfo: Record<string, {
     }
 };
 
-export function CategoryPageClient({ category }: CategoryPageClientProps) {
+export function CategoryPageClient({ category, tools: categoryTools }: CategoryPageClientProps) {
     const info = categoryInfo[category];
     const Icon = info.icon;
 
-    const { tools, isLoading } = useAllTools();
-
-    const categoryTools = useMemo(() => {
-        return (tools as ExtendedTool[]).filter((tool: ExtendedTool) => tool.category === category);
-    }, [category, tools]);
-
-    const freeCount = categoryTools.filter((t: ExtendedTool) => t.pricing === "Free" || t.pricing === "Freemium").length;
-    const avgRating = categoryTools.reduce((acc: number, t: ExtendedTool) => acc + (t.review?.rating || 0), 0) / categoryTools.filter((t: ExtendedTool) => t.review?.rating).length || 0;
+    const freeCount = categoryTools.filter((t) => t.pricing === "Free" || t.pricing === "Freemium").length;
 
     return (
         <PageBackground {...BackgroundPresets.content}>
@@ -169,17 +153,6 @@ export function CategoryPageClient({ category }: CategoryPageClientProps) {
                                 <div className="text-muted-foreground text-xs">Free Options</div>
                             </div>
                         </div>
-                        {avgRating > 0 && (
-                            <div className="flex items-center gap-2 text-sm">
-                                <div className="p-2 rounded-lg bg-amber-500/10">
-                                    <Star className="w-4 h-4 text-amber-500" />
-                                </div>
-                                <div className="text-left">
-                                    <div className="font-bold text-foreground">{avgRating.toFixed(1)}</div>
-                                    <div className="text-muted-foreground text-xs">Avg Rating</div>
-                                </div>
-                            </div>
-                        )}
                     </motion.div>
                 </motion.div>
 
@@ -220,12 +193,8 @@ export function CategoryPageClient({ category }: CategoryPageClientProps) {
                         <Badge variant="outline">{categoryTools.length} tools</Badge>
                     </div>
 
-                    {isLoading && (
-                        <p className="text-sm text-muted-foreground">Loading tools...</p>
-                    )}
-
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                        {categoryTools.map((tool: ExtendedTool, index: number) => (
+                        {categoryTools.map((tool, index) => (
                             <motion.div
                                 key={tool.slug}
                                 initial={designSystem.animations.fadeInUp.initial}

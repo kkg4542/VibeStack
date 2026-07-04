@@ -40,6 +40,7 @@ export async function generateStaticParams() {
 }
 
 import { getStackMetrics } from "@/lib/data/stacks";
+import { getTools } from "@/lib/tools-db";
 
 export default async function StackDetailPage({ params }: Props) {
     const { stackId } = await params;
@@ -49,7 +50,13 @@ export default async function StackDetailPage({ params }: Props) {
         notFound();
     }
 
-    const metrics = await getStackMetrics(stackId);
+    const [metrics, allTools] = await Promise.all([
+        getStackMetrics(stackId),
+        getTools(),
+    ]);
+    const stackTools = stack.tools
+        .map(slug => allTools.find(t => t.slug === slug))
+        .filter((t): t is NonNullable<typeof t> => t !== undefined);
 
-    return <StackDetailClient stack={stack} metrics={metrics} />;
+    return <StackDetailClient stack={stack} metrics={metrics} stackTools={stackTools} />;
 }

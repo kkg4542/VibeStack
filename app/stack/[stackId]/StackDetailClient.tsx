@@ -8,7 +8,6 @@ import { ArrowLeft, CheckCircle2, ExternalLink, Zap, Users, Star, Heart, Trendin
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Stack } from "@/lib/stacks";
 import { ToolData } from "@/lib/tool-types";
-import { useAllTools } from "@/hooks/use-tools";
 import { getToolIcon } from "@/components/icons/tool-icons";
 import { SocialShare } from "@/components/ui/SocialShare";
 import { useState, useEffect } from "react";
@@ -24,10 +23,10 @@ interface StackDetailClientProps {
         shares: number;
         popularityScore: number;
     } | null;
+    stackTools: ToolData[];
 }
 
-export function StackDetailClient({ stack, metrics }: StackDetailClientProps) {
-    const { tools } = useAllTools();
+export function StackDetailClient({ stack, metrics, stackTools }: StackDetailClientProps) {
     // Lazy initialization to avoid setState in effect
     const [isFavorite, setIsFavorite] = useState(() => {
         if (typeof window === 'undefined') return false;
@@ -38,8 +37,6 @@ export function StackDetailClient({ stack, metrics }: StackDetailClientProps) {
             return false;
         }
     });
-
-    const stackTools = stack.tools.map(slug => tools.find((t: ToolData) => t.slug === slug)).filter((t): t is ToolData => t !== undefined);
 
     const toggleFavorite = () => {
         const favorites = JSON.parse(localStorage.getItem("vibestack-favorites") || "[]");
