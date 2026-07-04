@@ -53,7 +53,7 @@ export function Footer() {
     return (
         <footer className="border-t border-border bg-background pt-16 pb-12">
             <div className="container mx-auto px-4 max-w-6xl">
-                <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-6 gap-8 mb-16">
                     {/* Brand Column */}
                     <div className="md:col-span-2 space-y-6">
                         <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
@@ -88,6 +88,19 @@ export function Footer() {
                             <li><Link href="/compare" className="hover:text-primary transition-colors">Compare</Link></li>
                             <li><Link href="/favorites" className="hover:text-primary transition-colors">Favorites</Link></li>
                             <li><Link href="/blog" className="hover:text-primary transition-colors">Blog</Link></li>
+                        </ul>
+                    </div>
+
+                    {/* Best-of guides */}
+                    <div className="space-y-4">
+                        <h4 className="text-sm font-semibold text-foreground">Best of 2026</h4>
+                        <ul className="space-y-3 text-sm text-muted-foreground">
+                            <li><Link href="/best/coding" className="hover:text-primary transition-colors">AI Coding Tools</Link></li>
+                            <li><Link href="/best/design" className="hover:text-primary transition-colors">AI Design Tools</Link></li>
+                            <li><Link href="/best/assistance" className="hover:text-primary transition-colors">AI Assistants</Link></li>
+                            <li><Link href="/best/productivity" className="hover:text-primary transition-colors">AI Productivity Tools</Link></li>
+                            <li><Link href="/best/management" className="hover:text-primary transition-colors">AI Project Management</Link></li>
+                            <li><Link href="/best/other" className="hover:text-primary transition-colors">More AI Tools</Link></li>
                         </ul>
                     </div>
 

@@ -133,6 +133,11 @@ export const BEST_CATEGORIES: CategoryCopy[] = [
       "The best AI assistants of 2026, ranked. Compare ChatGPT, Claude, Perplexity, and more for writing, research, coding, and everyday tasks.",
     intro:
       "AI assistants are the swiss-army knife of modern work — writing, research, analysis, and code. Here's how the top assistants stack up in 2026.",
+    body: [
+      "There is no single best AI assistant — the leaders have specialized. <a href=\"/tool/chatgpt\">ChatGPT</a> is the most complete consumer product: multimodal, huge ecosystem, and the most polished apps. <a href=\"/tool/claude\">Claude</a> is the pick for serious writing, long-document analysis, and code — its long-context reasoning is why many professionals quietly switched. <a href=\"/tool/perplexity\">Perplexity</a> owns cited, real-time research, <a href=\"/tool/grok\">Grok</a> brings live X (Twitter) data and an unfiltered tone, and <a href=\"/tool/microsoft-copilot\">Microsoft Copilot</a> puts OpenAI models inside the Office apps enterprises already run.",
+      "The practical way to choose is by your dominant task. Mostly <strong>asking questions about the world</strong>? Perplexity's citations beat everyone. Mostly <strong>producing work</strong> — documents, analysis, code? Claude and ChatGPT are the two to test head-to-head (see our <a href=\"/compare/chatgpt-vs-claude\">ChatGPT vs Claude comparison</a>). Living in <strong>Microsoft 365</strong>? Copilot's in-app integration usually wins regardless of raw model quality. The free tiers of all five are good enough to run this experiment in an afternoon.",
+      "Paid tiers matter more here than in most categories: free plans meter the best models and rate-limit heavy use. If you pay for exactly one assistant, pick it by your dominant task above — and re-evaluate quarterly, because the frontier moves fast enough that today's runner-up is regularly next quarter's leader.",
+    ],
     buyingGuide: [
       "Reasoning vs. speed: pick frontier models for hard problems, faster ones for volume.",
       "Context length: longer context handles whole documents and codebases.",
@@ -148,6 +153,18 @@ export const BEST_CATEGORIES: CategoryCopy[] = [
         q: "Are free AI assistants good enough?",
         a: "Free tiers are great for casual use. Heavy users hit rate limits and miss the best models — the paid tiers are usually worth it for daily work.",
       },
+      {
+        q: "ChatGPT vs Claude — which should I use?",
+        a: "ChatGPT wins on breadth: multimodal features, plugins, and ecosystem. Claude wins on depth: long-form writing, document analysis, and code. Many professionals keep both — ChatGPT for versatility, Claude for heavy text and code work.",
+      },
+      {
+        q: "Which AI assistant is best for research?",
+        a: "Perplexity — it runs a live web search for every query and returns answers with citations you can verify. For turning that research into finished writing, pair it with Claude or ChatGPT.",
+      },
+      {
+        q: "Do I need more than one AI assistant?",
+        a: "Power users usually run two: one general assistant (ChatGPT or Claude) plus Perplexity for cited research. Beyond that, returns diminish quickly — consolidate once you know your dominant use case.",
+      },
     ],
   },
   {
@@ -159,6 +176,11 @@ export const BEST_CATEGORIES: CategoryCopy[] = [
       "The best AI productivity tools of 2026, ranked. Automate notes, writing, and workflows with the top AI-powered productivity apps.",
     intro:
       "AI is quietly rebuilding the productivity stack — drafting, summarizing, and automating the busywork. These are the best AI productivity tools to reclaim your hours in 2026.",
+    body: [
+      "The best AI productivity tool is almost always the one inside the workspace you already use — switching apps costs more than any AI saves. If your team lives in Notion, <a href=\"/tool/notion-ai\">Notion AI</a> adds writing, summarization, and workspace Q&A where your docs already are. Microsoft shops get the same effect from <a href=\"/tool/microsoft-365-copilot\">Microsoft 365 Copilot</a> across Word, Excel, and Outlook. <a href=\"/tool/coda\">Coda</a> is the power-user pick when you want documents that behave like apps, with AI wired into real automations.",
+      "Around the workspace core, three specialists earn their keep. <a href=\"/tool/grammarly\">Grammarly</a> polishes everything you write in every text field, not just one app. <a href=\"/tool/otter-ai\">Otter</a> and <a href=\"/tool/zoom-ai-companion\">Zoom AI Companion</a> turn meetings into searchable notes and action items. <a href=\"/tool/slack-ai\">Slack AI</a> summarizes the channels you've been ignoring, and <a href=\"/tool/gamma\">Gamma</a> produces genuinely presentable slide decks from an outline in minutes.",
+      "The trap in this category is subscription sprawl: five \"time-saving\" tools at $10–20 each add up fast, and most overlap. Audit where your hours actually go — writing, meetings, or coordination — and buy AI for your single biggest sink first. Every tool below has a free tier; the ranked breakdowns cover what each one automates well and where the paid plan is actually worth it.",
+    ],
     buyingGuide: [
       "Where it lives: tools inside your existing workspace reduce context switching.",
       "Automation depth: from suggestions to full workflow automation.",
@@ -168,7 +190,19 @@ export const BEST_CATEGORIES: CategoryCopy[] = [
     faqs: [
       {
         q: "What is the best AI productivity tool in 2026?",
-        a: "It depends on your stack — tools that live inside your existing workspace tend to win on adoption. See the ranked picks below.",
+        a: "It depends on your stack — tools that live inside your existing workspace tend to win on adoption. Notion AI leads for Notion teams, Microsoft 365 Copilot for Office shops, and Coda for teams that want docs with real automation. See the ranked picks below.",
+      },
+      {
+        q: "Notion AI vs Coda — which is better?",
+        a: "Notion AI is the more popular, more polished choice for docs, wikis, and notes. Coda goes further when you need documents that behave like apps — formulas, buttons, and automations. Pick the workspace first; the AI follows.",
+      },
+      {
+        q: "What's the best AI tool for meeting notes?",
+        a: "Otter is the strongest dedicated meeting-notes tool, with real-time transcription and action items. If your meetings already run on Zoom, the built-in Zoom AI Companion covers most of the same ground without another subscription.",
+      },
+      {
+        q: "Are AI productivity tools worth paying for?",
+        a: "One or two, yes — five, rarely. Identify your biggest time sink (writing, meetings, or coordination), pay for the tool that automates that, and stay on free tiers for the rest until you feel a real limit.",
       },
     ],
   },
@@ -233,6 +267,11 @@ export const BEST_CATEGORIES: CategoryCopy[] = [
       "The best specialized AI tools of 2026, ranked. Voice, video, audio, and emerging AI tools worth trying this year.",
     intro:
       "Some of the most useful AI tools don't fit a neat category — voice, audio, infra, and the genuinely new. Here are the best of the rest in 2026.",
+    body: [
+      "These are the specialists: each tool below is arguably the best in the world at one specific job. <a href=\"/tool/elevenlabs\">ElevenLabs</a> owns AI voice — text-to-speech and voice cloning realistic enough for production audiobooks, games, and video dubbing. <a href=\"/tool/descript\">Descript</a> reinvented audio and video editing by making it text-based: delete a sentence from the transcript and it's gone from the recording, with studio-quality cleanup applied automatically.",
+      "On the infrastructure side, <a href=\"/tool/vercel\">Vercel</a> is where AI-generated frontends actually ship — the deployment platform behind much of the vibe-coding wave, with its own AI SDK for building model-powered apps. And <a href=\"/tool/ollama\">Ollama</a> is the counterweight to every cloud subscription on this site: it runs open-source models entirely on your own machine, free, with no data leaving your laptop — the default answer when privacy is non-negotiable.",
+      "Because these tools are single-purpose, buying advice is simple: match the tool to the job and mind the pricing model. Usage-based pricing (voice minutes, transcription hours, build minutes) scales with success, so estimate your real volume before committing. All four have free tiers generous enough to validate your use case first.",
+    ],
     buyingGuide: [
       "Use case fit: these tools are specialized — match to your exact need.",
       "Maturity: check whether it's production-ready or early access.",
@@ -242,6 +281,18 @@ export const BEST_CATEGORIES: CategoryCopy[] = [
       {
         q: "What other AI tools are worth trying in 2026?",
         a: "Voice tools like ElevenLabs, video editors like Descript, and platforms like Vercel each lead their niche. See the ranked list below.",
+      },
+      {
+        q: "What's the best AI voice generator?",
+        a: "ElevenLabs leads on realism, language coverage, and voice cloning. Pricing is usage-based (per character/minute), so estimate your monthly volume — casual use fits the free tier, production audio scales with usage.",
+      },
+      {
+        q: "Can I run AI models locally instead of paying for subscriptions?",
+        a: "Yes — Ollama runs open-source models entirely on your own machine for free. You'll need decent hardware (RAM/GPU), and local models trail the frontier cloud models in quality, but for privacy-sensitive work or unlimited experimentation it's unbeatable.",
+      },
+      {
+        q: "What's the best AI tool for editing podcasts and videos?",
+        a: "Descript — you edit the transcript and the audio/video follows, with one-click filler-word removal and studio-quality sound cleanup. It replaces a surprising amount of a traditional editing suite for talk-based content.",
       },
     ],
   },

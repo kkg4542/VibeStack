@@ -1,18 +1,35 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, ExternalLink, Share2, Sparkles, Scale, Check, Star, Trash2 } from 'lucide-react';
-import { getToolBySlug, getTools } from '@/lib/tools-db';
+import { ArrowLeft, ArrowRight, ChevronRight, Check, Scale, X } from 'lucide-react';
+import { getTools } from '@/lib/tools-db';
+import { getCompareEditorial } from '@/lib/compare-content';
+import { ToolData } from '@/lib/tool-types';
 import { PageBackground, BackgroundPresets } from '@/components/effects/PageBackground';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ToolIconRenderer } from '@/components/tools/ToolIconRenderer';
-import { MotionDiv, MotionSection, MotionLi, MotionSpan, MotionP, MotionH1, MotionH2, MotionH3 } from "@/components/ui/motion-wrapper";
+import { MotionDiv } from "@/components/ui/motion-wrapper";
 import { designSystem } from '@/lib/design-system';
 
 interface Props {
     params: Promise<{ slug: string }>;
+}
+
+/** Same-category pairs, capped to mirror the sitemap. */
+function generatePairs(tools: ToolData[]): string[] {
+    return tools
+        .flatMap((t1, i) =>
+            tools.slice(i + 1)
+                .filter(t2 => t1.category === t2.category)
+                .map(t2 => `${t1.slug}-vs-${t2.slug}`)
+        )
+        .slice(0, 50);
+}
+
+function lcFirst(s: string): string {
+    return s.charAt(0).toLowerCase() + s.slice(1);
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -23,16 +40,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         return { title: 'Tool Comparison' };
     }
 
-    const [slug1, slug2] = parts;
-    const tool1 = await getToolBySlug(slug1);
-    const tool2 = await getToolBySlug(slug2);
+    const tools = await getTools();
+    const tool1 = tools.find(t => t.slug === parts[0]);
+    const tool2 = tools.find(t => t.slug === parts[1]);
 
     if (!tool1 || !tool2) {
         return { title: 'Tool Comparison Not Found' };
     }
 
-    const title = `${tool1.title} vs ${tool2.title}: Which implementation is better in 2026?`;
-    const description = `Detailed comparison of ${tool1.title} and ${tool2.title}. Compare features, pricing, pros & cons, and user reviews to decide which tool fits your stack.`;
+    const title = `${tool1.title} vs ${tool2.title} (2026): Features, Pricing & Verdict`;
+    const description = `${tool1.title} or ${tool2.title}? Side-by-side comparison of features, pricing, pros & cons — plus a clear verdict on which ${tool1.category.toLowerCase()} tool fits your workflow.`;
     const url = `https://usevibestack.com/compare/${slug}`;
 
     return {
@@ -48,19 +65,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
 }
 
-// Generate static params for popular combinations (optional, implementation for top tools)
 export async function generateStaticParams() {
     const tools = await getTools();
-
-    // Generate comparisons for tools in the same category
-    const comparisons = tools.flatMap((t1, i) => 
-        tools.slice(i + 1)
-             .filter(t2 => t1.category === t2.category)
-             .map(t2 => ({ slug: `${t1.slug}-vs-${t2.slug}` }))
-    );
-
-    // Limit to avoiding excessively large build if many tools
-    return comparisons.slice(0, 50);
+    return generatePairs(tools).map(slug => ({ slug }));
 }
 
 export default async function ComparisonSlugPage({ params }: Props) {
@@ -71,35 +78,114 @@ export default async function ComparisonSlugPage({ params }: Props) {
         notFound();
     }
 
-    const [slug1, slug2] = parts;
-    const tool1 = await getToolBySlug(slug1);
-    const tool2 = await getToolBySlug(slug2);
+    const tools = await getTools();
+    const tool1 = tools.find(t => t.slug === parts[0]);
+    const tool2 = tools.find(t => t.slug === parts[1]);
 
     if (!tool1 || !tool2) {
         notFound();
     }
 
     const selectedTools = [tool1, tool2];
+    const editorial = getCompareEditorial(slug);
+    const url = `https://usevibestack.com/compare/${slug}`;
+
+    // Overview copy: hand-written where available, data-driven otherwise.
+    const intro = editorial?.intro ?? [
+        `${tool1.title} and ${tool2.title} both compete in the ${tool1.category.toLowerCase()} space, but they take noticeably different approaches. ${tool1.title}: ${tool1.description} ${tool2.title}: ${tool2.description}`,
+        `On pricing, ${tool1.title} runs a ${tool1.pricing.toLowerCase()} model while ${tool2.title} is ${tool2.pricing.toLowerCase()}. Feature-wise, ${tool1.title} leans into ${(tool1.features ?? []).slice(0, 3).join(", ") || "its core workflow"}, whereas ${tool2.title} emphasizes ${(tool2.features ?? []).slice(0, 3).join(", ") || "a different set of strengths"}. The sections below break down where each one actually earns its keep.`,
+    ];
+
+    const verdict = editorial?.verdict ?? (
+        `There is no universal winner between ${tool1.title} and ${tool2.title} — the right pick depends on which trade-offs match your workflow. ` +
+        (tool1.pros?.[0] ? `Lean toward ${tool1.title} if ${lcFirst(tool1.pros[0])} is what you need most. ` : '') +
+        (tool2.pros?.[0] ? `Lean toward ${tool2.title} if ${lcFirst(tool2.pros[0])} matters more. ` : '') +
+        `Both have free trials or entry tiers, so the cheapest research is an afternoon spent testing each against a real task.`
+    );
+
+    // FAQ — rendered on-page and mirrored into FAQPage JSON-LD.
+    const bothFree = ["Free", "Freemium"].includes(tool1.pricing) && ["Free", "Freemium"].includes(tool2.pricing);
+    const freeTool = ["Free", "Freemium"].includes(tool1.pricing) ? tool1 : ["Free", "Freemium"].includes(tool2.pricing) ? tool2 : null;
+    const faqs: { q: string; a: string }[] = [
+        {
+            q: `Is ${tool1.title} better than ${tool2.title}?`,
+            a: `Neither is universally better — they optimize for different things. ${tool1.title} stands out for ${(tool1.pros ?? tool1.features ?? []).slice(0, 2).map(lcFirst).join(" and ") || "its core strengths"}, while ${tool2.title} counters with ${(tool2.pros ?? tool2.features ?? []).slice(0, 2).map(lcFirst).join(" and ") || "a different focus"}. Match those strengths to your actual workflow and the "better" tool becomes obvious.`,
+        },
+        {
+            q: `Which is cheaper, ${tool1.title} or ${tool2.title}?`,
+            a: `${tool1.title} uses a ${tool1.pricing.toLowerCase()} model and ${tool2.title} is ${tool2.pricing.toLowerCase()}. ${bothFree ? "Both let you start free, so total cost depends on which paid tier you eventually need." : freeTool ? `${freeTool.title} is the lower-risk starting point since you can begin without paying.` : "Neither has a meaningful free tier, so compare the paid plans against your expected usage."} Always verify current pricing on the official sites — plans change frequently.`,
+        },
+        {
+            q: `Can I use ${tool1.title} and ${tool2.title} together?`,
+            a: `Yes — nothing stops you from running both, and many ${tool1.category.toLowerCase()} workflows pair them deliberately: use each tool for the part of the job it does best, then consolidate later once a clear favorite emerges. The main cost of running both is subscription overlap, not compatibility.`,
+        },
+        {
+            q: `Which should a beginner start with?`,
+            a: freeTool
+                ? `Start with ${freeTool.title}: its ${freeTool.pricing.toLowerCase()} tier means you can learn the workflow without commitment, then evaluate whether ${freeTool.slug === tool1.slug ? tool2.title : tool1.title} solves anything you're still missing.`
+                : `Start with whichever offers a trial for your use case, and give it a real project rather than a toy test — differences between ${tool1.title} and ${tool2.title} only show up under realistic workloads.`,
+        },
+        ...(editorial?.faqs ?? []),
+    ];
+
+    // Related comparisons that share a tool with this page, from the same
+    // capped pair set the sitemap publishes.
+    const titleBySlug = new Map(tools.map(t => [t.slug, t.title]));
+    const related = generatePairs(tools)
+        .filter(p => p !== slug)
+        .filter(p => {
+            const [a, b] = p.split('-vs-');
+            return a === tool1.slug || b === tool1.slug || a === tool2.slug || b === tool2.slug;
+        })
+        .slice(0, 8)
+        .map(p => {
+            const [a, b] = p.split('-vs-');
+            return { slug: p, label: `${titleBySlug.get(a)} vs ${titleBySlug.get(b)}` };
+        });
+
+    const faqJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faqs.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+    };
+
+    const breadcrumbJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://usevibestack.com" },
+            { "@type": "ListItem", position: 2, name: "Compare", item: "https://usevibestack.com/compare" },
+            { "@type": "ListItem", position: 3, name: `${tool1.title} vs ${tool2.title}`, item: url },
+        ],
+    };
 
     return (
         <PageBackground {...BackgroundPresets.content}>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+
             <div className="container mx-auto max-w-7xl px-4 py-8">
-                {/* Header */}
+                {/* Breadcrumb + actions */}
                 <MotionDiv
                     initial={designSystem.animations.fadeInUp.initial}
                     animate={designSystem.animations.fadeInUp.animate}
                     transition={designSystem.animations.fadeInUp.transition}
                     className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8"
                 >
-                    <div className="flex items-center gap-4">
-                        <Link href="/tools" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors group">
-                            <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-                            Back to Directory
-                        </Link>
-                    </div>
+                    <nav className="flex items-center gap-1 text-sm text-muted-foreground">
+                        <Link href="/" className="hover:text-foreground">Home</Link>
+                        <ChevronRight className="h-3.5 w-3.5" />
+                        <Link href="/compare" className="hover:text-foreground">Compare</Link>
+                        <ChevronRight className="h-3.5 w-3.5" />
+                        <span className="text-foreground">{tool1.title} vs {tool2.title}</span>
+                    </nav>
 
                     <div className="flex items-center gap-3">
-                        <Link href={`/compare?tools=${slug1},${slug2}`}>
+                        <Link href={`/compare?tools=${tool1.slug},${tool2.slug}`}>
                             <Button variant="outline" className="rounded-full">
                                 <Scale className="h-4 w-4 mr-2" />
                                 Interactive Compare
@@ -113,9 +199,9 @@ export default async function ComparisonSlugPage({ params }: Props) {
                     initial={designSystem.animations.fadeInUp.initial}
                     animate={designSystem.animations.fadeInUp.animate}
                     transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.1 }}
-                    className="mb-16 text-center"
+                    className="mb-12 text-center"
                 >
-                    <Badge variant="outline" className="mb-4 bg-muted/50">{tool1.category} Showdown</Badge>
+                    <Badge variant="outline" className="mb-4 bg-muted/50">{tool1.category} Showdown · Updated for 2026</Badge>
                     <h1 className="text-4xl md:text-6xl font-bold mb-6 text-balance tracking-tight">
                         <span className={`bg-clip-text text-transparent bg-linear-to-r ${tool1.bgGradient || 'from-foreground to-foreground'}`}>
                             {tool1.title}
@@ -126,8 +212,23 @@ export default async function ComparisonSlugPage({ params }: Props) {
                         </span>
                     </h1>
                     <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                        Detailed analytic comparison to help you choose the right {tool1.category.toLowerCase()} tool for your needs.
+                        Features, pricing, pros & cons — and a clear verdict on which {tool1.category.toLowerCase()} tool fits your workflow.
                     </p>
+                </MotionDiv>
+
+                {/* Overview */}
+                <MotionDiv
+                    initial={designSystem.animations.fadeInUp.initial}
+                    animate={designSystem.animations.fadeInUp.animate}
+                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.15 }}
+                    className="max-w-3xl mx-auto mb-16"
+                >
+                    <h2 className="text-2xl font-bold mb-4">Overview</h2>
+                    <div className="space-y-4 text-muted-foreground leading-relaxed">
+                        {intro.map((para, i) => (
+                            <p key={i}>{para}</p>
+                        ))}
+                    </div>
                 </MotionDiv>
 
                 {/* Comparison Cards (Side by Side) */}
@@ -214,18 +315,12 @@ export default async function ComparisonSlugPage({ params }: Props) {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td className="py-4 font-medium text-muted-foreground">User Rating</td>
-                                            <td className="py-4 text-center">
-                                                <div className="flex items-center justify-center gap-1 font-bold">
-                                                    <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
-                                                    {tool1.review?.rating || 'N/A'}
-                                                </div>
+                                            <td className="py-4 font-medium text-muted-foreground align-top pt-6">Standout Features</td>
+                                            <td className="py-4 px-4 align-top text-sm text-muted-foreground">
+                                                {(tool1.features ?? []).slice(0, 3).join(" · ") || "—"}
                                             </td>
-                                            <td className="py-4 text-center">
-                                                <div className="flex items-center justify-center gap-1 font-bold">
-                                                    <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
-                                                    {tool2.review?.rating || 'N/A'}
-                                                </div>
+                                            <td className="py-4 px-4 align-top text-sm text-muted-foreground">
+                                                {(tool2.features ?? []).slice(0, 3).join(" · ") || "—"}
                                             </td>
                                         </tr>
                                         <tr>
@@ -261,32 +356,103 @@ export default async function ComparisonSlugPage({ params }: Props) {
                     </Card>
                 </MotionDiv>
 
-                {/* FAQ Section (Auto-generated) */}
+                {/* Choose X / Choose Y */}
                 <MotionDiv
                     initial={designSystem.animations.fadeInUp.initial}
                     whileInView={designSystem.animations.fadeInUp.animate}
                     viewport={{ once: true }}
-                    className="max-w-3xl mx-auto mt-20 text-center"
+                    className="max-w-4xl mx-auto mt-16"
                 >
-                    <h2 className="text-2xl font-bold mb-8">Frequently Asked Questions</h2>
-                    <div className="space-y-6 text-left">
-                        <div className="p-6 rounded-2xl bg-muted/30 border border-border/50">
-                            <h3 className="font-semibold text-lg mb-2">Is {tool1.title} better than {tool2.title}?</h3>
-                            <p className="text-muted-foreground">
-                                {tool1.title} is generally styled as a {tool1.category} tool, while {tool2.title} also competes in the {tool2.category} space.
-                                High-level, if you need features like {tool1.features?.[0]}, {tool1.title} might be the better choice.
-                                However, {tool2.title} offers {tool2.features?.[0]}, which is a strong competitor.
-                            </p>
-                        </div>
-                        <div className="p-6 rounded-2xl bg-muted/30 border border-border/50">
-                            <h3 className="font-semibold text-lg mb-2">Which tool is cheaper?</h3>
-                            <p className="text-muted-foreground">
-                                {tool1.title} offers a {tool1.pricing} model, whereas {tool2.title} is {tool2.pricing}.
-                                Depending on your team size and requirements, verify the latest pricing on their official websites.
-                            </p>
-                        </div>
+                    <h2 className="text-2xl font-bold mb-8 text-center">Which one is right for you?</h2>
+                    <div className="grid md:grid-cols-2 gap-6">
+                        {selectedTools.map((tool) => (
+                            <Card key={tool.slug} className="border-border/50 bg-card/60">
+                                <CardContent className="p-6">
+                                    <h3 className="font-semibold text-lg mb-4">
+                                        Choose <span className="text-vibe-electric">{tool.title}</span> if…
+                                    </h3>
+                                    <ul className="space-y-3">
+                                        {(tool.pros ?? []).slice(0, 4).map((p) => (
+                                            <li key={p} className="flex items-start gap-2 text-sm text-muted-foreground">
+                                                <Check className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" />
+                                                <span>{p} matters to your workflow</span>
+                                            </li>
+                                        ))}
+                                        {(tool.cons ?? []).slice(0, 1).map((c) => (
+                                            <li key={c} className="flex items-start gap-2 text-sm text-muted-foreground">
+                                                <X className="h-4 w-4 text-rose-400 mt-0.5 shrink-0" />
+                                                <span>…and you can live with: {lcFirst(c)}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </CardContent>
+                            </Card>
+                        ))}
                     </div>
                 </MotionDiv>
+
+                {/* Verdict */}
+                <MotionDiv
+                    initial={designSystem.animations.fadeInUp.initial}
+                    whileInView={designSystem.animations.fadeInUp.animate}
+                    viewport={{ once: true }}
+                    className="max-w-3xl mx-auto mt-16"
+                >
+                    <Card className="border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-purple-500/5">
+                        <CardContent className="p-8">
+                            <h2 className="text-2xl font-bold mb-4">Our verdict</h2>
+                            <p className="text-muted-foreground leading-relaxed">{verdict}</p>
+                        </CardContent>
+                    </Card>
+                </MotionDiv>
+
+                {/* FAQ Section */}
+                <MotionDiv
+                    initial={designSystem.animations.fadeInUp.initial}
+                    whileInView={designSystem.animations.fadeInUp.animate}
+                    viewport={{ once: true }}
+                    className="max-w-3xl mx-auto mt-20"
+                >
+                    <h2 className="text-2xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
+                    <div className="space-y-6 text-left">
+                        {faqs.map((f) => (
+                            <div key={f.q} className="p-6 rounded-2xl bg-muted/30 border border-border/50">
+                                <h3 className="font-semibold text-lg mb-2">{f.q}</h3>
+                                <p className="text-muted-foreground">{f.a}</p>
+                            </div>
+                        ))}
+                    </div>
+                </MotionDiv>
+
+                {/* Related comparisons */}
+                {related.length > 0 && (
+                    <MotionDiv
+                        initial={designSystem.animations.fadeInUp.initial}
+                        whileInView={designSystem.animations.fadeInUp.animate}
+                        viewport={{ once: true }}
+                        className="max-w-4xl mx-auto mt-20"
+                    >
+                        <h2 className="text-lg font-bold mb-4">Related comparisons</h2>
+                        <div className="flex flex-wrap gap-2">
+                            {related.map((r) => (
+                                <Link
+                                    key={r.slug}
+                                    href={`/compare/${r.slug}`}
+                                    className="inline-flex items-center gap-1 rounded-full border border-border bg-card px-4 py-2 text-sm hover:border-vibe-electric/50 transition-colors"
+                                >
+                                    {r.label}
+                                    <ArrowRight className="h-3.5 w-3.5" />
+                                </Link>
+                            ))}
+                        </div>
+                        <div className="mt-6">
+                            <Link href="/tools" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors group">
+                                <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+                                Browse the full tool directory
+                            </Link>
+                        </div>
+                    </MotionDiv>
+                )}
             </div>
         </PageBackground>
     );

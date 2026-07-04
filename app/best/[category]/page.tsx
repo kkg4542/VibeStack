@@ -97,7 +97,7 @@ export default async function BestCategoryPage({
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://usevibestack.com" },
-      { "@type": "ListItem", position: 2, name: "Best", item: "https://usevibestack.com/best" },
+      { "@type": "ListItem", position: 2, name: "Tools", item: "https://usevibestack.com/tools" },
       { "@type": "ListItem", position: 3, name: copy.heading, item: url },
     ],
   };
