@@ -75,7 +75,7 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                     <div className="bg-linear-to-br from-vibe-electric/5 via-vibe-purple/5 to-vibe-pink/5 rounded-3xl p-8 md:p-12 border border-vibe-electric/10 relative overflow-hidden">
                         {/* Decorative Elements */}
                         <div className="absolute top-0 right-0 w-64 h-64 bg-vibe-electric/10 blur-[100px] rounded-full" />
-                        <div className="absolute bottom-0 left-0 w-48 h-48 bg-purple-500/10 blur-[80px] rounded-full" />
+                        <div className="absolute bottom-0 left-0 w-48 h-48 bg-vibe-purple/10 blur-[80px] rounded-full" />
 
                         <div className="relative z-10">
                             <div className="flex flex-col lg:flex-row gap-8 items-start justify-between">

@@ -101,7 +101,7 @@ export default function ComparePage() {
 
     return (
         <PageBackground {...BackgroundPresets.content}>
-            <div className="container mx-auto max-w-7xl">
+            <div className="container mx-auto max-w-6xl">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -147,7 +147,7 @@ export default function ComparePage() {
                         <div className="p-2 rounded-lg bg-vibe-electric/10">
                             <Scale className="h-6 w-6 text-vibe-electric" />
                         </div>
-                        <h1 className="text-3xl md:text-4xl font-bold text-balance">Tool Comparison</h1>
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-balance">Tool Comparison</h1>
                     </div>
                     <p className="text-muted-foreground">
                         Comparing {selectedTools.length} tools side-by-side

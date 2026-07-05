@@ -248,7 +248,7 @@ export function CategoryPageClient({ category, tools: categoryTools }: CategoryP
                     transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.7 }}
                     className="mt-16 text-center"
                 >
-                    <Card className="border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-purple-500/5">
+                    <Card className="border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-vibe-purple/5">
                         <CardHeader className="p-8">
                             <h3 className="text-xl font-bold mb-2">Explore Other Categories</h3>
                             <p className="text-muted-foreground mb-6">

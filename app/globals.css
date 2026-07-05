@@ -23,6 +23,8 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -53,9 +55,7 @@
   --animate-slide-in-right: slideInRight 0.3s ease-out forwards;
   --animate-slide-out-right: slideOutRight 0.3s ease-in forwards;
   --animate-skeleton: skeletonShimmer 1.5s infinite;
-  --animate-border-rotate: borderRotate 3s linear infinite;
-  --animate-gradient-shift: gradientShift 3s ease infinite;
-  
+
   /* VibeStack Signature Animations */
   --animate-vibe-glow: vibeGlow 2s ease-in-out infinite;
   --animate-vibe-float: vibeFloat 6s ease-in-out infinite;
@@ -66,10 +66,10 @@
   
   @keyframes vibeGlow {
     0%, 100% {
-      box-shadow: 0 0 20px rgba(0, 217, 255, 0.3), 0 0 40px rgba(0, 217, 255, 0.1);
+      box-shadow: 0 0 20px color-mix(in oklab, var(--color-vibe-electric) 30%, transparent), 0 0 40px color-mix(in oklab, var(--color-vibe-electric) 10%, transparent);
     }
     50% {
-      box-shadow: 0 0 30px rgba(0, 217, 255, 0.5), 0 0 60px rgba(0, 217, 255, 0.2);
+      box-shadow: 0 0 30px color-mix(in oklab, var(--color-vibe-electric) 50%, transparent), 0 0 60px color-mix(in oklab, var(--color-vibe-electric) 20%, transparent);
     }
   }
   
@@ -203,27 +203,6 @@
     }
   }
 
-  @keyframes borderRotate {
-    0% {
-      --angle: 0deg;
-    }
-
-    100% {
-      --angle: 360deg;
-    }
-  }
-
-  @keyframes gradientShift {
-
-    0%,
-    100% {
-      background-position: 0% 50%;
-    }
-
-    50% {
-      background-position: 100% 50%;
-    }
-  }
 }
 
 :root {
@@ -260,6 +239,11 @@
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
 
+  --success: #059669;
+  /* Emerald-600 */
+  --warning: #d97706;
+  /* Amber-600 */
+
   --border: #e2e8f0;
   /* Slate-200 - More visible border */
   --input: #e2e8f0;
@@ -291,6 +275,9 @@
 
   --destructive: #7f1d1d;
   --destructive-foreground: #fafafa;
+
+  --success: #34d399;
+  --warning: #fbbf24;
 
   --border: rgba(255, 255, 255, 0.08);
   --input: rgba(255, 255, 255, 0.05);
@@ -386,11 +373,6 @@
   @apply translate-y-0 shadow-md;
 }
 
-/* Magnetic Button Base */
-.magnetic-btn {
-  @apply transition-transform duration-200 ease-out;
-}
-
 /* Card Hover Effects */
 .card-hover {
   @apply transition-all duration-300 ease-out;
@@ -405,7 +387,7 @@
 }
 
 .card-hover-lift:hover {
-  @apply -translate-y-1.5 shadow-2xl border-indigo-500/30;
+  @apply -translate-y-1.5 shadow-2xl border-primary/30;
 }
 
 .card-hover-glow {
@@ -413,7 +395,7 @@
 }
 
 .card-hover-glow:hover {
-  @apply shadow-lg shadow-indigo-500/10 border-indigo-500/20;
+  @apply shadow-lg shadow-primary/10 border-primary/20;
 }
 
 /* Link Hover Effects */
@@ -539,7 +521,7 @@
 
 .glow-hover:hover {
   @apply shadow-lg;
-  box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 0 30px color-mix(in oklab, var(--primary) 30%, transparent);
 }
 
 .glow-text {
@@ -547,7 +529,7 @@
 }
 
 .glow-text:hover {
-  text-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+  text-shadow: 0 0 20px color-mix(in oklab, var(--primary) 50%, transparent);
 }
 
 /* Ripple Effect Base */
@@ -604,11 +586,11 @@ html {
 
 /* Selection Animation */
 ::selection {
-  @apply bg-indigo-500/20 text-indigo-900;
+  @apply bg-primary/20 text-foreground;
 }
 
 .dark ::selection {
-  @apply bg-indigo-500/30 text-indigo-200;
+  @apply bg-primary/30 text-foreground;
 }
 
 /* Toast/Notification Slide Animation */
@@ -623,9 +605,9 @@ html {
 /* Skeleton Shimmer */
 .skeleton-shimmer {
   background: linear-gradient(90deg,
-      hsl(var(--muted)) 25%,
-      hsl(var(--muted-foreground) / 0.1) 50%,
-      hsl(var(--muted)) 75%);
+      var(--muted) 25%,
+      color-mix(in oklab, var(--muted-foreground) 10%, transparent) 50%,
+      var(--muted) 75%);
   background-size: 200% 100%;
   @apply animate-skeleton;
 }
@@ -643,31 +625,21 @@ html {
   @apply scale-110;
 }
 
-/* Border Gradient Animation */
-.border-gradient {
-  --angle: 0deg;
-  border: 2px solid;
-  border-image: linear-gradient(var(--angle), #6366f1, #a855f7, #ec4899) 1;
-  @apply animate-border-rotate;
-}
-
-/* Text Gradient Animation */
-.text-gradient-animate {
-  background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899, #6366f1);
-  background-size: 300% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  @apply animate-gradient-shift;
-}
-
 /* ========================================
    VIBESTACK SIGNATURE UTILITIES
    ======================================== */
 
+/* Standard Brand Gradient Text — use this instead of ad-hoc from-*/via-*/to-* combos */
+.text-gradient-brand {
+  background: linear-gradient(135deg, var(--color-vibe-electric) 0%, var(--color-vibe-purple) 50%, var(--color-vibe-pink) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 /* Vibe Electric Gradient Text */
 .text-vibe-gradient {
-  background: linear-gradient(135deg, #00d9ff 0%, #ff00ff 100%);
+  background: linear-gradient(135deg, var(--color-vibe-electric) 0%, var(--color-vibe-neon) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -675,41 +647,27 @@ html {
 
 /* Vibe Glow Effects */
 .vibe-glow {
-  box-shadow: 0 0 20px rgba(0, 217, 255, 0.3), 0 0 40px rgba(0, 217, 255, 0.1);
+  box-shadow: 0 0 20px color-mix(in oklab, var(--color-vibe-electric) 30%, transparent), 0 0 40px color-mix(in oklab, var(--color-vibe-electric) 10%, transparent);
 }
 
 .vibe-glow-hover:hover {
-  box-shadow: 0 0 30px rgba(0, 217, 255, 0.5), 0 0 60px rgba(0, 217, 255, 0.2);
+  box-shadow: 0 0 30px color-mix(in oklab, var(--color-vibe-electric) 50%, transparent), 0 0 60px color-mix(in oklab, var(--color-vibe-electric) 20%, transparent);
 }
 
 .vibe-glow-strong {
-  box-shadow: 0 0 40px rgba(0, 217, 255, 0.4), 0 0 80px rgba(255, 0, 255, 0.2);
+  box-shadow: 0 0 40px color-mix(in oklab, var(--color-vibe-electric) 40%, transparent), 0 0 80px color-mix(in oklab, var(--color-vibe-neon) 20%, transparent);
 }
 
 /* Mesh Gradient Background */
 .bg-mesh-gradient {
-  background: 
-    radial-gradient(at 40% 20%, rgba(0, 217, 255, 0.15) 0px, transparent 50%),
-    radial-gradient(at 80% 0%, rgba(255, 0, 255, 0.1) 0px, transparent 50%),
-    radial-gradient(at 0% 50%, rgba(184, 41, 221, 0.1) 0px, transparent 50%),
-    radial-gradient(at 80% 50%, rgba(0, 240, 255, 0.1) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, rgba(255, 0, 110, 0.1) 0px, transparent 50%);
+  background:
+    radial-gradient(at 40% 20%, color-mix(in oklab, var(--color-vibe-electric) 15%, transparent) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, color-mix(in oklab, var(--color-vibe-neon) 10%, transparent) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, color-mix(in oklab, var(--color-vibe-purple) 10%, transparent) 0px, transparent 50%),
+    radial-gradient(at 80% 50%, color-mix(in oklab, var(--color-vibe-cyan) 10%, transparent) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, color-mix(in oklab, var(--color-vibe-pink) 10%, transparent) 0px, transparent 50%);
   background-size: 200% 200%;
   animation: meshGradient 8s ease infinite;
-}
-
-/* Glass Card with Vibe Border */
-.vibe-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.vibe-card:hover {
-  border-color: rgba(0, 217, 255, 0.3);
-  box-shadow: 0 0 30px rgba(0, 217, 255, 0.15);
-  transform: translateY(-4px);
 }
 
 /* Terminal-style UI */
@@ -786,7 +744,7 @@ html {
   inset: 0;
   border-radius: 16px;
   padding: 1px;
-  background: linear-gradient(135deg, #00d9ff, #ff00ff, #00d9ff);
+  background: linear-gradient(135deg, var(--color-vibe-electric), var(--color-vibe-neon), var(--color-vibe-electric));
   background-size: 200% 200%;
   animation: meshGradient 4s ease infinite;
   -webkit-mask: 
@@ -809,7 +767,7 @@ html {
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 217, 255, 0.15), transparent 40%);
+  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), color-mix(in oklab, var(--color-vibe-electric) 15%, transparent), transparent 40%);
   opacity: 0;
   transition: opacity 0.3s;
   pointer-events: none;
@@ -818,13 +776,6 @@ html {
 .spotlight:hover::before {
   opacity: 1;
 }
-
-/* Magnetic Button Base */
-.magnetic-button {
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-
 
 /* Grid Pattern Background */
 .bg-grid-pattern {
@@ -840,11 +791,11 @@ html {
 }
 
 .dark .text-vibe-neon {
-  color: #ff00ff;
+  color: var(--color-vibe-neon);
 }
 
 .dark .bg-vibe-glow {
-  background: rgba(0, 217, 255, 0.1);
+  background: color-mix(in oklab, var(--color-vibe-electric) 10%, transparent);
 }
 
 /* ========================================

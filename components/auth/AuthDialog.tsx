@@ -46,7 +46,7 @@ export function AuthDialog({
             {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
             <DialogContent className="sm:max-w-[400px] border-white/10 bg-zinc-950/90 backdrop-blur-xl p-8">
                 <DialogHeader className="mb-6 flex flex-col items-center text-center">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-400 mb-4 ring-1 ring-inset ring-indigo-500/20">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary mb-4 ring-1 ring-inset ring-primary/20">
                         <Sparkles className="h-6 w-6" />
                     </div>
                     <DialogTitle className="text-2xl font-bold">Welcome to VibeStack</DialogTitle>

@@ -55,12 +55,12 @@ export function VibeCard({
   const glowBackground = useTransform(
     [glowX, glowY],
     ([latestX, latestY]) =>
-      `radial-gradient(400px circle at ${latestX}% ${latestY}%, rgba(0, 217, 255, 0.15), transparent 40%)`
+      `radial-gradient(400px circle at ${latestX}% ${latestY}%, color-mix(in oklab, var(--color-vibe-electric) 15%, transparent), transparent 40%)`
   );
 
   const variantClasses = {
     default: "bg-card border-border/50",
-    glass: "bg-white/5 backdrop-blur-xl border-white/10",
+    glass: "bg-card/60 border-border/40 dark:bg-white/5 dark:border-white/10 backdrop-blur-xl",
     elevated: "bg-card shadow-lg border-border/30",
     outline: "border-border bg-transparent",
     gradient: "border-gradient-vibe bg-vibe-deep/50",
@@ -136,7 +136,8 @@ export function VibeCard({
         <m.div
           className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{
-            background: "linear-gradient(135deg, #00d9ff, #ff00ff, #00d9ff)",
+            background:
+              "linear-gradient(135deg, var(--color-vibe-electric), var(--color-vibe-neon), var(--color-vibe-electric))",
             backgroundSize: "200% 200%",
             padding: "1px",
             WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
@@ -159,7 +160,7 @@ export function VibeCard({
         <div
           className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-300"
           style={{
-            background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(99, 102, 241, 0.15), transparent 40%)`,
+            background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, color-mix(in oklab, var(--color-primary) 15%, transparent), transparent 40%)`,
           }}
         />
       )}

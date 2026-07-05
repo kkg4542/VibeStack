@@ -154,7 +154,7 @@ export default function NewsletterPage() {
 
                     <h1 className={`${designSystem.typography.hero} mb-6 max-w-4xl mx-auto`}>
                         The VibeStack{" "}
-                        <span className={`bg-clip-text text-transparent bg-linear-to-r ${designSystem.gradients.text}`}>
+                        <span className="text-gradient-brand">
                             Newsletter
                         </span>
                     </h1>
@@ -185,10 +185,11 @@ export default function NewsletterPage() {
                                 required
                                 className="flex-1 bg-card/50 border-border/40 h-12"
                             />
-                            <Button 
-                                type="submit" 
+                            <Button
+                                type="submit"
                                 disabled={isSubmitting}
-                                className={`${designSystem.buttons.medium} bg-linear-to-r from-vibe-electric to-vibe-cyan hover:shadow-lg hover:shadow-vibe-electric/30`}
+                                size="xl"
+                                variant="gradient"
                             >
                                 {isSubmitting ? "Subscribing..." : "Subscribe"}
                             </Button>

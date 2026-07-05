@@ -42,7 +42,7 @@ export function SubmitDialog() {
             <DialogTrigger asChild>
                 <Button
                     size="sm"
-                    className="h-9 rounded-full bg-linear-to-r from-indigo-500 to-purple-600 px-5 text-xs font-bold text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 hover:scale-105 transition-all duration-300 gap-2 border border-white/10"
+                    className="h-9 rounded-full bg-linear-to-r from-vibe-electric to-vibe-purple px-5 text-xs font-bold text-white shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:scale-105 transition-all duration-300 gap-2 border border-white/10"
                 >
                     <Plus className="h-4 w-4" />
                     Advertise
@@ -97,16 +97,16 @@ export function SubmitDialog() {
                     </div>
 
                     {/* Right: Premium */}
-                    <div className="relative flex flex-col p-8 md:p-10 bg-indigo-500/5">
+                    <div className="relative flex flex-col p-8 md:p-10 bg-primary/5">
                         {/* Subtle Gradient Overlay */}
-                        <div className="absolute inset-0 bg-linear-to-b from-indigo-500/5 to-transparent pointer-events-none" />
+                        <div className="absolute inset-0 bg-linear-to-b from-primary/5 to-transparent pointer-events-none" />
 
                         <DialogHeader className="relative z-10">
-                            <div className="mb-4 inline-flex items-center rounded-md bg-indigo-500/10 px-2.5 py-1 text-xs font-bold text-indigo-300 ring-1 ring-inset ring-indigo-500/20 w-fit shadow-lg shadow-indigo-500/10">
+                            <div className="mb-4 inline-flex items-center rounded-md bg-primary/10 px-2.5 py-1 text-xs font-bold text-primary ring-1 ring-inset ring-primary/20 w-fit shadow-lg shadow-primary/10">
                                 ✨ Recommended
                             </div>
                             <DialogTitle className="text-2xl font-bold text-white">Featured Listing</DialogTitle>
-                            <DialogDescription className="mt-2 text-sm text-indigo-200/80 leading-relaxed">
+                            <DialogDescription className="mt-2 text-sm text-primary/80 leading-relaxed">
                                 Premium placement across the homepage and tool listings.
                             </DialogDescription>
                         </DialogHeader>
@@ -114,7 +114,7 @@ export function SubmitDialog() {
                         <div className="relative z-10 my-8 space-y-4">
                             <div className="flex items-baseline gap-1">
                                 <span className="text-4xl font-bold text-white tracking-tight">Custom</span>
-                                <span className="text-indigo-200/60 text-sm font-medium">pricing</span>
+                                <span className="text-primary/60 text-sm font-medium">pricing</span>
                             </div>
                             <ul className="space-y-3 pt-4">
                                 {[
@@ -125,7 +125,7 @@ export function SubmitDialog() {
                                     "🎨 Custom Verified Badge"
                                 ].map((item) => (
                                     <li key={item} className="flex items-center gap-3 text-sm font-medium text-white">
-                                        <Star className="h-4 w-4 shrink-0 text-indigo-400 fill-indigo-400/20" />
+                                        <Star className="h-4 w-4 shrink-0 text-primary fill-primary/20" />
                                         {item}
                                     </li>
                                 ))}
@@ -134,13 +134,13 @@ export function SubmitDialog() {
 
                         <div className="relative z-10 mt-auto">
                             <Button
-                                className="w-full h-12 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold shadow-lg shadow-indigo-500/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                                className="w-full h-12 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-lg shadow-primary/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
                                 onClick={() => startCheckout(SponsorshipPlacements.featuredSpotlight)}
                                 disabled={!sponsorName || !sponsorUrl || !sponsorEmail}
                             >
                                 Contact us to get featured
                             </Button>
-                            <p className="mt-3 text-center text-[10px] text-indigo-300/40 uppercase tracking-wider font-medium">
+                            <p className="mt-3 text-center text-[10px] text-primary/40 uppercase tracking-wider font-medium">
                                 We reply within 1 business day
                             </p>
                         </div>

@@ -230,13 +230,6 @@ export const designSystem = {
         accent: 'bg-vibe-neon/10 border-vibe-neon/20 text-vibe-neon',
     },
 
-    // Button sizes
-    buttons: {
-        large: 'rounded-full h-14 px-8 text-lg',
-        medium: 'rounded-full h-12 px-6',
-        small: 'rounded-full h-10 px-4',
-    },
-
     // Card variants
     cards: {
         default: 'border-border/50 hover:border-vibe-electric/30 transition-all duration-300',

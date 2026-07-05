@@ -63,7 +63,7 @@ export function PageBackground({
       {hasGradientOrbs && (
         <>
           <div
-            className="absolute top-0 left-1/2 -translate-x-1/2 z-0 h-[50vh] w-full max-w-[1400px] bg-indigo-500/10 dark:bg-indigo-500/20 blur-[140px]"
+            className="absolute top-0 left-1/2 -translate-x-1/2 z-0 h-[50vh] w-full max-w-[1400px] bg-primary/10 dark:bg-primary/20 blur-[140px]"
             aria-hidden="true"
           />
           <div

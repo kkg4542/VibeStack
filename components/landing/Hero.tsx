@@ -51,7 +51,7 @@ export function Hero() {
                         <span className="bg-linear-to-b from-foreground to-foreground/60 bg-clip-text text-transparent">
                             Find Your Perfect
                         </span>{" "}
-                        <span className="bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                        <span className="text-gradient-brand">
                             AI Stack
                         </span>
                     </m.h1>

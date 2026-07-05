@@ -105,7 +105,7 @@ export default function PricingPage() {
           </Badge>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-4">
             Three ways to{" "}
-            <span className="bg-linear-to-r from-vibe-electric via-vibe-purple to-vibe-pink bg-clip-text text-transparent">
+            <span className="text-gradient-brand">
               work with us
             </span>
           </h1>

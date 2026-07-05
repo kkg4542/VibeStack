@@ -24,7 +24,7 @@ export function HeroVisual({ delay = 0.5 }: HeroVisualProps) {
             transition={transition}
             className="my-8 relative max-w-md mx-auto motion-reduce:transform-none"
         >
-            <div className="absolute inset-0 bg-linear-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 blur-2xl" />
+            <div className="absolute inset-0 bg-linear-to-r from-vibe-electric/10 via-vibe-purple/10 to-vibe-pink/10 blur-2xl" />
             <Image
                 src="/illustrations/coding-ai.svg"
                 alt="AI-powered coding illustration"

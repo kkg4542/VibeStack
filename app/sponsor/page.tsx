@@ -120,7 +120,7 @@ export default function SponsorPage() {
           </Badge>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-5">
             Reach AI builders{" "}
-            <span className="bg-linear-to-r from-vibe-electric via-vibe-purple to-vibe-pink bg-clip-text text-transparent">
+            <span className="text-gradient-brand">
               while they&apos;re choosing tools
             </span>
           </h1>

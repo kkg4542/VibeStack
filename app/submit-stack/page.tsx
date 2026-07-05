@@ -141,7 +141,7 @@ export default function SubmitStackPage() {
                                     const tool = allTools.find((t: ToolData) => t.slug === slug);
                                     if (!tool) return null;
                                     return (
-                                        <Badge key={slug} variant="secondary" className="pl-2 pr-1 py-1 gap-1 text-sm bg-vibe-electric/10 hover:bg-vibe-electric/20 border-vibe-electric/20 text-indigo-300">
+                                        <Badge key={slug} variant="secondary" className="pl-2 pr-1 py-1 gap-1 text-sm bg-vibe-electric/10 hover:bg-vibe-electric/20 border-vibe-electric/20 text-primary">
                                             {tool.title}
                                             <button
                                                 type="button"

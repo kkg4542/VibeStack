@@ -202,7 +202,7 @@ export default async function ComparisonSlugPage({ params }: Props) {
                     className="mb-12 text-center"
                 >
                     <Badge variant="outline" className="mb-4 bg-muted/50">{tool1.category} Showdown · Updated for 2026</Badge>
-                    <h1 className="text-4xl md:text-6xl font-bold mb-6 text-balance tracking-tight">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-balance tracking-tight">
                         <span className={`bg-clip-text text-transparent bg-linear-to-r ${tool1.bgGradient || 'from-foreground to-foreground'}`}>
                             {tool1.title}
                         </span>
@@ -398,7 +398,7 @@ export default async function ComparisonSlugPage({ params }: Props) {
                     viewport={{ once: true }}
                     className="max-w-3xl mx-auto mt-16"
                 >
-                    <Card className="border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-purple-500/5">
+                    <Card className="border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-vibe-purple/5">
                         <CardContent className="p-8">
                             <h2 className="text-2xl font-bold mb-4">Our verdict</h2>
                             <p className="text-muted-foreground leading-relaxed">{verdict}</p>

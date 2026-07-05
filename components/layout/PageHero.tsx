@@ -48,7 +48,7 @@ export function PageHero({
       <h1 className={`${designSystem.typography.hero} mb-6 ${centered ? 'max-w-4xl mx-auto' : ''}`}>
         {title}{" "}
         {highlightText && (
-          <span className={`bg-clip-text text-transparent bg-linear-to-r ${designSystem.gradients.text}`}>
+          <span className="text-gradient-brand">
             {highlightText}
           </span>
         )}
@@ -67,37 +67,6 @@ export function PageHero({
 
       {children}
     </m.div>
-  );
-}
-
-// Standardized CTA Button component
-interface CTAButtonProps {
-  size?: 'large' | 'medium' | 'small';
-  variant?: 'primary' | 'secondary' | 'outline';
-  children: ReactNode;
-  className?: string;
-}
-
-export function CTAButton({ 
-  size = 'medium', 
-  variant = 'primary', 
-  children,
-  className = '' 
-}: CTAButtonProps) {
-  const sizeClass = designSystem.buttons[size];
-  
-  const variantClasses = {
-    primary: 'bg-linear-to-r from-vibe-electric to-vibe-purple hover:shadow-lg hover:shadow-vibe-electric/30 text-white',
-    secondary: 'bg-secondary hover:bg-secondary/80',
-    outline: 'border border-border/50 hover:border-vibe-electric/50 hover:bg-vibe-electric/5',
-  };
-
-  return (
-    <button
-      className={`${sizeClass} ${variantClasses[variant]} font-semibold transition-all duration-300 ${className}`}
-    >
-      {children}
-    </button>
   );
 }
 
@@ -132,7 +101,7 @@ export function SectionHeader({
       <h2 className={`${designSystem.typography.section} mb-4`}>
         {title}{" "}
         {highlightText && (
-          <span className={`text-transparent bg-clip-text bg-linear-to-r ${designSystem.gradients.text}`}>
+          <span className="text-gradient-brand">
             {highlightText}
           </span>
         )}

@@ -60,7 +60,7 @@ export default function NotFound() {
                             transition={{ duration: 0.8, delay: 0.2 }}
                             className="text-[12rem] md:text-[16rem] font-bold leading-none tracking-tighter"
                         >
-                            <span className="bg-linear-to-b from-vibe-electric via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                            <span className="text-gradient-brand">
                                 404
                             </span>
                         </motion.div>
@@ -305,7 +305,7 @@ export default function NotFound() {
                                 </Button>
                             </Link>
                             <Link href="/about">
-                                <Button variant="ghost" className="rounded-full text-vibe-electric hover:text-indigo-300">
+                                <Button variant="ghost" className="rounded-full text-vibe-electric hover:text-primary">
                                     Contact Support
                                     <ArrowLeft className="ml-2 h-4 w-4 rotate-180" />
                                 </Button>

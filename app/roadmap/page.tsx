@@ -185,7 +185,7 @@ export default function RoadmapPage() {
 
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
                         Our Journey{" "}
-                        <span className="bg-linear-to-r from-vibe-electric via-purple-400 to-pink-500 bg-clip-text text-transparent">
+                        <span className="text-gradient-brand">
                             & Roadmap
                         </span>
                     </h1>
@@ -326,7 +326,7 @@ export default function RoadmapPage() {
                     transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.8 }}
                     className="text-center"
                 >
-                    <Card className="border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-purple-500/5">
+                    <Card className="border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-vibe-purple/5">
                         <CardContent className="p-8">
                             <Zap className="w-12 h-12 text-vibe-electric mx-auto mb-4" />
                             <h3 className="text-xl font-bold mb-2">Have a feature idea?</h3>

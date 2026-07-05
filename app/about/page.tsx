@@ -134,7 +134,7 @@ export default function AboutPage() {
 
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
                         Building the Future of{" "}
-                        <span className="bg-linear-to-r from-vibe-electric via-vibe-purple to-vibe-pink bg-clip-text text-transparent">
+                        <span className="text-gradient-brand">
                             AI Productivity
                         </span>
                     </h1>
@@ -344,7 +344,7 @@ export default function AboutPage() {
                             >
                                 <Card className="text-center border-border/50 hover:border-vibe-electric/30 transition-colors">
                                     <CardContent className="p-6">
-                                        <div className="w-20 h-20 rounded-full bg-linear-to-br from-vibe-electric to-purple-500 mx-auto mb-4 flex items-center justify-center text-2xl font-bold text-white">
+                                        <div className="w-20 h-20 rounded-full bg-linear-to-br from-vibe-electric to-vibe-purple mx-auto mb-4 flex items-center justify-center text-2xl font-bold text-white">
                                             {member.avatar}
                                         </div>
                                         <h3 className="text-lg font-semibold mb-1">{member.name}</h3>
@@ -381,7 +381,7 @@ export default function AboutPage() {
                             <p className="text-muted-foreground">Have a question or suggestion? We&apos;d love to hear from you.</p>
                         </div>
 
-                        <Card className="border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-purple-500/5">
+                        <Card className="border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-vibe-purple/5">
                             <CardContent className="p-8">
                                 <form onSubmit={handleSubmit} className="space-y-6">
                                     <div className="grid sm:grid-cols-2 gap-4">
@@ -438,7 +438,7 @@ export default function AboutPage() {
                                     <p className="text-sm text-muted-foreground mb-4">Or reach us directly at</p>
                                     <a
                                         href="mailto:hello@usevibestack.com"
-                                        className="inline-flex items-center gap-2 text-vibe-electric hover:text-indigo-300 transition-colors"
+                                        className="inline-flex items-center gap-2 text-vibe-electric hover:text-primary transition-colors"
                                     >
                                         <Mail className="h-4 w-4" />
                                         hello@usevibestack.com

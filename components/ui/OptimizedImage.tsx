@@ -163,7 +163,7 @@ export function AvatarImage({
     return (
       <div
         className={cn(
-          "bg-linear-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold rounded-full",
+          "bg-linear-to-br from-vibe-electric to-vibe-purple flex items-center justify-center text-white font-bold rounded-full",
           className
         )}
         style={{ width: size, height: size }}

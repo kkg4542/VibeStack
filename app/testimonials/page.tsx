@@ -23,7 +23,7 @@ export default async function TestimonialsPage() {
                 <div className="absolute bottom-[10%] left-[10%] w-[600px] h-[600px] bg-vibe-electric/5 rounded-full blur-[100px]" />
             </div>
 
-            <div className="container mx-auto px-4 max-w-7xl">
+            <div className="container mx-auto px-4 max-w-6xl">
                 {/* Header */}
                 <div className="text-center mb-20 max-w-3xl mx-auto">
                     <div>
@@ -36,7 +36,7 @@ export default async function TestimonialsPage() {
                         </Badge>
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
                             Loved by{" "}
-                            <span className="text-transparent bg-clip-text bg-linear-to-r from-vibe-electric via-purple-600 to-pink-600">
+                            <span className="text-gradient-brand">
                                 Developers
                             </span>
                         </h1>

@@ -62,7 +62,7 @@ function BentoCard({ tool, index }: { tool: ToolData, index: number }) {
                     }}
                     className="h-full motion-reduce:transform-none"
                 >
-                    <Card className="h-full relative overflow-hidden border-border/40 bg-card/40 transition-all duration-500 hover:border-border/80 hover:bg-card/60 hover:shadow-2xl hover:shadow-indigo-500/10 backdrop-blur-md">
+                    <Card className="h-full relative overflow-hidden border-border/40 bg-card/40 transition-all duration-500 hover:border-border/80 hover:bg-card/60 hover:shadow-2xl hover:shadow-primary/10 backdrop-blur-md">
                         <div className={`absolute inset-0 bg-linear-to-br ${tool.bgGradient || "from-transparent to-transparent"} opacity-0 transition-opacity duration-700 group-hover:opacity-[0.15]`} />
 
                         <CardHeader className="relative z-10 h-full flex flex-col pt-8" style={{ transformStyle: "preserve-3d" }}>
@@ -74,7 +74,7 @@ function BentoCard({ tool, index }: { tool: ToolData, index: number }) {
                                         translateY: -8,
                                     }}
                                     transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                                    className={`rounded-lg bg-secondary/80 p-3 ring-1 ring-border shadow-lg ${tool.color || "text-foreground"} group-hover:shadow-indigo-500/20`}
+                                    className={`rounded-lg bg-secondary/80 p-3 ring-1 ring-border shadow-lg ${tool.color || "text-foreground"} group-hover:shadow-primary/20`}
                                     style={{
                                         transformStyle: "preserve-3d",
                                         transform: "translateZ(60px)",

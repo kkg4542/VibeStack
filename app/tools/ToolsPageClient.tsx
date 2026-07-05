@@ -115,7 +115,7 @@ export default function ToolsPage() {
 
                     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance max-w-4xl mx-auto leading-tight">
                         Skip the hype. Find the{" "}
-                        <span className="bg-linear-to-r from-vibe-electric via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                        <span className="text-gradient-brand">
                             tools that ship
                         </span>{" "}
                         your work faster.

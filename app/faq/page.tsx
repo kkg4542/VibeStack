@@ -157,7 +157,7 @@ export default function FAQPage() {
 
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
                         Frequently Asked{" "}
-                        <span className="bg-linear-to-r from-vibe-electric via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                        <span className="text-gradient-brand">
                             Questions
                         </span>
                     </h1>
@@ -239,7 +239,7 @@ export default function FAQPage() {
                     transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.5 }}
                     className="mt-16 text-center"
                 >
-                    <Card className="border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-purple-500/5">
+                    <Card className="border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-vibe-purple/5">
                         <CardContent className="p-8">
                             <h3 className="text-xl font-bold mb-2">Still have questions?</h3>
                             <p className="text-muted-foreground mb-6">

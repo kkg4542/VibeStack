@@ -156,13 +156,13 @@ export function Footer() {
 
                         {/* Status Message */}
                         {status === "success" && (
-                            <div className="flex items-center gap-2 text-xs text-green-600 dark:text-green-400">
+                            <div className="flex items-center gap-2 text-xs text-success">
                                 <CheckCircle className="h-4 w-4" />
                                 {message}
                             </div>
                         )}
                         {status === "error" && (
-                            <div className="flex items-center gap-2 text-xs text-red-600 dark:text-red-400">
+                            <div className="flex items-center gap-2 text-xs text-destructive">
                                 <AlertCircle className="h-4 w-4" />
                                 {message}
                             </div>

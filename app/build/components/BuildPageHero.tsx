@@ -32,7 +32,7 @@ export function BuildPageHero({ onStartQuiz }: BuildPageHeroProps) {
 
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
         Find Your{" "}
-        <span className="bg-linear-to-r from-vibe-electric via-vibe-purple to-vibe-pink bg-clip-text text-transparent">
+        <span className="text-gradient-brand">
           Vibe Stack
         </span>
       </h1>

@@ -30,13 +30,13 @@ export default function ConsultingPage() {
         {
             title: "Custom Agent Build",
             description: "Need a specialized agent for your internal data? We build secure, private RAG pipelines tailored to your business logic.",
-            icon: <Zap className="h-6 w-6 text-purple-400" />,
+            icon: <Zap className="h-6 w-6 text-vibe-purple" />,
             features: ["Private LLM Setup", "Custom vector DB", "Slack/Discord Integration"],
         },
         {
             title: "Vibe Coding Training",
             description: "Train your engineering team to move from 'writing code' to 'orchestrating agents'. The shift requires a new mindset.",
-            icon: <Rocket className="h-6 w-6 text-pink-400" />,
+            icon: <Rocket className="h-6 w-6 text-vibe-pink" />,
             features: ["Prompt Architecture", "Cursor Mastery", "Review Workflows"],
         },
     ];
@@ -45,7 +45,7 @@ export default function ConsultingPage() {
         <main className="relative min-h-screen bg-background pt-24 pb-20 overflow-hidden">
             {/* Ambient Background Glows */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 z-0 h-[60vh] w-full max-w-[1200px] bg-vibe-purple/10 dark:bg-vibe-purple/20 blur-[140px] rounded-full px-4" />
-            <div className="absolute top-[20%] left-[10%] z-0 h-[30vh] w-[30vh] bg-purple-500/10 blur-[100px] rounded-full animate-pulse" />
+            <div className="absolute top-[20%] left-[10%] z-0 h-[30vh] w-[30vh] bg-vibe-purple/10 blur-[100px] rounded-full animate-pulse" />
             <div className="absolute top-[40%] right-[10%] z-0 h-[30vh] w-[30vh] bg-blue-500/10 blur-[100px] rounded-full animate-pulse" style={{ animationDelay: "2s" }} />
 
             {/* Background pattern overlay */}
@@ -70,7 +70,7 @@ export default function ConsultingPage() {
 
                         <h1 className="mx-auto max-w-4xl text-5xl font-bold tracking-tight text-foreground sm:text-7xl text-balance leading-tight">
                             Promote Your AI Tool to{" "}
-                            <span className="bg-linear-to-r from-vibe-electric via-vibe-purple to-vibe-pink bg-clip-text text-transparent">
+                            <span className="text-gradient-brand">
                                 Thousands of Developers
                             </span>
                         </h1>

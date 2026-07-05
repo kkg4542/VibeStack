@@ -28,7 +28,7 @@ export function SocialProof({ delay = 0.45 }: SocialProofProps) {
                 {[1, 2, 3, 4].map((i) => (
                     <div
                         key={i}
-                        className="w-8 h-8 rounded-full bg-linear-to-br from-indigo-400 to-purple-500 border-2 border-background flex items-center justify-center text-[10px] font-bold text-white"
+                        className="w-8 h-8 rounded-full bg-linear-to-br from-vibe-electric to-vibe-purple border-2 border-background flex items-center justify-center text-[10px] font-bold text-white"
                     >
                         {String.fromCharCode(64 + i)}
                     </div>

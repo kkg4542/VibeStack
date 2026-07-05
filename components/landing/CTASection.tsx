@@ -13,7 +13,7 @@ export function CTASection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="relative overflow-hidden rounded-2xl border border-border/40 bg-linear-to-br from-primary/10 via-purple-500/10 to-pink-500/10 p-12 md:p-16 text-center"
+                className="relative overflow-hidden rounded-2xl border border-border/40 bg-linear-to-br from-primary/10 via-vibe-purple/10 to-vibe-pink/10 p-12 md:p-16 text-center"
             >
                 {/* Ambient Background */}
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(99,102,241,0.1),transparent_50%)]" />

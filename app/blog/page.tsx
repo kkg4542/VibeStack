@@ -78,7 +78,7 @@ export default function BlogListingPage() {
 
     return (
         <PageBackground {...BackgroundPresets.content}>
-            <div className="container max-w-7xl mx-auto px-4">
+            <div className="container max-w-6xl mx-auto px-4">
                 {/* Hero Section - Enhanced */}
                 <motion.div
                     initial={designSystem.animations.fadeInUp.initial}
@@ -99,7 +99,7 @@ export default function BlogListingPage() {
 
                     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
                         Insights on{" "}
-                        <span className="bg-linear-to-r from-vibe-electric via-purple-400 to-pink-500 bg-clip-text text-transparent">
+                        <span className="text-gradient-brand">
                             AI & Development
                         </span>
                     </h1>
@@ -280,7 +280,7 @@ export default function BlogListingPage() {
                                                             <Badge className="bg-vibe-electric text-white border-vibe-electric mb-3">
                                                                 {post.category}
                                                             </Badge>
-                                                            <h3 className="text-2xl font-bold text-white group-hover:text-indigo-200 transition-colors line-clamp-2">
+                                                            <h3 className="text-2xl font-bold text-white group-hover:text-primary transition-colors line-clamp-2">
                                                                 {post.title}
                                                             </h3>
                                                         </div>
@@ -422,7 +422,7 @@ export default function BlogListingPage() {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6 }}
-                            className="bg-linear-to-br from-vibe-electric/10 via-purple-500/5 to-pink-500/10 rounded-3xl border border-vibe-electric/20 p-6 backdrop-blur-sm lg:sticky lg:top-24"
+                            className="bg-linear-to-br from-vibe-electric/10 via-vibe-purple/5 to-vibe-pink/10 rounded-3xl border border-vibe-electric/20 p-6 backdrop-blur-sm lg:sticky lg:top-24"
                         >
                             <Sparkles className="w-10 h-10 mb-4 text-vibe-electric" />
                             <h3 className="text-xl font-bold mb-2">Stay Updated</h3>

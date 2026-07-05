@@ -93,7 +93,7 @@ export default function SignInPage() {
                             </div>
                             <h1 className="text-4xl font-bold mb-4 text-balance">
                                 Unlock the Full{" "}
-                                <span className="bg-linear-to-r from-vibe-electric via-purple-400 to-pink-500 bg-clip-text text-transparent">
+                                <span className="text-gradient-brand">
                                     VibeStack
                                 </span>{" "}
                                 Experience
@@ -151,7 +151,7 @@ export default function SignInPage() {
                             <CardContent className="p-8">
                                 {/* Logo & Title */}
                                 <div className="text-center mb-8">
-                                    <div className="inline-flex p-3 rounded-2xl bg-linear-to-br from-vibe-electric to-purple-500 mb-4 shadow-lg shadow-vibe-electric/20">
+                                    <div className="inline-flex p-3 rounded-2xl bg-linear-to-br from-vibe-electric to-vibe-purple mb-4 shadow-lg shadow-vibe-electric/20">
                                         <Sparkles className="h-8 w-8 text-white" />
                                     </div>
                                     <h2 className="text-2xl font-bold mb-2">Welcome Back</h2>

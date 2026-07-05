@@ -161,7 +161,7 @@ export function ReadingProgress() {
                 </span>
             </div>
             <m.div
-                className="h-0.5 bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 origin-left"
+                className="h-0.5 bg-linear-to-r from-vibe-electric via-vibe-purple to-vibe-pink origin-left"
                 style={{ scaleX }}
             />
         </div>

@@ -48,7 +48,7 @@ export function CompareButton({ toolSlug, toolTitle }: CompareButtonProps) {
             variant={isAdded ? "secondary" : "outline"}
             size="sm"
             onClick={toggleCompare}
-            className={`h-8 gap-2 rounded-lg transition-all ${isAdded ? 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30' : ''}`}
+            className={`h-8 gap-2 rounded-lg transition-all ${isAdded ? 'bg-primary/20 text-primary border-primary/30' : ''}`}
         >
             {isAdded ? (
                 <>

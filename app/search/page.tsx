@@ -138,7 +138,7 @@ export default function SearchPage() {
 
                     <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-balance">
                         Find Your Perfect{" "}
-                        <span className="bg-linear-to-r from-vibe-electric via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                        <span className="text-gradient-brand">
                             AI Tool
                         </span>
                     </h1>
@@ -280,7 +280,7 @@ export default function SearchPage() {
                                                 <Card className="hover:bg-accent/50 transition-colors cursor-pointer border-border/50 group">
                                                     <CardContent className="p-4">
                                                         <div className="flex items-start gap-4">
-                                                            <div className="shrink-0 w-12 h-12 rounded-xl bg-linear-to-br from-vibe-electric/20 to-purple-500/20 flex items-center justify-center text-2xl">
+                                                            <div className="shrink-0 w-12 h-12 rounded-xl bg-linear-to-br from-vibe-electric/20 to-vibe-purple/20 flex items-center justify-center text-2xl">
                                                                 {stack.icon}
                                                             </div>
                                                             <div className="flex-1 min-w-0">

@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ArrowRight, Sparkles, Terminal, Play } from "lucide-react";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { MagneticButton } from "@/components/effects/MagneticButton";
 import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
 import { designSystem } from "@/lib/design-system";
@@ -241,10 +241,8 @@ export function VibeHero() {
             <Link
               id="hero-cta-build"
               href="/build"
-              className={buttonVariants({ variant: "default", size: "lg" }) +
-                " h-14 px-10 text-base font-semibold rounded-full " +
-                "bg-linear-to-r from-vibe-electric to-vibe-cyan " +
-                "hover:shadow-lg hover:shadow-vibe-electric/30 " +
+              className={buttonVariants({ variant: "gradient", size: "lg" }) +
+                " h-14 px-10 text-base rounded-full " +
                 "transition-all duration-300 group"
               }
             >

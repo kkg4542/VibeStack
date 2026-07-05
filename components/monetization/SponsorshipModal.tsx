@@ -72,7 +72,7 @@ export function SponsorshipModal({ trigger }: SponsorshipModalProps = {}) {
         <Dialog>
             <DialogTrigger asChild>
                 {trigger ?? (
-                    <Button variant="outline" size="sm" className="hidden border-indigo-500/30 bg-indigo-500/5 text-indigo-400 hover:bg-indigo-500/10 hover:text-indigo-300 md:inline-flex">
+                    <Button variant="outline" size="sm" className="hidden border-primary/30 bg-primary/5 text-primary hover:bg-primary/10 hover:text-primary md:inline-flex">
                         <Rocket className="mr-2 h-3.5 w-3.5" />
                         Advertise with us
                     </Button>
@@ -81,7 +81,7 @@ export function SponsorshipModal({ trigger }: SponsorshipModalProps = {}) {
             <DialogContent className="sm:max-w-3xl bg-zinc-950 border-zinc-800 p-0 overflow-hidden gap-0">
                 <DialogHeader className="p-6 pb-2 text-center">
                     <DialogTitle className="flex items-center justify-center gap-2 text-2xl font-bold">
-                        <Sparkles className="h-6 w-6 text-indigo-400" />
+                        <Sparkles className="h-6 w-6 text-primary" />
                         Get Featured on VibeStack
                     </DialogTitle>
                     <p className="text-zinc-400 mt-2">
@@ -129,10 +129,10 @@ export function SponsorshipModal({ trigger }: SponsorshipModalProps = {}) {
                     </div>
                     <Button
                         className={cn(
-                            "w-full sm:min-w-[200px] font-semibold h-12 rounded-lg text-white transition-all text-lg shadow-xl",
+                            "w-full sm:min-w-[200px] font-semibold h-12 rounded-lg transition-all text-lg shadow-xl",
                             currentPlan.isPremium
-                                ? "bg-indigo-600 hover:bg-indigo-500 shadow-indigo-500/20"
-                                : "bg-blue-600 hover:bg-blue-500 shadow-blue-500/20"
+                                ? "bg-primary hover:bg-primary/90 text-primary-foreground shadow-primary/20"
+                                : "bg-blue-600 hover:bg-blue-500 text-white shadow-blue-500/20"
                         )}
                         onClick={handleContact}
                         disabled={!sponsorName || !sponsorUrl || !sponsorEmail}
