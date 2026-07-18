@@ -8,10 +8,10 @@ import { prisma } from '@/lib/prisma';
  */
 
 const nameUpdates: Record<string, string> = {
-  'chatgpt': 'ChatGPT 5.3',
+  'chatgpt': 'ChatGPT 5.6',
   'claude': 'Claude',
-  'gemini': 'Gemini 3.1 Pro', // Base slug
-  'gemini-code-assist': 'Gemini 3.1 Pro', // Alias
+  'gemini': 'Gemini 3.5 Flash', // Base slug
+  'gemini-code-assist': 'Gemini 3.5 Flash', // Alias
   'cursor': 'Cursor',
   'devin': 'Devin',
   'windsurf': 'Windsurf',
@@ -19,9 +19,9 @@ const nameUpdates: Record<string, string> = {
 };
 
 const topTools = [
-    { slug: 'gemini', alias: 'gemini-code-assist', title: 'Gemini 3.1 Pro', date: '2030-01-03T00:00:00Z' },
+    { slug: 'gemini', alias: 'gemini-code-assist', title: 'Gemini 3.5 Flash', date: '2030-01-03T00:00:00Z' },
     { slug: 'claude', alias: 'claude-code', title: 'Claude', date: '2030-01-02T00:00:00Z' },
-    { slug: 'chatgpt', alias: 'openai-chatgpt', title: 'ChatGPT 5.3', date: '2030-01-01T00:00:00Z' },
+    { slug: 'chatgpt', alias: 'openai-chatgpt', title: 'ChatGPT 5.6', date: '2030-01-01T00:00:00Z' },
 ];
 
 export async function POST(request: NextRequest) {

@@ -76,7 +76,7 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
     chatgpt: {
         overviewHtml: `
-            <p><strong>ChatGPT</strong> is the product that turned large language models into a mainstream tool, and in mid-2026 it remains the default AI assistant for most people. The underlying model line has moved to <strong>GPT-5.5</strong> (launched April 2026) on paid tiers, while the free tier runs GPT-5.3 Instant with tight message limits and, in the US, ads. For most users "AI assistant" and "ChatGPT" are still synonyms — which is both its biggest strength and the reason expectations of it are unrealistically high.</p>
+            <p><strong>ChatGPT</strong> is the product that turned large language models into a mainstream tool, and in mid-2026 it remains the default AI assistant for most people. The underlying model line has moved to <strong>GPT-5.6</strong> (launched July 2026), which ships as three variants — the flagship Sol, the balanced Terra, and the fast, affordable Luna — on paid tiers, while the free tier runs a limited Luna-based model with tight message limits and, in the US, ads. OpenAI also launched <strong>ChatGPT Work</strong>, a separate enterprise-focused workspace product, alongside GPT-5.6. For most users "AI assistant" and "ChatGPT" are still synonyms — which is both its biggest strength and the reason expectations of it are unrealistically high.</p>
 
             <p>What you actually get depends heavily on the tier. The <strong>Free</strong> plan is genuinely useful for occasional questions but throttles you to a handful of messages per window before downgrading to a smaller model. <strong>Plus ($20/mo)</strong> is the tier most individuals should consider: it unlocks the full model suite, Deep Research, image generation with Sora, Agent Mode, and the Codex coding tools, ad-free. <strong>Pro ($200/mo)</strong> exists for power users who want the largest context window and high Deep Research limits, and is hard to justify unless you are running AI as a core part of daily work.</p>
 
@@ -117,7 +117,7 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
             },
             {
                 q: "What model does ChatGPT use in 2026?",
-                a: "Paid tiers run GPT-5.5 (launched April 2026), including inside the Codex coding tools. The free tier stays on GPT-5.3 Instant with a smaller context window. Exact model availability shifts frequently, so check the current model picker in the app.",
+                a: "Paid tiers run GPT-5.6 (launched July 2026), which comes in three variants — Sol (flagship), Terra (balanced), and Luna (fast and cheap) — including inside the Codex coding tools. The free tier stays on a limited Luna-based model with a smaller context window. Exact model availability shifts frequently, so check the current model picker in the app.",
             },
             {
                 q: "Can ChatGPT write and run code?",
@@ -128,11 +128,11 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
     claude: {
         overviewHtml: `
-            <p><strong>Claude</strong>, made by Anthropic, is the assistant most often chosen by people who care about the quality of reasoning and writing over breadth of features. In 2026 its flagship model is <strong>Opus 4.6</strong>, which extended context to roughly one million tokens in some configurations and doubled output capacity — changes that matter most for long documents, large codebases, and multi-step analysis. Claude's reputation is built on being careful, articulate, and unusually good at staying coherent across very long inputs.</p>
+            <p><strong>Claude</strong>, made by Anthropic, is the assistant most often chosen by people who care about the quality of reasoning and writing over breadth of features. As of July 2026 its flagship model is <strong>Claude Fable 5</strong>, a new top-tier release that sits above Opus, alongside <strong>Claude Sonnet 5</strong> (launched June 2026) as the default model for Free and Pro users and the prior-generation <strong>Opus 4.8</strong> and <strong>Haiku 4.5</strong> still available for those who want them. That lineage traces back to the Opus 4.6 generation, which had extended context to roughly one million tokens in some configurations and doubled output capacity — changes that matter most for long documents, large codebases, and multi-step analysis. Claude's reputation is built on being careful, articulate, and unusually good at staying coherent across very long inputs.</p>
 
-            <p>The plan structure is worth understanding because it is commonly misread. <strong>Free</strong> gives access to Claude on web and mobile with text, image, and code generation plus web search, but excludes Claude Code, Research mode, and full Opus access. <strong>Pro ($20/mo)</strong> is the standard professional tier. The two <strong>Max</strong> tiers ($100 and $200/mo) are frequently misunderstood: they are <em>not</em> model upgrades — they give the same models as Pro but with 5x and 20x the per-session usage capacity. You pay Max for volume, not intelligence.</p>
+            <p>The plan structure is worth understanding because it is commonly misread. <strong>Free</strong> gives access to Claude (running Sonnet 5 by default) on web and mobile with text, image, and code generation plus web search, but excludes Claude Code, Research mode, and access to the top-tier Fable 5 and Opus models. <strong>Pro ($20/mo)</strong> is the standard professional tier. The two <strong>Max</strong> tiers ($100 and $200/mo) are frequently misunderstood: they are <em>not</em> model upgrades — they give the same models as Pro but with 5x and 20x the per-session usage capacity. You pay Max for volume, not intelligence.</p>
 
-            <p>Claude's strengths are concentrated and real: it is the model many writers and engineers reach for when output quality matters, it handles very long context without losing the thread, and its coding tooling (Claude Code, with parallel "Agent Teams") is highly regarded for sustained development work. The 2026 Opus price cut — a 67% reduction in API costs — also made it dramatically more affordable for developers building on the API.</p>
+            <p>Claude's strengths are concentrated and real: it is the model many writers and engineers reach for when output quality matters, it handles very long context without losing the thread, and its coding tooling (Claude Code, with parallel "Agent Teams") is highly regarded for sustained development work. The 2026 Opus price cut — a 67% reduction in API costs — also made it dramatically more affordable for developers building on the API, and the June 2026 launch of Sonnet 5 extended that value further with introductory API pricing of $2/$10 per million input/output tokens (rising to $3/$15 from September 2026).</p>
 
             <p>The honest weaknesses: Claude has a narrower feature surface than <a href="/tool/chatgpt">ChatGPT</a> — image generation and voice are less central, and the consumer ecosystem is smaller. The Max tiers' "usage bucket, not upgrade" model confuses buyers who expect a smarter model for more money. And for quick, casual, multimodal tasks, ChatGPT's breadth often wins. See <a href="/compare/chatgpt-vs-claude">ChatGPT vs Claude</a> for the direct comparison.</p>
 
@@ -153,7 +153,7 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
             },
         ],
         pricingDetail:
-            "Claude offers Free ($0), Pro ($20/mo), Max 5x ($100/mo), Max 20x ($200/mo), Team (from $25/seat/mo), and Enterprise (custom). The critical thing to understand: the Max tiers are usage multipliers, not model upgrades — Max 5x and 20x give you the same models as Pro but with 5x and 20x the per-session capacity. Buy Max only if you are hitting Pro's session limits, not because you expect a smarter model. On the API side, the Opus 4.6 launch cut input/output costs by 67% (from $15/$75 to $5/$25 per million tokens), which materially changed the economics for developers.",
+            "Claude offers Free ($0), Pro ($20/mo), Max 5x ($100/mo), Max 20x ($200/mo), Team (from $25/seat/mo), and Enterprise (custom). The critical thing to understand: the Max tiers are usage multipliers, not model upgrades — Max 5x and 20x give you the same models as Pro but with 5x and 20x the per-session capacity. Buy Max only if you are hitting Pro's session limits, not because you expect a smarter model. On the API side, the Opus 4.6 launch cut input/output costs by 67% (from $15/$75 to $5/$25 per million tokens), and the June 2026 launch of Sonnet 5 added a cheaper mid-tier option at an introductory $2/$10 per million tokens (rising to $3/$15 from September 2026). Claude Fable 5 now sits above Opus as Anthropic's flagship model, with Opus 4.8 and Haiku 4.5 continuing as prior-generation options.",
         faq: [
             {
                 q: "What is the difference between Claude Pro and Max?",
@@ -165,22 +165,22 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
             },
             {
                 q: "Does the free Claude plan include Opus and Claude Code?",
-                a: "No. Free includes Claude on web and mobile with text, image, and code generation plus web search, but it excludes full Opus access, Research mode, and Claude Code. Those require Pro or higher.",
+                a: "No. Free includes Claude (running Sonnet 5 by default) on web and mobile with text, image, and code generation plus web search, but it excludes access to the top-tier Fable 5 and Opus models, Research mode, and Claude Code. Those require Pro or higher.",
             },
             {
                 q: "How big is Claude's context window?",
-                a: "Opus 4.6 supports up to roughly one million tokens in some configurations, with output capacity up to about 128K tokens. This is what makes it strong for whole-codebase and long-document tasks where shorter-context models lose track.",
+                a: "Opus 4.6 supported up to roughly one million tokens in some configurations, with output capacity up to about 128K tokens — the trait that made it strong for whole-codebase and long-document tasks. That generation has since been joined by Claude Fable 5 as the new flagship and Opus 4.8 as the current Opus-tier model, with Claude Sonnet 5 serving as the default for Free and Pro users.",
             },
             {
                 q: "Did Claude get cheaper for developers in 2026?",
-                a: "Yes, significantly. At the Opus 4.6 launch, Anthropic cut API pricing by 67% — from $15/$75 to $5/$25 per million input/output tokens. This made building on Claude's flagship model far more affordable for API-based products.",
+                a: "Yes, significantly. At the Opus 4.6 launch, Anthropic cut API pricing by 67% — from $15/$75 to $5/$25 per million input/output tokens. The June 2026 launch of Claude Sonnet 5 pushed this further with an introductory $2/$10 per million tokens (rising to $3/$15 from September 2026), giving developers a cheaper option alongside the flagship-tier models.",
             },
         ],
     },
 
     cursor: {
         overviewHtml: `
-            <p><strong>Cursor</strong> is an AI-first code editor built as a fork of VS Code, and by 2026 it is the tool many professional developers reach for first when they want AI deeply integrated into their workflow rather than bolted on. It keeps the familiar VS Code interface, extensions, and keybindings, then layers in AI features — tab autocomplete, an agent that can edit across multiple files, Composer for larger changes, and codebase-wide context — that feel native rather than like a plugin.</p>
+            <p><strong>Cursor</strong> is an AI-first code editor built as a fork of VS Code, and by 2026 it is the tool many professional developers reach for first when they want AI deeply integrated into their workflow rather than bolted on. It keeps the familiar VS Code interface, extensions, and keybindings, then layers in AI features — tab autocomplete, an agent that can edit across multiple files, Composer for larger changes, and codebase-wide context — that feel native rather than like a plugin. The July 2026 <strong>Cursor 3.11</strong> release added a side chat, searchable agent transcripts, a public iOS beta, and a model picker that now includes xAI's <strong>Grok 4.5</strong> — a coding- and agent-focused model co-trained on real Cursor usage data — alongside Claude, GPT, and Gemini options.</p>
 
             <p>The defining 2026 change is pricing: Cursor moved from a request-based model to a <strong>credit-based system</strong>, which means the value you get per dollar depends on which models you use and how complex your prompts are. Fast frontier-model requests (like Claude Sonnet) burn credits quickly; more economical models stretch further. This makes Cursor powerful but harder to predict on cost than a flat subscription.</p>
 
@@ -338,7 +338,7 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
         overviewHtml: `
             <p><strong>Perplexity</strong> is an AI answer engine — it sits between a search engine and a chatbot, answering questions in natural language while citing live web sources for every claim. That citation-first design is its whole identity: where general assistants generate fluent answers you have to trust, Perplexity shows you where each statement came from, which makes it the tool of choice for research, fact-finding, and any task where being able to verify matters.</p>
 
-            <p>In 2026 it runs its own <strong>Sonar</strong> model family and also lets paid users pick frontier third-party models (GPT-5.2, Opus 4.6, Gemini 3 Pro) for a given query. The <strong>Free</strong> tier is genuinely useful — 5 Deep Research queries and 3 Pro Searches per day — and is enough for casual research. <strong>Pro ($20/mo)</strong> unlocks the full Sonar family, model selection, Spaces, Pages, and Labs. <strong>Max ($200/mo)</strong> adds Perplexity Computer, which orchestrates 19 models as specialized sub-agents for complex multi-step projects.</p>
+            <p>In 2026 it runs its own <strong>Sonar</strong> model family and also lets paid users pick frontier third-party models (GPT-5.6, Claude Fable 5, Gemini 3.5 Flash) for a given query. The <strong>Free</strong> tier is genuinely useful — 5 Deep Research queries and 3 Pro Searches per day — and is enough for casual research. <strong>Pro ($20/mo)</strong> unlocks the full Sonar family, model selection, Spaces, Pages, and Labs. <strong>Max ($200/mo)</strong> adds Perplexity Computer, which orchestrates 19 models as specialized sub-agents for complex multi-step projects.</p>
 
             <p>A notable 2026 move: Perplexity's <strong>Comet browser</strong> dropped its paywall in March and is now free across iOS, Android, Windows, and Mac, with agentic search, page summarization, voice mode, and Deep Research built into the browser itself. This made Perplexity's core experience accessible to anyone without a subscription.</p>
 
@@ -361,7 +361,7 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
             },
         ],
         pricingDetail:
-            "Perplexity offers Free ($0, 5 Deep Research + 3 Pro Searches per day), Pro ($20/mo or $200/yr, full Sonar family + selectable GPT-5.2/Opus 4.6/Gemini 3 Pro, Spaces, Pages, Labs), Max ($200/mo, adds Perplexity Computer orchestrating 19 sub-agent models), Education Pro ($10/mo for students), Enterprise Pro ($40/seat/mo), and Enterprise Max ($325/seat/mo). The Comet browser is free for everyone, with Comet Plus ($5/mo, or included with Pro/Max) unlocking premium publisher content. The pricing note: the free tier is unusually generous for casual research, and the leap to Max is only worth it for power users who need the multi-agent Computer feature.",
+            "Perplexity offers Free ($0, 5 Deep Research + 3 Pro Searches per day), Pro ($20/mo or $200/yr, full Sonar family + selectable GPT-5.6/Claude Fable 5/Gemini 3.5 Flash, Spaces, Pages, Labs), Max ($200/mo, adds Perplexity Computer orchestrating 19 sub-agent models), Education Pro ($10/mo for students), Enterprise Pro ($40/seat/mo), and Enterprise Max ($325/seat/mo). The Comet browser is free for everyone, with Comet Plus ($5/mo, or included with Pro/Max) unlocking premium publisher content. The pricing note: the free tier is unusually generous for casual research, and the leap to Max is only worth it for power users who need the multi-agent Computer feature.",
         faq: [
             {
                 q: "How is Perplexity different from ChatGPT?",
@@ -381,7 +381,7 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
             },
             {
                 q: "Can I choose which AI model Perplexity uses?",
-                a: "On Pro and above, yes. You can run queries on Perplexity's own Sonar family or select third-party frontier models including GPT-5.2, Claude Opus 4.6, and Gemini 3 Pro, picking the best model for a given question.",
+                a: "On Pro and above, yes. You can run queries on Perplexity's own Sonar family or select third-party frontier models including GPT-5.6, Claude Fable 5, and Gemini 3.5 Flash, picking the best model for a given question.",
             },
         ],
     },
