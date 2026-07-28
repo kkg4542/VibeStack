@@ -179,9 +179,10 @@ export const postsBatch1: BlogPost[] = [
   // 3. GPT-5.5 vs Claude Opus 4.8 (Expanded)
   {
     slug: "gpt5-vs-claude5",
-    title: "The End of Reasoning? GPT-5.6 vs Claude Sonnet 5",
-    excerpt: "We benchmark the two titans of mid-2026. Does OpenAI's Sol tier beat Anthropic's Claude Sonnet 5 and Claude Fable 5 for real engineering work?",
+    title: "GPT-5.6 vs Claude Sonnet 5: Which Model Wins in 2026?",
+    excerpt: "We compare the two titans of mid-2026. Does OpenAI's Sol tier beat Anthropic's Claude Sonnet 5 and Claude Fable 5 for real engineering work?",
     date: "Jul 18, 2026",
+    updated: "Jul 28, 2026",
     author: "David Kim",
     category: "Comparison",
     readTime: "16 min read",
@@ -227,7 +228,34 @@ export const postsBatch1: BlogPost[] = [
 
       <h3>What Hasn't Changed</h3>
       <p>Despite the rapid pace of releases, the underlying decision framework from a year ago mostly still holds: reach for large-context, careful reasoning when the task spans many files and the cost of a mistake is high; reach for fast, cheap tiers when the task is well-specified and low-stakes; and never trust a single model's output on anything irreversible without a second pass, whether that second pass is another model or a human. The specific model names keep changing every few months — the discipline of routing tasks to the right tool doesn't, and that discipline is worth more than knowing today's benchmark scores by heart.</p>
-    `
+      <p>Picking a model is only half the decision — the editor and agent you wrap around it matter just as much. See our guide to the <a href="/blog/best-ai-tools-for-vibe-coding">best AI tools for vibe coding</a> for the rest of the stack.</p>
+    `,
+    faq: [
+      {
+        q: "Is GPT-5.6 or Claude Sonnet 5 better for coding?",
+        a: "It depends on the shape of the task. GPT-5.6 Sol is OpenAI's self-described best coding model yet, with a 54% improvement in agentic-coding token efficiency over GPT-5.5, and it shines on hard, vague, multi-step problems where it needs to reason about constraints and edge cases. Claude Sonnet 5 is the stronger pick when the work spans a whole repository — project-wide refactors where a change in one file ripples five layers deep.",
+      },
+      {
+        q: "How much do GPT-5.6 and Claude Sonnet 5 cost per million tokens?",
+        a: "GPT-5.6 ships as a family: Sol at $5/$30 per million input/output tokens, Terra at $2.50/$15, and Luna at $1/$6. Claude Sonnet 5 launched at an introductory $2/$10 through the end of August 2026, rising to $3/$15 in September — so it currently undercuts Sol meaningfully on cost while remaining excellent at large-scale analysis.",
+      },
+      {
+        q: "What is Claude Fable 5 and when should I use it?",
+        a: "Fable 5 is Anthropic's premium escalation tier, priced and positioned above Opus 4.8. Save it for work that is genuinely irreversible — a database migration, an auth rewrite, a pricing change, or a mission-critical architecture review. For everyday context-heavy work, Sonnet 5 is the better value.",
+      },
+      {
+        q: "Is Grok 4.5 better than Claude for coding?",
+        a: "For fast, iterative agentic edits inside Cursor, Grok 4.5 is hard to beat on value — it shipped July 8, 2026, was co-trained on real Cursor usage data, and runs $2/$6 per million tokens, cheaper than both Sol and Fable 5. For large-context reasoning across a repo or a final review pass on something irreversible, Claude still wins. One caveat: Grok 4.5 isn't currently available in the EU, which matters for distributed teams.",
+      },
+      {
+        q: "Should I just pick one model for everything?",
+        a: "No — the most effective engineers chain them. The pattern we recommend for July 2026: use Sonnet 5 to ingest the codebase and identify relevant files, pass those files to GPT-5.6 Sol to plan the architecture and write the critical logic, escalate anything irreversible to Claude Fable 5 for a final review, then return to Sonnet 5 for docs and tests.",
+      },
+      {
+        q: "Which model should I use for a high-volume chatbot?",
+        a: "GPT-5.6 Luna or Claude Sonnet 5 on its introductory pricing. Both give you the lowest cost per resolved query, and high-volume support traffic is exactly the kind of well-specified, low-stakes work where a flagship tier is wasted spend.",
+      },
+    ]
   },
   // 4. Gemini 3.5 Pro (Expanded)
   {

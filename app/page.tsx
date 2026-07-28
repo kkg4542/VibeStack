@@ -6,6 +6,7 @@ import { VibeHero } from "@/components/landing/VibeHero";
 import { ToolCategories } from "@/components/landing/ToolCategories";
 import { PopularTools } from "@/components/landing/PopularTools";
 import { FeaturedStacks } from "@/components/landing/FeaturedStacks";
+import { FeaturedGuides } from "@/components/landing/FeaturedGuides";
 import { StatsSection } from "@/components/landing/StatsSection";
 import { HowItWorks } from "@/components/landing/HowItWorks";
 import dynamic from "next/dynamic";
@@ -74,7 +75,10 @@ export default async function Home() {
       
       {/* Featured Stacks - Curated workflows */}
       <FeaturedStacks stacks={featuredStacks} />
-      
+
+      {/* Guides & comparisons — server-rendered links into the blog pillar */}
+      <FeaturedGuides />
+
       {/* Stats - Trust indicators (live counts so they never go stale) */}
       <StatsSection
         toolCount={allTools.length}

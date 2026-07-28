@@ -96,6 +96,7 @@ export const postsBatch4: BlogPost[] = [
     excerpt:
       "Vibe coding means building software by describing what you want and letting AI write it. Here's what the term really means, who it's for, the tools that power it, and how to start.",
     date: "Jul 18, 2026",
+    updated: "Jul 28, 2026",
     author: "David Kim",
     category: "Guide",
     readTime: "7 min read",
@@ -115,6 +116,18 @@ export const postsBatch4: BlogPost[] = [
 
       <h2>Vibe coding vs. traditional coding vs. no-code</h2>
       <p>It sits between two older approaches. Traditional coding gives you total control but demands you write and remember everything. No-code tools are fast but box you into their features. Vibe coding splits the difference: you get the speed of describing intent <em>and</em> the flexibility of real code underneath, because the AI is writing that code, not hiding it behind a locked visual editor. When you outgrow a no-code tool you hit a wall; when you outgrow a prompt, you just open the code and keep going.</p>
+      <table>
+        <thead>
+          <tr><th></th><th>Traditional coding</th><th>Vibe coding</th><th>No-code</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>How you work</td><td>Write every line yourself</td><td>Describe intent, review the code</td><td>Click through a visual editor</td></tr>
+          <tr><td>Speed</td><td>Slowest</td><td>Fast</td><td>Fast</td></tr>
+          <tr><td>Ceiling</td><td>None</td><td>None &mdash; it's real code underneath</td><td>The tool's feature set</td></tr>
+          <tr><td>Skill needed</td><td>Write and remember everything</td><td>Specify clearly, review sharply</td><td>Little to none</td></tr>
+          <tr><td>When you outgrow it</td><td>You don't</td><td>Open the code and keep going</td><td>You hit a wall</td></tr>
+        </tbody>
+      </table>
 
       <h2>Who it's for</h2>
       <ul>
@@ -140,6 +153,7 @@ export const postsBatch4: BlogPost[] = [
         <li>Add an assistant like <a href="/tool/claude">Claude</a> or <a href="/tool/chatgpt">ChatGPT</a> for planning and debugging.</li>
         <li>Try an app builder like <a href="/tool/v0-by-vercel">v0</a> or <a href="/tool/bolt-new">Bolt.new</a> to go from idea to running app fast.</li>
       </ol>
+      <p>That's the whole starting kit — one editor, one assistant, one app builder, all with free tiers. If you want the full menu of options at each layer before you commit, our guide to the <a href="/blog/best-ai-tools-for-vibe-coding">best AI tools for vibe coding</a> breaks down every layer of the stack and what each one is actually for.</p>
 
       <h2>A first project to try</h2>
       <p>Pick something small and real — a personal dashboard, a link-in-bio page, a simple CRUD app. Describe the one core flow to your editor's agent, review each change it proposes, and run the app after every step. You'll learn more in one weekend of building this way than in a month of reading about it. When you're ready to go bigger, our <a href="/blog/build-app-in-a-weekend-ai-stack">weekend build playbook</a> walks through a full project stage by stage.</p>
@@ -148,13 +162,40 @@ export const postsBatch4: BlogPost[] = [
 
       <p>Ready to assemble your toolkit? Read <a href="/blog/complete-vibe-coding-stack-2026">The Complete Vibe Coding Stack for 2026</a> or <a href="/build">take the stack quiz</a>.</p>
     `,
+    faq: [
+      {
+        q: "What is vibe coding in simple terms?",
+        a: "Vibe coding is building software by describing what you want in plain language and letting AI write most of the implementation. You work at the level of intent — \"add a login page with Google auth,\" \"make this responsive\" — and an AI editor or agent makes the change. You still steer, review, and decide; the AI does the typing.",
+      },
+      {
+        q: "How do I start vibe coding?",
+        a: "Three steps. Get an AI-first editor — Cursor is the most popular starting point and its free tier is enough to learn on. Add an assistant like Claude or ChatGPT for planning and debugging. Then pick something small and real, describe the one core flow to your editor's agent, and run the app after every change. A weekend of building this way teaches you more than a month of reading about it.",
+      },
+      {
+        q: "Do I need to know how to code to vibe code?",
+        a: "Not to get started — tools like Lovable and Bolt.new let designers and non-developers turn ideas into working apps. But vibe coding is not \"no skill required.\" The best vibe coders understand architecture, review AI output critically, and know when the AI is wrong. Reading code matters even when you're not writing it: you need to recognize when a line is wrong.",
+      },
+      {
+        q: "Is vibe coding the same as no-code?",
+        a: "No. No-code tools are fast but box you into their feature set, so when you outgrow them you hit a wall. Vibe coding produces real code underneath, so when you outgrow a prompt you just open the file and keep going. It sits between traditional coding and no-code: the speed of describing intent with the flexibility of actual code.",
+      },
+      {
+        q: "What tools do I need for vibe coding?",
+        a: "One tool per layer is enough to start: an AI-first editor (Cursor), a frontier assistant (Claude or ChatGPT) for planning and debugging, and optionally an app builder (v0 or Bolt.new) when you want to skip setup and start from a running app. All of them have free tiers, so you can assemble a complete loop without spending anything.",
+      },
+      {
+        q: "What mistakes do beginners make with vibe coding?",
+        a: "Four keep showing up: accepting code you don't understand, prompting for too much at once, skipping version control, and not running the app between changes. The fixes are simple — ask the AI to explain a change before moving on, build in small testable steps, commit often so a bad agent run is a one-click undo, and test after every meaningful change so a bug can't hide several prompts deep.",
+      },
+    ],
   },
   {
     slug: "cursor-vs-windsurf",
-    title: "Cursor vs Windsurf: The Best AI Editor for Vibe Coding?",
+    title: "Cursor vs Windsurf: The Best AI Editor for Vibe Coding in 2026?",
     excerpt:
       "Both are AI-first code editors built for vibe coding. Here's how Cursor and Windsurf compare on agents, codebase context, models, UX, and price in mid-2026.",
     date: "Jul 18, 2026",
+    updated: "Jul 28, 2026",
     author: "David Kim",
     category: "Comparison",
     readTime: "7 min read",
@@ -206,20 +247,47 @@ export const postsBatch4: BlogPost[] = [
           <tr><td>Standout</td><td>Raw agent power, iOS beta, transcripts</td><td>Clean UX, long-session coherence</td></tr>
           <tr><td>Models</td><td>GPT-5.6, Claude, Grok 4.5</td><td>GPT-5.6, Claude, and more</td></tr>
           <tr><td>Feel</td><td>More power, more knobs</td><td>Cleaner, more guided</td></tr>
-          <tr><td>Price</td><td>Free tier + ~$20/mo</td><td>Free tier + ~$15/mo</td></tr>
+          <tr><td>Price</td><td>Free (Hobby) + $20/mo Pro</td><td>Free + $20/mo Pro</td></tr>
         </tbody>
       </table>
 
       <h2>Pricing</h2>
-      <p>Both offer free tiers and paid plans in the roughly $15&ndash;20/month range for individuals. Start free, push a real task through each, and keep the winner — the cost difference is small enough that the deciding factor should be which flow you enjoy.</p>
+      <p>Both offer free tiers and land at $20/month for their individual paid plan — but they meter it differently. Cursor moved to <strong>credit-based</strong> billing: Hobby is free with limited completions and agent requests, Pro is $20/mo (or $16/mo annually) with a monthly credit pool, and heavy users step up to Pro+ ($60) or Ultra ($200). Because credits burn faster on frontier models, two developers on the same Pro plan can have very different experiences.</p>
+      <p>Windsurf overhauled its pricing on <strong>March 19, 2026</strong>, retiring credits in favor of daily and weekly quotas and raising Pro from $15 to <strong>$20/mo</strong> (Max is $200/mo, Teams $40/user/mo). Its free tier is unusual in a good way: Tab autocomplete is unlimited and never touches quota, while the Cascade agent and chat run on a light quota that realistically covers two to three days of active coding per period. Start free on both, push a real task through each, and keep the winner — at the same headline price, the deciding factor should be which flow you enjoy.</p>
 
       <h2>Verdict</h2>
       <ul>
         <li><strong><a href="/tool/cursor">Cursor</a></strong> — the most powerful, most popular choice, and the safe default for maximum agentic control.</li>
         <li><strong><a href="/tool/windsurf-ide">Windsurf</a></strong> — a cleaner, guided agent flow that many developers prefer for its calm, coherent sessions.</li>
       </ul>
-      <p>Either one anchors a great <a href="/blog/complete-vibe-coding-stack-2026">vibe coding stack</a>. See more options in our <a href="/best/coding">best AI coding tools</a> guide, or compare Cursor with the other big rival in <a href="/blog/cursor-vs-github-copilot">Cursor vs GitHub Copilot</a>.</p>
+      <p>Either one anchors a great <a href="/blog/complete-vibe-coding-stack-2026">vibe coding stack</a>. The editor is only the first layer, though — see the <a href="/blog/best-ai-tools-for-vibe-coding">best AI tools for vibe coding</a> for the assistant, app builder, and deployment pieces that go around it. You can also browse more options in our <a href="/best/coding">best AI coding tools</a> guide, or compare Cursor with the other big rival in <a href="/blog/cursor-vs-github-copilot">Cursor vs GitHub Copilot</a>.</p>
     `,
+    faq: [
+      {
+        q: "Is Cursor or Windsurf better in 2026?",
+        a: "They're close enough that you can't really make a wrong choice. Cursor edges ahead on raw agent power and control — its Composer 2.5 agent is extremely mature, and Cursor 3.11 added a side chat panel, searchable agent transcripts, and an iOS public beta. Windsurf wins on calm: its Flow context awareness keeps long sessions coherent and its defaults are cleaner. Pick Cursor for maximum power, Windsurf for a more guided experience.",
+      },
+      {
+        q: "How much does Windsurf cost?",
+        a: "After the March 19, 2026 overhaul, Windsurf runs Free ($0), Pro ($20/mo, up from $15), Max ($200/mo), Teams ($40/user/mo), and Enterprise. The overhaul retired the old credit system in favor of daily and weekly quotas. On Free, Tab autocomplete is unlimited and never touches quota, but the Cascade agent and chat run dry after roughly two to three days of active coding per period — so serious agent users move to Pro quickly.",
+      },
+      {
+        q: "How much does Cursor cost?",
+        a: "Hobby is free with limited completions and agent requests, Pro is $20/mo ($16/mo annually) with a monthly credit pool, Pro+ is $60/mo for 3x usage, Ultra is $200/mo for 20x, and Teams is $40/user/mo. Cursor bills by credits rather than a fixed request count, so frontier models deplete your pool faster than economical ones — your real cost depends on how you work.",
+      },
+      {
+        q: "Is Windsurf the same as Codeium?",
+        a: "Yes — Codeium rebranded to Windsurf in late 2024, evolving from an autocomplete extension into a full AI editor. Its agent is called Cascade, and it's the direct equivalent of Cursor's Composer: you describe a change, it reads the codebase, builds a plan, and executes across files.",
+      },
+      {
+        q: "Can I switch between Cursor and Windsurf easily?",
+        a: "Yes. Both are VS Code forks, so your extensions, themes, and keybindings come across and the file tree, command palette, and shortcuts are all where you expect. There's almost no switching cost, which is why so many developers run a real project through each over a couple of afternoons and let the experience decide.",
+      },
+      {
+        q: "Do both editors support the newest models?",
+        a: "Both are model-flexible and expose a picker covering OpenAI's GPT-5.6 family, Anthropic's Claude Sonnet 5 and Claude Fable 5, and more. Cursor additionally ships xAI's Grok 4.5 as a first-class option — fitting, since the model was co-trained on real Cursor usage data. On model choice the two are effectively even; what differs is how each editor orchestrates those models around your code.",
+      },
+    ],
   },
   {
     slug: "build-app-in-a-weekend-ai-stack",
@@ -280,80 +348,186 @@ export const postsBatch4: BlogPost[] = [
   },
   {
     slug: "best-ai-tools-for-vibe-coding",
-    title: "Best AI Tools for Vibe Coding in 2026",
+    title: "The Best AI Tools for Vibe Coding in 2026 (Complete Stack Guide)",
     excerpt:
-      "The AI tools that make vibe coding actually work — ranked by what they add to a build-fast workflow. Editors, app builders, assistants, and more, updated for mid-2026.",
+      "The best AI tools for vibe coding in 2026: the editors, assistants, app builders, and supporting tools that make a describe-it-and-ship-it workflow actually work — plus how to assemble a stack for free, for $20, or for $50+ a month.",
     date: "Jul 18, 2026",
+    updated: "Jul 28, 2026",
     author: "David Kim",
     category: "Guide",
-    readTime: "8 min read",
+    readTime: "16 min read",
     image: "/images/blog/cursor-vs-vscode.png",
     tags: ["Vibe Coding", "Best Tools", "AI Stack"],
     content: `
-      <p>Vibe coding lives or dies by your tools. These are the ones that genuinely move the needle in 2026, grouped by what they do — with the latest versions and models noted so you know exactly what you're getting.</p>
+      <p>Vibe coding lives or dies by your tools. You describe what you want, AI writes most of the code, and you steer — but that loop only feels magic when each layer of the stack pulls its weight. These are the <strong>best AI tools for vibe coding in 2026</strong>, grouped by the job they do, with the current versions, models, and prices noted so you know exactly what you're getting.</p>
+      <p>New to the idea itself? Start with <a href="/blog/what-is-vibe-coding">What Is Vibe Coding?</a> and come back. If you already know the shape of it, read on — this is the full stack, layer by layer, plus how to assemble it on a budget and what to build with it first.</p>
 
-      <h2>AI editors</h2>
+      <h2>What makes a tool good for vibe coding?</h2>
+      <p>Plenty of tools have "AI" in the marketing. Only a few genuinely change how fast you ship. The ones that do share five traits, and they're worth naming because they're the filter for everything below.</p>
       <ul>
-        <li><strong><a href="/tool/cursor">Cursor</a></strong> — the default AI-first editor; agentic and codebase-aware. The 3.11 release added a side chat, searchable agent transcripts, a Cursor for iOS public beta, and Grok 4.5 support, all riding on its Composer 2.5 agent.</li>
-        <li><strong><a href="/tool/windsurf-ide">Windsurf</a></strong> — Codeium's editor, with a cleaner UI and "Flow" context awareness that shines in long sessions (<a href="/blog/cursor-vs-windsurf">compared here</a>).</li>
-        <li><strong><a href="/tool/github-copilot">GitHub Copilot</a></strong> — AI inside the editor you already use, with the best enterprise controls (<a href="/blog/cursor-vs-github-copilot">Cursor vs Copilot</a>).</li>
+        <li><strong>It works from intent, not syntax.</strong> You describe the outcome — "add a login page with Google auth" — and it produces the change. If you still have to specify every step, it's autocomplete with extra steps.</li>
+        <li><strong>It sees your whole project.</strong> A tool that only knows the file you're in will keep suggesting code that contradicts the rest of your codebase. Repo-wide context is what turns a suggestion engine into a collaborator.</li>
+        <li><strong>It produces real code you own.</strong> This is the line between vibe coding and no-code. When you outgrow a no-code tool you hit a wall; when you outgrow a prompt, you open the file and keep going.</li>
+        <li><strong>It keeps you in the loop.</strong> The good tools show you the diff, let you reject it, and make it cheap to undo. Agents that quietly rewrite half a repo are a liability, not a feature.</li>
+        <li><strong>It hands off cleanly.</strong> No single tool covers the whole loop. The best ones export, sync to GitHub, or drop code into your editor without a fight.</li>
       </ul>
+      <p>Judge every tool below against those five, and the endless "best AI tool" arguments get a lot quieter.</p>
 
-      <h2>App builders</h2>
-      <ul>
-        <li><strong><a href="/tool/v0-by-vercel">v0 by Vercel</a></strong> — production-ready React + Tailwind UI from a prompt.</li>
-        <li><strong><a href="/tool/bolt-new">Bolt.new</a></strong> — full-stack apps in the browser with a live preview.</li>
-        <li><strong><a href="/tool/lovable">Lovable</a></strong> — deployed product MVPs for non-developers.</li>
-      </ul>
+      <h2>The stack at a glance</h2>
+      <table>
+        <thead>
+          <tr><th>Layer</th><th>What it does</th><th>Top picks</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Editor</td><td>Where you build and where the agent works</td><td>Cursor, Windsurf, GitHub Copilot</td></tr>
+          <tr><td>Assistant</td><td>Planning, debugging, code review, writing</td><td>Claude, ChatGPT, Perplexity</td></tr>
+          <tr><td>App builder</td><td>Prompt to running app, no local setup</td><td>v0, Bolt.new, Lovable, Replit</td></tr>
+          <tr><td>Design &amp; media</td><td>Sites, UI, imagery, voice</td><td>Framer, Figma, Midjourney, ElevenLabs</td></tr>
+          <tr><td>Ship &amp; organize</td><td>Deploys, tracking what you're building</td><td>Vercel, Linear, Notion AI</td></tr>
+        </tbody>
+      </table>
+      <p>You need one tool per layer, not all of them. Here's what each layer actually does and how to pick.</p>
 
-      <h2>Assistants</h2>
+      <h2>Layer 1: the editor — where you live</h2>
+      <p>The editor is the highest-leverage choice in the stack, because it's where the agent does its work and where you spend your hours. Get this one right and everything else is swappable.</p>
       <ul>
-        <li><strong><a href="/tool/claude">Claude</a></strong> — Claude Fable 5 (top tier) and Sonnet 5 (fast default) for long-context reasoning and code review.</li>
-        <li><strong><a href="/tool/chatgpt">ChatGPT</a></strong> — the GPT-5.6 family (Sol, Terra, Luna) and the broadest ecosystem.</li>
-        <li><strong><a href="/tool/perplexity">Perplexity</a></strong> — research with citations you can verify.</li>
+        <li><strong><a href="/tool/cursor">Cursor</a></strong> — the default AI-first editor and the safe pick for maximum agentic power. It's a VS Code fork, so your extensions, themes, and keybindings come with you. The July 2026 <strong>3.11</strong> release added a side chat panel, searchable agent transcripts, a Cursor for iOS public beta, and first-class support for xAI's <strong>Grok 4.5</strong>, all riding on the <strong>Composer 2.5</strong> agent. Its "Tab" prediction is the underrated part: it stages multi-line edits and your next likely refactor, not just the next token. Pricing is credit-based — Hobby (free), Pro ($20/mo, or $16/mo annually), Pro+ ($60/mo), Ultra ($200/mo) — so heavy frontier-model use drains the pool faster than economical models.</li>
+        <li><strong><a href="/tool/windsurf-ide">Windsurf</a></strong> — Codeium's editor, also a VS Code fork, with a cleaner default UI and "Flow" context awareness that keeps long sessions coherent. Its <strong>Cascade</strong> agent plans a multi-step change and then executes it across files. Since the March 19, 2026 overhaul it runs on daily and weekly quotas instead of credits: Free ($0, with unlimited Tab autocomplete that never touches quota), Pro ($20/mo, up from $15), Max ($200/mo). Full breakdown: <a href="/blog/cursor-vs-windsurf">Cursor vs Windsurf</a>.</li>
+        <li><strong><a href="/tool/github-copilot">GitHub Copilot</a></strong> — AI inside the editor you already use: VS Code, Visual Studio, JetBrains, Neovim, Xcode and more. Its agent mode is capable and its GitHub-native flow (turn an issue into a pull request) is genuinely strong, and it has the best enterprise controls — SSO, audit logs, policy management, content exclusions. Roughly $10&ndash;20/mo with a free tier. See <a href="/blog/cursor-vs-github-copilot">Cursor vs GitHub Copilot</a>.</li>
       </ul>
+      <p><strong>How to choose:</strong> if you want the agent to do the heavy lifting and don't mind switching editors, take Cursor. If you want a calmer, more guided experience, take Windsurf. If you need to stay in JetBrains or you're buying for a team with a security review, take Copilot. All three have free tiers, and because Cursor and Windsurf are both VS Code forks, trying the other one costs you an afternoon at most.</p>
+
+      <h2>Layer 2: the assistant — your thinking partner</h2>
+      <p>The editor writes the code; the assistant is where you figure out <em>what</em> to build, unstick a bug, and get a second opinion on a design. Most people who vibe code seriously keep one open in a browser tab all day.</p>
+      <ul>
+        <li><strong><a href="/tool/claude">Claude</a></strong> — led by <strong>Claude Fable 5</strong>, Anthropic's top-tier flagship, with <strong>Claude Sonnet 5</strong> (June 2026) as the fast default for Free and Pro users. It's the one to reach for when the input is large: a sprawling module, a long spec, a full diff. Claude Code with its parallel "Agent Teams" is highly regarded for sustained development work. Around $20/mo for Pro; the free tier runs on Sonnet 5 and is genuinely strong.</li>
+        <li><strong><a href="/tool/chatgpt">ChatGPT</a></strong> — the <strong>GPT-5.6</strong> family, released July 2026 in three variants: Sol (flagship, with an "ultra" mode that delegates subtasks to smaller models), Terra (balanced default), and Luna (tuned for speed). OpenAI calls Sol its best coding model yet, with roughly a 54% improvement in token efficiency on agentic tasks. Broadest ecosystem by far — custom GPTs, image generation, voice, integrations — plus ChatGPT Work for business use. Around $20/mo for Plus.</li>
+        <li><strong><a href="/tool/perplexity">Perplexity</a></strong> — the research layer. When you need a current, cited answer (which library, which API, is this still true), it beats asking a general assistant and hoping. See <a href="/blog/chatgpt-vs-perplexity">ChatGPT vs Perplexity</a>.</li>
+      </ul>
+      <p><strong>How to choose:</strong> Claude for writing, editing, code review, and long-context reasoning; ChatGPT for integrations, multimodal work, and all-rounder convenience. Both have free tiers good enough to decide with, so run a week of real work through each — see <a href="/blog/chatgpt-vs-claude">ChatGPT vs Claude</a> for the full comparison. Many vibe coders eventually keep both: one to generate, one to review.</p>
+
+      <h2>Layer 3: app builders — prompt to running app</h2>
+      <p>App builders skip the setup entirely. You describe an app, and a few minutes later there's a live URL. They're the fastest way to test an idea, and the fastest way to get a UI you can drop into your editor and finish properly.</p>
+      <ul>
+        <li><strong><a href="/tool/v0-by-vercel">v0 by Vercel</a></strong> — the best output quality for UI. It generates real React + Tailwind (shadcn/ui) components you can paste straight into a codebase, with iterative refinement and one-click deploy. Free ($0, $5 in monthly credits, up to 200 projects, Design Mode, GitHub sync) and Premium ($20/mo, $20 in credits, Figma imports, the v0 API); credits scale with generation complexity, so budget by how much you generate rather than the sticker price.</li>
+        <li><strong><a href="/tool/bolt-new">Bolt.new</a></strong> — full-stack apps in an in-browser environment with a live preview and zero setup. Free gives 1M tokens/month with a 300K daily limit and no credit card, though deployed sites carry Bolt branding and can't use a custom domain; Pro ($25/mo) raises that to 10M+ tokens with rollover, custom domains, and no branding. Tokens are consumed largely by syncing your project to the model, so bigger projects cost more per message.</li>
+        <li><strong><a href="/tool/lovable">Lovable</a></strong> — the most product-minded of the group, and the best pick for non-developers. It turns a plain-language description into a working React + Supabase project (frontend, backend, auth, database) deployed to a live URL, with one-click GitHub connect and full source export — no lock-in. The free tier is generous enough to build a real MVP; paid plans unlock higher message volume, private projects, custom domains, and collaboration.</li>
+        <li><strong><a href="/tool/replit">Replit</a></strong> — a full browser IDE with hosting, databases, and an agent in one place. Replit Agent can build and deploy a working app from a prompt, which makes it a natural home for learning, hackathons, and mobile tinkering. Starter (free) includes 1,200 minutes of development time a month and one published app; Core ($20/mo, or $25 billed monthly) unlocks full Agent access, unlimited apps, and $25 in monthly usage credits.</li>
+      </ul>
+      <p><strong>How to choose:</strong> v0 when you want polished UI to bring into an existing codebase, Bolt.new when you want a full-stack prototype in the browser, Lovable when you're not a developer and want a real deployed MVP, Replit when you want the whole environment — editor, host, database — in one tab. The most common pattern is prototype in a builder, then move the code into Cursor to finish the hard parts. Full comparison: <a href="/blog/ai-app-builders-bolt-v0-lovable">Bolt.new vs v0 vs Lovable</a>.</p>
 
       <h2>Models worth knowing about</h2>
       <p>Even if you access them through the tools above, it helps to know the 2026 model landscape. OpenAI's <strong>GPT-5.6</strong> (Sol is its best coding model yet, with roughly 54% better token efficiency on agentic tasks), Anthropic's <strong>Claude Fable 5</strong> and <strong>Sonnet 5</strong>, and xAI's <strong>Grok 4.5</strong> (co-trained on Cursor usage, coding-focused) are the frontier for building. Google's <strong>Gemini 3.5 Flash</strong> is a fast, capable choice for agentic and coding work, and if you want open weights, Meta's <strong>Llama 5</strong> (600B parameters, 5M-token context) is self-hostable.</p>
 
-      <h2>Design &amp; ship</h2>
+      <h2>Layer 4: supporting tools — design, media, and voice</h2>
+      <p>These are situational. Add them the day a project actually needs one, not before — but when you need them, the gap they fill is one an editor and an assistant can't cover.</p>
       <ul>
-        <li><strong><a href="/tool/framer">Framer</a></strong> — production sites and landing pages from a prompt.</li>
-        <li><strong><a href="/tool/vercel">Vercel</a></strong> — deploy in minutes, with preview links on every push.</li>
-        <li><strong><a href="/tool/midjourney">Midjourney</a></strong> — imagery and visual assets for your product.</li>
-        <li><strong><a href="/tool/elevenlabs">ElevenLabs</a></strong> — realistic AI voice if your product needs audio (<a href="/blog/elevenlabs-review">review</a>).</li>
+        <li><strong><a href="/tool/framer">Framer</a></strong> — the fastest route to a real marketing site or landing page. AI Wireframer generates layouts from a prompt and AI Workshop assists with code, while hosting, CMS, and SEO basics are handled for you. Free (with Framer branding and a subdomain), Basic ($10/mo annually, removes branding and adds a custom domain), Pro ($30/mo annually).</li>
+        <li><strong><a href="/tool/figma">Figma</a></strong> — for app UI and design systems rather than published sites. Starter is free but capped at three design files; Professional is $16/user/mo. Worth it once you're designing screens deliberately instead of prompting your way to them.</li>
+        <li><strong><a href="/tool/midjourney">Midjourney</a></strong> — the image model with the most distinctive aesthetic, now on V7 with Omni Reference for character consistency. Great for hero imagery, illustration, and anything that needs to look intentional. No free tier.</li>
+        <li><strong><a href="/tool/elevenlabs">ElevenLabs</a></strong> — realistic AI voice if your product needs audio. Free gives 10,000 credits a month (roughly ten minutes, no commercial rights), Starter is $5/mo with commercial rights and instant voice cloning, Creator $22/mo for 100,000 characters. See our <a href="/blog/elevenlabs-review">ElevenLabs review</a>.</li>
       </ul>
 
-      <h2>How to choose per layer</h2>
-      <p>You only need one tool per layer, so don't collect all of them. Pick your editor first — it's where you'll spend the most time, so try Cursor and one alternative and keep the one whose flow clicks. Add an assistant you'll actually talk to daily; Claude and ChatGPT are both safe, so let your writing-versus-ecosystem preference decide. Reach for an app builder only when you want to skip setup and start from a running app. Everything else — design, voice, imagery — is situational; add it the day your project actually needs it, not before. A stack you'll use beats a stack that looks complete.</p>
+      <h2>Layer 5: ship and organize</h2>
+      <p>The least glamorous layer, and the one that decides whether a weekend prototype becomes something people can actually use.</p>
+      <ul>
+        <li><strong><a href="/tool/vercel">Vercel</a></strong> — deploys most modern web apps in minutes with a preview link on every push, so you can share a working URL before the feature is even finished. The free tier is generous enough for real side projects.</li>
+        <li><strong><a href="/tool/linear">Linear</a></strong> — when the "just one more thing" list outgrows your head. Fast, keyboard-first issue tracking with AI triage. Free supports unlimited members with an issue cap; Basic is around $8/user/mo and Business around $14/user/mo.</li>
+        <li><strong><a href="/tool/notion-ai">Notion AI</a></strong> — for specs, notes, and the docs you'll paste into your assistant later. Since May 2025 the separate AI add-on is gone and full AI access is folded into the Business plan ($20/user/mo), including Agents and "Ask Notion" across your workspace.</li>
+      </ul>
+      <p>Git and GitHub belong in this layer too, and they're free. Commit before every agent run and your undo button is always one command away.</p>
+
+      <h2>How to assemble a stack by budget</h2>
+      <p>You do not need to spend money to vibe code well. What you buy with a subscription is mostly the removal of limits that interrupt your flow — so upgrade when a cap starts costing you time, not before. Three realistic tiers:</p>
+
+      <h3>Free ($0/month)</h3>
+      <p>A complete loop, genuinely. Use <strong>Cursor Hobby</strong> or <strong>Windsurf Free</strong> as your editor (Windsurf's Tab autocomplete is unlimited on free and never touches quota, which makes it a strong free-tier pick). Add <strong>Claude</strong>'s free tier, which runs on Sonnet 5, or <strong>ChatGPT</strong>'s free tier for planning and debugging. Use <strong>v0 Free</strong> ($5 in monthly credits) or <strong>Bolt.new Free</strong> (1M tokens a month, no credit card) when you want to start from a running app. Ship on <strong>Vercel</strong>'s free tier, version with git. Total: nothing. This is enough to build and launch a real project — the constraint is agent quota, not capability.</p>
+
+      <h3>About $20/month</h3>
+      <p>Buy exactly one upgrade: the layer you hit limits in first. For most people that's the editor — <strong>Cursor Pro</strong> ($20/mo, $16 annually) or <strong>Windsurf Pro</strong> ($20/mo) removes the interruptions that break flow during a long build session. If you spend more time planning and debugging in chat than in the agent, spend the $20 on <strong>Claude Pro</strong> or <strong>ChatGPT Plus</strong> instead and stay on the free editor tier. One paid tool, chosen honestly, beats three half-used ones.</p>
+
+      <h3>$50+/month</h3>
+      <p>Now you're building regularly and each tool earns its keep. The common shape is <strong>editor Pro ($20) + assistant Pro ($20)</strong> — roughly $40&ndash;60/month all in — which is the sweet spot for a solo builder shipping weekly. Past that, add capability rather than duplicates: an app builder you actually use (<strong>v0 Premium</strong> at $20/mo or <strong>Bolt Pro</strong> at $25/mo), <strong>Framer Basic</strong> ($10/mo annually) if you're publishing landing pages, or a second assistant so you can generate with one and review with the other. Heavy agent users step up within a tool instead — Cursor Pro+ at $60/mo or Ultra at $200/mo.</p>
+
+      <table>
+        <thead>
+          <tr><th>Budget</th><th>Editor</th><th>Assistant</th><th>App builder</th><th>Ship</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>$0</td><td>Cursor Hobby / Windsurf Free</td><td>Claude or ChatGPT free tier</td><td>v0 Free / Bolt Free</td><td>Vercel free + git</td></tr>
+          <tr><td>~$20/mo</td><td>Cursor Pro or Windsurf Pro ($20)</td><td>Free tier</td><td>Free tier</td><td>Vercel free</td></tr>
+          <tr><td>~$40&ndash;60/mo</td><td>Cursor Pro ($20)</td><td>Claude Pro or ChatGPT Plus ($20)</td><td>Free tier</td><td>Vercel free</td></tr>
+          <tr><td>$80&ndash;120/mo</td><td>Editor Pro ($20)</td><td>Both assistants ($40)</td><td>v0 Premium ($20) or Bolt Pro ($25)</td><td>Framer Basic ($10)</td></tr>
+        </tbody>
+      </table>
+      <p>Prices are the current individual rates at the time of writing; annual billing is cheaper on most of these. The pattern that matters more than the numbers: start free, upgrade the layer that's blocking you, and re-evaluate monthly.</p>
 
       <h2>Don't forget the fundamentals</h2>
       <p>The AI tools get the headlines, but a few unglamorous basics keep vibe coding from turning into a mess. Use git and commit often so any agent run is reversible. Keep a host like Vercel wired up so shipping is never a blocker. And lean on your assistant for the parts people skip — writing tests, reviewing security, and explaining unfamiliar code. These aren't separate from vibe coding; they're what makes it sustainable past the first prototype.</p>
 
-      <h2>Starter vs. pro</h2>
-      <p>If you're just starting, the free tiers of an editor, one assistant, and an app builder are genuinely enough to ship a real project — spend nothing until you hit a limit. As building becomes a habit, upgrading your editor and assistant (roughly $40&ndash;60/month combined) removes the usage caps that interrupt flow. Only go wider — both assistants, a paid app builder, Framer for sites — once you're shipping regularly and each tool is clearly earning its keep.</p>
-
-      <h2>The recommended combo</h2>
+      <h2>The core tools compared</h2>
       <table>
         <thead>
-          <tr><th>Layer</th><th>Pick one</th></tr>
+          <tr><th>Tool</th><th>Layer</th><th>Best for</th><th>Free tier</th><th>Paid from</th></tr>
         </thead>
         <tbody>
-          <tr><td>Editor</td><td>Cursor, Windsurf, or GitHub Copilot</td></tr>
-          <tr><td>App builder</td><td>v0, Bolt.new, or Lovable</td></tr>
-          <tr><td>Assistant</td><td>Claude or ChatGPT (+ Perplexity for research)</td></tr>
-          <tr><td>Design &amp; ship</td><td>Framer + Vercel</td></tr>
+          <tr><td><a href="/tool/cursor">Cursor</a></td><td>Editor</td><td>Maximum agentic power, repo-wide edits</td><td>Yes (Hobby)</td><td>$20/mo Pro</td></tr>
+          <tr><td><a href="/tool/windsurf-ide">Windsurf</a></td><td>Editor</td><td>Calm, guided flow; unlimited free autocomplete</td><td>Yes</td><td>$20/mo Pro</td></tr>
+          <tr><td><a href="/tool/github-copilot">GitHub Copilot</a></td><td>Editor</td><td>Staying in your current IDE; team controls</td><td>Yes</td><td>~$10&ndash;20/mo</td></tr>
+          <tr><td><a href="/tool/claude">Claude</a></td><td>Assistant</td><td>Writing, code review, long-context work</td><td>Yes (Sonnet 5)</td><td>~$20/mo Pro</td></tr>
+          <tr><td><a href="/tool/chatgpt">ChatGPT</a></td><td>Assistant</td><td>Ecosystem, multimodal, all-round convenience</td><td>Yes</td><td>~$20/mo Plus</td></tr>
+          <tr><td><a href="/tool/v0-by-vercel">v0 by Vercel</a></td><td>App builder</td><td>Production-quality React + Tailwind UI</td><td>Yes ($5 credits)</td><td>$20/mo Premium</td></tr>
+          <tr><td><a href="/tool/bolt-new">Bolt.new</a></td><td>App builder</td><td>Full-stack prototypes in the browser</td><td>Yes (1M tokens)</td><td>$25/mo Pro</td></tr>
+          <tr><td><a href="/tool/lovable">Lovable</a></td><td>App builder</td><td>Non-developers shipping a real MVP</td><td>Yes</td><td>Paid tiers</td></tr>
+          <tr><td><a href="/tool/replit">Replit</a></td><td>App builder</td><td>All-in-one browser IDE, host, and agent</td><td>Yes (1,200 min)</td><td>$20/mo Core</td></tr>
+          <tr><td><a href="/tool/framer">Framer</a></td><td>Design</td><td>Publishing a polished marketing site</td><td>Yes (branded)</td><td>$10/mo Basic</td></tr>
+          <tr><td><a href="/tool/vercel">Vercel</a></td><td>Ship</td><td>Deploys with preview links on every push</td><td>Yes</td><td>Paid tiers</td></tr>
         </tbody>
       </table>
 
-      <h2>Supporting tools you'll want</h2>
-      <p>Beyond the headline categories, a few unglamorous tools round out a serious workflow. Version control with git and GitHub is non-negotiable — it's your undo button for agent runs gone wrong, and it costs nothing. A component library or UI kit gives your AI-generated screens a consistent look without hiring a designer. An analytics tool tells you whether anyone actually uses what you shipped, which is the only feedback that matters. And a deployment host like <a href="/tool/vercel">Vercel</a> turns "it works on my machine" into a link you can share. None of these are AI-first, but they're the scaffolding that lets the flashy AI-first tools stay fast and loose.</p>
+      <h2>Your first weekend with the stack</h2>
+      <p>Reading about tools is the slowest way to learn them. Here's the compressed version of our <a href="/blog/build-app-in-a-weekend-ai-stack">weekend build playbook</a> — enough to go from nothing to a deployed app in two days.</p>
+      <ol>
+        <li><strong>Friday night — shape it.</strong> Talk the idea through with <a href="/tool/claude">Claude</a> or <a href="/tool/chatgpt">ChatGPT</a>: who it's for, the one core flow, the simplest version worth shipping. Then cut scope until the app fits in one sentence. This is the step that decides whether you finish.</li>
+        <li><strong>Saturday morning — generate the UI.</strong> Use <a href="/tool/v0-by-vercel">v0</a> for screens you'll paste into a codebase, or <a href="/tool/bolt-new">Bolt.new</a> for a full-stack starter with a live preview. You want something clickable within the hour — skeleton, not polish.</li>
+        <li><strong>Saturday afternoon — build the core.</strong> Move into <a href="/tool/cursor">Cursor</a> or <a href="/tool/windsurf-ide">Windsurf</a> and describe the core flow. Let the agent wire up state, routes, and data. Review every change and run the app after each step so a bug can't hide three prompts deep.</li>
+        <li><strong>Sunday morning — connect the real pieces.</strong> Auth, a real database, any external API. Describe each integration to the agent, then test the unhappy paths: failed requests, empty fields, logged-out users.</li>
+        <li><strong>Sunday afternoon — ship.</strong> A quick landing page in <a href="/tool/framer">Framer</a>, deploy on <a href="/tool/vercel">Vercel</a>, launch copy from your assistant. Resist one more feature. A shipped small app beats an unshipped ambitious one.</li>
+      </ol>
+      <p>Commit at every stage. The whole reason you can move this fast is that a bad agent run is a <code>git reset</code> away rather than a lost afternoon.</p>
 
       <h2>Where to start if you're new</h2>
       <p>Overwhelmed by the list? Start with exactly three tools: <a href="/tool/cursor">Cursor</a> as your editor, one assistant (<a href="/tool/claude">Claude</a> or <a href="/tool/chatgpt">ChatGPT</a>), and <a href="/tool/vercel">Vercel</a> to deploy. That's a complete loop — build, review, ship — and it's free to try. Add an app builder the first time you want to skip setup and start from a running app, and add design or voice tools the day a specific project needs them. The fastest way to learn the stack isn't reading about more tools; it's shipping one small thing with a few. Everything else you can add later, once you feel the gap it fills.</p>
 
       <h2>Put it together</h2>
-      <p>You don't need all of these — pick one per layer and go. Read <a href="/blog/complete-vibe-coding-stack-2026">The Complete Vibe Coding Stack for 2026</a> for a recommended combo, walk through a real build in <a href="/blog/build-app-in-a-weekend-ai-stack">How to Build an App in a Weekend</a>, or <a href="/build">take the quiz</a> for a personalized stack.</p>
+      <p>You don't need all of these — pick one per layer and go. The best stack in 2026 isn't the most impressive one; it's the smallest one that gets you from idea to shipped without friction. Start with an editor, an assistant, and a place to deploy, then add a layer the day you feel its absence.</p>
+      <p>Next steps: read <a href="/blog/complete-vibe-coding-stack-2026">The Complete Vibe Coding Stack for 2026</a> for the recommended combo, walk through a real build in <a href="/blog/build-app-in-a-weekend-ai-stack">How to Build an App in a Weekend</a>, brush up on the fundamentals in <a href="/blog/what-is-vibe-coding">What Is Vibe Coding?</a>, or <a href="/build">take the quiz</a> for a personalized stack. You can also browse everything in our <a href="/best/coding">best AI coding tools</a> and <a href="/best/design">best AI design tools</a> guides.</p>
     `,
+    faq: [
+      {
+        q: "What tools do I need to start vibe coding?",
+        a: "Three, and all of them have free tiers: an AI-first editor (Cursor or Windsurf), an assistant for planning and debugging (Claude or ChatGPT), and somewhere to deploy (Vercel, plus git for version control). That's a complete loop — build, review, ship. Add an app builder like v0 or Bolt.new the first time you want to skip setup and start from a running app.",
+      },
+      {
+        q: "What is the best AI tool for vibe coding in 2026?",
+        a: "For most people, Cursor. It's the AI-first editor with the most mature agent — Composer 2.5, with repo-wide context, terminal execution, and Tab prediction that stages your next edit — and the July 2026 3.11 release added a side chat, searchable agent transcripts, and an iOS beta. Windsurf is the main alternative if you prefer a calmer, more guided flow, and GitHub Copilot is the pick if you need to stay in JetBrains or need enterprise controls.",
+      },
+      {
+        q: "How much does a vibe coding stack cost?",
+        a: "Anywhere from $0 to about $120/month. Free tiers of an editor, an assistant, an app builder, and Vercel are genuinely enough to ship a real project. One paid upgrade — usually the editor at $20/mo — removes the limits that interrupt flow. A solo builder shipping weekly typically runs editor Pro plus assistant Pro at roughly $40–60/month, and a full stack with an app builder and Framer lands around $80–120.",
+      },
+      {
+        q: "Can I vibe code without knowing how to code?",
+        a: "You can get started, yes — Lovable and Bolt.new let non-developers turn a description into a working, deployed app. But you'll hit a ceiling fast if you can't read what the AI produces. The skill that matters is shifting from writing code to specifying intent clearly and reviewing output sharply; if you can't tell what a change does, ask the AI to explain it before moving on.",
+      },
+      {
+        q: "Do I need both Claude and ChatGPT?",
+        a: "Not at first. Pick one based on your work: Claude for writing, editing, code review, and long-context reasoning; ChatGPT for integrations, multimodal features, and all-round convenience. Both free tiers are strong enough to decide with. Plenty of people eventually pay for both and use one to generate and the other to review, but that's an optimization, not a starting requirement.",
+      },
+      {
+        q: "What's the difference between an AI editor and an app builder?",
+        a: "An AI editor (Cursor, Windsurf) works on code on your machine, with your repo, your git history, and full control — it's where you finish real projects. An app builder (v0, Bolt.new, Lovable, Replit) runs in the browser and goes from prompt to a running app with no setup, which is unbeatable for prototypes and first drafts. The common workflow is to prototype in a builder and then move the code into an editor to finish the hard parts.",
+      },
+    ],
   },
 ];

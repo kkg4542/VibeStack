@@ -14,6 +14,7 @@ export const postsBatch3: BlogPost[] = [
     excerpt:
       "Both put AI in your editor, but they take very different approaches. Here's how Cursor and GitHub Copilot compare on autocomplete, agents, codebase context, model choice, and price in mid-2026.",
     date: "Jul 18, 2026",
+    updated: "Jul 28, 2026",
     author: "David Kim",
     category: "Comparison",
     readTime: "8 min read",
@@ -68,15 +69,42 @@ export const postsBatch3: BlogPost[] = [
         <li><strong>Choose <a href="/tool/github-copilot">GitHub Copilot</a></strong> if you want AI inside your current editor with broad coverage, enterprise controls, and tight GitHub integration. It's the safer choice for larger teams and regulated environments.</li>
       </ul>
       <p>The honest test: install both free tiers, push the same real task — say, adding a feature that touches three files — through each, and keep the one whose flow clicks for you. For most independent developers building fast in 2026, that ends up being Cursor; for teams living inside GitHub, it's Copilot.</p>
-      <p>Still deciding? See our full ranking of the <a href="/best/coding">best AI coding tools</a> for more options like Windsurf, Aider, and Supermaven, or read <a href="/blog/cursor-vs-windsurf">Cursor vs Windsurf</a> for the other big editor rivalry.</p>
+      <p>Still deciding? See our full ranking of the <a href="/best/coding">best AI coding tools</a> for more options like Windsurf, Aider, and Supermaven, or read <a href="/blog/cursor-vs-windsurf">Cursor vs Windsurf</a> for the other big editor rivalry. If the editor is only one piece of what you're assembling, our guide to the <a href="/blog/best-ai-tools-for-vibe-coding">best AI tools for vibe coding</a> covers the rest of the stack.</p>
     `,
+    faq: [
+      {
+        q: "Is Cursor better than GitHub Copilot?",
+        a: "Neither is objectively better — they optimize for different things. Cursor is a full AI-first editor whose Composer 2.5 agent can edit across many files, run terminal commands, and verify the result, which makes it the stronger pick for agentic, codebase-wide work. Copilot is an assistant inside the editor you already use, with broad IDE coverage and mature enterprise controls. Solo builders and vibe coders usually land on Cursor; teams living inside GitHub usually land on Copilot.",
+      },
+      {
+        q: "Which is cheaper, Cursor or GitHub Copilot?",
+        a: "Both sit in roughly the $20/month range for individuals, with Copilot's individual plans running about $10–20/mo. Both also have free tiers, so you can run a real task through each before paying anything. Cursor's Pro plan bills against a monthly credit pool, so your effective cost depends on which models you use and how complex your prompts are.",
+      },
+      {
+        q: "Do I have to switch editors to use Cursor?",
+        a: "Yes — Cursor is its own editor rather than an extension. The switch is mild, though: it's a fork of VS Code, so your extensions, themes, keybindings, and settings come across and the interface is the one you already know. Copilot is the option if you want to stay in JetBrains, Neovim, Xcode, or Visual Studio.",
+      },
+      {
+        q: "Do Cursor and Copilot use the same AI models?",
+        a: "Largely, yes. Both are model-agnostic and expose a picker covering the current frontier: OpenAI's GPT-5.6 family, Anthropic's Claude Sonnet 5 and Claude Fable 5, and more. Cursor additionally ships xAI's Grok 4.5 as a first-class option — the model was co-trained on real Cursor usage data. On raw model quality the two are close; the difference is how each tool uses those models around your code.",
+      },
+      {
+        q: "Which one is better for teams and enterprises?",
+        a: "GitHub Copilot. It has mature enterprise controls — SSO, audit logs, policy management, and content exclusions that keep sensitive files out of context — plus native integration with the GitHub platform your team probably already runs on, including turning an issue into a pull request. Cursor offers a privacy mode that keeps your code from being stored or trained on, which covers most solo and small-team needs.",
+      },
+      {
+        q: "Which is better for vibe coding?",
+        a: "Cursor, for most people. Vibe coding means describing what you want and letting the agent implement it, and Cursor's agent is tighter and more central to the moment-to-moment workflow, with repo-aware Tab prediction that stages the edit you were about to make. Copilot's agent mode is capable, but Copilot is designed to stay out of your way rather than to do large chunks of the work when invited in.",
+      },
+    ],
   },
   {
     slug: "chatgpt-vs-claude",
-    title: "ChatGPT vs Claude: Which AI Assistant Is Right for You?",
+    title: "ChatGPT vs Claude: Which AI Assistant Is Right for You in 2026?",
     excerpt:
       "ChatGPT (GPT-5.6) and Claude (Sonnet 5 & Fable 5) are the two most popular AI assistants — but they shine at different things. A practical 2026 breakdown for writing, coding, and research.",
     date: "Jul 18, 2026",
+    updated: "Jul 28, 2026",
     author: "David Kim",
     category: "Comparison",
     readTime: "8 min read",
@@ -135,8 +163,34 @@ export const postsBatch3: BlogPost[] = [
         <li><strong>Claude</strong> (Sonnet 5 for everyday, Fable 5 for the hardest work) for writing, editing, and long-context reasoning.</li>
         <li><strong>ChatGPT</strong> (GPT-5.6) for the widest ecosystem, integrations, and all-rounder convenience.</li>
       </ul>
-      <p>Both have generous free tiers — the honest answer is to try each on your real work for a week. Explore more options in our <a href="/best/assistance">best AI assistants</a> guide.</p>
+      <p>Both have generous free tiers — the honest answer is to try each on your real work for a week. Explore more options in our <a href="/best/assistance">best AI assistants</a> guide, or see where an assistant fits alongside an editor and app builder in the <a href="/blog/best-ai-tools-for-vibe-coding">best AI tools for vibe coding</a>.</p>
     `,
+    faq: [
+      {
+        q: "Is ChatGPT or Claude better for coding?",
+        a: "Both are strong, and many developers keep both open — one for quick generation, one for careful review. GPT-5.6 Sol is OpenAI's most capable coding model to date, with roughly a 54% improvement in token efficiency on agentic tasks, which matters if you run long autonomous coding sessions. Claude Fable 5 is equally at home reviewing large diffs, explaining unfamiliar code, and reasoning across a big codebase without losing the thread.",
+      },
+      {
+        q: "Which is better for writing and long documents?",
+        a: "Claude. It has a long-standing reputation for natural, controlled prose and handles long documents well thanks to its large context window. Sonnet 5 keeps that everyday polish and Fable 5 pushes further on nuance and instruction-following, so if you paste in a full report and ask for a faithful rewrite, Claude tends to hold the thread better.",
+      },
+      {
+        q: "Which models power ChatGPT and Claude in 2026?",
+        a: "ChatGPT runs on OpenAI's GPT-5.6 family, released in July 2026: Sol (the flagship, with an \"ultra\" mode that delegates subtasks to smaller models), Terra (the balanced default), and Luna (tuned for speed). Claude is led by Claude Fable 5, Anthropic's top-tier flagship, with Claude Sonnet 5 — released June 2026 — as the fast default for Free and Pro users. The previous generation, Opus 4.8 and Haiku 4.5, is still available.",
+      },
+      {
+        q: "How much do ChatGPT and Claude cost?",
+        a: "For consumers both charge around $20/month for their Pro/Plus tiers. The bigger differences are in API pricing: GPT-5.6 Sol runs $5/$30 per million input/output tokens and Luna $1/$6, while Claude Sonnet 5 launched at an introductory $2/$10 that rises to $3/$15 after August 31, 2026 — worth factoring in if you're planning a build around it.",
+      },
+      {
+        q: "Are the free tiers good enough?",
+        a: "For most everyday work, yes. ChatGPT's free tier gives you a capable GPT-5.6 variant with usage limits, and Claude's free tier runs on Sonnet 5. Subscriptions mainly buy higher limits, priority access to the flagship models, and heavier features like advanced voice or bigger context windows.",
+      },
+      {
+        q: "Should I pay for both?",
+        a: "Only if you regularly hit limits on one. A practical split is Claude for writing, editing, and long-context reasoning, and ChatGPT for integrations, multimodal work, and all-rounder convenience. Run a week of your actual tasks through each free tier first — most people know which one they instinctively reach for within a few days.",
+      },
+    ],
   },
   {
     slug: "elevenlabs-review",

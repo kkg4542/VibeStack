@@ -141,6 +141,21 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         dangerouslySetInnerHTML={{ __html: sanitizedContent }}
                     />
 
+                    {post.faq && post.faq.length > 0 && (
+                        <section
+                            aria-labelledby="faq-heading"
+                            className="prose dark:prose-invert prose-zinc prose-indigo mx-auto prose-lg prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary/80 mt-12 border-t border-border/60 pt-10"
+                        >
+                            <h2 id="faq-heading">Frequently asked questions</h2>
+                            {post.faq.map((item) => (
+                                <div key={item.q}>
+                                    <h3>{item.q}</h3>
+                                    <p>{item.a}</p>
+                                </div>
+                            ))}
+                        </section>
+                    )}
+
                     {post.relatedStack && <StackPromoCard stackId={post.relatedStack} />}
                 </article>
 
@@ -158,6 +173,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         "description": post.excerpt,
                         "image": post.image,
                         "datePublished": post.date,
+                        "dateModified": post.updated ?? post.date,
                         "author": {
                             "@type": "Person",
                             "name": post.author,
@@ -177,6 +193,27 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     })
                 }}
             />
+
+            {/* FAQ Structured Data — mirrors the rendered FAQ section above */}
+            {post.faq && post.faq.length > 0 && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "FAQPage",
+                            "mainEntity": post.faq.map((item) => ({
+                                "@type": "Question",
+                                "name": item.q,
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": item.a,
+                                },
+                            })),
+                        })
+                    }}
+                />
+            )}
         </main>
     );
 }

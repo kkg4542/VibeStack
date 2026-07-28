@@ -67,10 +67,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.9,
     }));
 
-    // Blog pages
+    // Blog pages — refreshed posts carry an `updated` date, which is what we
+    // want crawlers to see as lastmod.
     const blogPages = blogPosts.map((post) => ({
         url: `${baseUrl}/blog/${post.slug}`,
-        lastModified: new Date(post.date),
+        lastModified: new Date(post.updated ?? post.date),
         changeFrequency: "monthly" as const,
         priority: 0.7,
     }));
