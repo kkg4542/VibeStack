@@ -1,8 +1,47 @@
+import type { ToolData } from "./tool-types";
+
+export interface ComparePair {
+    /** URL slug, e.g. "chatgpt-vs-claude" → /compare/chatgpt-vs-claude */
+    slug: string;
+    /** Human label, e.g. "ChatGPT vs Claude" */
+    label: string;
+    t1: ToolData;
+    t2: ToolData;
+}
+
+/** Hard cap on published comparison pages — keeps the sitemap focused. */
+const COMPARE_PAIR_LIMIT = 50;
+
+/**
+ * The canonical list of published comparison pages: same-category pairs in
+ * `getTools()` order, capped at 50.
+ *
+ * This is the single source of truth shared by generateStaticParams
+ * (app/compare/[slug]/page.tsx), the sitemap, and every server-rendered
+ * directory that links to comparisons. Changing the ordering or the cap
+ * changes which URLs exist — don't.
+ */
+export function comparePairs(tools: ToolData[]): ComparePair[] {
+    return tools
+        .flatMap((t1, i) =>
+            tools
+                .slice(i + 1)
+                .filter((t2) => t1.category === t2.category)
+                .map((t2) => ({
+                    slug: `${t1.slug}-vs-${t2.slug}`,
+                    label: `${t1.title} vs ${t2.title}`,
+                    t1,
+                    t2,
+                }))
+        )
+        .slice(0, COMPARE_PAIR_LIMIT);
+}
+
 /**
  * Hand-written editorial copy for high-traffic comparison pages.
  * Pages without an entry fall back to data-generated copy in
  * app/compare/[slug]/page.tsx. Slugs must match `${slug1}-vs-${slug2}`
- * in the order produced by the pair generator (see sitemap.ts).
+ * in the order produced by `comparePairs()`.
  */
 export interface CompareEditorial {
   /** Opening paragraphs rendered under "Overview". Plain text. */

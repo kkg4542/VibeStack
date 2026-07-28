@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { stacks } from "@/lib/stacks";
 import { StackDetailClient } from "./StackDetailClient";
+import { StackRelatedLinks } from "@/components/seo/StackRelatedLinks";
 
 interface Props {
     params: Promise<{ stackId: string }>;
@@ -58,5 +59,12 @@ export default async function StackDetailPage({ params }: Props) {
         .map(slug => allTools.find(t => t.slug === slug))
         .filter((t): t is NonNullable<typeof t> => t !== undefined);
 
-    return <StackDetailClient stack={stack} metrics={metrics} stackTools={stackTools} />;
+    return (
+        <>
+            <StackDetailClient stack={stack} metrics={metrics} stackTools={stackTools} />
+            <div className="container max-w-7xl mx-auto px-4 pb-16">
+                <StackRelatedLinks stack={stack} stackTools={stackTools} allTools={allTools} />
+            </div>
+        </>
+    );
 }

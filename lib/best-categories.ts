@@ -25,6 +25,12 @@ interface CategoryCopy {
   faqs: { q: string; a: string }[];
 }
 
+/**
+ * Date of the last hand-edit to the copy below. Drives sitemap lastmod for
+ * /best/* — bump it whenever this file's content changes.
+ */
+export const BEST_REVISED = "2026-07-18";
+
 export const BEST_CATEGORIES: CategoryCopy[] = [
   {
     slug: "coding",

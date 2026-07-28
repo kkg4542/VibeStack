@@ -1,10 +1,14 @@
 import { MetadataRoute } from "next";
 import { getTools } from "@/lib/tools-db";
 import { blogPosts } from "@/lib/blog";
-import { stacks } from "@/lib/stacks";
-import { BEST_CATEGORIES } from "@/lib/best-categories";
+import { stacks, STACKS_REVISED } from "@/lib/stacks";
+import { BEST_CATEGORIES, BEST_REVISED } from "@/lib/best-categories";
+import { comparePairs } from "@/lib/compare-content";
 
 const CATEGORY_SLUGS = ["coding", "management", "productivity", "assistance", "design", "other"];
+
+/** Last hand-edit of the category landing pages. */
+const CATEGORIES_REVISED = "2026-07-04";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = "https://usevibestack.com";
@@ -42,7 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Category pages — /categories/[slug]
     const categoryPages = CATEGORY_SLUGS.map((slug) => ({
         url: `${baseUrl}/categories/${slug}`,
-        lastModified: staticLastModified,
+        lastModified: new Date(CATEGORIES_REVISED),
         changeFrequency: "weekly" as const,
         priority: 0.8,
     }));
@@ -58,7 +62,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Stack pages
     const stackPages = stacks.map((stack) => ({
         url: `${baseUrl}/stack/${stack.id}`,
-        lastModified: staticLastModified,
+        lastModified: new Date(STACKS_REVISED),
         changeFrequency: "weekly" as const,
         priority: 0.9,
     }));
@@ -74,26 +78,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // "Best AI [Category] Tools" landing pages
     const bestPages = BEST_CATEGORIES.map((c) => ({
         url: `${baseUrl}/best/${c.slug}`,
-        lastModified: staticLastModified,
+        lastModified: new Date(BEST_REVISED),
         changeFrequency: "weekly" as const,
         priority: 0.9,
     }));
 
-    // Comparison pages — mirror generateStaticParams in app/compare/[slug]/page.tsx
-    // (same-category pairs, capped to match the build-time generation)
-    const comparisonPages = tools
-        .flatMap((t1, i) =>
-            tools.slice(i + 1)
-                .filter((t2) => t1.category === t2.category)
-                .map((t2) => ({ slug: `${t1.slug}-vs-${t2.slug}` }))
-        )
-        .slice(0, 50)
-        .map(({ slug }) => ({
+    // Comparison pages — the shared pair set (same-category pairs, capped at 50).
+    // A comparison is only as fresh as the two tools it describes, so lastmod
+    // tracks the most recently updated of the pair.
+    const comparisonPages = comparePairs(tools).map(({ slug, t1, t2 }) => {
+        const updates = [t1.updatedAt, t2.updatedAt]
+            .filter((d): d is string => Boolean(d))
+            .map((d) => new Date(d).getTime());
+
+        return {
             url: `${baseUrl}/compare/${slug}`,
-            lastModified: staticLastModified,
+            lastModified: updates.length > 0 ? new Date(Math.max(...updates)) : staticLastModified,
             changeFrequency: "weekly" as const,
             priority: 0.8,
-        }));
+        };
+    });
 
     return [
         ...staticPages,

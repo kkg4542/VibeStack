@@ -63,6 +63,8 @@ export async function getTools(): Promise<ToolData[]> {
             cons: tool.cons,
             isFeatured: tool.isFeatured,
             adCopy: undefined,
+            updatedAt: tool.updatedAt?.toISOString(),
+            createdAt: tool.createdAt?.toISOString(),
         }));
         return sortByPopularity(mapped);
     } catch (error) {
@@ -91,6 +93,8 @@ export async function getToolBySlug(slug: string): Promise<ToolData | null> {
             cons: tool.cons,
             isFeatured: tool.isFeatured,
             adCopy: undefined,
+            updatedAt: tool.updatedAt?.toISOString(),
+            createdAt: tool.createdAt?.toISOString(),
         };
     } catch (error) {
         console.error(`Failed to fetch tool ${slug} from database:`, error);

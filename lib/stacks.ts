@@ -19,6 +19,12 @@ export interface Stack {
     shareCount?: number;
 }
 
+/**
+ * Date of the last hand-edit to the curated stacks below. Drives sitemap
+ * lastmod for /stack/* — bump it whenever this file's content changes.
+ */
+export const STACKS_REVISED = "2026-07-04";
+
 export const stacks: Stack[] = [
     {
         id: "magic-wand",

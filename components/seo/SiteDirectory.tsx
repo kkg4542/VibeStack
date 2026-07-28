@@ -3,6 +3,7 @@ import { getTools } from "@/lib/tools-db";
 import { blogPosts } from "@/lib/blog";
 import { stacks } from "@/lib/stacks";
 import { BEST_CATEGORIES } from "@/lib/best-categories";
+import { comparePairs } from "@/lib/compare-content";
 import { ToolData } from "@/lib/tool-types";
 
 const CATEGORY_SLUGS = ["coding", "management", "productivity", "assistance", "design", "other"] as const;
@@ -20,19 +21,8 @@ const CATEGORY_SLUGS = ["coding", "management", "productivity", "assistance", "d
 export async function SiteDirectory() {
     const tools = await getTools();
 
-    // Comparison slugs — must mirror generateStaticParams in
-    // app/compare/[slug]/page.tsx exactly (same-category pairs, capped at 50).
-    const comparisons = tools
-        .flatMap((t1, i) =>
-            tools
-                .slice(i + 1)
-                .filter((t2) => t1.category === t2.category)
-                .map((t2) => ({
-                    slug: `${t1.slug}-vs-${t2.slug}`,
-                    label: `${t1.title} vs ${t2.title}`,
-                }))
-        )
-        .slice(0, 50);
+    // Comparison slugs — shared with generateStaticParams and the sitemap.
+    const comparisons = comparePairs(tools);
 
     const sortedTools = [...tools].sort((a, b) => a.title.localeCompare(b.title));
 

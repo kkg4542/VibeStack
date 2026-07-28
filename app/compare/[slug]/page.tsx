@@ -3,8 +3,9 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, ChevronRight, Check, Scale, X } from 'lucide-react';
 import { getTools } from '@/lib/tools-db';
-import { getCompareEditorial } from '@/lib/compare-content';
-import { ToolData } from '@/lib/tool-types';
+import { comparePairs, getCompareEditorial } from '@/lib/compare-content';
+import { stacks } from '@/lib/stacks';
+import { BEST_CATEGORIES } from '@/lib/best-categories';
 import { PageBackground, BackgroundPresets } from '@/components/effects/PageBackground';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -15,17 +16,6 @@ import { designSystem } from '@/lib/design-system';
 
 interface Props {
     params: Promise<{ slug: string }>;
-}
-
-/** Same-category pairs, capped to mirror the sitemap. */
-function generatePairs(tools: ToolData[]): string[] {
-    return tools
-        .flatMap((t1, i) =>
-            tools.slice(i + 1)
-                .filter(t2 => t1.category === t2.category)
-                .map(t2 => `${t1.slug}-vs-${t2.slug}`)
-        )
-        .slice(0, 50);
 }
 
 function lcFirst(s: string): string {
@@ -67,7 +57,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export async function generateStaticParams() {
     const tools = await getTools();
-    return generatePairs(tools).map(slug => ({ slug }));
+    return comparePairs(tools).map(({ slug }) => ({ slug }));
 }
 
 export default async function ComparisonSlugPage({ params }: Props) {
@@ -130,18 +120,20 @@ export default async function ComparisonSlugPage({ params }: Props) {
 
     // Related comparisons that share a tool with this page, from the same
     // capped pair set the sitemap publishes.
-    const titleBySlug = new Map(tools.map(t => [t.slug, t.title]));
-    const related = generatePairs(tools)
-        .filter(p => p !== slug)
-        .filter(p => {
-            const [a, b] = p.split('-vs-');
-            return a === tool1.slug || b === tool1.slug || a === tool2.slug || b === tool2.slug;
-        })
-        .slice(0, 8)
-        .map(p => {
-            const [a, b] = p.split('-vs-');
-            return { slug: p, label: `${titleBySlug.get(a)} vs ${titleBySlug.get(b)}` };
-        });
+    const related = comparePairs(tools)
+        .filter(p => p.slug !== slug)
+        .filter(p =>
+            p.t1.slug === tool1.slug || p.t2.slug === tool1.slug ||
+            p.t1.slug === tool2.slug || p.t2.slug === tool2.slug
+        )
+        .slice(0, 8);
+
+    // Category hub for tool1, plus every curated stack featuring either tool —
+    // server-rendered internal links so crawlers can walk between hubs.
+    const bestCategory = BEST_CATEGORIES.find(c => c.category === tool1.category);
+    const relatedStacks = stacks.filter(
+        s => s.tools.includes(tool1.slug) || s.tools.includes(tool2.slug)
+    );
 
     const faqJsonLd = {
         "@context": "https://schema.org",
@@ -445,14 +437,40 @@ export default async function ComparisonSlugPage({ params }: Props) {
                                 </Link>
                             ))}
                         </div>
-                        <div className="mt-6">
-                            <Link href="/tools" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors group">
-                                <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-                                Browse the full tool directory
-                            </Link>
-                        </div>
                     </MotionDiv>
                 )}
+
+                {/* Category hub + curated stacks — static server-rendered links */}
+                <nav aria-label="Keep exploring" className="max-w-4xl mx-auto mt-16">
+                    <h2 className="text-lg font-bold mb-4">Keep exploring</h2>
+                    <div className="flex flex-wrap gap-2">
+                        {bestCategory && (
+                            <Link
+                                href={`/best/${bestCategory.slug}`}
+                                className="inline-flex items-center gap-1 rounded-full border border-border bg-card px-4 py-2 text-sm hover:border-vibe-electric/50 transition-colors"
+                            >
+                                Best {tool1.category.toLowerCase()} tools
+                                <ArrowRight className="h-3.5 w-3.5" />
+                            </Link>
+                        )}
+                        {relatedStacks.map((s) => (
+                            <Link
+                                key={s.id}
+                                href={`/stack/${s.id}`}
+                                className="inline-flex items-center gap-1 rounded-full border border-border bg-card px-4 py-2 text-sm hover:border-vibe-electric/50 transition-colors"
+                            >
+                                {s.name}
+                                <ArrowRight className="h-3.5 w-3.5" />
+                            </Link>
+                        ))}
+                    </div>
+                    <div className="mt-6">
+                        <Link href="/tools" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors group">
+                            <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+                            Browse the full tool directory
+                        </Link>
+                    </div>
+                </nav>
             </div>
         </PageBackground>
     );

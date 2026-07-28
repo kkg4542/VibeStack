@@ -7,6 +7,8 @@ import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { ReadingProgress } from "@/components/blog/ReadingProgress";
 import { StackPromoCard } from "@/components/blog/StackPromoCard";
+import { BlogRelatedLinks } from "@/components/seo/BlogRelatedLinks";
+import { getTools } from "@/lib/tools-db";
 import sanitizeHtml from "sanitize-html";
 
 interface Props {
@@ -65,6 +67,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     if (!post) {
         notFound();
     }
+
+    const tools = await getTools();
 
     // Sanitize HTML content to prevent XSS attacks
     const sanitizedContent = sanitizeHtml(post.content, {
@@ -139,6 +143,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
                     {post.relatedStack && <StackPromoCard stackId={post.relatedStack} />}
                 </article>
+
+                <BlogRelatedLinks post={post} tools={tools} />
             </div>
 
             {/* Structured Data */}
