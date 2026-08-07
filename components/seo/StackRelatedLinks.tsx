@@ -24,9 +24,20 @@ export function StackRelatedLinks({ stack, stackTools, allTools }: StackRelatedL
         stackTools.some((t) => t.category === c.category)
     );
 
-    // Other stacks sharing at least one tool with this one.
-    const siblingStacks = stacks
-        .filter((s) => s.id !== stack.id && s.tools.some((slug) => stack.tools.includes(slug)))
+    // Other stacks to surface in "Other stacks". Prefer stacks that actually
+    // share a tool (the strongest relation), then fall back to stacks that
+    // share a tag, then finally to any other stack — so every stack page
+    // gets this cross-link section instead of only the ones lucky enough to
+    // overlap on tools (e.g. power-pair shares no tool with any sibling but
+    // shares "Advanced"/"Pro" tags with 10x-engineer).
+    const toolSiblings = stacks.filter(
+        (s) => s.id !== stack.id && s.tools.some((slug) => stack.tools.includes(slug))
+    );
+    const tagSiblings = stacks.filter(
+        (s) => s.id !== stack.id && s.tags.some((tag) => stack.tags.includes(tag))
+    );
+    const otherStacks = stacks.filter((s) => s.id !== stack.id);
+    const siblingStacks = (toolSiblings.length > 0 ? toolSiblings : tagSiblings.length > 0 ? tagSiblings : otherStacks)
         .slice(0, 4);
 
     // Tools listed in `stack.tools` that aren't in the directory keep their

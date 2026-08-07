@@ -51,7 +51,10 @@ export const getFeaturedStacks = unstable_cache(
         fallbackStacks = await prisma.stack.findMany({
           where: {
             idField: {
-              in: ["10x-engineer", "product-designer", "magic-wand"],
+              // Fallback featured set used only when no stack has metrics
+              // yet. power-pair is included so it gets the same homepage
+              // inbound link magic-wand and product-designer already get.
+              in: ["10x-engineer", "product-designer", "magic-wand", "power-pair"],
             },
           },
           include: {

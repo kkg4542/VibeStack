@@ -22,19 +22,31 @@ const COMPARE_PAIR_LIMIT = 50;
  * changes which URLs exist — don't.
  */
 export function comparePairs(tools: ToolData[]): ComparePair[] {
-    return tools
-        .flatMap((t1, i) =>
-            tools
-                .slice(i + 1)
-                .filter((t2) => t1.category === t2.category)
-                .map((t2) => ({
-                    slug: `${t1.slug}-vs-${t2.slug}`,
-                    label: `${t1.title} vs ${t2.title}`,
-                    t1,
-                    t2,
-                }))
-        )
-        .slice(0, COMPARE_PAIR_LIMIT);
+    const all = tools.flatMap((t1, i) =>
+        tools
+            .slice(i + 1)
+            .filter((t2) => t1.category === t2.category)
+            .map((t2) => ({
+                slug: `${t1.slug}-vs-${t2.slug}`,
+                label: `${t1.title} vs ${t2.title}`,
+                t1,
+                t2,
+            }))
+    );
+
+    const capped = all.slice(0, COMPARE_PAIR_LIMIT);
+
+    // Safety net: a page with hand-written editorial copy is a page someone
+    // invested in and search engines have already indexed. Adding one tool to
+    // the directory must never silently push it past COMPARE_PAIR_LIMIT and
+    // drop it out of the sitemap / generateStaticParams. Editorial slugs are
+    // always published, cap or not.
+    const published = new Set(capped.map((p) => p.slug));
+    const rescued = all.filter(
+        (p) => !published.has(p.slug) && Object.hasOwn(COMPARE_EDITORIAL, p.slug)
+    );
+
+    return [...capped, ...rescued];
 }
 
 /**
@@ -44,6 +56,14 @@ export function comparePairs(tools: ToolData[]): ComparePair[] {
  * in the order produced by `comparePairs()`.
  */
 export interface CompareEditorial {
+  /**
+   * Optional <title> override (the " | VibeStack" suffix is appended by the
+   * root layout template, so keep this at 48 characters or fewer to stay
+   * inside Google's ~60-character SERP budget). Use it when the generated
+   * template would truncate, or when the phrasing people actually search for
+   * differs from the tools' full product names.
+   */
+  title?: string;
   /** Opening paragraphs rendered under "Overview". Plain text. */
   intro: string[];
   /** Closing verdict paragraph. Plain text. */
@@ -145,6 +165,74 @@ export const COMPARE_EDITORIAL: Record<string, CompareEditorial> = {
     verdict:
       "Choose Replit to learn, prototype, and ship small apps with zero configuration. Choose Cursor for professional work on codebases you'll maintain for years. They serve adjacent but genuinely different jobs.",
   },
+  "cursor-vs-gemini-code-assist": {
+    title: "Cursor vs Gemini Code Assist: Pricing & Verdict",
+    intro: [
+      "Cursor and Gemini Code Assist both put AI in front of your code, but only one of them is an editor. Cursor is a VS Code fork rebuilt around AI: multi-file agent edits, codebase-wide chat, and a model picker that spans Claude, GPT, Gemini, and Grok. Gemini Code Assist is an extension — it adds Google's Gemini models to the IDE you already use, and its real differentiator is awareness of your Google Cloud resources on the paid Enterprise tier.",
+      "Pricing is where they diverge hardest, and it's the comparison most people are actually running. Cursor charges credits: $20/mo Pro, $60 Pro+, $200 Ultra, and how far a tier stretches depends on which model you point at your prompts — frontier models burn credits fast, cheaper ones last. The capability is worth it for many developers, but you end up doing arithmetic in your head before firing off a long agent run. Gemini Code Assist went the opposite direction with an unusually generous free individual tier: up to 6,000 code requests and 240 chat requests per day, which for a solo developer was effectively unlimited.",
+      "That free tier now carries an asterisk. Google set June 18, 2026 as the cutoff for the Code Assist IDE extensions and the Gemini CLI on the individual, Google AI Pro, and Google AI Ultra tiers, pointing those users to Antigravity and the Antigravity CLI instead. If the free allowance is the reason you're considering it, confirm what's currently served for your account before building a workflow on it. The paid Standard (~$19–23/user/mo) and Enterprise (~$45–54/user/mo) tiers aimed at Google Cloud organizations continue, and that's where the product's genuine strength — suggestions grounded in your actual cloud services — lives.",
+    ],
+    verdict:
+      "Choose Cursor if agentic, multi-file development is the job and you'd rather absorb variable credit costs for the most capable AI editor available. Choose Gemini Code Assist if your team builds on Google Cloud and wants an assistant that understands your infrastructure, or if you want in-IDE completions at no cost and have verified which tier still serves your account after the Antigravity migration. They aren't really the same product: one replaces your editor, the other adds Google's models to it.",
+    faqs: [
+      {
+        q: "Is Gemini Code Assist still free?",
+        a: "It had a very generous free individual tier — roughly 6,000 code requests and 240 chat requests per day — but Google set June 18, 2026 as the date the Code Assist IDE extensions and Gemini CLI stop serving individual, Google AI Pro, and Google AI Ultra accounts, migrating them to Antigravity. Check your account's current status before relying on the free allowance. The paid Standard and Enterprise tiers are unaffected.",
+      },
+      {
+        q: "Can I use Gemini models inside Cursor?",
+        a: "Yes. Cursor's model picker includes Gemini alongside Claude, GPT, and Grok, so you can get Gemini's output inside an agentic editor. The catch is that it runs on Cursor credits rather than Google's free allowance — you're paying Cursor for the editor, not Google for the model access.",
+      },
+    ],
+  },
+  "github-copilot-vs-coderabbit": {
+    title: "GitHub Copilot vs CodeRabbit (2026): Code Review",
+    intro: [
+      "These two get compared because both have \"AI\" and \"code\" in the pitch, but they sit at opposite ends of the same workflow and they aren't really competitors. GitHub Copilot is a writing tool: inline completions, chat, and agent mode inside VS Code and JetBrains, plus a CLI and a cloud agent that can open pull requests. CodeRabbit is a reviewing tool: it attaches to your repository and posts change summaries and line-by-line review comments with suggested fixes on every pull request that opens. Copilot helps you produce the diff. CodeRabbit reads the diff after you push it.",
+      "The genuine overlap is narrower than the search results suggest. GitHub ships its own Copilot code review inside pull requests, so the real question for most teams isn't \"Copilot or CodeRabbit\" but \"is Copilot's built-in review enough, or do I want a dedicated reviewer?\" CodeRabbit goes deeper: it reviews line by line rather than summarizing, picks up your codebase's conventions over repeated reviews, is configurable per repository, and works on GitLab, Bitbucket, and Azure DevOps as well as GitHub. Its cost is noise — on an active repo it comments a lot, and most teams spend the first couple of weeks tuning what it flags before the signal-to-noise ratio feels right.",
+      "Budget matters here because these are two line items, not one. Copilot is priced per developer (Pro at $10/mo, with all plans moved to usage-based AI credits as of June 1, 2026), and CodeRabbit is a separate per-seat cost layered on top. A ten-person team adopting both is signing up for two subscriptions that solve two different bottlenecks.",
+    ],
+    verdict:
+      "These are complements, not alternatives — teams that seriously evaluate both usually end up running both, with Copilot at the keyboard and CodeRabbit at the pull request. If you can only fund one, diagnose your bottleneck honestly: if code sits in review for days and bugs slip through, CodeRabbit buys back more time; if writing the code is the slow part, Copilot does. And if you already pay for Copilot in a GitHub-native shop, spend a sprint with Copilot's built-in code review before adding a second bill — for smaller teams it may be sufficient.",
+    faqs: [
+      {
+        q: "Is CodeRabbit a replacement for GitHub Copilot?",
+        a: "No. CodeRabbit doesn't write code in your editor — it has no inline completions, no chat-while-you-type, and no agent building features for you. It reviews pull requests after the code exists. Dropping Copilot for CodeRabbit would leave you without an authoring assistant entirely.",
+      },
+      {
+        q: "Does GitHub Copilot do code review?",
+        a: "Yes — Copilot code review runs inside GitHub pull requests, summarizing changes and suggesting review comments. It's convenient because it's already bundled, but it's a lighter pass than a dedicated reviewer. CodeRabbit's line-by-line depth, per-repo configuration, and support for GitLab, Bitbucket, and Azure DevOps are what teams pay extra for.",
+      },
+      {
+        q: "Do I need both Copilot and CodeRabbit?",
+        a: "Only if both stages of your workflow are slow. They cover different points in the cycle — authoring versus reviewing — so running both is redundant only in budget, not in function. Start with whichever bottleneck costs you more hours per week and add the second once you can measure the gap.",
+      },
+    ],
+  },
+  "github-copilot-vs-supermaven": {
+    title: "GitHub Copilot vs Supermaven: Speed & Context",
+    intro: [
+      "Supermaven and GitHub Copilot both autocomplete your code, and that's roughly where the similarity ends. Supermaven is a single-purpose speed tool: a 1M-token context window and completions that arrive fast enough to feel like part of the editor rather than a round trip to a server. Copilot is a platform — completions, chat, agent mode (generally available on VS Code and JetBrains since March 2026), code review inside pull requests, a CLI, and a cloud agent.",
+      "The two specs Supermaven leads on aren't marketing abstractions; they change how the tool feels. Latency decides whether you wait for a suggestion or read one that's already sitting there. When completions land before your eyes leave the line you're typing, you stay in flow instead of pausing to evaluate a popup — and that difference compounds over a day far more than a few percentage points of suggestion quality. The 1M-token window decides how much of your repository the model saw before guessing: with a window that large, completions match the helper functions and types defined in files you never opened, rather than inventing plausible-looking APIs. On a big monorepo that shows up concretely as fewer hallucinated imports and fewer wrong function signatures.",
+      "Where Supermaven stops is everything past the cursor. It won't plan a multi-file refactor, open a pull request, or review a diff, and its ecosystem and integrations are much smaller than Copilot's. Copilot does all of that and is wired into GitHub, where the rest of your workflow already lives — at the price of usage-metered billing since June 2026 and completions that feel a step slower. One more thing worth knowing before standardizing a team on Supermaven: its team joined Cursor's parent company Anysphere in late 2024, so check the current state of the extension for your editor rather than assuming an independent roadmap.",
+    ],
+    verdict:
+      "Choose Supermaven if autocomplete is the part of AI coding you actually use all day and you want the fastest, most context-aware version of it for a low flat price. Choose GitHub Copilot if you want one tool covering the whole cycle — completion, chat, agents, and pull request review — and you'll trade a little latency and predictable billing for that breadth. There's also a hybrid a lot of completion-sensitive developers land on: turn off Copilot's inline suggestions, keep its chat and agent features, and let Supermaven own the tab key.",
+    faqs: [
+      {
+        q: "Is Supermaven faster than GitHub Copilot?",
+        a: "Speed is Supermaven's entire pitch, and in practice its completions do surface noticeably sooner than Copilot's. Whether that matters depends on how you work: if you accept suggestions constantly while typing, the lower latency is the difference between staying in flow and waiting. If you mostly use chat and agents, it's irrelevant.",
+      },
+      {
+        q: "Can I run Supermaven and GitHub Copilot at the same time?",
+        a: "Yes, but not with both providing inline completions — two extensions competing for the same suggestion slot fight each other. The workable setup is to disable Copilot's inline suggestions in your editor settings while keeping Copilot Chat, agent mode, and PR review, and let Supermaven handle autocomplete.",
+      },
+      {
+        q: "Does Supermaven have agent features?",
+        a: "No. Supermaven is deliberately autocomplete-first — a 1M-token context window feeding fast, in-line completions. It won't execute multi-file changes, run terminal commands, or open pull requests. If you need agentic work, that's Copilot's agent mode or a full AI editor like Cursor.",
+      },
+    ],
+  },
   "midjourney-vs-adobe-firefly": {
     intro: [
       "Midjourney and Adobe Firefly lead AI image generation from opposite directions. Midjourney is the aesthetic benchmark — its images have a distinctive, art-directed quality that still sets the standard, and its community-driven workflow rewards prompt craft. Firefly is the professional-pipeline choice: trained on licensed content, commercially safer by design, and integrated directly into Photoshop, Illustrator, and Express.",
@@ -160,6 +248,31 @@ export const COMPARE_EDITORIAL: Record<string, CompareEditorial> = {
     ],
     verdict:
       "Choose Notion AI for knowledge work: docs, wikis, notes, and a gentler learning curve. Choose Coda when you need documents that function like software. Both AIs are only as useful as the workspace they live in, so pick the platform first and the AI follows.",
+  },
+  "notion-ai-vs-microsoft-365-copilot": {
+    title: "Notion AI vs Microsoft 365 Copilot (2026)",
+    intro: [
+      "Notion AI and Microsoft 365 Copilot both promise AI grounded in your own work, but they're grounded in different places. Notion AI reads your Notion workspace — the docs, wikis, and databases your team already maintains — and \"Ask Notion\" turns that into a queryable knowledge base. Copilot reads Microsoft Graph: Word documents, Excel workbooks, Outlook threads, Teams meetings. Neither is better in the abstract. Whichever one points at where your team's real information already lives is the one that will actually answer questions.",
+      "The pricing structures differ more than the sticker prices suggest, and this is where most evaluations go wrong. Notion folded AI into the plan itself: since May 2025 there's no separate $10 AI add-on, and full AI — including Ask Notion and Agents — comes with the Business tier at $20/user/mo. One line item, and teams already on Business pay nothing extra. Microsoft charges an add-on on top of a subscription you already hold: Copilot Business runs roughly $18–21/user/mo (the $18 promotional annual rate runs through mid-2026 before rising) or about $30/user/mo for Enterprise, and that sits on top of a qualifying Microsoft 365 plan. The real cost is the sum of both.",
+      "Two footnotes that trip up buyers. Microsoft 365 Copilot Chat is included at no additional cost for eligible Microsoft 365 users, but it does not connect to your Office apps — it can't read your email, recap a meeting, or analyze your spreadsheet, so \"free Copilot\" is not the product being compared here. On the Notion side, Custom Agents began consuming paid credits in May 2026 at $10 per 1,000 monthly credits, so heavy agent use adds a metered charge on top of the $20 seat.",
+      "In practice the decision is usually already made for you. If your team's knowledge lives in Notion pages and databases, Copilot has nothing to read. If your team runs on Excel models, Outlook threads, and Teams meetings, Notion AI can't see any of it. The genuinely open case is a team that hasn't committed to either platform — and there the question is which workspace you want, not which AI.",
+    ],
+    verdict:
+      "Choose Notion AI if your source of truth is a Notion workspace and you like AI arriving inside a single $20/user plan rather than as a separate purchase order. Choose Microsoft 365 Copilot if your work already lives in Office and you need AI inside Word, Excel, Outlook, and Teams under Microsoft's security and compliance boundary — and budget it as an add-on on top of your existing Microsoft 365 seats, not a replacement for them. Pick the workspace first; the AI follows.",
+    faqs: [
+      {
+        q: "Can Microsoft 365 Copilot read my Notion pages?",
+        a: "Not out of the box. Copilot answers from Microsoft Graph — your Office files, mail, and Teams content. Enterprise admins can index external sources through Microsoft Graph connectors, but that's an IT project rather than a setting you toggle, and it won't give you the same fidelity as Ask Notion running natively over a Notion workspace.",
+      },
+      {
+        q: "Is the free version of Microsoft 365 Copilot enough?",
+        a: "Only if you want a general chatbot. Microsoft 365 Copilot Chat is included for eligible Microsoft 365 users, but it doesn't connect to your Office apps — no summarizing an email thread, no recapping a Teams meeting, no analyzing your Excel data. Every capability people compare against Notion AI requires the paid add-on.",
+      },
+      {
+        q: "Which is better for meeting notes?",
+        a: "Copilot, if your meetings happen in Teams — it recaps calls directly, including what you missed and the action items, because it has the transcript. Notion AI handles meeting notes you write or record inside Notion and is stronger afterwards, at turning those notes into searchable team knowledge alongside the rest of your docs.",
+      },
+    ],
   },
 };
 

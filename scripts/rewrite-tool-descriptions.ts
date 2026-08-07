@@ -1,4 +1,30 @@
+/* ============================================================================
+ * !!! DO NOT RUN THIS TO "REFRESH" DESCRIPTIONS. !!!
+ *
+ * Same hazard as the .mjs twin: buildDescription() emits filler copy
+ *   "<Title> is an ai <category> tool built for practical workflows.
+ *    Core capabilities include A, B, C."
+ * which once shipped to production as the <meta name="description"> on
+ * /tool/{slug} and the Overview lede on /compare/{slug}. Cleanup lives in
+ * scripts/fix-placeholder-tool-descriptions.mjs.
+ *
+ * Guards added so it cannot clobber human-written copy again:
+ *   1. Dry run is the default; writes require --apply.
+ *   2. A row is skipped unless its description is empty or already filler.
+ * Do not remove those guards. Write real descriptions by hand instead.
+ * ==========================================================================*/
 import { prisma } from "@/lib/prisma";
+
+/** Matches copy previously emitted by buildDescription(). */
+const PLACEHOLDER_PATTERN =
+    /\bis an ai [a-z0-9 .+/-]+ tool built for practical workflows\./i;
+
+/** True only for rows that are safe to overwrite: empty or already filler. */
+function isSafeToOverwrite(description: string): boolean {
+    const current = (description || "").trim();
+    if (current.length === 0) return true;
+    return PLACEHOLDER_PATTERN.test(current);
+}
 
 type ToolRow = {
     id: string;
@@ -40,7 +66,8 @@ function buildDescription(tool: ToolRow): string {
 }
 
 async function main() {
-    const dryRun = process.argv.includes("--dry-run");
+    // Writes require an explicit --apply. A bare run is a preview.
+    const dryRun = !process.argv.includes("--apply");
 
     const tools = await prisma.tool.findMany({
         select: {
@@ -54,13 +81,21 @@ async function main() {
         orderBy: { title: "asc" },
     });
 
-    const updates = tools.map((tool) => {
-        const nextDescription = buildDescription(tool);
-        return { id: tool.id, nextDescription, prevDescription: tool.description, title: tool.title };
-    });
+    // GUARD: never touch a tool that already has real, human-written copy.
+    const protectedTools = tools.filter((tool) => !isSafeToOverwrite(tool.description));
+    const updates = tools
+        .filter((tool) => isSafeToOverwrite(tool.description))
+        .map((tool) => {
+            const nextDescription = buildDescription(tool);
+            return { id: tool.id, nextDescription, prevDescription: tool.description, title: tool.title };
+        });
+
+    console.log(
+        `Protected ${protectedTools.length} tool(s) with human-written descriptions (untouched).`
+    );
 
     if (dryRun) {
-        console.log(`Dry run: ${updates.length} tools`);
+        console.log(`Dry run: ${updates.length} tool(s) eligible. Pass --apply to write.`);
         updates.slice(0, 10).forEach((u) => {
             console.log(`- ${u.title}`);
             console.log(`  before: ${u.prevDescription}`);

@@ -725,6 +725,7 @@ export const postsBatch1: BlogPost[] = [
 
       <h3>Migration Notes for Teams Switching</h3>
       <p>Teams making the jump from VS Code to Cursor in 2026 report the transition is smoother than it used to be, mostly because Cursor's settings and extension compatibility have matured. The practical rollout pattern that works: let a handful of volunteers pilot Cursor for two to three weeks on real feature work, gather concrete before/after cycle-time numbers rather than anecdotes, and only then propose a broader rollout with an actual ROI case rather than "the new thing is exciting." Engineering leads who skip the pilot and mandate a switch company-wide tend to get more pushback than the tool itself deserves, simply because change management, not the editor, was the actual obstacle.</p>
+      <p>Worth piloting alongside Cursor: <strong>Windsurf</strong>, the other major VS Code fork, whose "Flow" context awareness gives a calmer, more guided agent experience at the same $20/month. We break down the differences in <a href="/blog/cursor-vs-windsurf">Cursor vs Windsurf</a>.</p>
     `
   },
   // 13. Server Actions (Expanded)

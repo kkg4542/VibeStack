@@ -23,14 +23,14 @@ export interface Stack {
  * Date of the last hand-edit to the curated stacks below. Drives sitemap
  * lastmod for /stack/* — bump it whenever this file's content changes.
  */
-export const STACKS_REVISED = "2026-07-04";
+export const STACKS_REVISED = "2026-08-07";
 
 export const stacks: Stack[] = [
     {
         id: "magic-wand",
         name: "The Magic Wand Stack",
         description: "Generate beautiful UI from text prompts without writing complex CSS.",
-        longDescription: "Perfect for beginners and rapid prototyping. This stack combines the power of AI-generated UI with component-based development. Transform your ideas into production-ready interfaces in minutes.",
+        longDescription: "The Magic Wand Stack pairs v0 by Vercel with Builder.io so you can go from a plain-English prompt to a working interface without hand-writing CSS or wiring up a component library from scratch. v0 turns a short description — \"a pricing page with three tiers and a toggle for monthly and yearly billing\" — into React components built on shadcn/ui and Tailwind, so the output already follows modern accessibility and responsive-design conventions instead of needing a cleanup pass. Builder.io picks up from there: it lets you visually rearrange, restyle, and extend what v0 generated, or start a section from its own visual editor and export the result as clean React, Vue, or plain HTML. Because both tools run in the browser, the loop from prompt to shippable component is short enough to use for real client work, not just throwaway demos — describe the section, generate it, drag a few elements around in Builder.io, and export. It's the fastest path in this directory from an idea to a UI you can deploy, which is why it's the default recommendation for beginners, freelancers building landing pages, and anyone validating an MVP before investing in a full design system.",
         totalPrice: "$0/mo",
         tags: ["UI Design", "No-Code", "Beginner", "Free"],
         tools: ["v0-by-vercel", "builder-io"],
@@ -119,17 +119,17 @@ export const stacks: Stack[] = [
     {
         id: "power-pair",
         name: "The Power Pair Stack",
-        description: "The smartest reasoning models integrated directly into your IDE.",
-        longDescription: "Combine the best of two worlds. This stack pairs Google's advanced reasoning with GitHub's deep code understanding for unparalleled development experience.",
+        description: "GitHub Copilot and Gemini Code Assist run side by side in your IDE — Copilot's fast autocomplete paired with Gemini's long-context reasoning, both usable on their free tiers.",
+        longDescription: "GitHub Copilot and Gemini Code Assist make an unusual power pair: both offer genuinely useful free tiers, so running them side by side costs nothing extra beyond the setup time. Copilot's strength is line-by-line autocomplete — it excels at predicting the next few tokens inside a function you're already writing, and its inline suggestions feel instant in VS Code, Visual Studio, and JetBrains IDEs. Gemini Code Assist covers the gap Copilot leaves: a much larger context window that can reason across an entire file or several open files at once, which makes it the better choice when you need to explain a confusing bug, plan a refactor that touches multiple functions, or ask \"why does this fail\" instead of \"what comes next.\" In practice, developers running this power pair let Copilot handle the moment-to-moment typing and switch to Gemini Code Assist's chat panel whenever a task needs broader reasoning, rather than picking one assistant to do everything. Because Copilot's free tier meters monthly completions and chat requests while Gemini Code Assist's free tier meters daily requests per user, the two rarely run out at the same time — most solo developers and small teams stay within both free tiers for regular day-to-day coding.",
         totalPrice: "$30+/mo",
         tags: ["Advanced", "Pro", "Reasoning", "Pair Programming"],
         tools: ["github-copilot", "gemini-code-assist"],
         idealFor: ["Professional developers", "Enterprise", "Complex logic", "Code reviews"],
         workflow: [
-            "1. Install GitHub Copilot in your IDE",
-            "2. Add Gemini Code Assist for reasoning",
-            "3. Get context-aware suggestions",
-            "4. Review and refine with AI assistance"
+            "1. Install GitHub Copilot in your IDE and sign in with a GitHub account on its free tier",
+            "2. Add the Gemini Code Assist extension and connect it to a Google account",
+            "3. Let Copilot autocomplete routine lines as you type; open Gemini Code Assist's chat when a task needs multi-file reasoning or an explanation",
+            "4. Use Gemini Code Assist to plan a refactor or debug a hard failure, then let Copilot handle the mechanical edits it suggests"
         ],
         icon: "🤝",
         color: "text-blue-500",

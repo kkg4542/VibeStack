@@ -12,7 +12,6 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
 import { ScrollProgress } from "@/components/effects/ScrollProgress";
-import { getCsrfToken } from "@/lib/csrf";
 import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
 import { GrainOverlay } from "@/components/effects/GrainOverlay";
 import { CustomCursor } from "@/components/effects/CustomCursor";
@@ -89,13 +88,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const csrfToken = await getCsrfToken();
-
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -112,7 +109,7 @@ export default async function RootLayout({
           Skip to main content
         </a>
         <ThemeProvider defaultTheme="dark" enableSystem>
-          <CsrfProvider initialToken={csrfToken}>
+          <CsrfProvider>
             <SessionProvider>
               <QueryProvider>
                 <ScrollProgress />

@@ -10,6 +10,7 @@ import { StackPromoCard } from "@/components/blog/StackPromoCard";
 import { BlogRelatedLinks } from "@/components/seo/BlogRelatedLinks";
 import { getTools } from "@/lib/tools-db";
 import sanitizeHtml from "sanitize-html";
+import { toISODate } from "@/lib/format-date";
 
 interface Props {
     params: { slug: string };
@@ -28,6 +29,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     if (!post) return { title: "Post Not Found" };
 
     const url = `https://usevibestack.com/blog/${post.slug}`;
+    const publishedTime = toISODate(post.date);
+    const modifiedTime = toISODate(post.updated ?? post.date);
 
     return {
         title: `${post.title} | VibeStack Blog`,
@@ -40,7 +43,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
             description: post.excerpt,
             url: url,
             type: "article",
-            publishedTime: post.date,
+            ...(publishedTime ? { publishedTime } : {}),
+            ...(modifiedTime ? { modifiedTime } : {}),
             authors: [post.author],
             images: [
                 {
@@ -172,8 +176,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         "headline": post.title,
                         "description": post.excerpt,
                         "image": post.image,
-                        "datePublished": post.date,
-                        "dateModified": post.updated ?? post.date,
+                        "datePublished": toISODate(post.date),
+                        "dateModified": toISODate(post.updated ?? post.date),
                         "author": {
                             "@type": "Person",
                             "name": post.author,
@@ -190,6 +194,22 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                             "@type": "WebPage",
                             "@id": `https://usevibestack.com/blog/${post.slug}`
                         }
+                    })
+                }}
+            />
+
+            {/* Breadcrumb Structured Data */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        itemListElement: [
+                            { "@type": "ListItem", position: 1, name: "Home", item: "https://usevibestack.com" },
+                            { "@type": "ListItem", position: 2, name: "Blog", item: "https://usevibestack.com/blog" },
+                            { "@type": "ListItem", position: 3, name: post.title, item: `https://usevibestack.com/blog/${post.slug}` },
+                        ],
                     })
                 }}
             />

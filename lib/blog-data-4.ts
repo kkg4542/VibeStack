@@ -191,14 +191,14 @@ export const postsBatch4: BlogPost[] = [
   },
   {
     slug: "cursor-vs-windsurf",
-    title: "Cursor vs Windsurf: The Best AI Editor for Vibe Coding in 2026?",
+    title: "Cursor vs Windsurf: Best AI Editor 2026",
     excerpt:
       "Both are AI-first code editors built for vibe coding. Here's how Cursor and Windsurf compare on agents, codebase context, models, UX, and price in mid-2026.",
     date: "Jul 18, 2026",
     updated: "Jul 28, 2026",
     author: "David Kim",
     category: "Comparison",
-    readTime: "7 min read",
+    readTime: "6 min read",
     image: "/images/blog/blog_cursor_ide.png",
     tags: ["Cursor", "Windsurf", "AI Editor"],
     content: `
@@ -291,15 +291,27 @@ export const postsBatch4: BlogPost[] = [
   },
   {
     slug: "build-app-in-a-weekend-ai-stack",
-    title: "How to Build an App in a Weekend with AI (the Exact Stack)",
+    title: "Build an App in a Weekend with AI (2026)",
     excerpt:
-      "A practical, step-by-step playbook for shipping a working app in a weekend using vibe coding — with the exact AI tools for each stage, updated for mid-2026.",
+      "A step-by-step playbook for shipping a working app in a weekend with vibe coding — the exact AI tools for each stage, hour by hour, updated for 2026.",
     date: "Jul 18, 2026",
+    updated: "Aug 7, 2026",
     author: "David Kim",
     category: "Guide",
-    readTime: "9 min read",
+    readTime: "5 min read",
     image: "/images/blog/blog_cloud_dev.png",
-    tags: ["Vibe Coding", "Indie Hacking", "AI Stack"],
+    tags: [
+      "Cursor",
+      "Windsurf",
+      "Claude",
+      "ChatGPT",
+      "v0",
+      "Bolt.new",
+      "Framer",
+      "Vercel",
+      "Vibe Coding",
+      "Indie Hacking",
+    ],
     content: `
       <p>Shipping a real app in a weekend used to be a stretch goal. With the right vibe coding stack, it's a realistic plan. Here's the exact playbook and the tools for each stage — plus the mistakes that quietly eat your weekend if you're not careful.</p>
 
@@ -313,7 +325,7 @@ export const postsBatch4: BlogPost[] = [
       <p>Use <a href="/tool/v0-by-vercel">v0</a> to generate the screens from a prompt, or <a href="/tool/bolt-new">Bolt.new</a> to spin up a full-stack starter with a live preview. You'll have something clickable within the first hour. Don't polish yet — you just want the skeleton of every screen your core flow touches, so you can feel whether the flow makes sense before you build the logic behind it. (Comparing the two? See <a href="/blog/ai-app-builders-bolt-v0-lovable">Bolt.new vs v0 vs Lovable</a>.)</p>
 
       <h2>Saturday afternoon — build the core in your editor</h2>
-      <p>Move into <a href="/tool/cursor">Cursor</a> (or <a href="/tool/windsurf-ide">Windsurf</a>) and implement the core flow by describing it. Let the agent — Cursor's Composer 2.5 handles multi-file work — wire up state, routes, and the database. Two rules keep this fast: <strong>review every change</strong> (vibe coding works because you stay the editor-in-chief), and <strong>run the app after every step</strong> so a bug never hides three prompts deep. If the agent goes down a wrong path, stop it early and re-specify rather than patching on top of a bad foundation.</p>
+      <p>Move into <a href="/tool/cursor">Cursor</a> (or <a href="/tool/windsurf-ide">Windsurf</a> — see <a href="/blog/cursor-vs-windsurf">Cursor vs Windsurf</a> if you're undecided) and implement the core flow by describing it. Let the agent — Cursor's Composer 2.5 handles multi-file work — wire up state, routes, and the database. Two rules keep this fast: <strong>review every change</strong> (vibe coding works because you stay the editor-in-chief), and <strong>run the app after every step</strong> so a bug never hides three prompts deep. If the agent goes down a wrong path, stop it early and re-specify rather than patching on top of a bad foundation.</p>
 
       <h2>Sunday morning — connect the real pieces</h2>
       <p>Now wire in the things a demo can fake but a product can't: authentication, a real database, and any external API your core flow needs. Describe each integration to your editor's agent and let it scaffold the boilerplate, then test the unhappy paths — what happens when a request fails, a field is empty, or a user isn't logged in. This is where vibe coding pays off most: the tedious plumbing that used to eat a full day now takes an hour of prompting and review.</p>
@@ -345,19 +357,57 @@ export const postsBatch4: BlogPost[] = [
       </table>
       <p>Want this tailored to your role and budget? <a href="/build">Take the stack quiz</a> or read the full <a href="/blog/complete-vibe-coding-stack-2026">Complete Vibe Coding Stack</a> guide. New to the whole idea? Start with <a href="/blog/what-is-vibe-coding">What Is Vibe Coding?</a></p>
     `,
+    faq: [
+      {
+        q: "Can you really build an app in a weekend with AI?",
+        a: "Yes, if you scope it to one core flow. The constraint in 2026 isn't how fast code gets written — an agent can scaffold auth, a database layer, and a half-dozen screens in an afternoon — it's how much you try to build. A weekend is enough for one thing done well and deployed to a real URL; it is not enough for three features, an admin panel, and a settings page.",
+      },
+      {
+        q: "What AI tools do I need to build an app in a weekend?",
+        a: "One per stage: an assistant (Claude or ChatGPT) to shape the idea and cut scope, an app builder (v0 or Bolt.new) to generate clickable screens fast, an AI editor (Cursor or Windsurf) to implement the core flow and wire up auth and data, and Vercel to deploy. Framer is optional for a landing page. Every one of these has a free tier, so the whole stack costs nothing for a first build.",
+      },
+      {
+        q: "Do I need to know how to code to do this?",
+        a: "You need to be able to read code, not write it. The agent produces the implementation, but you're the editor-in-chief: reviewing each change, spotting when it has gone down the wrong path, and stopping it early. Non-developers can get further with Lovable or Bolt.new, which handle the backend and deployment for you, but you'll still move faster if you can tell what a diff does.",
+      },
+      {
+        q: "How long does each stage take?",
+        a: "Roughly: Friday night for scoping and a data model (1–2 hours), Saturday morning for generated UI (2–3 hours), Saturday afternoon for the core flow in your editor (3–4 hours), Sunday morning for auth, database, and APIs (3 hours), Sunday afternoon for a landing page, deploy, and launch copy (2–3 hours). Two focused four-hour blocks per day beats one exhausted twelve-hour grind.",
+      },
+      {
+        q: "What should I skip in a weekend build?",
+        a: "User settings pages, admin dashboards, onboarding flows, custom design systems, edge-case error handling beyond the basics, and anything labeled \"nice to have.\" Skip premature optimization too — no weekend project has ever fallen over from too many users on launch day. Every hour you don't spend on these is an hour toward shipping the one thing that matters.",
+      },
+      {
+        q: "Why do most weekend builds fail?",
+        a: "Scope, not code. The builds that don't ship almost always tried to do three things instead of one. The second most common failure is not running the app between changes, which lets a bug hide three prompts deep and turns Sunday into a debugging session. Cut scope until the app fits in one sentence, commit before every agent run, and test after every meaningful change.",
+      },
+    ],
   },
   {
     slug: "best-ai-tools-for-vibe-coding",
-    title: "The Best AI Tools for Vibe Coding in 2026 (Complete Stack Guide)",
+    title: "Best AI Tools for Vibe Coding in 2026",
     excerpt:
-      "The best AI tools for vibe coding in 2026: the editors, assistants, app builders, and supporting tools that make a describe-it-and-ship-it workflow actually work — plus how to assemble a stack for free, for $20, or for $50+ a month.",
+      "The best AI tools for vibe coding in 2026: the editors, assistants, app builders, and deploy tools that matter — plus how to build a stack free or for $20.",
     date: "Jul 18, 2026",
-    updated: "Jul 28, 2026",
+    updated: "Aug 7, 2026",
     author: "David Kim",
     category: "Guide",
     readTime: "16 min read",
     image: "/images/blog/cursor-vs-vscode.png",
-    tags: ["Vibe Coding", "Best Tools", "AI Stack"],
+    tags: [
+      "Cursor",
+      "Windsurf",
+      "GitHub Copilot",
+      "Claude",
+      "ChatGPT",
+      "v0",
+      "Bolt.new",
+      "Lovable",
+      "Vercel",
+      "Vibe Coding",
+      "AI Stack",
+    ],
     content: `
       <p>Vibe coding lives or dies by your tools. You describe what you want, AI writes most of the code, and you steer — but that loop only feels magic when each layer of the stack pulls its weight. These are the <strong>best AI tools for vibe coding in 2026</strong>, grouped by the job they do, with the current versions, models, and prices noted so you know exactly what you're getting.</p>
       <p>New to the idea itself? Start with <a href="/blog/what-is-vibe-coding">What Is Vibe Coding?</a> and come back. If you already know the shape of it, read on — this is the full stack, layer by layer, plus how to assemble it on a budget and what to build with it first.</p>
@@ -417,7 +467,7 @@ export const postsBatch4: BlogPost[] = [
       <p><strong>How to choose:</strong> v0 when you want polished UI to bring into an existing codebase, Bolt.new when you want a full-stack prototype in the browser, Lovable when you're not a developer and want a real deployed MVP, Replit when you want the whole environment — editor, host, database — in one tab. The most common pattern is prototype in a builder, then move the code into Cursor to finish the hard parts. Full comparison: <a href="/blog/ai-app-builders-bolt-v0-lovable">Bolt.new vs v0 vs Lovable</a>.</p>
 
       <h2>Models worth knowing about</h2>
-      <p>Even if you access them through the tools above, it helps to know the 2026 model landscape. OpenAI's <strong>GPT-5.6</strong> (Sol is its best coding model yet, with roughly 54% better token efficiency on agentic tasks), Anthropic's <strong>Claude Fable 5</strong> and <strong>Sonnet 5</strong>, and xAI's <strong>Grok 4.5</strong> (co-trained on Cursor usage, coding-focused) are the frontier for building. Google's <strong>Gemini 3.5 Flash</strong> is a fast, capable choice for agentic and coding work, and if you want open weights, Meta's <strong>Llama 5</strong> (600B parameters, 5M-token context) is self-hostable.</p>
+      <p>Even if you access them through the tools above, it helps to know the 2026 model landscape. OpenAI's <strong>GPT-5.6</strong> (Sol is its best coding model yet, with roughly 54% better token efficiency on agentic tasks), Anthropic's <strong>Claude Fable 5</strong> and <strong>Sonnet 5</strong>, and xAI's <strong>Grok 4.5</strong> (co-trained on Cursor usage, coding-focused) are the frontier for building. Google's <strong>Gemini 3.5 Flash</strong> is a fast, capable choice for agentic and coding work, and if you want open weights, Meta's <strong>Llama 5</strong> (600B parameters, 5M-token context) is self-hostable. For a head-to-head on the two that matter most for building, see <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5</a>.</p>
 
       <h2>Layer 4: supporting tools — design, media, and voice</h2>
       <p>These are situational. Add them the day a project actually needs one, not before — but when you need them, the gap they fill is one an editor and an assistant can't cover.</p>

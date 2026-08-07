@@ -10,9 +10,9 @@ import { BlogPost } from "./blog-types";
 export const postsBatch3: BlogPost[] = [
   {
     slug: "cursor-vs-github-copilot",
-    title: "Cursor vs GitHub Copilot: Which AI Coding Tool Wins in 2026?",
+    title: "Cursor vs GitHub Copilot: Which Wins 2026?",
     excerpt:
-      "Both put AI in your editor, but they take very different approaches. Here's how Cursor and GitHub Copilot compare on autocomplete, agents, codebase context, model choice, and price in mid-2026.",
+      "Cursor vs GitHub Copilot in 2026: how the two leading AI coding tools compare on autocomplete, agents, codebase context, model choice, price, and privacy.",
     date: "Jul 18, 2026",
     updated: "Jul 28, 2026",
     author: "David Kim",
@@ -40,7 +40,7 @@ export const postsBatch3: BlogPost[] = [
       <p>Copilot wins on reach. It works across many editors and has mature enterprise controls — SSO, audit logs, policy management — plus deep integration with the GitHub platform your team may already run on. If your org is standardized on JetBrains, has strict procurement requirements, or wants AI review baked into pull requests, Copilot is the safer institutional choice.</p>
 
       <h2>Pricing & feature comparison</h2>
-      <p>Both sit in the roughly $20/month range for individuals, and both have free tiers to try first. Here's a quick side-by-side:</p>
+      <p>Both sit in the roughly $20/month range for individuals, and both have free tiers to try first. Here's a quick side-by-side — and our <a href="/compare/cursor-vs-github-copilot">Cursor vs GitHub Copilot comparison page</a> keeps the full spec, pricing, and feature data up to date:</p>
       <table>
         <thead>
           <tr><th>Feature</th><th>Cursor</th><th>GitHub Copilot</th></tr>
@@ -100,9 +100,9 @@ export const postsBatch3: BlogPost[] = [
   },
   {
     slug: "chatgpt-vs-claude",
-    title: "ChatGPT vs Claude: Which AI Assistant Is Right for You in 2026?",
+    title: "ChatGPT vs Claude: Which AI Wins in 2026?",
     excerpt:
-      "ChatGPT (GPT-5.6) and Claude (Sonnet 5 & Fable 5) are the two most popular AI assistants — but they shine at different things. A practical 2026 breakdown for writing, coding, and research.",
+      "ChatGPT (GPT-5.6) and Claude (Sonnet 5, Fable 5) are the top AI assistants of 2026, but they win at different things. A breakdown by task and price.",
     date: "Jul 18, 2026",
     updated: "Jul 28, 2026",
     author: "David Kim",
@@ -123,7 +123,7 @@ export const postsBatch3: BlogPost[] = [
       <p>ChatGPT has the broadest ecosystem — custom GPTs, a huge app and plugin surface, image generation, voice, and deep integrations. Alongside GPT-5.6, OpenAI also launched <strong>ChatGPT Work</strong>, an enterprise-focused workspace built for business use. For "do a bit of everything in one place," ChatGPT is still hard to beat.</p>
 
       <h2>Coding</h2>
-      <p>Both are strong coding partners. GPT-5.6 Sol is OpenAI's most capable coding model to date, with roughly a 54% improvement in token efficiency on agentic tasks — meaningful if you run long autonomous coding sessions where token cost adds up. Claude Fable 5 is equally at home reviewing large diffs, explaining unfamiliar code, and reasoning across a big codebase without losing the thread. Many developers keep both open: one for quick generation, one for careful review and explanation. If you only want one, run the same real task in each and keep the winner.</p>
+      <p>Both are strong coding partners. GPT-5.6 Sol is OpenAI's most capable coding model to date, with roughly a 54% improvement in token efficiency on agentic tasks — meaningful if you run long autonomous coding sessions where token cost adds up. Claude Fable 5 is equally at home reviewing large diffs, explaining unfamiliar code, and reasoning across a big codebase without losing the thread. Many developers keep both open: one for quick generation, one for careful review and explanation. If you only want one, run the same real task in each and keep the winner — or read our 48-hour head-to-head in <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5</a>, where we scored both families on production coding tasks.</p>
 
       <h2>Context windows &amp; memory</h2>
       <p>Both handle large inputs comfortably now, but they lean different ways. Claude's long-context handling remains a headline strength — paste in a sprawling module, a long contract, or a book chapter and it tends to keep details straight across the whole thing. ChatGPT counters with persistent memory across conversations plus its broader tool surface, so it can pull in files, browse the web, and run code as part of a single session. If your work is "reason carefully over one big document," lean Claude; if it's "juggle many tools and remember me over time," lean ChatGPT.</p>

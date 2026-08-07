@@ -3,18 +3,23 @@ export const postsBatch2: BlogPost[] = [
   // 16. GPT-5.5 Codex vs Claude Sonnet 4.8 Comparison
   {
     slug: "gpt-5-3-codex-vs-claude-4-6",
-    title: "AI Wars: GPT-5.5 Codex vs Claude Opus 4.8",
-    excerpt: "OpenAI and Anthropic released competing models on the same day. We tested both for 48 hours straight — and revisit the verdict now that GPT-5.6 and Claude Fable 5 have shipped.",
+    title: "GPT-5.6 vs Claude Fable 5: Best Coding AI",
+    excerpt: "GPT-5.6 vs Claude Fable 5: we ran OpenAI and Anthropic's coding models through a 48-hour head-to-head on real tasks. Here's which one to use, and when.",
     date: "Jul 18, 2026",
+    updated: "Aug 7, 2026",
     author: "Sarah Jenkins",
     category: "Comparison",
     readTime: "5 min read",
     image: "/images/blog/gpt-vs-claude-2026.png",
+    tags: ["ChatGPT", "Claude", "Cursor", "AI Models"],
     content: `
+      <h2>The Short Answer in July 2026</h2>
+      <p>If you only want the recommendation: <a href="/tool/chatgpt">ChatGPT</a>'s <strong>GPT-5.6 Sol</strong> is the fastest and most token-efficient coder, and <a href="/tool/claude">Claude</a>'s <strong>Fable 5</strong> is the better engineering partner on anything that touches a large codebase. That's the same split we found back in February, when the previous generation — GPT-5.5 Codex and Claude Opus 4.8 — launched on the same day and we tested them for 48 hours straight. Below is the test that produced that verdict, and what has changed since.</p>
+
       <h2>The Same-Day Showdown</h2>
       <p>February 5th, 2026 will be remembered as the day AI competition reached fever pitch. Within minutes of each other, OpenAI dropped <strong>GPT-5.5 Codex</strong> and Anthropic released <strong>Claude Opus 4.8</strong>. Both claimed to be the ultimate coding model. Both promised agentic capabilities. Both couldn't be the best. So we locked ourselves in a room for 48 hours and tested them head-to-head on real-world tasks.</p>
 
-      <h3>The Test Suite</h3>
+      <h2>The Test Suite</h2>
       <p>We designed a brutal gauntlet:</p>
       <ul>
         <li><strong>Task 1:</strong> Build a production-ready Stripe integration with webhook handling, idempotency, and error recovery (complex backend logic)</li>
@@ -22,6 +27,8 @@ export const postsBatch2: BlogPost[] = [
         <li><strong>Task 3:</strong> Create a real-time collaborative whiteboard with WebRTC and CRDTs (complex distributed systems)</li>
         <li><strong>Task 4:</strong> Debug a race condition in a Go microservices architecture (subtle concurrency issues)</li>
       </ul>
+
+      <h2>Head-to-Head Results</h2>
 
       <h3>Round 1: Raw Coding Speed</h3>
       <p><strong>Winner: GPT-5.5 Codex</strong></p>
@@ -48,7 +55,7 @@ export const postsBatch2: BlogPost[] = [
       <p><strong>Winner: Tie</strong></p>
       <p>Both models handled the Go race condition admirably. Codex identified the issue faster (3 minutes vs Claude's 7), but Claude provided a more thorough explanation of <em>why</em> the race occurred and suggested architectural changes to prevent similar issues. For a senior developer who just needs the fix, Codex won. For a team that needs to learn from the mistake, Claude won.</p>
 
-      <h3>Where Things Stand in July 2026</h3>
+      <h2>Where Things Stand in July 2026</h2>
       <p>Five months on, both companies have already moved past the models in this test. OpenAI shipped <strong>GPT-5.6</strong> on July 9, 2026, arriving in three tiers: <strong>Sol</strong> (the flagship, $5/$30 per million tokens, with an "ultra" mode that delegates sub-tasks to smaller internal models), <strong>Terra</strong> ($2.50/$15), and <strong>Luna</strong> ($1/$6). OpenAI calls Sol its "best coding model yet" and its "strongest cybersecurity model yet," and the benchmarks back that framing up: Sol cut agentic-coding token usage by roughly 54% compared to GPT-5.5 Codex, meaning long-running agent sessions now cost less than half as much to complete the same work. OpenAI paired the launch with <strong>ChatGPT Work</strong>, a dedicated enterprise workspace product.</p>
       <p>Anthropic answered with its own reshuffle. <strong>Claude Sonnet 5</strong> launched June 30, 2026 at an introductory $2/$10 per million tokens (rising to $3/$15 in September), slotting in as the new mid-tier workhorse. Above it now sits <strong>Claude Fable 5</strong>, a new "Mythos-class" flagship tier that outranks Opus 4.8 entirely — Opus and Haiku 4.5 are both previous-generation models today. In our informal follow-up testing, Fable 5 keeps Claude's context-understanding edge from this comparison while closing much of the raw-speed gap that used to favor OpenAI.</p>
       <table>
@@ -59,12 +66,40 @@ export const postsBatch2: BlogPost[] = [
         <tr><td>Claude Fable 5</td><td>Flagship (Mythos-class)</td><td>Successor to Opus 4.8, best long-context engineering partner</td></tr>
         <tr><td>Claude Sonnet 5</td><td>$2-3 / $10-15</td><td>New mid-tier workhorse, launched June 30, 2026</td></tr>
       </table>
+      <p>The practical upshot is that you no longer have to pick one lab and live with it. Both families are selectable inside AI-first editors like <a href="/tool/cursor">Cursor</a>, so you can route a fast scaffolding task to GPT-5.6 Luna and a gnarly refactor to Claude Fable 5 without leaving the file you're in. If you're assembling the rest of that setup, our guide to the <a href="/blog/best-ai-tools-for-vibe-coding">best AI tools for vibe coding</a> covers the editor, assistant, and deploy layers around the model.</p>
 
-      <h3>The Verdict</h3>
+      <h2>The Verdict</h2>
       <p><strong>Back in February, choose GPT-5.5 Codex if:</strong> you needed quick prototypes, fast iterations, and you were experienced enough to catch bugs. It was the better "typing assistant."</p>
       <p><strong>Choose Claude Opus 4.8 if:</strong> you were building production systems, working with large codebases, or needed complex tasks coordinated. It was the better "engineering partner."</p>
       <p>That verdict still holds directionally today, just with new names attached: GPT-5.6 Sol is the fast, cost-efficient coder, and Claude Fable 5 is the deep-context engineering partner. For most serious development work in mid-2026, we'd still reach for Claude first on anything that touches a large codebase. But the real power move hasn't changed either: let a fast model draft the code, let a careful model review and refactor it. That's still the ultimate workflow.</p>
-    `
+      <p>Comparing the products rather than the raw models? See <a href="/blog/chatgpt-vs-claude">ChatGPT vs Claude</a> for the day-to-day assistant comparison, or browse the full ranking in our <a href="/best/coding">best AI coding tools</a> guide.</p>
+    `,
+    faq: [
+      {
+        q: "What is the best coding AI in 2026?",
+        a: "There isn't one winner for every job. GPT-5.6 Sol is OpenAI's best coding model yet and by far the most token-efficient — it cut agentic-coding token usage by roughly 54% versus GPT-5.5 Codex — so it's the cheaper choice for long autonomous runs. Claude Fable 5 is the stronger pick when the task spans a large existing codebase, because Claude's long-context handling still holds detail better across tens of thousands of lines. The workflow most teams settle on is to draft with the fast model and review with the careful one.",
+      },
+      {
+        q: "Is GPT-5.6 better than Claude Fable 5?",
+        a: "On speed and cost per task, yes: Sol's 54% token-efficiency gain over GPT-5.5 Codex makes long agent sessions meaningfully cheaper, and OpenAI also calls it its strongest cybersecurity model yet. On understanding a large existing codebase, Claude still leads — in our original test Claude ingested all 50,000 lines of a legacy React app and caught authentication edge cases the OpenAI model missed while working in chunks. Pick by task rather than by leaderboard.",
+      },
+      {
+        q: "How does GPT-5.6 reasoning work?",
+        a: "GPT-5.6 ships in three tiers — Sol ($5/$30 per million tokens), Terra ($2.50/$15) and Luna ($1/$6) — and the flagship Sol adds an \"ultra\" mode that delegates sub-tasks to smaller internal models instead of reasoning through everything at full cost. That delegation is where most of the 54% token saving on agentic coding comes from: cheap models handle the mechanical steps while Sol handles the parts that need judgment. In practice you get flagship-quality output on multi-step work without paying flagship rates for every step.",
+      },
+      {
+        q: "GPT-5.6 vs Claude Sonnet 5 — which should I use?",
+        a: "Claude Sonnet 5 launched June 30, 2026 at an introductory $2/$10 per million tokens, rising to $3/$15 in September, which puts it between GPT-5.6 Terra and Luna on price. It's Anthropic's mid-tier workhorse and the default for Claude Free and Pro users, so the fair comparison is against GPT-5.6 Terra rather than against Sol. For everyday coding the two are close — lean Sonnet 5 when you paste in long files, and Terra when you want OpenAI's wider tool ecosystem.",
+      },
+      {
+        q: "What is Claude Fable 5?",
+        a: "Fable 5 is Anthropic's new \"Mythos-class\" flagship, sitting above Sonnet 5 and replacing Opus 4.8 at the top of the lineup — Opus 4.8 and Haiku 4.5 are both previous-generation models now. In our follow-up testing it keeps the context-understanding advantage Claude showed throughout this comparison while closing most of the raw-speed gap that used to favor OpenAI. It's the model to reach for on large refactors, long specs, and multi-file reviews.",
+      },
+      {
+        q: "Is there a Claude 3.8?",
+        a: "No. Anthropic's 3-series topped out at Claude 3.7 Sonnet, and the numbering then moved through 4, 4.5 and 4.8 before jumping to the 5 generation. If you're searching for Claude 3.8, what you almost certainly want is either Claude Sonnet 5 (the current fast default, free to use) or Claude Fable 5 (the current flagship).",
+      },
+    ],
   },
   // 17. Microsoft Maia 200
   {

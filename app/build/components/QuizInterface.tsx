@@ -31,6 +31,10 @@ export type StackRecommendation = {
   bestFor: string[];
   usersCount: number;
   rating: number;
+  // id in lib/stacks.ts for the matching curated stack page, when this quiz
+  // result maps 1:1 to one. Lets us link out to the full write-up instead of
+  // duplicating it here with no way back.
+  stackId?: string;
 };
 
 export const STEPS = [
@@ -128,7 +132,8 @@ export function useStackRecommendation(answers: Record<string, string>): StackRe
           compatibility: "Exports to React, Vue, and plain HTML",
           bestFor: ["Landing pages", "Prototyping", "Design systems"],
           usersCount: 3421,
-          rating: 4.6
+          rating: 4.6,
+          stackId: "magic-wand"
         };
       } else {
         stack = {
@@ -140,7 +145,8 @@ export function useStackRecommendation(answers: Record<string, string>): StackRe
           compatibility: "Full Figma integration, exports clean code",
           bestFor: ["Design teams", "Production apps", "Design systems"],
           usersCount: 2847,
-          rating: 4.8
+          rating: 4.8,
+          stackId: "product-designer"
         };
       }
     }
@@ -157,7 +163,8 @@ export function useStackRecommendation(answers: Record<string, string>): StackRe
           compatibility: "Supports 50+ languages with smart explanations",
           bestFor: ["Learning", "Education", "Small projects"],
           usersCount: 4532,
-          rating: 4.8
+          rating: 4.8,
+          stackId: "learner"
         };
       } else if (budget === "paid" || workflow === "autonomy") {
         stack = {
@@ -169,7 +176,8 @@ export function useStackRecommendation(answers: Record<string, string>): StackRe
           compatibility: "Works with any codebase, massive context windows",
           bestFor: ["Complex projects", "Senior developers", "High-velocity teams"],
           usersCount: 2847,
-          rating: 4.9
+          rating: 4.9,
+          stackId: "10x-engineer"
         };
       } else {
         stack = {
@@ -181,7 +189,8 @@ export function useStackRecommendation(answers: Record<string, string>): StackRe
           compatibility: "VS Code extension, supports all major languages",
           bestFor: ["Daily coding", "Refactoring", "Boilerplate"],
           usersCount: 6234,
-          rating: 4.7
+          rating: 4.7,
+          stackId: "efficiency"
         };
       }
     }
@@ -460,6 +469,16 @@ function StackRecommendationResult({
               {stack.totalPrice}
             </Badge>
           </div>
+
+          {stack.stackId && (
+            <Link
+              href={`/stack/${stack.stackId}`}
+              className="inline-flex items-center gap-1 text-sm font-medium text-vibe-electric hover:underline"
+            >
+              View the full {stack.name} write-up
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          )}
         </div>
 
         {/* Why This Stack */}

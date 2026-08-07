@@ -22,6 +22,40 @@ function lcFirst(s: string): string {
     return s.charAt(0).toLowerCase() + s.slice(1);
 }
 
+/** Appended by the root layout's title template (app/layout.tsx). */
+const TITLE_SUFFIX = " | VibeStack";
+/** Google truncates SERP titles somewhere around here. */
+const TITLE_MAX_LENGTH = 60;
+
+/**
+ * Pick the longest title variant that survives Google's ~60-character SERP
+ * budget once " | VibeStack" is appended.
+ *
+ * Deliberately defensive: the richest variant is the existing template, so any
+ * pair whose title already fits is returned byte-for-byte unchanged. Only pairs
+ * that were being truncated anyway get a shorter form. An editorial `title`
+ * always wins — that's the escape hatch for pairs where even the shortest
+ * generated variant is too long, or where the phrasing people search for
+ * differs from the tools' full product names.
+ */
+function fitCompareTitle(tool1Title: string, tool2Title: string, custom?: string): string {
+    if (custom) return custom;
+
+    const base = `${tool1Title} vs ${tool2Title}`;
+    const variants = [
+        `${base} (2026): Features, Pricing & Verdict`,
+        `${base} (2026): Features & Pricing`,
+        `${base} (2026) Compared`,
+        `${base} (2026)`,
+        base,
+    ];
+
+    return (
+        variants.find((v) => v.length + TITLE_SUFFIX.length <= TITLE_MAX_LENGTH) ??
+        variants[variants.length - 1]
+    );
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
     const parts = slug.split('-vs-');
@@ -38,7 +72,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         return { title: 'Tool Comparison Not Found' };
     }
 
-    const title = `${tool1.title} vs ${tool2.title} (2026): Features, Pricing & Verdict`;
+    const title = fitCompareTitle(tool1.title, tool2.title, getCompareEditorial(slug)?.title);
     const description = `${tool1.title} or ${tool2.title}? Side-by-side comparison of features, pricing, pros & cons — plus a clear verdict on which ${tool1.category.toLowerCase()} tool fits your workflow.`;
     const url = `https://usevibestack.com/compare/${slug}`;
 

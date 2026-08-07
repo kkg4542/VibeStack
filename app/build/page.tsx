@@ -34,7 +34,7 @@ export default function BuildPage() {
     <PageBackground {...BackgroundPresets.content}>
       <div className="container max-w-6xl mx-auto px-4">
         <BuildPageHero onStartQuiz={startQuiz} />
-        <PopularStacksGrid onStackClick={startQuiz} />
+        <PopularStacksGrid />
         <WhyStacksMatter />
         <CTASection onStartQuiz={startQuiz} />
       </div>
