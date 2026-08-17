@@ -16,6 +16,12 @@ interface Props {
     params: { slug: string };
 }
 
+// Only slugs returned by generateStaticParams() are valid routes.
+// Everything else returns a real HTTP 404 instead of a soft-404 (200 + "Post Not Found").
+// Safe because generateStaticParams() and the page body both read the same in-repo
+// `blogPosts` array, so coverage is exact by construction.
+export const dynamicParams = false;
+
 // Generate static params for all posts
 export async function generateStaticParams() {
     return blogPosts.map((post) => ({

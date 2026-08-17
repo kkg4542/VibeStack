@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getToolBySlug, getTools } from "@/lib/tools-db";
+import { getToolBySlug, getTools, getToolsStrict } from "@/lib/tools-db";
 import { ToolData } from "@/lib/tool-types";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -26,9 +26,19 @@ import { ToolSEO } from "./components/ToolSEO";
 
 
 
-// Generate static params for all tools
+// Only slugs returned by generateStaticParams() are valid routes.
+// Everything else returns a real HTTP 404 instead of a soft-404 (200 + "Tool Not Found"),
+// which previously let unlimited bogus URLs be crawled as valid pages.
+// Safe because generateStaticParams() reads the exact same table (prisma.tool, unfiltered)
+// that getToolBySlug() reads, and tool pages are already static-only (new tools require a redeploy).
+export const dynamicParams = false;
+
+// Generate static params for all tools.
+// getToolsStrict() (no in-repo fallback, throws on a failed or short read) is required here:
+// with dynamicParams = false, a fallback to the 21-tool in-repo array would deploy the
+// remaining tool pages as hard 404s. Failing the build is the better outcome.
 export async function generateStaticParams() {
-    const tools = await getTools();
+    const tools = await getToolsStrict("tool/[slug] generateStaticParams");
     return tools.map((tool) => ({
         slug: tool.slug,
     }));

@@ -12,26 +12,9 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const { slug } = await params;
   const post = blogPosts.find((p) => p.slug === slug);
 
+  // Unknown slug -> real 404 instead of a generic 200 card (see tool og route).
   if (!post) {
-    return new ImageResponse(
-      (
-        <div
-          style={{
-            background: '#09090b',
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'white',
-            fontSize: 64,
-            fontWeight: 'bold',
-          }}
-        >
-          VibeStack
-        </div>
-      )
-    );
+    return new Response('Not Found', { status: 404 });
   }
 
   return new ImageResponse(

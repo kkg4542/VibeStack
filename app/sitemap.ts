@@ -1,9 +1,10 @@
 import { MetadataRoute } from "next";
-import { getTools } from "@/lib/tools-db";
+import { getToolsStrict } from "@/lib/tools-db";
 import { blogPosts } from "@/lib/blog";
 import { stacks, STACKS_REVISED } from "@/lib/stacks";
 import { BEST_CATEGORIES, BEST_REVISED } from "@/lib/best-categories";
 import { comparePairs } from "@/lib/compare-content";
+import { hasExtendedContent, TOOL_EXTENDED_CONTENT_REVISED } from "@/lib/tool-extended-content";
 
 const CATEGORY_SLUGS = ["coding", "management", "productivity", "assistance", "design", "other"];
 
@@ -12,7 +13,9 @@ const CATEGORIES_REVISED = "2026-07-04";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = "https://usevibestack.com";
-    const tools = await getTools();
+    // Strict read (no in-repo fallback): a silently truncated sitemap would drop
+    // ~27 tool URLs and every comparison derived from them. Fail the build instead.
+    const tools = await getToolsStrict("sitemap");
 
     const staticLastModified = new Date("2026-04-01");
 
@@ -51,13 +54,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.8,
     }));
 
-    // Tool pages
-    const toolPages = tools.map((tool) => ({
-        url: `${baseUrl}/tool/${tool.slug}`,
-        lastModified: tool.updatedAt ? new Date(tool.updatedAt) : staticLastModified,
-        changeFrequency: "weekly" as const,
-        priority: 0.9,
-    }));
+    // Tool pages. The extended editorial copy lives in the repo rather than the
+    // database, so a copy revision never moves the Tool row's updatedAt. Report
+    // whichever of the two is genuinely newer.
+    const extendedRevised = new Date(TOOL_EXTENDED_CONTENT_REVISED);
+    const toolPages = tools.map((tool) => {
+        const dbUpdated = tool.updatedAt ? new Date(tool.updatedAt) : staticLastModified;
+        const lastModified =
+            hasExtendedContent(tool.slug) && extendedRevised > dbUpdated ? extendedRevised : dbUpdated;
+
+        return {
+            url: `${baseUrl}/tool/${tool.slug}`,
+            lastModified,
+            changeFrequency: "weekly" as const,
+            priority: 0.9,
+        };
+    });
 
     // Stack pages
     const stackPages = stacks.map((stack) => ({

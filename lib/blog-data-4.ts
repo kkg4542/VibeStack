@@ -12,16 +12,18 @@ export const postsBatch4: BlogPost[] = [
     slug: "complete-vibe-coding-stack-2026",
     title: "The Complete Vibe Coding Stack for 2026",
     excerpt:
-      "Vibe coding is building software by describing what you want and letting AI handle the rest. Here's the exact stack — editor, app builder, assistant, and design tools — that makes it work in mid-2026.",
+      "The exact stack that makes vibe coding work in 2026 — editor, app builder, assistant, review, and deployment — plus why each pick wins its layer, where the layers grind against each other, what to cut at each budget, and the mistakes that quietly cost you a weekend.",
     date: "Jul 18, 2026",
+    updated: "Aug 16, 2026",
     author: "David Kim",
     category: "Guide",
-    readTime: "10 min read",
+    readTime: "12 min read",
     image: "/images/blog/ultimate-developer-stack-2026.png",
     tags: ["Vibe Coding", "AI Stack", "Cursor", "v0", "Bolt.new"],
     content: `
       <p><strong>Vibe coding</strong> is a simple idea: you describe what you want in plain language, and AI writes, edits, and ships most of the code. You stay in the driver's seat — steering, reviewing, deciding — but you're no longer typing every line. Done well, it's the fastest way to build software today.</p>
-      <p>The catch is that vibe coding only works as well as your <em>stack</em>. Here's the exact set of tools we recommend in mid-2026, layer by layer, updated for the latest models and releases. Want a personalized version? <a href="/build">Take the 60-second stack quiz</a>.</p>
+      <p>The catch is that vibe coding only works as well as your <em>stack</em>. Here's the exact set of tools we recommend in mid-2026, layer by layer, updated for the latest models and releases — plus why each pick wins its layer, where the layers grind against each other, and what to cut when the budget is tight. New to the idea? Start with <a href="/blog/what-is-vibe-coding">what vibe coding actually is</a>. Want a personalized version? <a href="/build">Take the 60-second stack quiz</a>.</p>
+      <p>One framing up front: a layer earns its place only if it covers a failure the others can't. The editor has no taste about UI, the builder loses coherence past a certain size, the assistant can't see your repo, and review catches what none of them notice.</p>
 
       <h2>1. The editor — where you live</h2>
       <p><a href="/tool/cursor">Cursor</a> is the heart of most vibe coding stacks. It's an AI-first editor that indexes your whole codebase, predicts multi-file edits, and runs an agent that can implement a feature from a single sentence. The Cursor 3.11 release (July 2026) added a side chat panel, searchable agent transcripts, a Cursor for iOS public beta, and first-class support for xAI's <strong>Grok 4.5</strong> — a model co-trained on real Cursor usage data. Its Composer 2.5 agent handles the multi-file heavy lifting. If you want the most powerful "describe it and watch it happen" experience, start here.</p>
@@ -46,13 +48,31 @@ export const postsBatch4: BlogPost[] = [
       <p>Many vibe coders keep two open — one to plan, one to double-check. See <a href="/blog/chatgpt-vs-claude">ChatGPT vs Claude</a> to pick your primary. If you prefer open weights, Meta's <strong>Llama 5</strong> (a 600B-parameter open model with a 5M-token context, released April 2026) is a strong self-hostable option, and Google's <strong>Gemini 3.5 Flash</strong> is a capable, fast choice for agentic and coding work.</p>
 
       <h2>4. Design &amp; media — make it look shipped</h2>
-      <p>Round out the stack with <a href="/tool/framer">Framer</a> for production websites from a prompt, <a href="/tool/midjourney">Midjourney</a> for imagery, and <a href="/tool/elevenlabs">ElevenLabs</a> for voice if your product needs audio (<a href="/blog/elevenlabs-review">our ElevenLabs review</a>).</p>
+      <p>Round out the stack with <a href="/tool/framer">Framer</a> for production websites from a prompt, <a href="/tool/midjourney">Midjourney</a> for imagery, and <a href="/tool/elevenlabs">ElevenLabs</a> for voice if your product needs audio (<a href="/blog/elevenlabs-review">our ElevenLabs review</a>). If you already have a design system and brand tokens to respect, read <a href="/blog/nocode-design-v0">v0 vs Builder.io</a> before picking a generative UI tool — the two solve very different problems.</p>
 
       <h2>5. Version control &amp; deployment — ship it safely</h2>
       <p>Vibe coding produces code fast, which makes version control matter <em>more</em>, not less. Commit early and often so you can always roll back an agent run that went sideways — a clean git history is your undo button. When it's time to go live, <a href="/tool/vercel">Vercel</a> deploys most modern web apps in minutes with automatic previews on every push, so you can share a working link before the feature is even finished. GitHub plus Vercel (or a similar host) is the quiet backbone that lets the flashy AI layers stay reckless without you losing work.</p>
 
+      <h2>6. Review — the layer everyone skips</h2>
+      <p>This is what separates a stack that scales from one that collapses in week three. When you generate code faster than you read it, review debt builds up silently: the app works, so nothing forces you to look, and by the time you do there are three competing patterns for the same problem. The agent won't flag any of it, because each change was locally reasonable.</p>
+      <p>Two cheap habits fix most of that. Put an automated reviewer on your pull requests — <a href="/tool/coderabbit">CodeRabbit</a> comments line by line on a diff and catches exactly what agents get wrong: an unhandled error path, a changed function signature whose other callers weren't updated, a secret that drifted into a committed file. Then ask for tests as part of each feature, not after it. A few tests around your core flows are what let you accept a 400-line refactor without reading every line.</p>
+
+      <h2>7. Planning — where the prompt comes from</h2>
+      <p>Vibe coding usually fails not because the AI wrote bad code but because the request was vague. "Add user settings" produces something; "add a settings page with email, password change, and notification toggles, using the existing form components, saving optimistically" produces the right thing.</p>
+      <p>Solo, a markdown file of scoped tasks is enough. With more than one person, <a href="/tool/linear">Linear</a> is the standard pick — its issues are small and specific enough to paste almost verbatim into an agent, a real advantage over loosely-worded tickets (see <a href="/blog/linear-method-explained">why Linear's method wins</a>). Pair it with <a href="/tool/notion-ai">Notion AI</a> if architecture decisions need to live somewhere you can point an assistant at. A well-specified issue is already most of a good prompt.</p>
+
       <h2>How the layers work together</h2>
-      <p>The magic isn't any single tool — it's the handoff between them. A typical loop: plan the feature with your assistant, generate the UI in v0 or Bolt.new, drop it into Cursor and let the agent wire up the logic, review and commit, then deploy on Vercel. When something breaks, paste the error back into your assistant or let the editor's agent debug it. Each tool covers a different weakness, and the more fluidly you move between them, the faster you ship. Don't over-optimize the toolset up front; get one tool per layer working, then swap pieces as you learn what you're missing. The goal isn't the most impressive stack — it's the smallest one that lets you go from idea to shipped without friction.</p>
+      <p>The magic isn't any single tool — it's the handoff between them. A typical loop: plan the feature with your assistant, generate the UI in v0 or Bolt.new, drop it into Cursor and let the agent wire up the logic, review and commit, then deploy on Vercel. When something breaks, paste the error back into your assistant or let the editor's agent debug it. The goal isn't the most impressive stack — it's the smallest one that gets you from idea to shipped.</p>
+
+      <h2>Where the layers grind against each other</h2>
+      <p>Every stack has seams. Knowing them in advance is the difference between a smooth weekend and a lost one.</p>
+      <ul>
+        <li><strong>Builder output doesn't match your project.</strong> Generated UI assumes a component library, a Tailwind config, and a styling convention, so dropping it into an existing codebase means inheriting a second design system. Paste your conventions into the prompt first, and treat the import as a refactor rather than a copy-paste.</li>
+        <li><strong>Builder costs scale with repo size, not request size.</strong> In-browser builders keep the model aware of your whole file tree, so a one-line change in a mature project costs far more than it did on day one. Budget by codebase size — same economics we unpack in <a href="/blog/token-economics-2026">token economics</a>.</li>
+        <li><strong>Your assistant can't see what your editor did.</strong> You plan a feature in a chat window, the editor's agent implements it slightly differently, and your assistant's mental model is now stale. Re-paste the actual code before asking follow-ups.</li>
+        <li><strong>Two agents in one repo.</strong> An editor agent and a background agent touching overlapping files produce conflicts that look like bugs. Keep concurrent agents on separate branches.</li>
+        <li><strong>Builder-hosted infrastructure is the real lock-in.</strong> The generated code is portable; the database, auth, and storage wired into a builder's own platform are less so. Export early and confirm it runs locally.</li>
+      </ul>
 
       <h2>Budget tiers</h2>
       <table>
@@ -65,6 +85,8 @@ export const postsBatch4: BlogPost[] = [
           <tr><td>Full stack</td><td>~$80&ndash;120/mo</td><td>Editor + both assistants + an app builder + Framer for sites</td></tr>
         </tbody>
       </table>
+      <p>If you can only pay for one thing, pay for the editor — that's where the hours go and where the paid tier changes the most, roughly the difference between an agent that finishes a feature and one that gives up partway. The order to cut everything else, first to last: the app builder, the second assistant, the design tools (a plain Tailwind landing page ships fine), and only then the editor.</p>
+      <p>There's also a genuinely cheap route: run open-weight models locally with <a href="/tool/ollama">Ollama</a> for zero marginal cost, no rate limits, and nothing leaving your machine. You pay in capability — local models still trail the frontier on multi-file agentic work — but for autocomplete, boilerplate, and refactors inside one well-defined file it's more than good enough, paired with a single frontier assistant for the hard problems. See <a href="/blog/local-llm-llama4">running open models locally</a>.</p>
 
       <h2>A starter stack (free-friendly)</h2>
       <ol>
@@ -73,6 +95,18 @@ export const postsBatch4: BlogPost[] = [
         <li><strong>Claude</strong> or <strong>ChatGPT</strong> as your assistant</li>
         <li><strong>Framer</strong> when you need a real landing page</li>
       </ol>
+      <p>Set that up, then ship something small end to end before adding a thing. For a worked example of that loop under time pressure, <a href="/blog/build-app-in-a-weekend-ai-stack">building an app in a weekend</a> walks through it hour by hour.</p>
+
+      <h2>Common mistakes</h2>
+      <ul>
+        <li><strong>Assembling the whole stack before shipping anything.</strong> The most common failure isn't a bad tool choice, it's spending the first weekend choosing tools. One editor, one assistant, one deploy target and a live page beats a five-layer stack and nothing shipped.</li>
+        <li><strong>Letting an agent run without committing first.</strong> An agent that touches twelve files and makes things worse is only a problem if you can't get back. That one habit removes most of the risk from this entire approach.</li>
+        <li><strong>No tests, then wondering if the refactor broke something.</strong> Without a few tests you can't tell "the agent improved this" from "the agent quietly broke a path I don't exercise."</li>
+        <li><strong>Prompting for features instead of constraints.</strong> Describing <em>what</em> to build gets generic output; adding the file layout, components to reuse, and patterns to avoid gets something you'd have written yourself.</li>
+        <li><strong>Staying in the app builder too long.</strong> Builders are the fastest route to the first version and the slowest to the tenth. When changes start costing more and landing worse, that's the signal to export into an editor, not to buy a bigger plan.</li>
+        <li><strong>Never reading the generated code.</strong> Not every line — but if you can't explain roughly how your app works, you can't debug it under pressure or judge whether the next suggestion is reasonable.</li>
+        <li><strong>Chasing every model release.</strong> Swapping your workflow on every announcement costs more than the marginal gain. Re-evaluate on a schedule instead.</li>
+      </ul>
 
       <h2>The stack at a glance</h2>
       <table>
@@ -85,10 +119,38 @@ export const postsBatch4: BlogPost[] = [
           <tr><td>Assistant</td><td>Claude (Sonnet 5 / Fable 5)</td><td>ChatGPT (GPT-5.6), Gemini 3.5 Flash</td></tr>
           <tr><td>Research</td><td>Perplexity</td><td>ChatGPT deep research</td></tr>
           <tr><td>Design &amp; ship</td><td>Framer</td><td>Midjourney, ElevenLabs</td></tr>
+          <tr><td>Review</td><td>CodeRabbit</td><td>Your own PR discipline</td></tr>
+          <tr><td>Planning</td><td>Linear</td><td>Notion, a markdown file</td></tr>
         </tbody>
       </table>
-      <p>That's enough to ship a real product solo. Browse everything in our <a href="/best/coding">best AI coding tools</a> and <a href="/best/design">best AI design tools</a> guides, or <a href="/build">build your personalized stack</a>.</p>
+      <p>That's enough to ship a real product solo. Browse everything in our <a href="/best/coding">best AI coding tools</a> and <a href="/best/design">best AI design tools</a> guides, see the individual rankings in <a href="/blog/best-ai-tools-for-vibe-coding">the best AI tools for vibe coding</a>, or <a href="/build">build your personalized stack</a>.</p>
     `,
+    faq: [
+      {
+        q: "What tools do I need to start vibe coding?",
+        a: "Three: an AI-first editor, a frontier assistant, and somewhere to deploy. Cursor plus Claude or ChatGPT plus Vercel is a complete stack, and all three have usable free tiers. Everything else — an app builder, design tools, automated review, a planning tool — is worth adding once you've shipped something and know which layer is actually slowing you down.",
+      },
+      {
+        q: "How much does a vibe coding stack cost per month?",
+        a: "You can start at $0 on free tiers. A serious solo setup runs roughly $40 to $60 a month for a paid editor plus one assistant, and a full stack with both assistants, an app builder, and design tools lands around $80 to $120. If you only pay for one thing, pay for the editor — that's where the paid tier changes the most about what you can actually finish.",
+      },
+      {
+        q: "Do I still need to know how to code?",
+        a: "Not to build something that works, but yes to keep it working. Non-developers ship real MVPs with app builders every week. The difference shows up in debugging, judging whether a suggestion is reasonable, and handling anything involving auth, payments, or data you can't afford to lose. You don't need to write every line, but you should be able to explain roughly how your own app works.",
+      },
+      {
+        q: "Should I use Cursor or an app builder like Bolt.new?",
+        a: "Both, at different stages. App builders are the fastest path from nothing to a running prototype with no local setup, but each change gets more expensive and less reliable as the project grows. Editors are slower to start and don't hit that wall. The standard 2026 pattern is to generate the first version in a builder, then export the code into Cursor and finish the hard parts there.",
+      },
+      {
+        q: "What's the biggest mistake beginners make?",
+        a: "Assembling the whole stack before shipping anything. The second biggest is letting an agent run across a dozen files without committing first — an agent that makes things worse is only a real problem if you can't get back to a working state. Commit before every meaningful agent run and most of the risk in this approach disappears.",
+      },
+      {
+        q: "Do I need automated code review if I'm working solo?",
+        a: "It helps more solo than on a team, because there's nobody else looking. When you generate code faster than you read it, review debt builds up invisibly: duplicated helpers, three patterns for the same problem, unhandled error paths. A tool like CodeRabbit reads the diff with fresh eyes, which is exactly the perspective the agent that wrote the code lacks.",
+      },
+    ],
   },
   {
     slug: "what-is-vibe-coding",
@@ -464,10 +526,10 @@ export const postsBatch4: BlogPost[] = [
         <li><strong><a href="/tool/lovable">Lovable</a></strong> — the most product-minded of the group, and the best pick for non-developers. It turns a plain-language description into a working React + Supabase project (frontend, backend, auth, database) deployed to a live URL, with one-click GitHub connect and full source export — no lock-in. The free tier is generous enough to build a real MVP; paid plans unlock higher message volume, private projects, custom domains, and collaboration.</li>
         <li><strong><a href="/tool/replit">Replit</a></strong> — a full browser IDE with hosting, databases, and an agent in one place. Replit Agent can build and deploy a working app from a prompt, which makes it a natural home for learning, hackathons, and mobile tinkering. Starter (free) includes 1,200 minutes of development time a month and one published app; Core ($20/mo, or $25 billed monthly) unlocks full Agent access, unlimited apps, and $25 in monthly usage credits.</li>
       </ul>
-      <p><strong>How to choose:</strong> v0 when you want polished UI to bring into an existing codebase, Bolt.new when you want a full-stack prototype in the browser, Lovable when you're not a developer and want a real deployed MVP, Replit when you want the whole environment — editor, host, database — in one tab. The most common pattern is prototype in a builder, then move the code into Cursor to finish the hard parts. Full comparison: <a href="/blog/ai-app-builders-bolt-v0-lovable">Bolt.new vs v0 vs Lovable</a>.</p>
+      <p><strong>How to choose:</strong> v0 when you want polished UI to bring into an existing codebase, Bolt.new when you want a full-stack prototype in the browser, Lovable when you're not a developer and want a real deployed MVP, Replit when you want the whole environment — editor, host, database — in one tab. The most common pattern is prototype in a builder, then move the code into Cursor to finish the hard parts. Full comparison: <a href="/blog/ai-app-builders-bolt-v0-lovable">Bolt.new vs v0 vs Lovable</a>, and <a href="/blog/nocode-design-v0">v0 vs Builder.io</a> if your team needs generated UI to respect an existing design system.</p>
 
       <h2>Models worth knowing about</h2>
-      <p>Even if you access them through the tools above, it helps to know the 2026 model landscape. OpenAI's <strong>GPT-5.6</strong> (Sol is its best coding model yet, with roughly 54% better token efficiency on agentic tasks), Anthropic's <strong>Claude Fable 5</strong> and <strong>Sonnet 5</strong>, and xAI's <strong>Grok 4.5</strong> (co-trained on Cursor usage, coding-focused) are the frontier for building. Google's <strong>Gemini 3.5 Flash</strong> is a fast, capable choice for agentic and coding work, and if you want open weights, Meta's <strong>Llama 5</strong> (600B parameters, 5M-token context) is self-hostable. For a head-to-head on the two that matter most for building, see <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5</a>.</p>
+      <p>Even if you access them through the tools above, it helps to know the 2026 model landscape. OpenAI's <strong>GPT-5.6</strong> (Sol is its best coding model yet, with roughly 54% better token efficiency on agentic tasks), Anthropic's <strong>Claude Fable 5</strong> and <strong>Sonnet 5</strong>, and xAI's <strong>Grok 4.5</strong> (co-trained on Cursor usage, coding-focused) are the frontier for building. Google's <strong>Gemini 3 Pro</strong> is its shipping flagship and <strong>Gemini 3.5 Flash</strong> is a fast, capable choice for agentic and coding work (see our <a href="/blog/gemini-3-pro-deep-dive">Gemini 3 Pro deep dive</a> for which tier to pick), and if you want open weights, Meta's <strong>Llama 5</strong> (600B parameters, 5M-token context) is self-hostable. For a head-to-head on the two that matter most for building, see <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5</a>.</p>
 
       <h2>Layer 4: supporting tools — design, media, and voice</h2>
       <p>These are situational. Add them the day a project actually needs one, not before — but when you need them, the gap they fill is one an editor and an assistant can't cover.</p>

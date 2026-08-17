@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import { designSystem } from "@/lib/design-system";
 import { useState, useMemo } from "react";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
+import { PopularToolsRail } from "@/components/blog/PopularToolsRail";
 
 type SortOption = "newest" | "oldest" | "readTime";
 
@@ -468,6 +469,10 @@ export default function BlogListingPage() {
                             </div>
                         </motion.div>
                     </aside>
+                </div>
+
+                <div className="mt-16">
+                    <PopularToolsRail />
                 </div>
             </div>
         </PageBackground>

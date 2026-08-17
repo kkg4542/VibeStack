@@ -19,6 +19,20 @@ export interface ToolExtendedContent {
     faq?: { q: string; a: string }[];
 }
 
+// Additional editorial batches. Split across files purely to keep each module a
+// reviewable size; they are merged into one lookup at the bottom of this file.
+import { TOOL_EXTENDED_CONTENT_B2 } from "./tool-extended-content-b2";
+import { TOOL_EXTENDED_CONTENT_B3 } from "./tool-extended-content-b3";
+import { TOOL_EXTENDED_CONTENT_B4 } from "./tool-extended-content-b4";
+
+/**
+ * Last hand-edit of the editorial content in this module and its batch files.
+ * The Tool record's `updatedAt` lives in the database and does not move when we
+ * revise copy here, so the sitemap uses this date to report a truthful lastmod
+ * for tools that carry extended content.
+ */
+export const TOOL_EXTENDED_CONTENT_REVISED = "2026-08-16";
+
 export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
     lovable: {
         overviewHtml: `
@@ -1635,6 +1649,19 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
     },
 };
 
+/** Every slug that carries extended editorial content, across all batches. */
+const ALL_TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
+    ...TOOL_EXTENDED_CONTENT,
+    ...TOOL_EXTENDED_CONTENT_B2,
+    ...TOOL_EXTENDED_CONTENT_B3,
+    ...TOOL_EXTENDED_CONTENT_B4,
+};
+
 export function getExtendedContent(slug: string): ToolExtendedContent | null {
-    return TOOL_EXTENDED_CONTENT[slug] ?? null;
+    return ALL_TOOL_EXTENDED_CONTENT[slug] ?? null;
+}
+
+/** True when the tool page renders an extended section, used for sitemap lastmod. */
+export function hasExtendedContent(slug: string): boolean {
+    return slug in ALL_TOOL_EXTENDED_CONTENT;
 }

@@ -59,6 +59,19 @@ const nextConfig: NextConfig = {
         destination: '/best/coding',
         permanent: true,
       },
+      // Consolidated duplicate blog posts (Aug 2026). The content was merged into
+      // the canonical posts below; /blog/[slug] uses dynamicParams: false, so these
+      // URLs would hard-404 without these redirects.
+      {
+        source: '/blog/zk-ai-enterprise-adoption',
+        destination: '/blog/zero-knowledge-ai',
+        permanent: true,
+      },
+      {
+        source: '/blog/local-ai-on-device-future',
+        destination: '/blog/local-llm-llama4',
+        permanent: true,
+      },
     ];
   },
   async headers() {
@@ -129,6 +142,17 @@ const nextConfig: NextConfig = {
           { key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' },
         ],
       },
+      // Non-page assets: keep them out of Google's index.
+      // These are crawled but can never be indexed as pages, so they linger forever in
+      // Search Console's "Crawled - currently not indexed" report. X-Robots-Tag: noindex
+      // tells Google to drop them. Social crawlers (X/Facebook/LinkedIn/Slack) ignore
+      // X-Robots-Tag and still fetch the image, so OG cards are unaffected.
+      // NOTE: Next.js applies *every* matching headers() rule, so these are additive on
+      // top of the security + cache headers above (no key collisions).
+      ...['/opengraph-image', '/tool/:slug/opengraph-image', '/blog/:slug/opengraph-image', '/stack/:stackId/opengraph-image', '/favicon.ico', '/manifest.json'].map((source) => ({
+        source,
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
+      })),
     ];
   },
 };

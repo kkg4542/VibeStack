@@ -12,27 +12,9 @@ export default async function Image({ params }: { params: Promise<{ stackId: str
   const { stackId } = await params;
   const stack = stacks.find((s) => s.id === stackId);
 
+  // Unknown stack id -> real 404 instead of a generic 200 card (see tool og route).
   if (!stack) {
-    return new ImageResponse(
-      (
-        <div
-          style={{
-            background: '#09090b',
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'white',
-            fontSize: 64,
-            fontWeight: 'bold',
-          }}
-        >
-          VibeStack
-        </div>
-      ),
-      { ...size }
-    );
+    return new Response('Not Found', { status: 404 });
   }
 
   return new ImageResponse(

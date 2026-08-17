@@ -123,7 +123,7 @@ export const postsBatch3: BlogPost[] = [
       <p>ChatGPT has the broadest ecosystem — custom GPTs, a huge app and plugin surface, image generation, voice, and deep integrations. Alongside GPT-5.6, OpenAI also launched <strong>ChatGPT Work</strong>, an enterprise-focused workspace built for business use. For "do a bit of everything in one place," ChatGPT is still hard to beat.</p>
 
       <h2>Coding</h2>
-      <p>Both are strong coding partners. GPT-5.6 Sol is OpenAI's most capable coding model to date, with roughly a 54% improvement in token efficiency on agentic tasks — meaningful if you run long autonomous coding sessions where token cost adds up. Claude Fable 5 is equally at home reviewing large diffs, explaining unfamiliar code, and reasoning across a big codebase without losing the thread. Many developers keep both open: one for quick generation, one for careful review and explanation. If you only want one, run the same real task in each and keep the winner — or read our 48-hour head-to-head in <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5</a>, where we scored both families on production coding tasks.</p>
+      <p>Both are strong coding partners. GPT-5.6 Sol is OpenAI's most capable coding model to date, with roughly a 54% improvement in token efficiency on agentic tasks — meaningful if you run long autonomous coding sessions where token cost adds up. Claude Fable 5 is equally at home reviewing large diffs, explaining unfamiliar code, and reasoning across a big codebase without losing the thread. Many developers keep both open: one for quick generation, one for careful review and explanation. If you only want one, run the same real task in each and keep the winner — our <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5</a> comparison covers how the two families differ by design, and gives you a repeatable method for testing them on your own codebase.</p>
 
       <h2>Context windows &amp; memory</h2>
       <p>Both handle large inputs comfortably now, but they lean different ways. Claude's long-context handling remains a headline strength — paste in a sprawling module, a long contract, or a book chapter and it tends to keep details straight across the whole thing. ChatGPT counters with persistent memory across conversations plus its broader tool surface, so it can pull in files, browse the web, and run code as part of a single session. If your work is "reason carefully over one big document," lean Claude; if it's "juggle many tools and remember me over time," lean ChatGPT.</p>
@@ -196,11 +196,12 @@ export const postsBatch3: BlogPost[] = [
     slug: "elevenlabs-review",
     title: "ElevenLabs Review: Is It the Best AI Voice Generator in 2026?",
     excerpt:
-      "ElevenLabs is the go-to for realistic AI voices and cloning. We cover what it does well, where it falls short, pricing, real workflows, and who should use it.",
+      "ElevenLabs is the default for realistic AI voices and cloning — but it fails in specific, predictable places. A 2026 review covering real workflows, where the quality breaks down, how it compares to Descript, licensing for commercial use, the character math behind your bill, and when to use something else.",
     date: "Jul 18, 2026",
+    updated: "Aug 16, 2026",
     author: "David Kim",
     category: "Review",
-    readTime: "7 min read",
+    readTime: "10 min read",
     image: "/images/blog/cursor-vs-vscode.png",
     tags: ["ElevenLabs", "AI Voice", "Audio"],
     content: `
@@ -226,46 +227,110 @@ export const postsBatch3: BlogPost[] = [
         <li>Voice cloning carries obvious ethical and legal responsibilities — only clone voices you have explicit rights to use.</li>
       </ul>
 
+      <h2>Where the quality actually breaks down</h2>
+      <p>"It sounds human" is true for most sentences, which makes the exceptions worth knowing — they're consistent enough that you can write around them.</p>
+      <ul>
+        <li><strong>Numbers, dates, and units.</strong> "2026," "$1.4M," and "10&ndash;15%" get read in whatever form the model guesses. Spelling them out ("twenty twenty-six," "one point four million dollars") is faster than re-rolling the line.</li>
+        <li><strong>Acronyms and homographs.</strong> Acronyms get spelled out or pronounced as words, and it isn't always the choice you wanted; "read," "live," and "record" flip pronunciation depending on the surrounding grammar. Writing "S-Q-L" or "sequel" explicitly removes the coin flip.</li>
+        <li><strong>Deliberate emphasis.</strong> If the meaning of a line depends on stressing one specific word, you'll fight for it. Restructuring the sentence so the emphasis falls naturally at the end works better than italics or capitals.</li>
+        <li><strong>Emotional extremes and irony.</strong> Calm, warm, upbeat, and serious all land well. Whispering, shouting, sarcasm, and laughter are where output starts sounding synthetic again.</li>
+        <li><strong>Take-to-take drift.</strong> At lower stability settings the same line read twice differs noticeably in pace and energy — fine for a single take, a real problem when you patch regenerated lines into an existing track.</li>
+        <li><strong>Inherited flaws in cloned voices.</strong> A clone reproduces the room, the mic, and the speaking habits of your sample. Record in a quiet space at consistent distance and pacing, or the clone carries that reverb and mouth noise forever.</li>
+      </ul>
+      <p>None of these are dealbreakers. They just mean the script is part of the tool: punctuation shapes delivery more than any slider, and writing for the ear rather than the page is the single biggest quality lever you control.</p>
+
       <h2>A real-world workflow</h2>
       <p>For a typical explainer video, the flow looks like this: draft and tighten the script with an assistant like <a href="/tool/chatgpt">ChatGPT</a> or <a href="/tool/claude">Claude</a>, pick or clone a voice in ElevenLabs, generate the narration, then adjust the handful of lines that need it using the stability and style sliders. Export, drop it onto the timeline, and you have broadcast-usable voiceover in minutes rather than a booked studio session. For an app, you'd instead call the API at runtime and cache the audio.</p>
 
-      <h2>Your first voiceover, step by step</h2>
-      <p>Getting started takes minutes. Paste your script into the editor, browse the voice library and audition a few options until one fits the tone, then generate. Listen back, and for any line that lands wrong, nudge the stability and style sliders or lightly reword the sentence and regenerate just that piece. When it all sounds right, export the audio and drop it onto your video timeline or into your app. That's the entire loop — and once you've done it once, a full narration track becomes a ten-minute job rather than a studio booking.</p>
+      <h2>Pre-rendered narration vs. real-time voice</h2>
+      <p>These are two different products in practice, and mixing them up is the most common planning mistake. <strong>Pre-rendered</strong> work — video voiceover, podcasts, audiobooks, e-learning — is generated once, reviewed, and shipped as a file. You want the highest-quality model, latency is irrelevant, and every line gets a human listen.</p>
+      <p><strong>Real-time</strong> work — an in-app assistant, an IVR flow, a game NPC — inverts every constraint. Latency becomes the dominant metric, so you reach for the faster, lower-latency model tier rather than the most expressive one, and nobody reviews the output before a user hears it. You need guardrails on the <em>text</em> instead: normalize numbers and dates before they hit the API, keep responses short, and cache anything repeated (menu prompts, errors, greetings) so you aren't paying to regenerate the same sentence thousands of times. If your product does both, evaluate and budget them separately.</p>
 
       <h2>Voice library vs. custom voices</h2>
       <p>You don't have to clone anything to get value. ElevenLabs ships a large library of ready-made voices spanning accents, ages, and styles, and for a lot of projects those are more than good enough — no sample, no setup, just pick and generate. Custom cloning is the move when you need a specific person's voice (with their permission) or a consistent brand voice across a whole series. In practice, most creators start in the library and only clone once they've outgrown it and need something distinctive.</p>
 
-      <h2>Getting natural output — a few tips</h2>
-      <ul>
-        <li><strong>Punctuate for pacing.</strong> Commas, periods, and paragraph breaks shape delivery more than any slider; write the script the way you want it read aloud.</li>
-        <li><strong>Tune stability vs. style.</strong> Lower stability adds expressiveness but more variance between takes; higher stability is safer for long, consistent narration.</li>
-        <li><strong>Split long scripts.</strong> Generating in sections gives you control and lets you regenerate just the lines that miss, instead of re-rolling everything.</li>
-        <li><strong>Match the voice to the content.</strong> A voice that nails an upbeat ad can sound wrong reading a somber documentary line — audition a few before committing.</li>
-      </ul>
-
       <h2>Pricing</h2>
       <p>There's a free tier to test quality, with paid plans that scale by monthly character/audio usage. For most creators the mid plans are the sweet spot; heavy commercial users move up for more characters, faster generation, and commercial licensing. Because rates and quotas change, check the current numbers on their site before committing — but budget for usage to climb as your output grows.</p>
 
+      <h2>The character math behind your bill</h2>
+      <p>Plans are quoted in characters, but you think in minutes of finished audio, and the gap between those two units is where people misjudge their plan. The conversion is simple arithmetic: natural narration runs roughly 140&ndash;160 words per minute, and an English word averages about six characters including the space. So <strong>one minute of finished narration costs you somewhere around 900&ndash;1,000 characters</strong>.</p>
+      <p>That gives you a planning rule. A 10-minute explainer is about 10,000 characters of <em>final</em> audio — then multiply for reality, because auditioning voices and regenerating the lines that miss typically pushes real consumption to 1.5&ndash;3&times; the finished length. A weekly 10-minute video is closer to 120,000&ndash;150,000 characters a month than the 40,000 its runtime suggests, and a single 8-hour audiobook is roughly half a million before one retake. Two habits keep the bill honest: audition on a short representative paragraph, not the full script, and generate long projects in sections.</p>
+
       <h2>Is it worth paying for?</h2>
-      <p>If voice is a recurring part of your output — a weekly video series, an app feature, a catalog of audiobooks — then yes, comfortably. The time saved versus recording, and the quality gap versus cheaper synthesis, pays for the subscription quickly. If you only need voice occasionally, the free tier or a lower plan is enough, and you can scale up in the months you actually ship audio. The one budgeting trap to watch is scale: because pricing tracks characters and audio volume, a channel that suddenly takes off can see its bill climb faster than expected, so keep an eye on usage as you grow.</p>
+      <p>If voice is a recurring part of your output — a weekly video series, an app feature, a catalog of audiobooks — then yes, comfortably. The time saved versus recording, and the quality gap versus cheaper synthesis, pays for the subscription quickly. If you only need voice occasionally, the free tier or a lower plan is enough, and you can scale up in the months you actually ship audio.</p>
 
       <h2>How it compares</h2>
-      <p>Competitors have closed some of the gap on raw naturalness, and the big model labs now offer capable text-to-speech too. But ElevenLabs still leads on the combination that matters for production: voice quality, cloning fidelity, language coverage, and a mature API. For most people the question isn't "is there something more realistic?" but "is anything else this complete?" — and the answer is usually no.</p>
+      <p>Competitors have closed some of the gap on raw naturalness, and the big model labs now ship capable text-to-speech too. ElevenLabs still leads on the combination that matters for production: voice quality, cloning fidelity, language coverage, and a mature API.</p>
+      <table>
+        <thead>
+          <tr><th></th><th>ElevenLabs</th><th>Descript</th><th>Frontier-lab TTS</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Built around</td><td>Generating voice from text</td><td>Editing recorded audio &amp; video</td><td>Adding speech to an app</td></tr>
+          <tr><td>Voice cloning</td><td>Its core strength</td><td>Available, tuned for patching your own recordings</td><td>Generally not offered</td></tr>
+          <tr><td>Long-form control</td><td>Per-line tuning in a project editor</td><td>Edit the transcript, the audio follows</td><td>Prompt-level only</td></tr>
+          <tr><td>Best fit</td><td>Narration you never recorded</td><td>Narration you did record</td><td>Cheap, simple, functional speech</td></tr>
+        </tbody>
+      </table>
+      <p>The most useful comparison is against <a href="/tool/descript">Descript</a>, because the two get pitched at the same people and solve opposite problems. Descript starts from a recording: it transcribes what you said and lets you edit the audio by editing the text, with voice cloning positioned as a way to patch a flubbed line without re-recording the take. ElevenLabs starts from a blank page — there is no recording, and the voice is the output. If you narrate your own videos and want to remove filler words and fix mistakes, Descript is the better buy and ElevenLabs is redundant. If you don't want to be on the mic at all, or you need a voice in a language you don't speak, ElevenLabs is the obvious answer. Plenty of teams run both: record and edit in Descript, generate the localized versions in ElevenLabs.</p>
+      <p>Against the text-to-speech offered by the big assistant labs, the trade is cost versus control. If you just need an app to read a notification aloud, general-purpose TTS is cheaper and entirely adequate. What you give up is cloning, a voice library, per-line tuning, and long-form project tooling — exactly what you need the moment voice becomes a product surface rather than a convenience.</p>
+      <p>In a wider media pipeline, <a href="/tool/otter-ai">Otter</a> handles transcription, <a href="/tool/runway">Runway</a> and <a href="/tool/openai-sora">Sora</a> generate the visuals (see <a href="/blog/sora-video-generation-revolution">where AI video generation stands</a>), and ElevenLabs supplies the voice track.</p>
+
+      <h2>Licensing and commercial use</h2>
+      <p>This is the part most reviews skip, and it's the part that can cost you. Two separate questions matter, and they have different answers.</p>
+      <p><strong>Can you sell what you generate?</strong> Free usage generally carries attribution requirements and non-commercial limits, while paid plans grant commercial usage rights to the audio you produce. For a lot of small creators that distinction, not the character quota, is the real reason to upgrade. Read the current license on the plan you're actually on before publishing anything monetized.</p>
+      <p><strong>Do you have the right to that voice?</strong> Cloning raises a rights question no vendor's terms can answer for you. Your own voice is straightforward. A colleague's or a hired narrator's needs written, specific permission covering synthetic reproduction — a standard recording release often doesn't. A public figure's voice is off the table regardless of what the tool technically permits, because right-of-publicity law sits outside the platform's terms entirely. ElevenLabs verifies identity for its higher-fidelity cloning path for exactly this reason.</p>
+      <p>One more layer: distribution platforms have their own rules. Several audiobook and video platforms require disclosure when narration is synthetic. Check the destination's policy, not just the generator's.</p>
+
+      <h2>Alternatives worth considering</h2>
+      <ul>
+        <li><strong>You narrate your own content and want to fix it.</strong> <a href="/tool/descript">Descript</a> — transcript-based editing beats regenerating a voice you already have.</li>
+        <li><strong>You need one line of speech in an app, occasionally.</strong> General-purpose TTS from whichever assistant platform you're already paying for is cheaper and good enough.</li>
+        <li><strong>Your constraint is privacy or offline operation.</strong> Open-weight speech models run locally through <a href="/tool/ollama">a local model runner</a> won't match ElevenLabs on expressiveness, but nothing leaves your machine and there's no per-character cost — the same trade-off we cover for text models in <a href="/blog/local-llm-llama4">running open models locally</a>.</li>
+        <li><strong>You mainly need short social clips.</strong> An all-in-one editor like <a href="/tool/canva">Canva</a> bundles adequate TTS into the tool you're already using.</li>
+      </ul>
 
       <h2>Who should use it</h2>
-      <p>Video creators, podcasters, app developers adding voice, e-learning teams, and anyone localizing content. If realistic AI voice is core to your work, ElevenLabs is the one to beat. If you only need the occasional line of narration, start on the free tier and upgrade when volume justifies it.</p>
-      <p><strong>Verdict:</strong> Still the leader in AI voice in 2026. <a href="/tool/elevenlabs">Try ElevenLabs</a> on a real script and compare for yourself, or browse other picks in our <a href="/best/other">best specialized AI tools</a> guide.</p>
+      <p>Video creators, podcasters, app developers adding voice, e-learning teams, and anyone localizing content. If realistic AI voice is core to your work, ElevenLabs is the one to beat.</p>
+      <p><strong>Verdict:</strong> Still the leader in AI voice in 2026. <a href="/tool/elevenlabs">Try ElevenLabs</a> on a real script, browse other picks in our <a href="/best/other">best specialized AI tools</a> guide, or see where voice fits into a wider toolkit in the <a href="/blog/complete-vibe-coding-stack-2026">complete vibe coding stack for 2026</a>.</p>
     `,
+    faq: [
+      {
+        q: "Is ElevenLabs worth paying for?",
+        a: "If voice is a recurring part of what you ship — a weekly video series, an app feature, a catalog of audiobooks — yes, comfortably. The subscription costs less than a single studio session and the quality gap over cheaper synthesis is still obvious on conversational scripts. If you need narration only occasionally, stay on the free tier and upgrade in the months you actually publish audio.",
+      },
+      {
+        q: "Can I use ElevenLabs audio commercially?",
+        a: "Paid plans grant commercial usage rights to the audio you generate, while free usage generally carries attribution requirements and non-commercial limits. Separately, you need the rights to any voice you clone — your own is fine, someone else's requires explicit written permission covering synthetic reproduction, and public figures are off-limits regardless of what the tool allows. Check the current license terms before publishing anything monetized.",
+      },
+      {
+        q: "How many characters does a minute of audio use?",
+        a: "Roughly 900 to 1,000. Narration runs about 140 to 160 words per minute and an English word averages six characters including the space. Real consumption lands higher than your finished runtime — auditioning voices and regenerating lines that miss typically pushes it to 1.5 to 3 times the final length, so budget from that number rather than the script word count.",
+      },
+      {
+        q: "ElevenLabs or Descript — which should I use?",
+        a: "They solve opposite problems. Descript starts from a recording you made and lets you edit the audio by editing the transcript, so it wins if you narrate your own content and want to remove filler words or patch a flubbed line. ElevenLabs starts from a blank page and generates the voice itself, which is what you want if you don't record at all or need narration in a language you don't speak.",
+      },
+      {
+        q: "Where does ElevenLabs still sound synthetic?",
+        a: "In predictable places: numbers, dates, and acronyms get pronounced however the model guesses, homographs like \"read\" and \"live\" flip, and deliberate emphasis on one specific word takes several attempts. Whispering, shouting, sarcasm, and laughter are the emotional extremes where output degrades most. Spelling numbers out in the script and writing short, unambiguous sentences removes the majority of these issues.",
+      },
+      {
+        q: "Is voice cloning accurate from a short sample?",
+        a: "A short, clean sample produces a usable voice and a longer high-quality recording produces an excellent one — but a clone inherits everything about your sample, including room reverb, mic character, and mouth noise. Record in a quiet space at a consistent distance and pace, because those flaws stay in the cloned voice permanently.",
+      },
+    ],
   },
   {
     slug: "ai-app-builders-bolt-v0-lovable",
     title: "Build an App Without Coding: Bolt.new vs v0 vs Lovable",
     excerpt:
-      "AI app builders turn a prompt into a working app. We compare Bolt.new, v0, and Lovable on output quality, control, pricing, and who each one is for in 2026.",
+      "Bolt.new, v0, and Lovable all turn a prompt into a working app — but they generate different things, bill in three different currencies, and hit their ceilings at different points. A 2026 comparison with pricing, code ownership, and scenario-by-scenario picks.",
     date: "Jul 18, 2026",
+    updated: "Aug 16, 2026",
     author: "David Kim",
     category: "Comparison",
-    readTime: "8 min read",
+    readTime: "11 min read",
     image: "/images/blog/blog_cloud_dev.png",
     tags: ["Bolt.new", "v0", "Lovable", "No-Code"],
     content: `
@@ -273,15 +338,42 @@ export const postsBatch3: BlogPost[] = [
 
       <h2>v0 by Vercel — UI-first</h2>
       <p><a href="/tool/v0-by-vercel">v0</a> excels at generating clean, production-ready React + Tailwind components and full screens from a prompt. Its output is idiomatic code you can copy straight into a Next.js project, which makes it the natural fit if you already live in the Vercel ecosystem or you're a developer who wants a strong starting point rather than a finished, hosted product. Iteration is conversational: describe a change, get an updated component. It also handles the fiddly design details well — spacing, hover and loading states, responsive behavior — so it saves real front-end time, not just the first rough draft.</p>
+      <p>The February 2026 update changed what v0 actually is. It added Git integration and a full VS Code-style editor alongside Design Mode, turning a component generator into something closer to a build environment — you can keep a project inside v0 for longer before moving it into a real repo. Premium adds Figma imports and the v0 API, so designers with existing files aren't starting from a blank text prompt. Under the hood you choose between three model tiers (Mini, Pro, and Max), which is really a quality-versus-credit-burn dial rather than three different products.</p>
 
       <h2>Bolt.new — full-stack in the browser</h2>
       <p><a href="/tool/bolt-new">Bolt.new</a> spins up a full-stack app in an in-browser dev environment — frontend, backend, dependencies, and a live preview you can iterate on by prompting. It's the fastest way to go from an idea to something running without any local setup, and because you get a real project (not just a component), it's great for prototypes that need data, routes, and logic. You can install packages, run the app, and export the code when you're happy. Since everything runs in the browser, you can go from idea to a shareable, working link without installing a thing — which makes it ideal for quick experiments and demos.</p>
+      <p>The technical trick behind that is WebContainers, StackBlitz's runtime that executes a real Node.js environment inside your browser tab. It's why the preview is a genuinely running app rather than a rendered mockup: you can install packages, hit an API route, and watch a real server error appear in a real terminal. It also makes Bolt framework-flexible in a way v0 isn't — anything that runs on Node is fair game, not just React and Next.js.</p>
 
       <h2>Lovable — product-minded building</h2>
       <p><a href="/tool/lovable">Lovable</a> leans toward non-developers building real products, with a guided flow from idea to a deployed, working app — including database and auth wired up for you. If you're a founder who wants a usable MVP without touching much code, Lovable's opinionated, product-first approach removes the most friction. You describe the product; it handles more of the plumbing. It's especially popular with founders validating an idea, where getting a real, clickable product in front of users this week beats a perfect codebase next month.</p>
+      <p>Concretely, Lovable generates a React + Vite frontend with Tailwind, a Supabase backend covering Postgres, auth, and storage, and a live preview URL — usually within a couple of minutes of the first prompt. From there you iterate by chatting, by clicking directly into elements on the page, or, unusually for this category, by editing the generated source in a built-in IDE if you happen to know how. The whole project can be pushed to your own GitHub at any point, which is what separates it from the locked no-code tools it superficially resembles.</p>
 
       <h2>How these tools actually work</h2>
       <p>Under the hood, all three take your prompt, generate code with a frontier model, and render a live result you can react to. The differences are in what they generate and how much they hide. v0 hands you clean component code and expects you to own the project. Bolt.new generates and runs a whole project in a sandbox so you see it working immediately. Lovable generates a project too but wraps more of the infrastructure — hosting, database, auth — so a non-developer never has to touch it. Knowing this helps you predict where each will feel smooth and where it'll fight you: the more a tool abstracts away, the faster you start and the sooner you hit a ceiling if your needs get unusual.</p>
+
+      <h2>Where each one breaks down</h2>
+      <p>Every AI builder has a ceiling, and knowing roughly where it sits saves you a wasted week.</p>
+      <ul>
+        <li><strong>v0</strong> is opinionated about the stack. It strongly favors React, Tailwind, and the Vercel deploy path, so if your project lives in Svelte, Vue, Rails, or Django you're fighting it from the first prompt. It's also UI-first by design — it won't think about your database schema, and expecting it to is the most common way people end up disappointed.</li>
+        <li><strong>Bolt.new</strong> hits two walls. The first is complexity: like every builder, its edits get less reliable as the project grows. The second is economic, and it's the one nobody sees coming — the pricing section below explains why.</li>
+        <li><strong>Lovable</strong> has the most clearly defined ceiling of the three. Once a project passes roughly ten screens, or once the business logic starts cutting across features, new edits begin conflicting with earlier work — and a non-developer has no good way to recover. Lovable's own answer is honest: connect the project to GitHub and bring a developer in. That's a real solution, but it's also an admission that solo non-technical building has a limit.</li>
+      </ul>
+      <p>None of this makes them bad tools. It means you should choose based on where your project will be in a month, not where it is in the first hour.</p>
+
+      <h2>Who owns the code — and how you leave</h2>
+      <p>This is the question that separates 2026's AI builders from the previous no-code generation, and all three answer it well. v0 syncs to GitHub and deploys to Vercel in a click, and its output is idiomatic enough that dropping a component into an existing repo rarely needs a rewrite. Bolt gives you a normal Node project you can download and run locally. Lovable ejects to your own GitHub, and its generated code is conventional React and Vite — genuinely readable, which is uncommon for AI-generated codebases.</p>
+      <p>The practical test before you commit real work to any of them: build something small, export it, and get it running on your own machine. If you can't, that's your actual lock-in, whatever the marketing page says. The related detail is who hosts you afterwards. v0's path is <a href="/tool/vercel">Vercel</a>, Lovable deploys for you through its own pipeline, and Bolt deploys too — but on the free tier those deploys carry Bolt branding and can't use a custom domain, so anything a client will see pushes you to a paid plan.</p>
+
+      <h2>Scenario by scenario: who wins what</h2>
+      <ul>
+        <li><strong>A landing page or component for an existing Next.js app</strong> &rarr; v0. The output drops into your repo with minimal cleanup, which is exactly the job.</li>
+        <li><strong>An internal dashboard with real data, needed this week</strong> &rarr; Bolt.new. You need routes, a backend, and something running, without touching a local environment.</li>
+        <li><strong>An MVP that real users will log into</strong> &rarr; Lovable. Auth, database, and hosting arrive wired up, which is most of the work you were dreading.</li>
+        <li><strong>You're a designer sitting on Figma files</strong> &rarr; v0 Premium, which imports <a href="/tool/figma">Figma</a> designs and turns them into working components.</li>
+        <li><strong>You're learning to build</strong> &rarr; Bolt.new's free tier. It runs live, needs no credit card, and watching working code get generated and immediately execute is a genuinely good way to learn.</li>
+        <li><strong>The project will clearly become a serious codebase</strong> &rarr; use any of them for the first twenty percent, then move into <a href="/tool/cursor">Cursor</a> or <a href="/tool/windsurf-ide">Windsurf</a>. Our <a href="/compare/cursor-vs-bolt-new">Cursor vs Bolt.new comparison</a> covers where that handoff makes sense.</li>
+      </ul>
+      <p>One more option worth knowing: <a href="/tool/replit">Replit</a> occupies adjacent ground with its Agent, and is the better fit if what you actually want is a full cloud IDE with hosting and a database attached rather than a prompt-first builder.</p>
 
       <h2>Common pitfalls</h2>
       <ul>
@@ -290,9 +382,6 @@ export const postsBatch3: BlogPost[] = [
         <li><strong>Outgrowing the tool silently.</strong> When you find yourself fighting the builder to make one specific change, that's the signal to export the code into a real editor like <a href="/tool/cursor">Cursor</a> and continue there.</li>
         <li><strong>Burning credits on rework.</strong> Each of these bills by generation or message, so vague prompts that need three redos cost real money — be specific.</li>
       </ul>
-
-      <h2>Match the tool to your project</h2>
-      <p>A quick gut check. Building a marketing site or a component for an existing Next.js app? v0. Prototyping a full-stack idea — a dashboard, a small SaaS tool, an internal app — that needs data and logic fast? Bolt.new. Non-technical and want a real, hosted product with users, logins, and a database without hiring a developer? Lovable. And if your project will clearly grow into a serious codebase, treat any of them as a fast starting point rather than a permanent home, and plan to move the code into a full editor once the foundations are set.</p>
 
       <h2>Side-by-side comparison</h2>
       <table>
@@ -309,8 +398,22 @@ export const postsBatch3: BlogPost[] = [
         </tbody>
       </table>
 
-      <h2>Pricing</h2>
-      <p>All three offer a free tier to try, then usage- or credit-based paid plans (generations, messages, or projects) typically starting around $20/month for individuals and scaling for teams. Because credits and limits change, check current rates before committing — and note that heavier iteration burns credits faster, so a "cheap" plan can run out mid-build.</p>
+      <h2>Pricing: three different currencies</h2>
+      <p>All three have a free tier and all three meter usage — but they meter <em>different things</em>, and that, not the sticker price, is what determines your bill.</p>
+      <table>
+        <thead>
+          <tr><th></th><th>v0</th><th>Bolt.new</th><th>Lovable</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Billing unit</td><td>Credits</td><td>Tokens</td><td>Messages</td></tr>
+          <tr><td>Free tier</td><td>$5/mo in credits, up to 200 projects, Design Mode, GitHub sync</td><td>1M tokens/mo, 300K daily cap, no card required</td><td>Daily message allowance, unlimited projects</td></tr>
+          <tr><td>Entry paid plan</td><td>Premium ~$20/mo ($20 in credits, Figma import, v0 API)</td><td>Pro ~$25/mo (10M+ tokens, no daily cap, rollover, custom domain)</td><td>Starter, then Pro</td></tr>
+          <tr><td>Team plans</td><td>Team ~$30/user/mo, Business ~$100/user/mo</td><td>Teams ~$30/member/mo</td><td>Teams</td></tr>
+          <tr><td>What makes the bill grow</td><td>How much and how complex your generations are</td><td>How big your codebase is</td><td>How many times you iterate</td></tr>
+        </tbody>
+      </table>
+      <p>Bolt's model is the one that catches people out. Its tokens are consumed mostly by syncing your project's file system to the model, not by the length of your prompt — so a message that changes one line in a forty-file project costs dramatically more than the same message did on day one. Budget by project size, not by how many messages you plan to send. v0's credits scale with generation complexity instead, which makes rework the expensive thing: three vague prompts that each need a redo cost more than one specific prompt that lands. Lovable's per-message meter rewards exactly the same discipline for the same reason.</p>
+      <p>Two footnotes worth knowing. v0's purchased credits expire after a year, so bulk-buying ahead of a project you haven't started is a bad idea. And Bolt's free deployments carry Bolt branding with no custom domain, which makes that tier excellent for learning and unusable for client work. Rates and limits in this category move constantly — treat the numbers above as the <em>shape</em> of each pricing model rather than a quote, and confirm current rates before you put a team on one.</p>
 
       <h2>Quick guide</h2>
       <ul>
@@ -319,18 +422,42 @@ export const postsBatch3: BlogPost[] = [
         <li><strong>Non-developer building a real product MVP?</strong> &rarr; Lovable</li>
       </ul>
       <p>A common pattern in 2026 is to combine them: prototype in Bolt.new or generate screens in v0, then move the code into an AI editor like <a href="/tool/cursor">Cursor</a> to finish the hard parts. That's exactly the flow we lay out in <a href="/blog/build-app-in-a-weekend-ai-stack">How to Build an App in a Weekend with AI</a>.</p>
-      <p>Prefer to design first? See our <a href="/best/design">best AI design tools</a> guide, which also covers Framer for shipping full websites from a prompt.</p>
+      <p>Prefer to design first? See our <a href="/best/design">best AI design tools</a> guide, which also covers Framer for shipping full websites from a prompt. And if you're choosing between v0 and a platform built around an existing design system, our <a href="/blog/nocode-design-v0">v0 vs Builder.io comparison</a> goes deeper on generated code quality and design-system integration.</p>
+      <p>Once you've picked a builder, it's only one layer of the toolkit — the <a href="/blog/complete-vibe-coding-stack-2026">complete vibe coding stack for 2026</a> shows what goes around it, and our <a href="/best/coding">best AI coding tools</a> ranking covers the editors you'll graduate into.</p>
     `,
+    faq: [
+      {
+        q: "Which AI app builder is best for non-developers?",
+        a: "Lovable. It generates a full-stack project — React and Vite on the front end, Supabase for database, auth, and storage — and deploys it for you, so you never have to know what an API route or a schema is. Bolt.new is full-stack too but assumes you can read and steer the generated code, and v0 is a developer-focused UI tool that won't touch your backend at all.",
+      },
+      {
+        q: "Do I own the code these tools generate?",
+        a: "Yes, with all three. v0 syncs to GitHub and deploys to Vercel, Bolt gives you a normal downloadable Node project, and Lovable ejects to your own GitHub repo with conventional, readable React code. Before committing real work to any of them, build something small, export it, and confirm you can run it on your own machine — that test is the only meaningful measure of lock-in.",
+      },
+      {
+        q: "How much do Bolt.new, v0, and Lovable cost?",
+        a: "All three are free to start and then meter usage differently. v0's free tier includes about $5/month in credits with Premium around $20/month, Bolt's free tier gives 1M tokens per month with Pro around $25/month, and Lovable meters by messages with a daily free allowance. Rates in this category change often, so check current pricing before putting a team on one.",
+      },
+      {
+        q: "Why do Bolt.new tokens run out so fast?",
+        a: "Because tokens are consumed mostly by syncing your project's file system to the model, not by the length of your prompt. That means a one-line change in a large project costs far more than the same change did when the project was new. The practical takeaway is to budget by codebase size rather than message count, and to keep prototypes small.",
+      },
+      {
+        q: "Can I build a real production app with these tools?",
+        a: "You can build a real, launchable first version — plenty of shipped products started this way. What you shouldn't expect is to stay inside the builder forever. Each one gets less reliable as complexity grows, so the common 2026 pattern is to generate the first twenty percent with a builder, then export the code into an editor like Cursor and finish the hard parts there.",
+      },
+    ],
   },
   {
     slug: "chatgpt-vs-perplexity",
     title: "ChatGPT vs Perplexity: Which Is Better for Research?",
     excerpt:
-      "Both answer questions, but only one is built for research with citations. Here's when to use Perplexity over ChatGPT — and when not to — in 2026.",
+      "Both answer questions, but only one is built for research with citations. A 2026 breakdown of Perplexity vs ChatGPT: what each is actually built for, tier-by-tier pricing, the free Comet browser, where each one fails, and how to use both together.",
     date: "Jul 18, 2026",
+    updated: "Aug 16, 2026",
     author: "David Kim",
     category: "Comparison",
-    readTime: "7 min read",
+    readTime: "11 min read",
     image: "/images/blog/gpt5-vs-claude5.png",
     tags: ["Perplexity", "ChatGPT", "Research"],
     content: `
@@ -357,6 +484,25 @@ export const postsBatch3: BlogPost[] = [
         </tbody>
       </table>
 
+      <h2>Pricing, tier by tier</h2>
+      <p>Both headline at roughly $20/month, which makes them look interchangeable on price. They aren't — what you get for free and what the next step up buys are structured very differently.</p>
+      <table>
+        <thead>
+          <tr><th>Tier</th><th>Perplexity</th><th>ChatGPT</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Free</td><td>5 Deep Research queries + 3 Pro Searches per day</td><td>A limited fast model with tight message caps; ads in the US</td></tr>
+          <tr><td>~$20/mo</td><td>Pro: full Sonar family, third-party model selection, Spaces, Pages, Labs</td><td>Plus: full model suite, Deep Research, Sora image generation, Agent Mode, Codex tools, ad-free</td></tr>
+          <tr><td>$200/mo</td><td>Max: adds Perplexity Computer, orchestrating 19 models as sub-agents</td><td>Pro: largest context window and high Deep Research limits</td></tr>
+          <tr><td>Students</td><td>Education Pro around $10/mo</td><td>&mdash;</td></tr>
+          <tr><td>Teams</td><td>Enterprise Pro around $40/seat/mo; Enterprise Max around $325/seat/mo</td><td>ChatGPT Work, a separate enterprise workspace</td></tr>
+        </tbody>
+      </table>
+      <p>The most important line in that table is the free row. Perplexity's free tier is unusually generous for what it is — a handful of genuine Deep Research runs every day is enough for a student or an occasional researcher to never pay. ChatGPT's free tier is noticeably thinner than it was a year ago: a smaller model, tighter limits, and ads in the US. If your budget is zero and your work is research, that asymmetry decides it. Both $200 tiers are aimed at people running AI as a core part of daily work, and both are hard to justify otherwise — the jump from $20 to $200 is the steepest cliff in either product.</p>
+
+      <h2>Comet changes the free-tier math</h2>
+      <p>Perplexity dropped the paywall on its <strong>Comet</strong> browser in March 2026, and it's now free on iOS, Android, Windows, and Mac. That matters more than a typical feature release, because Comet puts agentic search, page summarization, voice mode, and Deep Research directly into the browsing surface — you ask questions about the page you're already on, or hand off a multi-step web task, without opening a separate tab. Comet Plus (around $5/mo, and included with Pro and Max) adds premium publisher content on top. There's no equivalent on the ChatGPT side; OpenAI's answer to "AI while you browse" runs through the app and its integrations rather than through the browser itself. If most of your research happens while reading web pages, that's a real workflow difference, and it costs nothing to test.</p>
+
       <h2>A real research question, two ways</h2>
       <p>Say you ask, "What changed in AI coding tools this month?" Perplexity runs live searches, synthesizes the results, and hands you a concise answer with numbered citations you can click to confirm each claim — ideal when accuracy and provenance matter. ChatGPT, asked the same thing, can browse and answer too, but it's just as happy to reason, compare, and draft a full write-up from what it finds. Same question, different deliverable: Perplexity gives you a sourced answer; ChatGPT gives you something you can build on.</p>
 
@@ -365,6 +511,19 @@ export const postsBatch3: BlogPost[] = [
 
       <h2>Accuracy &amp; trust</h2>
       <p>Any model can be confidently wrong, which is exactly why citations matter. Perplexity's design nudges you to verify — the sources sit right there, so checking a surprising claim takes one click. ChatGPT can cite when browsing, but in its default mode you're trusting the model's memory, which is faster but easier to take at face value. The safe habit with either tool: treat the answer as a strong draft and confirm anything you'll actually act on against the linked source.</p>
+
+      <h2>Where each one actually fails</h2>
+      <p>Neither product is weak, but both have failure modes worth knowing before you rely on one.</p>
+      <ul>
+        <li><strong>Perplexity is only as good as what it retrieves.</strong> On niche, obscure, or very fast-moving topics it will confidently cite thin pages, SEO filler, or a forum post, and the citation formatting makes weak sourcing look authoritative. The citations are the fix and the trap at once — click through on anything surprising rather than trusting the fact that a link exists.</li>
+        <li><strong>Perplexity is narrow by design.</strong> It isn't built for long creative writing, sustained coding workflows, or image generation. Asking it to do those jobs produces mediocre results, not because the underlying models are weak but because the product isn't shaped for them.</li>
+        <li><strong>ChatGPT will answer from memory unless you push it.</strong> In default mode it doesn't necessarily browse, so a question about something recent can return a fluent, plausible, out-of-date answer. If currency matters, say so explicitly in the prompt — this is one of the places where how you ask genuinely changes what you get, a theme we cover in <a href="/blog/future-prompting">why prompt engineering is becoming a legacy skill</a>.</li>
+        <li><strong>Both flatten disagreement.</strong> When sources conflict, a synthesized answer tends to pick a side or split the difference rather than telling you the field is contested. On anything genuinely disputed, ask directly what the counterargument is.</li>
+      </ul>
+
+      <h2>Using both together</h2>
+      <p>The most productive setup isn't picking a winner — it's a two-step pipeline. Start in Perplexity: ask the research question, let it gather and cite, and keep the thread in a Space so the sources stay organized as the topic develops over days rather than minutes. Then move to ChatGPT with the cited findings in hand and do the thing you actually needed: structure the argument, draft the piece, build the model, write the code. Finally, take any claim that will carry weight in the finished work and check it against the original source Perplexity linked, because the second pass through a generative model is exactly where a small distortion creeps in.</p>
+      <p>That split maps onto a broader habit worth forming with AI tools generally: use the retrieval tool for facts and the reasoning tool for judgment, and never let one do the other's job silently. If your work is code rather than prose, the same principle applies with different players — see <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5</a> for how the frontier models compare on production coding tasks.</p>
 
       <h2>When to use which</h2>
       <ul>
@@ -385,5 +544,31 @@ export const postsBatch3: BlogPost[] = [
       <p>Most power users keep both: Perplexity to find and verify facts, ChatGPT to reason over them and produce the final work. They're complements, not substitutes — and at ~$20/month each, plenty of professionals happily pay for both. If you can only pick one, choose based on your dominant task: constant fact-finding leans Perplexity; constant creating leans ChatGPT.</p>
       <p>Compare more options in our <a href="/best/assistance">best AI assistants</a> guide, or see <a href="/blog/chatgpt-vs-claude">ChatGPT vs Claude</a> if writing is your main use.</p>
     `,
+    faq: [
+      {
+        q: "Is Perplexity better than ChatGPT for research?",
+        a: "For finding and verifying facts, yes. Perplexity searches the live web by default and puts clickable inline citations next to every claim, so checking a surprising answer takes one click. ChatGPT is the better tool once you need to do something with those facts — structure an argument, draft the piece, write the code — because its strength is reasoning and creation rather than retrieval.",
+      },
+      {
+        q: "Is Perplexity's free tier enough?",
+        a: "For a student or occasional researcher, often yes. The free tier includes a handful of genuine Deep Research queries plus a few Pro Searches every day, which is unusually generous for the category. ChatGPT's free tier is thinner by comparison — a smaller fast model, tighter message caps, and ads in the US — so if your budget is zero and your work is research, that asymmetry decides it.",
+      },
+      {
+        q: "Is the Comet browser free?",
+        a: "Yes. Perplexity dropped the paywall on Comet in March 2026 and it's now free on iOS, Android, Windows, and Mac. It puts agentic search, page summarization, voice mode, and Deep Research into the browsing surface itself, so you ask questions about the page you're already reading. Comet Plus, around $5/month and included with Pro and Max, adds premium publisher content.",
+      },
+      {
+        q: "Does ChatGPT cite its sources?",
+        a: "It can, when it browses — but in its default mode it often answers from the model's own knowledge without searching, which means a question about something recent can return a fluent, plausible, out-of-date answer with no sources attached. If currency or provenance matters, say so explicitly in the prompt, or use a tool where citation is the default behavior.",
+      },
+      {
+        q: "Should I pay for both ChatGPT and Perplexity?",
+        a: "Most power users do, because at roughly $20/month each the combination is cheap relative to the time saved: Perplexity to find and verify, ChatGPT to reason over the findings and produce the deliverable. If you can only pick one, choose by your dominant task — constant fact-finding leans Perplexity, constant creating leans ChatGPT.",
+      },
+      {
+        q: "Are the $200/month tiers worth it?",
+        a: "Only if AI is a core part of your daily work rather than an occasional assist. The jump from $20 to $200 is the steepest cliff in either product: Perplexity's Max tier adds Perplexity Computer, which orchestrates many models as sub-agents, and ChatGPT Pro buys the largest context window and high Deep Research limits. Neither is justified by heavier casual use alone.",
+      },
+    ],
   },
 ];

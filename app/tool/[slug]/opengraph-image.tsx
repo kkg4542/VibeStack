@@ -12,26 +12,11 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const { slug } = await params;
   const tool = await getToolBySlug(slug);
 
+  // Unknown slug -> real 404. Previously this returned a generic "VibeStack" card with
+  // HTTP 200, so URLs like /tool/replit-ai/opengraph-image looked like valid crawlable
+  // assets to Google and stuck in "Crawled - currently not indexed".
   if (!tool) {
-    return new ImageResponse(
-      (
-        <div
-          style={{
-            background: '#09090b',
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'white',
-            fontSize: 64,
-            fontWeight: 'bold',
-          }}
-        >
-          VibeStack
-        </div>
-      )
-    );
+    return new Response('Not Found', { status: 404 });
   }
 
   return new ImageResponse(
