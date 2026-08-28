@@ -12,7 +12,7 @@ export const postsBatch3: BlogPost[] = [
     slug: "cursor-vs-github-copilot",
     title: "Cursor vs GitHub Copilot: Which Wins 2026?",
     excerpt:
-      "Cursor vs GitHub Copilot in 2026: how the two leading AI coding tools compare on autocomplete, agents, codebase context, model choice, price, and privacy.",
+      "Cursor rebuilt the editor around AI; Copilot added AI to the editor you already use. We compare agents, autocomplete, and price to help you choose in 2026.",
     date: "Jul 18, 2026",
     updated: "Jul 28, 2026",
     author: "David Kim",

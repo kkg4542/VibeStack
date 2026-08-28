@@ -697,7 +697,7 @@ export const postsBatch2: BlogPost[] = [
   {
     slug: "gpt-5-5-vision-next-gen",
     title: "GPT-5.5 Vision Arrives: A New Bar for AI That Sees the World",
-    excerpt: "GPT-5.5 Vision broke past simple image captioning into real-time spatial understanding and code generation. We revisit the launch — and how GPT-5.6 carries the idea forward.",
+    excerpt: "GPT-5.5 Vision could map a room's 3D layout from a single photo. We revisit the launch that redefined AI vision — and where GPT-5.6 takes it next.",
     date: "Jul 18, 2026",
     updated: "Aug 16, 2026",
     author: "David Kim",

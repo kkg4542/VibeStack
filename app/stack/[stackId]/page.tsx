@@ -21,14 +21,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     const url = `https://usevibestack.com/stack/${stackId}`;
     const ogImage = `${url}/opengraph-image`;
+    const metaTitle = stack.metaTitle ?? stack.name;
+    const metaDescription = stack.metaDescription ?? stack.description;
 
     return {
-        title: stack.name,
-        description: stack.description,
+        title: metaTitle,
+        description: metaDescription,
         alternates: { canonical: url },
         openGraph: {
-            title: `${stack.name} | AI Stack for ${stack.idealFor.join(", ")}`,
-            description: stack.description,
+            title: `${metaTitle} | AI Stack for ${stack.idealFor.join(", ")}`,
+            description: metaDescription,
             url,
             type: "website",
             images: [
@@ -42,8 +44,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         },
         twitter: {
             card: "summary_large_image",
-            title: stack.name,
-            description: stack.description,
+            title: metaTitle,
+            description: metaDescription,
         }
     };
 }

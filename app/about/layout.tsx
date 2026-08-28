@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "About",
-    description: "VibeStack is an AI productivity lab curating the best AI tools for developers. Learn about our mission and how we vet every tool.",
+    title: "Who's Behind Our AI Tool Picks",
+    description: "VibeStack's AI tool picks come from developers who actually use them, not press releases — see who's behind the site and how picks get updated.",
     alternates: { canonical: "https://usevibestack.com/about" },
 };
 

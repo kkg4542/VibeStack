@@ -13,6 +13,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ToolIconRenderer } from '@/components/tools/ToolIconRenderer';
 import { MotionDiv } from "@/components/ui/motion-wrapper";
 import { designSystem } from '@/lib/design-system';
+import { fitTitle } from '@/lib/seo-title';
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -22,14 +23,13 @@ function lcFirst(s: string): string {
     return s.charAt(0).toLowerCase() + s.slice(1);
 }
 
-/** Appended by the root layout's title template (app/layout.tsx). */
-const TITLE_SUFFIX = " | VibeStack";
-/** Google truncates SERP titles somewhere around here. */
-const TITLE_MAX_LENGTH = 60;
-
 /**
  * Pick the longest title variant that survives Google's ~60-character SERP
- * budget once " | VibeStack" is appended.
+ * budget. Unlike most surfaces, `/compare/*` never actually renders the root
+ * layout's " | VibeStack" suffix — `app/compare/layout.tsx` sets a plain-string
+ * `title`, which breaks Next.js's template inheritance for this segment — so
+ * we pass an empty suffix to `fitTitle` to spend the full 60 characters on
+ * real keywords instead of reserving space for text that won't appear.
  *
  * Deliberately defensive: the richest variant is the existing template, so any
  * pair whose title already fits is returned byte-for-byte unchanged. Only pairs
@@ -39,8 +39,6 @@ const TITLE_MAX_LENGTH = 60;
  * differs from the tools' full product names.
  */
 function fitCompareTitle(tool1Title: string, tool2Title: string, custom?: string): string {
-    if (custom) return custom;
-
     const base = `${tool1Title} vs ${tool2Title}`;
     const variants = [
         `${base} (2026): Features, Pricing & Verdict`,
@@ -50,10 +48,7 @@ function fitCompareTitle(tool1Title: string, tool2Title: string, custom?: string
         base,
     ];
 
-    return (
-        variants.find((v) => v.length + TITLE_SUFFIX.length <= TITLE_MAX_LENGTH) ??
-        variants[variants.length - 1]
-    );
+    return fitTitle(variants, custom, "");
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -72,8 +67,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         return { title: 'Tool Comparison Not Found' };
     }
 
-    const title = fitCompareTitle(tool1.title, tool2.title, getCompareEditorial(slug)?.title);
-    const description = `${tool1.title} or ${tool2.title}? Side-by-side comparison of features, pricing, pros & cons — plus a clear verdict on which ${tool1.category.toLowerCase()} tool fits your workflow.`;
+    const editorial = getCompareEditorial(slug);
+    const title = fitCompareTitle(tool1.title, tool2.title, editorial?.title);
+    const description = editorial?.description ??
+        `${tool1.title} or ${tool2.title}? Side-by-side comparison of features, pricing, pros & cons — plus a clear verdict on which ${tool1.category.toLowerCase()} tool fits your workflow.`;
     const url = `https://usevibestack.com/compare/${slug}`;
 
     return {

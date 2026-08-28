@@ -19,12 +19,83 @@ import { designSystem } from "@/lib/design-system";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { SimpleAccordionItem } from "@/components/ui/simple-accordion";
 import { getExtendedContent } from "@/lib/tool-extended-content";
+import { fitTitle } from "@/lib/seo-title";
 import sanitizeHtml from "sanitize-html";
+
+import { ToolCompareLinks } from "@/components/seo/ToolCompareLinks";
 
 import { ToolHero } from "./components/ToolHero";
 import { ToolSEO } from "./components/ToolSEO";
 
+/** Google truncates SERP meta descriptions somewhere around here. */
+const DESCRIPTION_MAX_LENGTH = 155;
 
+/**
+ * Pick the longest title variant that survives Google's ~60-character SERP
+ * budget once " | VibeStack" is appended (see lib/seo-title.ts).
+ *
+ * These pages used to target the tool's own brand name ("Airtable Review &
+ * Features"), which competes with the vendor's own site for a query it can
+ * never win and was responsible for a large share of near-zero-CTR
+ * impressions. Re-anchoring the title on the alternatives/pricing angle
+ * targets intent the directory can actually rank for.
+ */
+function fitToolTitle(title: string): string {
+    const variants = [
+        `${title} Review (2026): Pricing, Features & Alternatives`,
+        `${title} Review (2026): Pricing & Alternatives`,
+        `${title} Review (2026): Pricing`,
+        `${title} Review (2026)`,
+        `${title} Review`,
+    ];
+
+    return fitTitle(variants);
+}
+
+/**
+ * Truncate `text` to at most `maxLength` characters without cutting mid-word.
+ * Trailing punctuation left dangling by the cut is stripped before the
+ * ellipsis is appended.
+ */
+function truncateAtWord(text: string, maxLength: number): string {
+    const trimmed = text.trim();
+    if (trimmed.length <= maxLength) return trimmed;
+
+    const sliced = trimmed.slice(0, maxLength);
+    const lastSpace = sliced.lastIndexOf(" ");
+    const safe = lastSpace > 0 ? sliced.slice(0, lastSpace) : sliced;
+    return `${safe.replace(/[.,;:!?-]+$/, "")}…`;
+}
+
+/**
+ * Build a meta description that signals search intent (pricing, pros/cons,
+ * alternatives) instead of echoing tool.description verbatim, which is
+ * on-page product copy and doesn't hint at any of the comparison intent
+ * people actually search for. Never asserts tool-specific facts (price,
+ * specs) that aren't already in tool.description — only frames what's there.
+ *
+ * Guaranteed to return no more than DESCRIPTION_MAX_LENGTH characters
+ * regardless of how long tool.title or tool.description are.
+ */
+function buildToolDescription(tool: ToolData): string {
+    const category = tool.category.toLowerCase();
+    const lead = `${tool.title} review: pricing, pros & cons, and the best ${category} alternatives.`;
+
+    if (lead.length > DESCRIPTION_MAX_LENGTH) {
+        // Unusually long tool name — drop the category clause and, if still
+        // too long, hard-truncate at a word boundary as a last resort.
+        const shortLead = `${tool.title} review: pricing, pros, cons & alternatives.`;
+        return shortLead.length > DESCRIPTION_MAX_LENGTH
+            ? truncateAtWord(shortLead, DESCRIPTION_MAX_LENGTH)
+            : shortLead;
+    }
+
+    const budget = DESCRIPTION_MAX_LENGTH - lead.length - 1; // 1 for the joining space
+    if (budget < 20 || !tool.description) return lead;
+
+    const extra = truncateAtWord(tool.description, budget);
+    return extra ? `${lead} ${extra}` : lead;
+}
 
 // Only slugs returned by generateStaticParams() are valid routes.
 // Everything else returns a real HTTP 404 instead of a soft-404 (200 + "Tool Not Found"),
@@ -50,16 +121,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     if (!tool) return { title: "Tool Not Found" };
 
     const url = `https://usevibestack.com/tool/${tool.slug}`;
+    const title = fitToolTitle(tool.title);
+    const description = buildToolDescription(tool);
 
     return {
-        title: `${tool.title} Review & Features - AI Productivity Lab`,
-        description: tool.description,
+        title,
+        description,
         alternates: {
             canonical: url,
         },
         openGraph: {
-            title: `${tool.title} - VibeStack AI Tools`,
-            description: tool.description,
+            title,
+            description,
             url: url,
             type: "website",
             images: [
@@ -74,7 +147,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         twitter: {
             card: "summary_large_image",
             title: tool.title,
-            description: tool.description,
+            description,
         }
     };
 }
@@ -507,6 +580,13 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                 <ReviewList toolSlug={tool.slug} />
                             </div>
                         </MotionSection>
+
+                        {/* Crawlable links into the site's best-ranking cluster (/compare/*) */}
+                        <ToolCompareLinks
+                            toolSlug={tool.slug}
+                            toolTitle={tool.title}
+                            tools={allTools}
+                        />
 
                         {/* Similar Tools */}
                         <RelatedTools

@@ -17,13 +17,23 @@ export interface Stack {
     };
     usedBy?: string; // e.g. "1,200+ Developers"
     shareCount?: number;
+    /**
+     * Search-intent overrides for <title>/<meta description>. Falls back to
+     * `name`/`description` when omitted. `name` stays a branded label ("The
+     * X Stack") for on-page display; `metaTitle` should lead with the phrase
+     * people actually search for instead. Keep `metaTitle` to 48 characters
+     * or fewer — the root layout appends " | VibeStack" (12 chars) on top of
+     * it. Keep `metaDescription` to 155 characters or fewer.
+     */
+    metaTitle?: string;
+    metaDescription?: string;
 }
 
 /**
  * Date of the last hand-edit to the curated stacks below. Drives sitemap
  * lastmod for /stack/* — bump it whenever this file's content changes.
  */
-export const STACKS_REVISED = "2026-08-07";
+export const STACKS_REVISED = "2026-08-28";
 
 export const stacks: Stack[] = [
     {
@@ -43,6 +53,8 @@ export const stacks: Stack[] = [
         ],
         icon: "🪄",
         color: "text-purple-500",
+        metaTitle: "AI UI Generator Stack: v0 + Builder.io",
+        metaDescription: "Generate UI from a text prompt with v0, then refine it visually in Builder.io — no hand-written CSS or component setup. Free stack for prototypes and MVPs.",
     },
     {
         id: "product-designer",
@@ -61,6 +73,8 @@ export const stacks: Stack[] = [
         ],
         icon: "🎨",
         color: "text-pink-500",
+        metaTitle: "Product Design Stack: Figma to Code",
+        metaDescription: "The product design stack for turning Figma files into working code — Builder.io for visual editing, v0 for AI-generated components. No dev handoff.",
     },
     {
         id: "learner",
@@ -79,6 +93,8 @@ export const stacks: Stack[] = [
         ],
         icon: "📚",
         color: "text-green-500",
+        metaTitle: "Learn to Code with AI: Cursor + Replit Stack",
+        metaDescription: "A zero-setup coding stack for beginners: write code in Replit's browser IDE while Cursor's AI explains and assists in real time. Free to start.",
     },
     {
         id: "10x-engineer",
@@ -97,6 +113,8 @@ export const stacks: Stack[] = [
         ],
         icon: "🚀",
         color: "text-orange-500",
+        metaTitle: "AI Coding Agent Stack for Senior Developers",
+        metaDescription: "An autonomous-agent stack for senior developers: Devin AI ships features, Supermaven speeds up completions, and Linear tracks the work at speed.",
     },
     {
         id: "efficiency",
@@ -115,6 +133,8 @@ export const stacks: Stack[] = [
         ],
         icon: "⚡",
         color: "text-yellow-500",
+        metaTitle: "Free Coding Stack: Cursor + Supermaven",
+        metaDescription: "A free, fast coding stack for budget-conscious developers: Cursor's AI editor plus Supermaven's autocomplete, both usable without paying a cent.",
     },
     {
         id: "power-pair",
@@ -133,6 +153,8 @@ export const stacks: Stack[] = [
         ],
         icon: "🤝",
         color: "text-blue-500",
+        metaTitle: "Power Pair Stack: Copilot + Gemini Code Assist",
+        metaDescription: "Run GitHub Copilot and Gemini Code Assist together — Copilot's fast autocomplete plus Gemini's long-context reasoning, both usable on free tiers.",
     },
     {
         id: "smart-assistant",
@@ -151,6 +173,48 @@ export const stacks: Stack[] = [
         ],
         icon: "🧠",
         color: "text-indigo-500",
+        metaTitle: "Free AI Assistant Stack: Claude + Perplexity",
+        metaDescription: "A free high-intelligence assistant stack: Perplexity for cited, web-aware search and Claude for deep reasoning, writing, and code — both on free tiers.",
+    },
+    {
+        id: "vibe-coding",
+        name: "The Vibe Coding Stack",
+        description: "The minimal three-tool stack for vibe coding: an AI-native editor, a frontier assistant, and a one-command deploy target.",
+        longDescription: "The Vibe Coding Stack is the minimal three-tool setup for describing what you want and having AI build most of it: Cursor as an AI-native editor that indexes your whole codebase and can implement a feature from a single sentence, Claude as the reasoning partner you turn to for planning a feature, debugging a stuck agent, or reviewing a diff before you commit it, and Vercel as the one-command deploy target that turns a finished change into a shareable link. None of the three requires local infrastructure work to get started, and all three have free tiers generous enough to build and ship a real side project before you need to pay for anything. The workflow is simple on purpose: describe the feature to Cursor's agent, review every change it proposes rather than accepting it blindly, bounce a hard problem or an unfamiliar error over to Claude when the editor's agent gets stuck, and push to Vercel once the flow works end to end. It's the stack to start with — not because it's the most powerful combination in this directory, but because it's the smallest one that actually gets an idea from a blank editor to a live URL, which is the whole point of vibe coding.",
+        totalPrice: "$0/mo",
+        tags: ["Vibe Coding", "Beginner", "Free", "Essentials"],
+        tools: ["cursor", "claude", "vercel"],
+        idealFor: ["First vibe coding stack", "Solo builders", "Side projects", "Indie hackers"],
+        workflow: [
+            "1. Describe the feature to Cursor's agent and review every change it proposes",
+            "2. Bounce hard problems or unfamiliar errors over to Claude",
+            "3. Iterate until the core flow works end to end",
+            "4. Deploy to Vercel and share the link"
+        ],
+        icon: "✨",
+        color: "text-fuchsia-500",
+        metaTitle: "Vibe Coding Tech Stack: Cursor + Claude + Vercel",
+        metaDescription: "How to start vibe coding in 2026: pair Cursor's AI editor with Claude for reasoning and Vercel to deploy — the minimal three-tool stack, free to start.",
+    },
+    {
+        id: "weekend-build",
+        name: "The Weekend Build Stack",
+        description: "Ship a working app in a weekend: plan with an assistant, scaffold with an app builder, deploy with one command.",
+        longDescription: "The Weekend Build Stack is built for one specific goal: taking an idea from nothing to a deployed app in two days. Start with Claude to shape the idea — talk through who it's for, the one core flow, and everything you're deliberately leaving out, because cutting scope on Friday night is what makes finishing on Sunday possible. Move into Bolt.new to scaffold the actual app: describe it once and get a full-stack starter with a live preview in the browser, so you can feel whether the core flow makes sense before you spend the weekend building the logic behind it. When the app works end to end, deploy it on Vercel and share the link — a small, shipped app beats an ambitious, unshipped one every time. The three tools map directly onto the weekend: Friday night is Claude's scope-cutting conversation, Saturday is Bolt.new turning that plan into a working app, and Sunday is Vercel putting it in front of real people. All three have free tiers, so the only real cost of a weekend build is the weekend itself.",
+        totalPrice: "$0/mo",
+        tags: ["Weekend Build", "Indie Hacking", "Free", "Fast Shipping"],
+        tools: ["claude", "bolt-new", "vercel"],
+        idealFor: ["Weekend projects", "Indie hackers", "MVP validation", "Solo builders"],
+        workflow: [
+            "1. Friday night: shape the idea and cut scope with Claude",
+            "2. Saturday: scaffold the full app in Bolt.new",
+            "3. Sunday morning: wire up the rough edges and test the core flow",
+            "4. Sunday afternoon: ship it on Vercel and share the link"
+        ],
+        icon: "🛠️",
+        color: "text-teal-500",
+        metaTitle: "Weekend Build Stack: Bolt.new + Claude + Vercel",
+        metaDescription: "The AI stack for shipping an app in a weekend: plan with Claude, scaffold the full app in Bolt.new, and deploy on Vercel. Built for solo builders.",
     }
 ];
 

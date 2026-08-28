@@ -57,13 +57,23 @@ export function comparePairs(tools: ToolData[]): ComparePair[] {
  */
 export interface CompareEditorial {
   /**
-   * Optional <title> override (the " | VibeStack" suffix is appended by the
-   * root layout template, so keep this at 48 characters or fewer to stay
-   * inside Google's ~60-character SERP budget). Use it when the generated
-   * template would truncate, or when the phrasing people actually search for
-   * differs from the tools' full product names.
+   * Optional <title> override. Unlike /tool/* and /stack/*, compare pages get
+   * NO " | VibeStack" suffix — app/compare/layout.tsx sets a plain-string
+   * title, which stops the root layout's title template from cascading to this
+   * segment. So the full ~60-character SERP budget is available here. Use it
+   * when the generated template would truncate, or when the phrasing people
+   * actually search for differs from the tools' full product names.
    */
   title?: string;
+  /**
+   * Optional <meta name="description"> override, used verbatim by
+   * generateMetadata() in app/compare/[slug]/page.tsx in place of the generic
+   * template. Keep this at 155 characters or fewer — Google truncates SERP
+   * snippets around that length. Should name one concrete, pair-specific
+   * difference rather than restating the generic "features, pricing & verdict"
+   * template every other page falls back to.
+   */
+  description?: string;
   /** Opening paragraphs rendered under "Overview". Plain text. */
   intro: string[];
   /** Closing verdict paragraph. Plain text. */
@@ -187,6 +197,8 @@ export const COMPARE_EDITORIAL: Record<string, CompareEditorial> = {
   },
   "github-copilot-vs-coderabbit": {
     title: "GitHub Copilot vs CodeRabbit (2026): Code Review",
+    description:
+      "GitHub Copilot writes your code; CodeRabbit reviews it on every pull request. They solve different bottlenecks — here's which one you actually need.",
     intro: [
       "These two get compared because both have \"AI\" and \"code\" in the pitch, but they sit at opposite ends of the same workflow and they aren't really competitors. GitHub Copilot is a writing tool: inline completions, chat, and agent mode inside VS Code and JetBrains, plus a CLI and a cloud agent that can open pull requests. CodeRabbit is a reviewing tool: it attaches to your repository and posts change summaries and line-by-line review comments with suggested fixes on every pull request that opens. Copilot helps you produce the diff. CodeRabbit reads the diff after you push it.",
       "The genuine overlap is narrower than the search results suggest. GitHub ships its own Copilot code review inside pull requests, so the real question for most teams isn't \"Copilot or CodeRabbit\" but \"is Copilot's built-in review enough, or do I want a dedicated reviewer?\" CodeRabbit goes deeper: it reviews line by line rather than summarizing, picks up your codebase's conventions over repeated reviews, is configurable per repository, and works on GitLab, Bitbucket, and Azure DevOps as well as GitHub. Its cost is noise — on an active repo it comments a lot, and most teams spend the first couple of weeks tuning what it flags before the signal-to-noise ratio feels right.",
@@ -211,6 +223,8 @@ export const COMPARE_EDITORIAL: Record<string, CompareEditorial> = {
   },
   "github-copilot-vs-supermaven": {
     title: "GitHub Copilot vs Supermaven: Speed & Context",
+    description:
+      "Copilot covers chat, agents, and PR review; Supermaven does one thing — the fastest, most context-aware autocomplete with a 1M-token window.",
     intro: [
       "Supermaven and GitHub Copilot both autocomplete your code, and that's roughly where the similarity ends. Supermaven is a single-purpose speed tool: a 1M-token context window and completions that arrive fast enough to feel like part of the editor rather than a round trip to a server. Copilot is a platform — completions, chat, agent mode (generally available on VS Code and JetBrains since March 2026), code review inside pull requests, a CLI, and a cloud agent.",
       "The two specs Supermaven leads on aren't marketing abstractions; they change how the tool feels. Latency decides whether you wait for a suggestion or read one that's already sitting there. When completions land before your eyes leave the line you're typing, you stay in flow instead of pausing to evaluate a popup — and that difference compounds over a day far more than a few percentage points of suggestion quality. The 1M-token window decides how much of your repository the model saw before guessing: with a window that large, completions match the helper functions and types defined in files you never opened, rather than inventing plausible-looking APIs. On a big monorepo that shows up concretely as fewer hallucinated imports and fewer wrong function signatures.",
@@ -251,6 +265,8 @@ export const COMPARE_EDITORIAL: Record<string, CompareEditorial> = {
   },
   "notion-ai-vs-microsoft-365-copilot": {
     title: "Notion AI vs Microsoft 365 Copilot (2026)",
+    description:
+      "Notion AI answers from your Notion workspace; Copilot answers from Word, Excel, Outlook, and Teams. Same idea, pointed at completely different data.",
     intro: [
       "Notion AI and Microsoft 365 Copilot both promise AI grounded in your own work, but they're grounded in different places. Notion AI reads your Notion workspace — the docs, wikis, and databases your team already maintains — and \"Ask Notion\" turns that into a queryable knowledge base. Copilot reads Microsoft Graph: Word documents, Excel workbooks, Outlook threads, Teams meetings. Neither is better in the abstract. Whichever one points at where your team's real information already lives is the one that will actually answer questions.",
       "The pricing structures differ more than the sticker prices suggest, and this is where most evaluations go wrong. Notion folded AI into the plan itself: since May 2025 there's no separate $10 AI add-on, and full AI — including Ask Notion and Agents — comes with the Business tier at $20/user/mo. One line item, and teams already on Business pay nothing extra. Microsoft charges an add-on on top of a subscription you already hold: Copilot Business runs roughly $18–21/user/mo (the $18 promotional annual rate runs through mid-2026 before rising) or about $30/user/mo for Enterprise, and that sits on top of a qualifying Microsoft 365 plan. The real cost is the sum of both.",
@@ -273,6 +289,116 @@ export const COMPARE_EDITORIAL: Record<string, CompareEditorial> = {
         a: "Copilot, if your meetings happen in Teams — it recaps calls directly, including what you missed and the action items, because it has the transcript. Notion AI handles meeting notes you write or record inside Notion and is stronger afterwards, at turning those notes into searchable team knowledge alongside the rest of your docs.",
       },
     ],
+  },
+  "notion-ai-vs-grammarly": {
+    description:
+      "Notion AI drafts and answers questions inside your workspace docs; Grammarly checks grammar, tone, and clarity everywhere else you type on the web.",
+    intro: [
+      "Notion AI and Grammarly both put AI writing help in front of you, but they solve different problems. Notion AI lives inside your Notion workspace — drafting, summarizing, translating, and answering questions across the docs, wikis, and databases you already have there. Grammarly works everywhere else: a browser extension and desktop app that checks grammar, spelling, tone, and clarity in Gmail, Google Docs, Slack, and practically any text box on the web, plus a generative rewrite mode.",
+      "The difference is scope versus reach. Notion AI's value is tied entirely to how much of your work already lives in Notion — it can't help with an email or a Slack message. Grammarly's value comes from being everywhere you write, but it doesn't know your team's wiki or project database the way Notion AI does.",
+    ],
+    verdict:
+      "Choose Notion AI if your team's knowledge and drafts already live in Notion and you want AI answering questions across that workspace. Choose Grammarly if you want consistent grammar, tone, and clarity checking across every app you write in, not just one workspace. Many people who use Notion daily still keep Grammarly running everywhere else — the two solve different halves of the writing problem.",
+  },
+  "cursor-vs-amazon-q-developer": {
+    description:
+      "Cursor is a general-purpose AI code editor; Amazon Q Developer specializes in AWS — infrastructure code, service-aware suggestions, security scans.",
+    intro: [
+      "Cursor and Amazon Q Developer both add AI to writing code, but they're built for different starting points. Cursor is a full AI-native code editor — a VS Code fork where multi-file agent edits, codebase-wide chat, and tab completion work across any language or stack. Amazon Q Developer is AWS's own coding assistant, built into IDEs as an extension and tuned specifically for AWS: it understands AWS services, helps write and modernize infrastructure-as-code, and runs security scans against your code.",
+      "The practical split is general development versus AWS-specific work. Cursor doesn't care which cloud you deploy to; its strength is agentic, multi-file changes across a whole codebase. Amazon Q Developer's suggestions get noticeably more useful the more your project touches AWS services, and its code transformation and security-scanning features are aimed squarely at teams already living in AWS infrastructure.",
+    ],
+    verdict:
+      "Choose Cursor if you want the strongest general-purpose AI editor and your stack isn't tied to one cloud provider. Choose Amazon Q Developer if your team builds heavily on AWS and wants an assistant that understands your infrastructure and can help modernize or secure it. Teams deep in AWS sometimes run both — Cursor for day-to-day coding, Amazon Q for AWS-specific tasks.",
+  },
+  "notion-ai-vs-gamma": {
+    description:
+      "Notion AI enhances documents and wikis you already have; Gamma generates an entire presentation, doc, or webpage from a single prompt.",
+    intro: [
+      "Notion AI and Gamma both bring AI into document creation, but they start from opposite ends. Notion AI is embedded in your existing Notion workspace — it drafts, summarizes, and answers questions using the docs, wikis, and databases you've already built up over time. Gamma starts from nothing: describe what you want and it generates a full presentation, one-page document, or simple webpage, complete with layout and design, that you then refine in its AI-native editor.",
+      "The difference shows up in what you're actually trying to produce. If you're organizing ongoing team knowledge — notes, project trackers, wikis — Notion AI's job is to make that existing workspace smarter. If you need a polished deck or one-off webpage fast and don't want to fight with slide layout, Gamma's prompt-to-deck workflow gets you a presentable first draft in minutes.",
+    ],
+    verdict:
+      "Choose Notion AI if your work is ongoing team knowledge management and you want AI woven into docs you'll keep updating. Choose Gamma when you need a good-looking presentation, document, or simple webpage quickly and don't need it to live inside a larger workspace. Many teams use Notion for the workspace and reach for Gamma specifically when a client-facing deck is due.",
+  },
+  "cursor-vs-v0-by-vercel": {
+    description:
+      "Cursor is a full IDE for editing any codebase; v0 generates standalone React + Tailwind UI components and pages from a prompt.",
+    intro: [
+      "Cursor and v0 by Vercel both write code with AI, but they operate at different scopes. Cursor is a complete AI-native code editor — a VS Code fork where you work across an entire codebase, in any language or framework, with agentic multi-file edits and chat. v0 is narrower and more specialized: describe a UI and it generates a real React component or page styled with Tailwind and shadcn/ui, which you can iterate on in v0's own interface before pulling the code into your project.",
+      "The overlap is smaller than it looks. v0 is genuinely excellent at the specific job of turning a prompt into a clean, deployable UI — landing pages, dashboards, forms — but it stays inside the React and Tailwind world and doesn't manage your whole codebase. Cursor can do that same UI-generation work, but its real strength is everything past the first component: wiring it into your app, backend logic, and the rest of a project v0 was never built to touch.",
+    ],
+    verdict:
+      "Choose v0 when you need a clean UI component or page fast and are happy working in React and Tailwind. Choose Cursor when you're building or maintaining a full application and want one AI-native editor for the whole codebase, not just the front end. A common workflow: generate the UI in v0, then bring the code into Cursor to wire it up.",
+  },
+  "midjourney-vs-runway": {
+    description:
+      "Midjourney generates still images with a distinctive aesthetic; Runway generates and edits AI video used in real film production.",
+    intro: [
+      "Midjourney and Runway both lead their categories in generative visuals, but they're not really competing for the same job. Midjourney generates still images — it's the aesthetic benchmark for AI art, with a distinctive, art-directed look that designers and concept artists reach for specifically. Runway generates and edits video: text-to-video, image-to-video, and tools like motion brush that give you frame-level control, and it's used in real film and commercial production rather than just for stills.",
+      "The choice mostly makes itself once you know what you're producing. If the deliverable is a single striking image — concept art, a thumbnail, a mood board — Midjourney's output quality is hard to match. If the deliverable involves motion — a short clip, a video ad, a visual-effects shot — Runway is built for that timeline-based, frame-by-frame work in a way Midjourney simply isn't.",
+    ],
+    verdict:
+      "Choose Midjourney when the final output is a still image and visual style matters most. Choose Runway when you need moving footage, from a text prompt or an existing image or clip. Many creative pipelines use both: generate a still in Midjourney, then bring it into Runway to animate.",
+  },
+  "midjourney-vs-lovable": {
+    description:
+      "Midjourney generates AI images; Lovable generates working full-stack apps from a prompt — different tools for entirely different jobs.",
+    intro: [
+      "Midjourney and Lovable get compared mostly because both turn a text prompt into something finished, but they finish completely different things. Midjourney generates still images with a distinctive, art-directed aesthetic — it's a tool for visual creation, nothing more. Lovable generates a working full-stack application: describe what you want built, and it scaffolds a React frontend with a Supabase backend, database, and auth, then deploys it to a live URL you can share within minutes.",
+      "There's essentially no functional overlap here — Midjourney can't write you an app, and Lovable can't produce fine art or concept imagery. The reason people search for this pairing is usually workflow, not competition: builders using Lovable to ship an app often turn to Midjourney (or a similar image model) for the visual assets — hero images, icons, marketing graphics — that go into the product Lovable builds.",
+    ],
+    verdict:
+      "These aren't really alternatives to choose between — pick Midjourney for image generation and Lovable for building a working application, and expect to use both together rather than instead of each other if your project needs custom visuals inside a real app.",
+  },
+  "cursor-vs-supermaven": {
+    description:
+      "Cursor is a full agentic AI editor; Supermaven is a single-purpose autocomplete tool built for the fastest, most context-aware completions.",
+    intro: [
+      "Cursor and Supermaven sit at different points on the same spectrum. Cursor is a complete AI-native code editor — a VS Code fork built around agentic, multi-file edits, codebase-wide chat, and a model picker spanning Claude, GPT, Gemini, and Grok. Supermaven is deliberately narrower: it's an autocomplete extension you add to whatever editor you already use, built around a 1M-token context window and completions fast enough to feel like part of typing rather than a round trip to a server.",
+      "The tradeoff is breadth versus depth in one specific skill. Cursor can plan and execute changes across a whole codebase, open pull requests, and hold a conversation about your architecture — capabilities Supermaven doesn't attempt. Supermaven's narrower focus means its tab-completion is often faster and more context-aware than what a general-purpose agentic editor prioritizes, since that's the only thing it's optimizing for.",
+    ],
+    verdict:
+      "Choose Cursor if agentic, multi-file development is the actual job you need done. Choose Supermaven if autocomplete is the AI feature you use constantly and you want the fastest, most context-aware version of it in your existing editor. Some developers run both: Cursor for agent work, Supermaven's extension for raw completion speed elsewhere.",
+  },
+  "chatgpt-vs-devin-ai": {
+    description:
+      "ChatGPT is a general-purpose assistant you converse with; Devin is an autonomous coding agent that takes a ticket and returns a pull request.",
+    intro: [
+      "ChatGPT and Devin are both AI products from the current wave, but they're built for almost entirely different jobs. ChatGPT is a general-purpose conversational assistant — writing, research, brainstorming, coding help, image generation — that responds interactively while you drive the conversation. Devin, from Cognition, is an autonomous AI software engineer: you hand it a ticket or task description, and it plans, writes, tests, and iterates on code largely on its own in its own environment, returning a pull request rather than a chat reply.",
+      "The difference is interactive help versus delegated work. ChatGPT can absolutely help you write or debug code, but you're the one driving each step and applying the result. Devin is built to be given a well-scoped task and left alone to complete it asynchronously — genuinely useful for offloading routine engineering chores, but with less moment-to-moment control than a conversation.",
+    ],
+    verdict:
+      "Choose ChatGPT for interactive help across writing, research, and coding where you want to stay in the loop on every step. Choose Devin specifically for well-defined, self-contained coding tasks you're comfortable delegating and reviewing after the fact — a bug fix, a small feature, a migration. They aren't substitutes: one is a conversation partner, the other is a task you assign and check on later.",
+  },
+  "cursor-vs-tabnine": {
+    description:
+      "Cursor chases the most capable agentic coding experience; Tabnine trades some capability for on-prem, privacy-first AI completion.",
+    intro: [
+      "Cursor and Tabnine both put AI into code completion, but they're optimizing for opposite priorities. Cursor is an AI-native editor chasing the most capable agentic experience available — multi-file edits, codebase-wide chat, and completions powered by frontier cloud models. Tabnine has settled into a different niche entirely: privacy and compliance. It offers on-premises and air-gapped deployment, and lets regulated organizations fine-tune a model on their own codebase without that code ever leaving their infrastructure.",
+      "The honest tradeoff is capability for control. Cursor's completions and agent features consistently rank ahead of Tabnine's, because Cursor isn't constrained by the architectural compromises that come with on-prem deployment. Tabnine's pitch isn't raw quality — it's that your proprietary code never has to touch a third-party cloud, which matters enormously to organizations under strict data-governance rules and not at all to everyone else.",
+    ],
+    verdict:
+      "Choose Cursor if you want the most capable agentic coding experience available and don't have restrictions on sending code to a cloud model. Choose Tabnine if your organization has compliance requirements that rule out third-party cloud APIs and you're willing to trade some capability — and pay for Tabnine's enterprise plan — for on-premises or air-gapped deployment.",
+  },
+  "bolt-new-vs-windsurf-ide": {
+    description:
+      "Bolt.new builds full-stack apps from a prompt in your browser; Windsurf is an AI-native desktop IDE built for ongoing development.",
+    intro: [
+      "Bolt.new and Windsurf both bring agentic AI to building software, but for different stages of a project. Bolt.new is a browser-based app builder: describe what you want, and it scaffolds, runs, and deploys a full-stack app instantly, with zero local setup. Windsurf is a full desktop IDE — a VS Code fork built around an agent (Cascade) that tracks your intent across a session, handles deep codebase context, and supports multi-file edits and refactoring the way a professional development environment needs to.",
+      "The right tool tracks how far along your project is. For a zero-to-prototype app or a quick MVP, Bolt's sandboxed browser environment gets something working in front of you fastest, with nothing to configure. Once a project needs a real local environment, git history, custom tooling, or ongoing maintenance across a growing codebase, Windsurf's full IDE gives you the control Bolt's browser sandbox doesn't.",
+    ],
+    verdict:
+      "Choose Bolt.new for fast prototypes and simple apps you want running in minutes with no setup. Choose Windsurf for real, ongoing development where you need a complete local IDE and deeper codebase-aware editing. A common path: prototype in Bolt, then move into Windsurf (or another full IDE) once the project needs to grow past a demo.",
+  },
+  "github-copilot-vs-aider": {
+    description:
+      "GitHub Copilot is a polished, GUI-based coding assistant across major IDEs; Aider is a free, open-source, terminal-only pair programmer.",
+    intro: [
+      "GitHub Copilot and Aider both write code with AI, but they represent opposite philosophies. Copilot is a commercial product tightly integrated into VS Code, JetBrains, and other major editors — inline completions, chat, and agent mode, all with a polished GUI and a flat subscription price. Aider is free and open source, runs entirely in a terminal with no GUI or editor plugin, and edits files directly in a git repository — committing each change with an auto-generated message so every AI edit is a discrete, reviewable commit.",
+      "The differences that matter are cost, model choice, and interface. Copilot bundles its AI into one subscription with a specific set of models; Aider is model-agnostic — you bring an API key for Claude, GPT, Gemini, or a local model, and pay the provider directly rather than a flat fee. Copilot's GUI is friendlier for developers who want inline suggestions as they type; Aider's terminal-first, git-clean workflow appeals to developers who live in the command line and want precise control over what gets committed.",
+    ],
+    verdict:
+      "Choose GitHub Copilot if you want a polished, GUI-integrated assistant with predictable subscription pricing across your existing editor. Choose Aider if you're comfortable in a terminal, want to pick your own model, and value having every AI change land as a clean, individually reviewable git commit. Aider's free-and-open-source model makes it worth trying even if you end up sticking with Copilot day to day.",
   },
 };
 
