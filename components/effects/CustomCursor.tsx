@@ -10,9 +10,10 @@ import { m, useSpring, useMotionValue, AnimatePresence } from "framer-motion";
 export function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const [isPointer, setIsPointer] = useState(false);
+  const isPointerRef = useRef(false);
   const [isClicking, setIsClicking] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  
+
   // Motion values for smooth cursor movement
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -36,13 +37,14 @@ export function CustomCursor() {
 
       // Check current hover target
       const target = e.target as HTMLElement;
-      const isTargetPointer = 
-        window.getComputedStyle(target).cursor === "pointer" ||
-        target.closest("a") || 
-        target.closest("button") ||
-        target.hasAttribute("data-cursor-pointer");
-        
-      setIsPointer(!!isTargetPointer);
+      const isTargetPointer = !!target.closest(
+        "a, button, [role=button], [data-cursor-pointer], input, textarea, select"
+      );
+
+      if (isTargetPointer !== isPointerRef.current) {
+        isPointerRef.current = isTargetPointer;
+        setIsPointer(isTargetPointer);
+      }
     };
 
     const onMouseDown = () => setIsClicking(true);
