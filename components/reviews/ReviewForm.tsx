@@ -97,6 +97,7 @@ export function ReviewForm({ toolSlug }: { toolSlug: string }) {
 
                 <Textarea
                     placeholder="Share your experience with this tool..."
+                    aria-label="Review"
                     className="min-h-[100px] bg-secondary/50 border-border/30 focus:border-vibe-electric"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}

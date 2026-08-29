@@ -144,6 +144,7 @@ export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
                                 size="icon"
                                 onClick={onClose}
                                 className="rounded-full"
+                                aria-label="Close navigation menu"
                             >
                                 <X className="h-5 w-5" />
                             </Button>

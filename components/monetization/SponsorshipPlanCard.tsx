@@ -27,7 +27,7 @@ export function SponsorshipPlanCard({ plan, selectedPlan, setSelectedPlan }: Spo
                     ? (plan.isPremium
                         ? "bg-primary/10 border-primary/50 ring-1 ring-primary/50"
                         : "bg-blue-500/5 border-blue-500/50 ring-1 ring-blue-500/50")
-                    : "bg-zinc-900/50 border-zinc-800 hover:border-zinc-700 opacity-70 hover:opacity-100"
+                    : "bg-muted/50 border-border hover:border-border opacity-70 hover:opacity-100"
             )}
         >
             {plan.isPremium && (
@@ -47,13 +47,13 @@ export function SponsorshipPlanCard({ plan, selectedPlan, setSelectedPlan }: Spo
             </div>
 
             <div className="mb-4">
-                <div className="text-4xl font-bold text-white">
+                <div className="text-4xl font-bold text-foreground">
                     {plan.price}
                     {plan.price !== "Custom" && (
-                        <span className="text-sm font-normal text-zinc-500 ml-1">/mo</span>
+                        <span className="text-sm font-normal text-muted-foreground ml-1">/mo</span>
                     )}
                 </div>
-                <p className="text-sm text-zinc-400 mt-2 min-h-[40px]">
+                <p className="text-sm text-muted-foreground mt-2 min-h-[40px]">
                     {plan.description}
                 </p>
             </div>
@@ -61,7 +61,7 @@ export function SponsorshipPlanCard({ plan, selectedPlan, setSelectedPlan }: Spo
             <div className="flex-1">
                 <ul className="space-y-3 mb-6">
                     {plan.features.map((feature) => (
-                        <li key={feature} className="flex items-start gap-3 text-sm text-zinc-300">
+                        <li key={feature} className="flex items-start gap-3 text-sm text-muted-foreground">
                             <div className={cn(
                                 "mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full",
                                 plan.isPremium ? "bg-primary/20" : "bg-blue-500/20"
@@ -81,7 +81,7 @@ export function SponsorshipPlanCard({ plan, selectedPlan, setSelectedPlan }: Spo
                 "w-full py-2 text-center rounded-lg text-sm font-medium transition-colors",
                 selectedPlan === plan.name
                     ? (plan.isPremium ? "bg-primary/20 text-primary" : "bg-blue-500/20 text-blue-300")
-                    : "bg-zinc-800 text-zinc-500"
+                    : "bg-muted text-muted-foreground"
             )}>
                 {selectedPlan === plan.name ? "Selected" : "Select Plan"}
             </div>

@@ -66,15 +66,15 @@ export function Footer() {
                             The AI Productivity Lab. We curate the best AI tools to help developers build faster and better.
                         </p>
                         <div className="flex gap-4">
-                            <a href="https://x.com/vibestack" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors" aria-label="Follow VibeStack on X">
+                            <a href="https://x.com/vibestack" target="_blank" rel="noopener noreferrer" className="inline-flex p-1 -m-1 text-muted-foreground hover:text-foreground transition-colors" aria-label="Follow VibeStack on X">
                                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
                                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                                 </svg>
                             </a>
-                            <a href="https://github.com/vibestack" target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+                            <a href="https://github.com/vibestack" target="_blank" rel="noopener noreferrer" aria-label="VibeStack on GitHub" className="inline-flex p-1 -m-1 text-muted-foreground hover:text-foreground transition-colors">
                                 <Github className="h-5 w-5" />
                             </a>
-                            <a href="mailto:hello@usevibestack.com" className="text-muted-foreground hover:text-foreground transition-colors">
+                            <a href="mailto:hello@usevibestack.com" aria-label="Email VibeStack" className="inline-flex p-1 -m-1 text-muted-foreground hover:text-foreground transition-colors">
                                 <Mail className="h-5 w-5" />
                             </a>
                         </div>
@@ -82,7 +82,7 @@ export function Footer() {
 
                     {/* Links Column 1 */}
                     <div className="space-y-4">
-                        <h4 className="text-sm font-semibold text-foreground">Platform</h4>
+                        <h2 className="text-sm font-semibold text-foreground">Platform</h2>
                         <ul className="space-y-3 text-sm text-muted-foreground">
                             <li><Link href="/tools" className="hover:text-primary transition-colors">AI Tools</Link></li>
                             <li><Link href="/build" className="hover:text-primary transition-colors">Find Stack</Link></li>
@@ -94,7 +94,7 @@ export function Footer() {
 
                     {/* Best-of guides */}
                     <div className="space-y-4">
-                        <h4 className="text-sm font-semibold text-foreground">Best of 2026</h4>
+                        <h2 className="text-sm font-semibold text-foreground">Best of 2026</h2>
                         <ul className="space-y-3 text-sm text-muted-foreground">
                             <li><Link href="/best/coding" className="hover:text-primary transition-colors">AI Coding Tools</Link></li>
                             <li><Link href="/best/design" className="hover:text-primary transition-colors">AI Design Tools</Link></li>
@@ -107,7 +107,7 @@ export function Footer() {
 
                     {/* Links Column 2 */}
                     <div className="space-y-4">
-                        <h4 className="text-sm font-semibold text-foreground">Resources</h4>
+                        <h2 className="text-sm font-semibold text-foreground">Resources</h2>
                         <ul className="space-y-3 text-sm text-muted-foreground">
                             <li><Link href="/faq" className="hover:text-primary transition-colors">FAQ</Link></li>
                             <li><Link href="/roadmap" className="hover:text-primary transition-colors">Roadmap</Link></li>
@@ -121,7 +121,7 @@ export function Footer() {
 
                     {/* Newsletter Column */}
                     <div className="space-y-4">
-                        <h4 className="text-sm font-semibold text-foreground">Stay Updated</h4>
+                        <h2 className="text-sm font-semibold text-foreground">Stay Updated</h2>
                         <p className="text-xs text-muted-foreground">
                             Get the latest AI tools delivered to your inbox weekly. No spam.
                         </p>

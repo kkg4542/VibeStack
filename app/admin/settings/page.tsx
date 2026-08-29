@@ -83,7 +83,7 @@ export default function AdminSettingsPage() {
                   Automatically generate sitemap.xml
                 </p>
               </div>
-              <input type="checkbox" defaultChecked className="h-4 w-4" />
+              <input type="checkbox" defaultChecked aria-label="Enable Sitemap" className="h-4 w-4" />
             </div>
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
@@ -92,7 +92,7 @@ export default function AdminSettingsPage() {
                   Generate RSS feed for blog posts
                 </p>
               </div>
-              <input type="checkbox" defaultChecked className="h-4 w-4" />
+              <input type="checkbox" defaultChecked aria-label="Enable RSS Feed" className="h-4 w-4" />
             </div>
           </CardContent>
         </Card>
@@ -116,7 +116,7 @@ export default function AdminSettingsPage() {
                   Get notified when users submit new tools
                 </p>
               </div>
-              <input type="checkbox" className="h-4 w-4" />
+              <input type="checkbox" aria-label="New Tool Submissions" className="h-4 w-4" />
             </div>
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
@@ -125,7 +125,7 @@ export default function AdminSettingsPage() {
                   Notify when Stripe webhook processing fails
                 </p>
               </div>
-              <input type="checkbox" className="h-4 w-4" />
+              <input type="checkbox" aria-label="Webhook Failures" className="h-4 w-4" />
             </div>
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
@@ -134,7 +134,7 @@ export default function AdminSettingsPage() {
                   Receive weekly analytics reports
                 </p>
               </div>
-              <input type="checkbox" className="h-4 w-4" />
+              <input type="checkbox" aria-label="Weekly Reports" className="h-4 w-4" />
             </div>
           </CardContent>
         </Card>

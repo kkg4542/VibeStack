@@ -12,6 +12,7 @@ import { getTools } from "@/lib/tools-db";
 import sanitizeHtml from "sanitize-html";
 import { toISODate } from "@/lib/format-date";
 import { designSystem } from "@/lib/design-system";
+import { Container } from "@/components/primitives/Container";
 
 interface Props {
     params: { slug: string };
@@ -99,7 +100,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     return (
         <main className="min-h-screen bg-background pt-32 pb-20">
             <ReadingProgress />
-            <div className="container max-w-3xl mx-auto px-4">
+            <Container size="prose">
                 <Link
                     href="/blog"
                     className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
@@ -171,7 +172,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 </article>
 
                 <BlogRelatedLinks post={post} tools={tools} />
-            </div>
+            </Container>
 
             {/* Structured Data */}
             <script

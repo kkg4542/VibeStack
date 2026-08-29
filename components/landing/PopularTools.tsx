@@ -131,12 +131,12 @@ export function PopularTools({ tools }: PopularToolsProps) {
         </div>
 
         <div className="mt-16 text-center">
-          <Link href="/tools">
-            <Button variant="outline" size="lg" className="group rounded-full px-8">
+          <Button variant="outline" size="lg" className="group rounded-full px-8" asChild>
+            <Link href="/tools">
               View All Tools
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
       </Container>
     </Section>

@@ -26,6 +26,7 @@ import { PageBackground, BackgroundPresets } from "@/components/effects/PageBack
 import { getToolIcon } from "@/components/icons/tool-icons";
 import type { Tool } from "@prisma/client";
 import { designSystem } from "@/lib/design-system";
+import { Container } from "@/components/primitives/Container";
 
 export default function NotFound() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -45,7 +46,7 @@ export default function NotFound() {
 
     return (
         <PageBackground {...BackgroundPresets.content}>
-            <div className="container max-w-5xl mx-auto">
+            <Container size="md">
                 {/* 404 Hero Section */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -299,22 +300,22 @@ export default function NotFound() {
                             </p>
                         </div>
                         <div className="flex gap-3">
-                            <Link href="/search">
-                                <Button variant="outline" className="rounded-full">
+                            <Button variant="outline" className="rounded-full" asChild>
+                                <Link href="/search">
                                     <Search className="mr-2 h-4 w-4" />
                                     Advanced Search
-                                </Button>
-                            </Link>
-                            <Link href="/about">
-                                <Button variant="ghost" className="rounded-full text-vibe-electric hover:text-primary">
+                                </Link>
+                            </Button>
+                            <Button variant="ghost" className="rounded-full text-vibe-electric hover:text-primary" asChild>
+                                <Link href="/about">
                                     Contact Support
                                     <ArrowLeft className="ml-2 h-4 w-4 rotate-180" />
-                                </Button>
-                            </Link>
+                                </Link>
+                            </Button>
                         </div>
                     </div>
                 </motion.div>
-            </div>
+            </Container>
         </PageBackground>
     );
 }

@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { designSystem } from "@/lib/design-system";
 import Link from "next/link";
+import { Container } from "@/components/primitives/Container";
 
 const roadmapItems = [
     {
@@ -170,7 +171,7 @@ function ChangeTypeBadge({ type }: { type: string }) {
 export default function RoadmapPage() {
     return (
         <PageBackground {...BackgroundPresets.content}>
-            <div className="container max-w-5xl mx-auto px-4">
+            <Container size="md">
                 {/* Hero Section */}
                 <motion.div
                     initial={designSystem.animations.fadeInUp.initial}
@@ -342,7 +343,7 @@ export default function RoadmapPage() {
                         </CardContent>
                     </Card>
                 </motion.div>
-            </div>
+            </Container>
         </PageBackground>
     );
 }

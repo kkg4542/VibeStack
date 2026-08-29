@@ -5,7 +5,7 @@ import Link from "next/link";
 import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ArrowRight, Sparkles, Terminal, Play } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
-import { MagneticButton } from "@/components/effects/MagneticButton";
+import { MagneticWrapper } from "@/components/effects/MagneticButton";
 import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
 import { designSystem } from "@/lib/design-system";
 
@@ -237,7 +237,7 @@ export function VibeHero() {
           transition={{ duration: 0.6, delay: 0.4, ease: elegantEase }}
           className="flex flex-col sm:flex-row gap-4 mt-8"
         >
-          <MagneticButton strength={0.15}>
+          <MagneticWrapper strength={0.15}>
             <Link
               id="hero-cta-build"
               href="/build"
@@ -250,9 +250,9 @@ export function VibeHero() {
               Find My Stack
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
-          </MagneticButton>
+          </MagneticWrapper>
 
-          <MagneticButton strength={0.15}>
+          <MagneticWrapper strength={0.15}>
             <Link
               id="hero-cta-tools"
               href="/tools"
@@ -266,7 +266,7 @@ export function VibeHero() {
               <Play className="mr-2 h-4 w-4" />
               Explore Tools
             </Link>
-          </MagneticButton>
+          </MagneticWrapper>
         </m.div>
 
         {/* Social Proof */}

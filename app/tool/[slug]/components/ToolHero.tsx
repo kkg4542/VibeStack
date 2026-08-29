@@ -122,12 +122,12 @@ export function ToolHero({ tool }: { tool: any }) {
                                             <Heart className="h-4 w-4 mr-2" />
                                             Save
                                         </Button>
-                                        <Link href={`/compare?tools=${tool.slug}`}>
-                                            <Button variant="outline" className="h-12 px-6 rounded-full border-border/60 hover:bg-accent/50">
+                                        <Button variant="outline" className="h-12 px-6 rounded-full border-border/60 hover:bg-accent/50" asChild>
+                                            <Link href={`/compare?tools=${tool.slug}`}>
                                                 <Scale className="h-4 w-4 mr-2" />
                                                 Compare
-                                            </Button>
-                                        </Link>
+                                            </Link>
+                                        </Button>
                                     </div>
                                 </div>
                             </div>

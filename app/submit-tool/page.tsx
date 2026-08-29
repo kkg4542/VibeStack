@@ -96,7 +96,7 @@ export default function SubmitToolPage() {
     if (submitted) {
         return (
             <PageBackground {...BackgroundPresets.content}>
-                <div className="container max-w-2xl mx-auto px-4 py-24">
+                <Section spacing="large" containerSize="xs">
                     <Card className="text-center">
                         <CardContent className="p-12">
                             <div className="w-20 h-20 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-6">
@@ -117,7 +117,7 @@ export default function SubmitToolPage() {
                             </div>
                         </CardContent>
                     </Card>
-                </div>
+                </Section>
             </PageBackground>
         );
     }
@@ -252,7 +252,7 @@ export default function SubmitToolPage() {
                                 <Sparkles className="w-4 h-4 mt-0.5 shrink-0" />
                                 <div>
                                     Want to get approved faster? Check our
-                                    <Link href="/guidelines" target="_blank" className="font-semibold underline ml-1 hover:text-blue-300">
+                                    <Link href="/guidelines" target="_blank" rel="noopener noreferrer" className="font-semibold underline ml-1 hover:text-blue-300">
                                         Content Quality Guidelines
                                     </Link> before submitting.
                                 </div>
@@ -261,8 +261,9 @@ export default function SubmitToolPage() {
                         <CardContent>
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium">Tool Name *</label>
+                                    <label htmlFor="tool-name" className="text-sm font-medium">Tool Name *</label>
                                     <Input
+                                        id="tool-name"
                                         required
                                         placeholder="e.g., AI Code Assistant"
                                         value={formData.toolName}
@@ -274,8 +275,9 @@ export default function SubmitToolPage() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium">Description *</label>
+                                    <label htmlFor="tool-description" className="text-sm font-medium">Description *</label>
                                     <Textarea
+                                        id="tool-description"
                                         required
                                         placeholder="Briefly describe what your tool does and how it helps developers..."
                                         rows={4}
@@ -288,8 +290,9 @@ export default function SubmitToolPage() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium">Website URL *</label>
+                                    <label htmlFor="tool-website-url" className="text-sm font-medium">Website URL *</label>
                                     <Input
+                                        id="tool-website-url"
                                         required
                                         type="url"
                                         placeholder="https://yourtool.com"
@@ -338,8 +341,9 @@ export default function SubmitToolPage() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium">Your Email *</label>
+                                    <label htmlFor="tool-email" className="text-sm font-medium">Your Email *</label>
                                     <Input
+                                        id="tool-email"
                                         required
                                         type="email"
                                         placeholder="you@example.com"

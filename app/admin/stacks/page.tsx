@@ -69,12 +69,12 @@ export default async function AdminStacksPage() {
                   <td className="px-4 py-3 text-right">
                     <div className="flex justify-end gap-2">
                       <Button variant="ghost" size="icon" asChild>
-                        <Link href={`/admin/stacks/${stack.idField}/edit`}>
+                        <Link href={`/admin/stacks/${stack.idField}/edit`} aria-label={`Edit ${stack.name}`}>
                           <Pencil className="h-4 w-4" />
                         </Link>
                       </Button>
                       <form action={deleteStack.bind(null, stack.id)}>
-                        <Button type="submit" variant="ghost" size="icon" className="text-red-600 hover:bg-red-500/10 hover:text-red-600">
+                        <Button type="submit" variant="ghost" size="icon" className="text-red-600 hover:bg-red-500/10 hover:text-red-600" aria-label={`Delete ${stack.name}`}>
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </form>

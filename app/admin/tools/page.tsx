@@ -77,12 +77,12 @@ export default async function AdminToolsPage() {
                   <td className="px-4 py-3 text-right">
                     <div className="flex justify-end gap-2">
                       <Button variant="ghost" size="icon" asChild>
-                        <Link href={`/admin/tools/${tool.slug}/edit`}>
+                        <Link href={`/admin/tools/${tool.slug}/edit`} aria-label={`Edit ${tool.title}`}>
                           <Pencil className="h-4 w-4" />
                         </Link>
                       </Button>
                       <form action={deleteTool.bind(null, tool.id)}>
-                        <Button type="submit" variant="ghost" size="icon" className="text-red-600 hover:bg-red-500/10 hover:text-red-600">
+                        <Button type="submit" variant="ghost" size="icon" className="text-red-600 hover:bg-red-500/10 hover:text-red-600" aria-label={`Delete ${tool.title}`}>
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </form>

@@ -117,12 +117,12 @@ export function QuizLeadCapture({
               <Input
                 type="email"
                 placeholder="you@company.com"
+                aria-label="Email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={isSubmitting}
                 required
                 className="pl-9 h-11"
-                aria-label="Email address"
               />
             </div>
             <Button

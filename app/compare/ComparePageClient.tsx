@@ -14,6 +14,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { designSystem } from "@/lib/design-system";
+import { Container } from "@/components/primitives/Container";
 
 export default function ComparePageClient() {
     const [selectedTools, setSelectedTools] = useState<ToolData[]>([]);
@@ -64,13 +65,13 @@ export default function ComparePageClient() {
 
     if (isLoading) {
         return (
-            <main className="min-h-screen bg-background relative overflow-hidden pt-32 pb-20 px-4">
-                <div className="container max-w-2xl mx-auto text-center">
+            <main className="min-h-screen bg-background relative overflow-hidden pt-32 pb-20">
+                <Container size="xs" className="text-center">
                     <div className="inline-flex p-4 rounded-full bg-vibe-electric/10 mb-4">
                         <Scale className="h-8 w-8 text-vibe-electric animate-pulse" />
                     </div>
                     <p className="text-muted-foreground">Loading comparison...</p>
-                </div>
+                </Container>
             </main>
         );
     }
@@ -78,7 +79,7 @@ export default function ComparePageClient() {
     if (selectedTools.length === 0) {
         return (
             <PageBackground {...BackgroundPresets.content}>
-                <div className="container max-w-2xl mx-auto text-center">
+                <Container size="xs" className="text-center">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -95,14 +96,14 @@ export default function ComparePageClient() {
                             <Link href="/tools">Browse Tools Directory</Link>
                         </Button>
                     </motion.div>
-                </div>
+                </Container>
             </PageBackground>
         );
     }
 
     return (
         <PageBackground {...BackgroundPresets.content}>
-            <div className="container mx-auto max-w-6xl">
+            <Container>
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -119,12 +120,12 @@ export default function ComparePageClient() {
 
                     <div className="flex items-center gap-3">
                         {selectedTools.length < 3 && (
-                            <Link href="/tools">
-                                <Button variant="outline" className="rounded-full">
+                            <Button variant="outline" className="rounded-full" asChild>
+                                <Link href="/tools">
                                     <Sparkles className="h-4 w-4 mr-2" />
                                     Add More
-                                </Button>
-                            </Link>
+                                </Link>
+                            </Button>
                         )}
                         <Button
                             variant="outline"
@@ -251,12 +252,12 @@ export default function ComparePageClient() {
                                     </div>
 
                                     {/* CTA */}
-                                    <Link href={`/tool/${tool.slug}`}>
-                                        <Button className="w-full rounded-full" variant="outline">
+                                    <Button className="w-full rounded-full" variant="outline" asChild>
+                                        <Link href={`/tool/${tool.slug}`}>
                                             View Details
                                             <ExternalLink className="ml-2 h-4 w-4" />
-                                        </Button>
-                                    </Link>
+                                        </Link>
+                                    </Button>
                                 </CardContent>
                             </Card>
                         </motion.div>
@@ -342,7 +343,7 @@ export default function ComparePageClient() {
                         </div>
                     </motion.div>
                 )}
-            </div>
+            </Container>
         </PageBackground>
     );
 }

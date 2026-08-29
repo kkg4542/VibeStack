@@ -8,7 +8,7 @@ export default function NewToolPage() {
     <div className="space-y-6">
       <div className="flex items-center gap-4">
         <Button variant="ghost" size="icon" asChild>
-          <Link href="/admin/tools">
+          <Link href="/admin/tools" aria-label="Back to tools">
             <ArrowLeft className="h-4 w-4" />
           </Link>
         </Button>

@@ -122,6 +122,7 @@ export default function BlogListingPage() {
                                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                                 <input
                                     type="text"
+                                    aria-label="Search articles"
                                     placeholder="Search articles by title, category, or tags..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
@@ -431,12 +432,12 @@ export default function BlogListingPage() {
                             <p className="text-sm text-muted-foreground mb-4">
                                 Get weekly insights on AI tools and productivity tips.
                             </p>
-                            <Link href="/#newsletter">
-                                <Button className="w-full rounded-full shadow-lg shadow-vibe-electric/20">
+                            <Button className="w-full rounded-full shadow-lg shadow-vibe-electric/20" asChild>
+                                <Link href="/#newsletter">
                                     Subscribe
                                     <ArrowRight className="ml-2 h-4 w-4" />
-                                </Button>
-                            </Link>
+                                </Link>
+                            </Button>
                         </motion.div>
 
                         {/* Categories */}

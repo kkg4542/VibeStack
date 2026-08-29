@@ -23,6 +23,7 @@ import { useState } from "react";
 import { MobileNavDrawer } from "@/components/layout/MobileNavDrawer";
 
 import { UserNav } from "@/components/layout/UserNav";
+import { Container } from "@/components/primitives/Container";
 const navItems = [
     { href: "/", label: "Home", icon: Sparkles },
     { href: "/build", label: "Find Stack", icon: Wand2 },
@@ -38,7 +39,7 @@ export function Navbar() {
     return (
         <LazyMotionProvider>
             <header className="fixed top-0 z-50 w-full border-b border-border/50 backdrop-blur-obsidian">
-                <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+                <Container className="flex h-16 items-center justify-between">
                     {/* Logo area */}
                     <div className="flex items-center gap-2">
                         <Link id="navbar-logo" href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80" aria-label="VibeStack Home">
@@ -109,11 +110,17 @@ export function Navbar() {
                             <TooltipProvider>
                                 <Tooltip>
                                     <TooltipTrigger asChild>
-                                        <Link href="/favorites">
-                                            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
+                                        <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            className="text-muted-foreground hover:text-foreground"
+                                            aria-label="Your favorites"
+                                            asChild
+                                        >
+                                            <Link href="/favorites">
                                                 <Heart className="h-5 w-5" />
-                                            </Button>
-                                        </Link>
+                                            </Link>
+                                        </Button>
                                     </TooltipTrigger>
                                     <TooltipContent>
                                         <p>Your Favorites</p>
@@ -143,7 +150,7 @@ export function Navbar() {
                         {/* Enhanced Mobile Navigation Drawer */}
                         <MobileNavDrawer isOpen={isOpen} onClose={() => setIsOpen(false)} />
                     </div>
-                </div>
+                </Container>
             </header>
         </LazyMotionProvider>
     );

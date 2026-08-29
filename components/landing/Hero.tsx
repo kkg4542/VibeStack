@@ -5,7 +5,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { m, useReducedMotion } from "framer-motion";
 import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
-import { MagneticButton } from "@/components/effects/MagneticButton";
+import { MagneticWrapper } from "@/components/effects/MagneticButton";
 import { designSystem } from "@/lib/design-system";
 import { BackgroundGlows } from "./hero/BackgroundGlows";
 import { SocialProof } from "./hero/SocialProof";
@@ -76,7 +76,7 @@ export function Hero() {
                         transition={delayedTransition(0.6)}
                         className="flex flex-col gap-5 sm:flex-row mt-6 sm:gap-4"
                     >
-                        <MagneticButton strength={0.15}>
+                        <MagneticWrapper strength={0.15}>
                             <Link
                                 id="hero-cta-build" href="/build"
                                 className={buttonVariants({ variant: "default", size: "lg" }) + " h-12 sm:h-14 rounded-full px-8 sm:px-10 text-sm sm:text-base font-semibold shadow-xl shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all duration-300 group"}
@@ -84,15 +84,15 @@ export function Hero() {
                                 Find My Stack
                                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                             </Link>
-                        </MagneticButton>
-                        <MagneticButton strength={0.15}>
+                        </MagneticWrapper>
+                        <MagneticWrapper strength={0.15}>
                             <Link
                                 id="hero-cta-tools" href="/tools"
                                 className={buttonVariants({ variant: "outline", size: "lg" }) + " h-12 sm:h-14 rounded-full border-border/60 bg-background/50 px-8 sm:px-10 text-sm sm:text-base backdrop-blur-md hover:bg-accent/50 hover:-translate-y-0.5 transition-all duration-300"}
                             >
                                 Explore Tools
                             </Link>
-                        </MagneticButton>
+                        </MagneticWrapper>
                     </m.div>
                 </div>
             </section>

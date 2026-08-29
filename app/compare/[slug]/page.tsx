@@ -209,12 +209,12 @@ export default async function ComparisonSlugPage({ params }: Props) {
                     </nav>
 
                     <div className="flex items-center gap-3">
-                        <Link href={`/compare?tools=${tool1.slug},${tool2.slug}`}>
-                            <Button variant="outline" className="rounded-full">
+                        <Button variant="outline" className="rounded-full" asChild>
+                            <Link href={`/compare?tools=${tool1.slug},${tool2.slug}`}>
                                 <Scale className="h-4 w-4 mr-2" />
                                 Interactive Compare
-                            </Button>
-                        </Link>
+                            </Link>
+                        </Button>
                     </div>
                 </MotionDiv>
 
@@ -282,11 +282,11 @@ export default async function ComparisonSlugPage({ params }: Props) {
                                         {tool.description}
                                     </p>
 
-                                    <Link href={`/tool/${tool.slug}`} className="block mb-8">
-                                        <Button className="w-full h-12 rounded-full text-lg" variant={index === 0 ? "default" : "outline"}>
+                                    <Button className="w-full h-12 rounded-full text-lg mb-8" variant={index === 0 ? "default" : "outline"} asChild>
+                                        <Link href={`/tool/${tool.slug}`}>
                                             View Full Review
-                                        </Button>
-                                    </Link>
+                                        </Link>
+                                    </Button>
 
                                     <div className="space-y-6">
                                         <div>

@@ -11,6 +11,7 @@ import { PageBackground, BackgroundPresets } from '@/components/effects/PageBack
 import { designSystem } from '@/lib/design-system';
 import { CommunityStacksFilter } from '@/components/community/CommunityStacksFilter';
 import { CommunityStackFilters, CommunityStackWithDetails } from '@/lib/data/community-stacks';
+import { Container } from '@/components/primitives/Container';
 
 interface CommunityStacksPageClientProps {
     stacks: CommunityStackWithDetails[];
@@ -29,7 +30,7 @@ export function CommunityStacksPageClient({ stacks, totalCount, filters }: Commu
     return (
         <LazyMotion features={domAnimation}>
             <PageBackground {...BackgroundPresets.content}>
-                <div className="container mx-auto px-4 pt-24 pb-20">
+                <Container className="pt-24 pb-20">
                     {/* Header Section */}
                     <div className="max-w-4xl mx-auto text-center mb-12">
                         <m.div
@@ -82,15 +83,16 @@ export function CommunityStacksPageClient({ stacks, totalCount, filters }: Commu
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.3, duration: 0.5 }}
                         >
-                            <Link href="/submit-stack">
-                                <Button
-                                    size="lg"
-                                    className="rounded-full px-8 shadow-lg shadow-vibe-electric/20"
-                                >
+                            <Button
+                                size="lg"
+                                className="rounded-full px-8 shadow-lg shadow-vibe-electric/20"
+                                asChild
+                            >
+                                <Link href="/submit-stack">
                                     <Plus className="mr-2 h-4 w-4" />
                                     Share Your Stack
-                                </Button>
-                            </Link>
+                                </Link>
+                            </Button>
                         </m.div>
                     </div>
 
@@ -212,22 +214,23 @@ export function CommunityStacksPageClient({ stacks, totalCount, filters }: Commu
                             <div className="inline-flex p-4 rounded-full bg-vibe-electric/10 mb-6">
                                 <Users className="h-12 w-12 text-vibe-electric" />
                             </div>
-                            <h3 className="text-2xl font-bold mb-2">No stacks found</h3>
+                            <h2 className="text-2xl font-bold mb-2">No stacks found</h2>
                             <p className="text-muted-foreground mb-6">
                                 {filters.search
                                     ? `No stacks match your search for "${filters.search}"`
                                     : "Be the first to share a stack with the community!"
                                 }
                             </p>
-                            <Link href="/submit-stack">
-                                <Button
-                                    size="lg"
-                                    className="rounded-full px-8"
-                                >
+                            <Button
+                                size="lg"
+                                className="rounded-full px-8"
+                                asChild
+                            >
+                                <Link href="/submit-stack">
                                     <Plus className="mr-2 h-4 w-4" />
                                     Share Your Stack
-                                </Button>
-                            </Link>
+                                </Link>
+                            </Button>
                         </m.div>
                     )}
 
@@ -243,7 +246,7 @@ export function CommunityStacksPageClient({ stacks, totalCount, filters }: Commu
                             </Button>
                         </div>
                     )}
-                </div>
+                </Container>
             </PageBackground>
         </LazyMotion>
     );

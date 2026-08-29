@@ -41,17 +41,17 @@ export function CTASection() {
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                        <Link href="/build">
-                            <Button size="lg" className="h-12 px-8 text-base font-semibold shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all group">
+                        <Button size="lg" className="h-12 px-8 text-base font-semibold shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all group" asChild>
+                            <Link href="/build">
                                 Find Your Stack
                                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                            </Button>
-                        </Link>
-                        <Link href="/tools">
-                            <Button variant="outline" size="lg" className="h-12 px-8 text-base">
+                            </Link>
+                        </Button>
+                        <Button variant="outline" size="lg" className="h-12 px-8 text-base" asChild>
+                            <Link href="/tools">
                                 Browse All Tools
-                            </Button>
-                        </Link>
+                            </Link>
+                        </Button>
                     </div>
                 </div>
             </m.div>

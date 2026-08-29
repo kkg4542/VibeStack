@@ -3,11 +3,15 @@ import { cn } from "@/lib/utils";
 interface ContainerProps {
   children: React.ReactNode;
   className?: string;
-  size?: "default" | "small" | "large" | "full";
+  // width order: xs < prose < small < md < default < large < full
+  size?: "xs" | "prose" | "small" | "md" | "default" | "large" | "full";
 }
 
 const sizeClasses = {
+  xs: "max-w-2xl",
+  prose: "max-w-3xl",
   small: "max-w-4xl",
+  md: "max-w-5xl",
   default: "max-w-6xl",
   large: "max-w-7xl",
   full: "max-w-full",

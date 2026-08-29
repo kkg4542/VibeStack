@@ -93,11 +93,11 @@ export default function ConsultingPage() {
                                 Book a Sponsorship
                                 <ArrowRight className="ml-2 h-4 w-4" />
                             </Button>
-                            <Link href="/tools">
-                                <Button variant="outline" size="lg" className="rounded-full px-8 text-base h-12">
+                            <Button variant="outline" size="lg" className="rounded-full px-8 text-base h-12" asChild>
+                                <Link href="/tools">
                                     View Our Reach
-                                </Button>
-                            </Link>
+                                </Link>
+                            </Button>
                             <p className="text-sm text-muted-foreground mt-2">
                                 Or <a href="mailto:hello@usevibestack.com" className="underline">contact us</a> for custom packages
                             </p>
@@ -180,11 +180,11 @@ export default function ConsultingPage() {
                                     Get Started Now
                                     <ArrowRight className="ml-2 h-4 w-4" />
                                 </Button>
-                                <Link href="mailto:hello@usevibestack.com?subject=Partnership%20Inquiry">
-                                    <Button variant="outline" size="lg" className="rounded-full px-8">
+                                <Button variant="outline" size="lg" className="rounded-full px-8" asChild>
+                                    <Link href="mailto:hello@usevibestack.com?subject=Partnership%20Inquiry">
                                         Or Contact Us
-                                    </Button>
-                                </Link>
+                                    </Link>
+                                </Button>
                             </div>
                         </div>
                     </motion.div>

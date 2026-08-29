@@ -5,7 +5,8 @@ interface SectionProps {
   className?: string;
   spacing?: "small" | "default" | "large" | "none";
   container?: boolean;
-  containerSize?: "default" | "small" | "large" | "full";
+  // width order: xs < prose < small < md < default < large < full
+  containerSize?: "xs" | "prose" | "small" | "md" | "default" | "large" | "full";
   id?: string;
 }
 
@@ -14,6 +15,17 @@ const spacingClasses = {
   small: "py-12 md:py-16",
   default: "py-16 md:py-24",
   large: "py-24 md:py-32",
+};
+
+// width order: xs < prose < small < md < default < large < full
+const containerSizeClasses = {
+  xs: "max-w-2xl",
+  prose: "max-w-3xl",
+  small: "max-w-4xl",
+  md: "max-w-5xl",
+  default: "max-w-6xl",
+  large: "max-w-7xl",
+  full: "max-w-full",
 };
 
 export function Section({
@@ -28,10 +40,7 @@ export function Section({
     <div
       className={cn(
         "mx-auto w-full px-4 sm:px-6 lg:px-8",
-        containerSize === "small" && "max-w-4xl",
-        containerSize === "default" && "max-w-6xl",
-        containerSize === "large" && "max-w-7xl",
-        containerSize === "full" && "max-w-full"
+        containerSizeClasses[containerSize]
       )}
     >
       {children}

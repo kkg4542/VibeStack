@@ -64,6 +64,13 @@ export interface SearchInputProps
 
 const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps & { children?: React.ReactNode }>(
     ({ className, containerClassName, iconClassName, variant = "default", type, children, ...props }, ref) => {
+        // The visible label for these fields is the placeholder, which disappears
+        // once typing starts and is not a reliable accessible name. Fall back to it
+        // so every call site has a name without having to remember to pass one.
+        const accessibleName =
+            props["aria-label"] ??
+            (props["aria-labelledby"] ? undefined : props.placeholder)
+
         return (
             <div className={cn(searchContainerVariants({ variant }), containerClassName)}>
                 <Search className={cn(searchIconVariants({ variant }), iconClassName)} />
@@ -72,6 +79,7 @@ const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps & { chil
                     className={cn(searchInputVariants({ variant }), className)}
                     ref={ref}
                     {...props}
+                    aria-label={accessibleName}
                 />
                 {children}
             </div>

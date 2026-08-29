@@ -156,6 +156,7 @@ export default function SearchPage() {
                                 <Input
                                     type="text"
                                     placeholder="Search tools, stacks, or features..."
+                                    aria-label="Search tools, stacks, or features"
                                     value={query}
                                     onChange={(e) => setQuery(e.target.value)}
                                     onKeyDown={(e) => e.key === 'Enter' && handleSearch(query)}

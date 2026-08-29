@@ -20,6 +20,7 @@ import { cn } from "@/lib/utils";
 import { designSystem } from "@/lib/design-system";
 import type { Tool } from "@prisma/client";
 import { QuizLeadCapture } from "@/components/landing/QuizLeadCapture";
+import { Container } from "@/components/primitives/Container";
 
 export type StackRecommendation = {
   name: string;
@@ -293,7 +294,7 @@ export function QuizInterface({ onRestart }: QuizInterfaceProps) {
   };
 
   return (
-    <div className="container max-w-5xl mx-auto px-4">
+    <Container size="md">
       {/* Header */}
       <motion.div
         initial={fadeInUp.initial}
@@ -394,7 +395,7 @@ export function QuizInterface({ onRestart }: QuizInterfaceProps) {
           />
         )}
       </AnimatePresence>
-    </div>
+    </Container>
   );
 }
 
@@ -550,11 +551,11 @@ function StackRecommendationResult({
             {copied ? <Check className="mr-2 h-4 w-4" /> : <Share2 className="mr-2 h-4 w-4" />}
             {copied ? "Copied!" : "Share Stack"}
           </Button>
-          <Link href="/tools">
-            <Button className="rounded-full">
+          <Button className="rounded-full" asChild>
+            <Link href="/tools">
               Browse All Tools <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
       </div>
     </motion.div>

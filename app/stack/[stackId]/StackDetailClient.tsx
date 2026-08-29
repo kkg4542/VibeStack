@@ -14,6 +14,7 @@ import { useState, useEffect } from "react";
 import { m } from "framer-motion";
 import { designSystem } from "@/lib/design-system";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
+import { Container } from "@/components/primitives/Container";
 
 interface StackDetailClientProps {
     stack: Stack;
@@ -49,7 +50,7 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
 
     return (
         <PageBackground {...BackgroundPresets.content}>
-            <div className="container max-w-6xl mx-auto px-4">
+            <Container>
                 {/* Back Link */}
                 <m.div
                     initial={designSystem.animations.fadeInUp.initial}
@@ -154,12 +155,12 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                                             toolName={stack.name}
                                             url={`https://usevibestack.com/stack/${stack.id}`}
                                         />
-                                        <Link href="/build">
-                                            <Button variant="outline" className="h-12 px-6 rounded-full">
+                                        <Button variant="outline" className="h-12 px-6 rounded-full" asChild>
+                                            <Link href="/build">
                                                 <Sparkles className="h-4 w-4 mr-2" />
                                                 Find Another
-                                            </Button>
-                                        </Link>
+                                            </Link>
+                                        </Button>
                                     </div>
                                 </div>
 
@@ -174,7 +175,7 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                                             <div className="inline-flex p-3 rounded-full bg-vibe-electric/10 mb-4">
                                                 <DollarSign className="h-6 w-6 text-vibe-electric" />
                                             </div>
-                                            <h3 className="text-sm font-semibold text-muted-foreground mb-2">Total Cost</h3>
+                                            <h2 className="text-sm font-semibold text-muted-foreground mb-2">Total Cost</h2>
                                             <div className="text-4xl font-bold text-foreground mb-2">
                                                 {stack.totalPrice}
                                             </div>
@@ -354,17 +355,17 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                                 Start using this stack today and accelerate your development workflow.
                             </p>
                             <div className="space-y-3">
-                                <Link href="/build">
-                                    <Button className="w-full rounded-full shadow-lg shadow-vibe-electric/20">
+                                <Button className="w-full rounded-full shadow-lg shadow-vibe-electric/20" asChild>
+                                    <Link href="/build">
                                         <Sparkles className="mr-2 h-4 w-4" />
                                         Find Your Stack
-                                    </Button>
-                                </Link>
-                                <Link href="/tools">
-                                    <Button variant="outline" className="w-full rounded-full">
+                                    </Link>
+                                </Button>
+                                <Button variant="outline" className="w-full rounded-full" asChild>
+                                    <Link href="/tools">
                                         Browse All Tools
-                                    </Button>
-                                </Link>
+                                    </Link>
+                                </Button>
                             </div>
                         </m.div>
 
@@ -469,7 +470,7 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                         )}
                     </aside>
                 </div>
-            </div>
+            </Container>
         </PageBackground>
     );
 }

@@ -96,6 +96,7 @@ export function CommunityStacksFilter({ initialFilters }: CommunityStacksFilterP
               setSortBy(value);
               updateFilters({ sortBy: value });
             }}
+            aria-label="Sort stacks"
             className="appearance-none bg-muted border border-input rounded-md px-3 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
           >
             {sortOptions.map((option) => (
@@ -116,6 +117,7 @@ export function CommunityStacksFilter({ initialFilters }: CommunityStacksFilterP
               setTimeRange(value);
               updateFilters({ timeRange: value });
             }}
+            aria-label="Filter by time range"
             className="appearance-none bg-muted border border-input rounded-md px-3 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
           >
             {timeOptions.map((option) => (

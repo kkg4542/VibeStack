@@ -14,6 +14,7 @@ import { useAllTools } from "@/hooks/use-tools";
 import { getToolIcon } from "@/components/icons/tool-icons";
 import { ToolData } from "@/lib/tool-types";
 import { designSystem } from "@/lib/design-system";
+import { Container } from "@/components/primitives/Container";
 
 export default function SubmitStackPage() {
     const { tools: allTools } = useAllTools();
@@ -59,7 +60,7 @@ export default function SubmitStackPage() {
     if (isSuccess) {
         return (
             <PageBackground {...BackgroundPresets.gradient}>
-                <div className="container max-w-2xl mx-auto pt-32 px-4 text-center">
+                <Container size="xs" className="pt-32 text-center">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -80,14 +81,14 @@ export default function SubmitStackPage() {
                             Submit Another Stack
                         </Button>
                     </motion.div>
-                </div>
+                </Container>
             </PageBackground>
         );
     }
 
     return (
         <PageBackground {...BackgroundPresets.content}>
-            <div className="container max-w-2xl mx-auto pt-32 pb-20 px-4">
+            <Container size="xs" className="pt-32 pb-20">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -160,6 +161,7 @@ export default function SubmitStackPage() {
                             <div className="relative">
                                 <Input
                                     placeholder="Search for tools to add..."
+                                    aria-label="Search for tools to add"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     className="bg-muted"
@@ -229,7 +231,7 @@ export default function SubmitStackPage() {
 
                     </form>
                 </Card>
-            </div>
+            </Container>
         </PageBackground>
     );
 }

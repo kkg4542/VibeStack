@@ -47,12 +47,12 @@ export function StackPromoCard({ stackId }: StackPromoCardProps) {
 
                     {/* Action Area */}
                     <div className="shrink-0">
-                        <Link href={`/stack/${stack.id}`}>
-                            <Button size="lg" className="rounded-full h-12 px-8 shadow-lg shadow-primary/20">
+                        <Button size="lg" className="rounded-full h-12 px-8 shadow-lg shadow-primary/20" asChild>
+                            <Link href={`/stack/${stack.id}`}>
                                 Try This Stack
                                 <ArrowRight className="ml-2 h-4 w-4" />
-                            </Button>
-                        </Link>
+                            </Link>
+                        </Button>
                     </div>
                 </div>
             </CardContent>

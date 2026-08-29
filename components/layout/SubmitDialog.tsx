@@ -49,33 +49,33 @@ export function SubmitDialog() {
                     Advertise
                 </Button>
             </DialogTrigger>
-            <DialogContent showCloseButton={false} className="sm:max-w-[800px] border-white/10 bg-zinc-950/90 backdrop-blur-xl p-0 overflow-hidden shadow-2xl">
-                <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground text-zinc-400 hover:text-white z-50 cursor-pointer">
+            <DialogContent showCloseButton={false} className="sm:max-w-[800px] border-border bg-popover/90 backdrop-blur-xl p-0 overflow-hidden shadow-2xl">
+                <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground text-muted-foreground hover:text-foreground z-50 cursor-pointer">
                     <X className="h-4 w-4" />
                     <span className="sr-only">Close</span>
                 </DialogClose>
-                <div className="grid grid-cols-1 md:grid-cols-2 md:divide-x divide-white/10">
+                <div className="grid grid-cols-1 md:grid-cols-2 md:divide-x divide-border">
                     {/* Left: Standard */}
-                    <div className="flex flex-col p-8 md:p-10 bg-white/5">
+                    <div className="flex flex-col p-8 md:p-10 bg-foreground/5">
                         <DialogHeader>
-                            <div className="mb-4 inline-flex items-center rounded-md bg-white/5 px-2.5 py-1 text-xs font-medium text-zinc-400 ring-1 ring-inset ring-white/10 w-fit">
+                            <div className="mb-4 inline-flex items-center rounded-md bg-foreground/5 px-2.5 py-1 text-xs font-medium text-muted-foreground ring-1 ring-inset ring-border w-fit">
                                 Standard
                             </div>
-                            <DialogTitle className="text-2xl font-bold text-white">Basic Listing</DialogTitle>
-                            <DialogDescription className="mt-2 text-sm text-zinc-400 leading-relaxed">
+                            <DialogTitle className="text-2xl font-bold text-foreground">Basic Listing</DialogTitle>
+                            <DialogDescription className="mt-2 text-sm text-muted-foreground leading-relaxed">
                                 Join the directory queue. Great for hobby projects and open source tools.
                             </DialogDescription>
                         </DialogHeader>
 
                         <div className="my-8 space-y-4">
                             <div className="flex items-baseline gap-1">
-                                <span className="text-4xl font-bold text-white tracking-tight">Custom</span>
-                                <span className="text-zinc-500 text-sm">pricing</span>
+                                <span className="text-4xl font-bold text-foreground tracking-tight">Custom</span>
+                                <span className="text-muted-foreground text-sm">pricing</span>
                             </div>
                             <ul className="space-y-3 pt-4">
                                 {["Basic tool profile page", "Standard search visibility", "7-14 day review queue", "Community support"].map((item) => (
-                                    <li key={item} className="flex items-start gap-3 text-sm text-zinc-300">
-                                        <div className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-600" />
+                                    <li key={item} className="flex items-start gap-3 text-sm text-muted-foreground">
+                                        <div className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
                                         {item}
                                     </li>
                                 ))}
@@ -85,13 +85,13 @@ export function SubmitDialog() {
                         <div className="mt-auto">
                             <Button
                                 variant="outline"
-                                className="w-full h-12 rounded-xl border-white/10 bg-white/5 text-white hover:bg-white/10 hover:border-white/20 transition-all font-medium"
+                                className="w-full h-12 rounded-xl border-border bg-foreground/5 text-foreground hover:bg-foreground/10 hover:border-border transition-all font-medium"
                                 onClick={() => startCheckout(SponsorshipPlacements.sidebarAd)}
                                 disabled={!sponsorName || !sponsorUrl || !sponsorEmail}
                             >
                                 Contact us
                             </Button>
-                            <p className="mt-3 text-center text-[10px] text-zinc-500 uppercase tracking-wider font-medium">
+                            <p className="mt-3 text-center text-[10px] text-muted-foreground uppercase tracking-wider font-medium">
                                 We reply within 1 business day
                             </p>
                         </div>
@@ -106,16 +106,16 @@ export function SubmitDialog() {
                             <div className="mb-4 inline-flex items-center rounded-md bg-primary/10 px-2.5 py-1 text-xs font-bold text-primary ring-1 ring-inset ring-primary/20 w-fit shadow-lg shadow-primary/10">
                                 ✨ Recommended
                             </div>
-                            <DialogTitle className="text-2xl font-bold text-white">Featured Listing</DialogTitle>
-                            <DialogDescription className="mt-2 text-sm text-primary/80 leading-relaxed">
+                            <DialogTitle className="text-2xl font-bold text-foreground">Featured Listing</DialogTitle>
+                            <DialogDescription className="mt-2 text-sm text-muted-foreground leading-relaxed">
                                 Premium placement across the homepage and tool listings.
                             </DialogDescription>
                         </DialogHeader>
 
                         <div className="relative z-10 my-8 space-y-4">
                             <div className="flex items-baseline gap-1">
-                                <span className="text-4xl font-bold text-white tracking-tight">Custom</span>
-                                <span className="text-primary/60 text-sm font-medium">pricing</span>
+                                <span className="text-4xl font-bold text-foreground tracking-tight">Custom</span>
+                                <span className="text-muted-foreground text-sm font-medium">pricing</span>
                             </div>
                             <ul className="space-y-3 pt-4">
                                 {[
@@ -125,7 +125,7 @@ export function SubmitDialog() {
                                     "🔗 Do-follow SEO Backlink",
                                     "🎨 Custom Verified Badge"
                                 ].map((item) => (
-                                    <li key={item} className="flex items-center gap-3 text-sm font-medium text-white">
+                                    <li key={item} className="flex items-center gap-3 text-sm font-medium text-foreground">
                                         <Star className="h-4 w-4 shrink-0 text-primary fill-primary/20" />
                                         {item}
                                     </li>
@@ -141,40 +141,44 @@ export function SubmitDialog() {
                             >
                                 Contact us to get featured
                             </Button>
-                            <p className="mt-3 text-center text-[10px] text-primary/40 uppercase tracking-wider font-medium">
+                            <p className="mt-3 text-center text-[10px] text-muted-foreground uppercase tracking-wider font-medium">
                                 We reply within 1 business day
                             </p>
                         </div>
                     </div>
                 </div>
-                <div className="p-6 border-t border-white/10 bg-black/40">
+                <div className="p-6 border-t border-border bg-muted/50">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
                         <input
-                            className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white"
+                            className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground"
                             placeholder="Company name"
+                            aria-label="Company name"
                             value={sponsorName}
                             onChange={(e) => setSponsorName(e.target.value)}
                         />
                         <input
-                            className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white"
+                            className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground"
                             placeholder="Website URL"
+                            aria-label="Website URL"
                             value={sponsorUrl}
                             onChange={(e) => setSponsorUrl(e.target.value)}
                         />
                         <input
-                            className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white"
+                            className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground"
                             placeholder="Contact email"
+                            aria-label="Contact email"
                             value={sponsorEmail}
                             onChange={(e) => setSponsorEmail(e.target.value)}
                         />
                         <input
-                            className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white"
+                            className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground"
                             placeholder="Tool to feature (optional)"
+                            aria-label="Tool to feature (optional)"
                             value={toolSlug}
                             onChange={(e) => setToolSlug(e.target.value)}
                         />
                     </div>
-                    <p className="text-[10px] text-zinc-500 mt-3">
+                    <p className="text-[10px] text-muted-foreground mt-3">
                         Sponsorships are billed monthly. Cancel anytime.
                     </p>
                 </div>

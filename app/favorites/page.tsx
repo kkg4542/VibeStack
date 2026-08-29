@@ -265,6 +265,7 @@ export default function FavoritesPage() {
                         <Input
                             type="text"
                             placeholder="Search favorites..."
+                            aria-label="Search favorites"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             className="pl-10 rounded-full bg-background border-border/50"

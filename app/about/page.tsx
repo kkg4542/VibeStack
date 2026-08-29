@@ -387,8 +387,9 @@ export default function AboutPage() {
                                 <form onSubmit={handleSubmit} className="space-y-6">
                                     <div className="grid sm:grid-cols-2 gap-4">
                                         <div>
-                                            <label className="text-sm font-medium mb-2 block">Name</label>
+                                            <label htmlFor="contact-name" className="text-sm font-medium mb-2 block">Name</label>
                                             <Input
+                                                id="contact-name"
                                                 placeholder="Your name"
                                                 value={formData.name}
                                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -397,8 +398,9 @@ export default function AboutPage() {
                                             />
                                         </div>
                                         <div>
-                                            <label className="text-sm font-medium mb-2 block">Email</label>
+                                            <label htmlFor="contact-email" className="text-sm font-medium mb-2 block">Email</label>
                                             <Input
+                                                id="contact-email"
                                                 type="email"
                                                 placeholder="your@email.com"
                                                 value={formData.email}
@@ -409,8 +411,9 @@ export default function AboutPage() {
                                         </div>
                                     </div>
                                     <div>
-                                        <label className="text-sm font-medium mb-2 block">Message</label>
+                                        <label htmlFor="contact-message" className="text-sm font-medium mb-2 block">Message</label>
                                         <Textarea
+                                            id="contact-message"
                                             placeholder="Tell us what's on your mind..."
                                             value={formData.message}
                                             onChange={(e) => setFormData({ ...formData, message: e.target.value })}
