@@ -11,6 +11,7 @@ import { BlogRelatedLinks } from "@/components/seo/BlogRelatedLinks";
 import { getTools } from "@/lib/tools-db";
 import sanitizeHtml from "sanitize-html";
 import { toISODate } from "@/lib/format-date";
+import { designSystem } from "@/lib/design-system";
 
 interface Props {
     params: { slug: string };
@@ -120,7 +121,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                             </span>
                         </div>
 
-                        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 leading-tight text-foreground text-balance">
+                        <h1 className={`${designSystem.typography.hero} mb-6 leading-tight text-foreground`}>
                             {post.title}
                         </h1>
 

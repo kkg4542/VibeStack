@@ -12,6 +12,8 @@ import { NewsletterSection } from "@/components/landing/NewsletterSection";
 import { getTools } from "@/lib/tools-db";
 import { BEST_CATEGORIES, getBestCategoryBySlug } from "@/lib/best-categories";
 import { ToolData } from "@/lib/tool-types";
+import { Section } from "@/components/primitives/Section";
+import { designSystem } from "@/lib/design-system";
 
 export function generateStaticParams() {
   return BEST_CATEGORIES.map((c) => ({ category: c.slug }));
@@ -108,7 +110,7 @@ export default async function BestCategoryPage({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
 
-      <div className="container max-w-4xl mx-auto px-4 py-16">
+      <Section spacing="default" containerSize="small">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-1 text-sm text-muted-foreground mb-8">
           <Link href="/" className="hover:text-foreground">Home</Link>
@@ -123,7 +125,7 @@ export default async function BestCategoryPage({
           <Badge variant="outline" className="mb-4 border-vibe-electric/30 bg-vibe-electric/10 text-vibe-electric">
             Updated for 2026
           </Badge>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-5">
+          <h1 className={`${designSystem.typography.hero} mb-5`}>
             {copy.heading}{" "}
             <span className="text-muted-foreground font-normal">— Ranked</span>
           </h1>
@@ -302,7 +304,7 @@ export default async function BestCategoryPage({
             ))}
           </div>
         </section>
-      </div>
+      </Section>
 
       {/* Newsletter capture */}
       <NewsletterSection />

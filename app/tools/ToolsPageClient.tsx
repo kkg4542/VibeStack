@@ -113,7 +113,7 @@ export default function ToolsPage() {
                         <span>{totalTools} tools, vetted for real work</span>
                     </m.div>
 
-                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance max-w-4xl mx-auto leading-tight">
+                    <h1 className={`${designSystem.typography.hero} mb-6 max-w-4xl mx-auto leading-tight`}>
                         Skip the hype. Find the{" "}
                         <span className="text-gradient-brand">
                             tools that ship

@@ -15,6 +15,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { VibeCard } from "@/components/ui/VibeCard";
 import { Section } from "@/components/primitives/Section";
+import { Container } from "@/components/primitives/Container";
 import { GradientText } from "@/components/primitives/GradientText";
 import { designSystem } from "@/lib/design-system";
 
@@ -88,7 +89,7 @@ interface ToolCategoriesProps {
 
 export function ToolCategories({ counts }: ToolCategoriesProps = {}) {
   return (
-    <Section spacing="large" className="relative overflow-hidden">
+    <Section spacing="large" container={false} className="relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-linear-to-b from-background via-background/50 to-background" />
 
@@ -96,7 +97,7 @@ export function ToolCategories({ counts }: ToolCategoriesProps = {}) {
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-vibe-purple/10 blur-[120px] rounded-full -z-10" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-vibe-electric/10 blur-[100px] rounded-full -z-10" />
 
-      <div className="relative z-10">
+      <Container className="relative z-10">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <m.div
@@ -112,7 +113,7 @@ export function ToolCategories({ counts }: ToolCategoriesProps = {}) {
               <Sparkles className="mr-2 h-3 w-3" />
               Browse by Category
             </Badge>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+            <h2 className={`${designSystem.typography.section} mb-6`}>
               Find Your Perfect{" "}
               <GradientText variant="neon">AI Tool</GradientText>
             </h2>
@@ -191,7 +192,7 @@ export function ToolCategories({ counts }: ToolCategoriesProps = {}) {
             );
           })}
         </div>
-      </div>
+      </Container>
     </Section>
   );
 }

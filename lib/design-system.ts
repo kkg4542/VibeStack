@@ -217,7 +217,7 @@ export const designSystem = {
     // Typography hierarchy
     typography: {
         hero: 'text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-balance',
-        section: 'text-3xl md:text-4xl font-bold',
+        section: 'text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-balance',
         cardTitle: 'text-xl font-bold',
         subtitle: 'text-lg text-muted-foreground leading-relaxed',
         body: 'text-base text-muted-foreground',

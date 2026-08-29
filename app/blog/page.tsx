@@ -12,6 +12,7 @@ import { designSystem } from "@/lib/design-system";
 import { useState, useMemo } from "react";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { PopularToolsRail } from "@/components/blog/PopularToolsRail";
+import { Container } from "@/components/primitives/Container";
 
 type SortOption = "newest" | "oldest" | "readTime";
 
@@ -79,7 +80,7 @@ export default function BlogListingPage() {
 
     return (
         <PageBackground {...BackgroundPresets.content}>
-            <div className="container max-w-6xl mx-auto px-4">
+            <Container>
                 {/* Hero Section - Enhanced */}
                 <motion.div
                     initial={designSystem.animations.fadeInUp.initial}
@@ -98,7 +99,7 @@ export default function BlogListingPage() {
                         <span>{blogPosts.length} Articles Published</span>
                     </motion.div>
 
-                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
+                    <h1 className={`${designSystem.typography.hero} mb-6`}>
                         Insights on{" "}
                         <span className="text-gradient-brand">
                             AI & Development
@@ -474,7 +475,7 @@ export default function BlogListingPage() {
                 <div className="mt-16">
                     <PopularToolsRail />
                 </div>
-            </div>
+            </Container>
         </PageBackground>
     );
 }

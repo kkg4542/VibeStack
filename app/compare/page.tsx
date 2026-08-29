@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import ComparePageClient from "./ComparePageClient";
 import { CompareDirectory } from "@/components/seo/CompareDirectory";
+import { Container } from "@/components/primitives/Container";
 
 export const metadata: Metadata = {
     title: "Compare AI Tools",
@@ -28,9 +29,9 @@ export default function ComparePage() {
             <Suspense fallback={null}>
                 <ComparePageClient />
             </Suspense>
-            <div className="container max-w-6xl mx-auto px-4 pb-16">
+            <Container className="pb-16">
                 <CompareDirectory />
-            </div>
+            </Container>
         </>
     );
 }

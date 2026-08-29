@@ -2,6 +2,8 @@
 
 import { m } from "framer-motion";
 import { Search, GitCompare, Zap } from "lucide-react";
+import { Section } from "@/components/primitives/Section";
+import { designSystem } from "@/lib/design-system";
 
 const steps = [
     {
@@ -26,7 +28,7 @@ const steps = [
 
 export function HowItWorks() {
     return (
-        <section className="container mx-auto max-w-6xl px-4 py-24 border-y border-border/40">
+        <Section spacing="default" className="border-y border-border/40">
             <m.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -34,7 +36,7 @@ export function HowItWorks() {
                 transition={{ duration: 0.6 }}
                 className="text-center mb-16"
             >
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                <h2 className={`${designSystem.typography.section} text-foreground mb-4`}>
                     Get started in 3 simple steps
                 </h2>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -75,6 +77,6 @@ export function HowItWorks() {
                     </m.div>
                 ))}
             </div>
-        </section>
+        </Section>
     );
 }

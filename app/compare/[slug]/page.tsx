@@ -13,6 +13,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ToolIconRenderer } from '@/components/tools/ToolIconRenderer';
 import { MotionDiv } from "@/components/ui/motion-wrapper";
 import { designSystem } from '@/lib/design-system';
+import { Section } from '@/components/primitives/Section';
 import { fitTitle } from '@/lib/seo-title';
 
 interface Props {
@@ -191,7 +192,7 @@ export default async function ComparisonSlugPage({ params }: Props) {
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
 
-            <div className="container mx-auto max-w-7xl px-4 py-8">
+            <Section spacing="small" containerSize="large">
                 {/* Breadcrumb + actions */}
                 <MotionDiv
                     initial={designSystem.animations.fadeInUp.initial}
@@ -225,7 +226,7 @@ export default async function ComparisonSlugPage({ params }: Props) {
                     className="mb-12 text-center"
                 >
                     <Badge variant="outline" className="mb-4 bg-muted/50">{tool1.category} Showdown · Updated for 2026</Badge>
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-balance tracking-tight">
+                    <h1 className={`${designSystem.typography.hero} mb-6`}>
                         <span className={`bg-clip-text text-transparent bg-linear-to-r ${tool1.bgGradient || 'from-foreground to-foreground'}`}>
                             {tool1.title}
                         </span>
@@ -502,7 +503,7 @@ export default async function ComparisonSlugPage({ params }: Props) {
                         </Link>
                     </div>
                 </nav>
-            </div>
+            </Section>
         </PageBackground>
     );
 }

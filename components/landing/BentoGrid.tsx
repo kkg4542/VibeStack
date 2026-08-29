@@ -10,6 +10,8 @@ import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
 import { SponsorshipModal } from "@/components/monetization/SponsorshipModal";
 import { useAllTools } from "@/hooks/use-tools";
 import { ToolIconRenderer } from "@/components/tools/ToolIconRenderer";
+import { Section } from "@/components/primitives/Section";
+import { designSystem } from "@/lib/design-system";
 
 function BentoCard({ tool, index }: { tool: ToolData, index: number }) {
     const x = useMotionValue(0);
@@ -116,7 +118,7 @@ export function BentoGrid() {
 
     return (
         <LazyMotionProvider>
-            <section className="container mx-auto max-w-6xl px-4 py-24">
+            <Section spacing="default">
                 <m.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -124,7 +126,7 @@ export function BentoGrid() {
                     transition={{ duration: 0.5 }}
                     className="mb-16 text-center"
                 >
-                    <h2 className="mb-6 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+                    <h2 className={`mb-6 ${designSystem.typography.section} text-foreground`}>
                         Essential Tools
                     </h2>
                     <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
@@ -171,7 +173,7 @@ export function BentoGrid() {
                         View all {tools.length}+ tools →
                     </Link>
                 </m.div>
-            </section>
+            </Section>
         </LazyMotionProvider>
     );
 }

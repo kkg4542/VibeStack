@@ -8,6 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import { VibeCard } from "@/components/ui/VibeCard";
 import { StackWithMetrics } from "@/lib/data/stacks";
 import { designSystem } from "@/lib/design-system";
+import { Section } from "@/components/primitives/Section";
+import { Container } from "@/components/primitives/Container";
 
 interface FeaturedStacksProps {
   stacks: StackWithMetrics[];
@@ -15,11 +17,11 @@ interface FeaturedStacksProps {
 
 export function FeaturedStacks({ stacks }: FeaturedStacksProps) {
   return (
-    <section className="py-24 md:py-32 relative overflow-hidden">
+    <Section spacing="large" container={false} className="relative overflow-hidden">
       {/* Background Decorations */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1200px] h-[600px] bg-vibe-electric/5 blur-[120px] rounded-full -z-10" />
 
-      <div className="container px-4 mx-auto">
+      <Container>
         <div className="text-center max-w-3xl mx-auto mb-16">
           <m.div
             initial={designSystem.animations.fadeInUp.initial}
@@ -31,7 +33,7 @@ export function FeaturedStacks({ stacks }: FeaturedStacksProps) {
               <Sparkles className="mr-2 h-3 w-3" />
               Curated Workflows
             </Badge>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+            <h2 className={`${designSystem.typography.section} mb-6`}>
               Popular{" "}
               <span className="text-gradient-brand">
                 AI Stacks
@@ -160,7 +162,7 @@ export function FeaturedStacks({ stacks }: FeaturedStacksProps) {
             Find My Perfect Stack <Zap className="ml-2 h-4 w-4" />
           </Link>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

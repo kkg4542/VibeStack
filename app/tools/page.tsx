@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import ToolsPageClient from "./ToolsPageClient";
 import { SiteDirectory } from "@/components/seo/SiteDirectory";
+import { Container } from "@/components/primitives/Container";
 
 export const metadata: Metadata = {
     title: "AI Tools Directory",
@@ -23,9 +24,9 @@ export default function ToolsPage() {
     return (
         <>
             <ToolsPageClient />
-            <div className="container max-w-6xl mx-auto px-4">
+            <Container>
                 <SiteDirectory />
-            </div>
+            </Container>
         </>
     );
 }

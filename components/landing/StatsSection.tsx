@@ -11,6 +11,8 @@ import {
   Zap
 } from "lucide-react";
 import { designSystem } from "@/lib/design-system";
+import { Section } from "@/components/primitives/Section";
+import { Container } from "@/components/primitives/Container";
 
 export interface StatsSectionProps {
   /** Total AI tools in the directory. Falls back to a safe default. */
@@ -117,14 +119,14 @@ export function StatsSection({
 }: StatsSectionProps = {}) {
   const stats = buildStats(toolCount, stackCount, guideCount);
   return (
-    <section className="py-24 md:py-32 relative overflow-hidden">
+    <Section spacing="large" container={false} className="relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-linear-to-b from-background via-vibe-purple/5 to-background" />
-      
+
       {/* Decorative grid */}
       <div className="absolute inset-0 bg-grid-pattern opacity-30" />
 
-      <div className="container px-4 mx-auto relative z-10">
+      <Container className="relative z-10">
         {/* Header */}
         <m.div
           initial={designSystem.animations.fadeInUp.initial}
@@ -133,7 +135,7 @@ export function StatsSection({
           transition={designSystem.animations.fadeInUp.transition}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+          <h2 className={`${designSystem.typography.section} mb-6`}>
             Everything you need to{" "}
             <span className="text-transparent bg-clip-text bg-linear-to-r from-vibe-electric via-vibe-cyan to-vibe-neon">
               build with AI
@@ -211,7 +213,7 @@ export function StatsSection({
             <Zap className="w-4 h-4 text-vibe-electric" />
           </div>
         </m.div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

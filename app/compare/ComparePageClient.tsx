@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
+import { designSystem } from "@/lib/design-system";
 
 export default function ComparePageClient() {
     const [selectedTools, setSelectedTools] = useState<ToolData[]>([]);
@@ -86,7 +87,7 @@ export default function ComparePageClient() {
                         <div className="inline-flex p-6 bg-vibe-electric/10 rounded-full w-24 h-24 mx-auto mb-6 items-center justify-center border border-vibe-electric/20">
                             <Scale className="h-12 w-12 text-vibe-electric" />
                         </div>
-                        <h1 className="text-4xl font-bold mb-4 text-balance">Compare AI Tools</h1>
+                        <h1 className={`${designSystem.typography.hero} mb-4`}>Compare AI Tools</h1>
                         <p className="text-muted-foreground text-lg mb-8">
                             Select up to 3 tools from our directory to compare them side-by-side and find the perfect fit for your workflow.
                         </p>
@@ -147,7 +148,7 @@ export default function ComparePageClient() {
                         <div className="p-2 rounded-lg bg-vibe-electric/10">
                             <Scale className="h-6 w-6 text-vibe-electric" />
                         </div>
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-balance">Tool Comparison</h1>
+                        <h1 className={designSystem.typography.hero}>Tool Comparison</h1>
                     </div>
                     <p className="text-muted-foreground">
                         Comparing {selectedTools.length} tools side-by-side

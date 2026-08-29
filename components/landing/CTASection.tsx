@@ -4,10 +4,12 @@ import { m } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { Section } from "@/components/primitives/Section";
+import { designSystem } from "@/lib/design-system";
 
 export function CTASection() {
     return (
-        <section className="container mx-auto max-w-6xl px-4 py-24">
+        <Section spacing="default">
             <m.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -30,7 +32,7 @@ export function CTASection() {
                         <span className="font-medium">Start building faster today</span>
                     </m.div>
 
-                    <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6">
+                    <h2 className={`${designSystem.typography.section} text-foreground mb-6`}>
                         Ready to accelerate your workflow?
                     </h2>
 
@@ -53,6 +55,6 @@ export function CTASection() {
                     </div>
                 </div>
             </m.div>
-        </section>
+        </Section>
     );
 }

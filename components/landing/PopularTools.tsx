@@ -9,6 +9,8 @@ import { VibeCard } from "@/components/ui/VibeCard";
 import { designSystem } from "@/lib/design-system";
 import { ToolData } from "@/lib/tool-types";
 import { ToolIconRenderer } from "@/components/tools/ToolIconRenderer";
+import { Section } from "@/components/primitives/Section";
+import { Container } from "@/components/primitives/Container";
 
 interface PopularToolsProps {
   tools: ToolData[];
@@ -23,11 +25,11 @@ export function PopularTools({ tools }: PopularToolsProps) {
     return null;
   }
   return (
-    <section className="py-24 md:py-32 relative overflow-hidden">
+    <Section spacing="large" container={false} className="relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-linear-to-b from-background via-vibe-electric/5 to-background" />
 
-      <div className="container px-4 mx-auto relative z-10">
+      <Container className="relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <m.div
             initial={designSystem.animations.fadeInUp.initial}
@@ -42,7 +44,7 @@ export function PopularTools({ tools }: PopularToolsProps) {
               <TrendingUp className="mr-2 h-3 w-3" />
               Trending Now
             </Badge>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+            <h2 className={`${designSystem.typography.section} mb-6`}>
               Popular{" "}
               <span className="text-transparent bg-clip-text bg-linear-to-r from-vibe-electric to-vibe-purple">
                 AI Tools
@@ -136,7 +138,7 @@ export function PopularTools({ tools }: PopularToolsProps) {
             </Button>
           </Link>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

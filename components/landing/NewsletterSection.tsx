@@ -16,6 +16,8 @@ import { Input } from "@/components/ui/input";
 import { designSystem } from "@/lib/design-system";
 import { trackNewsletterSubscribe } from "@/lib/analytics";
 import { useCsrfFetch } from "@/hooks/useCsrfFetch";
+import { Section } from "@/components/primitives/Section";
+import { Container } from "@/components/primitives/Container";
 
 const benefits = [
   { icon: Sparkles, text: "Weekly AI tool discoveries" },
@@ -64,14 +66,14 @@ export function NewsletterSection() {
   };
 
   return (
-    <section className="py-24 md:py-32 relative overflow-hidden">
+    <Section spacing="large" container={false} className="relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-linear-to-b from-background via-vibe-electric/5 to-background" />
 
       {/* Decorative elements */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-linear-to-r from-vibe-electric/10 via-vibe-cyan/10 to-vibe-neon/10 blur-[120px] rounded-full -z-10" />
 
-      <div className="container px-4 mx-auto relative z-10">
+      <Container className="relative z-10">
         <m.div
           initial={designSystem.animations.fadeInUp.initial}
           whileInView={designSystem.animations.fadeInUp.animate}
@@ -93,7 +95,7 @@ export function NewsletterSection() {
                   <Mail className="mr-2 h-3 w-3" />
                   Stay Updated
                 </Badge>
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                <h2 className={`${designSystem.typography.section} mb-4`}>
                   Get the Latest{" "}
                   <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-600 to-blue-600">
                     AI Insights
@@ -174,7 +176,7 @@ export function NewsletterSection() {
             </div>
           </div>
         </m.div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }
