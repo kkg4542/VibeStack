@@ -48,13 +48,13 @@ export default function ContentGuidelinesPage() {
                                 </CardHeader>
                                 <CardContent className="space-y-4">
                                     <div className="flex items-start gap-3">
-                                        <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                                        <CheckCircle2 className="w-5 h-5 text-emerald-700 dark:text-emerald-400 shrink-0 mt-0.5" />
                                         <div className="text-sm">
                                             <strong>Aspect Ratio:</strong> 1:1 (Square)
                                         </div>
                                     </div>
                                     <div className="flex items-start gap-3">
-                                        <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                                        <CheckCircle2 className="w-5 h-5 text-emerald-700 dark:text-emerald-400 shrink-0 mt-0.5" />
                                         <div className="text-sm">
                                             <strong>Format:</strong> SVG (Best) or transparent PNG
                                         </div>
@@ -74,13 +74,13 @@ export default function ContentGuidelinesPage() {
                                 </CardHeader>
                                 <CardContent className="space-y-4">
                                     <div className="flex items-start gap-3">
-                                        <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                                        <CheckCircle2 className="w-5 h-5 text-emerald-700 dark:text-emerald-400 shrink-0 mt-0.5" />
                                         <div className="text-sm">
                                             <strong>Aspect Ratio:</strong> 16:9 (Widescreen)
                                         </div>
                                     </div>
                                     <div className="flex items-start gap-3">
-                                        <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                                        <CheckCircle2 className="w-5 h-5 text-emerald-700 dark:text-emerald-400 shrink-0 mt-0.5" />
                                         <div className="text-sm">
                                             <strong>Content:</strong> Show the actual tool interface, not just a marketing banner.
                                         </div>
@@ -105,8 +105,8 @@ export default function ContentGuidelinesPage() {
                                     <h3 className="font-medium mb-2">Naming</h3>
                                     <p className="text-sm text-muted-foreground mb-2">Use the official product name without slogans.</p>
                                     <div className="flex gap-4 text-sm">
-                                        <div className="text-emerald-500">✅ GitHub Copilot</div>
-                                        <div className="text-red-500">❌ GitHub Copilot - Best AI Coding Tool</div>
+                                        <div className="text-emerald-700 dark:text-emerald-400">✅ GitHub Copilot</div>
+                                        <div className="text-red-700 dark:text-red-400">❌ GitHub Copilot - Best AI Coding Tool</div>
                                     </div>
                                 </div>
 
@@ -114,8 +114,8 @@ export default function ContentGuidelinesPage() {
                                     <h3 className="font-medium mb-2">Tagline (Short Description)</h3>
                                     <p className="text-sm text-muted-foreground mb-2">Keep it objective and under 60 characters.</p>
                                     <div className="flex flex-col gap-2 text-sm">
-                                        <div className="text-emerald-500">✅ AI pair programmer that helps you write code faster.</div>
-                                        <div className="text-red-500">❌ The world&apos;s best and most amazing tool that you will ever use!!!</div>
+                                        <div className="text-emerald-700 dark:text-emerald-400">✅ AI pair programmer that helps you write code faster.</div>
+                                        <div className="text-red-700 dark:text-red-400">❌ The world&apos;s best and most amazing tool that you will ever use!!!</div>
                                     </div>
                                 </div>
                             </CardContent>

@@ -42,7 +42,8 @@ export function SubmitDialog() {
             <DialogTrigger asChild>
                 <Button
                     size="sm"
-                    className="h-9 rounded-full bg-linear-to-r from-vibe-electric to-vibe-purple px-5 text-xs font-bold text-white shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:scale-105 transition-all duration-300 gap-2 border border-white/10"
+                    variant="gradient"
+                    className="h-9 rounded-full px-5 text-xs font-bold shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:scale-105 transition-all duration-300 gap-2"
                 >
                     <Plus className="h-4 w-4" />
                     Advertise

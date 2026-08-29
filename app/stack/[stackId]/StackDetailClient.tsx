@@ -239,7 +239,7 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                                         <Card className="border-border/50 bg-card hover:border-vibe-electric/30 transition-colors group">
                                             <CardContent className="p-6">
                                                 <div className="flex items-start gap-4">
-                                                    <div className="shrink-0 w-12 h-12 rounded-xl bg-linear-to-br from-vibe-electric to-vibe-purple flex items-center justify-center text-white font-bold shadow-lg shadow-vibe-electric/20">
+                                                    <div className="shrink-0 w-12 h-12 rounded-xl bg-linear-to-br from-vibe-electric to-vibe-purple flex items-center justify-center text-vibe-deep font-bold shadow-lg shadow-vibe-electric/20">
                                                         {index + 1}
                                                     </div>
                                                     <div className="flex-1">

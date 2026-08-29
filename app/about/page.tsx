@@ -345,7 +345,7 @@ export default function AboutPage() {
                             >
                                 <Card className="text-center border-border/50 hover:border-vibe-electric/30 transition-colors">
                                     <CardContent className="p-6">
-                                        <div className="w-20 h-20 rounded-full bg-linear-to-br from-vibe-electric to-vibe-purple mx-auto mb-4 flex items-center justify-center text-2xl font-bold text-white">
+                                        <div className="w-20 h-20 rounded-full bg-linear-to-br from-vibe-electric to-vibe-purple mx-auto mb-4 flex items-center justify-center text-2xl font-bold text-vibe-deep">
                                             {member.avatar}
                                         </div>
                                         <h3 className="text-lg font-semibold mb-1">{member.name}</h3>

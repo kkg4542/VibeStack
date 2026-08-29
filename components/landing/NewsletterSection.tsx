@@ -144,7 +144,7 @@ export function NewsletterSection() {
                   <Button
                     type="submit"
                     disabled={isSubmitting || isSuccess}
-                    className="h-12 px-6 bg-linear-to-r from-vibe-electric to-vibe-cyan hover:shadow-lg hover:shadow-vibe-electric/30 transition-all duration-300"
+                    className="h-12 px-6 bg-linear-to-r from-vibe-electric to-vibe-cyan text-vibe-deep hover:shadow-lg hover:shadow-vibe-electric/30 transition-all duration-300"
                   >
                     {isSuccess ? (
                       <>

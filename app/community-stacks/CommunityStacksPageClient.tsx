@@ -182,7 +182,7 @@ export function CommunityStacksPageClient({ stacks, totalCount, filters }: Commu
                                                                 className="w-8 h-8 rounded-full object-cover"
                                                             />
                                                         ) : (
-                                                            <div className="w-8 h-8 rounded-full bg-linear-to-br from-vibe-electric via-vibe-purple to-vibe-pink flex items-center justify-center text-xs font-bold text-white">
+                                                            <div className="w-8 h-8 rounded-full bg-linear-to-br from-vibe-electric via-vibe-purple to-vibe-pink flex items-center justify-center text-xs font-bold text-vibe-deep">
                                                                 {stack.curator.name?.charAt(0) || '?'}
                                                             </div>
                                                         )}

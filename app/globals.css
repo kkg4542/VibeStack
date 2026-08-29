@@ -477,6 +477,14 @@ html {
   color: var(--color-vibe-electric);
 }
 
+/* The brand neon magenta (#d900d9) is only 3.9:1 on white, below the 4.5:1
+   text minimum. Light mode drops to a deeper magenta that clears 5.8:1 on
+   white; dark mode keeps the neon value. Same tradeoff already made for
+   .text-vibe-electric above. */
+.text-vibe-neon {
+  color: #a21caf;
+}
+
 .dark .text-vibe-neon {
   color: var(--color-vibe-neon);
 }

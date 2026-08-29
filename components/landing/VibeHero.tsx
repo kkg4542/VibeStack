@@ -206,14 +206,14 @@ export function VibeHero() {
                 <div className="terminal-dot red" />
                 <div className="terminal-dot yellow" />
                 <div className="terminal-dot green" />
-                <span className="ml-2 text-xs text-white/40 font-mono">vibestack — zsh</span>
+                <span className="ml-2 text-xs text-white/60 font-mono">vibestack — zsh</span>
               </div>
 
               {/* Terminal body */}
               <div className="terminal-body text-left">
                 <div className="flex items-center gap-2">
                   <span className="text-vibe-electric">$</span>
-                  <span className="text-white/50">vibestack</span>
+                  <span className="text-white/70">vibestack</span>
                   <span className="text-white ml-1">init</span>
                   <span className="w-2 h-5 bg-vibe-electric/50 ml-1 cursor-blink" />
                 </div>
@@ -221,7 +221,7 @@ export function VibeHero() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1, duration: 0.5 }}
-                  className="mt-2 text-sm text-white/40"
+                  className="mt-2 text-sm text-white/60"
                 >
                   → Initializing your perfect AI stack...
                 </m.div>
