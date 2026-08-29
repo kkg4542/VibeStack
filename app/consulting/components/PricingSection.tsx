@@ -72,7 +72,7 @@ export function PricingSection({ handleCheckout, loading }: PricingSectionProps)
                             className="group relative overflow-hidden rounded-3xl border-2 border-vibe-electric/50 bg-linear-to-b from-vibe-electric/10 to-card/50 p-8 shadow-xl shadow-vibe-electric/20 transition-all hover:-translate-y-2 hover:shadow-2xl hover:shadow-vibe-electric/30"
                         >
                             <div className="absolute top-4 right-4">
-                                <Badge className="bg-vibe-electric text-white border-vibe-electric">Most Popular</Badge>
+                                <Badge className="bg-vibe-electric text-vibe-deep border-vibe-electric">Most Popular</Badge>
                             </div>
                             <div className="mb-6">
                                 <h3 className="text-xl font-semibold mb-2">Featured Spotlight</h3>

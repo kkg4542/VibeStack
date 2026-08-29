@@ -183,7 +183,7 @@ export default function SubmitToolPage() {
                                 >
                                     {plan.popular && (
                                         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                                        <Badge className="bg-vibe-electric text-white">
+                                        <Badge className="bg-vibe-electric text-vibe-deep">
                                             <TrendingUp className="w-3 h-3 mr-1" />
                                             Most Popular
                                         </Badge>

@@ -182,7 +182,7 @@ export default function BlogListingPage() {
                                                     onClick={() => setSelectedCategory(cat)}
                                                     aria-pressed={selectedCategory === cat}
                                                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${selectedCategory === cat
-                                                        ? "bg-vibe-electric text-white shadow-md"
+                                                        ? "bg-vibe-electric text-vibe-deep shadow-md"
                                                         : "bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground"
                                                         }`}
                                                 >
@@ -206,7 +206,7 @@ export default function BlogListingPage() {
                                                     onClick={() => setSortBy(option.value as SortOption)}
                                                     aria-pressed={sortBy === option.value}
                                                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${sortBy === option.value
-                                                        ? "bg-vibe-electric text-white shadow-md"
+                                                        ? "bg-vibe-electric text-vibe-deep shadow-md"
                                                         : "bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground"
                                                         }`}
                                                 >
@@ -279,7 +279,7 @@ export default function BlogListingPage() {
                                                         />
                                                         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
                                                         <div className="absolute bottom-0 left-0 right-0 p-6">
-                                                            <Badge className="bg-vibe-electric text-white border-vibe-electric mb-3">
+                                                            <Badge className="bg-vibe-electric text-vibe-deep border-vibe-electric mb-3">
                                                                 {post.category}
                                                             </Badge>
                                                             <h3 className="text-2xl font-bold text-white group-hover:text-primary transition-colors line-clamp-2">

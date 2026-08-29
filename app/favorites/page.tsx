@@ -225,13 +225,13 @@ export default function FavoritesPage() {
                             <div className="flex items-center bg-card rounded-lg border border-border/50 p-1">
                                 <button
                                     onClick={() => setViewMode('grid')}
-                                    className={`p-2 rounded-md transition-colors ${viewMode === 'grid' ? 'bg-vibe-electric text-white' : 'text-muted-foreground hover:text-foreground'}`}
+                                    className={`p-2 rounded-md transition-colors ${viewMode === 'grid' ? 'bg-vibe-electric text-vibe-deep' : 'text-muted-foreground hover:text-foreground'}`}
                                 >
                                     <Grid3X3 className="h-4 w-4" />
                                 </button>
                                 <button
                                     onClick={() => setViewMode('list')}
-                                    className={`p-2 rounded-md transition-colors ${viewMode === 'list' ? 'bg-vibe-electric text-white' : 'text-muted-foreground hover:text-foreground'}`}
+                                    className={`p-2 rounded-md transition-colors ${viewMode === 'list' ? 'bg-vibe-electric text-vibe-deep' : 'text-muted-foreground hover:text-foreground'}`}
                                 >
                                     <List className="h-4 w-4" />
                                 </button>

@@ -144,7 +144,7 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                                     onClick={() => setPricing(p)}
                                     aria-pressed={pricing === p}
                                     className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${pricing === p
-                                        ? "bg-vibe-electric text-white shadow-md"
+                                        ? "bg-vibe-electric text-vibe-deep shadow-md"
                                         : "text-muted-foreground hover:text-foreground hover:bg-muted"
                                         }`}
                                 >
@@ -178,7 +178,7 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                                 onClick={() => setCategory(cat)}
                                 aria-pressed={category === cat}
                                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${category === cat
-                                    ? "bg-vibe-electric text-white border-vibe-electric shadow-md shadow-vibe-electric/20"
+                                    ? "bg-vibe-electric text-vibe-deep border-vibe-electric shadow-md shadow-vibe-electric/20"
                                     : "bg-transparent text-muted-foreground border-transparent hover:bg-secondary/80 hover:text-foreground"
                                     }`}
                             >
@@ -272,7 +272,7 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                                         }}
                                         disabled={isLoading}
                                         className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${page === p
-                                            ? "bg-vibe-electric text-white"
+                                            ? "bg-vibe-electric text-vibe-deep"
                                             : "hover:bg-secondary text-muted-foreground"
                                             }`}
                                     >
@@ -306,17 +306,17 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                             exit={{ y: 100, opacity: 0 }}
                             className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 pointer-events-none"
                         >
-                                <div className="bg-vibe-electric text-white px-6 py-4 rounded-2xl shadow-2xl border border-white/20 backdrop-blur-xl flex items-center gap-6 pointer-events-auto">
+                                <div className="bg-vibe-electric text-vibe-deep px-6 py-4 rounded-2xl shadow-2xl border border-white/20 backdrop-blur-xl flex items-center gap-6 pointer-events-auto">
                                 <div className="flex items-center gap-3">
                                     <div className="bg-white/20 p-2 rounded-lg">
                                         <Scale className="h-5 w-5" />
                                     </div>
                                     <div>
                                         <p className="text-sm font-bold">{compareCount} Tool{compareCount > 1 ? 's' : ''} Selected</p>
-                                        <p className="text-xs text-vibe-electric/80">Compare features side-by-side</p>
+                                        <p className="text-xs text-vibe-deep/80">Compare features side-by-side</p>
                                     </div>
                                 </div>
-                                <Button asChild size="sm" className="bg-white text-vibe-electric hover:bg-vibe-electric/10 rounded-xl font-bold group">
+                                <Button asChild size="sm" className="bg-white text-vibe-deep hover:bg-white/90 rounded-xl font-bold group">
                                     <Link href="/compare" className="flex items-center gap-2">
                                         Compare Now
                                         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
