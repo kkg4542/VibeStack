@@ -22,43 +22,43 @@ function ToolCard({ tool }: { tool: ToolData }) {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.2 }}
+            className="relative"
         >
-            <Link
-                id={`tool-card-${tool.slug}`}
-                href={`/tool/${tool.slug}`}
-                className="block h-full focus-visible:ring-2 focus-visible:ring-primary rounded-3xl outline-none"
-                aria-label={`View details for ${tool.title}`}
+            <VibeCard
+                className="h-full"
+                tiltStrength={5}
+                glowOnHover={true}
+                depth={10}
             >
-                <VibeCard
-                    className="h-full"
-                    tiltStrength={5}
-                    glowOnHover={true}
-                    depth={10}
-                >
-                    <div className="flex flex-col h-full p-6">
-                        <div className="mb-4 flex items-center justify-between gap-4">
-                            <div className={`rounded-lg bg-secondary/80 p-3 ring-1 ring-border shadow-lg ${tool.color || "text-foreground"} group-hover:shadow-vibe-electric/20 transition-all duration-300`}>
-                                <ToolIconRenderer slug={tool.slug} className="h-6 w-6" aria-hidden="true" />
-                            </div>
-                            <Badge variant="secondary" className="bg-secondary text-xs font-normal text-muted-foreground backdrop-blur-sm">
-                                {tool.category}
-                            </Badge>
+                <div className="flex flex-col h-full p-6">
+                    <div className="mb-4 flex items-center justify-between gap-4">
+                        <div className={`rounded-lg bg-secondary/80 p-3 ring-1 ring-border shadow-lg ${tool.color || "text-foreground"} group-hover:shadow-vibe-electric/20 transition-all duration-300`}>
+                            <ToolIconRenderer slug={tool.slug} className="h-6 w-6" aria-hidden="true" />
                         </div>
-
-                        <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300 mb-2">
-                            {tool.title}
-                        </h3>
-
-                        <p className="text-muted-foreground/90 line-clamp-2 leading-relaxed text-sm mb-4 flex-grow">
-                            {tool.description}
-                        </p>
-
-                        <div className="pt-4 flex justify-end border-t border-border/40 mt-auto">
-                            <CompareButton toolSlug={tool.slug} toolTitle={tool.title} />
-                        </div>
+                        <Badge variant="secondary" className="bg-secondary text-xs font-normal text-muted-foreground backdrop-blur-sm">
+                            {tool.category}
+                        </Badge>
                     </div>
-                </VibeCard>
-            </Link>
+
+                    <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300 mb-2">
+                        <Link
+                            id={`tool-card-${tool.slug}`}
+                            href={`/tool/${tool.slug}`}
+                            className="outline-none after:absolute after:inset-0 after:rounded-3xl focus-visible:after:ring-2 focus-visible:after:ring-primary"
+                        >
+                            {tool.title}
+                        </Link>
+                    </h3>
+
+                    <p className="text-muted-foreground/90 line-clamp-2 leading-relaxed text-sm mb-4 flex-grow">
+                        {tool.description}
+                    </p>
+
+                    <div className="pt-4 flex justify-end border-t border-border/40 mt-auto relative z-10">
+                        <CompareButton toolSlug={tool.slug} toolTitle={tool.title} />
+                    </div>
+                </div>
+            </VibeCard>
         </m.article>
     );
 }
