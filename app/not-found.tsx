@@ -25,6 +25,7 @@ import { blogPosts } from "@/lib/blog";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { getToolIcon } from "@/components/icons/tool-icons";
 import type { Tool } from "@prisma/client";
+import { designSystem } from "@/lib/design-system";
 
 export default function NotFound() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -123,7 +124,7 @@ export default function NotFound() {
                             <span>Lost in the Stack?</span>
                         </div>
 
-                        <h1 className="text-3xl md:text-5xl font-bold mb-4 text-foreground text-balance">
+                        <h1 className={`${designSystem.typography.hero} mb-4 text-foreground`}>
                             Page Not Found
                         </h1>
 

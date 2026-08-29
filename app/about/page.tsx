@@ -29,6 +29,7 @@ import { designSystem } from "@/lib/design-system";
 import { useState } from "react";
 import { toast } from "sonner";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
+import { Container } from "@/components/primitives/Container";
 
 const team = [
     {
@@ -114,7 +115,7 @@ export default function AboutPage() {
 
     return (
         <PageBackground {...BackgroundPresets.content}>
-            <div className="container max-w-6xl mx-auto px-4">
+            <Container size="default">
                 {/* Hero Section */}
                 <motion.div
                     initial={designSystem.animations.fadeInUp.initial}
@@ -132,7 +133,7 @@ export default function AboutPage() {
                         <span>About Us</span>
                     </motion.div>
 
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
+                    <h1 className={`${designSystem.typography.hero} mb-6`}>
                         Building the Future of{" "}
                         <span className="text-gradient-brand">
                             AI Productivity
@@ -448,7 +449,7 @@ export default function AboutPage() {
                         </Card>
                     </div>
                 </motion.div>
-            </div>
+            </Container>
         </PageBackground>
     );
 }

@@ -183,7 +183,7 @@ export default function RoadmapPage() {
                         <span>Roadmap & Updates</span>
                     </div>
 
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
+                    <h1 className={`${designSystem.typography.hero} mb-6`}>
                         Our Journey{" "}
                         <span className="text-gradient-brand">
                             & Roadmap

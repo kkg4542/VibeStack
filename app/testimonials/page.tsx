@@ -4,6 +4,8 @@ import { Heart } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { getVerifiedTestimonials } from "@/lib/data/stacks";
 import { TestimonialsGrid } from "@/components/testimonials/TestimonialsGrid";
+import { Container } from "@/components/primitives/Container";
+import { designSystem } from "@/lib/design-system";
 
 export const metadata: Metadata = {
     title: "Testimonials",
@@ -23,7 +25,7 @@ export default async function TestimonialsPage() {
                 <div className="absolute bottom-[10%] left-[10%] w-[600px] h-[600px] bg-vibe-electric/5 rounded-full blur-[100px]" />
             </div>
 
-            <div className="container mx-auto px-4 max-w-6xl">
+            <Container size="default">
                 {/* Header */}
                 <div className="text-center mb-20 max-w-3xl mx-auto">
                     <div>
@@ -34,7 +36,7 @@ export default async function TestimonialsPage() {
                             <Heart className="mr-2 h-3 w-3" />
                             Community Love
                         </Badge>
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+                        <h1 className={`${designSystem.typography.hero} mb-6`}>
                             Loved by{" "}
                             <span className="text-gradient-brand">
                                 Developers
@@ -64,7 +66,7 @@ export default async function TestimonialsPage() {
                         </Link>
                     </div>
                 )}
-            </div>
+            </Container>
         </div>
     );
 }

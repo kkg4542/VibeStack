@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { Container } from "@/components/primitives/Container";
 
 interface VibeSkeletonProps {
   className?: string;
@@ -158,17 +159,17 @@ export function GridSkeleton({
 export function PageSkeleton() {
   return (
     <div className="min-h-screen bg-background pt-32 pb-20">
-      <div className="container max-w-6xl mx-auto px-4 space-y-12">
+      <Container size="default" className="space-y-12">
         {/* Header Skeleton */}
         <div className="space-y-4 max-w-2xl">
           <VibeSkeleton variant="text" className="h-12 w-3/4" />
           <VibeSkeleton variant="text" className="h-6 w-full" />
           <VibeSkeleton variant="text" className="h-6 w-2/3" />
         </div>
-        
+
         {/* Content Grid */}
         <GridSkeleton count={6} columns={3} />
-      </div>
+      </Container>
     </div>
   );
 }

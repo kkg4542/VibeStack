@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MotionDiv, MotionSection, MotionLi, MotionSpan, MotionP, MotionH1, MotionH2, MotionH3 } from "@/components/ui/motion-wrapper";
 import { designSystem } from "@/lib/design-system";
+import { Section } from "@/components/primitives/Section";
 
 interface PricingSectionProps {
     handleCheckout: (placement: string) => Promise<void>;
@@ -11,7 +12,7 @@ interface PricingSectionProps {
 
 export function PricingSection({ handleCheckout, loading }: PricingSectionProps) {
   return (
-                <section className="container mx-auto px-4 py-24">
+                <Section spacing="large" containerSize="default">
                     <div className="mb-16 text-center">
                         <h2 className="text-3xl font-bold text-foreground mb-4">Transparent Pricing</h2>
                         <p className="text-muted-foreground max-w-2xl mx-auto">Simple, straightforward rates with no hidden fees. All packages include detailed analytics and performance tracking.</p>
@@ -156,6 +157,6 @@ export function PricingSection({ handleCheckout, loading }: PricingSectionProps)
                     <p className="text-center text-sm text-muted-foreground mt-8">
                         All prices in USD. Custom packages available for annual commitments.
                     </p>
-                </section>
+                </Section>
   );
 }

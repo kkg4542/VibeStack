@@ -5,6 +5,8 @@ import Link from "next/link";
 import { ArrowLeft, CheckCircle2, AlertTriangle, FileText, Image as ImageIcon, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
+import { Section } from "@/components/primitives/Section";
+import { designSystem } from "@/lib/design-system";
 
 export const metadata: Metadata = {
     title: "Content Guidelines",
@@ -15,7 +17,7 @@ export const metadata: Metadata = {
 export default function ContentGuidelinesPage() {
     return (
         <PageBackground {...BackgroundPresets.content}>
-            <div className="container max-w-4xl mx-auto px-4 py-12">
+            <Section spacing="small" containerSize="small">
                 <div className="mb-8">
                     <Button variant="ghost" asChild className="mb-4 pl-0 hover:bg-transparent">
                         <Link href="/submit-tool" className="flex items-center text-muted-foreground hover:text-foreground">
@@ -23,7 +25,7 @@ export default function ContentGuidelinesPage() {
                             Back to Submission
                         </Link>
                     </Button>
-                    <h1 className="text-3xl font-bold tracking-tight mb-2">Content Quality Guidelines</h1>
+                    <h1 className={`${designSystem.typography.hero} mb-2`}>Content Quality Guidelines</h1>
                     <p className="text-muted-foreground">
                         Please follow these guidelines to ensure your tool listing gets approved quickly and looks professional.
                     </p>
@@ -155,7 +157,7 @@ export default function ContentGuidelinesPage() {
                         </Card>
                     </section>
                 </div>
-            </div>
+            </Section>
         </PageBackground>
     );
 }

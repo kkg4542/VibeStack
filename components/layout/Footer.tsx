@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { trackNewsletterSubscribe } from "@/lib/analytics";
 import { useCsrfFetch } from "@/hooks/useCsrfFetch";
+import { Container } from "@/components/primitives/Container";
 
 export function Footer() {
     const { csrfFetch } = useCsrfFetch();
@@ -52,7 +53,7 @@ export function Footer() {
 
     return (
         <footer className="border-t border-border bg-background pt-16 pb-12">
-            <div className="container mx-auto px-4 max-w-6xl">
+            <Container size="default">
                 <div className="grid grid-cols-1 md:grid-cols-6 gap-8 mb-16">
                     {/* Brand Column */}
                     <div className="md:col-span-2 space-y-6">
@@ -179,7 +180,7 @@ export function Footer() {
                         <Link href="/terms" className="hover:text-foreground">Terms of Service</Link>
                     </div>
                 </div>
-            </div>
+            </Container>
         </footer>
     );
 }

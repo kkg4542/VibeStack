@@ -9,6 +9,8 @@ import { motion } from "framer-motion";
 import { designSystem } from "@/lib/design-system";
 import { ServicesGrid } from "./components/ServicesGrid";
 import { PricingSection } from "./components/PricingSection";
+import { Section } from "@/components/primitives/Section";
+import { Container } from "@/components/primitives/Container";
 
 export default function ConsultingPage() {
     const [loading] = useState(false);
@@ -54,7 +56,7 @@ export default function ConsultingPage() {
 
             <div className="relative z-10">
                 {/* Hero */}
-                <section className="container mx-auto px-4 pt-20 pb-32 text-center">
+                <Section spacing="none" containerSize="default" className="pt-20 pb-32 text-center">
                     <motion.div
                         initial={designSystem.animations.fadeInUp.initial}
                         animate={designSystem.animations.fadeInUp.animate}
@@ -68,7 +70,7 @@ export default function ConsultingPage() {
                             Now Accepting Partners for Q1 2026
                         </div>
 
-                        <h1 className="mx-auto max-w-4xl text-5xl font-bold tracking-tight text-foreground sm:text-7xl text-balance leading-tight">
+                        <h1 className={`mx-auto max-w-4xl text-foreground leading-tight ${designSystem.typography.hero}`}>
                             Promote Your AI Tool to{" "}
                             <span className="text-gradient-brand">
                                 Thousands of Developers
@@ -101,13 +103,13 @@ export default function ConsultingPage() {
                             </p>
                         </div>
                     </motion.div>
-                </section>
+                </Section>
 
                 <ServicesGrid />
 
                 {/* Social Proof / Trust */}
-                <section className="border-t border-border/40 bg-secondary/5 py-24">
-                    <div className="container mx-auto px-4 text-center">
+                <Section spacing="large" container={false} className="border-t border-border/40 bg-secondary/5">
+                    <Container size="default" className="text-center">
                         <h2 className="mb-12 text-3xl font-bold">Why Advertise with Us?</h2>
                         <div className="grid gap-8 md:grid-cols-3">
                             <div className="p-6">
@@ -132,13 +134,13 @@ export default function ConsultingPage() {
                                 <p className="mt-2 text-muted-foreground">Ads are integrated directly into the UI, maintaining our premium aesthetic.</p>
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </Container>
+                </Section>
 
                 <PricingSection handleCheckout={handleCheckout} loading={loading} />
 
                 {/* Sponsor Copy Guidelines */}
-                <section className="container mx-auto px-4 pb-16">
+                <Section spacing="none" containerSize="default" className="pb-16">
                     <div className="mx-auto max-w-3xl rounded-2xl border border-border/50 bg-card p-8">
                         <h3 className="text-xl font-semibold text-foreground mb-3">Sponsor Copy Guidelines</h3>
                         <p className="text-muted-foreground mb-4">Keep it clear and honest. We review copy to maintain user trust.</p>
@@ -148,11 +150,11 @@ export default function ConsultingPage() {
                             <li>Avoid: exaggerated claims and guarantees</li>
                         </ul>
                     </div>
-                </section>
+                </Section>
 
 
                 {/* Final CTA */}
-                <section className="container mx-auto px-4 py-20">
+                <Section spacing="default" containerSize="default">
                     <motion.div
                         initial={designSystem.animations.fadeInUp.initial}
                         whileInView={designSystem.animations.fadeInUp.animate}
@@ -186,7 +188,7 @@ export default function ConsultingPage() {
                             </div>
                         </div>
                     </motion.div>
-                </section>
+                </Section>
 
             </div>
         </main>

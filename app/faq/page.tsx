@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { designSystem } from "@/lib/design-system";
 import Link from "next/link";
+import { Container } from "@/components/primitives/Container";
 
 const faqCategories = [
     {
@@ -142,7 +143,7 @@ export default function FAQPage() {
 
     return (
         <PageBackground {...BackgroundPresets.content}>
-            <div className="container max-w-4xl mx-auto px-4">
+            <Container size="small">
                 {/* Hero Section */}
                 <motion.div
                     initial={designSystem.animations.fadeInUp.initial}
@@ -155,7 +156,7 @@ export default function FAQPage() {
                         <span>FAQ</span>
                     </div>
 
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
+                    <h1 className={`${designSystem.typography.hero} mb-6`}>
                         Frequently Asked{" "}
                         <span className="text-gradient-brand">
                             Questions
@@ -251,7 +252,7 @@ export default function FAQPage() {
                         </CardContent>
                     </Card>
                 </motion.div>
-            </div>
+            </Container>
         </PageBackground>
     );
 }

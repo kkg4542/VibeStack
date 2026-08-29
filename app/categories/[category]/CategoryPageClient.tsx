@@ -21,6 +21,7 @@ import {
     Sparkles
 } from "lucide-react";
 import type { ToolData } from "@/lib/tool-types";
+import { Container } from "@/components/primitives/Container";
 
 interface CategoryPageClientProps {
     category: string;
@@ -79,7 +80,7 @@ export function CategoryPageClient({ category, tools: categoryTools }: CategoryP
 
     return (
         <PageBackground {...BackgroundPresets.content}>
-            <div className="container max-w-6xl mx-auto px-4">
+            <Container size="default">
                 {/* Back Button */}
                 <motion.div
                     initial={designSystem.animations.fadeInUp.initial}
@@ -116,7 +117,7 @@ export function CategoryPageClient({ category, tools: categoryTools }: CategoryP
                         <div className={`p-4 rounded-2xl bg-linear-to-br ${info.gradient} shadow-lg`}>
                             <Icon className="w-10 h-10 text-white" />
                         </div>
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-balance leading-tight">
+                        <h1 className={`${designSystem.typography.hero} leading-tight`}>
                             <span className={`bg-linear-to-r ${info.gradient} bg-clip-text text-transparent`}>
                                 {category}
                             </span>
@@ -277,7 +278,7 @@ export function CategoryPageClient({ category, tools: categoryTools }: CategoryP
                         </CardHeader>
                     </Card>
                 </motion.div>
-            </div>
+            </Container>
         </PageBackground>
     );
 }

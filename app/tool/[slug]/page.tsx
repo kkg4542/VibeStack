@@ -26,6 +26,7 @@ import { ToolCompareLinks } from "@/components/seo/ToolCompareLinks";
 
 import { ToolHero } from "./components/ToolHero";
 import { ToolSEO } from "./components/ToolSEO";
+import { Container } from "@/components/primitives/Container";
 
 /** Google truncates SERP meta descriptions somewhere around here. */
 const DESCRIPTION_MAX_LENGTH = 155;
@@ -273,7 +274,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
                 />
             )}
-            <div className="container max-w-6xl mx-auto px-4">
+            <Container size="default">
                 {/* Back Link */}
                 <MotionDiv
                     initial={designSystem.animations.fadeInUp.initial}
@@ -657,7 +658,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                         </MotionDiv>
                     </aside>
                 </div>
-            </div>
+            </Container>
 
             <ToolSEO tool={tool} />
 

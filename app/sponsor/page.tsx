@@ -16,6 +16,8 @@ import { Badge } from "@/components/ui/badge";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { SimpleAccordionItem } from "@/components/ui/simple-accordion";
 import { SponsorshipModal } from "@/components/monetization/SponsorshipModal";
+import { Section } from "@/components/primitives/Section";
+import { designSystem } from "@/lib/design-system";
 
 export const metadata: Metadata = {
   title: "Sponsor VibeStack — Reach AI Builders Actively Shopping for Tools",
@@ -108,7 +110,7 @@ const whySponsor = [
 export default function SponsorPage() {
   return (
     <PageBackground {...BackgroundPresets.content}>
-      <div className="container max-w-6xl mx-auto px-4 py-16">
+      <Section spacing="default" containerSize="default">
         {/* Hero */}
         <section className="text-center mb-20">
           <Badge
@@ -118,7 +120,7 @@ export default function SponsorPage() {
             <Rocket className="mr-2 h-3 w-3" />
             Sponsor VibeStack
           </Badge>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-5">
+          <h1 className={`${designSystem.typography.hero} mb-5`}>
             Reach AI builders{" "}
             <span className="text-gradient-brand">
               while they&apos;re choosing tools
@@ -149,7 +151,7 @@ export default function SponsorPage() {
 
         {/* Audience */}
         <section className="mb-24">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-3">
+          <h2 className={`${designSystem.typography.section} text-center mb-3`}>
             Who you&apos;ll reach
           </h2>
           <p className="text-muted-foreground text-center max-w-xl mx-auto mb-10">
@@ -186,7 +188,7 @@ export default function SponsorPage() {
 
         {/* Placements / pricing */}
         <section className="mb-24">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-3">
+          <h2 className={`${designSystem.typography.section} text-center mb-3`}>
             Placement options
           </h2>
           <p className="text-muted-foreground text-center max-w-xl mx-auto mb-10">
@@ -258,7 +260,7 @@ export default function SponsorPage() {
 
         {/* Why sponsor */}
         <section className="mb-24">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">
+          <h2 className={`${designSystem.typography.section} text-center mb-10`}>
             Why sponsors stick around
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
@@ -279,7 +281,7 @@ export default function SponsorPage() {
 
         {/* FAQ */}
         <section className="max-w-3xl mx-auto mb-24">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">
+          <h2 className={`${designSystem.typography.section} text-center mb-10`}>
             Sponsor FAQ
           </h2>
           <div className="space-y-3">
@@ -314,7 +316,7 @@ export default function SponsorPage() {
 
         {/* Final CTA */}
         <section className="text-center rounded-3xl border border-vibe-electric/20 bg-linear-to-br from-vibe-electric/10 via-transparent to-vibe-purple/10 p-10 md:p-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className={`${designSystem.typography.section} mb-4`}>
             Put your tool in front of the right people
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto mb-8">
@@ -338,7 +340,7 @@ export default function SponsorPage() {
             </Button>
           </div>
         </section>
-      </div>
+      </Section>
     </PageBackground>
   );
 }

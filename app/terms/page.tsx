@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Container } from "@/components/primitives/Container";
+import { designSystem } from "@/lib/design-system";
 
 export const metadata: Metadata = {
     title: "Terms of Service",
@@ -8,9 +10,10 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
     return (
-        <main className="container max-w-4xl mx-auto px-4 pt-32 pb-20">
+        <main className="pt-32 pb-20">
+            <Container size="small">
             <div className="flex flex-col gap-4 mb-12">
-                <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground text-balance">
+                <h1 className={`${designSystem.typography.hero} text-foreground`}>
                     Terms of Service
                     <span className="block text-xl font-medium text-muted-foreground mt-2 font-sans">이용약관</span>
                 </h1>
@@ -131,6 +134,7 @@ export default function TermsPage() {
                     </div>
                 </section>
             </div>
+            </Container>
         </main>
     )
 }

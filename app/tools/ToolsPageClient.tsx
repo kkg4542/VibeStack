@@ -15,6 +15,7 @@ import { ToolData } from "@/lib/tool-types";
 import { useDebounce } from "@/hooks/use-debounce";
 import Link from "next/link";
 import { SearchInput } from "@/components/ui/search-input";
+import { Container } from "@/components/primitives/Container";
 
 // Note: Metadata moved to page.tsx (Server Component) for SEO
 
@@ -95,7 +96,7 @@ export default function ToolsPage() {
 
     return (
         <PageBackground {...BackgroundPresets.content}>
-            <div className="container max-w-6xl mx-auto px-4">
+            <Container size="default">
                 <m.div
                     initial={designSystem.animations.fadeInUp.initial}
                     animate={designSystem.animations.fadeInUp.animate}
@@ -310,7 +311,7 @@ export default function ToolsPage() {
                         setSortBy
                     }}
                 />
-            </div>
+            </Container>
         </PageBackground>
     );
 }

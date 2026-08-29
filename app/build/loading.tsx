@@ -1,9 +1,10 @@
 import { Skeleton } from "@/components/ui/skeleton";
+import { Container } from "@/components/primitives/Container";
 
 export default function BuildLoading() {
     return (
         <main className="min-h-screen bg-background pt-32 pb-20">
-            <div className="container mx-auto px-4">
+            <Container size="default">
                 <div className="max-w-4xl mx-auto space-y-8">
                     {/* Header Skeleton */}
                     <div className="text-center space-y-4">
@@ -39,7 +40,7 @@ export default function BuildLoading() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </Container>
         </main>
     );
 }

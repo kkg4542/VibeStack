@@ -17,6 +17,7 @@ import { PageBackground, BackgroundPresets } from "@/components/effects/PageBack
 import { FavoriteWithTool } from "@/lib/schemas";
 import type { Tool } from "@prisma/client";
 import { useCsrfFetch } from "@/hooks/useCsrfFetch";
+import { Container } from "@/components/primitives/Container";
 
 type FavoriteItem = {
     id: string;
@@ -183,11 +184,11 @@ export default function FavoritesPage() {
     if (!mounted || isLoading) {
         return (
             <main className="min-h-screen bg-background pt-32 pb-20">
-                <div className="container max-w-6xl mx-auto px-4">
+                <Container size="default">
                     <div className="flex items-center justify-center py-20">
                         <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
                     </div>
-                </div>
+                </Container>
             </main>
         );
     }
@@ -197,7 +198,7 @@ export default function FavoritesPage() {
 
     return (
         <PageBackground {...BackgroundPresets.content}>
-            <div className="container max-w-6xl mx-auto px-4">
+            <Container size="default">
                 {/* Header */}
                 <motion.div
                     initial={designSystem.animations.fadeInUp.initial}
@@ -211,7 +212,7 @@ export default function FavoritesPage() {
                                 <div className="p-2 rounded-lg bg-rose-500/10">
                                     <Heart className="h-6 w-6 text-rose-500 fill-rose-500" />
                                 </div>
-                                <h1 className="text-4xl font-bold text-balance">My Favorites</h1>
+                                <h1 className={designSystem.typography.hero}>My Favorites</h1>
                             </div>
                             <p className="text-muted-foreground">
                                 {favorites.length} {favorites.length === 1 ? 'item' : 'items'} saved
@@ -486,7 +487,7 @@ export default function FavoritesPage() {
                         )}
                     </div>
                 )}
-            </div>
+            </Container>
         </PageBackground>
     );
 }

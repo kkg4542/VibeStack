@@ -58,6 +58,7 @@ export async function generateStaticParams() {
 
 import { getStackMetrics } from "@/lib/data/stacks";
 import { getTools } from "@/lib/tools-db";
+import { Section } from "@/components/primitives/Section";
 
 export default async function StackDetailPage({ params }: Props) {
     const { stackId } = await params;
@@ -132,9 +133,9 @@ export default async function StackDetailPage({ params }: Props) {
                 />
             )}
             <StackDetailClient stack={stack} metrics={metrics} stackTools={stackTools} />
-            <div className="container max-w-7xl mx-auto px-4 pb-16">
+            <Section spacing="none" containerSize="large" className="pb-16">
                 <StackRelatedLinks stack={stack} stackTools={stackTools} allTools={allTools} />
-            </div>
+            </Section>
         </>
     );
 }

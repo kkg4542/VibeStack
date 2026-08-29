@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, XCircle, Clock, TrendingUp } from "lucide-react";
+import { designSystem } from "@/lib/design-system";
 
 interface WebhookStats {
     summary: {
@@ -74,7 +75,7 @@ export default function WebhookDashboard() {
     return (
         <div className="container mx-auto p-6 space-y-6">
             <div>
-                <h1 className="text-3xl font-bold mb-2">Webhook Monitoring Dashboard</h1>
+                <h1 className={`${designSystem.typography.hero} mb-2`}>Webhook Monitoring Dashboard</h1>
                 <p className="text-muted-foreground">Last 24 hours</p>
             </div>
 

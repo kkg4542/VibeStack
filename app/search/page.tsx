@@ -15,6 +15,7 @@ import { trackSearchQuery } from "@/lib/analytics";
 import { motion } from "framer-motion";
 import { designSystem } from "@/lib/design-system";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
+import { Container } from "@/components/primitives/Container";
 
 export default function SearchPage() {
     const [query, setQuery] = useState("");
@@ -110,9 +111,9 @@ export default function SearchPage() {
     if (!mounted) {
         return (
             <main className="min-h-screen bg-background pt-32 pb-20">
-                <div className="container max-w-4xl mx-auto px-4">
+                <Container size="small">
                     <p className="text-muted-foreground">Loading...</p>
-                </div>
+                </Container>
             </main>
         );
     }
@@ -123,7 +124,7 @@ export default function SearchPage() {
 
     return (
         <PageBackground {...BackgroundPresets.content}>
-            <div className="container max-w-4xl mx-auto px-4">
+            <Container size="small">
                 {/* Search Header */}
                 <motion.div
                     initial={designSystem.animations.fadeInUp.initial}
@@ -136,7 +137,7 @@ export default function SearchPage() {
                         <span>Smart Search</span>
                     </div>
 
-                    <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-balance">
+                    <h1 className={`${designSystem.typography.hero} mb-4`}>
                         Find Your Perfect{" "}
                         <span className="text-gradient-brand">
                             AI Tool
@@ -408,7 +409,7 @@ export default function SearchPage() {
                         </div>
                     </motion.div>
                 )}
-            </div>
+            </Container>
         </PageBackground>
     );
 }

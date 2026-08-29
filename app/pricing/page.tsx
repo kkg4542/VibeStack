@@ -4,6 +4,8 @@ import { ArrowRight, Check, Megaphone, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
+import { Section } from "@/components/primitives/Section";
+import { designSystem } from "@/lib/design-system";
 
 export const metadata: Metadata = {
   title: "Pricing — Submit, Sponsor, or Hire Us",
@@ -94,7 +96,7 @@ const TRACKS: Track[] = [
 export default function PricingPage() {
   return (
     <PageBackground {...BackgroundPresets.content}>
-      <div className="container max-w-6xl mx-auto px-4 py-16">
+      <Section spacing="default" containerSize="default">
         {/* Header */}
         <div className="text-center mb-16">
           <Badge
@@ -103,7 +105,7 @@ export default function PricingPage() {
           >
             Pricing
           </Badge>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-4">
+          <h1 className={`${designSystem.typography.hero} mb-4`}>
             Three ways to{" "}
             <span className="text-gradient-brand">
               work with us
@@ -129,7 +131,7 @@ export default function PricingPage() {
                   <Badge variant="secondary" className="mb-3">
                     {track.badge}
                   </Badge>
-                  <h2 className="text-3xl md:text-4xl font-bold mb-3">
+                  <h2 className={`${designSystem.typography.section} mb-3`}>
                     {track.title}
                   </h2>
                   <p className="text-muted-foreground max-w-xl">
@@ -204,7 +206,7 @@ export default function PricingPage() {
 
         {/* Footer CTA */}
         <div className="mt-24 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-3">
+          <h2 className={`${designSystem.typography.section} mb-3`}>
             Not sure which fits?
           </h2>
           <p className="text-muted-foreground mb-6">
@@ -218,7 +220,7 @@ export default function PricingPage() {
             </Link>
           </Button>
         </div>
-      </div>
+      </Section>
     </PageBackground>
   );
 }

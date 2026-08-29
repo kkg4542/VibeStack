@@ -7,6 +7,7 @@ import { PopularStacksGrid } from "./components/PopularStacksGrid";
 import { WhyStacksMatter } from "./components/WhyStacksMatter";
 import { CTASection } from "./components/CTASection";
 import { QuizInterface } from "./components/QuizInterface";
+import { Container } from "@/components/primitives/Container";
 
 export default function BuildPage() {
   const [showQuiz, setShowQuiz] = useState(false);
@@ -32,12 +33,12 @@ export default function BuildPage() {
   // Landing Page Content
   return (
     <PageBackground {...BackgroundPresets.content}>
-      <div className="container max-w-6xl mx-auto px-4">
+      <Container size="default">
         <BuildPageHero onStartQuiz={startQuiz} />
         <PopularStacksGrid />
         <WhyStacksMatter />
         <CTASection onStartQuiz={startQuiz} />
-      </div>
+      </Container>
     </PageBackground>
   );
 }

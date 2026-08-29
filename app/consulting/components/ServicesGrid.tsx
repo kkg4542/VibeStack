@@ -1,10 +1,11 @@
 import { Check, Rocket, Terminal, Zap } from "lucide-react";
 import { MotionDiv, MotionSection, MotionLi, MotionSpan, MotionP, MotionH1, MotionH2, MotionH3 } from "@/components/ui/motion-wrapper";
 import { designSystem } from "@/lib/design-system";
+import { Section } from "@/components/primitives/Section";
 
 export function ServicesGrid() {
   return (
-                <section className="container mx-auto px-4 py-20">
+                <Section spacing="default" containerSize="default">
                     <div className="mb-16 text-center">
                         <h2 className="text-3xl font-bold text-foreground">Advertising Solutions</h2>
                         <p className="mt-4 text-muted-foreground">High-impact placements to drive growth.</p>
@@ -99,6 +100,6 @@ export function ServicesGrid() {
                             </ul>
                         </MotionDiv>
                     </div>
-                </section>
+                </Section>
   );
 }

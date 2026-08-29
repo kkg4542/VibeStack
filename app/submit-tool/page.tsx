@@ -30,6 +30,8 @@ import { PageBackground, BackgroundPresets } from "@/components/effects/PageBack
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useCsrfFetch } from "@/hooks/useCsrfFetch";
+import { Section } from "@/components/primitives/Section";
+import { designSystem } from "@/lib/design-system";
 
 import { pricingPlans, criteria } from "./data";
 
@@ -122,7 +124,7 @@ export default function SubmitToolPage() {
 
     return (
         <PageBackground {...BackgroundPresets.content}>
-            <div className="container max-w-6xl mx-auto px-4 py-12">
+            <Section spacing="small" containerSize="default">
                 {/* Hero Section */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -140,7 +142,7 @@ export default function SubmitToolPage() {
                         <span>For Tool Creators</span>
                     </motion.div>
 
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
+                    <h1 className={`${designSystem.typography.hero} mb-6`}>
                         Submit Your{" "}
                         <span className="text-gradient-brand">
                             AI Tool
@@ -454,7 +456,7 @@ export default function SubmitToolPage() {
                         </CardContent>
                     </Card>
                 </motion.div>
-            </div>
+            </Section>
         </PageBackground>
     );
 }

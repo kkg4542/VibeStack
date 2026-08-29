@@ -311,7 +311,7 @@ export function QuizInterface({ onRestart }: QuizInterfaceProps) {
           <span>AI Stack Finder</span>
         </motion.div>
 
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4 text-balance">
+        <h1 className={`${designSystem.typography.hero} mb-4`}>
           Find Your{" "}
           <span className="text-gradient-brand">
             Vibe Stack
