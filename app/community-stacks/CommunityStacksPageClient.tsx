@@ -171,7 +171,7 @@ export function CommunityStacksPageClient({ stacks, totalCount, filters }: Commu
                                                 </div>
 
                                                 {/* Curator Info */}
-                                                <div className="mt-auto pt-4 border-t border-white/10">
+                                                <div className="mt-auto pt-4 border-t border-border">
                                                     <div className="flex items-center gap-3">
                                                         {stack.curator.image ? (
                                                             <Image

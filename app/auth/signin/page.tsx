@@ -179,7 +179,7 @@ export default function SignInPage() {
                                         variant="outline"
                                         onClick={() => handleSocialLogin("google")}
                                         disabled={isLoading !== null}
-                                        className="w-full h-12 rounded-xl relative overflow-hidden transition-all hover:bg-white/5 hover:border-white/20 group"
+                                        className="w-full h-12 rounded-xl relative overflow-hidden transition-all hover:bg-foreground/5 hover:border-foreground/20 group"
                                     >
                                         {isLoading === "google" ? (
                                             <div className="animate-spin h-5 w-5 border-2 border-current border-t-transparent rounded-full" />
@@ -212,7 +212,7 @@ export default function SignInPage() {
                                         variant="outline"
                                         onClick={() => handleSocialLogin("github")}
                                         disabled={isLoading !== null}
-                                        className="w-full h-12 rounded-xl relative overflow-hidden transition-all hover:bg-white/5 hover:border-white/20"
+                                        className="w-full h-12 rounded-xl relative overflow-hidden transition-all hover:bg-foreground/5 hover:border-foreground/20"
                                     >
                                         {isLoading === "github" ? (
                                             <div className="animate-spin h-5 w-5 border-2 border-current border-t-transparent rounded-full" />
@@ -230,7 +230,7 @@ export default function SignInPage() {
                                         variant="outline"
                                         onClick={() => handleSocialLogin("discord")}
                                         disabled={isLoading !== null}
-                                        className="w-full h-12 rounded-xl relative overflow-hidden transition-all hover:bg-white/5 hover:border-white/20"
+                                        className="w-full h-12 rounded-xl relative overflow-hidden transition-all hover:bg-foreground/5 hover:border-foreground/20"
                                     >
                                         {isLoading === "discord" ? (
                                             <div className="animate-spin h-5 w-5 border-2 border-current border-t-transparent rounded-full" />

@@ -93,7 +93,7 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
 
                   {/* Metrics */}
                   {testimonial.metrics && (
-                    <div className="grid grid-cols-3 gap-2 mb-6 p-3 bg-white/5 rounded-lg">
+                    <div className="grid grid-cols-3 gap-2 mb-6 p-3 bg-foreground/5 rounded-lg">
                       {testimonial.metrics.productivityGain && (
                         <div className="text-center">
                           <TrendingUp className="w-4 h-4 mx-auto mb-1 text-vibe-electric" />
@@ -125,7 +125,7 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
                   )}
 
                   {/* User Info */}
-                  <div className="flex items-center gap-3 pt-4 border-t border-white/10">
+                  <div className="flex items-center gap-3 pt-4 border-t border-border">
                     <Avatar className="h-12 w-12 ring-2 ring-vibe-electric/20">
                       <AvatarImage src={testimonial.user.avatar || undefined} />
                       <AvatarFallback className="bg-linear-to-br from-vibe-electric to-vibe-neon text-white font-semibold">
@@ -147,8 +147,8 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
 
                   {/* Stack Name */}
                   {testimonial.stackName && (
-                    <div className="mt-4 pt-4 border-t border-white/10">
-                      <Badge variant="outline" className="text-xs border-white/10">
+                    <div className="mt-4 pt-4 border-t border-border">
+                      <Badge variant="outline" className="text-xs border-border">
                         Using: {testimonial.stackName}
                       </Badge>
                     </div>

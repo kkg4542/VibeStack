@@ -137,7 +137,7 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                     {/* Right Anchor: Filter Controls */}
                     <div className="flex flex-wrap items-center justify-end gap-3 ml-auto md:ml-0 w-full md:w-auto">
                         {/* Pricing Segmented Control */}
-                        <div className="flex bg-secondary p-1 rounded-lg border border-border/40 dark:border-white/5">
+                        <div className="flex bg-secondary p-1 rounded-lg border border-border/40 dark:border-foreground/5">
                             {pricingModels.map((p) => (
                                 <button
                                     key={p}
@@ -159,7 +159,7 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                                 value={sortBy}
                                 onChange={(e) => setSortBy(e.target.value)}
                                 aria-label="Sort tools"
-                                className="appearance-none bg-secondary border border-border/40 dark:border-white/5 rounded-lg pl-4 pr-10 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground focus:outline-none transition-all cursor-pointer hover:border-border/80"
+                                className="appearance-none bg-secondary border border-border/40 dark:border-foreground/5 rounded-lg pl-4 pr-10 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground focus:outline-none transition-all cursor-pointer hover:border-border/80"
                             >
                                 <option value="default">Default</option>
                                 <option value="rating">Top Rated</option>
@@ -171,7 +171,7 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                 </div>
                 {/* Row 2: Categories - Scrollable Horizontal List */}
                 <div className="w-full -mx-4 px-4 lg:mx-0 lg:px-0 overflow-x-auto no-scrollbar pb-2 mask-image-fade">
-                    <div className="flex items-center gap-2 min-w-max border-b border-border/40 dark:border-white/5 pb-4">
+                    <div className="flex items-center gap-2 min-w-max border-b border-border/40 dark:border-foreground/5 pb-4">
                         {categories.map((cat) => (
                             <button
                                 key={cat}

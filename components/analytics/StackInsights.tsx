@@ -84,7 +84,7 @@ export function StackInsights({ insights }: StackInsightsProps) {
               {insights.toolPopularity.map((tool, index) => (
                 <div key={tool.toolId} className="flex items-center gap-3">
                   <span className="text-sm w-24 truncate">{tool.toolName}</span>
-                  <div className="flex-1 h-2 bg-white/10 rounded-full overflow-hidden">
+                  <div className="flex-1 h-2 bg-foreground/10 rounded-full overflow-hidden">
                     <m.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${(tool.usage / 100) * 100}%` }}
@@ -127,7 +127,7 @@ function MetricCard({ icon, label, value, color, delay }: MetricCardProps) {
             <p className="text-sm text-muted-foreground mb-1">{label}</p>
             <p className={`text-2xl font-bold ${color}`}>{value}</p>
           </div>
-          <div className={`p-2 rounded-lg bg-white/5 ${color}`}>
+          <div className={`p-2 rounded-lg bg-foreground/5 ${color}`}>
             {icon}
           </div>
         </div>

@@ -60,7 +60,7 @@ export function VibeCard({
 
   const variantClasses = {
     default: "bg-card border-border/50",
-    glass: "bg-card/60 border-border/40 dark:bg-white/5 dark:border-white/10 backdrop-blur-xl",
+    glass: "bg-card/60 border-border/40 dark:bg-foreground/5 dark:border-foreground/10 backdrop-blur-xl",
     elevated: "bg-card shadow-lg border-border/30",
     outline: "border-border bg-transparent",
     gradient: "border-gradient-vibe bg-vibe-deep/50",

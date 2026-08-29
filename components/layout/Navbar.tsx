@@ -37,7 +37,7 @@ export function Navbar() {
 
     return (
         <LazyMotionProvider>
-            <header className="fixed top-0 z-50 w-full border-b border-border/50 backdrop-blur-obsidian bg-noise/[0.02] dark:bg-noise/[0.1]">
+            <header className="fixed top-0 z-50 w-full border-b border-border/50 backdrop-blur-obsidian">
                 <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
                     {/* Logo area */}
                     <div className="flex items-center gap-2">
@@ -101,7 +101,7 @@ export function Navbar() {
                     <div className="flex items-center gap-2">
                         <CommandMenu />
 
-                        <div className="hidden h-4 w-px bg-white/10 md:block"></div>
+                        <div className="hidden h-4 w-px bg-border md:block"></div>
 
                         <ThemeToggle />
 

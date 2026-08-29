@@ -45,7 +45,7 @@ export function FeaturedSpotlight({ tool }: FeaturedSpotlightProps) {
                                 Current Sponsor
                             </Badge>
                         )}
-                        <Badge variant="outline" className="text-muted-foreground border-primary/20 dark:border-white/10 uppercase tracking-widest text-[10px] font-bold">
+                        <Badge variant="outline" className="text-muted-foreground border-primary/20 dark:border-foreground/10 uppercase tracking-widest text-[10px] font-bold">
                             Partner Spotlight
                         </Badge>
                     </div>
