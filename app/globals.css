@@ -49,50 +49,14 @@
 
   /* Animations */
   --animate-fade-in: fadeIn 0.5s ease-out forwards;
-  --animate-bounce: bounce 0.6s ease infinite;
   --animate-pulse: pulse 1s ease infinite;
   --animate-shimmer: shimmer 2s infinite;
-  --animate-slide-in-right: slideInRight 0.3s ease-out forwards;
-  --animate-slide-out-right: slideOutRight 0.3s ease-in forwards;
   --animate-skeleton: skeletonShimmer 1.5s infinite;
 
   /* VibeStack Signature Animations */
-  --animate-vibe-glow: vibeGlow 2s ease-in-out infinite;
-  --animate-vibe-float: vibeFloat 6s ease-in-out infinite;
-  --animate-text-scramble: textScramble 0.5s ease-out forwards;
   --animate-cursor-blink: cursorBlink 1s step-end infinite;
-  --animate-mesh-gradient: meshGradient 8s ease infinite;
   --animate-terminal-type: terminalType 0.8s steps(20) forwards;
-  
-  @keyframes vibeGlow {
-    0%, 100% {
-      box-shadow: 0 0 20px color-mix(in oklab, var(--color-vibe-electric) 30%, transparent), 0 0 40px color-mix(in oklab, var(--color-vibe-electric) 10%, transparent);
-    }
-    50% {
-      box-shadow: 0 0 30px color-mix(in oklab, var(--color-vibe-electric) 50%, transparent), 0 0 60px color-mix(in oklab, var(--color-vibe-electric) 20%, transparent);
-    }
-  }
-  
-  @keyframes vibeFloat {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-20px);
-    }
-  }
-  
-  @keyframes textScramble {
-    0% {
-      opacity: 0;
-      filter: blur(10px);
-    }
-    100% {
-      opacity: 1;
-      filter: blur(0px);
-    }
-  }
-  
+
   @keyframes cursorBlink {
     0%, 100% {
       opacity: 1;
@@ -101,7 +65,7 @@
       opacity: 0;
     }
   }
-  
+
   @keyframes meshGradient {
     0% {
       background-position: 0% 50%;
@@ -113,7 +77,7 @@
       background-position: 0% 50%;
     }
   }
-  
+
   @keyframes terminalType {
     from {
       width: 0;
@@ -132,18 +96,6 @@
     to {
       opacity: 1;
       transform: translateY(0);
-    }
-  }
-
-  @keyframes bounce {
-
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-
-    50% {
-      transform: translateY(-4px);
     }
   }
 
@@ -166,30 +118,6 @@
 
     100% {
       background-position: 200% 0;
-    }
-  }
-
-  @keyframes slideInRight {
-    from {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideOutRight {
-    from {
-      transform: translateX(0);
-      opacity: 1;
-    }
-
-    to {
-      transform: translateX(100%);
-      opacity: 0;
     }
   }
 
@@ -349,126 +277,14 @@
    MICRO-INTERACTIONS
    ======================================== */
 
-/* Smooth theme transition */
-* {
+/* Smooth theme transition — scoped to .theme-transition (applied by the theme
+   toggle while switching) instead of a global `*` selector, which matches
+   every node in the document and adds unnecessary style-recalc cost even
+   though it was a visual no-op at duration:0ms outside of theme changes. */
+.theme-transition * {
   transition-property: background-color, border-color, color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 0ms;
-}
-
-.theme-transition * {
   transition-duration: 300ms;
-}
-
-/* Button Hover Effects */
-.btn-hover-lift {
-  @apply transition-all duration-300 ease-out;
-}
-
-.btn-hover-lift:hover {
-  @apply -translate-y-0.5 shadow-lg;
-}
-
-.btn-hover-lift:active {
-  @apply translate-y-0 shadow-md;
-}
-
-/* Card Hover Effects */
-.card-hover {
-  @apply transition-all duration-300 ease-out;
-}
-
-.card-hover:hover {
-  @apply -translate-y-1 shadow-xl;
-}
-
-.card-hover-lift {
-  @apply transition-all duration-300 ease-out border-border/50;
-}
-
-.card-hover-lift:hover {
-  @apply -translate-y-1.5 shadow-2xl border-primary/30;
-}
-
-.card-hover-glow {
-  @apply transition-all duration-300 ease-out;
-}
-
-.card-hover-glow:hover {
-  @apply shadow-lg shadow-primary/10 border-primary/20;
-}
-
-/* Link Hover Effects */
-.link-hover {
-  @apply relative transition-colors duration-200;
-}
-
-.link-hover::after {
-  content: '';
-  @apply absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-300;
-}
-
-.link-hover:hover::after {
-  @apply w-full;
-}
-
-/* Scale on Hover */
-.scale-hover {
-  @apply transition-transform duration-200 ease-out;
-}
-
-.scale-hover:hover {
-  @apply scale-105;
-}
-
-.scale-hover-sm {
-  @apply transition-transform duration-200 ease-out;
-}
-
-.scale-hover-sm:hover {
-  @apply scale-[1.02];
-}
-
-/* Icon Animations */
-.icon-spin {
-  @apply transition-transform duration-500;
-}
-
-.icon-spin:hover {
-  @apply rotate-180;
-}
-
-.icon-bounce {
-  @apply transition-transform duration-300;
-}
-
-.icon-bounce:hover {
-  @apply animate-bounce;
-}
-
-.icon-pulse {
-  @apply transition-transform duration-200;
-}
-
-.icon-pulse:hover {
-  @apply animate-pulse;
-}
-
-/* Page Transition */
-.page-transition-enter {
-  @apply opacity-0 translate-y-4;
-}
-
-.page-transition-enter-active {
-  @apply opacity-100 translate-y-0 transition-all duration-500 ease-out;
-}
-
-.page-transition-exit {
-  @apply opacity-100 translate-y-0;
-}
-
-.page-transition-exit-active {
-  @apply opacity-0 translate-y-4 transition-all duration-300 ease-in;
 }
 
 /* Fade In Animation */
@@ -476,89 +292,11 @@
   @apply animate-fade-in;
 }
 
-/* Stagger Children */
-.stagger-children>* {
-  @apply opacity-0 animate-fade-in;
-}
-
-.stagger-children>*:nth-child(1) {
-  animation-delay: 0.1s;
-}
-
-.stagger-children>*:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.stagger-children>*:nth-child(3) {
-  animation-delay: 0.3s;
-}
-
-.stagger-children>*:nth-child(4) {
-  animation-delay: 0.4s;
-}
-
-.stagger-children>*:nth-child(5) {
-  animation-delay: 0.5s;
-}
-
-.stagger-children>*:nth-child(6) {
-  animation-delay: 0.6s;
-}
-
-/* Focus Animations */
-.focus-ring {
-  @apply transition-shadow duration-200;
-}
-
-.focus-ring:focus {
-  @apply ring-2 ring-primary ring-offset-2 ring-offset-background;
-}
-
-/* Glow Effects */
-.glow-hover {
-  @apply transition-all duration-300;
-}
-
-.glow-hover:hover {
-  @apply shadow-lg;
-  box-shadow: 0 0 30px color-mix(in oklab, var(--primary) 30%, transparent);
-}
-
-.glow-text {
-  @apply transition-all duration-300;
-}
-
-.glow-text:hover {
-  text-shadow: 0 0 20px color-mix(in oklab, var(--primary) 50%, transparent);
-}
-
-/* Ripple Effect Base */
-.ripple {
-  @apply relative overflow-hidden;
-}
-
-.ripple::after {
-  content: '';
-  @apply absolute inset-0 bg-white/30 rounded-full scale-0 opacity-0;
-  transition: transform 0.5s, opacity 0.5s;
-}
-
-.ripple:active::after {
-  @apply scale-150 opacity-100;
-  transition: 0s;
-}
-
 /* Loading Shimmer */
 .shimmer {
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
   background-size: 200% 100%;
   @apply animate-shimmer;
-}
-
-/* Dark Mode Transition */
-.dark * {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Smooth Scroll Behavior */
@@ -593,15 +331,6 @@ html {
   @apply bg-primary/30 text-foreground;
 }
 
-/* Toast/Notification Slide Animation */
-.toast-enter {
-  @apply animate-slide-in-right;
-}
-
-.toast-exit {
-  @apply animate-slide-out-right;
-}
-
 /* Skeleton Shimmer */
 .skeleton-shimmer {
   background: linear-gradient(90deg,
@@ -612,24 +341,11 @@ html {
   @apply animate-skeleton;
 }
 
-/* Image Hover Zoom */
-.img-zoom {
-  @apply overflow-hidden;
-}
-
-.img-zoom img {
-  @apply transition-transform duration-500 ease-out;
-}
-
-.img-zoom:hover img {
-  @apply scale-110;
-}
-
 /* ========================================
    VIBESTACK SIGNATURE UTILITIES
    ======================================== */
 
-/* Standard Brand Gradient Text — use this instead of ad-hoc from-*/via-*/to-* combos */
+/* Standard Brand Gradient Text — use this instead of ad-hoc from-* / via-* / to-* combos */
 .text-gradient-brand {
   background: linear-gradient(135deg, var(--color-vibe-electric) 0%, var(--color-vibe-purple) 50%, var(--color-vibe-pink) 100%);
   -webkit-background-clip: text;
@@ -637,49 +353,22 @@ html {
   -webkit-text-fill-color: transparent;
 }
 
-/* Vibe Electric Gradient Text */
-.text-vibe-gradient {
-  background: linear-gradient(135deg, var(--color-vibe-electric) 0%, var(--color-vibe-neon) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Vibe Glow Effects */
-.vibe-glow {
-  box-shadow: 0 0 20px color-mix(in oklab, var(--color-vibe-electric) 30%, transparent), 0 0 40px color-mix(in oklab, var(--color-vibe-electric) 10%, transparent);
-}
-
-.vibe-glow-hover:hover {
-  box-shadow: 0 0 30px color-mix(in oklab, var(--color-vibe-electric) 50%, transparent), 0 0 60px color-mix(in oklab, var(--color-vibe-electric) 20%, transparent);
-}
-
-.vibe-glow-strong {
-  box-shadow: 0 0 40px color-mix(in oklab, var(--color-vibe-electric) 40%, transparent), 0 0 80px color-mix(in oklab, var(--color-vibe-neon) 20%, transparent);
-}
-
-/* Mesh Gradient Background */
-.bg-mesh-gradient {
-  background:
-    radial-gradient(at 40% 20%, color-mix(in oklab, var(--color-vibe-electric) 15%, transparent) 0px, transparent 50%),
-    radial-gradient(at 80% 0%, color-mix(in oklab, var(--color-vibe-neon) 10%, transparent) 0px, transparent 50%),
-    radial-gradient(at 0% 50%, color-mix(in oklab, var(--color-vibe-purple) 10%, transparent) 0px, transparent 50%),
-    radial-gradient(at 80% 50%, color-mix(in oklab, var(--color-vibe-cyan) 10%, transparent) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, color-mix(in oklab, var(--color-vibe-pink) 10%, transparent) 0px, transparent 50%);
-  background-size: 200% 200%;
-  animation: meshGradient 8s ease infinite;
-}
-
-/* Terminal-style UI */
+/* Terminal-style UI
+   Intentionally theme-independent (always renders as a dark "obsidian"
+   terminal, like a code-editor mockup) because the markup that consumes it
+   (VibeHero) hardcodes white terminal text — so semantic light/dark tokens
+   like --card/--foreground would go white-on-white in light mode. Uses the
+   fixed brand tokens (--color-vibe-deep / --color-vibe-electric) instead of
+   raw hex/rgba so the values stay in sync with the rest of the palette. */
 .terminal-window {
-  background: rgba(10, 10, 26, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: color-mix(in oklab, var(--color-vibe-deep) 80%, transparent);
+  border: 1px solid color-mix(in oklab, white 10%, transparent);
   border-radius: 12px;
   overflow: hidden;
 }
 
 .terminal-header {
-  background: rgba(255, 255, 255, 0.05);
+  background: color-mix(in oklab, white 5%, transparent);
   padding: 12px 16px;
   display: flex;
   align-items: center;
@@ -699,7 +388,7 @@ html {
 .terminal-body {
   padding: 20px;
   font-family: var(--font-mono);
-  color: #00d9ff;
+  color: var(--color-vibe-electric);
 }
 
 /* Cursor Blink Animation */
@@ -707,34 +396,15 @@ html {
   animation: cursorBlink 1s step-end infinite;
 }
 
-/* Scramble Text Animation */
-.scramble-in {
-  animation: textScramble 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
 /* 3D Card Perspective */
-.perspective-1000 {
-  perspective: 1000px;
-}
-
 .preserve-3d {
   transform-style: preserve-3d;
-}
-
-/* Floating Animation */
-.vibe-float {
-  animation: vibeFloat 6s ease-in-out infinite;
-}
-
-.vibe-float-delayed {
-  animation: vibeFloat 6s ease-in-out infinite;
-  animation-delay: -3s;
 }
 
 /* Animated Border Gradient */
 .border-gradient-vibe {
   position: relative;
-  background: rgba(10, 10, 26, 0.8);
+  background: color-mix(in oklab, var(--color-vibe-deep) 80%, transparent);
   border-radius: 16px;
 }
 
@@ -747,8 +417,8 @@ html {
   background: linear-gradient(135deg, var(--color-vibe-electric), var(--color-vibe-neon), var(--color-vibe-electric));
   background-size: 200% 200%;
   animation: meshGradient 4s ease infinite;
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -777,17 +447,34 @@ html {
   opacity: 1;
 }
 
-/* Grid Pattern Background */
+/* Grid Pattern Background — token-based so lines are visible against both
+   the light-mode white background and the dark-mode near-black background
+   (previously a fixed rgba(255,255,255,0.05), which is invisible on white). */
 .bg-grid-pattern {
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--foreground) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 5%, transparent) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
 /* Dark mode specific Vibe colors */
+
+/* The brand cyan is only 1.7:1 on white, so it is unreadable as light-mode text
+   (it is used in 199 places). Light mode drops to a deeper teal that clears
+   4.5:1; dark mode keeps the neon cyan. Same tradeoff already made for
+   --color-vibe-neon, which was darkened from #ff00ff for this exact reason. */
+.text-vibe-electric {
+  color: #0e7490;
+}
+
 .dark .text-vibe-electric {
   color: #00d9ff;
+}
+
+/* The terminal mockup is a fixed-dark panel in both themes, so cyan-on-dark is
+   correct there and it opts back into the neon value. */
+.terminal-window .text-vibe-electric {
+  color: var(--color-vibe-electric);
 }
 
 .dark .text-vibe-neon {
@@ -796,49 +483,4 @@ html {
 
 .dark .bg-vibe-glow {
   background: color-mix(in oklab, var(--color-vibe-electric) 10%, transparent);
-}
-
-/* ========================================
-   NOISE TEXTURE OVERLAY
-   ======================================== */
-
-.noise-overlay {
-  position: relative;
-}
-
-.noise-overlay::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.02;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.dark .noise-overlay::before {
-  opacity: 0.03;
-}
-
-/* Smooth theme transitions for noise */
-.noise-overlay::before {
-  transition: opacity 0.3s ease;
-}
-
-/* Grain animation for subtle movement */
-@keyframes grain {
-  0%, 100% { transform: translate(0, 0); }
-  10% { transform: translate(-5%, -10%); }
-  20% { transform: translate(-15%, 5%); }
-  30% { transform: translate(7%, -25%); }
-  40% { transform: translate(-5%, 25%); }
-  50% { transform: translate(-15%, 10%); }
-  60% { transform: translate(15%, 0%); }
-  70% { transform: translate(0%, 15%); }
-  80% { transform: translate(3%, 35%); }
-  90% { transform: translate(-10%, 10%); }
-}
-
-.noise-animated::before {
-  animation: grain 8s steps(10) infinite;
 }
