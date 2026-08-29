@@ -7,6 +7,9 @@ const withAnalyzer = withBundleAnalyzer({
 });
 
 const isLocalCheck = process.env.NODE_ENV !== 'production' || process.env.NEXT_PUBLIC_APP_URL?.includes('localhost');
+// Next.js dev (webpack) evaluates modules via eval(); without 'unsafe-eval' the client
+// bundle is blocked by CSP and the app never hydrates. Production builds never need it.
+const isDev = process.env.NODE_ENV === 'development';
 
 // next-pwa: use dynamic require wrapped for ESM compatibility
 // TODO: Migrate to @serwist/next for full ESM support
@@ -88,7 +91,7 @@ const nextConfig: NextConfig = {
           "img-src 'self' data: blob: https:",
           "font-src 'self' data: https://fonts.gstatic.com",
           "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-          "script-src 'self' 'unsafe-inline' https://js.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://va.vercel-scripts.com",
+          `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval' " : ""}https://js.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://va.vercel-scripts.com`,
           "connect-src 'self' https://api.stripe.com https://www.google-analytics.com https://www.googletagmanager.com https://vitals.vercel-insights.com https://va.vercel-scripts.com https://*.ingest.sentry.io https://sentry.io",
           "frame-src https://js.stripe.com https://hooks.stripe.com",
           "worker-src 'self' blob:",
