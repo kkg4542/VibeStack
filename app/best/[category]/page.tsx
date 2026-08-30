@@ -229,7 +229,7 @@ export default async function BestCategoryPage({
                     ) : null}
                     {tool.cons?.length ? (
                       <div>
-                        <div className="text-xs font-semibold uppercase tracking-wide text-rose-400 mb-2">Cons</div>
+                        <div className="text-xs font-semibold uppercase tracking-wide text-rose-700 dark:text-rose-400 mb-2">Cons</div>
                         <ul className="space-y-1.5">
                           {tool.cons.slice(0, 3).map((c) => (
                             <li key={c} className="flex items-start gap-2 text-sm">

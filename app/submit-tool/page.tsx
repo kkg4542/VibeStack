@@ -248,11 +248,11 @@ export default function SubmitToolPage() {
                                     {pricingPlans.find(p => p.id === selectedPlan)?.name}
                                 </strong>
                             </CardDescription>
-                            <div className="mt-4 p-3 bg-blue-500/10 rounded-md border border-blue-500/20 text-sm text-blue-400 flex items-start gap-2">
+                            <div className="mt-4 p-3 bg-blue-500/10 rounded-md border border-blue-500/20 text-sm text-blue-700 dark:text-blue-400 flex items-start gap-2">
                                 <Sparkles className="w-4 h-4 mt-0.5 shrink-0" />
                                 <div>
                                     Want to get approved faster? Check our
-                                    <Link href="/guidelines" target="_blank" rel="noopener noreferrer" className="font-semibold underline ml-1 hover:text-blue-300">
+                                    <Link href="/guidelines" target="_blank" rel="noopener noreferrer" className="font-semibold underline ml-1 hover:text-blue-700 dark:hover:text-blue-300">
                                         Content Quality Guidelines
                                     </Link> before submitting.
                                 </div>

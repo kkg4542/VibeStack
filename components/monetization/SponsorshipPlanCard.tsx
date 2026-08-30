@@ -39,7 +39,7 @@ export function SponsorshipPlanCard({ plan, selectedPlan, setSelectedPlan }: Spo
             <div className="flex items-center justify-between mb-2">
                 <span className={cn(
                     "text-base font-semibold",
-                    plan.isPremium ? "text-primary" : "text-blue-400"
+                    plan.isPremium ? "text-primary" : "text-blue-700 dark:text-blue-400"
                 )}>
                     {plan.name}
                 </span>
@@ -80,7 +80,7 @@ export function SponsorshipPlanCard({ plan, selectedPlan, setSelectedPlan }: Spo
             <div className={cn(
                 "w-full py-2 text-center rounded-lg text-sm font-medium transition-colors",
                 selectedPlan === plan.name
-                    ? (plan.isPremium ? "bg-primary/20 text-primary" : "bg-blue-500/20 text-blue-300")
+                    ? (plan.isPremium ? "bg-primary/20 text-primary" : "bg-blue-500/20 text-blue-700 dark:text-blue-300")
                     : "bg-muted text-muted-foreground"
             )}>
                 {selectedPlan === plan.name ? "Selected" : "Select Plan"}

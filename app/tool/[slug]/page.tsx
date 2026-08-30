@@ -363,7 +363,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                     <div className="p-2 rounded-lg bg-emerald-500/20">
                                         <Check className="h-5 w-5 text-emerald-500" />
                                     </div>
-                                    <h3 className="text-xl font-semibold text-emerald-400">Pros</h3>
+                                    <h3 className="text-xl font-semibold text-emerald-700 dark:text-emerald-400">Pros</h3>
                                 </div>
                                 <ul className="space-y-3">
                                     {tool.pros?.map((pro) => (
@@ -385,7 +385,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                     <div className="p-2 rounded-lg bg-rose-500/20">
                                         <ExternalLink className="h-5 w-5 text-rose-500 rotate-45" />
                                     </div>
-                                    <h3 className="text-xl font-semibold text-rose-400">Cons</h3>
+                                    <h3 className="text-xl font-semibold text-rose-700 dark:text-rose-400">Cons</h3>
                                 </div>
                                 <ul className="space-y-3">
                                     {tool.cons?.map((con) => (
@@ -443,7 +443,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                             </h2>
                                         </div>
                                         <div
-                                            className="prose dark:prose-invert prose-zinc max-w-none prose-a:text-vibe-electric"
+                                            className="prose dark:prose-invert prose-zinc max-w-none prose-a:text-primary"
                                             dangerouslySetInnerHTML={{ __html: extendedOverviewHtml }}
                                         />
                                     </div>

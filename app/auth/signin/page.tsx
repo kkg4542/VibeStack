@@ -165,7 +165,7 @@ export default function SignInPage() {
                                     <motion.div 
                                         initial={{ opacity: 0, y: -10 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm"
+                                        className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-700 dark:text-red-400 text-sm"
                                     >
                                         {error === "OAuthAccountNotLinked"
                                             ? "This email is already associated with another account. Please sign in with the original provider."

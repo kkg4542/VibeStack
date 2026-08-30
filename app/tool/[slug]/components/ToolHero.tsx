@@ -35,7 +35,7 @@ export function ToolHero({ tool }: { tool: any }) {
                                 {tool.review && (
                                     <div className="mt-4 flex items-center justify-center gap-1 bg-yellow-500/10 rounded-full px-3 py-1">
                                         <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                                        <span className="text-sm font-bold text-yellow-400">{tool.review.rating}</span>
+                                        <span className="text-sm font-bold text-yellow-700 dark:text-yellow-400">{tool.review.rating}</span>
                                     </div>
                                 )}
                             </MotionDiv>
@@ -49,12 +49,12 @@ export function ToolHero({ tool }: { tool: any }) {
                                     <Badge className="bg-vibe-electric/10 text-vibe-electric hover:bg-vibe-electric/20 border-vibe-electric/20">
                                         {tool.pricing}
                                     </Badge>
-                                    <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20">
+                                    <Badge className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20">
                                         <ShieldCheck className="h-3 w-3 mr-1" />
                                         Vetted
                                     </Badge>
                                     {tool.isFeatured && (
-                                        <Badge className="bg-amber-500/10 text-amber-400 border-amber-500/20">
+                                        <Badge className="bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20">
                                             <Sparkles className="h-3 w-3 mr-1" />
                                             Featured
                                         </Badge>

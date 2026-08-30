@@ -123,7 +123,7 @@ export function TestimonialCard({ testimonial, index }: TestimonialCardProps) {
                             {/* Stars could go here if rating is needed */}
                             <div className="flex gap-0.5">
                                 {[...Array(5)].map((_, i) => (
-                                    <span key={i} className={`text-base ${i < testimonial.rating ? "text-amber-400" : "text-muted"}`}>
+                                    <span key={i} className={`text-base ${i < testimonial.rating ? "text-amber-700 dark:text-amber-400" : "text-muted"}`}>
                                         ★
                                     </span>
                                 ))}

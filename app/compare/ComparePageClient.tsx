@@ -227,10 +227,10 @@ export default function ComparePageClient() {
 
                                     {/* Pros */}
                                     <div className="mb-6">
-                                        <h3 className="text-sm font-medium text-emerald-400 mb-3">Pros</h3>
+                                        <h3 className="text-sm font-medium text-emerald-700 dark:text-emerald-400 mb-3">Pros</h3>
                                         <ul className="space-y-2">
                                             {tool.pros?.slice(0, 3).map((pro) => (
-                                                <li key={pro} className="flex items-start gap-2 text-sm text-emerald-400/80">
+                                                <li key={pro} className="flex items-start gap-2 text-sm text-emerald-700 dark:text-emerald-400/80">
                                                     <div className="h-1.5 w-1.5 rounded-full bg-emerald-400 mt-1.5 shrink-0" />
                                                     {pro}
                                                 </li>
@@ -240,10 +240,10 @@ export default function ComparePageClient() {
 
                                     {/* Cons */}
                                     <div className="mb-6">
-                                        <h3 className="text-sm font-medium text-rose-400 mb-3">Cons</h3>
+                                        <h3 className="text-sm font-medium text-rose-700 dark:text-rose-400 mb-3">Cons</h3>
                                         <ul className="space-y-2">
                                             {tool.cons?.slice(0, 3).map((con) => (
-                                                <li key={con} className="flex items-start gap-2 text-sm text-rose-400/80">
+                                                <li key={con} className="flex items-start gap-2 text-sm text-rose-700 dark:text-rose-400/80">
                                                     <div className="h-1.5 w-1.5 rounded-full bg-rose-400 mt-1.5 shrink-0" />
                                                     {con}
                                                 </li>
