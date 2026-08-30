@@ -122,7 +122,7 @@ export default async function BestCategoryPage({
 
         {/* Hero */}
         <header className="mb-12">
-          <Badge variant="outline" className="mb-4 border-vibe-electric/30 bg-vibe-electric/10 text-vibe-electric">
+          <Badge variant="outline" className="mb-4 border-vibe-electric/30 bg-vibe-electric/10 text-vibe-link">
             Updated for 2026
           </Badge>
           <h1 className={`${designSystem.typography.hero} mb-5`}>
@@ -138,7 +138,7 @@ export default async function BestCategoryPage({
           <ul className="space-y-2.5">
             {copy.buyingGuide.map((g) => (
               <li key={g} className="flex items-start gap-2 text-sm text-muted-foreground">
-                <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
+                <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
                 <span>{g}</span>
               </li>
             ))}
@@ -162,9 +162,9 @@ export default async function BestCategoryPage({
                 <tbody>
                   {ranked.map((tool, i) => (
                     <tr key={tool.slug} className="border-b border-border/50 last:border-0">
-                      <td className="px-4 py-3 font-bold text-vibe-electric">{i + 1}</td>
+                      <td className="px-4 py-3 font-bold text-vibe-link">{i + 1}</td>
                       <td className="px-4 py-3">
-                        <Link href={`/tool/${tool.slug}`} className="font-semibold hover:text-vibe-electric transition-colors">
+                        <Link href={`/tool/${tool.slug}`} className="font-semibold hover:text-vibe-link transition-colors">
                           {tool.title}
                         </Link>
                       </td>
@@ -184,7 +184,7 @@ export default async function BestCategoryPage({
         {ranked.length === 0 ? (
           <p className="text-muted-foreground mb-12">
             We&apos;re still curating tools for this category.{" "}
-            <Link href="/tools" className="text-vibe-electric hover:underline">Browse all tools</Link>.
+            <Link href="/tools" className="text-vibe-link hover:underline">Browse all tools</Link>.
           </p>
         ) : (
           <div className="space-y-6 mb-16">
@@ -194,14 +194,14 @@ export default async function BestCategoryPage({
                 className="rounded-2xl border border-border bg-card p-6 md:p-8"
               >
                 <div className="flex items-start gap-4 mb-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-secondary/50 border border-border/40 text-2xl font-bold text-vibe-electric">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-secondary/50 border border-border/40 text-2xl font-bold text-vibe-link">
                     {i + 1}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <ToolIconRenderer slug={tool.slug} className={`h-5 w-5 ${tool.color || ""}`} />
                       <h2 className="text-xl font-bold">
-                        <Link href={`/tool/${tool.slug}`} className="hover:text-vibe-electric transition-colors">
+                        <Link href={`/tool/${tool.slug}`} className="hover:text-vibe-link transition-colors">
                           {tool.title}
                         </Link>
                       </h2>
@@ -268,7 +268,7 @@ export default async function BestCategoryPage({
         {copy.body?.length ? (
           <section className="mb-16">
             <h2 className="text-2xl font-bold mb-6">How to choose</h2>
-            <div className="space-y-4 text-muted-foreground leading-relaxed [&_a]:text-vibe-electric [&_a]:hover:underline [&_strong]:text-foreground">
+            <div className="space-y-4 text-muted-foreground leading-relaxed [&_a]:text-vibe-link [&_a]:hover:underline [&_strong]:text-foreground">
               {copy.body.map((para, i) => (
                 <p key={i} dangerouslySetInnerHTML={{ __html: para }} />
               ))}

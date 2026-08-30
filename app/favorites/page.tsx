@@ -345,7 +345,7 @@ export default function FavoritesPage() {
                                 transition={designSystem.animations.fadeInUp.transition}
                             >
                                 <div className="flex items-center gap-3 mb-4">
-                                    <Sparkles className="w-5 h-5 text-vibe-electric" />
+                                    <Sparkles className="w-5 h-5 text-vibe-link" />
                                     <h2 className="text-xl font-semibold">Tools ({favoriteTools.length})</h2>
                                 </div>
 
@@ -376,7 +376,7 @@ export default function FavoritesPage() {
                                                                     })()}
                                                                 </div>
                                                                 <div className="min-w-0">
-                                                                    <h3 className="font-semibold group-hover:text-vibe-electric transition-colors truncate">
+                                                                    <h3 className="font-semibold group-hover:text-vibe-link transition-colors truncate">
                                                                         {tool.title}
                                                                     </h3>
                                                                     <p className="text-xs text-muted-foreground">{tool.category}</p>

@@ -307,7 +307,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                             >
                                 <div className="flex items-center gap-3 mb-6">
                                     <div className="p-2 rounded-lg bg-vibe-electric/10">
-                                        <Sparkles className="h-5 w-5 text-vibe-electric" />
+                                        <Sparkles className="h-5 w-5 text-vibe-link" />
                                     </div>
                                     <h2 className="text-2xl font-semibold text-foreground">Key Features</h2>
                                 </div>
@@ -322,7 +322,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                             className="flex items-start gap-4 p-4 rounded-2xl bg-secondary/30 hover:bg-secondary/50 transition-colors"
                                         >
                                             <div className="p-1.5 rounded-full bg-vibe-electric/20 shrink-0 mt-0.5">
-                                                <Check className="h-4 w-4 text-vibe-electric" />
+                                                <Check className="h-4 w-4 text-vibe-link" />
                                             </div>
                                             <span className="text-lg text-foreground">{feature}</span>
                                         </MotionLi>
@@ -341,7 +341,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                             className="flex items-start gap-3 p-3 rounded-xl bg-secondary/30"
                                         >
                                             <div className="p-1 rounded-full bg-vibe-electric/20 shrink-0 mt-0.5">
-                                                <Check className="h-3 w-3 text-vibe-electric" />
+                                                <Check className="h-3 w-3 text-vibe-link" />
                                             </div>
                                             <span className="text-base text-foreground">{feature}</span>
                                         </li>
@@ -436,7 +436,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                     <div>
                                         <div className="flex items-center gap-3 mb-6">
                                             <div className="p-2 rounded-lg bg-vibe-electric/10">
-                                                <Sparkles className="h-5 w-5 text-vibe-electric" />
+                                                <Sparkles className="h-5 w-5 text-vibe-link" />
                                             </div>
                                             <h2 className="text-2xl font-semibold text-foreground">
                                                 In-Depth Overview
@@ -453,7 +453,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                     <div>
                                         <div className="flex items-center gap-3 mb-6">
                                             <div className="p-2 rounded-lg bg-vibe-electric/10">
-                                                <Target className="h-5 w-5 text-vibe-electric" />
+                                                <Target className="h-5 w-5 text-vibe-link" />
                                             </div>
                                             <h2 className="text-2xl font-semibold text-foreground">Use Cases</h2>
                                         </div>
@@ -479,7 +479,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                     <div>
                                         <div className="flex items-center gap-3 mb-4">
                                             <div className="p-2 rounded-lg bg-vibe-electric/10">
-                                                <Zap className="h-5 w-5 text-vibe-electric" />
+                                                <Zap className="h-5 w-5 text-vibe-link" />
                                             </div>
                                             <h2 className="text-2xl font-semibold text-foreground">
                                                 Pricing Detail
@@ -495,7 +495,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                     <div>
                                         <div className="flex items-center gap-3 mb-6">
                                             <div className="p-2 rounded-lg bg-vibe-electric/10">
-                                                <ShieldCheck className="h-5 w-5 text-vibe-electric" />
+                                                <ShieldCheck className="h-5 w-5 text-vibe-link" />
                                             </div>
                                             <h2 className="text-2xl font-semibold text-foreground">
                                                 Frequently Asked Questions
@@ -531,7 +531,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                         >
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="p-2 rounded-lg bg-vibe-electric/10">
-                                    <Star className="h-5 w-5 text-vibe-electric" />
+                                    <Star className="h-5 w-5 text-vibe-link" />
                                 </div>
                                 <h2 className="text-2xl font-semibold">Expert Review</h2>
                             </div>
@@ -624,7 +624,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                         >
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="p-2 rounded-lg bg-vibe-electric/10">
-                                    <Target className="h-5 w-5 text-vibe-electric" />
+                                    <Target className="h-5 w-5 text-vibe-link" />
                                 </div>
                                 <h3 className="font-semibold text-foreground">Tool Details</h3>
                             </div>

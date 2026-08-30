@@ -90,7 +90,7 @@ export function NewsletterSection() {
               <div className="text-center mb-8">
                 <Badge
                   variant="outline"
-                  className="mb-4 border-vibe-electric/20 bg-vibe-electric/5 text-vibe-electric"
+                  className="mb-4 border-vibe-electric/20 bg-vibe-electric/5 text-vibe-link"
                 >
                   <Mail className="mr-2 h-3 w-3" />
                   Stay Updated
@@ -120,7 +120,7 @@ export function NewsletterSection() {
                       transition={{ delay: index * 0.1 }}
                       className="flex items-center gap-2 px-4 py-2 rounded-full bg-background/50 border border-border/50"
                     >
-                      <Icon className="w-4 h-4 text-vibe-electric" />
+                      <Icon className="w-4 h-4 text-vibe-link" />
                       <span className="text-sm text-muted-foreground">{benefit.text}</span>
                     </m.div>
                   );

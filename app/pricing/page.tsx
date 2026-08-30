@@ -101,7 +101,7 @@ export default function PricingPage() {
         <div className="text-center mb-16">
           <Badge
             variant="outline"
-            className="mb-4 border-vibe-electric/30 bg-vibe-electric/10 text-vibe-electric"
+            className="mb-4 border-vibe-electric/30 bg-vibe-electric/10 text-vibe-link"
           >
             Pricing
           </Badge>
@@ -126,7 +126,7 @@ export default function PricingPage() {
                 {/* Track header */}
                 <div className="flex flex-col items-center text-center mb-10">
                   <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-vibe-electric/10 border border-vibe-electric/20 mb-4">
-                    <Icon className="h-7 w-7 text-vibe-electric" />
+                    <Icon className="h-7 w-7 text-vibe-link" />
                   </div>
                   <Badge variant="secondary" className="mb-3">
                     {track.badge}
@@ -180,7 +180,7 @@ export default function PricingPage() {
                       <ul className="flex-1 space-y-2.5 mb-6">
                         {plan.features.map((f) => (
                           <li key={f} className="flex items-start gap-2 text-sm">
-                            <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
+                            <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
                             <span>{f}</span>
                           </li>
                         ))}

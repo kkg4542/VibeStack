@@ -31,7 +31,7 @@ export default async function TestimonialsPage() {
                     <div>
                         <Badge
                             variant="outline"
-                            className="mb-4 border-vibe-electric/30 bg-vibe-electric/5 text-vibe-electric"
+                            className="mb-4 border-vibe-electric/30 bg-vibe-electric/5 text-vibe-link"
                         >
                             <Heart className="mr-2 h-3 w-3" />
                             Community Love
@@ -59,7 +59,7 @@ export default async function TestimonialsPage() {
                         </p>
                         <Link
                             href="mailto:hello@usevibestack.com?subject=My%20VibeStack%20story"
-                            className="inline-flex items-center gap-2 rounded-full border border-vibe-electric/30 bg-vibe-electric/5 px-5 py-2.5 text-sm font-medium text-vibe-electric hover:bg-vibe-electric/10 transition-colors"
+                            className="inline-flex items-center gap-2 rounded-full border border-vibe-electric/30 bg-vibe-electric/5 px-5 py-2.5 text-sm font-medium text-vibe-link hover:bg-vibe-electric/10 transition-colors"
                         >
                             <Heart className="h-4 w-4" />
                             Share your story

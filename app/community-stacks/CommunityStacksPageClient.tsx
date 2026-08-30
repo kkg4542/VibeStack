@@ -40,7 +40,7 @@ export function CommunityStacksPageClient({ stacks, totalCount, filters }: Commu
                         >
                             <Badge
                                 variant="outline"
-                                className="mb-4 border-vibe-electric/30 bg-vibe-electric/5 text-vibe-electric"
+                                className="mb-4 border-vibe-electric/30 bg-vibe-electric/5 text-vibe-link"
                             >
                                 <Users className="mr-2 h-3 w-3" />
                                 Community Curated
@@ -69,7 +69,7 @@ export function CommunityStacksPageClient({ stacks, totalCount, filters }: Commu
                                     key={stat.label}
                                     className="flex items-center gap-2 text-sm text-muted-foreground"
                                 >
-                                    <stat.icon className="w-4 h-4 text-vibe-electric" />
+                                    <stat.icon className="w-4 h-4 text-vibe-link" />
                                     <span className="font-medium text-foreground">{stat.value}</span>
                                     <span>{stat.label}</span>
                                 </div>
@@ -132,7 +132,7 @@ export function CommunityStacksPageClient({ stacks, totalCount, filters }: Commu
                                                 {/* Stack Name & Featured Badge */}
                                                 <div className="flex items-start justify-between mb-4">
                                                     <div>
-                                                        <h3 className="text-xl font-bold text-foreground group-hover:text-vibe-electric transition-colors line-clamp-2">
+                                                        <h3 className="text-xl font-bold text-foreground group-hover:text-vibe-link transition-colors line-clamp-2">
                                                             {stack.name}
                                                         </h3>
                                                         <p className="text-xs text-muted-foreground mt-1">
@@ -142,7 +142,7 @@ export function CommunityStacksPageClient({ stacks, totalCount, filters }: Commu
                                                     {stack.isFeatured && (
                                                         <Badge
                                                             variant="secondary"
-                                                            className="bg-vibe-electric/10 text-vibe-electric border-vibe-electric/20 shrink-0"
+                                                            className="bg-vibe-electric/10 text-vibe-link border-vibe-electric/20 shrink-0"
                                                         >
                                                             Featured
                                                         </Badge>
@@ -196,7 +196,7 @@ export function CommunityStacksPageClient({ stacks, totalCount, filters }: Commu
                                                                 Community Curator
                                                             </p>
                                                         </div>
-                                                        <ArrowRight className="h-4 w-4 text-muted-foreground/50 group-hover:text-vibe-electric transition-colors" />
+                                                        <ArrowRight className="h-4 w-4 text-muted-foreground/50 group-hover:text-vibe-link transition-colors" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -212,7 +212,7 @@ export function CommunityStacksPageClient({ stacks, totalCount, filters }: Commu
                             className="text-center py-20"
                         >
                             <div className="inline-flex p-4 rounded-full bg-vibe-electric/10 mb-6">
-                                <Users className="h-12 w-12 text-vibe-electric" />
+                                <Users className="h-12 w-12 text-vibe-link" />
                             </div>
                             <h2 className="text-2xl font-bold mb-2">No stacks found</h2>
                             <p className="text-muted-foreground mb-6">

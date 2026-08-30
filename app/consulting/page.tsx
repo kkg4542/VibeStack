@@ -62,7 +62,7 @@ export default function ConsultingPage() {
                         animate={designSystem.animations.fadeInUp.animate}
                         transition={designSystem.animations.fadeInUp.transition}
                     >
-                        <div className="mx-auto mb-6 flex max-w-fit items-center rounded-full border border-vibe-electric/30 bg-vibe-electric/10 px-4 py-2 text-sm font-medium text-vibe-electric backdrop-blur-md">
+                        <div className="mx-auto mb-6 flex max-w-fit items-center rounded-full border border-vibe-electric/30 bg-vibe-electric/10 px-4 py-2 text-sm font-medium text-vibe-link backdrop-blur-md">
                             <span className="mr-2 flex h-2 w-2 relative">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-vibe-electric opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-vibe-electric"></span>
@@ -164,7 +164,7 @@ export default function ConsultingPage() {
                     >
                         <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-size-[20px_20px]" />
                         <div className="relative z-10 max-w-3xl mx-auto">
-                            <Mail className="w-16 h-16 mx-auto mb-6 text-vibe-electric" />
+                            <Mail className="w-16 h-16 mx-auto mb-6 text-vibe-link" />
                             <h2 className="text-3xl sm:text-4xl font-bold mb-4">Ready to Get Started?</h2>
                             <p className="text-lg text-muted-foreground mb-8">
                                 Let&apos;s discuss how we can help you reach thousands of developers actively searching for tools like yours.

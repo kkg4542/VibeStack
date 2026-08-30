@@ -127,7 +127,7 @@ export default function AboutPage() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5, delay: 0.1 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-electric text-sm font-medium mb-6"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-link text-sm font-medium mb-6"
                     >
                         <Sparkles className="w-4 h-4" />
                         <span>About Us</span>
@@ -157,7 +157,7 @@ export default function AboutPage() {
                         <CardContent className="p-8">
                             <div className="flex items-center gap-3 mb-4">
                                 <div className="p-3 rounded-xl bg-vibe-electric/10">
-                                    <Target className="h-6 w-6 text-vibe-electric" />
+                                    <Target className="h-6 w-6 text-vibe-link" />
                                 </div>
                                 <h2 className="text-2xl font-bold">Our Mission</h2>
                             </div>
@@ -349,7 +349,7 @@ export default function AboutPage() {
                                             {member.avatar}
                                         </div>
                                         <h3 className="text-lg font-semibold mb-1">{member.name}</h3>
-                                        <p className="text-sm text-vibe-electric mb-3">{member.role}</p>
+                                        <p className="text-sm text-vibe-link mb-3">{member.role}</p>
                                         <p className="text-sm text-muted-foreground mb-4">{member.bio}</p>
                                         <div className="flex justify-center gap-2">
                                             <a href={member.social.twitter} className="p-2 rounded-full bg-secondary/50 hover:bg-secondary transition-colors">
@@ -442,7 +442,7 @@ export default function AboutPage() {
                                     <p className="text-sm text-muted-foreground mb-4">Or reach us directly at</p>
                                     <a
                                         href="mailto:hello@usevibestack.com"
-                                        className="inline-flex items-center gap-2 text-vibe-electric hover:text-primary transition-colors"
+                                        className="inline-flex items-center gap-2 text-vibe-link hover:text-primary transition-colors"
                                     >
                                         <Mail className="h-4 w-4" />
                                         hello@usevibestack.com

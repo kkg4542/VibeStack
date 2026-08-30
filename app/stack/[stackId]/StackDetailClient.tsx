@@ -93,7 +93,7 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                                         </m.div>
                                         <div className="flex flex-wrap gap-2">
                                             {stack.tags.map((tag) => (
-                                                <Badge key={tag} variant="secondary" className="text-xs bg-vibe-electric/10 text-vibe-electric border-vibe-electric/20">
+                                                <Badge key={tag} variant="secondary" className="text-xs bg-vibe-electric/10 text-vibe-link border-vibe-electric/20">
                                                     {tag}
                                                 </Badge>
                                             ))}
@@ -173,7 +173,7 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                                     <Card className="bg-linear-to-b from-vibe-electric/10 to-card/50 border-vibe-electric/20 min-w-[200px]">
                                         <CardContent className="p-6 text-center">
                                             <div className="inline-flex p-3 rounded-full bg-vibe-electric/10 mb-4">
-                                                <DollarSign className="h-6 w-6 text-vibe-electric" />
+                                                <DollarSign className="h-6 w-6 text-vibe-link" />
                                             </div>
                                             <h2 className="text-sm font-semibold text-muted-foreground mb-2">Total Cost</h2>
                                             <div className="text-4xl font-bold text-foreground mb-2">
@@ -202,7 +202,7 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                         >
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="p-2 rounded-lg bg-vibe-electric/10">
-                                    <Sparkles className="h-5 w-5 text-vibe-electric" />
+                                    <Sparkles className="h-5 w-5 text-vibe-link" />
                                 </div>
                                 <h2 className="text-2xl font-semibold">About This Stack</h2>
                             </div>
@@ -246,7 +246,7 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                                                     <div className="flex-1">
                                                         <p className="text-foreground text-lg leading-relaxed">{step}</p>
                                                     </div>
-                                                    <ArrowRight className="h-5 w-5 text-muted-foreground/30 group-hover:text-vibe-electric transition-colors" />
+                                                    <ArrowRight className="h-5 w-5 text-muted-foreground/30 group-hover:text-vibe-link transition-colors" />
                                                 </div>
                                             </CardContent>
                                         </Card>
@@ -289,7 +289,7 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                                                                     return <Icon className="h-6 w-6 text-white" />;
                                                                 })()}
                                                             </div>
-                                                            <ExternalLink className="h-5 w-5 text-muted-foreground/30 group-hover:text-vibe-electric transition-colors" />
+                                                            <ExternalLink className="h-5 w-5 text-muted-foreground/30 group-hover:text-vibe-link transition-colors" />
                                                         </div>
                                                         <h3 className="text-lg font-bold mb-1">{tool.title}</h3>
                                                         <p className="text-xs text-muted-foreground uppercase tracking-wider mb-3">{tool.category}</p>
@@ -435,7 +435,7 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                             <div className="absolute top-0 right-0 w-32 h-32 bg-vibe-electric/20 blur-[60px] rounded-full" />
 
                             <div className="flex items-center gap-2 mb-6 relative z-10">
-                                <BarChart className="w-5 h-5 text-vibe-electric" />
+                                <BarChart className="w-5 h-5 text-vibe-link" />
                                 <h3 className="font-semibold">Community Insights</h3>
                             </div>
 
@@ -448,7 +448,7 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                                 </div>
                                 <div className="bg-white/5 rounded-2xl p-4 border border-white/5">
                                     <div className="text-muted-foreground text-xs mb-1">Shares</div>
-                                    <div className="text-2xl font-bold text-vibe-electric">
+                                    <div className="text-2xl font-bold text-vibe-link">
                                         {(metrics?.shares || stack.shareCount || 0).toLocaleString()}
                                     </div>
                                 </div>
@@ -457,7 +457,7 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                             <div className="mt-4 pt-4 border-t border-white/10 relative z-10">
                                 <div className="flex items-center justify-between text-xs text-muted-foreground">
                                     <span>Popularity Score</span>
-                                    <span className="text-vibe-electric font-bold">{metrics?.popularityScore || 98}/100</span>
+                                    <span className="text-vibe-link font-bold">{metrics?.popularityScore || 98}/100</span>
                                 </div>
                                 <div className="w-full bg-white/10 h-1.5 rounded-full mt-2 overflow-hidden">
                                     <div

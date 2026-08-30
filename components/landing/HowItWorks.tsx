@@ -22,7 +22,7 @@ const steps = [
         icon: Zap,
         title: "Build",
         description: "Start building with your perfect AI stack",
-        color: "text-vibe-electric"
+        color: "text-vibe-link"
     }
 ];
 

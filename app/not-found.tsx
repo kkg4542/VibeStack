@@ -120,7 +120,7 @@ export default function NotFound() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.4 }}
                     >
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-electric text-sm font-medium mb-6">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-link text-sm font-medium mb-6">
                             <Compass className="w-4 h-4" />
                             <span>Lost in the Stack?</span>
                         </div>
@@ -202,7 +202,7 @@ export default function NotFound() {
                     <div>
                         <div className="flex items-center gap-3 mb-6">
                             <div className="p-2 rounded-lg bg-vibe-electric/10">
-                                <Zap className="h-5 w-5 text-vibe-electric" />
+                                <Zap className="h-5 w-5 text-vibe-link" />
                             </div>
                             <h2 className="text-xl font-semibold">Popular Tools</h2>
                         </div>
@@ -224,7 +224,7 @@ export default function NotFound() {
                                                     })()}
                                                 </div>
                                                 <div className="flex-1">
-                                                    <h3 className="font-semibold group-hover:text-vibe-electric transition-colors">
+                                                    <h3 className="font-semibold group-hover:text-vibe-link transition-colors">
                                                         {tool.title}
                                                     </h3>
                                                     <p className="text-sm text-muted-foreground line-clamp-1">
@@ -306,7 +306,7 @@ export default function NotFound() {
                                     Advanced Search
                                 </Link>
                             </Button>
-                            <Button variant="ghost" className="rounded-full text-vibe-electric hover:text-primary" asChild>
+                            <Button variant="ghost" className="rounded-full text-vibe-link hover:text-primary" asChild>
                                 <Link href="/about">
                                     Contact Support
                                     <ArrowLeft className="ml-2 h-4 w-4 rotate-180" />

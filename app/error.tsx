@@ -102,7 +102,7 @@ export default function Error({
                     </p>
                     <Link
                         href="mailto:hello@usevibestack.com"
-                        className="text-sm text-vibe-electric hover:text-vibe-electric transition-colors"
+                        className="text-sm text-vibe-link hover:text-vibe-link transition-colors"
                     >
                         Contact Support
                     </Link>

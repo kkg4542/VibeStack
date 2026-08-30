@@ -124,7 +124,7 @@ function PopularStackCard({ stack }: PopularStackCardProps) {
                 <span className="font-medium">{stack.rating}</span>
               </div>
             </div>
-            <h3 className="font-bold text-lg mb-2 group-hover:text-vibe-electric transition-colors">{stack.name}</h3>
+            <h3 className="font-bold text-lg mb-2 group-hover:text-vibe-link transition-colors">{stack.name}</h3>
             <p className="text-sm text-muted-foreground mb-4">{stack.description}</p>
             <div className="flex items-center justify-between text-sm">
               <span className="text-muted-foreground">{stack.price}</span>

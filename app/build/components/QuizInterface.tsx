@@ -306,7 +306,7 @@ export function QuizInterface({ onRestart }: QuizInterfaceProps) {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-electric text-sm font-medium mb-6 backdrop-blur-sm"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-link text-sm font-medium mb-6 backdrop-blur-sm"
         >
           <Sparkles className="w-4 h-4" />
           <span>AI Stack Finder</span>
@@ -427,7 +427,7 @@ function StackRecommendationResult({
       {/* Stack Reveal */}
       <div className="bg-linear-to-b from-vibe-electric/10 via-vibe-purple/5 to-vibe-pink/5 border border-vibe-electric/20 rounded-3xl p-8 md:p-12 mb-8">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 text-vibe-electric text-sm font-medium mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 text-vibe-link text-sm font-medium mb-4">
             <Trophy className="w-4 h-4" />
             <span>Recommended Stack</span>
           </div>
@@ -474,7 +474,7 @@ function StackRecommendationResult({
           {stack.stackId && (
             <Link
               href={`/stack/${stack.stackId}`}
-              className="inline-flex items-center gap-1 text-sm font-medium text-vibe-electric hover:underline"
+              className="inline-flex items-center gap-1 text-sm font-medium text-vibe-link hover:underline"
             >
               View the full {stack.name} write-up
               <ArrowRight className="w-3.5 h-3.5" />
@@ -486,7 +486,7 @@ function StackRecommendationResult({
         <Card className="mb-8">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Lightbulb className="w-5 h-5 text-vibe-electric" />
+              <Lightbulb className="w-5 h-5 text-vibe-link" />
               Why This Stack?
             </CardTitle>
           </CardHeader>
@@ -529,7 +529,7 @@ function StackRecommendationResult({
                             return <Icon className={`w-6 h-6 ${tool.color || "text-foreground"}`} />;
                           })()}
                         </div>
-                        <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-vibe-electric transition-colors" />
+                        <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-vibe-link transition-colors" />
                       </div>
                       <h3 className="font-bold mb-1">{tool.title}</h3>
                       <p className="text-xs text-muted-foreground uppercase mb-2">{tool.category}</p>

@@ -92,7 +92,7 @@ export function PopularToolsRail() {
                 </div>
                 <Link
                     href="/tools"
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-vibe-electric hover:text-vibe-electric/80 transition-colors shrink-0"
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-vibe-link hover:text-vibe-link/80 transition-colors shrink-0"
                 >
                     Browse all tools
                     <ArrowRight className="w-4 h-4" />
@@ -104,9 +104,9 @@ export function PopularToolsRail() {
                     <div key={group.title}>
                         <Link
                             href={group.categoryHref}
-                            className="inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-vibe-electric transition-colors mb-3"
+                            className="inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-vibe-link transition-colors mb-3"
                         >
-                            <group.icon className="w-4 h-4 text-vibe-electric" aria-hidden="true" />
+                            <group.icon className="w-4 h-4 text-vibe-link" aria-hidden="true" />
                             {group.title}
                         </Link>
                         <ul className="space-y-2.5">
@@ -116,7 +116,7 @@ export function PopularToolsRail() {
                                         href={`/tool/${tool.slug}`}
                                         className="group block text-sm text-muted-foreground hover:text-foreground transition-colors"
                                     >
-                                        <span className="font-medium text-foreground/90 group-hover:text-vibe-electric transition-colors">
+                                        <span className="font-medium text-foreground/90 group-hover:text-vibe-link transition-colors">
                                             {tool.label}
                                         </span>
                                         {" — "}

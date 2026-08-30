@@ -29,7 +29,7 @@ export function FeaturedStacks({ stacks }: FeaturedStacksProps) {
             viewport={{ once: true }}
             transition={designSystem.animations.fadeInUp.transition}
           >
-            <Badge variant="outline" className="mb-4 border-vibe-electric/20 bg-vibe-electric/5 text-vibe-electric">
+            <Badge variant="outline" className="mb-4 border-vibe-electric/20 bg-vibe-electric/5 text-vibe-link">
               <Sparkles className="mr-2 h-3 w-3" />
               Curated Workflows
             </Badge>
@@ -73,7 +73,7 @@ export function FeaturedStacks({ stacks }: FeaturedStacksProps) {
                           {stack.icon || "🚀"}
                         </div>
                         <div>
-                          <h3 className="text-xl font-bold text-foreground group-hover:text-vibe-electric transition-colors">
+                          <h3 className="text-xl font-bold text-foreground group-hover:text-vibe-link transition-colors">
                             {stack.name}
                           </h3>
                           <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
@@ -128,7 +128,7 @@ export function FeaturedStacks({ stacks }: FeaturedStacksProps) {
                             <p className="text-xs font-medium truncate">Curated by {stack.curator.name}</p>
                             <p className="text-[10px] text-muted-foreground truncate">{stack.curator.role}</p>
                           </div>
-                          <ArrowRight className="h-4 w-4 text-muted-foreground/50 group-hover:text-vibe-electric transition-colors" />
+                          <ArrowRight className="h-4 w-4 text-muted-foreground/50 group-hover:text-vibe-link transition-colors" />
                         </div>
                       ) : (
                         <div className="flex items-center justify-between pt-6 border-t border-foreground/10">
@@ -143,7 +143,7 @@ export function FeaturedStacks({ stacks }: FeaturedStacksProps) {
                               </div>
                             ))}
                           </div>
-                          <ArrowRight className="h-4 w-4 text-muted-foreground/50 group-hover:text-vibe-electric transition-colors" />
+                          <ArrowRight className="h-4 w-4 text-muted-foreground/50 group-hover:text-vibe-link transition-colors" />
                         </div>
                       )}
                     </div>

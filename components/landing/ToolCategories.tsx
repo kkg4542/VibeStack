@@ -27,7 +27,7 @@ const categories = [
     icon: Code2,
     color: "from-vibe-electric to-vibe-cyan",
     bgColor: "bg-vibe-electric/10",
-    iconColor: "text-vibe-electric",
+    iconColor: "text-vibe-link",
     tools: ["Cursor", "GitHub Copilot", "Windsurf", "Bolt.new"],
   },
   {
@@ -181,7 +181,7 @@ export function ToolCategories({ counts }: ToolCategoriesProps = {}) {
                       </div>
 
                       {/* CTA */}
-                      <div className="flex items-center text-sm text-vibe-electric hover:text-vibe-cyan transition-colors">
+                      <div className="flex items-center text-sm text-vibe-link hover:text-vibe-link transition-colors">
                         <span>Explore category</span>
                         <ArrowRight className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       </div>

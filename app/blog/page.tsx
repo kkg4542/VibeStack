@@ -93,7 +93,7 @@ export default function BlogListingPage() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5, delay: 0.1 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-electric text-sm font-medium mb-6 backdrop-blur-sm"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-link text-sm font-medium mb-6 backdrop-blur-sm"
                     >
                         <BookOpen className="w-4 h-4" />
                         <span>{blogPosts.length} Articles Published</span>
@@ -254,7 +254,7 @@ export default function BlogListingPage() {
                                 className="mb-16"
                             >
                                 <div className="flex items-center gap-3 mb-8">
-                                    <Sparkles className="w-5 h-5 text-vibe-electric" />
+                                    <Sparkles className="w-5 h-5 text-vibe-link" />
                                     <h2 className="text-2xl font-bold text-foreground">Featured Articles</h2>
                                 </div>
 
@@ -326,7 +326,7 @@ export default function BlogListingPage() {
                         >
                             <div className="flex items-center justify-between mb-8">
                                 <div className="flex items-center gap-3">
-                                    <TrendingUp className="w-5 h-5 text-vibe-electric" />
+                                    <TrendingUp className="w-5 h-5 text-vibe-link" />
                                     <h2 className="text-2xl font-bold text-foreground">
                                         {searchQuery || selectedCategory !== "All" ? "Search Results" : "Latest Articles"}
                                     </h2>
@@ -427,7 +427,7 @@ export default function BlogListingPage() {
                             transition={{ duration: 0.6 }}
                             className="bg-linear-to-br from-vibe-electric/10 via-vibe-purple/5 to-vibe-pink/10 rounded-3xl border border-vibe-electric/20 p-6 backdrop-blur-sm lg:sticky lg:top-24"
                         >
-                            <Sparkles className="w-10 h-10 mb-4 text-vibe-electric" />
+                            <Sparkles className="w-10 h-10 mb-4 text-vibe-link" />
                             <h3 className="text-xl font-bold mb-2">Stay Updated</h3>
                             <p className="text-sm text-muted-foreground mb-4">
                                 Get weekly insights on AI tools and productivity tips.
@@ -457,7 +457,7 @@ export default function BlogListingPage() {
                                             key={cat}
                                             onClick={() => setSelectedCategory(cat)}
                                             className={`w-full flex items-center justify-between p-2 rounded-lg text-sm transition-colors ${selectedCategory === cat
-                                                ? "bg-vibe-electric/10 text-vibe-electric"
+                                                ? "bg-vibe-electric/10 text-vibe-link"
                                                 : "hover:bg-secondary/50 text-muted-foreground hover:text-foreground"
                                                 }`}
                                         >

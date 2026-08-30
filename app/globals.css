@@ -4,6 +4,16 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Brand cyan as TEXT. #00d9ff is 1.70:1 on white, so light mode uses a deeper
+   teal (5.36:1) while dark mode keeps the neon; the .dark block below flips it.
+   This lives in a plain @theme, NOT @theme inline: `inline` substitutes the
+   literal value into every utility, which would bake the light teal into dark
+   mode too. As a real var(), hover/group-hover/alpha variants all follow it —
+   a .text-vibe-electric class override reached none of those. */
+@theme {
+  --color-vibe-link: #0e7490;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -182,6 +192,7 @@
   /* Obsidian Dark Theme - Deep & Material */
   --background: #030308;
   --foreground: #fafafa;
+  --color-vibe-link: #00d9ff;
 
   --card: rgba(10, 10, 15, 0.7);
   --card-foreground: #fafafa;
@@ -459,28 +470,10 @@ html {
 
 /* Dark mode specific Vibe colors */
 
-/* The brand cyan is only 1.7:1 on white, so it is unreadable as light-mode text
-   (it is used in 199 places). Light mode drops to a deeper teal that clears
-   4.5:1; dark mode keeps the neon cyan. Same tradeoff already made for
-   --color-vibe-neon, which was darkened from #ff00ff for this exact reason. */
-.text-vibe-electric {
-  color: #0e7490;
-}
-
-.dark .text-vibe-electric {
-  color: #00d9ff;
-}
-
-/* The terminal mockup is a fixed-dark panel in both themes, so cyan-on-dark is
-   correct there and it opts back into the neon value. */
-.terminal-window .text-vibe-electric {
-  color: var(--color-vibe-electric);
-}
-
 /* The brand neon magenta (#d900d9) is only 3.9:1 on white, below the 4.5:1
    text minimum. Light mode drops to a deeper magenta that clears 5.8:1 on
-   white; dark mode keeps the neon value. Same tradeoff already made for
-   .text-vibe-electric above. */
+   white; dark mode keeps the neon value. Same tradeoff the vibe-link token
+   makes above (see @theme). */
 .text-vibe-neon {
   color: #a21caf;
 }

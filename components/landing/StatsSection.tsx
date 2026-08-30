@@ -206,11 +206,11 @@ export function StatsSection({
           className="mt-16 text-center"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20">
-            <TrendingUp className="w-4 h-4 text-vibe-electric" />
-            <span className="text-sm text-vibe-electric">
+            <TrendingUp className="w-4 h-4 text-vibe-link" />
+            <span className="text-sm text-vibe-link">
               Growing daily with new tools and stacks
             </span>
-            <Zap className="w-4 h-4 text-vibe-electric" />
+            <Zap className="w-4 h-4 text-vibe-link" />
           </div>
         </m.div>
       </Container>

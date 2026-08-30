@@ -23,7 +23,7 @@ export default function TermsPage() {
             <div className="prose prose-zinc dark:prose-invert max-w-none prose-lg prose-headings:text-foreground prose-p:text-muted-foreground prose-li:text-muted-foreground selection:bg-vibe-electric/20">
                 <section className="mb-12">
                     <h2 className="flex items-center gap-2">
-                        <span className="text-vibe-electric">01.</span> Agreement to Terms / 약관 동의
+                        <span className="text-vibe-link">01.</span> Agreement to Terms / 약관 동의
                     </h2>
                     <p>
                         By accessing or using VibeStack (&quot;Service&quot;), you agree to be bound by these Terms of Service. 
@@ -37,7 +37,7 @@ export default function TermsPage() {
 
                 <section className="mb-12">
                     <h2 className="flex items-center gap-2">
-                        <span className="text-vibe-electric">02.</span> Use of Service / 서비스 이용
+                        <span className="text-vibe-link">02.</span> Use of Service / 서비스 이용
                     </h2>
                     <p>
                         VibeStack provides a curated directory of AI tools. You agree to use the service only for lawful purposes 
@@ -51,7 +51,7 @@ export default function TermsPage() {
 
                 <section className="mb-12">
                     <h2 className="flex items-center gap-2">
-                        <span className="text-vibe-electric">03.</span> Paid Submissions / 유료 서비스 (도구 등록)
+                        <span className="text-vibe-link">03.</span> Paid Submissions / 유료 서비스 (도구 등록)
                     </h2>
                     <p>
                         We offer optional paid submission tiers to prioritize the review of your AI tool:
@@ -73,7 +73,7 @@ export default function TermsPage() {
 
                 <section className="mb-12">
                     <h2 className="flex items-center gap-2">
-                        <span className="text-vibe-electric">04.</span> Intellectual Property / 지적 재산권
+                        <span className="text-vibe-link">04.</span> Intellectual Property / 지적 재산권
                     </h2>
                     <p>
                         The Service and its original content (excluding content provided by users), features, and functionality 
@@ -86,7 +86,7 @@ export default function TermsPage() {
 
                 <section className="mb-12">
                     <h2 className="flex items-center gap-2">
-                        <span className="text-vibe-electric">05.</span> Limitation of Liability / 책임 제한
+                        <span className="text-vibe-link">05.</span> Limitation of Liability / 책임 제한
                     </h2>
                     <p>
                         In no event shall VibeStack be liable for any indirect, incidental, special, consequential or punitive damages, 
@@ -99,7 +99,7 @@ export default function TermsPage() {
 
                 <section className="mb-12">
                     <h2 className="flex items-center gap-2">
-                        <span className="text-vibe-electric">06.</span> Governing Law / 준거법
+                        <span className="text-vibe-link">06.</span> Governing Law / 준거법
                     </h2>
                     <p>
                         These Terms shall be governed and construed in accordance with the laws of the jurisdiction in which 
@@ -112,7 +112,7 @@ export default function TermsPage() {
 
                 <section className="mb-12">
                     <h2 className="flex items-center gap-2">
-                        <span className="text-vibe-electric">07.</span> Changes to Terms / 약관의 변경
+                        <span className="text-vibe-link">07.</span> Changes to Terms / 약관의 변경
                     </h2>
                     <p>
                         We reserve the right to modify or replace these Terms at any time. We will provide at least 30 days notice 
@@ -125,12 +125,12 @@ export default function TermsPage() {
 
                 <section className="mb-12">
                     <h2 className="flex items-center gap-2">
-                        <span className="text-vibe-electric">08.</span> Contact Us / 문의처
+                        <span className="text-vibe-link">08.</span> Contact Us / 문의처
                     </h2>
                     <p>If you have any questions about these Terms, please contact us at:</p>
                     <div className="p-6 rounded-2xl bg-secondary/30 border border-border">
                         <p className="font-bold text-foreground m-0">VibeStack Support Team</p>
-                        <p className="m-0 text-vibe-electric">hello@usevibestack.com</p>
+                        <p className="m-0 text-vibe-link">hello@usevibestack.com</p>
                     </div>
                 </section>
             </div>

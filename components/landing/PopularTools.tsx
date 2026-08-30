@@ -39,7 +39,7 @@ export function PopularTools({ tools }: PopularToolsProps) {
           >
             <Badge
               variant="outline"
-              className="mb-4 border-vibe-electric/20 bg-vibe-electric/5 text-vibe-electric"
+              className="mb-4 border-vibe-electric/20 bg-vibe-electric/5 text-vibe-link"
             >
               <TrendingUp className="mr-2 h-3 w-3" />
               Trending Now
@@ -87,7 +87,7 @@ export function PopularTools({ tools }: PopularToolsProps) {
                         />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-bold text-foreground group-hover:text-vibe-electric transition-colors truncate">
+                        <h3 className="font-bold text-foreground group-hover:text-vibe-link transition-colors truncate">
                           {tool.title}
                         </h3>
                         <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -113,12 +113,12 @@ export function PopularTools({ tools }: PopularToolsProps) {
                         </div>
                       ) : (
                         <div className="flex items-center gap-1">
-                          <Sparkles className="w-3.5 h-3.5 text-vibe-electric" />
+                          <Sparkles className="w-3.5 h-3.5 text-vibe-link" />
                           <span className="text-xs text-muted-foreground">Featured</span>
                         </div>
                       )}
 
-                      <div className="flex items-center text-xs text-vibe-electric group-hover:text-vibe-cyan transition-colors">
+                      <div className="flex items-center text-xs text-vibe-link group-hover:text-vibe-link transition-colors">
                         <span>Details</span>
                         <ExternalLink className="ml-1 w-3 h-3" />
                       </div>

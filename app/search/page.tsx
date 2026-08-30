@@ -103,7 +103,7 @@ export default function SearchPage() {
         const parts = text.split(new RegExp(`(${query})`, 'gi'));
         return parts.map((part, i) =>
             part.toLowerCase() === query.toLowerCase()
-                ? <mark key={i} className="bg-vibe-electric/20 text-vibe-electric rounded px-1">{part}</mark>
+                ? <mark key={i} className="bg-vibe-electric/20 text-vibe-link rounded px-1">{part}</mark>
                 : part
         );
     };
@@ -132,7 +132,7 @@ export default function SearchPage() {
                     transition={designSystem.animations.fadeInUp.transition}
                     className="text-center mb-12"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-electric text-sm font-medium mb-6 backdrop-blur-sm">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-link text-sm font-medium mb-6 backdrop-blur-sm">
                         <Sparkles className="w-4 h-4" />
                         <span>Smart Search</span>
                     </div>
@@ -204,7 +204,7 @@ export default function SearchPage() {
                             <div>
                                 <div className="flex items-center gap-2 mb-4">
                                     <div className="p-1.5 rounded-lg bg-vibe-electric/10">
-                                        <Sparkles className="w-4 h-4 text-vibe-electric" />
+                                        <Sparkles className="w-4 h-4 text-vibe-link" />
                                     </div>
                                     <h2 className="text-xl font-semibold">
                                         Tools
@@ -231,7 +231,7 @@ export default function SearchPage() {
                                                             </div>
                                                             <div className="flex-1 min-w-0">
                                                                 <div className="flex items-center gap-2 mb-1">
-                                                                    <h3 className="text-lg font-semibold group-hover:text-vibe-electric transition-colors">
+                                                                    <h3 className="text-lg font-semibold group-hover:text-vibe-link transition-colors">
                                                                         {highlightMatch(tool.title)}
                                                                     </h3>
                                                                     <Badge variant="outline" className="text-xs shrink-0">
@@ -247,7 +247,7 @@ export default function SearchPage() {
                                                                     </Badge>
                                                                 </div>
                                                             </div>
-                                                            <ArrowRight className="h-5 w-5 text-muted-foreground/30 group-hover:text-vibe-electric transition-colors shrink-0 self-center" />
+                                                            <ArrowRight className="h-5 w-5 text-muted-foreground/30 group-hover:text-vibe-link transition-colors shrink-0 self-center" />
                                                         </div>
                                                     </CardContent>
                                                 </Card>
@@ -390,7 +390,7 @@ export default function SearchPage() {
                         <div>
                             <div className="flex items-center gap-2 mb-4">
                                 <div className="p-1.5 rounded-lg bg-vibe-electric/10">
-                                    <TrendingUp className="h-4 w-4 text-vibe-electric" />
+                                    <TrendingUp className="h-4 w-4 text-vibe-link" />
                                 </div>
                                 <h2 className="text-lg font-semibold">Trending Searches</h2>
                             </div>

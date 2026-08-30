@@ -95,7 +95,7 @@ export function QuizLeadCapture({
       <CardContent className="p-6 md:p-8">
         <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
           <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-vibe-electric/10 border border-vibe-electric/20">
-            <Sparkles className="h-7 w-7 text-vibe-electric" />
+            <Sparkles className="h-7 w-7 text-vibe-link" />
           </div>
 
           <div className="flex-1">

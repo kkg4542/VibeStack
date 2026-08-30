@@ -198,7 +198,7 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                             <Link
                                 key={cat}
                                 href={`/categories/${cat.toLowerCase()}`}
-                                className="text-xs text-vibe-electric hover:text-vibe-cyan transition-colors"
+                                className="text-xs text-vibe-link hover:text-vibe-link transition-colors"
                             >
                                 {cat}
                             </Link>
@@ -234,7 +234,7 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                                         setCategory("All");
                                         setPricing("All");
                                     }}
-                                    className="mt-2 text-vibe-electric"
+                                    className="mt-2 text-vibe-link"
                                 >
                                     Clear all filters
                                 </Button>

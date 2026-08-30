@@ -68,7 +68,7 @@ export default function ComparePageClient() {
             <main className="min-h-screen bg-background relative overflow-hidden pt-32 pb-20">
                 <Container size="xs" className="text-center">
                     <div className="inline-flex p-4 rounded-full bg-vibe-electric/10 mb-4">
-                        <Scale className="h-8 w-8 text-vibe-electric animate-pulse" />
+                        <Scale className="h-8 w-8 text-vibe-link animate-pulse" />
                     </div>
                     <p className="text-muted-foreground">Loading comparison...</p>
                 </Container>
@@ -86,7 +86,7 @@ export default function ComparePageClient() {
                         transition={{ duration: 0.5 }}
                     >
                         <div className="inline-flex p-6 bg-vibe-electric/10 rounded-full w-24 h-24 mx-auto mb-6 items-center justify-center border border-vibe-electric/20">
-                            <Scale className="h-12 w-12 text-vibe-electric" />
+                            <Scale className="h-12 w-12 text-vibe-link" />
                         </div>
                         <h1 className={`${designSystem.typography.hero} mb-4`}>Compare AI Tools</h1>
                         <p className="text-muted-foreground text-lg mb-8">
@@ -147,7 +147,7 @@ export default function ComparePageClient() {
                 >
                     <div className="flex items-center gap-3 mb-2">
                         <div className="p-2 rounded-lg bg-vibe-electric/10">
-                            <Scale className="h-6 w-6 text-vibe-electric" />
+                            <Scale className="h-6 w-6 text-vibe-link" />
                         </div>
                         <h1 className={designSystem.typography.hero}>Tool Comparison</h1>
                     </div>
@@ -207,7 +207,7 @@ export default function ComparePageClient() {
                                     {/* Pricing */}
                                     <div className="mb-6">
                                         <h3 className="text-sm font-medium text-muted-foreground mb-2">Pricing</h3>
-                                        <Badge className="bg-vibe-electric/10 text-vibe-electric border-vibe-electric/20 text-sm py-1 px-3">
+                                        <Badge className="bg-vibe-electric/10 text-vibe-link border-vibe-electric/20 text-sm py-1 px-3">
                                             {tool.pricing}
                                         </Badge>
                                     </div>

@@ -87,7 +87,7 @@ export default function SignInPage() {
                         className="hidden lg:block"
                     >
                         <div className="mb-8">
-                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-electric text-sm font-medium mb-6">
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-link text-sm font-medium mb-6">
                                 <Sparkles className="w-4 h-4" />
                                 <span>Join the Community</span>
                             </div>
@@ -115,7 +115,7 @@ export default function SignInPage() {
                                     >
                                         <Card className="border-border/50 bg-card/50 backdrop-blur-sm hover:border-vibe-electric/30 transition-colors group">
                                             <CardContent className="p-4 flex items-start gap-4">
-                                                <div className="p-3 rounded-xl bg-vibe-electric/10 text-vibe-electric group-hover:scale-110 transition-transform">
+                                                <div className="p-3 rounded-xl bg-vibe-electric/10 text-vibe-link group-hover:scale-110 transition-transform">
                                                     <Icon className="h-5 w-5" />
                                                 </div>
                                                 <div>
@@ -136,7 +136,7 @@ export default function SignInPage() {
                             transition={{ duration: 0.4, delay: 0.6 }}
                             className="mt-8 flex items-center gap-2 text-sm text-muted-foreground"
                         >
-                            <Star className="h-4 w-4 text-vibe-electric" />
+                            <Star className="h-4 w-4 text-vibe-link" />
                             Save your favorite tools and build your own AI stack — free.
                         </motion.div>
                     </motion.div>
@@ -288,7 +288,7 @@ export default function SignInPage() {
                                     const Icon = benefit.icon;
                                     return (
                                         <div key={benefit.title} className="flex items-center gap-2 text-sm">
-                                            <Icon className="h-4 w-4 text-vibe-electric" />
+                                            <Icon className="h-4 w-4 text-vibe-link" />
                                             <span className="text-muted-foreground">{benefit.title}</span>
                                         </div>
                                     );

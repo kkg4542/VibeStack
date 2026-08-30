@@ -56,12 +56,12 @@ function NewsletterCard({ issue, index }: { issue: typeof newsletterArchive[0]; 
                     <div className="flex items-start justify-between mb-4">
                         <div>
                             <p className="text-sm text-muted-foreground mb-1">{issue.date}</p>
-                            <h3 className="font-bold text-lg mb-2 group-hover:text-vibe-electric transition-colors">
+                            <h3 className="font-bold text-lg mb-2 group-hover:text-vibe-link transition-colors">
                                 {issue.title}
                             </h3>
                         </div>
                         {issue.featured && (
-                            <Badge className="bg-vibe-electric/10 text-vibe-electric border-vibe-electric/20">
+                            <Badge className="bg-vibe-electric/10 text-vibe-link border-vibe-electric/20">
                                 <Sparkles className="w-3 h-3 mr-1" />
                                 Latest
                             </Badge>
@@ -90,7 +90,7 @@ function NewsletterCard({ issue, index }: { issue: typeof newsletterArchive[0]; 
                         </span>
                         <Link 
                             href={`/newsletter/${issue.id}`}
-                            className="flex items-center gap-1 text-vibe-electric hover:text-vibe-cyan transition-colors"
+                            className="flex items-center gap-1 text-vibe-link hover:text-vibe-link transition-colors"
                         >
                             Read <ArrowRight className="w-4 h-4" />
                         </Link>
@@ -218,7 +218,7 @@ export default function NewsletterPage() {
                                     className="text-center"
                                 >
                                     <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-vibe-electric/10 mb-2">
-                                        <Icon className="w-5 h-5 text-vibe-electric" />
+                                        <Icon className="w-5 h-5 text-vibe-link" />
                                     </div>
                                     <div className="text-2xl font-bold text-foreground">{stat.value}</div>
                                     <div className="text-xs text-muted-foreground">{stat.label}</div>
@@ -271,7 +271,7 @@ export default function NewsletterPage() {
                                     <Card className="text-center h-full">
                                         <CardContent className="p-6">
                                             <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-vibe-electric/10 mb-4">
-                                                <Icon className="w-6 h-6 text-vibe-electric" />
+                                                <Icon className="w-6 h-6 text-vibe-link" />
                                             </div>
                                             <h3 className="font-bold text-lg mb-2">{item.title}</h3>
                                             <p className="text-muted-foreground text-sm">{item.description}</p>

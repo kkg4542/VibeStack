@@ -124,7 +124,7 @@ export function ExitIntentPopup({ toolSlug, toolName }: ExitIntentPopupProps) {
                   <>
                     <div className="text-center mb-6">
                       <div className="w-16 h-16 rounded-full bg-vibe-electric/10 flex items-center justify-center mx-auto mb-4">
-                        <Gift className="w-8 h-8 text-vibe-electric" />
+                        <Gift className="w-8 h-8 text-vibe-link" />
                       </div>
                       <h3 className="text-2xl font-bold mb-2">
                         Wait! Don&apos;t Miss Out

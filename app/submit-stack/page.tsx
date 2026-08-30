@@ -94,7 +94,7 @@ export default function SubmitStackPage() {
                     animate={{ opacity: 1, y: 0 }}
                     className="mb-8 text-center"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-electric text-sm font-medium mb-6">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-link text-sm font-medium mb-6">
                         <Sparkles className="w-4 h-4" />
                         <span>Community Contributions</span>
                     </div>

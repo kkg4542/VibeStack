@@ -36,19 +36,19 @@ export function PricingSection({ handleCheckout, loading }: PricingSectionProps)
                             </div>
                             <ul className="space-y-3 mb-8">
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
                                     <span>Category page sidebar placement</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
                                     <span>Estimated 3–8k monthly impressions</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
                                     <span>Click and conversion summary</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
                                     <span>One copy or image update included</span>
                                 </li>
                             </ul>
@@ -83,19 +83,19 @@ export function PricingSection({ handleCheckout, loading }: PricingSectionProps)
                             </div>
                             <ul className="space-y-3 mb-8">
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
                                     <span>Home hero placement</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
                                     <span>Priority visibility for new visitors</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
                                     <span>&quot;Featured&quot; badge on listing</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
                                     <span>Monthly performance report</span>
                                 </li>
                             </ul>
@@ -126,19 +126,19 @@ export function PricingSection({ handleCheckout, loading }: PricingSectionProps)
                             </div>
                             <ul className="space-y-3 mb-8">
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
                                     <span>Featured in our weekly newsletter</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
                                     <span>One exclusive slot per month (first week preferred)</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
                                     <span>Copy approval 3 days before send</span>
                                 </li>
                                 <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
+                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
                                     <span>Full click analytics within 48 hours</span>
                                 </li>
                             </ul>

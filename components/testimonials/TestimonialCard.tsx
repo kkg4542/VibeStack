@@ -54,7 +54,7 @@ export function TestimonialCard({ testimonial, index }: TestimonialCardProps) {
         >
             <Card className="h-full border-border/50 hover:border-vibe-electric/30 hover:shadow-lg hover:shadow-vibe-electric/5 transition-all duration-300 relative overflow-hidden group">
                 <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
-                    <Quote className="w-12 h-12 text-vibe-electric rotate-180" />
+                    <Quote className="w-12 h-12 text-vibe-link rotate-180" />
                 </div>
 
                 <CardContent className="p-6 flex flex-col h-full">
@@ -62,7 +62,7 @@ export function TestimonialCard({ testimonial, index }: TestimonialCardProps) {
                     <div className="flex items-start gap-4 mb-4">
                         <Avatar className="w-12 h-12 border-2 border-background ring-2 ring-border/50">
                             <AvatarImage src={testimonial.user.avatar || undefined} alt={testimonial.user.name || "User"} />
-                            <AvatarFallback className="bg-vibe-electric/10 text-vibe-electric font-semibold">
+                            <AvatarFallback className="bg-vibe-electric/10 text-vibe-link font-semibold">
                                 {testimonial.user.name?.charAt(0)}
                             </AvatarFallback>
                         </Avatar>

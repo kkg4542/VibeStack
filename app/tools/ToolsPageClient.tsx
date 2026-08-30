@@ -108,7 +108,7 @@ export default function ToolsPage() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5, delay: 0.1 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-electric text-sm font-medium mb-6 backdrop-blur-sm"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-link text-sm font-medium mb-6 backdrop-blur-sm"
                     >
                         <Sparkles className="w-4 h-4" />
                         <span>{totalTools} tools, vetted for real work</span>
@@ -250,14 +250,14 @@ export default function ToolsPage() {
                                         <div className="p-6 flex flex-col h-full">
                                             <div className="flex items-start justify-between mb-4">
                                                 <div>
-                                                    <h3 className="text-lg font-semibold text-foreground mb-1 group-hover:text-vibe-electric transition-colors">
+                                                    <h3 className="text-lg font-semibold text-foreground mb-1 group-hover:text-vibe-link transition-colors">
                                                         {stack.name}
                                                     </h3>
                                                     <p className="text-sm text-muted-foreground line-clamp-2">
                                                         {"summary" in stack ? stack.summary : (stack.description ?? "A curated stack for faster outcomes.")}
                                                     </p>
                                                 </div>
-                                                <div className="p-2 rounded-full bg-vibe-electric/10 text-vibe-electric">
+                                                <div className="p-2 rounded-full bg-vibe-electric/10 text-vibe-link">
                                                     <Layers className="w-5 h-5" />
                                                 </div>
                                             </div>
@@ -284,7 +284,7 @@ export default function ToolsPage() {
                                                             </div>
                                                         )}
                                                     </div>
-                                                    <div className="flex items-center gap-1 text-xs text-vibe-electric font-medium">
+                                                    <div className="flex items-center gap-1 text-xs text-vibe-link font-medium">
                                                         View Stack
                                                         <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
                                                     </div>

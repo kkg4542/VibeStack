@@ -57,9 +57,9 @@ export function WhyStacksMatter() {
               <Card className="text-center h-full">
                 <CardContent className="p-8">
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-vibe-electric/10 mb-6">
-                    <Icon className="w-8 h-8 text-vibe-electric" />
+                    <Icon className="w-8 h-8 text-vibe-link" />
                   </div>
-                  <div className="text-3xl font-bold text-vibe-electric mb-1">{item.stat}</div>
+                  <div className="text-3xl font-bold text-vibe-link mb-1">{item.stat}</div>
                   <div className="text-sm text-muted-foreground mb-4">{item.statLabel}</div>
                   <h3 className="text-xl font-bold mb-2">{item.title}</h3>
                   <p className="text-muted-foreground">{item.description}</p>

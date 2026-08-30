@@ -23,7 +23,7 @@ export default function PrivacyPage() {
             <div className="prose prose-zinc dark:prose-invert max-w-none prose-lg prose-headings:text-foreground prose-p:text-muted-foreground prose-li:text-muted-foreground selection:bg-vibe-electric/20">
                 <section className="mb-12">
                     <h2 className="flex items-center gap-2">
-                        <span className="text-vibe-electric">01.</span> Introduction / 개요
+                        <span className="text-vibe-link">01.</span> Introduction / 개요
                     </h2>
                     <p>
                         Welcome to VibeStack (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). We respect your privacy and are committed to protecting your personal data.
@@ -38,7 +38,7 @@ export default function PrivacyPage() {
 
                 <section className="mb-12">
                     <h2 className="flex items-center gap-2">
-                        <span className="text-vibe-electric">02.</span> Data We Collect / 수집하는 정보
+                        <span className="text-vibe-link">02.</span> Data We Collect / 수집하는 정보
                     </h2>
                     <p>We collect information to provide better services to all our users. The types of personal data we collect include:</p>
                     <ul>
@@ -55,7 +55,7 @@ export default function PrivacyPage() {
 
                 <section className="mb-12">
                     <h2 className="flex items-center gap-2">
-                        <span className="text-vibe-electric">03.</span> How We Use Your Data / 정보 활용 목적
+                        <span className="text-vibe-link">03.</span> How We Use Your Data / 정보 활용 목적
                     </h2>
                     <p>We process your personal data for the following purposes:</p>
                     <ul>
@@ -71,7 +71,7 @@ export default function PrivacyPage() {
 
                 <section className="mb-12">
                     <h2 className="flex items-center gap-2">
-                        <span className="text-vibe-electric">04.</span> Cookies and Tracking / 쿠키 및 추적 기술
+                        <span className="text-vibe-link">04.</span> Cookies and Tracking / 쿠키 및 추적 기술
                     </h2>
                     <p>
                         We use cookies and similar tracking technologies to track the activity on our service and hold certain information. 
@@ -85,7 +85,7 @@ export default function PrivacyPage() {
 
                 <section className="mb-12">
                     <h2 className="flex items-center gap-2">
-                        <span className="text-vibe-electric">05.</span> Third-Party Services / 제3자 서비스 제공
+                        <span className="text-vibe-link">05.</span> Third-Party Services / 제3자 서비스 제공
                     </h2>
                     <p>We share certain data with trusted third-party service providers to facilitate our services:</p>
                     <ul>
@@ -101,7 +101,7 @@ export default function PrivacyPage() {
 
                 <section className="mb-12">
                     <h2 className="flex items-center gap-2">
-                        <span className="text-vibe-electric">06.</span> Your Rights / 이용자의 권리
+                        <span className="text-vibe-link">06.</span> Your Rights / 이용자의 권리
                     </h2>
                     <p>Depending on your location, you may have the following rights regarding your personal data:</p>
                     <ul>
@@ -116,12 +116,12 @@ export default function PrivacyPage() {
 
                 <section className="mb-12">
                     <h2 className="flex items-center gap-2">
-                        <span className="text-vibe-electric">07.</span> Contact Us / 문의처
+                        <span className="text-vibe-link">07.</span> Contact Us / 문의처
                     </h2>
                     <p>If you have any questions about this privacy policy, please contact us at:</p>
                     <div className="p-6 rounded-2xl bg-secondary/30 border border-border">
                         <p className="font-bold text-foreground m-0">VibeStack Support Team</p>
-                        <p className="m-0 text-vibe-electric">hello@usevibestack.com</p>
+                        <p className="m-0 text-vibe-link">hello@usevibestack.com</p>
                     </div>
                 </section>
             </div>

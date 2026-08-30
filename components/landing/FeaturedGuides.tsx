@@ -54,7 +54,7 @@ export function FeaturedGuides() {
     return (
         <Section spacing="large" className="relative overflow-hidden">
             <div className="text-center max-w-3xl mx-auto mb-16">
-                <span className="inline-flex items-center rounded-full border border-vibe-electric/20 bg-vibe-electric/5 px-3 py-1 text-xs font-medium text-vibe-electric mb-4">
+                <span className="inline-flex items-center rounded-full border border-vibe-electric/20 bg-vibe-electric/5 px-3 py-1 text-xs font-medium text-vibe-link mb-4">
                     <BookOpen className="mr-2 h-3 w-3" />
                     Guides &amp; Comparisons
                 </span>
@@ -86,10 +86,10 @@ export function FeaturedGuides() {
                             }}
                         />
                         <div>
-                            <span className="text-xs font-medium uppercase tracking-wide text-vibe-electric">
+                            <span className="text-xs font-medium uppercase tracking-wide text-vibe-link">
                                 Start here
                             </span>
-                            <h3 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-bold text-foreground group-hover:text-vibe-electric transition-colors text-balance">
+                            <h3 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-bold text-foreground group-hover:text-vibe-link transition-colors text-balance">
                                 {featured.title}
                             </h3>
                             <p className="mt-4 max-w-xl text-muted-foreground">{featured.excerpt}</p>
@@ -105,7 +105,7 @@ export function FeaturedGuides() {
                                                 key={heading}
                                                 className="flex items-start gap-2.5 text-sm text-foreground/80"
                                             >
-                                                <Check className="mt-0.5 h-4 w-4 shrink-0 text-vibe-electric/70" />
+                                                <Check className="mt-0.5 h-4 w-4 shrink-0 text-vibe-link/70" />
                                                 <span className="line-clamp-2">{heading}</span>
                                             </li>
                                         ))}
@@ -138,7 +138,7 @@ export function FeaturedGuides() {
                             </span>
                             <span>•</span>
                             <span>Updated {featured.updated ?? featured.date}</span>
-                            <ArrowRight className="ml-auto h-4 w-4 text-muted-foreground/60 group-hover:text-vibe-electric transition-colors" />
+                            <ArrowRight className="ml-auto h-4 w-4 text-muted-foreground/60 group-hover:text-vibe-link transition-colors" />
                         </div>
                     </Link>
                 )}
@@ -153,7 +153,7 @@ export function FeaturedGuides() {
                                 <span className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
                                     {post.category}
                                 </span>
-                                <span className="mt-1 font-semibold text-foreground group-hover:text-vibe-electric transition-colors">
+                                <span className="mt-1 font-semibold text-foreground group-hover:text-vibe-link transition-colors">
                                     {post.title}
                                 </span>
                                 <span className="mt-1 text-xs text-muted-foreground">{post.readTime}</span>
@@ -166,7 +166,7 @@ export function FeaturedGuides() {
             <div className="mt-12 text-center">
                 <Link
                     href="/blog"
-                    className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-vibe-electric transition-colors"
+                    className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-vibe-link transition-colors"
                 >
                     View all guides
                     <ArrowRight className="ml-2 h-4 w-4" />

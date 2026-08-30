@@ -46,7 +46,7 @@ export function ToolHero({ tool }: { tool: any }) {
                                     <Badge variant="outline" className="text-muted-foreground border-border/30 bg-muted backdrop-blur-sm">
                                         {tool.category}
                                     </Badge>
-                                    <Badge className="bg-vibe-electric/10 text-vibe-electric hover:bg-vibe-electric/20 border-vibe-electric/20">
+                                    <Badge className="bg-vibe-electric/10 text-vibe-link hover:bg-vibe-electric/20 border-vibe-electric/20">
                                         {tool.pricing}
                                     </Badge>
                                     <Badge className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20">

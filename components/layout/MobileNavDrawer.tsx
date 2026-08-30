@@ -187,7 +187,7 @@ export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
                                                         <div className={`p-2 rounded-lg bg-linear-to-br ${link.color}`}>
                                                             <Icon className="h-4 w-4 text-white" />
                                                         </div>
-                                                        <span className={`text-sm font-medium ${isActive ? 'text-vibe-electric' : ''}`}>
+                                                        <span className={`text-sm font-medium ${isActive ? 'text-vibe-link' : ''}`}>
                                                             {link.label}
                                                         </span>
                                                     </CardContent>
@@ -282,7 +282,7 @@ export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
                                         >
                                             <Badge
                                                 variant="secondary"
-                                                className="cursor-pointer hover:bg-vibe-electric/10 hover:text-vibe-electric transition-colors"
+                                                className="cursor-pointer hover:bg-vibe-electric/10 hover:text-vibe-link transition-colors"
                                             >
                                                 {tag}
                                             </Badge>

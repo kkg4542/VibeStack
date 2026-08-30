@@ -136,7 +136,7 @@ export default function SubmitToolPage() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5, delay: 0.1 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-electric text-sm font-medium mb-6"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-link text-sm font-medium mb-6"
                     >
                         <Upload className="w-4 h-4" />
                         <span>For Tool Creators</span>
@@ -244,7 +244,7 @@ export default function SubmitToolPage() {
                         <CardHeader>
                             <CardTitle>Tool Information</CardTitle>
                             <CardDescription>
-                                Tell us about your AI tool. Selected tier: <strong className="text-vibe-electric">
+                                Tell us about your AI tool. Selected tier: <strong className="text-vibe-link">
                                     {pricingPlans.find(p => p.id === selectedPlan)?.name}
                                 </strong>
                             </CardDescription>
@@ -407,7 +407,7 @@ export default function SubmitToolPage() {
                                         <CardContent className="p-6">
                                             <div className="flex items-start gap-4">
                                             <div className="p-3 rounded-xl bg-vibe-electric/10">
-                                                <Icon className="w-6 h-6 text-vibe-electric" />
+                                                <Icon className="w-6 h-6 text-vibe-link" />
                                             </div>
                                                 <div className="flex-1">
                                                     <div className="flex items-center gap-2 mb-1">

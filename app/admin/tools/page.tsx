@@ -55,7 +55,7 @@ export default async function AdminToolsPage() {
                   <td className="px-4 py-3">{tool.pricing}</td>
                   <td className="px-4 py-3">
                     {tool.tier && tool.tier !== "free" ? (
-                      <Badge variant="secondary" className="bg-vibe-electric/10 text-vibe-electric">
+                      <Badge variant="secondary" className="bg-vibe-electric/10 text-vibe-link">
                         {tool.tier}
                       </Badge>
                     ) : (

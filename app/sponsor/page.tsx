@@ -115,7 +115,7 @@ export default function SponsorPage() {
         <section className="text-center mb-20">
           <Badge
             variant="outline"
-            className="mb-4 border-vibe-electric/30 bg-vibe-electric/10 text-vibe-electric"
+            className="mb-4 border-vibe-electric/30 bg-vibe-electric/10 text-vibe-link"
           >
             <Rocket className="mr-2 h-3 w-3" />
             Sponsor VibeStack
@@ -166,7 +166,7 @@ export default function SponsorPage() {
                   className="rounded-2xl border border-border bg-card p-6"
                 >
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-vibe-electric/10 border border-vibe-electric/20 mb-4">
-                    <Icon className="h-6 w-6 text-vibe-electric" />
+                    <Icon className="h-6 w-6 text-vibe-link" />
                   </div>
                   <h3 className="font-bold mb-2">{a.title}</h3>
                   <p className="text-sm text-muted-foreground">{a.body}</p>
@@ -178,7 +178,7 @@ export default function SponsorPage() {
             Want current traffic numbers, demographics, and referrer breakdown?{" "}
             <Link
               href={`mailto:${SPONSOR_EMAIL}?subject=VibeStack%20Media%20Kit%20Request`}
-              className="text-vibe-electric hover:underline"
+              className="text-vibe-link hover:underline"
             >
               Request the media kit
             </Link>{" "}
@@ -228,7 +228,7 @@ export default function SponsorPage() {
                 <ul className="flex-1 space-y-2.5 mb-6">
                   {p.features.map((f) => (
                     <li key={f} className="flex items-start gap-2 text-sm">
-                      <Check className="h-4 w-4 text-vibe-electric mt-0.5 shrink-0" />
+                      <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
                       <span>{f}</span>
                     </li>
                   ))}
@@ -269,7 +269,7 @@ export default function SponsorPage() {
               return (
                 <div key={w.title} className="text-center px-4">
                   <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-vibe-electric/10 border border-vibe-electric/20 mb-4">
-                    <Icon className="h-6 w-6 text-vibe-electric" />
+                    <Icon className="h-6 w-6 text-vibe-link" />
                   </div>
                   <h3 className="font-bold mb-2">{w.title}</h3>
                   <p className="text-sm text-muted-foreground">{w.body}</p>

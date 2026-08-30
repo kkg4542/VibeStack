@@ -393,7 +393,7 @@ export default async function ComparisonSlugPage({ params }: Props) {
                             <Card key={tool.slug} className="border-border/50 bg-card/60">
                                 <CardContent className="p-6">
                                     <h3 className="font-semibold text-lg mb-4">
-                                        Choose <span className="text-vibe-electric">{tool.title}</span> if…
+                                        Choose <span className="text-vibe-link">{tool.title}</span> if…
                                     </h3>
                                     <ul className="space-y-3">
                                         {(tool.pros ?? []).slice(0, 4).map((p) => (

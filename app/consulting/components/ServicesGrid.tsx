@@ -26,15 +26,15 @@ export function ServicesGrid() {
                             <p className="mb-6 text-muted-foreground">Top-of-home placement with a Featured badge and priority visibility for new visitors.</p>
                             <ul className="space-y-3">
                                 <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-vibe-electric" />
+                                    <Check className="mr-3 h-4 w-4 text-vibe-link" />
                                     Top of homepage placement
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-vibe-electric" />
+                                    <Check className="mr-3 h-4 w-4 text-vibe-link" />
                                     &quot;Featured&quot; badge on listing
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-vibe-electric" />
+                                    <Check className="mr-3 h-4 w-4 text-vibe-link" />
                                     Monthly performance report
                                 </li>
                             </ul>
@@ -54,15 +54,15 @@ export function ServicesGrid() {
                             <p className="mb-6 text-muted-foreground">Category-targeted sidebar placement for high-intent visitors exploring tools.</p>
                             <ul className="space-y-3">
                                 <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-vibe-electric" />
+                                    <Check className="mr-3 h-4 w-4 text-vibe-link" />
                                     Category page sidebar placement
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-vibe-electric" />
+                                    <Check className="mr-3 h-4 w-4 text-vibe-link" />
                                     Monthly impressions estimate (initial range)
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-vibe-electric" />
+                                    <Check className="mr-3 h-4 w-4 text-vibe-link" />
                                     Click and conversion summary
                                 </li>
                             </ul>
@@ -82,19 +82,19 @@ export function ServicesGrid() {
                             <p className="mb-6 text-muted-foreground">Exclusive sponsor slot in our monthly newsletter sent to our newsletter subscribers. Send date confirmed 5 days in advance.</p>
                             <ul className="space-y-3">
                                 <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-vibe-electric" />
+                                    <Check className="mr-3 h-4 w-4 text-vibe-link" />
                                     One sponsor per monthly newsletter
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-vibe-electric" />
+                                    <Check className="mr-3 h-4 w-4 text-vibe-link" />
                                     Featured in our weekly newsletter
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-vibe-electric" />
+                                    <Check className="mr-3 h-4 w-4 text-vibe-link" />
                                     60-120 character ad copy (we review for clarity)
                                 </li>
                                 <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-vibe-electric" />
+                                    <Check className="mr-3 h-4 w-4 text-vibe-link" />
                                     Click and conversion tracking included
                                 </li>
                             </ul>

@@ -23,7 +23,7 @@ export function AdoptionTrendChart({ adoptionTrend }: AdoptionTrendChartProps) {
         <div className="flex items-center justify-between mb-6">
           <div>
             <h4 className="text-lg font-semibold flex items-center gap-2">
-              <Users className="w-5 h-5 text-vibe-electric" />
+              <Users className="w-5 h-5 text-vibe-link" />
               Adoption Trend
             </h4>
             <p className="text-sm text-muted-foreground">

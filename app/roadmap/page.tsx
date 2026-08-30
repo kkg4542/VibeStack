@@ -156,7 +156,7 @@ function StatusBadge({ status }: { status: string }) {
 
 function ChangeTypeBadge({ type }: { type: string }) {
     const styles = {
-        feature: "bg-vibe-electric/10 text-vibe-electric dark:text-vibe-electric",
+        feature: "bg-vibe-electric/10 text-vibe-link",
         improvement: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
         fix: "bg-amber-500/10 text-amber-600 dark:text-amber-400"
     };
@@ -179,7 +179,7 @@ export default function RoadmapPage() {
                     transition={designSystem.animations.fadeInUp.transition}
                     className="text-center mb-16"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-electric text-sm font-medium mb-6">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-link text-sm font-medium mb-6">
                         <MapPin className="w-4 h-4" />
                         <span>Roadmap & Updates</span>
                     </div>
@@ -205,7 +205,7 @@ export default function RoadmapPage() {
                     className="mb-20"
                 >
                     <div className="flex items-center gap-3 mb-8">
-                        <Rocket className="w-6 h-6 text-vibe-electric" />
+                        <Rocket className="w-6 h-6 text-vibe-link" />
                         <h2 className="text-2xl font-bold">Product Roadmap</h2>
                     </div>
 
@@ -279,7 +279,7 @@ export default function RoadmapPage() {
                     className="mb-20"
                 >
                     <div className="flex items-center gap-3 mb-8">
-                        <Sparkles className="w-6 h-6 text-vibe-electric" />
+                        <Sparkles className="w-6 h-6 text-vibe-link" />
                         <h2 className="text-2xl font-bold">Changelog</h2>
                     </div>
 
@@ -299,7 +299,7 @@ export default function RoadmapPage() {
                                                 <p className="text-sm text-muted-foreground">{release.date}</p>
                                             </div>
                                             {index === 0 && (
-                                                <Badge className="bg-vibe-electric/10 text-vibe-electric dark:text-vibe-electric border-vibe-electric/20">
+                                                <Badge className="bg-vibe-electric/10 text-vibe-link border-vibe-electric/20">
                                                     Latest
                                                 </Badge>
                                             )}
@@ -329,7 +329,7 @@ export default function RoadmapPage() {
                 >
                     <Card className="border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-vibe-purple/5">
                         <CardContent className="p-8">
-                            <Zap className="w-12 h-12 text-vibe-electric mx-auto mb-4" />
+                            <Zap className="w-12 h-12 text-vibe-link mx-auto mb-4" />
                             <h3 className="text-xl font-bold mb-2">Have a feature idea?</h3>
                             <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
                                 We&apos;re building VibeStack for you. Share your ideas and help shape the future of the platform.

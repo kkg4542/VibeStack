@@ -29,7 +29,7 @@ export function StackInsights({ insights }: StackInsightsProps) {
         viewport={{ once: true }}
         transition={fadeInUp.transition}
       >
-        <Badge variant="outline" className="mb-2 border-vibe-electric/30 text-vibe-electric">
+        <Badge variant="outline" className="mb-2 border-vibe-electric/30 text-vibe-link">
           <Sparkles className="mr-2 h-3 w-3" />
           Real Impact Data
         </Badge>
@@ -59,7 +59,7 @@ export function StackInsights({ insights }: StackInsightsProps) {
           icon={<TrendingUp className="w-5 h-5" />}
           label="Productivity Boost"
           value={`${insights.productivityBoost}x`}
-          color="text-vibe-electric"
+          color="text-vibe-link"
           delay={0.2}
         />
       </div>
@@ -77,7 +77,7 @@ export function StackInsights({ insights }: StackInsightsProps) {
         >
           <VibeCard className="p-6" tiltStrength={5}>
             <h4 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <BarChart3 className="w-5 h-5 text-vibe-electric" />
+              <BarChart3 className="w-5 h-5 text-vibe-link" />
               Tool Popularity
             </h4>
             <div className="space-y-3">

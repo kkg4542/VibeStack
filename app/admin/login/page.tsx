@@ -19,7 +19,7 @@ export default function AdminLoginPage() {
         <form action={formAction}>
           <CardHeader className="space-y-3 text-center pt-8">
             <div className="mx-auto w-12 h-12 rounded-xl bg-vibe-electric/10 flex items-center justify-center border border-vibe-electric/20">
-              <Shield className="w-6 h-6 text-vibe-electric" />
+              <Shield className="w-6 h-6 text-vibe-link" />
             </div>
             <CardTitle className="text-2xl font-bold tracking-tight">VibeStack Admin</CardTitle>
             <CardDescription>

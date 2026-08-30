@@ -32,7 +32,7 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
         >
           <Badge 
             variant="outline" 
-            className="mb-4 border-vibe-electric/30 bg-vibe-electric/5 text-vibe-electric"
+            className="mb-4 border-vibe-electric/30 bg-vibe-electric/5 text-vibe-link"
           >
             <Heart className="mr-2 h-3 w-3" />
             Real User Stories
@@ -79,7 +79,7 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
                       ))}
                     </div>
                     {testimonial.user.verified && (
-                      <Badge variant="secondary" className="text-xs bg-vibe-electric/10 text-vibe-electric border-vibe-electric/20">
+                      <Badge variant="secondary" className="text-xs bg-vibe-electric/10 text-vibe-link border-vibe-electric/20">
                         <Twitter className="mr-1 h-3 w-3" />
                         Verified
                       </Badge>
@@ -96,9 +96,9 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
                     <div className="grid grid-cols-3 gap-2 mb-6 p-3 bg-foreground/5 rounded-lg">
                       {testimonial.metrics.productivityGain && (
                         <div className="text-center">
-                          <TrendingUp className="w-4 h-4 mx-auto mb-1 text-vibe-electric" />
+                          <TrendingUp className="w-4 h-4 mx-auto mb-1 text-vibe-link" />
                           <div className="text-xs text-muted-foreground">Productivity</div>
-                          <div className="text-sm font-bold text-vibe-electric">
+                          <div className="text-sm font-bold text-vibe-link">
                             {testimonial.metrics.productivityGain}
                           </div>
                         </div>
@@ -139,7 +139,7 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
                       <div className="text-sm text-muted-foreground truncate">
                         {testimonial.user.role} at {testimonial.user.company}
                       </div>
-                      <div className="text-xs text-vibe-electric/70">
+                      <div className="text-xs text-vibe-link/70">
                         {testimonial.user.handle}
                       </div>
                     </div>
@@ -183,7 +183,7 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
         >
           <a 
             href="/testimonials" 
-            className="text-vibe-electric hover:text-vibe-cyan transition-colors inline-flex items-center gap-2"
+            className="text-vibe-link hover:text-vibe-link transition-colors inline-flex items-center gap-2"
           >
             View all testimonials
             <TrendingUp className="w-4 h-4" />
