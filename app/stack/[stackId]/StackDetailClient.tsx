@@ -113,7 +113,7 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                                     <div className="flex flex-wrap gap-6 mb-8">
                                         <div className="flex items-center gap-2 text-sm">
                                             <div className="p-2 rounded-lg bg-emerald-500/10">
-                                                <DollarSign className="h-4 w-4 text-emerald-500" />
+                                                <DollarSign className="h-4 w-4 text-emerald-700 dark:text-emerald-500" />
                                             </div>
                                             <div>
                                                 <div className="font-bold text-foreground">{stack.totalPrice}</div>
@@ -122,7 +122,7 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                                         </div>
                                         <div className="flex items-center gap-2 text-sm">
                                             <div className="p-2 rounded-lg bg-blue-500/10">
-                                                <Target className="h-4 w-4 text-blue-500" />
+                                                <Target className="h-4 w-4 text-blue-700 dark:text-blue-500" />
                                             </div>
                                             <div>
                                                 <div className="font-bold text-foreground">{stackTools.length}</div>
@@ -131,7 +131,7 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                                         </div>
                                         <div className="flex items-center gap-2 text-sm">
                                             <div className="p-2 rounded-lg bg-violet-500/10">
-                                                <TrendingUp className="h-4 w-4 text-violet-500" />
+                                                <TrendingUp className="h-4 w-4 text-violet-700 dark:text-violet-500" />
                                             </div>
                                             <div>
                                                 <div className="font-bold text-foreground">{stack.workflow.length}</div>
@@ -224,7 +224,7 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                         >
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="p-2 rounded-lg bg-violet-500/10">
-                                    <Zap className="h-5 w-5 text-violet-500" />
+                                    <Zap className="h-5 w-5 text-violet-700 dark:text-violet-500" />
                                 </div>
                                 <h2 className="text-2xl font-semibold">How It Works</h2>
                             </div>
@@ -264,7 +264,7 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                         >
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="p-2 rounded-lg bg-amber-500/10">
-                                    <Star className="h-5 w-5 text-amber-500" />
+                                    <Star className="h-5 w-5 text-amber-700 dark:text-amber-500" />
                                 </div>
                                 <h2 className="text-2xl font-semibold">Tools Included ({stackTools.length})</h2>
                             </div>
@@ -317,7 +317,7 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                         >
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="p-2 rounded-lg bg-emerald-500/10">
-                                    <Users className="h-5 w-5 text-emerald-500" />
+                                    <Users className="h-5 w-5 text-emerald-700 dark:text-emerald-500" />
                                 </div>
                                 <h2 className="text-2xl font-semibold">Ideal For</h2>
                             </div>
@@ -331,7 +331,7 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                                         transition={{ duration: 0.3, delay: index * 0.05 }}
                                     >
                                         <Badge variant="outline" className="text-sm py-2.5 px-5 border-border/50 hover:border-emerald-500/50 hover:bg-emerald-500/5 transition-colors cursor-default">
-                                            <CheckCircle2 className="h-3.5 w-3.5 mr-2 text-emerald-500" />
+                                            <CheckCircle2 className="h-3.5 w-3.5 mr-2 text-emerald-700 dark:text-emerald-500" />
                                             {item}
                                         </Badge>
                                     </m.div>

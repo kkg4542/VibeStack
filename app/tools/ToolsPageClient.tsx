@@ -135,7 +135,7 @@ export default function ToolsPage() {
                     >
                         <div className="flex items-center gap-2 text-sm">
                             <div className="p-2 rounded-lg bg-emerald-500/10">
-                                <TrendingUp className="w-4 h-4 text-emerald-500" />
+                                <TrendingUp className="w-4 h-4 text-emerald-700 dark:text-emerald-500" />
                             </div>
                             <div className="text-left">
                                 <div className="font-bold text-foreground">{totalTools}+</div>
@@ -144,7 +144,7 @@ export default function ToolsPage() {
                         </div>
                         <div className="flex items-center gap-2 text-sm">
                             <div className="p-2 rounded-lg bg-blue-500/10">
-                                <Target className="w-4 h-4 text-blue-500" />
+                                <Target className="w-4 h-4 text-blue-700 dark:text-blue-500" />
                             </div>
                             <div className="text-left">
                                 <div className="font-bold text-foreground">{categoriesCount}</div>
@@ -153,7 +153,7 @@ export default function ToolsPage() {
                         </div>
                         <div className="flex items-center gap-2 text-sm">
                             <div className="p-2 rounded-lg bg-violet-500/10">
-                                <Zap className="w-4 h-4 text-violet-500" />
+                                <Zap className="w-4 h-4 text-violet-700 dark:text-violet-500" />
                             </div>
                             <div className="text-left">
                                 <div className="font-bold text-foreground">{freeToolsCount}</div>
@@ -171,7 +171,7 @@ export default function ToolsPage() {
                     >
                         <div className="rounded-2xl border border-border/40 bg-card backdrop-blur-sm p-6">
                             <div className="flex items-center gap-2 mb-3 text-sm text-foreground/80">
-                                <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                                <ShieldCheck className="w-4 h-4 text-emerald-700 dark:text-emerald-500" />
                                 Real-use validation
                             </div>
                             <p className="text-sm text-muted-foreground">
@@ -180,7 +180,7 @@ export default function ToolsPage() {
                         </div>
                         <div className="rounded-2xl border border-border/40 bg-card backdrop-blur-sm p-6">
                             <div className="flex items-center gap-2 mb-3 text-sm text-foreground/80">
-                                <RefreshCw className="w-4 h-4 text-blue-500" />
+                                <RefreshCw className="w-4 h-4 text-blue-700 dark:text-blue-500" />
                                 Monthly rechecks
                             </div>
                             <p className="text-sm text-muted-foreground">
@@ -189,7 +189,7 @@ export default function ToolsPage() {
                         </div>
                         <div className="rounded-2xl border border-border/40 bg-card backdrop-blur-sm p-6">
                             <div className="flex items-center gap-2 mb-3 text-sm text-foreground/80">
-                                <Layers className="w-4 h-4 text-violet-500" />
+                                <Layers className="w-4 h-4 text-violet-700 dark:text-violet-500" />
                                 Stack compatibility
                             </div>
                             <p className="text-sm text-muted-foreground">

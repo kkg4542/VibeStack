@@ -172,7 +172,7 @@ export default function AboutPage() {
                         <CardContent className="p-8">
                             <div className="flex items-center gap-3 mb-4">
                                 <div className="p-3 rounded-xl bg-violet-500/10">
-                                    <Rocket className="h-6 w-6 text-violet-500" />
+                                    <Rocket className="h-6 w-6 text-violet-700 dark:text-violet-500" />
                                 </div>
                                 <h2 className="text-2xl font-bold">Our Vision</h2>
                             </div>
@@ -237,7 +237,7 @@ export default function AboutPage() {
                         <Card className="border-border/50 bg-secondary/20 hover:bg-secondary/40 transition-colors">
                             <CardContent className="p-6">
                                 <div className="p-3 rounded-xl bg-emerald-500/10 w-fit mb-4">
-                                    <ShieldCheck className="h-6 w-6 text-emerald-500" />
+                                    <ShieldCheck className="h-6 w-6 text-emerald-700 dark:text-emerald-500" />
                                 </div>
                                 <h3 className="text-xl font-semibold mb-2">Real-use Validation</h3>
                                 <p className="text-muted-foreground">
@@ -249,7 +249,7 @@ export default function AboutPage() {
                         <Card className="border-border/50 bg-secondary/20 hover:bg-secondary/40 transition-colors">
                             <CardContent className="p-6">
                                 <div className="p-3 rounded-xl bg-blue-500/10 w-fit mb-4">
-                                    <RefreshCw className="h-6 w-6 text-blue-500" />
+                                    <RefreshCw className="h-6 w-6 text-blue-700 dark:text-blue-500" />
                                 </div>
                                 <h3 className="text-xl font-semibold mb-2">Monthly Rechecks</h3>
                                 <p className="text-muted-foreground">
@@ -261,7 +261,7 @@ export default function AboutPage() {
                         <Card className="border-border/50 bg-secondary/20 hover:bg-secondary/40 transition-colors">
                             <CardContent className="p-6">
                                 <div className="p-3 rounded-xl bg-violet-500/10 w-fit mb-4">
-                                    <Layers className="h-6 w-6 text-violet-500" />
+                                    <Layers className="h-6 w-6 text-violet-700 dark:text-violet-500" />
                                 </div>
                                 <h3 className="text-xl font-semibold mb-2">Stack Compatibility</h3>
                                 <p className="text-muted-foreground">

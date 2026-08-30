@@ -30,7 +30,7 @@ export function ReviewItem({ review }: ReviewItemProps) {
                         </p>
                     </div>
                 </div>
-                <div className="flex text-yellow-500">
+                <div className="flex text-yellow-700 dark:text-yellow-500" role="img" aria-label={`${review.rating} out of 5 stars`}>
                     {[...Array(5)].map((_, i) => (
                         <Star
                             key={i}

@@ -138,7 +138,7 @@ export function CategoryPageClient({ category, tools: categoryTools }: CategoryP
                     >
                         <div className="flex items-center gap-2 text-sm">
                             <div className="p-2 rounded-lg bg-blue-500/10">
-                                <TrendingUp className="w-4 h-4 text-blue-500" />
+                                <TrendingUp className="w-4 h-4 text-blue-700 dark:text-blue-500" />
                             </div>
                             <div className="text-left">
                                 <div className="font-bold text-foreground">{categoryTools.length}</div>
@@ -147,7 +147,7 @@ export function CategoryPageClient({ category, tools: categoryTools }: CategoryP
                         </div>
                         <div className="flex items-center gap-2 text-sm">
                             <div className="p-2 rounded-lg bg-emerald-500/10">
-                                <Zap className="w-4 h-4 text-emerald-500" />
+                                <Zap className="w-4 h-4 text-emerald-700 dark:text-emerald-500" />
                             </div>
                             <div className="text-left">
                                 <div className="font-bold text-foreground">{freeCount}</div>

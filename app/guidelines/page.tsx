@@ -60,7 +60,7 @@ export default function ContentGuidelinesPage() {
                                         </div>
                                     </div>
                                     <div className="flex items-start gap-3">
-                                        <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+                                        <AlertTriangle className="w-5 h-5 text-amber-700 dark:text-amber-500 shrink-0 mt-0.5" />
                                         <div className="text-sm text-muted-foreground">
                                             Do not use pre-rounded images; our UI handles the border radius.
                                         </div>
@@ -94,7 +94,7 @@ export default function ContentGuidelinesPage() {
                     <section>
                         <div className="flex items-center gap-3 mb-4">
                             <div className="p-2 bg-pink-500/10 rounded-lg">
-                                <FileText className="w-5 h-5 text-pink-500" />
+                                <FileText className="w-5 h-5 text-pink-700 dark:text-pink-500" />
                             </div>
                             <h2 className="text-2xl font-semibold">2. Text & Descriptions</h2>
                         </div>
@@ -126,7 +126,7 @@ export default function ContentGuidelinesPage() {
                     <section>
                         <div className="flex items-center gap-3 mb-4">
                             <div className="p-2 bg-blue-500/10 rounded-lg">
-                                <Tag className="w-5 h-5 text-blue-500" />
+                                <Tag className="w-5 h-5 text-blue-700 dark:text-blue-500" />
                             </div>
                             <h2 className="text-2xl font-semibold">3. Categories & Tags</h2>
                         </div>

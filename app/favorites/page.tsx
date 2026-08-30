@@ -242,7 +242,7 @@ export default function FavoritesPage() {
                                     variant="outline"
                                     size="sm"
                                     onClick={clearAll}
-                                    className="text-red-500 hover:text-red-600 hover:bg-red-500/10 rounded-full"
+                                    className="text-red-700 dark:text-red-500 hover:text-red-700 hover:bg-red-500/10 rounded-full"
                                 >
                                     <Trash2 className="h-4 w-4 mr-2" />
                                     Clear All
@@ -390,7 +390,7 @@ export default function FavoritesPage() {
                                                                     variant="ghost"
                                                                     size="sm"
                                                                     onClick={() => removeFavorite(item.id, 'tool')}
-                                                                    className="text-muted-foreground hover:text-red-500 shrink-0"
+                                                                    className="text-muted-foreground hover:text-red-700 dark:hover:text-red-500 shrink-0"
                                                                 >
                                                                     <Trash2 className="h-4 w-4" />
                                                                 </Button>
@@ -413,7 +413,7 @@ export default function FavoritesPage() {
                                 transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.1 }}
                             >
                                 <div className="flex items-center gap-3 mb-4">
-                                    <Sparkles className="w-5 h-5 text-violet-500" />
+                                    <Sparkles className="w-5 h-5 text-violet-700 dark:text-violet-500" />
                                     <h2 className="text-xl font-semibold">Stacks ({favoriteStacks.length})</h2>
                                 </div>
 
@@ -437,7 +437,7 @@ export default function FavoritesPage() {
                                                                     {stack.icon}
                                                                 </div>
                                                                 <div className="min-w-0">
-                                                                    <h3 className="font-semibold group-hover:text-violet-500 transition-colors truncate">
+                                                                    <h3 className="font-semibold group-hover:text-violet-700 dark:group-hover:text-violet-500 transition-colors truncate">
                                                                         {stack.name}
                                                                     </h3>
                                                                     <Badge variant="outline" className="text-xs mt-1">
@@ -449,7 +449,7 @@ export default function FavoritesPage() {
                                                                 variant="ghost"
                                                                 size="sm"
                                                                 onClick={() => removeFavorite(item.id, 'stack')}
-                                                                className="text-muted-foreground hover:text-red-500 shrink-0"
+                                                                className="text-muted-foreground hover:text-red-700 dark:hover:text-red-500 shrink-0"
                                                             >
                                                                 <Trash2 className="h-4 w-4" />
                                                             </Button>

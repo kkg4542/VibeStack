@@ -263,7 +263,7 @@ export default function SearchPage() {
                             <div>
                                 <div className="flex items-center gap-2 mb-4">
                                     <div className="p-1.5 rounded-lg bg-violet-500/10">
-                                        <Sparkles className="w-4 h-4 text-violet-500" />
+                                        <Sparkles className="w-4 h-4 text-violet-700 dark:text-violet-500" />
                                     </div>
                                     <h2 className="text-xl font-semibold">
                                         Stacks
@@ -287,7 +287,7 @@ export default function SearchPage() {
                                                             </div>
                                                             <div className="flex-1 min-w-0">
                                                                 <div className="flex items-center gap-2 mb-1">
-                                                                    <h3 className="text-lg font-semibold group-hover:text-violet-500 transition-colors">
+                                                                    <h3 className="text-lg font-semibold group-hover:text-violet-700 dark:group-hover:text-violet-500 transition-colors">
                                                                         {highlightMatch(stack.name)}
                                                                     </h3>
                                                                     <Badge variant="secondary" className="text-xs shrink-0">
@@ -305,7 +305,7 @@ export default function SearchPage() {
                                                                     ))}
                                                                 </div>
                                                             </div>
-                                                            <ArrowRight className="h-5 w-5 text-muted-foreground/30 group-hover:text-violet-500 transition-colors shrink-0 self-center" />
+                                                            <ArrowRight className="h-5 w-5 text-muted-foreground/30 group-hover:text-violet-700 dark:group-hover:text-violet-500 transition-colors shrink-0 self-center" />
                                                         </div>
                                                     </CardContent>
                                                 </Card>

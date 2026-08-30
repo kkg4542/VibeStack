@@ -133,8 +133,8 @@ const changelog = [
 
 function StatusBadge({ status }: { status: string }) {
     const styles = {
-        completed: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
-        "in-progress": "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
+        completed: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20",
+        "in-progress": "bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20",
         planned: "bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20"
     };
 
@@ -157,8 +157,8 @@ function StatusBadge({ status }: { status: string }) {
 function ChangeTypeBadge({ type }: { type: string }) {
     const styles = {
         feature: "bg-vibe-electric/10 text-vibe-link",
-        improvement: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
-        fix: "bg-amber-500/10 text-amber-600 dark:text-amber-400"
+        improvement: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400",
+        fix: "bg-amber-500/10 text-amber-700 dark:text-amber-400"
     };
 
     return (
@@ -251,7 +251,7 @@ export default function RoadmapPage() {
                                                         {item.items.map((listItem, i) => (
                                                             <li key={i} className={`flex items-center gap-2 text-sm ${isLeft ? 'md:flex-row-reverse' : ''}`}>
                                                                 {listItem.completed ? (
-                                                                    <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                                                                    <CheckCircle2 className="w-4 h-4 text-emerald-700 dark:text-emerald-500 flex-shrink-0" />
                                                                 ) : (
                                                                     <Clock className="w-4 h-4 text-muted-foreground flex-shrink-0" />
                                                                 )}

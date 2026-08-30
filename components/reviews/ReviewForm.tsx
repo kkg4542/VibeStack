@@ -84,7 +84,7 @@ export function ReviewForm({ toolSlug }: { toolSlug: string }) {
                         >
                             <Star
                                 className={`w-6 h-6 ${star <= (hoveredRating || rating)
-                                    ? "fill-yellow-500 text-yellow-500"
+                                    ? "fill-yellow-700 text-yellow-700 dark:fill-yellow-500 dark:text-yellow-500"
                                     : "text-muted-foreground/40"
                                     }`}
                             />

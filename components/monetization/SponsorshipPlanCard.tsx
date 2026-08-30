@@ -43,7 +43,7 @@ export function SponsorshipPlanCard({ plan, selectedPlan, setSelectedPlan }: Spo
                 )}>
                     {plan.name}
                 </span>
-                {selectedPlan === plan.name && <Check className={cn("h-5 w-5", plan.isPremium ? "text-primary" : "text-blue-500")} />}
+                {selectedPlan === plan.name && <Check className={cn("h-5 w-5", plan.isPremium ? "text-primary" : "text-blue-700 dark:text-blue-500")} />}
             </div>
 
             <div className="mb-4">
@@ -68,7 +68,7 @@ export function SponsorshipPlanCard({ plan, selectedPlan, setSelectedPlan }: Spo
                             )}>
                                 <Check className={cn(
                                     "h-2.5 w-2.5",
-                                    plan.isPremium ? "text-primary" : "text-blue-400"
+                                    plan.isPremium ? "text-primary" : "text-blue-700 dark:text-blue-400"
                                 )} />
                             </div>
                             <span className="leading-tight">{feature}</span>

@@ -86,7 +86,7 @@ export function SocialShare({ toolSlug, toolName, url }: SocialShareProps) {
         >
           {copied ? (
             <>
-              <Check className="h-4 w-4 text-green-500" />
+              <Check className="h-4 w-4 text-green-700 dark:text-green-500" />
               Copied!
             </>
           ) : (

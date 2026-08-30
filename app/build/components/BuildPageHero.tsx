@@ -53,15 +53,15 @@ export function BuildPageHero({ onStartQuiz }: BuildPageHeroProps) {
 
       <div className="flex justify-center gap-8 mt-12 text-sm text-muted-foreground">
         <div className="flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+          <CheckCircle2 className="w-4 h-4 text-emerald-700 dark:text-emerald-500" />
           <span>Takes 2 minutes</span>
         </div>
         <div className="flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+          <CheckCircle2 className="w-4 h-4 text-emerald-700 dark:text-emerald-500" />
           <span>100% Free</span>
         </div>
         <div className="flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+          <CheckCircle2 className="w-4 h-4 text-emerald-700 dark:text-emerald-500" />
           <span>Personalized Results</span>
         </div>
       </div>

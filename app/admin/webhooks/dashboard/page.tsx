@@ -94,20 +94,20 @@ export default function WebhookDashboard() {
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">Processed</CardTitle>
-                        <CheckCircle2 className="h-4 w-4 text-green-500" />
+                        <CheckCircle2 className="h-4 w-4 text-green-700 dark:text-green-500" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold text-green-600">{stats.summary.processed}</div>
+                        <div className="text-2xl font-bold text-green-700 dark:text-green-400">{stats.summary.processed}</div>
                     </CardContent>
                 </Card>
 
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">Failed</CardTitle>
-                        <XCircle className="h-4 w-4 text-red-500" />
+                        <XCircle className="h-4 w-4 text-red-700 dark:text-red-500" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold text-red-600">{stats.summary.failed}</div>
+                        <div className="text-2xl font-bold text-red-700 dark:text-red-400">{stats.summary.failed}</div>
                     </CardContent>
                 </Card>
 

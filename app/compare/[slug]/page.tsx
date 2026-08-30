@@ -291,7 +291,7 @@ export default async function ComparisonSlugPage({ params }: Props) {
                                     <div className="space-y-6">
                                         <div>
                                             <h3 className="font-semibold mb-3 flex items-center gap-2">
-                                                <Check className="h-4 w-4 text-emerald-500" /> Key Features
+                                                <Check className="h-4 w-4 text-emerald-700 dark:text-emerald-500" /> Key Features
                                             </h3>
                                             <ul className="space-y-2 text-sm text-muted-foreground">
                                                 {tool.features?.slice(0, 5).map(f => (
@@ -350,12 +350,12 @@ export default async function ComparisonSlugPage({ params }: Props) {
                                         <tr>
                                             <td className="py-4 font-medium text-muted-foreground align-top pt-6">Pros</td>
                                             <td className="py-4 px-4 align-top">
-                                                <ul className="space-y-2 text-sm text-emerald-600 dark:text-emerald-400">
+                                                <ul className="space-y-2 text-sm text-emerald-700 dark:text-emerald-400">
                                                     {tool1.pros?.map(p => <li key={p}>+ {p}</li>)}
                                                 </ul>
                                             </td>
                                             <td className="py-4 px-4 align-top">
-                                                <ul className="space-y-2 text-sm text-emerald-600 dark:text-emerald-400">
+                                                <ul className="space-y-2 text-sm text-emerald-700 dark:text-emerald-400">
                                                     {tool2.pros?.map(p => <li key={p}>+ {p}</li>)}
                                                 </ul>
                                             </td>
@@ -363,12 +363,12 @@ export default async function ComparisonSlugPage({ params }: Props) {
                                         <tr>
                                             <td className="py-4 font-medium text-muted-foreground align-top pt-6">Cons</td>
                                             <td className="py-4 px-4 align-top">
-                                                <ul className="space-y-2 text-sm text-rose-600 dark:text-rose-400">
+                                                <ul className="space-y-2 text-sm text-rose-700 dark:text-rose-400">
                                                     {tool1.cons?.map(c => <li key={c}>- {c}</li>)}
                                                 </ul>
                                             </td>
                                             <td className="py-4 px-4 align-top">
-                                                <ul className="space-y-2 text-sm text-rose-600 dark:text-rose-400">
+                                                <ul className="space-y-2 text-sm text-rose-700 dark:text-rose-400">
                                                     {tool2.cons?.map(c => <li key={c}>- {c}</li>)}
                                                 </ul>
                                             </td>
@@ -398,13 +398,13 @@ export default async function ComparisonSlugPage({ params }: Props) {
                                     <ul className="space-y-3">
                                         {(tool.pros ?? []).slice(0, 4).map((p) => (
                                             <li key={p} className="flex items-start gap-2 text-sm text-muted-foreground">
-                                                <Check className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" />
+                                                <Check className="h-4 w-4 text-emerald-700 dark:text-emerald-500 mt-0.5 shrink-0" />
                                                 <span>{p} matters to your workflow</span>
                                             </li>
                                         ))}
                                         {(tool.cons ?? []).slice(0, 1).map((c) => (
                                             <li key={c} className="flex items-start gap-2 text-sm text-muted-foreground">
-                                                <X className="h-4 w-4 text-rose-400 mt-0.5 shrink-0" />
+                                                <X className="h-4 w-4 text-rose-700 dark:text-rose-400 mt-0.5 shrink-0" />
                                                 <span>…and you can live with: {lcFirst(c)}</span>
                                             </li>
                                         ))}

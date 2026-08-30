@@ -114,21 +114,21 @@ export default function ConsultingPage() {
                         <div className="grid gap-8 md:grid-cols-3">
                             <div className="p-6">
                                 <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/10">
-                                    <Shield className="h-6 w-6 text-emerald-500" />
+                                    <Shield className="h-6 w-6 text-emerald-700 dark:text-emerald-500" />
                                 </div>
                                 <h3 className="text-xl font-semibold">High Intent</h3>
                                 <p className="mt-2 text-muted-foreground">Our users are actively looking for tools to adopt, not just browsing.</p>
                             </div>
                             <div className="p-6">
                                 <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-500/10">
-                                    <Rocket className="h-6 w-6 text-blue-500" />
+                                    <Rocket className="h-6 w-6 text-blue-700 dark:text-blue-500" />
                                 </div>
                                 <h3 className="text-xl font-semibold">Developer Focused</h3>
                                 <p className="mt-2 text-muted-foreground">Reach software engineers, founders, and CTOs making purchasing decisions.</p>
                             </div>
                             <div className="p-6">
                                 <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-amber-500/10">
-                                    <Terminal className="h-6 w-6 text-amber-500" />
+                                    <Terminal className="h-6 w-6 text-amber-700 dark:text-amber-500" />
                                 </div>
                                 <h3 className="text-xl font-semibold">Native Feel</h3>
                                 <p className="mt-2 text-muted-foreground">Ads are integrated directly into the UI, maintaining our premium aesthetic.</p>

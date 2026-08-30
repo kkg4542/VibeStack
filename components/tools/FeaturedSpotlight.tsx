@@ -41,7 +41,7 @@ export function FeaturedSpotlight({ tool }: FeaturedSpotlightProps) {
                             Featured Tool
                         </Badge>
                         {sponsoredTool && (
-                            <Badge variant="outline" className="text-emerald-500 border-emerald-500/30 bg-emerald-500/10">
+                            <Badge variant="outline" className="text-emerald-700 dark:text-emerald-500 border-emerald-500/30 bg-emerald-500/10">
                                 Current Sponsor
                             </Badge>
                         )}

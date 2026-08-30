@@ -10,13 +10,13 @@ const steps = [
         icon: Search,
         title: "Explore",
         description: "Browse hand-curated AI tools across every category",
-        color: "text-blue-500"
+        color: "text-blue-700 dark:text-blue-500"
     },
     {
         icon: GitCompare,
         title: "Compare",
         description: "Compare features, pricing, and reviews side-by-side",
-        color: "text-purple-500"
+        color: "text-purple-700 dark:text-purple-500"
     },
     {
         icon: Zap,

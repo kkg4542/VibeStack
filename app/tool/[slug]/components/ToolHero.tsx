@@ -49,12 +49,12 @@ export function ToolHero({ tool }: { tool: any }) {
                                     <Badge className="bg-vibe-electric/10 text-vibe-link hover:bg-vibe-electric/20 border-vibe-electric/20">
                                         {tool.pricing}
                                     </Badge>
-                                    <Badge className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20">
+                                    <Badge className="bg-emerald-500/10 text-emerald-800 dark:text-emerald-400 border-emerald-500/20">
                                         <ShieldCheck className="h-3 w-3 mr-1" />
                                         Vetted
                                     </Badge>
                                     {tool.isFeatured && (
-                                        <Badge className="bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20">
+                                        <Badge className="bg-amber-500/10 text-amber-800 dark:text-amber-400 border-amber-500/20">
                                             <Sparkles className="h-3 w-3 mr-1" />
                                             Featured
                                         </Badge>
@@ -75,7 +75,7 @@ export function ToolHero({ tool }: { tool: any }) {
                                 <div className="flex flex-wrap gap-6 mb-8">
                                     <div className="flex items-center gap-2 text-sm">
                                         <div className="p-2 rounded-lg bg-emerald-500/10">
-                                            <Target className="h-4 w-4 text-emerald-500" />
+                                            <Target className="h-4 w-4 text-emerald-700 dark:text-emerald-500" />
                                         </div>
                                         <div>
                                             <div className="font-bold text-foreground">{tool.category}</div>
@@ -84,7 +84,7 @@ export function ToolHero({ tool }: { tool: any }) {
                                     </div>
                                     <div className="flex items-center gap-2 text-sm">
                                         <div className="p-2 rounded-lg bg-blue-500/10">
-                                            <Zap className="h-4 w-4 text-blue-500" />
+                                            <Zap className="h-4 w-4 text-blue-700 dark:text-blue-500" />
                                         </div>
                                         <div>
                                             <div className="font-bold text-foreground">{tool.pricing}</div>
@@ -93,7 +93,7 @@ export function ToolHero({ tool }: { tool: any }) {
                                     </div>
                                     <div className="flex items-center gap-2 text-sm">
                                         <div className="p-2 rounded-lg bg-violet-500/10">
-                                            <TrendingUp className="h-4 w-4 text-violet-500" />
+                                            <TrendingUp className="h-4 w-4 text-violet-700 dark:text-violet-500" />
                                         </div>
                                         <div>
                                             <div className="font-bold text-foreground">{tool.features?.length || 0}</div>

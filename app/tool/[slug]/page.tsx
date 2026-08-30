@@ -361,7 +361,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                             >
                                 <div className="flex items-center gap-3 mb-6">
                                     <div className="p-2 rounded-lg bg-emerald-500/20">
-                                        <Check className="h-5 w-5 text-emerald-500" />
+                                        <Check className="h-5 w-5 text-emerald-700 dark:text-emerald-500" />
                                     </div>
                                     <h3 className="text-xl font-semibold text-emerald-700 dark:text-emerald-400">Pros</h3>
                                 </div>
@@ -383,7 +383,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                             >
                                 <div className="flex items-center gap-3 mb-6">
                                     <div className="p-2 rounded-lg bg-rose-500/20">
-                                        <ExternalLink className="h-5 w-5 text-rose-500 rotate-45" />
+                                        <ExternalLink className="h-5 w-5 text-rose-700 dark:text-rose-500 rotate-45" />
                                     </div>
                                     <h3 className="text-xl font-semibold text-rose-700 dark:text-rose-400">Cons</h3>
                                 </div>
@@ -570,7 +570,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                             <div className="flex items-center justify-between mb-8">
                                 <div className="flex items-center gap-3">
                                     <div className="p-2 rounded-lg bg-violet-500/10">
-                                        <TrendingUp className="h-5 w-5 text-violet-500" />
+                                        <TrendingUp className="h-5 w-5 text-violet-700 dark:text-violet-500" />
                                     </div>
                                     <h2 className="text-2xl font-semibold">User Reviews</h2>
                                 </div>

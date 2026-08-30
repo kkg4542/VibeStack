@@ -246,7 +246,7 @@ export default function NotFound() {
                     <div>
                         <div className="flex items-center gap-3 mb-6">
                             <div className="p-2 rounded-lg bg-violet-500/10">
-                                <BookOpen className="h-5 w-5 text-violet-500" />
+                                <BookOpen className="h-5 w-5 text-violet-700 dark:text-violet-500" />
                             </div>
                             <h2 className="text-xl font-semibold">Latest Articles</h2>
                         </div>
@@ -266,7 +266,7 @@ export default function NotFound() {
                                                         <Badge variant="secondary" className="mb-2">
                                                             {post.category}
                                                         </Badge>
-                                                        <h3 className="font-semibold group-hover:text-violet-500 transition-colors line-clamp-2">
+                                                        <h3 className="font-semibold group-hover:text-violet-700 dark:group-hover:text-violet-500 transition-colors line-clamp-2">
                                                             {post.title}
                                                         </h3>
                                                         <p className="text-sm text-muted-foreground mt-1">
@@ -293,7 +293,7 @@ export default function NotFound() {
                     <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                         <div className="flex items-center gap-3">
                             <div className="p-2 rounded-full bg-amber-500/10">
-                                <Lightbulb className="h-5 w-5 text-amber-500" />
+                                <Lightbulb className="h-5 w-5 text-amber-700 dark:text-amber-500" />
                             </div>
                             <p className="text-muted-foreground">
                                 Can&apos;t find what you&apos;re looking for?

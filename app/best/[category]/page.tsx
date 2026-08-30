@@ -216,11 +216,11 @@ export default async function BestCategoryPage({
                   <div className="grid sm:grid-cols-2 gap-4 mb-5">
                     {tool.pros?.length ? (
                       <div>
-                        <div className="text-xs font-semibold uppercase tracking-wide text-emerald-500 mb-2">Pros</div>
+                        <div className="text-xs font-semibold uppercase tracking-wide text-emerald-700 dark:text-emerald-500 mb-2">Pros</div>
                         <ul className="space-y-1.5">
                           {tool.pros.slice(0, 3).map((p) => (
                             <li key={p} className="flex items-start gap-2 text-sm">
-                              <Check className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" />
+                              <Check className="h-4 w-4 text-emerald-700 dark:text-emerald-500 mt-0.5 shrink-0" />
                               <span>{p}</span>
                             </li>
                           ))}
@@ -233,7 +233,7 @@ export default async function BestCategoryPage({
                         <ul className="space-y-1.5">
                           {tool.cons.slice(0, 3).map((c) => (
                             <li key={c} className="flex items-start gap-2 text-sm">
-                              <X className="h-4 w-4 text-rose-400 mt-0.5 shrink-0" />
+                              <X className="h-4 w-4 text-rose-700 dark:text-rose-400 mt-0.5 shrink-0" />
                               <span>{c}</span>
                             </li>
                           ))}

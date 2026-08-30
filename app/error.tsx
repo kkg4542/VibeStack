@@ -27,7 +27,7 @@ export default function Error({
                     <div className="relative">
                         <div className="absolute inset-0 bg-red-500/20 blur-3xl rounded-full"></div>
                         <div className="relative p-6 rounded-2xl bg-red-500/10 border border-red-500/20">
-                            <AlertTriangle className="h-12 w-12 text-red-500" />
+                            <AlertTriangle className="h-12 w-12 text-red-700 dark:text-red-500" />
                         </div>
                     </div>
                 </div>

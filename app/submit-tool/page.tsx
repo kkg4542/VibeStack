@@ -100,7 +100,7 @@ export default function SubmitToolPage() {
                     <Card className="text-center">
                         <CardContent className="p-12">
                             <div className="w-20 h-20 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-6">
-                                <CheckCircle2 className="w-10 h-10 text-emerald-500" />
+                                <CheckCircle2 className="w-10 h-10 text-emerald-700 dark:text-emerald-500" />
                             </div>
                             <h2 className="text-3xl font-bold mb-4">Submission Received!</h2>
                             <p className="text-muted-foreground mb-8">
@@ -201,7 +201,7 @@ export default function SubmitToolPage() {
                                         <ul className="space-y-3 mb-6 flex-1">
                                             {plan.features.map((feature) => (
                                                 <li key={feature} className="flex items-start gap-2">
-                                                    <Check className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                                                    <Check className="w-4 h-4 text-emerald-700 dark:text-emerald-500 mt-0.5 shrink-0" />
                                                     <span className="text-sm">{feature}</span>
                                                 </li>
                                             ))}
@@ -438,7 +438,7 @@ export default function SubmitToolPage() {
                             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                                 <div className="flex items-center gap-4">
                                     <div className="p-3 rounded-xl bg-amber-500/10">
-                                        <AlertCircle className="w-6 h-6 text-amber-500" />
+                                        <AlertCircle className="w-6 h-6 text-amber-700 dark:text-amber-500" />
                                     </div>
                                     <div>
                                         <h3 className="font-bold">Have more questions?</h3>

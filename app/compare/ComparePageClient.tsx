@@ -185,7 +185,7 @@ export default function ComparePageClient() {
                                         </div>
                                         <button
                                             onClick={() => removeTool(tool.slug)}
-                                            className="p-2 rounded-full bg-rose-500/10 text-rose-500 hover:bg-rose-500/20 transition-colors"
+                                            className="p-2 rounded-full bg-rose-500/10 text-rose-700 dark:text-rose-500 hover:bg-rose-500/20 transition-colors"
                                         >
                                             <Trash2 className="h-4 w-4" />
                                         </button>
@@ -218,7 +218,7 @@ export default function ComparePageClient() {
                                         <ul className="space-y-2">
                                             {tool.features?.slice(0, 4).map((feature) => (
                                                 <li key={feature} className="flex items-start gap-2 text-sm">
-                                                    <Check className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
+                                                    <Check className="h-4 w-4 text-emerald-700 dark:text-emerald-500 shrink-0 mt-0.5" />
                                                     <span className="text-muted-foreground">{feature}</span>
                                                 </li>
                                             ))}

@@ -76,7 +76,7 @@ export function QuizLeadCapture({
       <Card className="mb-8 border-emerald-500/30 bg-emerald-500/5">
         <CardContent className="p-6 flex items-center gap-4">
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-emerald-500/20">
-            <CheckCircle2 className="h-6 w-6 text-emerald-500" />
+            <CheckCircle2 className="h-6 w-6 text-emerald-700 dark:text-emerald-500" />
           </div>
           <div>
             <h3 className="font-bold text-lg mb-1">Check your inbox 🚀</h3>
@@ -146,7 +146,7 @@ export function QuizLeadCapture({
         </div>
 
         {errorMessage && (
-          <p className="text-xs text-red-500 mt-3" role="alert">
+          <p className="text-xs text-red-700 dark:text-red-500 mt-3" role="alert">
             {errorMessage}
           </p>
         )}

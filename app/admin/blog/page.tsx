@@ -74,7 +74,7 @@ export default async function AdminBlogPage() {
                         </Link>
                       </Button>
                       <form action={deleteBlogPost.bind(null, post.id)}>
-                        <Button type="submit" variant="ghost" size="icon" className="text-red-600 hover:bg-red-500/10 hover:text-red-600" aria-label={`Delete ${post.title}`}>
+                        <Button type="submit" variant="ghost" size="icon" className="text-red-700 dark:text-red-400 hover:bg-red-500/10 hover:text-red-700 dark:hover:text-red-400" aria-label={`Delete ${post.title}`}>
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </form>

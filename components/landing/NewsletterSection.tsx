@@ -166,7 +166,7 @@ export function NewsletterSection() {
                   </Button>
                 </div>
                 {errorMessage && (
-                  <p className="text-xs text-red-500 text-center mt-3" role="alert">
+                  <p className="text-xs text-red-700 dark:text-red-500 text-center mt-3" role="alert">
                     {errorMessage}
                   </p>
                 )}

@@ -20,7 +20,7 @@ export default function CommunityStacksError({
         <main className="min-h-[80vh] flex items-center justify-center bg-background px-4">
             <div className="max-w-md w-full text-center space-y-8">
                 <div className="mx-auto w-24 h-24 bg-yellow-500/10 rounded-full flex items-center justify-center">
-                    <ServerCrash className="w-12 h-12 text-yellow-500/80" />
+                    <ServerCrash className="w-12 h-12 text-yellow-700/80 dark:text-yellow-500/80" />
                 </div>
                 <div className="space-y-3">
                     <h2 className="text-3xl font-bold tracking-tight text-foreground">Community Stacks Unavailable</h2>

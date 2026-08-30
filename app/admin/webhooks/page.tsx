@@ -43,9 +43,9 @@ export default async function AdminWebhooksPage() {
                       variant="secondary"
                       className={
                         event.status === "processed"
-                          ? "bg-emerald-500/10 text-emerald-600"
+                          ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400"
                           : event.status === "failed"
-                            ? "bg-rose-500/10 text-rose-600"
+                            ? "bg-rose-500/10 text-rose-700 dark:text-rose-400"
                             : "bg-muted text-muted-foreground"
                       }
                     >

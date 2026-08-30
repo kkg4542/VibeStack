@@ -47,7 +47,7 @@ const categories = [
     icon: MessageSquare,
     color: "from-emerald-400 to-emerald-600",
     bgColor: "bg-emerald-500/10",
-    iconColor: "text-emerald-400",
+    iconColor: "text-emerald-700 dark:text-emerald-400",
     tools: ["ChatGPT", "Claude", "Gemini", "Perplexity"],
   },
   {
@@ -57,7 +57,7 @@ const categories = [
     icon: Zap,
     color: "from-amber-400 to-orange-500",
     bgColor: "bg-amber-500/10",
-    iconColor: "text-amber-400",
+    iconColor: "text-amber-700 dark:text-amber-400",
     tools: ["Notion AI"],
   },
   {
@@ -67,7 +67,7 @@ const categories = [
     icon: Briefcase,
     color: "from-blue-400 to-vibe-purple",
     bgColor: "bg-blue-500/10",
-    iconColor: "text-blue-400",
+    iconColor: "text-blue-700 dark:text-blue-400",
     tools: ["Linear"],
   },
   {
@@ -77,7 +77,7 @@ const categories = [
     icon: Lightbulb,
     color: "from-pink-400 to-rose-600",
     bgColor: "bg-pink-500/10",
-    iconColor: "text-pink-400",
+    iconColor: "text-pink-700 dark:text-pink-400",
     tools: ["ElevenLabs", "Descript", "Vercel"],
   },
 ];

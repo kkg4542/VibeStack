@@ -70,7 +70,7 @@ export function TestimonialCard({ testimonial, index }: TestimonialCardProps) {
                             <div className="font-semibold text-foreground flex items-center gap-2">
                                 {testimonial.user.name}
                                 {testimonial.user.verified && (
-                                    <CheckCircle2 className="w-3.5 h-3.5 text-blue-500 fill-blue-500/10" aria-label="Verified User" />
+                                    <CheckCircle2 className="w-3.5 h-3.5 text-blue-700 dark:text-blue-500 fill-blue-500/10" aria-label="Verified User" />
                                 )}
                             </div>
                             <div className="text-sm text-muted-foreground flex items-center gap-1.5 flex-wrap">
@@ -102,7 +102,7 @@ export function TestimonialCard({ testimonial, index }: TestimonialCardProps) {
                         {metrics && (
                             <div className="flex flex-wrap gap-2">
                                 {Object.entries(metrics).map(([key, value]) => (
-                                    <Badge key={key} variant="secondary" className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20">
+                                    <Badge key={key} variant="secondary" className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20">
                                         <BarChart className="w-3 h-3 mr-1.5" />
                                         <span className="capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}:</span>
                                         <span className="ml-1 font-bold">{typeof value === 'string' ? value : JSON.stringify(value)}</span>

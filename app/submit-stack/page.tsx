@@ -67,7 +67,7 @@ export default function SubmitStackPage() {
                         className="bg-card backdrop-blur-xl border border-green-500/20 rounded-3xl p-12 shadow-2xl"
                     >
                         <div className="inline-flex p-4 rounded-full bg-green-500/10 mb-6">
-                            <CheckCircle2 className="h-12 w-12 text-green-500" />
+                            <CheckCircle2 className="h-12 w-12 text-green-700 dark:text-green-500" />
                         </div>
                         <h1 className={`${designSystem.typography.hero} mb-4`}>Submission Received!</h1>
                         <p className="text-muted-foreground text-lg mb-8">
