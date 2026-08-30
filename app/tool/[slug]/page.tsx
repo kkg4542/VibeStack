@@ -443,7 +443,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                             </h2>
                                         </div>
                                         <div
-                                            className="prose prose-invert prose-zinc max-w-none prose-a:text-vibe-electric"
+                                            className="prose dark:prose-invert prose-zinc max-w-none prose-a:text-vibe-electric"
                                             dangerouslySetInnerHTML={{ __html: extendedOverviewHtml }}
                                         />
                                     </div>
@@ -548,7 +548,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                             <span className="text-muted-foreground">/ 5.0</span>
                                         </div>
                                     </div>
-                                    <div className="prose prose-invert prose-zinc max-w-none">
+                                    <div className="prose dark:prose-invert prose-zinc max-w-none">
                                         <p className="text-lg text-muted-foreground leading-relaxed">
                                             {tool.review.content}
                                         </p>
