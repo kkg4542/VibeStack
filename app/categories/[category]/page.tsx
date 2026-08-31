@@ -10,6 +10,10 @@ export function generateStaticParams() {
     }));
 }
 
+// Only slugs returned by generateStaticParams() are valid routes — otherwise
+// any string rendered a fully-formed page from arbitrary input at 200.
+export const dynamicParams = false;
+
 const categoryMap: Record<string, string> = {
     coding: "Coding",
     management: "Management", 

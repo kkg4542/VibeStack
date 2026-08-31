@@ -56,6 +56,10 @@ export async function generateStaticParams() {
     }));
 }
 
+// Only ids returned by generateStaticParams() are valid routes — otherwise
+// any slug rendered a soft-404 "Stack Not Found" page at 200.
+export const dynamicParams = false;
+
 import { getStackMetrics } from "@/lib/data/stacks";
 import { getTools } from "@/lib/tools-db";
 import { Section } from "@/components/primitives/Section";

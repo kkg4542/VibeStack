@@ -19,6 +19,10 @@ export function generateStaticParams() {
   return BEST_CATEGORIES.map((c) => ({ category: c.slug }));
 }
 
+// Only slugs returned by generateStaticParams() are valid routes — otherwise
+// any slug rendered a soft-404 "Not Found" page at 200.
+export const dynamicParams = false;
+
 export async function generateMetadata({
   params,
 }: {

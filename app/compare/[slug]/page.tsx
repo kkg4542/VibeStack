@@ -92,6 +92,10 @@ export async function generateStaticParams() {
     return comparePairs(tools).map(({ slug }) => ({ slug }));
 }
 
+// Only slugs returned by generateStaticParams() are valid routes — otherwise
+// any slug rendered a soft-404 "Not Found" page at 200.
+export const dynamicParams = false;
+
 export default async function ComparisonSlugPage({ params }: Props) {
     const { slug } = await params;
     const parts = slug.split('-vs-');
