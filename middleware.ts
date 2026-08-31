@@ -20,21 +20,48 @@ const redis = (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_R
   })
   : null;
 
-// Create rate limiters for different endpoints
+// Create rate limiters for different endpoints.
+// `analytics` is deliberately off: it adds a second Redis write on every
+// request purely to populate the Upstash dashboard, which is one more thing
+// that can fail on a path where a throw takes down every /api route.
 const ratelimit = redis ? {
   // Admin: 5 requests per minute
   admin: new Ratelimit({
     redis,
     limiter: Ratelimit.slidingWindow(5, "1 m"),
-    analytics: true,
   }),
   // General API: 100 requests per minute
   api: new Ratelimit({
     redis,
     limiter: Ratelimit.slidingWindow(100, "1 m"),
-    analytics: true,
   }),
 } : null;
+
+/**
+ * Upstash calls in middleware must never be able to take the site down.
+ * This file matches /admin/* and /api/*, so an unhandled throw here returns
+ * MIDDLEWARE_INVOCATION_FAILED for EVERY api route — newsletter, submissions,
+ * reviews, Stripe checkout and the Stripe webhook included. That is exactly
+ * what happened the first time the Upstash env vars were set in production:
+ * this branch had never executed there before, because `ratelimit` had always
+ * been null.
+ *
+ * On failure the request is let through. Route handlers do their own limiting
+ * via lib/redis.ts, which has its own in-process fallback, so a broken Upstash
+ * degrades the outer limit instead of closing the entire API.
+ */
+async function limitOrPassThrough(
+  limiter: Ratelimit,
+  ip: string
+): Promise<{ success: boolean; limit: number; remaining: number } | null> {
+  try {
+    const { success, limit, remaining } = await limiter.limit(ip);
+    return { success, limit, remaining };
+  } catch (error) {
+    console.error("[middleware] Upstash rate limit failed, passing through:", error);
+    return null;
+  }
+}
 
 // In-memory failed attempt tracking — secondary defense only.
 // WARNING: This Map is NOT shared across serverless instances or Edge workers.
@@ -203,14 +230,14 @@ export async function middleware(req: NextRequest) {
 
     // Apply rate limiting for Redis
     if (process.env.UPSTASH_REDIS_REST_URL && ratelimit) {
-      const { success, limit, remaining } = await ratelimit.admin.limit(ip);
+      const result = await limitOrPassThrough(ratelimit.admin, ip);
 
-      if (!success) {
+      if (result && !result.success) {
         return new NextResponse("Rate limit exceeded", {
           status: 429,
           headers: {
-            "X-RateLimit-Limit": limit.toString(),
-            "X-RateLimit-Remaining": remaining.toString(),
+            "X-RateLimit-Limit": result.limit.toString(),
+            "X-RateLimit-Remaining": result.remaining.toString(),
           },
         });
       }
@@ -260,20 +287,22 @@ export async function middleware(req: NextRequest) {
 
   // API rate limiting
   if (req.nextUrl.pathname.startsWith("/api") && process.env.UPSTASH_REDIS_REST_URL && ratelimit) {
-    const { success, limit, remaining } = await ratelimit.api.limit(ip);
+    const result = await limitOrPassThrough(ratelimit.api, ip);
 
-    response.headers.set("X-RateLimit-Limit", limit.toString());
-    response.headers.set("X-RateLimit-Remaining", remaining.toString());
+    if (result) {
+      response.headers.set("X-RateLimit-Limit", result.limit.toString());
+      response.headers.set("X-RateLimit-Remaining", result.remaining.toString());
 
-    if (!success) {
-      return new NextResponse("Rate limit exceeded", {
-        status: 429,
-        headers: {
-          "X-RateLimit-Limit": limit.toString(),
-          "X-RateLimit-Remaining": "0",
-          "Retry-After": "60",
-        },
-      });
+      if (!result.success) {
+        return new NextResponse("Rate limit exceeded", {
+          status: 429,
+          headers: {
+            "X-RateLimit-Limit": result.limit.toString(),
+            "X-RateLimit-Remaining": "0",
+            "Retry-After": "60",
+          },
+        });
+      }
     }
 
     return response;
