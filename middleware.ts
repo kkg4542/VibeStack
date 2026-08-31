@@ -20,11 +20,35 @@ import { withCORS, isPreflightRequest, handleCorsPreflight } from "@/lib/cors";
 function buildEdgeRedis(): Redis | null {
   const url = process.env.UPSTASH_REDIS_REST_URL;
   const token = process.env.UPSTASH_REDIS_REST_TOKEN;
-  if (!url || !token || !url.startsWith("https://")) return null;
+
+  // Say which of the three states we're in. Silence here is indistinguishable
+  // from "working", and that ambiguity is expensive: rate limiting can sit
+  // disabled for weeks with nothing in the logs to show for it.
+  if (!url && !token) {
+    console.warn("[middleware] Upstash not configured — API rate limiting is OFF.");
+    return null;
+  }
+  if (!url || !token) {
+    console.error(
+      "[middleware] Only one of UPSTASH_REDIS_REST_URL / _TOKEN is set. " +
+        "Rate limiting is OFF until both are present."
+    );
+    return null;
+  }
+  if (!url.startsWith("https://")) {
+    console.error(
+      `[middleware] UPSTASH_REDIS_REST_URL must start with https:// — got "${url.slice(0, 12)}…". ` +
+        "Use the REST API credentials from the Upstash console (not the rediss:// " +
+        "connection string), and paste the value without surrounding quotes. " +
+        "Rate limiting is OFF."
+    );
+    return null;
+  }
 
   try {
     return new Redis({ url, token });
-  } catch {
+  } catch (error) {
+    console.error("[middleware] Failed to construct Upstash client:", error);
     return null;
   }
 }
