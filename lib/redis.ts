@@ -4,13 +4,39 @@ import { Redis } from "@upstash/redis";
 const redisUrl = process.env.UPSTASH_REDIS_REST_URL;
 const redisToken = process.env.UPSTASH_REDIS_REST_TOKEN;
 
-// Only initialize Redis if both URL and token are provided
-export const redis = redisUrl && redisToken 
-  ? new Redis({
-      url: redisUrl,
-      token: redisToken,
-    })
-  : null;
+/**
+ * Upstash ships two sets of credentials and only one of them works here: the
+ * REST pair (https://…upstash.io + REST token), not the `rediss://` connection
+ * string. Pasting the wrong one used to fail the *build*, not the request —
+ * `new Redis()` throws UrlError at module scope, and Next evaluates this
+ * module while collecting page data for /api/newsletter, so one bad env var
+ * took down the whole deployment.
+ *
+ * Validate the shape first and treat anything else as unconfigured, which
+ * routes through the in-memory limiter below instead of exploding.
+ */
+function buildRedisClient(): Redis | null {
+  if (!redisUrl || !redisToken) return null;
+
+  if (!redisUrl.startsWith("https://")) {
+    console.error(
+      "[rate-limit] UPSTASH_REDIS_REST_URL must start with https:// — got " +
+        `"${redisUrl.slice(0, 12)}…". Copy the REST API credentials from the ` +
+        "Upstash console, not the rediss:// connection string. Falling back " +
+        "to the in-memory limiter."
+    );
+    return null;
+  }
+
+  try {
+    return new Redis({ url: redisUrl, token: redisToken });
+  } catch (error) {
+    console.error("[rate-limit] Failed to construct Upstash client:", error);
+    return null;
+  }
+}
+
+export const redis = buildRedisClient();
 
 // Rate limiting configuration
 export interface RateLimitConfig {

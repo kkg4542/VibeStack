@@ -12,13 +12,24 @@ import {
 } from "@/lib/csrf";
 import { withCORS, isPreflightRequest, handleCorsPreflight } from "@/lib/cors";
 
-// Initialize Redis client for rate limiting
-const redis = (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN)
-  ? new Redis({
-    url: process.env.UPSTASH_REDIS_REST_URL,
-    token: process.env.UPSTASH_REDIS_REST_TOKEN,
-  })
-  : null;
+// Initialize Redis client for rate limiting.
+// The URL is shape-checked because Upstash's other credential set — the
+// `rediss://` connection string — makes `new Redis()` throw at module scope,
+// which here means the middleware bundle fails to evaluate at all. Same guard
+// as lib/redis.ts; kept inline so this Edge bundle doesn't pull that module in.
+function buildEdgeRedis(): Redis | null {
+  const url = process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token || !url.startsWith("https://")) return null;
+
+  try {
+    return new Redis({ url, token });
+  } catch {
+    return null;
+  }
+}
+
+const redis = buildEdgeRedis();
 
 // Create rate limiters for different endpoints.
 // `analytics` is deliberately off: it adds a second Redis write on every
