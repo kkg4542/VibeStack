@@ -18,6 +18,60 @@ export interface RateLimitConfig {
   maxRequests: number;
 }
 
+/**
+ * Best-effort in-process limiter used when Upstash is unreachable or simply
+ * not configured. It is per-instance, so on serverless it only sees the share
+ * of traffic that lands on one warm lambda — it will NOT hold a distributed
+ * limit. That is deliberate: the alternative here used to be allowing every
+ * request through, which left the public POST endpoints (newsletter,
+ * submissions, reviews) with no limit at all whenever the env vars were
+ * missing. A partial limit beats none; configure Redis for the real one.
+ */
+const memoryHits = new Map<string, number[]>();
+const MEMORY_KEY_CAP = 10_000;
+let warnedMissingRedis = false;
+
+function pruneMemoryStore(now: number) {
+  if (memoryHits.size <= MEMORY_KEY_CAP) return;
+  // Drop keys whose newest hit is the oldest overall. Cheap and good enough —
+  // this only runs when an instance has seen 10k distinct identifiers.
+  const entries = [...memoryHits.entries()].sort(
+    (a, b) => (a[1][a[1].length - 1] ?? 0) - (b[1][b[1].length - 1] ?? 0)
+  );
+  for (const [key] of entries.slice(0, entries.length - MEMORY_KEY_CAP)) {
+    memoryHits.delete(key);
+  }
+  void now;
+}
+
+function checkRateLimitInMemory(
+  identifier: string,
+  config: RateLimitConfig,
+  now: number
+): { allowed: boolean; remaining: number; resetTime: number } {
+  const windowStart = now - config.windowSize;
+  const hits = (memoryHits.get(identifier) ?? []).filter((t) => t > windowStart);
+
+  if (hits.length >= config.maxRequests) {
+    memoryHits.set(identifier, hits);
+    return {
+      allowed: false,
+      remaining: 0,
+      resetTime: (hits[0] ?? now) + config.windowSize,
+    };
+  }
+
+  hits.push(now);
+  memoryHits.set(identifier, hits);
+  pruneMemoryStore(now);
+
+  return {
+    allowed: true,
+    remaining: config.maxRequests - hits.length,
+    resetTime: now + config.windowSize,
+  };
+}
+
 // Check rate limit for a given identifier (IP, userId, etc.)
 export async function checkRateLimit(
   identifier: string,
@@ -25,13 +79,19 @@ export async function checkRateLimit(
 ): Promise<{ allowed: boolean; remaining: number; resetTime: number }> {
   const now = Date.now();
 
-  // If Redis is not configured, allow all requests
+  // Upstash not configured: fall back to the in-process limiter rather than
+  // waving every request through. Warn once so a missing env var is visible in
+  // the logs instead of silently disabling protection.
   if (!redis) {
-    return {
-      allowed: true,
-      remaining: config.maxRequests,
-      resetTime: now + config.windowSize,
-    };
+    if (!warnedMissingRedis) {
+      warnedMissingRedis = true;
+      console.warn(
+        "[rate-limit] UPSTASH_REDIS_REST_URL/TOKEN not set — falling back to a " +
+          "per-instance in-memory limiter. This does not hold across serverless " +
+          "instances; set the Upstash env vars for a real distributed limit."
+      );
+    }
+    return checkRateLimitInMemory(identifier, config, now);
   }
 
   const key = `rate_limit:${identifier}`;
@@ -75,12 +135,10 @@ export async function checkRateLimit(
     };
   } catch (error) {
     console.error("Rate limiting error:", error);
-    // Fail open in case of Redis error
-    return {
-      allowed: true,
-      remaining: 0,
-      resetTime: now + config.windowSize,
-    };
+    // Redis is reachable-but-broken. Degrade to the in-process limiter instead
+    // of failing fully open, so an Upstash outage doesn't also remove every
+    // limit on the public write endpoints.
+    return checkRateLimitInMemory(identifier, config, now);
   }
 }
 
