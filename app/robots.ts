@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
         rules: {
             userAgent: "*",
             allow: "/",
-            disallow: ["/admin/", "/api/", "/private/", "/_next/", "/consulting"],
+            disallow: ["/admin/", "/api/", "/private/", "/_next/", "/consulting", "/go/"],
         },
         sitemap: "https://usevibestack.com/sitemap.xml",
     };

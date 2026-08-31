@@ -4,7 +4,16 @@ import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 import { trackAffiliateClick } from "@/lib/analytics";
 import { useState } from "react";
-import { useCsrfFetch } from "@/hooks/useCsrfFetch";
+
+/**
+ * Deliberately without "noreferrer". The href is same-origin (/go/[slug]), and
+ * that route reads the Referer header to record WHICH page produced the click —
+ * the admin dashboard's top-earning-pages view is built on exactly that. With
+ * noreferrer every click would land as "(direct/unknown)". The outbound hop to
+ * the affiliate is made by our own redirect, under the site's Referrer-Policy,
+ * so nothing extra reaches the destination either way.
+ */
+const AFFILIATE_REL = "sponsored noopener";
 
 interface AffiliateLinkProps {
   url: string;
@@ -25,7 +34,6 @@ export function AffiliateLink({
   className,
   abTestVariant
 }: AffiliateLinkProps) {
-  const { csrfFetch } = useCsrfFetch();
   // Initialize state with lazy function to avoid setState in useEffect
   const [abVariant, setAbVariant] = useState<"A" | "B" | "C">(() => {
     if (abTestVariant) {
@@ -53,25 +61,15 @@ export function AffiliateLink({
   });
 
   const fullUrl = `${url}${url.includes("?") ? "&" : "?"}ref=vibestack&utm_source=vibestack`;
+  // Every outbound affiliate click routes through the server redirect so
+  // click tracking happens server-side (100% reliable) instead of relying on
+  // a client-side fetch that can be blocked or fail silently.
+  const redirectUrl = `/go/${toolSlug}?v=${abVariant}`;
 
-  const handleClick = async () => {
-    // Track in Google Analytics
+  const handleClick = () => {
+    // Track in Google Analytics. The DB record is written server-side by
+    // /go/[slug] itself, so there's no client-side tracking call here.
     trackAffiliateClick(toolSlug, toolName, fullUrl);
-
-    // Track in our database
-    try {
-      await csrfFetch("/api/analytics/affiliate-click", {
-        method: "POST",
-        body: JSON.stringify({
-          toolSlug,
-          toolName,
-          url: fullUrl,
-          abVariant: abVariant,
-        }),
-      });
-    } catch (error) {
-      // Error handled silently
-    }
   };
 
   // Get button text based on A/B variant
@@ -91,9 +89,9 @@ export function AffiliateLink({
   if (buttonVariant === "link") {
     return (
       <a
-        href={fullUrl}
+        href={redirectUrl}
         target="_blank"
-        rel="noopener noreferrer"
+        rel={AFFILIATE_REL}
         onClick={handleClick}
         className="font-medium text-vibe-link hover:underline truncate max-w-[150px]"
       >
@@ -109,9 +107,9 @@ export function AffiliateLink({
       asChild
     >
       <a
-        href={fullUrl}
+        href={redirectUrl}
         target="_blank"
-        rel="noopener noreferrer"
+        rel={AFFILIATE_REL}
         onClick={handleClick}
       >
         {getButtonText()}
