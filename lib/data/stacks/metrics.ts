@@ -1,7 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { unstable_cache } from "next/cache";
-import { StackInsights } from "./types";
-import { CACHE_5MIN, CACHE_1HOUR } from "./constants";
+import { CACHE_5MIN } from "./constants";
 
 // Get stack metrics by ID
 export const getStackMetrics = unstable_cache(
@@ -87,54 +86,6 @@ function calculatePopularityScore({
 
   return Math.round(viewsScore + savesScore + reviewScore + ratingScore);
 }
-
-// Get stack insights for data visualization
-
-export const getStackInsights = unstable_cache(
-  async (stackId: string): Promise<StackInsights> => {
-    // TODO: Implement with actual database after migration
-    // For now, return mock data with realistic values
-
-    // Get tool popularity from StackTool usage
-    const stackTools = await prisma.stackTool.findMany({
-      where: { stackId },
-      include: {
-        tool: {
-          select: {
-            id: true,
-            title: true,
-          },
-        },
-      },
-    });
-
-    const toolPopularity = stackTools.map((st, index) => ({
-      toolId: st.tool.id,
-      toolName: st.tool.title,
-      usage: 100 - index * 10, // Decreasing usage for each tool
-    }));
-
-    // Mock adoption trend data
-    const mockTrend = [
-      { month: "Aug", users: 120 },
-      { month: "Sep", users: 180 },
-      { month: "Oct", users: 250 },
-      { month: "Nov", users: 320 },
-      { month: "Dec", users: 410 },
-      { month: "Jan", users: 520 },
-    ];
-
-    return {
-      adoptionTrend: mockTrend,
-      avgTimeSaved: "15h",
-      avgCostSaved: "$2500",
-      productivityBoost: 3.2,
-      toolPopularity,
-    };
-  },
-  ["stack-insights"],
-  { revalidate: CACHE_1HOUR }
-);
 
 // Increment stack view count
 export async function incrementStackView(stackId: string) {

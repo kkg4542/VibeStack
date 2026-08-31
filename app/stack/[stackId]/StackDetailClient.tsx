@@ -15,6 +15,7 @@ import { m } from "framer-motion";
 import { designSystem } from "@/lib/design-system";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { Container } from "@/components/primitives/Container";
+import { StackViewTracker } from "@/components/stacks/StackViewTracker";
 
 interface StackDetailClientProps {
     stack: Stack;
@@ -50,6 +51,7 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
 
     return (
         <PageBackground {...BackgroundPresets.content}>
+            <StackViewTracker stackId={stack.id} />
             <Container>
                 {/* Back Link */}
                 <m.div
@@ -423,51 +425,71 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                             </div>
                         </m.div>
 
-                        {/* Community Insights — only when we have real metrics */}
-                        {metrics && (
-                        <m.div
-                            initial={designSystem.animations.fadeInUp.initial}
-                            whileInView={designSystem.animations.fadeInUp.animate}
-                            viewport={{ once: true }}
-                            transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.3 }}
-                            className="bg-linear-to-br from-slate-900 to-slate-800 text-white rounded-3xl border border-white/10 p-6 backdrop-blur-sm relative overflow-hidden"
-                        >
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-vibe-electric/20 blur-[60px] rounded-full" />
+                        {/* Community Insights — only when we have real, non-zero metrics.
+                            No fake fallback numbers: each stat renders only if it's
+                            actually > 0, and the whole card disappears if none are. */}
+                        {(() => {
+                            const hasViews = !!metrics?.views;
+                            const hasShares = !!metrics?.shares;
+                            const hasPopularity = !!metrics?.popularityScore;
 
-                            <div className="flex items-center gap-2 mb-6 relative z-10">
-                                <BarChart className="w-5 h-5 text-vibe-link" />
-                                <h3 className="font-semibold">Community Insights</h3>
-                            </div>
+                            if (!hasViews && !hasShares && !hasPopularity) {
+                                return null;
+                            }
 
-                            <div className="grid grid-cols-2 gap-4 relative z-10">
-                                <div className="bg-white/5 rounded-2xl p-4 border border-white/5">
-                                    <div className="text-muted-foreground text-xs mb-1">Views</div>
-                                    <div className="text-2xl font-bold flex items-center gap-2">
-                                        {(metrics?.views || (stack.shareCount || 0) * 3.5).toLocaleString()}
+                            return (
+                                <m.div
+                                    initial={designSystem.animations.fadeInUp.initial}
+                                    whileInView={designSystem.animations.fadeInUp.animate}
+                                    viewport={{ once: true }}
+                                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.3 }}
+                                    className="bg-linear-to-br from-slate-900 to-slate-800 text-white rounded-3xl border border-white/10 p-6 backdrop-blur-sm relative overflow-hidden"
+                                >
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-vibe-electric/20 blur-[60px] rounded-full" />
+
+                                    <div className="flex items-center gap-2 mb-6 relative z-10">
+                                        <BarChart className="w-5 h-5 text-vibe-link" />
+                                        <h3 className="font-semibold">Community Insights</h3>
                                     </div>
-                                </div>
-                                <div className="bg-white/5 rounded-2xl p-4 border border-white/5">
-                                    <div className="text-muted-foreground text-xs mb-1">Shares</div>
-                                    <div className="text-2xl font-bold text-vibe-link">
-                                        {(metrics?.shares || stack.shareCount || 0).toLocaleString()}
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div className="mt-4 pt-4 border-t border-white/10 relative z-10">
-                                <div className="flex items-center justify-between text-xs text-muted-foreground">
-                                    <span>Popularity Score</span>
-                                    <span className="text-vibe-link font-bold">{metrics?.popularityScore || 98}/100</span>
-                                </div>
-                                <div className="w-full bg-white/10 h-1.5 rounded-full mt-2 overflow-hidden">
-                                    <div
-                                        className="bg-vibe-electric h-full rounded-full"
-                                        style={{ width: `${metrics?.popularityScore || 98}%` }}
-                                    />
-                                </div>
-                            </div>
-                        </m.div>
-                        )}
+                                    {(hasViews || hasShares) && (
+                                        <div className={`grid gap-4 relative z-10 ${hasViews && hasShares ? "grid-cols-2" : "grid-cols-1"}`}>
+                                            {hasViews && (
+                                                <div className="bg-white/5 rounded-2xl p-4 border border-white/5">
+                                                    <div className="text-muted-foreground text-xs mb-1">Views</div>
+                                                    <div className="text-2xl font-bold flex items-center gap-2">
+                                                        {metrics!.views.toLocaleString()}
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {hasShares && (
+                                                <div className="bg-white/5 rounded-2xl p-4 border border-white/5">
+                                                    <div className="text-muted-foreground text-xs mb-1">Shares</div>
+                                                    <div className="text-2xl font-bold text-vibe-link">
+                                                        {metrics!.shares.toLocaleString()}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+
+                                    {hasPopularity && (
+                                        <div className="mt-4 pt-4 border-t border-white/10 relative z-10">
+                                            <div className="flex items-center justify-between text-xs text-muted-foreground">
+                                                <span>Popularity Score</span>
+                                                <span className="text-vibe-link font-bold">{metrics!.popularityScore}/100</span>
+                                            </div>
+                                            <div className="w-full bg-white/10 h-1.5 rounded-full mt-2 overflow-hidden">
+                                                <div
+                                                    className="bg-vibe-electric h-full rounded-full"
+                                                    style={{ width: `${metrics!.popularityScore}%` }}
+                                                />
+                                            </div>
+                                        </div>
+                                    )}
+                                </m.div>
+                            );
+                        })()}
                     </aside>
                 </div>
             </Container>

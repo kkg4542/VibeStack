@@ -61,6 +61,45 @@ export async function GET(request: NextRequest) {
       },
     });
 
+    // Get top pages by affiliate clicks (referrer), normalized to path
+    const referrerRaw = await prisma.affiliateClick.groupBy({
+      by: ["referrer"],
+      where: {
+        createdAt: {
+          gte: startDate,
+        },
+      },
+      _count: {
+        id: true,
+      },
+    });
+
+    // Only our own pages get a path label. An external referrer collapsed to
+    // its pathname would masquerade as one of our routes — google.com/ would
+    // read as the homepage — so those are bucketed by host instead.
+    const OWN_HOSTS = new Set(["usevibestack.com", "www.usevibestack.com", "localhost"]);
+
+    const referrerCounts = new Map<string, number>();
+    for (const row of referrerRaw) {
+      let label = "(direct/unknown)";
+      if (row.referrer) {
+        try {
+          const url = new URL(row.referrer);
+          label = OWN_HOSTS.has(url.hostname)
+            ? url.pathname || "/"
+            : `(external: ${url.hostname})`;
+        } catch {
+          label = "(direct/unknown)";
+        }
+      }
+      referrerCounts.set(label, (referrerCounts.get(label) || 0) + row._count.id);
+    }
+
+    const referrerStats = Array.from(referrerCounts.entries())
+      .map(([path, clicks]) => ({ path, clicks }))
+      .sort((a, b) => b.clicks - a.clicks)
+      .slice(0, 20);
+
     // Get email capture stats
     const emailStats = await prisma.emailCapture.groupBy({
       by: ["source"],
@@ -111,6 +150,7 @@ export async function GET(request: NextRequest) {
         source: stat.source,
         count: stat._count.id,
       })),
+      referrerStats,
     });
   } catch (error) {
     console.error("Error fetching analytics:", error);

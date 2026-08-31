@@ -31,6 +31,10 @@ interface AnalyticsData {
     source: string;
     count: number;
   }>;
+  referrerStats: Array<{
+    path: string;
+    clicks: number;
+  }>;
 }
 
 export default function AnalyticsPage() {
@@ -164,6 +168,7 @@ export default function AnalyticsPage() {
       <Tabs defaultValue="tools" className="space-y-4">
         <TabsList>
           <TabsTrigger value="tools">Tool Performance</TabsTrigger>
+          <TabsTrigger value="pages">Top Pages</TabsTrigger>
           <TabsTrigger value="ab">A/B Testing</TabsTrigger>
           <TabsTrigger value="emails">Email Sources</TabsTrigger>
         </TabsList>
@@ -197,6 +202,42 @@ export default function AnalyticsPage() {
                 {(!data?.clickStats || data.clickStats.length === 0) && (
                   <p className="text-muted-foreground text-center py-8">
                     No click data available yet.
+                  </p>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="pages" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Top Pages by Affiliate Clicks</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {data?.referrerStats.map((page) => (
+                  <div key={page.path} className="flex items-center justify-between">
+                    <div className="font-medium truncate">{page.path}</div>
+                    <div className="flex items-center gap-4">
+                      <div className="w-32 h-2 bg-muted rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-amber-500"
+                          style={{
+                            width: `${(page.clicks / (data?.referrerStats[0]?.clicks || 1)) * 100}%`,
+                          }}
+                        />
+                      </div>
+                      <div className="font-bold w-12 text-right">{page.clicks}</div>
+                      <div className="text-sm text-muted-foreground w-14 text-right">
+                        {((page.clicks / (data?.totalClicks || 1)) * 100).toFixed(1)}%
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                {(!data?.referrerStats || data.referrerStats.length === 0) && (
+                  <p className="text-muted-foreground text-center py-8">
+                    No referrer data yet.
                   </p>
                 )}
               </div>
