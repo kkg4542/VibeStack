@@ -281,4 +281,34 @@ describe("POST /admin/webhooks/stripe/[eventId]/retry", () => {
     expect(response.headers.get("location")).toContain("retry=failed");
     expect(sendSlackAlert).toHaveBeenCalledTimes(1);
   });
+
+  // The final status write is bookkeeping: it runs after the event has already
+  // been applied. It used to sit inside the try, so a failed write fell into
+  // the catch, overwrote the row as "failed" and redirected retry=failed for a
+  // refund that had actually gone through — and the operator, told it failed,
+  // pressed Retry on an event that was already done.
+  it("keeps a successful retry successful when the final status write fails", async () => {
+    stripeMock.events.retrieve.mockResolvedValueOnce({
+      id: "evt_refund_2",
+      type: "charge.refunded",
+      data: { object: { id: "ch_2", payment_intent: "pi_test_2" } },
+    });
+    vi.mocked(prisma.webhookEvent.updateMany)
+      .mockResolvedValueOnce({ count: 1 } as never)
+      .mockRejectedValueOnce(new Error("connection terminated unexpectedly"));
+
+    const response = await retry("evt_refund_2");
+
+    // The refund landed before the bookkeeping write was ever attempted.
+    expect(prisma.submission.updateMany).toHaveBeenCalledWith({
+      where: { paymentId: "pi_test_2" },
+      data: { status: "refunded" },
+    });
+
+    const location = response.headers.get("location");
+    expect(location).toContain("retry=ok");
+    expect(location).not.toContain("retry=failed");
+    expect(statusWrites()).not.toContain("failed");
+    expect(sendSlackAlert).not.toHaveBeenCalled();
+  });
 });

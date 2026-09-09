@@ -8,12 +8,33 @@ interface Props {
   params: Promise<{ eventId: string }>;
 }
 
+/**
+ * Bookkeeping only: by the time the final status is written the event has
+ * already been applied and the redirect is decided. A failed write leaves the
+ * row stale, which is recoverable; throwing here is not. It used to throw from
+ * inside the try below, so the catch overwrote the same row as "failed" and
+ * sent the operator back with retry=failed for a replay that had fully
+ * succeeded — and they pressed Retry again on an event already applied.
+ */
+async function markWebhookEvent(
+  eventId: string,
+  data: { status: string; error: string | null }
+): Promise<void> {
+  try {
+    await prisma.webhookEvent.updateMany({ where: { eventId }, data });
+  } catch (error) {
+    console.error("[stripe-retry] Failed to record event status:", error);
+  }
+}
+
 export async function POST(request: NextRequest, { params }: Props) {
   const { eventId } = await params;
   const stripe = getStripe();
 
+  let event: Stripe.Event;
+  let handled: boolean;
+
   try {
-    let event: Stripe.Event;
     try {
       event = await stripe.events.retrieve(eventId);
     } catch (err) {
@@ -46,21 +67,7 @@ export async function POST(request: NextRequest, { params }: Props) {
       data: { status: "received", error: null },
     });
 
-    const { handled } = await processStripeEvent(event, stripe);
-
-    // An unhandled type is recorded "skipped", never "processed". This route
-    // used to run a shorter switch than the live webhook and then write
-    // "processed" unconditionally from `default: break`, so retrying a
-    // charge.refunded did nothing at all and reported success: the admin saw a
-    // green row while the submission stayed "approved" after a refund.
-    await prisma.webhookEvent.updateMany({
-      where: { eventId },
-      data: { status: handled ? "processed" : "skipped", error: null },
-    });
-    const outcome = handled ? "ok" : "unhandled";
-    return NextResponse.redirect(
-      new URL(`/admin/webhooks?retry=${outcome}&type=${encodeURIComponent(event.type)}`, request.url)
-    );
+    ({ handled } = await processStripeEvent(event, stripe));
   } catch (error) {
     console.error("Webhook retry failed:", error);
     await prisma.webhookEvent.updateMany({
@@ -70,4 +77,21 @@ export async function POST(request: NextRequest, { params }: Props) {
     await notifySlack(`Stripe webhook retry failed: ${eventId} - ${String(error)}`);
     return NextResponse.redirect(new URL("/admin/webhooks?retry=failed", request.url));
   }
+
+  // Outside the try, and through a helper that swallows its own error, because
+  // everything the retry was going to change has already been changed.
+  //
+  // An unhandled type is recorded "skipped", never "processed". This route used
+  // to run a shorter switch than the live webhook and then write "processed"
+  // unconditionally from `default: break`, so retrying a charge.refunded did
+  // nothing at all and reported success: the admin saw a green row while the
+  // submission stayed "approved" after a refund.
+  await markWebhookEvent(eventId, {
+    status: handled ? "processed" : "skipped",
+    error: null,
+  });
+  const outcome = handled ? "ok" : "unhandled";
+  return NextResponse.redirect(
+    new URL(`/admin/webhooks?retry=${outcome}&type=${encodeURIComponent(event.type)}`, request.url)
+  );
 }
