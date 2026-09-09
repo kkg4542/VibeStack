@@ -1,11 +1,23 @@
+import { Fragment } from "react";
 import { prisma } from "@/lib/prisma";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 async function getWebhookEvents() {
+  // `payload` is the raw provider JSON and can run to hundreds of KB per row;
+  // this page never reads it, so select only what the table renders.
   return prisma.webhookEvent.findMany({
     orderBy: { createdAt: "desc" },
     take: 200,
+    select: {
+      id: true,
+      provider: true,
+      eventId: true,
+      type: true,
+      status: true,
+      error: true,
+      createdAt: true,
+    },
   });
 }
 
@@ -53,7 +65,7 @@ function RetryBanner({ retry, type }: { retry?: string; type?: string }) {
         className="rounded-md border border-rose-500/20 bg-rose-500/10 px-4 py-3 text-sm text-rose-700 dark:text-rose-400"
       >
         <span className="font-medium">Retry failed.</span> The event is still
-        marked failed — check the error recorded on its row before retrying.
+        marked failed — expand the error below its row before retrying again.
       </div>
     );
   }
@@ -94,41 +106,62 @@ export default async function AdminWebhooksPage({
             </thead>
             <tbody>
               {events.map((event) => (
-                <tr key={event.id} className="border-b">
-                  <td className="px-4 py-3">{event.provider}</td>
-                  <td className="px-4 py-3 font-medium">{event.type}</td>
-                  <td className="px-4 py-3">
-                    <Badge
-                      variant="secondary"
-                      className={
-                        event.status === "processed"
-                          ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400"
-                          : event.status === "failed"
-                            ? "bg-rose-500/10 text-rose-700 dark:text-rose-400"
-                            : // "skipped" means no case matched the type, so nothing
-                              // was applied. It is not a failure and not a success,
-                              // and it gets its own colour so it reads as neither.
-                              event.status === "skipped"
-                              ? "bg-amber-500/10 text-amber-700 dark:text-amber-400"
-                              : "bg-muted text-muted-foreground"
-                      }
-                    >
-                      {event.status}
-                    </Badge>
-                  </td>
-                  <td className="px-4 py-3">
-                    {new Date(event.createdAt).toLocaleString()}
-                  </td>
-                  <td className="px-4 py-3 text-right">
-                    {event.provider === "stripe" && event.status === "failed" ? (
-                      <form action={`/admin/webhooks/stripe/${event.eventId}/retry`} method="post">
-                        <Button size="sm">Retry</Button>
-                      </form>
-                    ) : (
-                      <span className="text-xs text-muted-foreground">-</span>
-                    )}
-                  </td>
-                </tr>
+                <Fragment key={event.id}>
+                  <tr className="border-b">
+                    <td className="px-4 py-3">{event.provider}</td>
+                    <td className="px-4 py-3 font-medium">{event.type}</td>
+                    <td className="px-4 py-3">
+                      <Badge
+                        variant="secondary"
+                        className={
+                          event.status === "processed"
+                            ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400"
+                            : event.status === "failed"
+                              ? "bg-rose-500/10 text-rose-700 dark:text-rose-400"
+                              : // "skipped" means no case matched the type, so nothing
+                                // was applied. It is not a failure and not a success,
+                                // and it gets its own colour so it reads as neither.
+                                event.status === "skipped"
+                                ? "bg-amber-500/10 text-amber-700 dark:text-amber-400"
+                                : "bg-muted text-muted-foreground"
+                        }
+                      >
+                        {event.status}
+                      </Badge>
+                    </td>
+                    <td className="px-4 py-3">
+                      {new Date(event.createdAt).toLocaleString()}
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      {event.provider === "stripe" && event.status === "failed" ? (
+                        <form action={`/admin/webhooks/stripe/${event.eventId}/retry`} method="post">
+                          <Button size="sm">Retry</Button>
+                        </form>
+                      ) : (
+                        <span className="text-xs text-muted-foreground">-</span>
+                      )}
+                    </td>
+                  </tr>
+                  {event.error && (
+                    // A leftover error is informative even after a status other than
+                    // "failed" (a successful retry clears it, so its presence here
+                    // means it wasn't retried since). This is an admin-only page, so
+                    // showing the raw message — which may include internal detail —
+                    // is fine.
+                    <tr className="border-b bg-muted/20">
+                      <td className="px-4 py-2" colSpan={5}>
+                        <details className="text-xs">
+                          <summary className="cursor-pointer text-muted-foreground hover:text-foreground">
+                            Error
+                          </summary>
+                          <pre className="mt-2 max-h-48 overflow-y-auto whitespace-pre-wrap break-words font-mono text-muted-foreground/80">
+                            {event.error}
+                          </pre>
+                        </details>
+                      </td>
+                    </tr>
+                  )}
+                </Fragment>
               ))}
               {events.length === 0 && (
                 <tr>
