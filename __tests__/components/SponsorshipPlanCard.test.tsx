@@ -1,4 +1,5 @@
 import React from "react";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { SponsorshipPlanCard, Plan } from "@/components/monetization/SponsorshipPlanCard";
 
@@ -15,7 +16,7 @@ describe("SponsorshipPlanCard Component", () => {
 
   it("renders the plan name and price correctly", () => {
     // Arrange
-    const mockSetSelectedPlan = jest.fn();
+    const mockSetSelectedPlan = vi.fn();
 
     // Act
     render(
@@ -35,7 +36,7 @@ describe("SponsorshipPlanCard Component", () => {
 
   it("calls setSelectedPlan correctly when clicked", () => {
     // Arrange
-    const mockSetSelectedPlan = jest.fn();
+    const mockSetSelectedPlan = vi.fn();
 
     render(
       <SponsorshipPlanCard
