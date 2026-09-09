@@ -206,6 +206,33 @@ describe("POST /api/stripe/webhook", () => {
     });
   });
 
+  // charge.refunded finds the submission by paymentId, so whatever we store
+  // here is the only handle a later refund has. A session with no payment
+  // intent yet must fall back to the session id, not the event id.
+  it("stores the session id as paymentId when the session has no payment_intent", async () => {
+    stripeMock.webhooks.constructEvent.mockReturnValue(
+      checkoutCompletedEvent(
+        { type: "submission", submissionId: "sub-1" },
+        { payment_intent: null }
+      )
+    );
+    vi.mocked(prisma.submission.findUnique).mockResolvedValue(
+      makeSubmission({ status: "pending" }) as never
+    );
+
+    const response = await POST(makeRequest("{}"));
+
+    expect(response.status).toBe(200);
+    expect(txMock.submission.update).toHaveBeenCalledWith({
+      where: { id: "sub-1" },
+      data: {
+        paymentId: "cs_test_1",
+        status: "approved",
+        amount: 4900,
+      },
+    });
+  });
+
   it("does not re-create the tool when the submission is already approved", async () => {
     stripeMock.webhooks.constructEvent.mockReturnValue(
       checkoutCompletedEvent({ type: "submission", submissionId: "sub-1" })

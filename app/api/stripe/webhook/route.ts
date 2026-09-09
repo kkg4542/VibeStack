@@ -1,26 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getStripe } from "@/lib/stripe";
-import { createToolFromSubmission } from "@/lib/submissions";
-import { sendSubmissionApprovedEmail, sendSubmissionFailedEmail } from "@/lib/emails";
-import { sendSlackAlert } from "@/lib/alerts";
-import { SponsorshipPlacements } from "@/lib/sponsorships";
+import { notifySlack, processStripeEvent } from "@/lib/stripe-events";
 
 export const runtime = "nodejs";
-
-/**
- * Alerting is best-effort. Stripe retries any delivery it doesn't get a 2xx
- * for, so letting a Slack outage throw out of the handler turns one dead
- * dependency into a redelivery loop on payment events we already applied.
- * Swallow the failure, but log it — a silent catch hides the outage itself.
- */
-async function notifySlack(message: string): Promise<void> {
-  try {
-    await sendSlackAlert(message);
-  } catch (error) {
-    console.error("[stripe-webhook] Slack alert failed:", error);
-  }
-}
 
 /**
  * Bookkeeping only: by the time we write a status the event has already been
@@ -97,259 +80,30 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Webhook signature verification failed" }, { status: 400 });
   }
 
+  let handled: boolean;
   try {
-    switch (event.type) {
-      case "checkout.session.completed": {
-        const session = event.data.object;
-        const metadata = session.metadata || {};
-
-        if (metadata.type === "submission" && metadata.submissionId) {
-          const submission = await prisma.submission.findUnique({
-            where: { id: metadata.submissionId },
-          });
-
-          if (!submission) break;
-          if (submission.status === "approved") break;
-
-          await prisma.$transaction(async (tx) => {
-            await createToolFromSubmission(submission, tx);
-            await tx.submission.update({
-              where: { id: submission.id },
-              data: {
-                paymentId: session.payment_intent?.toString() || session.id,
-                status: "approved",
-                amount: session.amount_total ?? undefined,
-              },
-            });
-          });
-
-          try {
-            await sendSubmissionApprovedEmail({
-              to: submission.email,
-              toolName: submission.toolName,
-              tier: submission.tier,
-              websiteUrl: submission.websiteUrl,
-            });
-          } catch (error) {
-            // Email sending failed
-          }
-        }
-
-        if (metadata.type === "sponsorship") {
-          const subscriptionId = session.subscription?.toString();
-          if (subscriptionId) {
-            const subscription = await stripe.subscriptions.retrieve(subscriptionId);
-
-            await prisma.sponsorship.upsert({
-              where: { stripeSubscriptionId: subscriptionId },
-              update: {
-                status: subscription.status,
-                priceId: subscription.items.data[0]?.price.id,
-                stripeCustomerId: subscription.customer?.toString(),
-                currentPeriodStart: new Date(subscription.current_period_start * 1000),
-                currentPeriodEnd: new Date(subscription.current_period_end * 1000),
-                sponsorName: metadata.sponsorName || null,
-                sponsorUrl: metadata.sponsorUrl || null,
-                sponsorEmail: metadata.sponsorEmail || null,
-                sponsorCopy: metadata.sponsorCopy || null,
-                toolId: metadata.toolId || null,
-                placement: metadata.placement || SponsorshipPlacements.newsletter,
-              },
-              create: {
-                placement: metadata.placement || SponsorshipPlacements.newsletter,
-                status: subscription.status,
-                priceId: subscription.items.data[0]?.price.id,
-                stripeSubscriptionId: subscriptionId,
-                stripeCustomerId: subscription.customer?.toString(),
-                currentPeriodStart: new Date(subscription.current_period_start * 1000),
-                currentPeriodEnd: new Date(subscription.current_period_end * 1000),
-                sponsorName: metadata.sponsorName || null,
-                sponsorUrl: metadata.sponsorUrl || null,
-                sponsorEmail: metadata.sponsorEmail || null,
-                sponsorCopy: metadata.sponsorCopy || null,
-                toolId: metadata.toolId || null,
-              },
-            });
-
-            if (metadata.placement === SponsorshipPlacements.featuredSpotlight && metadata.toolId) {
-              await prisma.tool.update({
-                where: { id: metadata.toolId },
-                data: { isFeatured: true },
-              });
-            }
-
-          }
-        }
-        break;
-      }
-      case "checkout.session.expired": {
-        const session = event.data.object;
-        const metadata = session.metadata || {};
-
-        if (metadata.type === "submission" && metadata.submissionId) {
-          await prisma.submission.updateMany({
-            where: {
-              id: metadata.submissionId,
-              status: { in: ["pending_payment", "pending"] },
-            },
-            data: { status: "failed" },
-          });
-
-          if (session.customer_email) {
-            try {
-              await sendSubmissionFailedEmail({
-                to: session.customer_email,
-                toolName: metadata.toolName || "your tool",
-                reason: "Checkout session expired",
-              });
-            } catch (error) {
-              // Email sending failed
-            }
-          }
-        }
-        break;
-      }
-      case "payment_intent.payment_failed": {
-        const paymentIntent = event.data.object;
-        const submissionId = paymentIntent.metadata?.submissionId;
-
-        if (submissionId) {
-          await prisma.submission.updateMany({
-            where: {
-              id: submissionId,
-              status: { in: ["pending_payment", "pending"] },
-            },
-            data: { status: "failed" },
-          });
-
-          if (paymentIntent.receipt_email) {
-            try {
-              await sendSubmissionFailedEmail({
-                to: paymentIntent.receipt_email,
-                toolName: paymentIntent.metadata?.toolName || "your tool",
-                reason: "Payment failed",
-              });
-  } catch (error) {
-    // Email sending failed
-  }
-}
-}
-break;
-}
-case "charge.refunded": {
-        const charge = event.data.object as {
-          payment_intent?: string | null;
-        };
-        const paymentIntentId = charge.payment_intent?.toString();
-        if (paymentIntentId) {
-          await prisma.submission.updateMany({
-            where: { paymentId: paymentIntentId },
-            data: { status: "refunded" },
-          });
-        }
-        break;
-      }
-      case "payment_intent.canceled": {
-        const intent = event.data.object as {
-          id: string;
-          metadata?: Record<string, string>;
-        };
-        const submissionId = intent.metadata?.submissionId;
-        if (submissionId) {
-          await prisma.submission.updateMany({
-            where: { id: submissionId, status: { in: ["pending_payment", "pending"] } },
-            data: { status: "failed" },
-          });
-        }
-        break;
-      }
-      case "customer.subscription.updated":
-      case "customer.subscription.deleted": {
-        const subscription = event.data.object;
-        const subscriptionId = subscription.id;
-
-        await prisma.sponsorship.updateMany({
-          where: { stripeSubscriptionId: subscriptionId },
-          data: {
-            status: subscription.status,
-            currentPeriodStart: new Date(subscription.current_period_start * 1000),
-            currentPeriodEnd: new Date(subscription.current_period_end * 1000),
-          },
-        });
-
-        if (subscription.status !== "active") {
-          const record = await prisma.sponsorship.findFirst({
-            where: { stripeSubscriptionId: subscriptionId },
-          });
-          if (record?.placement === SponsorshipPlacements.featuredSpotlight && record.toolId) {
-            await prisma.tool.update({
-              where: { id: record.toolId },
-              data: { isFeatured: false },
-            });
-          }
-        }
-        break;
-      }
-      case "invoice.payment_succeeded": {
-        const invoice = event.data.object as {
-          subscription?: string | null;
-          customer_email?: string | null;
-        };
-        const subscriptionId = invoice.subscription?.toString();
-
-        if (subscriptionId) {
-          // Retrieve latest subscription data from Stripe
-          const subscription = await stripe.subscriptions.retrieve(subscriptionId);
-
-          // Update sponsorship with renewed period
-          await prisma.sponsorship.updateMany({
-            where: { stripeSubscriptionId: subscriptionId },
-            data: {
-              currentPeriodStart: new Date(subscription.current_period_start * 1000),
-              currentPeriodEnd: new Date(subscription.current_period_end * 1000),
-              status: subscription.status,
-            },
-          });
-        }
-        break;
-      }
-      case "invoice.payment_failed": {
-        const invoice = event.data.object as {
-          subscription?: string | null;
-          customer_email?: string | null;
-        };
-        const subscriptionId = invoice.subscription?.toString();
-
-        if (subscriptionId) {
-          // Mark sponsorship as past_due
-          await prisma.sponsorship.updateMany({
-            where: { stripeSubscriptionId: subscriptionId },
-            data: {
-              status: "past_due",
-            },
-          });
-
-          // Notify via Slack
-          await notifySlack(
-            `⚠️ Subscription payment failed: ${subscriptionId}\nCustomer: ${invoice.customer_email || 'Unknown'}`
-          );
-        }
-        break;
-      }
-      default:
-        break;
-    }
+    ({ handled } = await processStripeEvent(event, stripe));
   } catch (error) {
     await notifySlack(`Stripe webhook handler error: ${String(error)}`);
     await markWebhookEvent(webhookEventId, { status: "failed", error: String(error) });
     return NextResponse.json({ error: "Webhook handler failed" }, { status: 500 });
   }
 
-  // The "processed" write sits outside the try on purpose. It used to be the
+  // The status write sits outside the try on purpose. It used to be the
   // last statement inside it, so a failed status write fell into the catch
   // above: the event got recorded as failed and answered 500 even though the
   // switch had already applied it, and Stripe redelivered a payment we had
   // fully handled.
-  await markWebhookEvent(webhookEventId, { status: "processed", error: null });
+  //
+  // A type we have no case for is recorded "skipped", not "processed".
+  // "processed" is what the admin webhook list reads as "we applied this", and
+  // an operator replaying a stuck event needs to see the difference between an
+  // event we acted on and one we ignored. Stripe still gets a 200 either way —
+  // asking it to redeliver an event we will keep ignoring only builds a retry
+  // loop.
+  await markWebhookEvent(webhookEventId, {
+    status: handled ? "processed" : "skipped",
+    error: null,
+  });
   return NextResponse.json({ received: true });
 }
