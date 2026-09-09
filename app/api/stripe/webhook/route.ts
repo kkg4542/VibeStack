@@ -31,18 +31,20 @@ export async function POST(request: NextRequest) {
 
     event = stripe.webhooks.constructEvent(payload, signature, webhookSecret);
 
-    // Log the webhook event
-    await prisma.webhookEvent.create({
-      data: {
-        provider: "stripe",
-        eventId: event.id,
-        type: event.type,
-        status: "received",
-        payload: JSON.stringify(event),
-      },
-    });
-
     webhookEventId = event.id;
+
+    /**
+     * Log the event with upsert, never create. WebhookEvent.eventId carries
+     * a @unique constraint and Stripe redelivers events it hasn't seen a 2xx
+     * for, so a create() here threw P2002 on every retry. That throw hit the
+     * signature catch below, which answers 400 unconditionally — so a
+     * perfectly signed redelivery got rejected as a bad signature, the
+     * switch never ran, and the row stayed stuck at status "received"
+     * while Stripe retried forever.
+     *
+     * `payload` is the raw request body, not JSON.stringify(event): that is
+     * the exact byte string the signature was computed over.
+     */
     await prisma.webhookEvent.upsert({
       where: { eventId: event.id },
       update: {
