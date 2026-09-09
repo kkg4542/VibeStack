@@ -387,4 +387,88 @@ describe("POST /api/stripe/webhook", () => {
     expect(createToolFromSubmission).not.toHaveBeenCalled();
     expect(sendSlackAlert).toHaveBeenCalledTimes(1);
   });
+
+  // Slack is best-effort. If an alerting outage 500s a payment event we
+  // already applied, Stripe keeps redelivering it until Slack comes back.
+  it("returns 200 and still marks the sponsorship past_due when the Slack alert fails", async () => {
+    stripeMock.webhooks.constructEvent.mockReturnValue({
+      id: "evt_invoice_failed_1",
+      type: "invoice.payment_failed",
+      data: {
+        object: {
+          subscription: "sub_stripe_1",
+          customer_email: "sponsor@example.com",
+        },
+      },
+    });
+    vi.mocked(sendSlackAlert).mockRejectedValueOnce(
+      new Error("slack webhook 503")
+    );
+
+    const response = await POST(makeRequest("{}"));
+
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toEqual({ received: true });
+
+    expect(prisma.sponsorship.updateMany).toHaveBeenCalledWith({
+      where: { stripeSubscriptionId: "sub_stripe_1" },
+      data: { status: "past_due" },
+    });
+    expect(sendSlackAlert).toHaveBeenCalledTimes(1);
+  });
+
+  // Recording "processed" is bookkeeping after the event has been applied.
+  // Letting that write 500 the response makes Stripe redeliver a payment we
+  // already handled.
+  it("returns 200 when recording the event as processed fails", async () => {
+    stripeMock.webhooks.constructEvent.mockReturnValue(
+      checkoutCompletedEvent({ type: "submission", submissionId: "sub-1" })
+    );
+    vi.mocked(prisma.submission.findUnique).mockResolvedValue(
+      makeSubmission({ status: "pending" }) as never
+    );
+    vi.mocked(prisma.webhookEvent.update).mockRejectedValueOnce(
+      new Error("connection terminated unexpectedly")
+    );
+
+    const response = await POST(makeRequest("{}"));
+
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toEqual({ received: true });
+
+    expect(createToolFromSubmission).toHaveBeenCalledTimes(1);
+    expect(prisma.webhookEvent.update).toHaveBeenCalledWith({
+      where: { eventId: "evt_completed_1" },
+      data: { status: "processed", error: null },
+    });
+  });
+
+  // The failure path must still answer 500 so Stripe retries a genuinely
+  // unhandled event — an unhandled throw in the catch would return nothing.
+  it("still returns 500 when the handler throws and recording the failure also fails", async () => {
+    stripeMock.webhooks.constructEvent.mockReturnValue(
+      checkoutCompletedEvent({ type: "submission", submissionId: "sub-1" })
+    );
+    vi.mocked(prisma.submission.findUnique).mockRejectedValueOnce(
+      new Error("connection terminated unexpectedly")
+    );
+    vi.mocked(prisma.webhookEvent.update).mockRejectedValueOnce(
+      new Error("connection terminated unexpectedly")
+    );
+
+    const response = await POST(makeRequest("{}"));
+
+    expect(response.status).toBe(500);
+    await expect(response.json()).resolves.toEqual({
+      error: "Webhook handler failed",
+    });
+
+    expect(prisma.webhookEvent.update).toHaveBeenCalledWith({
+      where: { eventId: "evt_completed_1" },
+      data: {
+        status: "failed",
+        error: "Error: connection terminated unexpectedly",
+      },
+    });
+  });
 });

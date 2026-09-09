@@ -8,6 +8,38 @@ import { SponsorshipPlacements } from "@/lib/sponsorships";
 
 export const runtime = "nodejs";
 
+/**
+ * Alerting is best-effort. Stripe retries any delivery it doesn't get a 2xx
+ * for, so letting a Slack outage throw out of the handler turns one dead
+ * dependency into a redelivery loop on payment events we already applied.
+ * Swallow the failure, but log it — a silent catch hides the outage itself.
+ */
+async function notifySlack(message: string): Promise<void> {
+  try {
+    await sendSlackAlert(message);
+  } catch (error) {
+    console.error("[stripe-webhook] Slack alert failed:", error);
+  }
+}
+
+/**
+ * Bookkeeping only: by the time we write a status the event has already been
+ * applied (or already failed) and the response is decided. A failed write
+ * leaves the row stale, which is recoverable; throwing here would flip the
+ * result Stripe sees, which is not.
+ */
+async function markWebhookEvent(
+  eventId: string | null,
+  data: { status: string; error: string | null }
+): Promise<void> {
+  if (!eventId) return;
+  try {
+    await prisma.webhookEvent.update({ where: { eventId }, data });
+  } catch (error) {
+    console.error("[stripe-webhook] Failed to record event status:", error);
+  }
+}
+
 export async function POST(request: NextRequest) {
   const signature = request.headers.get("stripe-signature");
   if (!signature) {
@@ -61,11 +93,7 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    try {
-      await sendSlackAlert(`Stripe webhook signature error: ${String(error)}`);
-    } catch (slackError) {
-      // Slack alert failed
-    }
+    await notifySlack(`Stripe webhook signature error: ${String(error)}`);
     return NextResponse.json({ error: "Webhook signature verification failed" }, { status: 400 });
   }
 
@@ -302,7 +330,7 @@ case "charge.refunded": {
           });
 
           // Notify via Slack
-          await sendSlackAlert(
+          await notifySlack(
             `⚠️ Subscription payment failed: ${subscriptionId}\nCustomer: ${invoice.customer_email || 'Unknown'}`
           );
         }
@@ -311,26 +339,17 @@ case "charge.refunded": {
       default:
         break;
     }
-    if (webhookEventId) {
-      await prisma.webhookEvent.update({
-        where: { eventId: webhookEventId },
-        data: { status: "processed", error: null },
-      });
-    }
-
-    return NextResponse.json({ received: true });
   } catch (error) {
-    try {
-      await sendSlackAlert(`Stripe webhook handler error: ${String(error)}`);
-    } catch (slackError) {
-      // Slack alert failed
-    }
-    if (webhookEventId) {
-      await prisma.webhookEvent.update({
-        where: { eventId: webhookEventId },
-        data: { status: "failed", error: String(error) },
-      });
-    }
+    await notifySlack(`Stripe webhook handler error: ${String(error)}`);
+    await markWebhookEvent(webhookEventId, { status: "failed", error: String(error) });
     return NextResponse.json({ error: "Webhook handler failed" }, { status: 500 });
   }
+
+  // The "processed" write sits outside the try on purpose. It used to be the
+  // last statement inside it, so a failed status write fell into the catch
+  // above: the event got recorded as failed and answered 500 even though the
+  // switch had already applied it, and Stripe redelivered a payment we had
+  // fully handled.
+  await markWebhookEvent(webhookEventId, { status: "processed", error: null });
+  return NextResponse.json({ received: true });
 }
