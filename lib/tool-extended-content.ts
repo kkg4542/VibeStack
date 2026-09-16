@@ -36,54 +36,82 @@ export const TOOL_EXTENDED_CONTENT_REVISED = "2026-08-16";
 export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
     lovable: {
         overviewHtml: `
-            <p><strong>Lovable</strong> is one of the breakout products of the 2025–2026 "AI app builder" wave. The premise is direct: you describe an application in plain language, and Lovable generates a working full-stack project — frontend, backend, database, authentication, deployment — without you opening a code editor. It is positioned somewhere between <a href="/tool/v0-by-vercel">v0 by Vercel</a> (UI-first, developer-targeted) and <a href="/tool/bolt-new">Bolt.new</a> (full-stack, developer-targeted) — Lovable is full-stack but firmly targeted at founders, designers, and operators who don't write code professionally.</p>
+            <p><strong>Lovable</strong> answers a question most AI coding tools quietly dodge: what happens when the person building the app has never opened a terminal? You describe an application in plain language, and Lovable produces a working full-stack project — interface, database, authentication, deployment — without you touching an editor. Almost every other tool in this category assumes a developer is driving. Lovable assumes a founder is.</p>
 
-            <p>Under the hood Lovable generates a standard React + Vite frontend, a Supabase-backed backend, and a deployed preview environment within a minute or two of the initial prompt. From there the user can iterate by chatting with the AI ("make the header sticky", "add a Stripe checkout for this plan"), by clicking into elements directly, or — and this is where Lovable differs from many competitors — by editing the generated source code in a built-in IDE if the user happens to know how. The full code is downloadable and the project can be ejected to GitHub at any point, which removes the usual "trapped in a no-code tool" objection.</p>
+            <p>That assumption shapes everything about the product, including its limits. The most useful way to evaluate Lovable is not "how good is the generated code" but "how far can a non-developer get before the project needs someone who reads stack traces" — and, just as importantly, "what happens at that moment."</p>
 
-            <p>The product's biggest strength is the guided flow from idea to deployed app. You don't have to know what an API route is, what a database schema is, or how authentication works — Lovable creates sensible defaults for all of it. The biggest weakness, predictably, is the same one every AI app builder has: when the project grows past about ten screens or includes complex business logic, the model starts making changes that conflict with each other, and a non-developer has no good way to recover. Lovable's response — letting you connect the project to a real GitHub repo and inviting a developer in — is pragmatic, but it does reveal the ceiling for non-technical solo use.</p>
+            <h3>What the first prompt actually produces</h3>
 
-            <p>For its intended user — a founder who wants a usable MVP without paying a development team or learning React — it is one of the most capable tools on the market in mid-2026. For experienced developers it can still be worth a look as a starter scaffold, although tools like <a href="/tool/cursor">Cursor</a> are likely a better fit for sustained engineering work.</p>
+            <p>A single prompt gets you a deployed application with a live URL, usually within a couple of minutes. Under the hood that is a conventional React and Vite frontend, Tailwind for styling, and Supabase for Postgres, authentication, and file storage. Nothing exotic; nothing bespoke to Lovable. From there you iterate by chatting ("make the header sticky", "add a plan selector to the pricing page"), by clicking directly into elements, or by editing the source in a built-in editor if you happen to know how.</p>
+
+            <p>The choice of ordinary, boring technology is the point. Lovable is not generating a proprietary app format that only Lovable can run. It is generating the kind of project a contract developer could open on a Monday morning without asking what any of it is.</p>
+
+            <h3>The complexity ceiling, and how you hit it</h3>
+
+            <p>Every AI app builder has a point where accumulated edits start to conflict with each other, and Lovable is no exception. The symptom is recognizable: a change you request in one place quietly breaks behavior somewhere else, you ask the AI to fix it, and the fix breaks a third thing. For a developer this is a normal Tuesday — you read the diff and undo the bad part. For a non-developer it is a dead end, because the recovery move requires exactly the skill the tool promised you would not need.</p>
+
+            <p>Roughly speaking, this arrives when a project grows past a handful of distinct screens or starts carrying business logic that spans several of them — permissions that differ by role, billing state that affects what a user can see, multi-step workflows with partial saves. Simple, wide apps (many similar pages, little cross-cutting logic) hold up far better than small, deep ones.</p>
+
+            <h3>Ejecting to GitHub is the real feature</h3>
+
+            <p>The eject path is what makes the ceiling survivable. A Lovable project can be connected to your own GitHub repository, cloned, and continued in any editor, with no ongoing dependency on Lovable itself. That is a genuinely different posture from closed no-code platforms, where hitting the ceiling means rebuilding from zero.</p>
+
+            <p>It is worth being clear-eyed about what ejecting costs, though. Once a developer starts committing changes outside Lovable, the chat-driven workflow stops being the source of truth, and you have effectively converted a no-code project into a normal software project with normal software costs. The correct way to think about the eject hatch is as an insurance policy, not a second phase of the same experience. If you are handing off, a tool like <a href="/tool/cursor">Cursor</a> is where the project usually continues.</p>
+
+            <h3>When not to use Lovable</h3>
+
+            <p>Lovable is the wrong choice more often than its marketing implies. Skip it if the application's value lives in logic rather than screens — pricing engines, scheduling optimizers, anything where the hard part is a rule set rather than a UI. Skip it if you are bound by a stack you do not control: if your company runs on .NET and a specific managed database, a generated React and Supabase project is a migration project, not a head start. Skip it if the data is regulated enough that you need to answer detailed questions about where it lives and who can reach it before the first user signs up.</p>
+
+            <p>And skip it if you are an experienced developer looking for daily leverage. Lovable is excellent at the first ninety minutes of a project and unremarkable at month three, which is the inverse of what a working engineer needs. Developers evaluating this whole category should read our breakdown of <a href="/blog/ai-app-builders-bolt-v0-lovable">Bolt, v0, and Lovable</a> before picking one, because the three tools are aimed at visibly different people: <a href="/tool/v0-by-vercel">v0</a> at developers who want polished UI, <a href="/tool/bolt-new">Bolt.new</a> at developers who want a fast end-to-end scaffold, and Lovable at the person who is not going to write the code at all.</p>
         `,
         useCases: [
             {
-                title: "Founder MVPs",
-                body: "Solo founders use Lovable to ship the first version of a SaaS, marketplace, or internal tool in a weekend. Auth, database, and deployment are handled by the generated stack, leaving the founder to focus on the unique product surface area.",
+                title: "Founder MVPs before there is a team",
+                body: "A solo founder builds the first usable version of a product without hiring or learning React. Auth, database, and deployment come with the generated stack, so the founder's attention goes to the one screen that makes the product different rather than the ten that every product has.",
             },
             {
-                title: "Internal tools for non-technical teams",
-                body: "Operations, marketing, and customer success teams use Lovable to build small internal dashboards and forms that would otherwise sit in a JIRA backlog for months. Because the generated stack uses Supabase as the database, hooking the new tool into existing data is straightforward.",
+                title: "Internal tools that never clear the backlog",
+                body: "Operations, support, and marketing teams build the small dashboards and forms that engineering will never prioritize. Because the backend is Supabase, wiring the tool to data the company already has is usually a configuration problem rather than an integration project.",
             },
             {
-                title: "Rapid prototyping for designers",
-                body: "Designers use Lovable to turn a Figma concept into a clickable, deployable prototype with real interactivity, real data, and a real URL — which validates ideas with users in a way that static mockups cannot.",
+                title: "Designers shipping something clickable and real",
+                body: "A designer turns a concept into a deployed app with real interactivity, real persistence, and a URL to send someone. Users behave differently with a working product than with a prototype that only moves where the prototype was told to move, and that difference is what the exercise is for.",
             },
             {
-                title: "Pre-seed pitch demos",
-                body: "Founders preparing for fundraising use Lovable to put a real, working product in front of investors rather than slides. The combination of speed, quality of output, and ejectability makes the resulting demo defensible if the deal moves to diligence.",
+                title: "Investor and customer demos",
+                body: "Showing a working product rather than slides changes the conversation, and the fact that the project can be ejected to GitHub means the demo survives technical diligence instead of collapsing under it.",
+            },
+            {
+                title: "An executable spec for the developer you are about to hire",
+                body: "Some teams use Lovable deliberately as a throwaway: build the thing badly, learn what it actually needs to do, then hand the repository to a developer as a precise description of the intended product. A working artifact removes far more ambiguity from a handoff than a requirements document does.",
             },
         ],
         pricingDetail:
             "Lovable's free tier allows a generous number of daily messages and unlimited projects, which is enough to evaluate the product and build a small MVP. Paid plans (currently Starter, Pro, and Teams) unlock higher message volume, private projects, custom domains, and team collaboration. Pricing is monthly with annual discounts; specific dollar amounts shift frequently, so check the official site before quoting numbers to a team.",
         faq: [
             {
-                q: "Is Lovable better than v0 or Bolt.new?",
-                a: "It depends entirely on who you are. v0 is best when you want polished UI components for a developer-led project. Bolt.new is best for developers who want a fast end-to-end scaffold they will then take over. Lovable is best when the person building the app is not a developer and wants the AI to handle as much of the stack as possible.",
-            },
-            {
                 q: "Do I own the code Lovable generates?",
-                a: "Yes. Projects can be exported, pushed to your own GitHub, and run independently of Lovable. This is one of the more important differentiators from closed no-code tools.",
+                a: "Yes. Projects can be exported, pushed to your own GitHub, and run independently of Lovable. This is one of the more important differentiators from closed no-code tools, and it is the reason a Lovable project can survive a decision to stop using Lovable.",
             },
             {
                 q: "What stack does Lovable use under the hood?",
-                a: "React with Vite for the frontend, Tailwind for styling, Supabase (Postgres + Auth + Storage) for the backend, and an integrated deploy pipeline that produces a live preview URL automatically.",
-            },
-            {
-                q: "Can a developer pick up a Lovable project mid-flight?",
-                a: "Yes — connect the project to GitHub and a developer can clone it and continue in any editor. The code is conventional and readable, which is uncommon among AI-generated codebases.",
+                a: "React with Vite for the frontend, Tailwind for styling, and Supabase (Postgres, Auth, and Storage) for the backend, with an integrated deploy pipeline that produces a live preview URL automatically. It is a conventional stack on purpose — a developer can pick it up without learning anything Lovable-specific.",
             },
             {
                 q: "What is the biggest limitation?",
-                a: "Complexity. Once a project crosses roughly ten screens or starts having intricate cross-cutting business logic, the AI's edits begin to conflict with previous work. At that point bringing in a developer is the realistic next step rather than continuing solo.",
+                a: "Complexity, not quality. Once a project grows past a handful of screens or accumulates logic that spans several of them, the AI's edits start conflicting with earlier work, and undoing a bad change requires reading the code. That is the moment the tool stops being a no-code tool.",
+            },
+            {
+                q: "Is Lovable better than v0 or Bolt.new?",
+                a: "They are aimed at different people, so the comparison resolves by asking who is building. v0 is strongest when a developer wants polished UI components for a project they will assemble themselves. Bolt.new suits developers who want a fast full-stack scaffold to take over. Lovable is the one designed for someone who does not intend to write code at all.",
+            },
+            {
+                q: "Can a developer pick up a Lovable project mid-flight?",
+                a: "Yes — connect the project to GitHub and a developer can clone it and continue in any editor. The generated code is conventional and readable, which is less common among AI-generated codebases than you would hope. Expect the developer to spend the first day tidying rather than shipping.",
+            },
+            {
+                q: "What happens to my app if I stop paying for Lovable?",
+                a: "The important question is whether you exported first. A project connected to your own GitHub repository and running on infrastructure you control keeps working regardless of your Lovable subscription. A project that only ever lived inside Lovable's hosting does not have that guarantee, so if the app matters, push it to a repository you own early rather than at the moment you need to leave.",
             },
         ],
     },
@@ -818,52 +846,76 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
     "gemini-code-assist": {
         overviewHtml: `
-            <p><strong>Gemini Code Assist</strong> is Google's AI coding assistant, powered by the Gemini model family and integrated into popular IDEs and Google Cloud. Its standout feature has been an unusually generous <strong>free tier for individuals</strong> — up to 6,000 code-related requests and 240 chat requests per day — which made it one of the most accessible serious coding assistants available.</p>
+            <p><strong>Gemini Code Assist</strong> is the hardest tool in this category to evaluate on its own terms, because it is not really sold as a standalone coding assistant. It is the developer-facing edge of Google Cloud. Judged as an editor plugin it is competent and unremarkable; judged as the AI layer of a platform your infrastructure already runs on, it does something its competitors structurally cannot.</p>
 
-            <p><strong>Important 2026 caveat:</strong> Google announced that Gemini Code Assist IDE extensions and the Gemini CLI will <strong>stop serving requests for the individual, Google AI Pro, and Google AI Ultra tiers starting June 18, 2026</strong>, directing users to migrate to <strong>Antigravity</strong> and the Antigravity CLI. If you are evaluating it as an individual today, factor this transition in — the product is actively changing form. The paid Standard (~$19–23/user/mo) and Enterprise (~$45–54/user/mo) tiers, aimed at Google Cloud organizations, continue with full Cloud integration.</p>
+            <h3>What "Google Cloud native" actually buys you</h3>
 
-            <p>Its strengths are the free tier's generosity, tight integration with Google Cloud services, and the underlying Gemini models' strong performance. For developers already in the Google Cloud ecosystem, the Enterprise tier's awareness of your cloud resources and services is a genuine advantage that editor-only tools cannot match.</p>
+            <p>An editor-only assistant knows your files. That is a real advantage and it is also the whole extent of its context. Gemini Code Assist's paid Cloud tiers can reason about the environment your code deploys into — the services in your project, the shape of your data warehouse, the identity and permission model you are working against. The difference shows up on a specific class of question: not "write this function" but "why does this service account not have access to that bucket", or "write the query against the table we actually have".</p>
 
-            <p>The honest weaknesses: the looming June 2026 migration to Antigravity creates real uncertainty for individual users, the tool is most valuable inside Google Cloud (less compelling outside it), and for general-purpose agentic editing tools like <a href="/tool/cursor">Cursor</a> and <a href="/tool/github-copilot">GitHub Copilot</a> are more mature. It is best understood as the right choice for Google Cloud shops rather than a universal recommendation. See <a href="/compare/cursor-vs-gemini-code-assist">Cursor vs Gemini Code Assist</a>.</p>
+            <p>This is why the tool's value is so uneven across teams. If your work involves Cloud Run, BigQuery, IAM policies, and Terraform aimed at GCP, the assistant is operating with information no other tool has. If you are writing a React frontend that talks to an API, it is just another model in a sidebar.</p>
 
-            <p>Who it is for: developers and teams building on Google Cloud who want AI assistance aware of their cloud environment, and individuals who want a generous free tier (with the Antigravity transition in mind). Who it is not for: teams outside the Google ecosystem, or anyone wanting the most mature standalone agentic editor.</p>
+            <h3>The free individual tier, and the Antigravity cutover</h3>
+
+            <p>The free tier for individuals was, for a long time, the most generous offer in serious AI coding assistance — up to 6,000 code-related requests and 240 chat requests per day, which is more headroom than most developers can consume. It made a capable assistant available to students, hobbyists, and anyone who could not justify a subscription.</p>
+
+            <p>That offer is in transition. Google announced that the Gemini Code Assist IDE extensions and the Gemini CLI would stop serving the individual, Google AI Pro, and Google AI Ultra tiers as of June 18, 2026, directing those users to <strong>Antigravity</strong> and the Antigravity CLI. That date has now passed, so anyone evaluating the individual tier should verify its current state directly with Google rather than relying on any third-party summary, including this one. The paid Standard and Enterprise tiers aimed at Google Cloud organisations were not part of that announcement.</p>
+
+            <h3>In the IDE: completions, chat, and the boring parts</h3>
+
+            <p>Day to day it does what you expect: inline completions, a chat panel that can see your open files, explanations of unfamiliar code, and generation of tests and boilerplate. It plugs into VS Code and the JetBrains editors as well as Google's own Cloud Shell Editor and Cloud Workstations, so a team already standardised on Google's development environments gets it without adopting a new editor.</p>
+
+            <p>It has also extended outward from the editor into code review on pull requests, which is where a lot of teams first encounter it without having made a purchasing decision at all.</p>
+
+            <h3>Where it sits against Copilot and Cursor</h3>
+
+            <p>The comparison resolves cleanly along one axis: how much of your problem is inside the codebase versus inside the platform. <a href="/tool/cursor">Cursor</a> is the more advanced editor, with better multi-file agentic editing and a faster pace of iteration on the editing experience itself — see <a href="/compare/cursor-vs-gemini-code-assist">Cursor vs Gemini Code Assist</a> for the detail. <a href="/tool/github-copilot">GitHub Copilot</a> has the deepest integration with the place most code actually lives, and if your org's centre of gravity is GitHub rather than GCP, that gravity usually wins.</p>
+
+            <p>Gemini Code Assist's counterargument is not "we are a better editor". It is that the expensive questions in a cloud-heavy codebase are not editing questions, and that an assistant which can see the running environment answers them more usefully. Whether that is worth a seat depends entirely on how much of your week is spent on infrastructure rather than application logic. For background on the models underneath, our <a href="/blog/gemini-3-pro-deep-dive">Gemini deep dive</a> covers the family in more depth.</p>
+
+            <h3>Procurement, licensing, and what happens to your code</h3>
+
+            <p>For enterprise buyers this is frequently the deciding section rather than a footnote. The paid tiers are administered like the rest of Google Cloud — the same billing account, the same org policies, the same identity system — which removes an entire procurement exercise for a company that is already a Cloud customer. Google has also offered indemnification covering generative output for Code Assist, which is the kind of assurance legal teams ask about before an engineering team is allowed to turn anything on.</p>
+
+            <p>Data handling differs by tier and is worth reading rather than assuming: the terms that apply to a free individual account are not the terms that apply to a paid Cloud deployment, and the opt-out settings differ. Confirm the current policy with your account team before a rollout, particularly if you are in a regulated industry.</p>
+
+            <h3>When not to pick Gemini Code Assist</h3>
+
+            <p>Skip it if you are not on Google Cloud. Almost the entire argument for the tool is the platform integration, and without that you are choosing a mid-pack assistant over more mature alternatives for no reason. Skip it if you want a state-of-the-art agentic editor that plans and executes multi-file changes with minimal supervision — that is where <a href="/tool/cursor">Cursor</a> and <a href="/tool/windsurf-ide">Windsurf</a> have been iterating hardest. Skip it if your code lives in GitHub and your workflow is organised around pull requests, where Copilot's integration is simply closer to the work.</p>
+
+            <p>And be careful about building an individual workflow on the free tier right now. The announced transition to Antigravity means the individual-tier experience is in motion, and "free and generous" is a weak foundation if the product underneath you is changing shape. Organisations on the paid Cloud tiers are in a considerably more stable position.</p>
         `,
         useCases: [
             {
-                title: "AI coding inside Google Cloud",
-                body: "For teams building on Google Cloud, Gemini Code Assist's Enterprise tier is aware of your cloud services and resources, offering suggestions grounded in your actual infrastructure. This Cloud-native awareness is its strongest differentiator.",
+                title: "Cloud-heavy backend and platform work",
+                body: "Teams working in Cloud Run, BigQuery, Pub/Sub, IAM, and GCP-targeted Terraform get suggestions grounded in the project's actual resources rather than a generic guess at what the environment looks like. This is the tool's one genuinely defensible advantage, and it is decisive for the people it applies to.",
             },
             {
-                title: "High-volume free individual use",
-                body: "The free individual tier's allowance — up to 6,000 code requests and 240 chat requests per day — let solo developers use a serious assistant without paying. Note the June 2026 migration to Antigravity if you rely on this.",
+                title: "Standardising on a single vendor's AI",
+                body: "Organisations already committed to Google across Cloud and Workspace often prefer one billing relationship, one identity model, one set of admin controls, and one legal review over assembling a best-of-breed stack. The integration argument here is as much about procurement and governance as it is about the model.",
             },
             {
-                title: "In-IDE completions and chat",
-                body: "Within supported IDEs, it provides code completions and a chat assistant powered by Gemini models, handling the everyday autocomplete-and-ask workflow most developers want from an assistant.",
+                title: "Everyday completions and code explanation",
+                body: "Inline suggestions, a chat panel with file context, test generation, and explaining code someone else wrote — the ordinary work any assistant handles. Worth naming plainly because it is what most of the usage actually is, and because it is the part where Gemini Code Assist is comparable to its rivals rather than differentiated from them.",
             },
         ],
         pricingDetail:
-            "Gemini Code Assist offers a Free tier for individuals (up to 6,000 code requests and 240 chat requests per day on Gemini models), Standard (~$19–22.8/user/mo), and Enterprise (~$45–54/user/mo) with full Google Cloud integration, plus 17% off annually. The critical thing to know before adopting it as an individual: Google will stop serving Gemini Code Assist IDE extensions and the Gemini CLI for the individual, Google AI Pro, and Google AI Ultra tiers starting June 18, 2026, directing users to migrate to Antigravity and the Antigravity CLI. The paid Cloud-oriented tiers continue, but individual users should plan around this transition.",
+            "Gemini Code Assist offers a Free tier for individuals (up to 6,000 code requests and 240 chat requests per day on Gemini models), Standard (~$19–22.8/user/mo), and Enterprise (~$45–54/user/mo) with full Google Cloud integration, plus 17% off annually. The critical thing to know before adopting it as an individual: Google announced that Gemini Code Assist IDE extensions and the Gemini CLI would stop serving the individual, Google AI Pro, and Google AI Ultra tiers as of June 18, 2026, directing those users to Antigravity and the Antigravity CLI. That date has passed, so confirm the individual tier's current state against Google's own documentation before planning around it. The paid Cloud-oriented tiers were not part of that announcement.",
         faq: [
             {
-                q: "Is Gemini Code Assist being discontinued?",
-                a: "For individuals, it is transitioning. Google announced that Gemini Code Assist IDE extensions and the Gemini CLI will stop serving the individual, Google AI Pro, and Google AI Ultra tiers starting June 18, 2026, with users directed to migrate to Antigravity and the Antigravity CLI. The paid Standard and Enterprise tiers for Google Cloud organizations continue.",
+                q: "What is the status of the individual tier and Antigravity?",
+                a: "Google announced that the Gemini Code Assist IDE extensions and the Gemini CLI would stop serving the individual, Google AI Pro, and Google AI Ultra tiers as of June 18, 2026, and directed those users to Antigravity and the Antigravity CLI. That date has passed, so check Google's own documentation for the current state before planning around the individual tier. The paid Standard and Enterprise tiers for Google Cloud organisations were not part of that announcement.",
             },
             {
-                q: "How generous is the free tier?",
-                a: "Unusually generous — up to 6,000 code-related requests and 240 chat requests per day on Gemini models, which is far more than most free coding assistants offer. Just be aware of the June 2026 migration to Antigravity if you depend on the individual tier.",
+                q: "Does it really know about my Google Cloud project?",
+                a: "On the paid Cloud tiers, yes — that awareness of your services, resources, and data is the product's central claim, and it is why questions about permissions, deployments, and queries against your own schema get better answers than a generic assistant can give. The Enterprise tier extends this further by grounding suggestions in your private repositories. On the free individual tier you are getting a capable general assistant, not this.",
             },
             {
-                q: "Is Gemini Code Assist worth it outside Google Cloud?",
-                a: "It is most compelling inside the Google Cloud ecosystem, where the Enterprise tier is aware of your cloud services and resources. Outside that ecosystem, more mature standalone tools like Cursor or GitHub Copilot are usually a better all-round choice. See our Cursor vs Gemini Code Assist comparison.",
+                q: "Is it worth using if we are not on Google Cloud?",
+                a: "Rarely. Strip out the platform integration and what remains is a competent assistant competing against tools that have iterated harder on the editing experience. Teams outside the Google ecosystem are generally better served by Cursor for agentic editing or GitHub Copilot for tight integration with where their code already lives.",
             },
             {
-                q: "What models power Gemini Code Assist?",
-                a: "It runs on Google's Gemini model family. The underlying models are strong performers, and the Enterprise tier pairs them with Google Cloud integration so suggestions can account for your actual cloud environment.",
-            },
-            {
-                q: "What is Antigravity?",
-                a: "Antigravity is the product Google is directing Gemini Code Assist individual users toward as the IDE extensions and CLI are retired for those tiers in June 2026. If you are an individual user, plan to migrate to Antigravity and its CLI to avoid disruption.",
+                q: "What happens to our code — is it used for training?",
+                a: "This differs by tier and is the wrong thing to take on trust from a review. The terms governing a free individual account are not the terms governing a paid Google Cloud deployment, and the available opt-out settings differ between them. Read the current data-use documentation for the specific tier you intend to buy, and if you are in a regulated industry, get it confirmed by your account team in writing before rollout.",
             },
         ],
     },
@@ -922,28 +974,36 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
     clickup: {
         overviewHtml: `
-            <p><strong>ClickUp</strong> is an all-in-one productivity platform that combines tasks, docs, goals, dashboards, and more into a single highly customizable workspace. Its pitch is consolidation — replace several separate tools with one — and it backs that up with an unusually feature-dense product and a genuinely useful free tier. Its AI layer, <strong>ClickUp Brain</strong>, adds writing, summarizing, and AI fields, plus agents and automations.</p>
+            <p><strong>ClickUp</strong> does not really compete on features, even though it has more of them than almost anything else in its category. It competes on a proposition: that one workspace holding tasks, documents, goals, dashboards, whiteboards, and an AI layer called <strong>ClickUp Brain</strong> is better than five specialised tools that each do their own job well. Everything anyone likes or dislikes about ClickUp follows from whether that proposition holds for their team.</p>
 
-            <p>The plan structure: <strong>Free Forever</strong> includes unlimited tasks and members (capped at 100MB storage, which small teams hit quickly). <strong>Unlimited ($7/user/mo)</strong> is the strongest value — unlimited storage, dashboards, and Gantt charts at a price that undercuts most competitors. <strong>Business ($12/user/mo)</strong> adds automation, workload views, and SSO. The crucial catch: <strong>ClickUp Brain (AI) is a separate add-on — around $7–9/user/mo on top of any plan — and is not included in any workspace tier</strong>.</p>
+            <h3>One tool instead of six: the trade</h3>
 
-            <p>Its strengths are breadth and value. Few tools pack as many features per dollar, and for teams who want one flexible system instead of separate apps for tasks, docs, and goals, ClickUp is compelling — the $7 Unlimited tier in particular is hard to beat on raw capability per dollar.</p>
+            <p>The case for consolidation is real and usually understated. Work that lives in one system does not need to be reconciled across systems. A task, the document explaining it, the goal it rolls up to, and the dashboard reporting on it are the same objects rather than four representations that drift apart. Nobody has to ask which tool is authoritative. Procurement signs one contract, and onboarding covers one product.</p>
 
-            <p>The honest weaknesses: the feature density that is a strength is also overwhelming — ClickUp has a real learning curve and can feel cluttered, and users occasionally report performance issues. The biggest gotcha is pricing: <strong>AI is not included</strong>, so a team expecting AI features is really looking at the plan price <em>plus</em> the Brain add-on, which can roughly double the per-seat cost. Teams comparing options also look at <a href="/tool/asana">Asana</a>, <a href="/tool/monday">Monday.com</a>, and <a href="/tool/notion-ai">Notion</a>.</p>
+            <p>The cost is equally real. A tool that does eight things does none of them as sharply as the product built to do only that thing, and the gap shows up exactly where a team is most opinionated. Engineers used to a fast, keyboard-driven issue tracker notice the difference immediately. Writers who live in a polished document editor notice it too. Consolidation trades peak quality in each function for coherence across all of them, and the right answer depends on whether your team's pain is "our tools are excellent but disconnected" or "each of our tools is mediocre".</p>
 
-            <p>Who it is for: teams who want a single, highly customizable, feature-rich workspace at strong value and don't mind a learning curve. Who it is not for: teams wanting simplicity out of the box, or anyone who assumed AI was included and is surprised by the separate Brain add-on cost.</p>
+            <p>There is a third cost that rarely makes it into the evaluation: configuration. ClickUp's flexibility means it does not arrive with an opinion about how you work, so someone has to supply one. Teams that adopt it without designating an owner for the workspace structure end up with a system where every team invented different statuses, custom fields multiplied, and nobody trusts the dashboards — which is the same fragmentation they were trying to escape, now inside a single product.</p>
+
+            <h3>Brain is a separate line item</h3>
+
+            <p>The most common budgeting surprise with ClickUp is that the AI is not part of the plan you just priced. ClickUp Brain — the writing, summarizing, AI fields, and agent features — is an add-on charged per seat on top of whatever workspace tier you are on, including the free one. For a team that is evaluating ClickUp specifically because of its AI features, the real per-seat cost is the plan plus Brain, which can be close to double what the pricing page's headline number suggests.</p>
+
+            <p>This is worth modelling before a rollout rather than after, because it changes the comparison. ClickUp's workspace tiers undercut most competitors on raw capability per dollar; ClickUp plus Brain lands in a different bracket where it is competing against tools with AI included. Both comparisons are legitimate — just make sure you are running the one that matches what you are actually going to buy.</p>
+
+            <h3>When a dedicated tool beats the all-in-one</h3>
+
+            <p>Do not consolidate onto ClickUp if your team's core workflow is the thing it would be replacing. Engineering organisations with a strong opinion about how issues should move generally prefer <a href="/tool/linear">Linear</a>, whose entire design is a refusal to be configurable — and if you want to understand why that refusal appeals to people, our write-up of <a href="/blog/linear-method-explained">the Linear method</a> covers the reasoning. Large enterprises with deep release, compliance, and reporting requirements stay on <a href="/tool/jira">Jira</a> because the ecosystem around it is the actual product. Teams whose centre of gravity is writing and knowledge rather than task state are happier in <a href="/tool/notion-ai">Notion</a>.</p>
+
+            <p>Skip it as well if nobody will own the configuration, if your team's tolerance for a dense interface is low, or if you are buying it to solve a process problem. ClickUp will faithfully implement a broken process at greater speed and with better dashboards. And be cautious about very large, heavily customised workspaces: the same breadth that makes the product capable makes it heavier than a focused tool, and performance is something to test against your real data volume before committing a large team. Teams weighing the middle ground usually also look at <a href="/tool/asana">Asana</a> and <a href="/tool/monday">Monday.com</a>, both of which sit closer to a defined opinion than ClickUp does.</p>
         `,
         useCases: [
             {
-                title: "Consolidating multiple tools",
-                body: "ClickUp's main pitch: replace separate apps for tasks, docs, goals, and dashboards with one workspace. Teams tired of juggling tools adopt it to centralize work, and the breadth genuinely covers most project-management needs in a single place.",
+                title: "Collapsing tool sprawl into one workspace",
+                body: "The reason most teams arrive: separate subscriptions for tasks, documents, goals, and reporting that nobody has fully reconciled, plus the recurring argument about which one is authoritative. ClickUp genuinely covers all of those surfaces at once, and for teams whose problem is fragmentation rather than depth, that is the whole value proposition.",
             },
             {
-                title: "Customizable project tracking",
-                body: "With custom views, fields, statuses, and automations, teams shape ClickUp to their exact workflow rather than adapting to a rigid structure. This flexibility is why it appeals to teams with non-standard processes.",
-            },
-            {
-                title: "AI-assisted work with Brain",
-                body: "ClickUp Brain adds AI writing, summarizing, AI fields, and agents on top of the workspace — drafting updates, summarizing tasks, and automating routine work. Note it is a paid add-on (~$7–9/user/mo) separate from the workspace plan.",
+                title: "Processes that refuse to fit a standard board",
+                body: "Custom views, fields, statuses, and automations let a team model an unusual workflow instead of bending it to fit someone else's template — agencies tracking client deliverables, operations teams running approval chains, anything where the stages are specific to the business. This flexibility is why ClickUp wins deals that more opinionated tools cannot, and it is also why an unowned ClickUp workspace degrades so quickly.",
             },
         ],
         pricingDetail:
@@ -951,7 +1011,7 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
         faq: [
             {
                 q: "Is AI included in ClickUp's plans?",
-                a: "No — this is the most important pricing catch. ClickUp Brain (the AI) is a separate add-on at roughly $7–9/user/month on top of any workspace plan (Free, Unlimited, Business, Enterprise). A team that wants AI features needs to budget the plan price plus Brain, which can nearly double the per-seat cost.",
+                a: "No — this is the most important pricing catch. ClickUp Brain is a separate add-on charged per seat on top of any workspace plan, including Free. A team that wants AI features needs to budget the plan price plus Brain, which can nearly double the per-seat cost, so run your comparison against competitors using that combined number rather than the headline tier price.",
             },
             {
                 q: "Which ClickUp plan is the best value?",
@@ -959,15 +1019,23 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
             },
             {
                 q: "Is ClickUp hard to learn?",
-                a: "It can be. The feature density that makes ClickUp powerful also makes it overwhelming for new users, and it has a real learning curve. Teams that want something simple out of the box may find it cluttered; teams that want maximum flexibility tend to appreciate it once configured.",
+                a: "It can be, and the difficulty is less about the interface than about the decisions. ClickUp has no strong opinion about how you should work, so a team has to make dozens of small structural choices before the tool feels coherent. Teams that assign one person to own the workspace design get through this; teams that let everyone configure their own corner tend to stay confused.",
             },
             {
-                q: "ClickUp or Notion — which should we choose?",
-                a: "ClickUp is more of a structured project-management platform (tasks, dashboards, Gantt), while Notion is a flexible docs-and-databases workspace. Choose ClickUp for project and task management at scale; choose Notion if your center of gravity is documents and knowledge. Many teams use one as primary and the other for specific needs.",
+                q: "ClickUp or Notion?",
+                a: "It depends on whether your work is mostly state or mostly prose. ClickUp is a structured project-management platform first — tasks, dashboards, timelines — with documents attached. Notion is a documents-and-databases workspace with project management layered on. Pick by asking where your team already spends its day, because the tool you choose for the other job will always feel like a compromise.",
             },
             {
-                q: "Does ClickUp have performance issues?",
-                a: "Some users report occasional slowness, particularly in large, heavily-customized workspaces. It is not universal, but the same breadth of features that makes ClickUp capable can make it heavier than simpler, more focused tools. Test it with your real workload before committing a large team.",
+                q: "Should an engineering team use ClickUp instead of Linear or Jira?",
+                a: "Usually not, if engineering is the primary user. Linear wins on speed and a deliberately narrow opinion about how issues move; Jira wins on ecosystem depth and enterprise reporting. ClickUp makes more sense when engineering is one of several functions sharing a workspace and the value of everyone being in the same system outweighs having the best possible issue tracker.",
+            },
+            {
+                q: "How hard is it to leave ClickUp later?",
+                a: "Harder than getting in, which is true of every all-in-one but worth planning for. Tasks and fields generally export, but the things you built inside ClickUp — automations, dashboards, document structure, cross-object relationships — do not have an equivalent to import into somewhere else. The more deeply you customise, the more of the migration cost is rebuilding logic rather than moving data. Run a trial export early so you know what the escape looks like before you depend on it.",
+            },
+            {
+                q: "Does ClickUp slow down in large workspaces?",
+                a: "Some users report it, particularly in large workspaces with heavy customisation, many automations, and large dashboards. It is not universal and the product has improved, but the pattern is consistent enough that the sensible move is a pilot with realistic data volume and view complexity rather than a small clean test space that will not reproduce the problem.",
             },
         ],
     },
@@ -1286,52 +1354,78 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
     runway: {
         overviewHtml: `
-            <p><strong>Runway</strong> is a pioneer of AI video generation and a broader AI creative suite, best known for pushing text-to-video and image-to-video forward with its Gen-series models. For filmmakers, motion designers, and creative professionals, Runway has been one of the most capable tools for turning prompts and images into moving footage, alongside a deep set of editing and effects tools (inpainting, motion brush, green screen, and more).</p>
+            <p><strong>Runway</strong> is usually filed under "AI video generators", which undersells what it is and explains why a lot of people try it once and conclude it is a toy. Generation is the headline, but the product around it is a post-production suite — rotoscoping, inpainting, motion tracking, retiming, upscaling — and those tools are what make the generated material usable in work that has to be delivered to a client. The difference between Runway and a pure text-to-video demo is the difference between a camera and a photograph.</p>
 
-            <p>Pricing runs on a credit system across tiers. <strong>Free</strong> gives a one-time credit allotment to try generation, with watermarked output and limits. <strong>Standard (around $15/mo)</strong>, <strong>Pro (around $35/mo)</strong>, and <strong>Unlimited (around $95/mo)</strong> raise credit allowances, resolution, and features, with Unlimited adding a relaxed-mode for unlimited (slower) generations. Enterprise is custom. Credits are consumed per generation, scaling with length and model.</p>
+            <h3>Generation is only half the product</h3>
 
-            <p>Its strengths are video quality and creative control. Runway is built for people who care about the craft — it pairs strong generative models with professional editing tools, so it is not just "type a prompt, get a clip" but a genuine production environment. For creative work where video is the deliverable and quality matters, it is among the most capable options.</p>
+            <p>A prompt-to-clip tool gives you something you either accept or regenerate. Runway gives you something you can keep working on. That distinction is the entire reason it shows up in professional pipelines: a shot that is eighty percent right is worthless if your only option is to roll the dice again, and valuable if you can mask out the wrong part and replace it.</p>
 
-            <p>The honest weaknesses: AI video is credit-hungry, and serious work burns through allowances fast — costs can climb quickly for heavy users. Generative video still has consistency and artifact limitations that require iteration, and for users who just want occasional clips, the dedicated subscription is harder to justify than image tools. Compared with <a href="/tool/openai-sora">Sora</a>, the two trade leadership on quality and availability; <a href="/tool/midjourney">Midjourney</a> remains the benchmark for still images. </p>
+            <p>In practice a working session rarely looks like typing one prompt. It looks like generating a base, extending it, brushing motion onto a specific region, erasing an object that drifted, upscaling the result, and cutting the useful two seconds out of a four-second clip. Almost none of that is generative. All of it is why the generated part survives.</p>
 
-            <p>Who it is for: filmmakers, motion designers, and creative professionals who want capable AI video generation paired with real editing tools. Who it is not for: casual users wanting the occasional clip (the credit costs and subscription are hard to justify), or anyone needing perfectly consistent, artifact-free video today.</p>
+            <h3>The Gen-series models in practice</h3>
+
+            <p>Runway's Gen-series models handle text-to-video, image-to-video, and video-to-video, and the direction of travel across generations has been consistency rather than raw spectacle — holding a character, an object, or a location stable across shots, which is the thing that decides whether generated footage can be cut together into something coherent. Newer generations also support driving a generated performance from an ordinary video reference, which moves the tool closer to directing and further from rolling dice.</p>
+
+            <p>Image-to-video is the mode professionals reach for most, and it is worth saying why: starting from a still you control removes most of the ambiguity from the prompt. You are no longer negotiating with the model about what the scene looks like, only about how it moves. Teams often generate or shoot the still first and treat Runway as the motion step.</p>
+
+            <h3>Rotoscoping, inpainting, and the unglamorous work</h3>
+
+            <p>The features that earn Runway a subscription are the boring ones. Its green-screen tool mattes a subject out of footage that was never shot against a green screen, which is a task that historically ate hours of an artist's week. Inpainting removes an object, a logo, a microphone, or a person from a moving shot and fills the hole plausibly. Motion Brush applies movement to a chosen region rather than the whole frame. Frame interpolation and upscaling clean up material that is nearly good enough.</p>
+
+            <p>None of this is exciting to demo, and all of it is what an actual job consists of. A studio that never generates a single frame can still get value out of Runway as a cleanup and matting tool, and some do exactly that.</p>
+
+            <h3>Credits are the real unit of planning</h3>
+
+            <p>Every meaningful decision in Runway is denominated in credits, which are consumed per generation and scale with clip length and model quality. This matters more than the monthly price, because creative work is iterative by nature: the shot you keep is rarely the first one, and every discarded attempt costs the same as a kept one. Budget for the ratio between attempts and keepers, not for the number of finished shots.</p>
+
+            <p>The practical discipline is to do exploration cheaply — short durations, lower-cost models, small tests to check whether an idea works at all — and spend real credits only on the version you already believe in. Teams that burn through an allowance in a week are almost always the ones generating full-length, maximum-quality clips while still deciding what the shot should be.</p>
+
+            <h3>When Runway is the wrong tool</h3>
+
+            <p>Do not reach for Runway when the deliverable needs to match footage you already shot exactly — matching grain, lens characteristics, and lighting to real plates remains genuinely hard, and a mismatch reads as wrong to viewers who could not tell you why. Do not use it for long-form continuous scenes; generated video works in shots, not sequences, and the seams get harder to hide the longer you ask it to run. Do not use it where text has to be legible on screen, or where a specific real person, product, or brand asset has to be reproduced faithfully.</p>
+
+            <p>It is also the wrong purchase for occasional use. The credit model rewards people working on something continuously and punishes the user who wants one clip a month — that person is better served by a general-purpose tool they already pay for. And if the output you need is a still image rather than motion, <a href="/tool/midjourney">Midjourney</a> remains the stronger craft tool; see <a href="/compare/midjourney-vs-runway">Midjourney vs Runway</a> for where the line falls. For raw generative quality without the editing suite, <a href="/tool/openai-sora">Sora</a> is the obvious alternative to weigh.</p>
         `,
         useCases: [
             {
-                title: "AI video generation",
-                body: "Runway's core: generating video from text or images with its Gen-series models. Filmmakers and creators use it to produce footage, b-roll, and effects shots that would be expensive or impossible to film, iterating quickly on visual ideas.",
+                title: "B-roll and inserts that are impractical to shoot",
+                body: "Establishing shots, abstract textures, aerial-style movement, and scenes that would need a location, a permit, or a crew. This is the highest-value generative use because the bar is atmosphere rather than exact fidelity, and nobody in the audience is checking the shot against reality.",
             },
             {
-                title: "Professional editing and VFX",
-                body: "Beyond generation, Runway includes inpainting, motion brush, green screen, and other tools, making it a genuine production environment rather than a one-shot generator. Creators combine generative and editing tools in one place to finish real work.",
+                title: "Previsualization and pitch films",
+                body: "Directors and agencies build a moving version of an idea before anyone commits a budget to it. A rough generated sequence communicates intent in a way storyboards cannot, and it is cheap enough to make three versions and argue about them.",
             },
             {
-                title: "Concept and pre-visualization",
-                body: "Directors and designers use Runway to pre-visualize scenes and concepts before committing resources — generating mood-setting footage and visual tests that communicate an idea far better than storyboards or stills.",
+                title: "Object, logo, and rig removal",
+                body: "Inpainting on moving footage handles the cleanup work that used to require frame-by-frame paint: a brand mark that was not cleared, a boom mic in shot, a crew member in a reflection, a modern object in a period scene.",
+            },
+            {
+                title: "Matting without a green screen",
+                body: "Runway's rotoscoping can isolate a subject from footage shot on location, which opens up compositing on material that was never planned for it. For documentary and run-and-gun work, where staging a proper key was never an option, this is often the single feature that justifies the subscription.",
+            },
+            {
+                title: "Look development and style exploration",
+                body: "Video-to-video restyling lets a team test several visual directions on the same footage before choosing one. It is faster than grading each option properly, and the point is the decision, not the deliverable.",
+            },
+            {
+                title: "Rescuing and extending existing footage",
+                body: "Retiming, frame interpolation, upscaling, and generative extension of a shot that ended a beat too early. This is the least glamorous category and frequently the most used, because it fixes problems that already exist in an edit rather than creating new material.",
             },
         ],
         pricingDetail:
             "Runway uses a credit-based model: Free (one-time credit allotment, watermarked output, limits), Standard (around $15/mo), Pro (around $35/mo), Unlimited (around $95/mo, adding a relaxed mode for unlimited slower generations), and Enterprise (custom). Annual billing discounts apply. The key mechanic: credits are consumed per generation and scale with clip length and the model used, so AI video gets expensive fast — heavy users on lower tiers exhaust credits quickly. Confirm current prices and credit allowances on Runway's site, as generative-video pricing changes often.",
         faq: [
             {
-                q: "Why do Runway credits run out so fast?",
-                a: "Because AI video generation is computationally expensive — credits are consumed per generation and scale with clip length and model quality. Serious creative work involves a lot of iteration, so heavy users on Standard or Pro burn through allowances quickly. The Unlimited tier's relaxed mode helps for high-volume, less time-sensitive work.",
+                q: "Why do credits disappear so fast?",
+                a: "Because you pay per attempt, not per result. Generation cost scales with clip length and model quality, and creative work involves discarding far more shots than you keep, so the allowance is really a budget for iteration. The fix is workflow rather than tier: explore with short, cheap generations and reserve high-quality runs for shots you have already decided on. The Unlimited tier's relaxed mode exists for high-volume work where waiting longer is acceptable.",
             },
             {
-                q: "Runway or Sora — which is better for AI video?",
-                a: "Both are leaders in AI video and trade the lead on quality and availability over time. Runway pairs generation with a deep professional editing suite, making it a fuller production environment; Sora is known for raw quality and physical realism. The best choice depends on which models are strongest at the moment and whether you need Runway's editing tools.",
+                q: "Can I use Runway output in commercial work?",
+                a: "Runway's paid plans have been intended for commercial use, and the free tier's watermarking makes its status obvious. Read the current terms before a client deliverable rather than trusting a summary, and note that broader questions about training data and generative output remain unsettled across the industry — for work with real legal exposure, agencies increasingly route generated material past their own counsel, the same way they would with stock or archive footage.",
             },
             {
-                q: "Is Runway's free plan enough to evaluate it?",
-                a: "It is enough to try generation and see the quality, but the one-time credit allotment, watermarks, and limits mean you cannot do real production work on it. Treat Free as a demo; serious use requires a paid tier with a recurring credit allowance.",
-            },
-            {
-                q: "Is Runway just for video?",
-                a: "Video generation is its headline, but Runway is a broader creative suite with image tools, editing, and VFX features like inpainting, motion brush, and green screen. It is designed as a production environment for creative professionals, not solely a text-to-video generator.",
-            },
-            {
-                q: "Is AI video ready for professional use?",
-                a: "It is increasingly capable but still has consistency and artifact limitations that require iteration and careful selection. Professionals use Runway successfully for b-roll, concept work, effects, and pre-visualization, but fully replacing traditional production for polished, consistent footage still takes effort and review.",
+                q: "Runway or Sora?",
+                a: "Sora is the stronger pure generator; Runway is the stronger production environment. If you want the best single clip a prompt can produce, weigh Sora. If the clip has to be matted, cleaned, extended, or cut together with other shots, Runway's editing tools are the reason to be there, and they matter more than a marginal quality difference once the work has a deadline attached.",
             },
         ],
     },
@@ -1390,52 +1484,80 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
     descript: {
         overviewHtml: `
-            <p><strong>Descript</strong> is an AI-powered video and podcast editor with a defining trick: it lets you edit audio and video by editing text. It transcribes your recording, and deleting a word from the transcript deletes it from the media. Combined with its AI assistant <strong>Underlord</strong> and tools like Studio Sound, filler-word removal, and AI eye-contact correction, it has made professional-quality content editing accessible to people who are not video editors.</p>
+            <p><strong>Descript</strong> is a video and podcast editor built on one inversion: the transcript is the timeline. It listens to your recording, writes out every word, and then treats that document as the authoritative version of the media. Delete a sentence from the text and the sentence leaves the audio and the video with it. Reorder two paragraphs and the footage reorders. Nothing else in the editing world works this way, and whether Descript is right for you comes down almost entirely to whether that inversion fits the thing you are making.</p>
 
-            <p>The plan structure: <strong>Free</strong> includes about one media hour per month but with watermarked exports and no AI credits or Underlord access — strictly for trying the editor. <strong>Hobbyist ($16/user/mo annually)</strong> raises transcription to ~10 hours with basic AI. <strong>Creator ($24/user/mo annually)</strong> is the go-to for podcasters and YouTubers, adding Studio Sound, full Underlord, and 4K exports. <strong>Business ($50/user/mo annually)</strong> targets small video teams with ~30 hours, and Enterprise is custom. AI features draw on AI credits tracked per plan.</p>
+            <p>Around that core sit the cleanup tools most people actually buy it for — Studio Sound for audio that was recorded in a bad room, one-click removal of filler words and long gaps, eye-contact correction for people who read from a script, and <strong>Underlord</strong>, the AI assistant that handles routine editing requests. None of these are novel individually. What is unusual is that they are all reachable by someone who has never learned a timeline.</p>
 
-            <p>Its strengths are accessibility and a genuinely novel workflow. Text-based editing removes the intimidation of timeline editors, and the AI cleanup tools (Studio Sound for audio, filler-word removal, eye contact) handle tedious post-production automatically. For podcasters, YouTubers, and teams producing regular content, it dramatically lowers the skill and time required.</p>
+            <h3>Editing a video by editing a document</h3>
 
-            <p>The honest weaknesses: the free tier is too limited for real work (1 hour, watermarks, no AI), so meaningful use requires a paid plan, and AI features are metered by credits that heavy users can exhaust. For complex, high-end video production, dedicated NLEs (Premiere, DaVinci) still offer more control. And for pure voice generation rather than editing recorded content, <a href="/tool/elevenlabs">ElevenLabs</a> is the right tool.</p>
+            <p>The practical consequence of transcript-first editing is that the skill required to use it is literacy, not craft. Cutting a rambling ninety-minute interview down to forty tight minutes is, in Descript, a job that looks like copyediting: read, select, delete, read again. In a conventional editor the same job means scrubbing a waveform, finding the in and out points by ear, and cutting clips — a slower loop that most non-editors abandon.</p>
 
-            <p>Who it is for: podcasters, YouTubers, and content teams who want fast, accessible video/audio editing with AI cleanup. Who it is not for: high-end video professionals needing a full NLE's control, or anyone whose need is voice generation rather than editing existing recordings.</p>
+            <p>This is also where the workflow's limits come from. Text is a linear representation, so anything whose value is not carried by speech is invisible to it. A silent B-roll sequence, a graphics-heavy explainer, a musical transition, a reaction shot — none of those live in the transcript, so none of them get easier. Descript can still place them, but you are back to ordinary editing for exactly the parts the transcript cannot describe. Talk-driven content gets enormous leverage; everything else gets a little.</p>
+
+            <p>The second consequence is stylistic, and it is worth naming because it affects how finished work sounds. When deletion is this frictionless, editors delete a lot — every "um", every breath, every half-second of thinking. Aggressively de-filtered speech can end up sounding hurried and slightly airless, and audiences notice even when they cannot say why. The tool will happily let you strip a conversation of its rhythm. Leaving some of it in is a choice you now have to make deliberately.</p>
+
+            <h3>Where Descript stops and a timeline NLE starts</h3>
+
+            <p>Descript is a finishing tool for spoken-word content, not a general post-production environment, and the honest boundary is easier to draw than most vendors admit. You will outgrow it if your work depends on frame-accurate trims, multi-camera sync across many angles, layered motion graphics, colour grading beyond basic correction, or complex audio mixing with buses and sends. Those are the jobs Premiere, Final Cut, and DaVinci Resolve exist for, and Descript does not pretend otherwise.</p>
+
+            <p>You should also skip it if your material is not primarily people talking — event footage, product films, anything scored and cut to music. And it is a poor fit as a middle step in someone else's pipeline: Descript is designed to take a recording and produce a finished file, along with transcripts and subtitles, rather than to hand editorial decisions to a downstream conform. If a professional editor is going to finish the piece, they will want the raw media and their own timeline, and the round trip will cost you more than the transcript saved.</p>
+
+            <p>And if what you actually want is the transcript rather than an edit — meeting notes, a searchable record, a summary — a dedicated transcription service such as <a href="/tool/otter-ai">Otter.ai</a> does that job for less money and without asking you to open an editor at all.</p>
+
+            <p>One more distinction that trips people up: Descript edits recordings of real voices. If what you want is synthetic narration generated from a script with no recording involved, <a href="/tool/elevenlabs">ElevenLabs</a> is the dedicated tool for that job, and the two are complements rather than competitors.</p>
         `,
         useCases: [
             {
-                title: "Text-based video and podcast editing",
-                body: "Descript's signature: edit media by editing its transcript — delete a word, delete the audio. This removes the intimidation of timeline editing and lets podcasters and creators cut, rearrange, and clean up content as easily as editing a document.",
+                title: "Podcast production end to end",
+                body: "Record, edit in the transcript, clean the audio with Studio Sound, strip filler, and publish — without a separate DAW. For interview shows in particular, the transcript is also the deliverable that feeds show notes, chapter markers, and quote pulls, so the editing pass and the promotion pass stop being separate work.",
             },
             {
-                title: "AI audio and video cleanup",
-                body: "Tools like Studio Sound (audio enhancement), filler-word removal, and AI eye-contact correction automate tedious post-production. Creators use them to make raw recordings sound and look professional without manual editing expertise.",
+                title: "Talking-head video and course content",
+                body: "Tutorials, internal training, and YouTube explainers are almost pure speech, which is exactly the shape Descript is built for. Eye-contact correction in particular matters here, because reading from a script and looking at the camera are otherwise mutually exclusive.",
             },
             {
-                title: "Underlord AI assistance",
-                body: "Underlord, Descript's AI assistant, helps with editing tasks, generating content, and speeding up the production workflow. For regular content producers, it takes on routine steps so they can focus on the creative parts.",
+                title: "Fixing a take without re-recording it",
+                body: "Voice cloning through Overdub lets you correct a misspoken word or a wrong figure by typing the replacement, which turns a re-shoot into a two-minute fix. Treat it as a repair tool rather than a production method, and get explicit consent before cloning anyone else's voice.",
+            },
+            {
+                title: "Interview and research workflows",
+                body: "Journalists, user researchers, and analysts use Descript less as an editor and more as a searchable archive of conversations — find the moment someone said the thing, pull the clip, quote the transcript. The editing features are almost a side effect of the transcript being good.",
             },
         ],
         pricingDetail:
             "Descript has five tiers: Free ($0, ~1 media hour/month, watermarked exports, no AI credits or Underlord), Hobbyist ($16/user/mo annually or $24 monthly, ~10 hours, basic AI), Creator ($24/user/mo annually or $35 monthly, the podcaster/YouTuber go-to with Studio Sound, full Underlord, 4K exports), Business ($50/user/mo annually or $65 monthly, ~30 hours for small teams), and Enterprise (custom). AI features consume AI credits tracked per plan. The trap: the free tier is strictly a trial (1 hour, watermarks, no AI), so any real content work needs at least Creator — and heavy AI use can exhaust credits before the period resets.",
         faq: [
             {
-                q: "How does Descript's text-based editing work?",
-                a: "Descript transcribes your recording, then lets you edit the media by editing the transcript — deleting a word from the text removes it from the audio and video. This makes editing as approachable as word processing, which is the core reason non-editors can produce polished content with it.",
+                q: "How does text-based editing actually work?",
+                a: "Descript transcribes the recording and links every word in the transcript to its position in the media. Deleting a word from the document removes the corresponding audio and video; moving a paragraph moves the footage. You are still making edit decisions, but you are making them by reading rather than by scrubbing.",
             },
             {
-                q: "Is the free Descript plan enough?",
-                a: "Only for trying it. Free includes about one media hour per month with watermarked exports and no AI credits or Underlord access. Real content work — podcasts, YouTube videos — requires at least Creator ($24/user/mo) for the AI tools, Studio Sound, and unwatermarked 4K exports.",
+                q: "Do the cuts sound obvious?",
+                a: "Usually not for speech, because Descript cuts at word boundaries and handles the joins for you. Where it can get audible is when you remove a lot of consecutive filler in one breath group, or cut across a change in room tone or background noise. The fix is the same as in any editor: listen back to the joins rather than trusting the transcript view, and leave a little breathing room around the cuts.",
             },
             {
-                q: "What is Underlord?",
-                a: "Underlord is Descript's AI assistant, which helps with editing tasks, content generation, and streamlining the production workflow. It is available with full functionality from the Creator tier and is part of what makes Descript more than a basic editor — it actively assists the editing process.",
+                q: "What is Overdub, and is it safe to use?",
+                a: "Overdub is Descript's voice cloning feature: you train a model on your own voice and can then type corrections that are rendered in it. Technically it is best used for small repairs rather than generating whole passages. Ethically, only clone a voice with the speaker's explicit consent — Descript gates training on a consent recording for this reason, and the same caution applies to anything you publish with it.",
             },
             {
-                q: "Descript or a traditional video editor?",
-                a: "Descript wins on accessibility and speed for talking-head content, podcasts, and tutorials — its text-based workflow and AI cleanup are far faster for those. For complex, high-end video production with fine control over every frame, dedicated NLEs like Premiere or DaVinci Resolve still offer more.",
+                q: "Can I take a Descript project into Premiere or Resolve to finish it?",
+                a: "Plan on Descript being the end of the chain rather than the middle of it. It is built to output finished media along with transcripts and subtitles, not to hand a full editorial decision list to a downstream conform. If a professional editor is finishing the piece, give them the original recordings and let them work in their own tool.",
             },
             {
-                q: "Does Descript handle voice generation?",
-                a: "It has some AI voice features, but its focus is editing recorded video and audio, not generating synthetic voice from scratch. If your primary need is high-quality text-to-speech, voice cloning, or voice agents, ElevenLabs is the dedicated tool; Descript is for editing content you have recorded.",
+                q: "Is the free plan enough to do real work?",
+                a: "No, and it is not meant to be. Free gives you roughly one media hour a month with watermarked exports and no AI credits or Underlord access, which is enough to test whether the transcript workflow suits you. Publishing anything means a paid tier, and the AI cleanup tools that make Descript worth using start at Creator.",
+            },
+            {
+                q: "Can Descript handle multi-camera or graphics-heavy video?",
+                a: "Only lightly. It supports multiple tracks and basic layering, but multi-camera sync across many angles, layered motion graphics, and detailed colour work are jobs for a conventional NLE. If your edit spends more time on what is on screen than on what is being said, you are using the wrong tool.",
+            },
+            {
+                q: "How accurate does the transcript need to be?",
+                a: "More accurate than you might assume, because the transcript is not just a convenience — it is the interface. Clean audio, one speaker at a time, and a decent microphone all improve accuracy, and improving accuracy directly reduces editing time. Heavy accents, crosstalk, and noisy rooms degrade it, and you will feel that as friction in every subsequent step.",
+            },
+            {
+                q: "Descript or ElevenLabs?",
+                a: "Different problems. Descript edits recordings of real people; ElevenLabs generates speech that was never recorded. If you have footage and need to cut it, that is Descript. If you have a script and need a voice, that is ElevenLabs. Teams producing narrated video sometimes use both.",
             },
         ],
     },

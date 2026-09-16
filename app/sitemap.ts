@@ -5,6 +5,7 @@ import { stacks, STACKS_REVISED } from "@/lib/stacks";
 import { BEST_CATEGORIES, BEST_REVISED } from "@/lib/best-categories";
 import { comparePairs } from "@/lib/compare-content";
 import { hasExtendedContent, TOOL_EXTENDED_CONTENT_REVISED } from "@/lib/tool-extended-content";
+import { TOOL_CONTENT_REVISED_BY_SLUG } from "@/lib/tool-content-revised";
 
 const CATEGORY_SLUGS = ["coding", "management", "productivity", "assistance", "design", "other"];
 
@@ -57,11 +58,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Tool pages. The extended editorial copy lives in the repo rather than the
     // database, so a copy revision never moves the Tool row's updatedAt. Report
     // whichever of the two is genuinely newer.
+    // A tool revised on its own carries its own date; the rest fall back to the
+    // batch constant. Without the override a single-tool rewrite is invisible here,
+    // because bumping the shared constant would claim all 48 pages changed.
     const extendedRevised = new Date(TOOL_EXTENDED_CONTENT_REVISED);
     const toolPages = tools.map((tool) => {
         const dbUpdated = tool.updatedAt ? new Date(tool.updatedAt) : staticLastModified;
+        const override = TOOL_CONTENT_REVISED_BY_SLUG[tool.slug];
+        const editorialRevised = override
+            ? new Date(override)
+            : hasExtendedContent(tool.slug)
+              ? extendedRevised
+              : null;
         const lastModified =
-            hasExtendedContent(tool.slug) && extendedRevised > dbUpdated ? extendedRevised : dbUpdated;
+            editorialRevised && editorialRevised > dbUpdated ? editorialRevised : dbUpdated;
 
         return {
             url: `${baseUrl}/tool/${tool.slug}`,

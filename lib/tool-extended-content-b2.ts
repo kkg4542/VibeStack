@@ -59,46 +59,102 @@ export const TOOL_EXTENDED_CONTENT_B2: Record<string, ToolExtendedContent> = {
 
     aider: {
         overviewHtml: `
-            <p><strong>Aider</strong> is an open-source AI pair programmer that runs entirely in the terminal — no editor plugin, no browser tab, no separate app window. You point it at a git repository, tell it what to change in plain English, and it edits the relevant files directly, then commits each change to git with an auto-generated message. That last part is the detail that distinguishes Aider from most AI coding tools: every edit is a discrete, reviewable commit, which makes it trivial to diff, revert, or cherry-pick individual AI-generated changes the way you would any other commit in a normal workflow.</p>
+            <p><strong>Aider</strong> is an open-source AI pair programmer that lives in a terminal REPL and edits files in a git repository directly. There is no editor plugin, no browser tab, and no inline autocomplete. You run it inside a repo, describe a change in plain English, and it rewrites the relevant files and commits the result. The commit is not an afterthought — it is the design.</p>
 
-            <p>Aider is model-agnostic by design. It doesn't ship its own model or lock you into one vendor — you bring an API key for Claude, GPT, Gemini, or a locally hosted model through <a href="/tool/ollama">Ollama</a>, and Aider handles the file-editing and repo-mapping logic on top. This makes it closer to infrastructure than to a branded product: the quality of your results depends heavily on which underlying model you choose and pay for, and the tool's own job is prompting that model well, tracking repository context, and applying diffs cleanly. Its "repo map" feature builds a lightweight structural summary of the whole codebase — not the full text of every file — so it can reason about how pieces connect without blowing the context window on a large project, which is part of why it stays usable on bigger repos where naive full-file context would fall over. For developers who already have strong opinions about which model is best for their language or codebase, this flexibility is a real advantage over tools that hard-code a single model.</p>
+            <h3>Every edit lands as its own git commit</h3>
 
-            <p>Being CLI-only is Aider's most polarizing trait. There's no visual diff viewer, no GUI chat panel, no inline suggestions as you type — you work through a terminal REPL, watch it apply patches, and review the results in your normal editor or a plain git diff. Developers who live in the terminal and already use git constantly find this natural and fast; developers who want an integrated experience like <a href="/tool/cursor">Cursor</a>'s inline editing or <a href="/tool/github-copilot">GitHub Copilot</a>'s in-IDE chat will likely find Aider's workflow feels like a step backward. It also requires you to bring and manage your own API keys and costs, rather than paying one flat subscription — for many users that is cheaper, but it adds setup friction that a polished commercial product doesn't have.</p>
+            <p>Most AI coding tools hand you a pile of modified files and leave the bookkeeping to you. Aider commits after each successful exchange, with a generated message describing what it just did, so an AI-authored change becomes a normal object in your history: you can <code>git show</code> it, diff it, revert it, or cherry-pick it like any other commit. Aider ships an <code>/undo</code> command that drops its most recent commit when a change goes wrong, and auto-committing can be switched off entirely if your team prefers to stage everything by hand. It can also be configured to mark its commits so AI-authored work stays distinguishable from yours in <code>git log</code> or <code>git blame</code> months later.</p>
 
-            <p>Who it's for: developers comfortable in a terminal, git-fluent, who want a free, model-agnostic pair programmer with clean commit hygiene and no vendor lock-in. Who it's not for: developers who want a GUI-first experience, inline autocomplete as they type, or a single predictable monthly bill instead of variable API usage costs — for those needs, an editor-native tool like Cursor or <a href="/tool/windsurf-ide">Windsurf</a> is a better fit.</p>
+            <p>The practical consequence is that Aider expects a reasonably clean working tree when it starts. If you have half-finished edits lying around uncommitted, Aider's commits will swallow them and the clean-history benefit disappears. Commit or stash first — that habit is the price of admission, and it is the single most common reason a first session with Aider feels messy.</p>
+
+            <h3>You bring the model, and you see the bill</h3>
+
+            <p>Aider ships no model of its own. You supply an API key for Anthropic, OpenAI, Google, DeepSeek, an aggregator like OpenRouter, or a local endpoint served by <a href="/tool/ollama">Ollama</a>, and Aider handles the parts that are actually hard: assembling repository context, prompting the model to emit edits in a parseable format, and applying those edits to disk without mangling the file. That makes Aider closer to infrastructure than to a branded assistant — output quality tracks whichever model you pointed it at, and a disappointing session is often a model choice rather than a tool problem.</p>
+
+            <p>Because you pay the provider directly, Aider reports token usage and cost back to you after each exchange instead of hiding it behind a subscription. That readout is what makes its cost-control features worth using: an architect mode that lets an expensive reasoning model plan a change while a cheaper model writes the actual diff, a context budget you can inspect and clear mid-session, and prompt caching where the provider supports it. Developers who think about <a href="/blog/token-economics-2026">what inference actually costs</a> tend to like this arrangement. Developers who want one predictable monthly line item on a corporate card do not.</p>
+
+            <h3>The repo map is why it holds up on a large codebase</h3>
+
+            <p>Naively stuffing a repository into a context window stops working almost immediately. Aider instead builds a repo map: a parsed structural summary of the codebase — function and class signatures and how files reference one another — rather than the full text of every file. It ranks which parts of that graph matter for the request at hand and sends only those, within a token budget you can tune. You then explicitly add the handful of files you want editable, and can mark reference material read-only so the model can see it without rewriting it.</p>
+
+            <p>This is a different bet than the embedding-based codebase indexes <a href="/tool/cursor">Cursor</a> and <a href="/tool/github-copilot">GitHub Copilot</a> build, and it has a different failure mode. Aider is unusually good at reasoning about structure it can parse and unusually blind to anything that is not code: a convention that only exists in a Notion page, a schema implied by a migration, a rule nobody ever wrote down. The standard workaround is a conventions file committed to the repo and loaded read-only every session, which is effectively hand-written context engineering — cheap, but it is work you have to remember to do.</p>
+
+            <h3>Watch mode, shell access, and self-repair</h3>
+
+            <p>The pure REPL is not the only way to drive Aider. In watch mode it monitors your files while you work in whatever editor you prefer; you leave a comment ending in <code>AI!</code> where you want a change, save the file, and Aider picks it up, acts on it, and commits. That recovers much of the ergonomics of an IDE assistant without Aider needing an IDE plugin at all, and it is the feature most likely to change a skeptic's mind about a terminal-only tool.</p>
+
+            <p>Aider can also run your linter and your test suite after it edits, read the failures, and attempt to fix them itself — a loop that turns a vague request into something closer to a verified change. It can pull a URL into context, run a shell command and read the output, and accept a single instruction non-interactively from a script, which is what makes a batch refactor across many repositories practical rather than theoretical. There is also a copy-and-paste mode for people who hold a chat subscription but no API budget, at the cost of the automation everything else here depends on.</p>
+
+            <h3>When Aider is the wrong tool</h3>
+
+            <p>Aider fits badly in more situations than its advocates usually concede:</p>
+
+            <ul>
+                <li><strong>You do not live in git.</strong> Aider will technically run outside a repository, but the commit-per-change workflow is most of its value. Without it you have a terminal chat that overwrites your files.</li>
+                <li><strong>You want suggestions while you type.</strong> There is no inline completion of any kind. If tab-to-accept is how you use AI, pair Aider with something else or skip it.</li>
+                <li><strong>You cannot review a diff quickly.</strong> Aider offers no guardrail beyond your own reading. Someone who cannot yet tell a correct change from a plausible one has no safety net here.</li>
+                <li><strong>Your organization needs an administrative plane.</strong> No SSO, no seat management, no central audit trail, no procurement-friendly vendor relationship. Every developer holds a personal API key, which is precisely the arrangement many security teams exist to prevent. For that constraint, a governed tool like <a href="/tool/tabnine">Tabnine</a> is the shape of the answer.</li>
+                <li><strong>You want to spend zero time on setup.</strong> Picking a model, provisioning a key, tuning the map budget, and writing a conventions file is an afternoon. A commercial IDE assistant is a login.</li>
+            </ul>
+
+            <p>Who it fits: git-fluent developers who already spend the day in a terminal, want no vendor lock-in, and would rather tune a tool than be shepherded by one. See <a href="/compare/github-copilot-vs-aider">Copilot versus Aider</a> for the head-to-head, or <a href="/blog/local-llm-llama4">running models locally</a> if the real appeal is keeping source code off other people's servers entirely.</p>
         `,
         useCases: [
             {
-                title: "Terminal-native multi-file editing",
-                body: "Developers already working in tmux or a plain terminal use Aider to describe a change in natural language and have it edit several related files at once — for example, adding a new API endpoint plus its route, handler, and test — without switching context to a GUI.",
+                title: "Terminal-native multi-file edits",
+                body: "Developers working in tmux or a bare shell describe a change once and have Aider edit several related files together — a new endpoint plus its route, handler, and test — without leaving the terminal or hand-opening each file.",
             },
             {
-                title: "Git-clean AI changes for code review",
-                body: "Because every Aider edit becomes its own git commit with a descriptive message, teams that require clean, reviewable history use it to keep AI-generated changes distinct from hand-written ones, making it easy to revert a specific AI edit without touching anything else.",
+                title: "Keeping AI changes separable in git history",
+                body: "Because each exchange produces its own commit with a generated message, teams that care about reviewable history can revert or cherry-pick a single AI-authored change months later without untangling it from hand-written work in the same branch.",
             },
             {
-                title: "Bring-your-own-model workflows",
-                body: "Developers who want to run a specific model — a cheaper one for routine work, a frontier one for hard problems, or a fully local model via Ollama for sensitive codebases — use Aider as the constant tool while swapping the underlying model per task.",
+                title: "Splitting an expensive model from a cheap one",
+                body: "Architect mode lets a strong reasoning model decide what the change should be while a cheaper, faster model writes the diff. For repetitive edits across many files this materially changes what a session costs, and Aider shows the running total so the tradeoff is visible rather than guessed at.",
             },
             {
-                title: "Scripted and CI-adjacent automation",
-                body: "Because Aider is a CLI tool, it can be scripted or invoked non-interactively as part of larger automation, such as batch-applying a repetitive refactor across many files or repos, in a way that GUI-first tools cannot easily support.",
+                title: "Editing code that is not allowed to leave the machine",
+                body: "Pointed at a local model served by Ollama, Aider works with no outbound network call at all. Capability drops compared to a frontier API, but for a codebase under an exfiltration policy the question is whether the tool works offline, not whether it works best.",
+            },
+            {
+                title: "Scripted refactors across many repositories",
+                body: "Aider accepts a single instruction non-interactively, so the same migration — swapping a deprecated helper, updating a config format — can be applied repo by repo from a shell loop, with each result landing as its own reviewable commit.",
+            },
+            {
+                title: "Closing the loop with lint and tests",
+                body: "After editing, Aider can run the project linter and test suite, read the failures, and attempt repairs on its own. The result is a change that has at least been executed rather than one that merely looks right in a diff.",
             },
         ],
         pricingDetail:
-            "Aider itself is free and open source, with no subscription tier of any kind. The real cost is the API usage you pay directly to whichever model provider you choose — Anthropic, OpenAI, Google, or a local model that costs nothing beyond your own hardware. This means Aider can be effectively free for light use with a cheap model, or comparable to a paid subscription's cost for heavy use with a frontier model, but you are billed by the provider directly rather than through Aider, and there is no single flat price to quote.",
+            "Aider is free and open source with no paid tier, no seats, and no subscription. What you actually pay is API usage billed directly by whichever model provider you connect — or nothing at all beyond electricity if you run a local model through Ollama. That makes the cost entirely usage-shaped: light work against an inexpensive model can be close to free, while sustained work against a frontier model is a real recurring expense that looks nothing like a flat monthly fee. Aider prints token counts and cost after each exchange, and its architect mode and context controls exist specifically so you can push that number down, but budgeting for it is your job rather than the vendor's.",
         faq: [
             {
                 q: "Is Aider really free?",
-                a: "The tool itself is free and open source with no paid tier. You do pay for API usage to whichever LLM provider you connect — Anthropic, OpenAI, Google, or a self-hosted local model — so your actual cost depends entirely on which model you choose and how much you use it.",
+                a: "The tool is free and open source with no paid tier. You pay your model provider directly for API usage, so the real cost depends on which model you pick and how hard you use it. Run a local model through Ollama and the marginal cost is your own hardware.",
             },
             {
                 q: "Does Aider have a graphical interface?",
-                a: "No. Aider is command-line only, run from a terminal REPL. There is no built-in GUI, visual diff viewer, or IDE panel. Some users pair it with their editor's own diff tools to review changes, but the core interaction is entirely text-based in the terminal.",
+                a: "No. It runs as a terminal REPL, and there is no built-in GUI, visual diff viewer, or IDE panel. Most users review changes in their normal editor or with git diff. Watch mode narrows the gap by letting you trigger Aider from a comment in your editor, but the tool itself stays in the terminal.",
             },
             {
-                q: "Aider vs Cursor or GitHub Copilot — which should I use?",
-                a: "Aider suits developers who want a free, terminal-native, model-agnostic tool with clean git commit hygiene and no vendor lock-in. Cursor and Copilot suit developers who want an integrated editor experience with inline suggestions and a GUI. Many terminal-first developers use Aider for larger scripted changes and a GUI tool for everyday inline coding.",
+                q: "Can I stop Aider from committing automatically?",
+                a: "Yes — auto-commit can be disabled if your team wants to stage everything by hand. Most people leave it on, because the commit-per-change history is the main reason to prefer Aider, and the undo command makes a bad commit cheap to discard.",
+            },
+            {
+                q: "Does Aider work on a codebase that is too big for a context window?",
+                a: "That is what the repo map is for. Instead of sending file contents, Aider sends a ranked structural summary — signatures and cross-references — within a token budget you control, and you explicitly add the specific files you want it to edit. It holds up well on large repositories, though it cannot see conventions that live outside the code.",
+            },
+            {
+                q: "Can Aider run fully offline?",
+                a: "Yes, by pointing it at a locally served model. Expect a capability drop relative to a hosted frontier model, but no source code leaves the machine, which is the deciding factor for some codebases regardless of quality.",
+            },
+            {
+                q: "Do I need a git repository to use it?",
+                a: "Not strictly, but you should. Running Aider outside git discards its commit hygiene, undo behavior, and most of the reason to choose it over an editor-integrated assistant. Start from a clean working tree so its commits do not absorb your uncommitted edits.",
+            },
+            {
+                q: "Aider or Cursor and Copilot?",
+                a: "Different shapes. Aider is free, terminal-native, model-agnostic, git-centric, and unmanaged. Cursor and Copilot give you inline completion, a GUI, and a single predictable bill, plus the admin controls an employer usually wants. Plenty of terminal-first developers run both: an IDE assistant for typing-speed work, Aider for larger scripted changes where clean commits matter.",
             },
         ],
     },
@@ -149,44 +205,72 @@ export const TOOL_EXTENDED_CONTENT_B2: Record<string, ToolExtendedContent> = {
 
     "builder-io": {
         overviewHtml: `
-            <p><strong>Builder.io</strong> sits at the intersection of two categories: a headless, visual CMS for managing content across a site or app, and a design-to-code tool that converts Figma designs into working component code. Its most talked-about feature is <strong>Visual Copilot</strong>, which takes a selected Figma frame and generates framework-specific code — React, Vue, Svelte, and several others — attempting to match your existing component library and coding conventions rather than producing generic markup from scratch.</p>
+            <p><strong>Builder.io</strong> gets filed next to AI app generators, and that placement causes most of the confusion about it. Builder.io does not exist to create a new application from a prompt. It exists to put a visual editing surface on top of an application your engineers already built and still own — a headless CMS whose building blocks are your own React, Vue, Svelte, Angular, or Qwik components, with a Figma-to-code path for producing new ones.</p>
 
-            <p>The pitch is compelling for teams with a real gap between design and engineering: a marketer or designer can update page content and layout visually without filing a ticket, while the underlying code stays framework-native and (in theory) consistent with how the engineering team already builds. This is a genuinely different value proposition from a pure AI app generator like <a href="/tool/v0-by-vercel">v0</a> or <a href="/tool/lovable">Lovable</a> — Builder.io is less about generating a new app from a prompt and more about giving non-developers an ongoing visual editing surface over a codebase engineers still own and maintain.</p>
+            <h3>The integration comes first, and that is the whole architecture</h3>
 
-            <p>The honest limitation, and it's a common one across every design-to-code tool on the market, is that the generated code frequently needs real cleanup before it's production-ready — component naming, responsive edge cases, and adherence to a team's actual design system are areas where Visual Copilot gets you most of the way but rarely all of the way. Teams that adopt Builder.io successfully tend to budget engineering time for reviewing and refining AI-generated output rather than treating it as ship-ready, similar to the caveats around <a href="/tool/figma">Figma</a> Make's design-to-code generation. Pricing is also a real consideration: the free and lower tiers work for small projects, but cost scales up meaningfully as a team adds more editors, environments, and traffic, which is worth planning for before it's the default CMS across many pages.</p>
+            <p>The sequence matters more than any feature. A developer installs the SDK, renders a Builder-controlled region inside a route, and registers the components a non-developer is allowed to use — a Hero, a PricingTable, a TestimonialGrid — declaring each one's editable inputs. Only then does the visual editor become useful, because what someone drags onto the canvas is not generic markup, it is the team's real components with the team's real props and the team's real styling constraints. The preview renders inside your actual application shell, so an editor is looking at the live site rather than an approximation of it.</p>
 
-            <p>Builder.io also leans into e-commerce and marketing-site use cases specifically, with integrations for platforms like Shopify and Contentful and prebuilt patterns for landing pages, A/B testing, and personalization — areas where the combination of a visual editor and a real, framework-native codebase matters more than in a typical internal tool. That focus means it competes as much with traditional headless CMS platforms as it does with AI app builders; teams evaluating it should be clear about whether their actual bottleneck is "we need a CMS non-engineers can safely edit" or "we need to generate a new app from scratch," since those are different jobs even though Builder.io touches both.</p>
+            <p>That model is why the interesting pattern is usually partial rather than total. Instead of handing an entire page to the CMS, teams expose one editable section inside a developer-owned page and keep everything around it in code. Marketing gets the slot it needs; engineering keeps routing, data fetching, and layout. Content is delivered over an API, so the same entries can feed a marketing site, a web app, and a native client without being re-entered three times, and targeting or A/B variants resolve at delivery time instead of requiring a deploy per experiment.</p>
 
-            <p>Who it's for: teams that want marketers and designers to edit live pages visually while keeping the underlying code in their own framework and repo, and especially teams already invested in Figma who want to shorten the design-to-code gap. Who it's not for: solo developers or small teams who don't need a CMS layer at all — for those, generating a full app from scratch with a tool like Lovable or v0 is simpler, and for pure Figma-to-code without the CMS layer, Figma's own Dev Mode and Make may be enough.</p>
+            <h3>Visual Copilot converts a Figma frame into a first draft</h3>
+
+            <p>The other half of the product is Visual Copilot, which takes a selected Figma frame and produces framework-specific code, attempting to map onto components you have already registered rather than emitting anonymous divs. It is one of the stronger versions of this workflow currently shipping, and it is still a draft. Responsive behavior across breakpoints, semantic structure, accessible naming, and fidelity to a design system's spacing and token conventions are all places where the output wants an engineer's pass before it merges. Teams that get value from it budget that review time and treat the result as a head start; teams that expected a finished pull request are the ones that churn out after a month. The same caveat applies to every design-to-code product on the market, <a href="/tool/figma">Figma</a>'s own included — it is a property of the problem, not a Builder.io defect.</p>
+
+            <h3>Where Builder.io is the wrong choice</h3>
+
+            <p>The clearest signal is who is actually going to edit the site:</p>
+
+            <ul>
+                <li><strong>There is no codebase yet.</strong> Builder.io's value is the layer it adds to existing code. Starting from nothing, <a href="/tool/v0-by-vercel">v0</a>, <a href="/tool/lovable">Lovable</a>, and <a href="/tool/bolt-new">Bolt.new</a> are answering a different and, for you, more relevant question — a split worth reading about in <a href="/blog/nocode-design-v0">this comparison</a>.</li>
+                <li><strong>Only developers will ever touch the pages.</strong> If every content change already goes through a pull request anyway, MDX files in the repo are simpler, free, versioned, and reviewable in the tooling you already run.</li>
+                <li><strong>You need content to live in git.</strong> Builder entries live in Builder's cloud, not your repository. That is the right tradeoff for a marketer-editable site and the wrong one for teams whose release process assumes content ships and rolls back with code.</li>
+                <li><strong>The site barely changes.</strong> A CMS is overhead you pay continuously in order to buy edit velocity. If nobody is waiting on a deploy to fix a headline, you are buying a solution to a problem you do not have.</li>
+                <li><strong>You want Figma-to-code and nothing else.</strong> Adopting a CMS to use a design-to-code plugin is a large commitment for a narrow job, and the plugin is the part most likely to be replaced by something else within a year.</li>
+            </ul>
+
+            <p>Who it fits: a team with real engineers, real non-technical editors, and genuine friction between them — especially one already living in Figma. The question to settle before evaluating is which problem you actually have, because "marketers cannot safely edit pages" and "we need to build an app" are unrelated, and Builder.io only solves the first one.</p>
         `,
         useCases: [
             {
-                title: "Figma-to-code with Visual Copilot",
-                body: "Design and engineering teams select a Figma frame and generate framework-specific component code (React, Vue, and others) as a starting point, cutting down the manual translation work between a finished design and a working front end.",
+                title: "Embedding an editable section inside a developer-owned page",
+                body: "Rather than handing an entire route to the CMS, teams expose a single Builder-controlled region inside a page engineers still own. Marketing can restructure that block freely while routing, data fetching, and the surrounding layout stay in code and under review.",
             },
             {
-                title: "Marketer-editable landing pages",
-                body: "Marketing teams use Builder.io's visual editor to update page layout, copy, and content on live pages without needing an engineer to make each change, while the site continues to run on the engineering team's own framework and infrastructure.",
+                title: "Landing pages that ship without a deploy",
+                body: "Campaign and lifecycle pages get assembled from registered components by the people running the campaign, which removes the queue between a marketing idea and a live page — the specific bottleneck most teams are buying Builder.io to remove.",
             },
             {
-                title: "Headless CMS across multiple frontends",
-                body: "Because Builder.io is framework-agnostic, teams running the same content across a marketing site, mobile app, and web app use it as a single visual content source that feeds multiple codebases rather than duplicating content management per platform.",
+                title: "Figma handoff with Visual Copilot",
+                body: "Designers select a finished frame and generate framework-specific code mapped onto the team's existing components, collapsing the most tedious part of handoff into a reviewable starting point instead of a from-scratch rebuild.",
+            },
+            {
+                title: "One content source behind several frontends",
+                body: "Because delivery is API-based and the SDKs span multiple frameworks, a team running a marketing site, a web app, and a native client can author an entry once and render it in all three rather than maintaining three parallel copies that drift apart.",
+            },
+            {
+                title: "Targeting and experiments at delivery time",
+                body: "Audience targeting and A/B variants resolve when content is served, so testing a different hero for a segment does not require a code change, a branch, or a release — which is what makes ongoing experimentation realistic for a small team.",
             },
         ],
         pricingDetail:
-            "Builder.io is freemium: a free tier supports small projects with limited seats and usage, sufficient to evaluate the visual editor and Visual Copilot's Figma-to-code generation. Paid tiers scale by usage, editor seats, and enterprise features like advanced permissions and support, and — consistent with its own listed drawback — costs rise noticeably as a team grows beyond a small project, so larger organizations should expect per-seat and usage costs to be a real budget line rather than an afterthought.",
+            "Builder.io is freemium. The free tier is enough to integrate the SDK, register a few components, and evaluate both the visual editor and Visual Copilot on a real page. Paid tiers add editor seats, additional environments and spaces, higher delivery limits, and the permissioning and support that larger organizations need. The thing to model before committing is that cost here is driven by seats and usage rather than by a single flat plan, and both grow in exactly the scenario where Builder.io is succeeding — more people editing more pages more often. Treat it as a standing platform line item alongside hosting, not a tool someone expenses.",
         faq: [
             {
-                q: "Does Builder.io generate production-ready code?",
-                a: "It generates a strong starting point, but generated code commonly needs cleanup — component naming, responsive edge cases, and alignment with an existing design system typically require engineering review before shipping. Treat Visual Copilot's output as an accelerator, not a finished pull request.",
+                q: "Can I start using Builder.io without a developer?",
+                a: "Not really. Someone has to install the SDK, render a Builder region inside your app, and register the components editors are allowed to place. The visual editor is only powerful because it is assembling your real components, and that mapping does not exist until an engineer creates it. Budget an integration before anyone sees value.",
             },
             {
-                q: "Is Builder.io a CMS or a design-to-code tool?",
-                a: "Both. It's a headless visual CMS that lets non-developers edit live pages, combined with Visual Copilot, which converts Figma designs into framework-specific code. The combination is meant to let marketers edit content visually while engineers keep code in their own repo and framework.",
+                q: "Does Visual Copilot produce production-ready code?",
+                a: "It produces a strong first draft. Responsive edge cases, semantic and accessible markup, component naming, and adherence to your design system's tokens generally need an engineering pass before merge. Teams that succeed with it plan for that review; teams that expected a finished pull request tend to abandon the tool.",
             },
             {
-                q: "Is Builder.io expensive for larger teams?",
-                a: "It can get pricey as usage and seat count grow — this is one of its most commonly cited drawbacks. The free and entry tiers are fine for small projects, but larger organizations should budget for meaningfully higher costs as they scale up editors and traffic.",
+                q: "Where does my content actually live?",
+                a: "In Builder's cloud, delivered to your app over an API. Your components and application code stay in your repository, but the page content does not. If your release process assumes content is versioned and rolled back alongside code, that is a real architectural objection worth resolving before adoption rather than after.",
+            },
+            {
+                q: "Should I pick Builder.io or something like v0 or Lovable?",
+                a: "They solve different problems and are not substitutes. v0 and Lovable generate a new application from a prompt. Builder.io adds a visual editing layer to an application that already exists so non-developers can change it safely. If you do not yet have a codebase, Builder.io has nothing to attach to.",
             },
         ],
     },
