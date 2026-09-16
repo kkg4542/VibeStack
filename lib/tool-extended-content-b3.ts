@@ -11,210 +11,372 @@ import type { ToolExtendedContent } from "./tool-extended-content";
 export const TOOL_EXTENDED_CONTENT_B3: Record<string, ToolExtendedContent> = {
     cody: {
         overviewHtml: `
-            <p><strong>Cody</strong> is Sourcegraph's AI coding assistant, and its identity is inseparable from the company that built it: Sourcegraph made its name selling code search at enterprise scale, indexing monorepos with millions of files for large engineering organizations. Cody inherits that foundation — instead of treating context as "whatever files happen to be open," it draws on Sourcegraph's search infrastructure to retrieve relevant code from across an entire repository, or multiple repositories, before answering a question or writing a change. That puts it in a different lane from editor-native tools like <a href="/tool/cursor">Cursor</a> or <a href="/tool/github-copilot">GitHub Copilot</a>, which are built primarily around a single open workspace rather than an indexed, searchable estate of code.</p>
+            <p><strong>Cody</strong> is Sourcegraph's AI coding assistant, and the most useful way to evaluate it is to start with the company rather than the product. Sourcegraph sells code search to organizations whose codebases are too large for anyone to hold in their head: hundreds of repositories, millions of files, years of accumulated decisions. Cody is what happens when you put a language model in front of that index. Every assistant has to answer the same question — which code should the model actually see? — and most answer it by guessing from your open tabs and recent edits. Cody answers it by running a search.</p>
 
-            <p>In practice, Cody runs as an extension inside VS Code and JetBrains IDEs, offering chat, inline autocomplete, and commands for generating unit tests and explaining unfamiliar code. Because it can call out to Sourcegraph's search index, it tends to give more grounded answers about how something actually works in your codebase than tools relying only on local file context, and enterprise customers can point it at private, self-hosted Sourcegraph deployments rather than sending code to a shared third-party service. Cody also lets teams choose among several underlying language models rather than locking them into one vendor, which matters for organizations with existing procurement relationships or compliance requirements around which model providers they can send code to at all. A large legacy codebase — the kind with undocumented internal libraries, half-migrated frameworks, and tribal knowledge scattered across years of commits — is exactly the environment where Cody's search-first approach earns its keep, because the assistant can locate the actual precedent for how something is normally done rather than guessing from generic training data.</p>
+            <p>That is an architectural difference rather than a marketing one, and it has a consequence worth understanding before you trial anything: Cody's value is not roughly constant across teams the way <a href="/tool/github-copilot">GitHub Copilot</a>'s or <a href="/tool/cursor">Cursor</a>'s is. It scales with the size and the disorder of the thing being searched.</p>
 
-            <p>The tradeoffs show up around setup and scale. Getting the full benefit of Cody requires indexing a codebase first, which is meaningful overhead for a solo developer trying it on a single small repo — the value curve rises steeply with the size and messiness of the codebase, so enterprises with sprawling legacy systems get far more out of it than a hobbyist starting a new project on a greenfield repo with little history to search. Compared with more aggressively agentic tools like <a href="/tool/devin-ai">Devin</a> or the multi-file editing flows in <a href="/tool/windsurf-ide">Windsurf</a>, Cody's autonomous-agent capabilities are comparatively modest; it is better understood as a context-rich assistant that answers questions and drafts changes with strong grounding, rather than a self-directed agent you hand a ticket to and walk away from.</p>
+            <h3>Retrieval is the product; completion is the commodity</h3>
 
-            <p>Who it is for: engineering teams — especially at mid-size and large companies with big, multi-repo codebases — that need an assistant genuinely aware of how the whole system fits together, and that value the option to self-host rather than send proprietary code to a shared cloud. Who it is not for: solo developers or small teams who want the fastest path to agentic, multi-file changes without an indexing step and don't have a large enough codebase to make search-based context worth the setup; for that, <a href="/tool/tabnine">Tabnine</a> or a more agent-forward editor is likely a better starting point.</p>
+            <p>Cody runs as an extension in VS Code and the JetBrains IDEs and does what everything in this category does — chat, inline completion, commands for drafting tests or explaining a selection. Nobody picks it for those. What differs is where the context comes from. Cody can pull in code from repositories you have never opened, because Sourcegraph already indexed them. Ask why a service returns a particular error and a local-context tool can only reason about the file in front of it; a search-backed one can surface the other call sites, the shared helper living two repositories over, and the migration that changed the behaviour in the first place.</p>
+
+            <p>Cody also lets a team choose among several underlying models rather than being welded to one vendor's. That reads like a checkbox and is not one: inside an organisation where legal has approved exactly one model provider, an assistant that cannot switch providers is an assistant that cannot be deployed at all.</p>
+
+            <h3>Small repositories erase the advantage</h3>
+
+            <p>Retrieval only helps when retrieval is hard. On a project of a few dozen files, a modern assistant can hold the relevant code in its context window directly, and the machinery that makes Cody interesting has nothing left to do. You still pay for it, though — an index to stand up, a deployment to configure, and freshness to worry about, because a search index that lags behind the branch you are working on will describe code that no longer exists with complete confidence.</p>
+
+            <p>The inverse case is where the price makes sense. A codebase with undocumented internal libraries, two half-finished framework migrations, and conventions that live only in the memory of people who left is a retrieval problem, and retrieval is what Sourcegraph spent years building. So the question to settle first is not whether Cody is good. It is whether your codebase is large enough and tangled enough that whole-estate context is worth the setup it demands.</p>
+
+            <h3>You are adopting Sourcegraph, not an editor plugin</h3>
+
+            <p>This is the part that catches teams out. The context that differentiates Cody depends on Sourcegraph's index, so the real decision is whether your organisation is prepared to run Sourcegraph — self-hosted, in a dedicated instance, or managed — and to keep it indexed as the code moves. For an enterprise already running it, Cody is close to free marginal effort, and the security posture is a genuine argument in its favour: code is indexed and served inside infrastructure you control rather than shipped to a shared third-party service, which is the kind of guarantee that decides procurement in regulated environments. Teams working through what those guarantees are actually worth may find <a href="/blog/zero-knowledge-ai">the confidential-computation framing</a> a useful companion. For a team not already running Sourcegraph, the honest cost of Cody includes standing up and operating a code search platform, which is a different conversation than installing an extension. Sourcegraph has also repositioned its individual-developer tiers more than once while concentrating on the enterprise product, so confirm what is currently offered to individuals rather than planning around a free or Pro plan that may have moved.</p>
+
+            <h3>When to pick something else</h3>
+
+            <p>Cody is a strongly grounded assistant, not an autonomous one. If the goal is to hand over a ticket and return to a finished pull request, <a href="/tool/devin-ai">Devin</a> or the multi-file agent flows in <a href="/tool/windsurf-ide">Windsurf</a> are aimed at that job in a way Cody is not. If you want the most fluid in-editor experience with no infrastructure behind it, <a href="/compare/cursor-vs-github-copilot">the Cursor and Copilot comparison</a> is the more relevant read. If the hard requirement is that no source code may leave your network under any circumstances, an on-premises completion tool like <a href="/tool/tabnine">Tabnine</a> attacks that directly rather than as a side effect of where your search index happens to live. And if you are starting a greenfield project this week, there is nothing to search yet — revisit it when the codebase has enough history to be worth indexing.</p>
         `,
         useCases: [
             {
-                title: "Onboarding into large, unfamiliar codebases",
-                body: "New engineers at companies with sprawling monorepos use Cody's chat to ask plain-language questions about how a system works and get answers grounded in the actual code, not just documentation that may be stale. This cuts real time off the usual ramp-up period on a large codebase.",
+                title: "Ramping up inside a codebase nobody fully understands",
+                body: "A new engineer can ask in plain language how a subsystem works and get an answer grounded in the code that is actually deployed rather than documentation written two reorganisations ago. This is the single most commonly cited reason large engineering organisations keep paying for it.",
             },
             {
-                title: "Multi-repository context for platform teams",
-                body: "Because Cody can search across more than one indexed repository, platform and infrastructure teams use it to trace how a change in one service affects consumers in another — a question autocomplete-only tools can't answer since they only see the files that happen to be open.",
+                title: "Tracing a change across repository boundaries",
+                body: "Platform and infrastructure teams use cross-repository context to find out who consumes an interface before they change it. An assistant limited to the open workspace structurally cannot answer that question, because the consumers are in repositories nobody has open.",
             },
             {
-                title: "Automated unit test generation",
-                body: "Cody's test-generation command drafts unit tests for existing functions using the surrounding code as context, which is useful for backfilling test coverage on older code that predates a team's testing standards.",
+                title: "Finding the precedent instead of inventing one",
+                body: "In an old codebase the right answer is usually not the idiomatic answer from a training set — it is whatever the team already does. Search-backed context lets the assistant locate an existing implementation of the same pattern, so new code matches house convention rather than a generic blog post.",
+            },
+            {
+                title: "Giving a security-constrained org an assistant at all",
+                body: "Where code cannot be sent to a shared cloud service, running Cody against a self-hosted or dedicated Sourcegraph deployment keeps indexing and retrieval inside a controlled boundary, and the ability to select among approved model providers matters as much as the deployment topology to the review board signing it off.",
             },
         ],
         pricingDetail:
-            "Cody follows a freemium structure: a free tier for individuals with autocomplete and a capped number of chat interactions, and a paid Pro tier for developers who want higher usage limits and access to more model choices. The tier that actually matters for Cody, though, is Enterprise — self-hosted or dedicated-cloud deployment, admin controls, and the codebase-indexing infrastructure that makes its whole-repo context possible are priced and negotiated per organization, and that is where most of Cody's differentiated value sits.",
+            "Cody has carried a free tier for individuals and a paid Pro tier above it, but those individual plans have been repositioned more than once as Sourcegraph concentrated on its enterprise business, so treat any description of them — including this one — as something to verify on Sourcegraph's own site before planning around it. The tier that actually matters is Enterprise, where self-hosted or dedicated deployment, administrative controls, model-provider selection, and the codebase indexing that makes whole-estate context possible are negotiated per organisation. Budget for the platform underneath as well as the assistant on top: the recurring cost of Cody is not only its licence but the Sourcegraph deployment that gives it something to search.",
         faq: [
             {
-                q: "How is Cody different from GitHub Copilot or Cursor?",
-                a: "Cody leans on Sourcegraph's code search engine to pull context from an entire indexed codebase — including multiple repositories — rather than just the files you have open. Copilot and Cursor are generally stronger for fast, editor-native autocomplete and agentic multi-file edits; Cody is stronger when the question depends on understanding a large, sprawling system.",
+                q: "How is Cody actually different from Copilot or Cursor?",
+                a: "Where the context comes from. Copilot and Cursor build context primarily from your open workspace and are generally faster and smoother for moment-to-moment editing. Cody queries Sourcegraph's index, which lets it answer questions that span repositories you do not have open. On a small project that difference is invisible; on a large multi-repository estate it is the whole point.",
             },
             {
-                q: "Do I need to index my codebase before using Cody?",
-                a: "For the full benefit, yes. Cody's most distinctive feature — whole-codebase and cross-repository context — depends on Sourcegraph's search index, so there is setup overhead compared with tools that work immediately on whatever file you have open.",
+                q: "Do I need Sourcegraph to get the benefit?",
+                a: "Effectively yes. The whole-codebase and cross-repository context that distinguishes Cody comes from Sourcegraph's search index, so the adoption decision is really about whether you are willing to run and maintain that platform. Teams that want context with no infrastructure step should look at editor-native tools instead.",
             },
             {
-                q: "Can Cody be self-hosted?",
-                a: "Yes. Enterprise customers can run Cody against a self-hosted or dedicated Sourcegraph deployment rather than sending code to a shared cloud service, which is one of the main reasons security-conscious organizations choose it over cloud-only competitors.",
+                q: "Can Cody run on our own infrastructure?",
+                a: "Yes — running it against a self-hosted or dedicated Sourcegraph deployment is one of the main reasons security-conscious organisations choose it over cloud-only competitors. Confirm the current deployment options and the data-handling terms for whichever model provider you select, since those are two separate questions and only one of them is answered by self-hosting the index.",
+            },
+            {
+                q: "Can we choose which model Cody uses?",
+                a: "Model selection is part of the enterprise offering, which matters more for compliance than for quality. Organisations frequently have an approved list of model providers, and being able to point the assistant at an approved one is often the difference between a rollout and a rejected proposal.",
+            },
+            {
+                q: "Is Cody an autonomous coding agent?",
+                a: "Not in the sense that Devin is. It is best understood as a well-grounded assistant that answers questions and drafts changes with unusually good knowledge of your system, rather than something you assign a ticket to and leave alone. If autonomous execution is the requirement, evaluate agent products against that requirement directly instead of expecting Cody to grow into one.",
             },
         ],
     },
 
     cosine: {
         overviewHtml: `
-            <p><strong>Cosine</strong> builds an autonomous coding agent — marketed under the name <strong>Genie</strong> — aimed at handling entire engineering tasks rather than suggesting the next few lines of code. You hand it a ticket or a description of a bug or feature, and it is meant to search the codebase, form a plan, make the changes across however many files that requires, and report back, with a human reviewing the result rather than steering every step. That puts it in the same category as <a href="/tool/devin-ai">Devin</a> more than autocomplete-first tools like <a href="/tool/github-copilot">GitHub Copilot</a> or <a href="/tool/tabnine">Tabnine</a>.</p>
+            <p><strong>Cosine</strong> builds an autonomous coding agent, marketed as <strong>Genie</strong>, in the same category as <a href="/tool/devin-ai">Devin</a> rather than the completion-first category occupied by <a href="/tool/github-copilot">GitHub Copilot</a>. The intended shape of use is familiar by now: you describe a bug or a feature, the agent explores the repository, forms a plan, edits however many files the change touches, and hands back something for a human to review.</p>
 
-            <p>What differentiates Cosine's approach, per its own positioning, is depth of codebase understanding before acting: rather than relying only on keyword matches or the files already open, it performs semantic search across the repository to find the code actually relevant to a task before generating a plan. That planning step is meant to reduce the failure mode common to earlier autonomous agents, where the model starts editing before it has actually located the right place to make a change, then compounds the mistake across several files. Cosine also offers an on-premises deployment option, aimed at teams that don't want proprietary code leaving their own infrastructure — a meaningful differentiator for regulated or security-sensitive engineering organizations evaluating autonomous agents alongside cloud-only competitors.</p>
+            <p>Writing usefully about a tool like this requires admitting something first. This is a young category and Cosine is a small vendor inside it, which means specific capability claims age in weeks and independent evidence is thin. So the honest thing to publish is not a feature list that may be wrong by the time you read it, but the two things that do not change: what work this class of tool is currently good for, and what you have to verify yourself before trusting any product in it — including this one.</p>
 
-            <p>As with any newer entrant in the autonomous-agent category, the realistic caveats matter. Cosine is a smaller company than the incumbents building similar agents, which means fewer integrations with the surrounding toolchain — CI systems, project trackers, third-party IDEs — than a more established platform would have, and less of a public production track record to draw on when deciding how much autonomy to grant it on a given task. Teams evaluating it should expect to spend real time defining what "well-scoped" means for their own codebase before trusting it with anything consequential. Like every autonomous coding agent as of 2026, it also still requires a human in the loop to review changes on anything beyond routine, well-scoped tasks; letting it run unsupervised on ambiguous or high-stakes work is not a safe default for any product in this category, Cosine included, no matter how strong its reported benchmark performance is.</p>
+            <h3>The shape of work that suits an autonomous agent</h3>
 
-            <p>Who it is for: engineering teams willing to delegate well-defined, self-contained tickets to an autonomous agent and review the output, particularly organizations that want the option of on-prem deployment for compliance reasons. Who it is not for: teams that want a mature, widely integrated ecosystem today with deep support across every part of their toolchain, or anyone hoping to hand off ambiguous, judgment-heavy work without close review — for that, an editor-native assistant like <a href="/tool/cursor">Cursor</a>, where a developer stays in the loop on every change as it happens, is the safer choice.</p>
+            <p>Agents in this category perform best on tasks with three properties, and the properties matter far more than which vendor you pick. The task has to be <strong>locatable</strong> — there has to be a findable place in the code where the change belongs, rather than a design decision to be made first. It has to be <strong>bounded</strong>, meaning a competent engineer could describe what done looks like in a sentence or two. And it has to be <strong>verifiable</strong> by something other than a human reading the diff: a test that fails before and passes after, a type checker, a linter, a reproduction script. Where all three hold, delegating the work and reviewing a pull request is a reasonable trade. Where any one fails, you get plausible code that solves a problem adjacent to yours, and reviewing it costs more than writing it would have.</p>
+
+            <p>The failure mode specific to this category is worth naming because it is not obvious from a demo. An agent that misidentifies where a change belongs does not stop; it commits to the wrong location and then makes every subsequent edit consistent with that mistake. The output is internally coherent and entirely wrong, which is considerably harder to catch in review than code that is simply broken. That is why every vendor here talks about codebase understanding before generation — Cosine's stated emphasis is semantic search over the repository ahead of planning — and why a human in the loop is not a temporary limitation of the current generation but the thing that makes the current generation usable.</p>
+
+            <h3>Where it does not belong, and what to check before adopting</h3>
+
+            <p>Do not reach for an autonomous agent when the hard part of the work is deciding what to build. Ambiguous requirements, architecture choices, anything touching auth, payments, migrations, or data deletion, and anything where the cost of a subtly wrong change is measured in customer trust — all of it belongs with a person, possibly a person using <a href="/tool/cursor">Cursor</a>, where a developer sees each change as it happens. It is also the wrong tool if your repository lacks the test coverage to tell you whether a change is safe: an agent removes the writing effort, not the verifying effort, and without tests you have simply moved the whole burden into code review. And if your team is not already comfortable rejecting AI-generated pull requests, adding a machine that produces them faster will not help.</p>
+
+            <p>Before committing to Cosine or any competitor, run your own evaluation rather than accepting anyone's reported benchmark scores, this page included. Public agent benchmarks measure performance on curated public repositories, which is not the same thing as performance on your undocumented internal framework. Take ten tickets your team actually closed last quarter, replay them, and count how many produced a diff you would have merged with light edits. Separately, ask the vendor where your code goes during a run, what is retained, and — since this is a young company in a consolidating market — what happens to your workflows if the product is acquired or discontinued. Those questions are answerable now and are more predictive than any leaderboard. <a href="/blog/autonomous-agents-devin">The broader shift from assistants to agents</a> is worth reading before you scope a pilot.</p>
         `,
         useCases: [
             {
-                title: "Autonomous ticket resolution",
-                body: "Engineering teams assign Cosine a scoped bug report or feature ticket and let it search the codebase, draft a plan, and implement the change across the necessary files, with a developer reviewing the resulting pull request rather than writing the code by hand.",
+                title: "Mechanical changes with a clear finish line",
+                body: "Dependency bumps that require touching call sites, renaming a concept across a package, backfilling tests for existing functions, adding an endpoint that mirrors three existing ones. These are locatable, bounded, and verifiable, which is exactly the profile where handing off the writing and keeping the reviewing is a favourable trade.",
             },
             {
-                title: "On-prem deployment for regulated codebases",
-                body: "Organizations that cannot send proprietary code to a third-party cloud can run Cosine on their own infrastructure, which is a meaningful differentiator for financial services, healthcare, and other regulated engineering teams evaluating autonomous coding agents.",
-            },
-            {
-                title: "Large codebase comprehension",
-                body: "Because Cosine performs semantic search across a repository before acting, teams use it on codebases where relevant logic is scattered across many files and simple keyword search would miss the connections that matter.",
+                title: "Running a real evaluation of the agent category",
+                body: "Because nobody can tell you from outside whether an agent works on your codebase, the most valuable early use is a structured trial: replay closed tickets, measure how often the output is mergeable, and note where it went wrong. That exercise is worth doing regardless of which vendor you eventually choose, and it is the only way to find out whether your repository is legible enough for any agent to work in.",
             },
         ],
         pricingDetail:
-            "Cosine is offered as a freemium product, with a free tier suitable for evaluating the agent on individual or small projects and paid plans for teams that need higher usage volume, more collaboration features, or the on-premises deployment option. As with most agent-based coding tools in this category, expect the free tier to be usage-limited rather than fully unlimited, and treat any specific dollar figures as something to confirm on Cosine's own site since pricing in this space changes quickly.",
+            "Cosine has been offered on a freemium basis, with a free tier intended for evaluation and paid plans for teams needing more volume, collaboration features, or a self-managed deployment. Pricing and packaging in the autonomous-agent category change frequently, so confirm current terms on the vendor's own site rather than relying on any third-party summary. The more useful budgeting point is that seat or subscription cost is rarely the dominant expense here: agent runs consume model tokens, and the review time a team spends on agent-authored pull requests is a real cost that does not appear on any invoice. Model both before concluding an agent is cheaper than the engineer it was supposed to free up.",
         faq: [
             {
-                q: "Is Cosine the same kind of tool as Devin?",
-                a: "They are close cousins — both are positioned as autonomous coding agents that take a task description and attempt to plan and execute the full change rather than offering inline suggestions. The main differences are in company maturity, ecosystem integrations, and deployment options like Cosine's on-prem offering, more than in the basic concept.",
+                q: "Is Cosine the same kind of thing as Devin?",
+                a: "Conceptually yes — both are autonomous coding agents that take a task description and attempt to plan and execute a complete change, as opposed to suggesting code inline. The differences between vendors in this category are mostly maturity, integrations, and deployment options rather than the underlying idea, which is why evaluating on your own repository matters more than comparing feature lists.",
             },
             {
-                q: "Can Cosine be run entirely on-premises?",
-                a: "Yes, on-prem isolation is one of Cosine's stated features, aimed at teams that need to keep proprietary code inside their own infrastructure rather than sending it to a shared cloud service — a common requirement for regulated industries.",
+                q: "Can I let it merge without review?",
+                a: "No, and that is not a limitation of this particular product. No autonomous coding agent available today should merge unreviewed into a codebase anyone depends on. The specific risk is that a wrong change is internally consistent rather than obviously broken, which makes it harder to spot than ordinary bad code.",
             },
             {
-                q: "Do I still need to review Cosine's changes?",
-                a: "Yes. Like every autonomous coding agent available today, Cosine should be treated as a fast first-draft engineer, not an unsupervised one. Reviewing the generated pull request before merging is essential, especially for anything beyond a narrowly scoped task.",
+                q: "What kinds of tickets actually work?",
+                a: "Ones where the change has a findable home in the code, where done can be described in a sentence, and where something automated can prove it worked. If a ticket requires deciding what to build, or if nothing but a human reading the diff can confirm correctness, it is the wrong candidate no matter how capable the agent is.",
+            },
+            {
+                q: "Can it run on our own infrastructure?",
+                a: "A self-managed deployment has been part of Cosine's stated positioning, which is aimed at teams that cannot send proprietary code to a third-party service. Treat this as a question for the vendor rather than a settled fact — get the current deployment options, the data-retention terms, and whether any model calls leave your boundary, in writing.",
+            },
+            {
+                q: "Should we buy this instead of Cursor or Copilot?",
+                a: "They solve different problems and are not really substitutes. An editor-native assistant makes a developer faster at work they are doing; an agent attempts work in their absence. Most teams that adopt an agent keep the assistant, because the agent only covers the narrow slice of tickets that are well-scoped enough to delegate.",
+            },
+            {
+                q: "How much should I trust published benchmark numbers?",
+                a: "Less than the marketing around them implies. Agent benchmarks run against curated public repositories with clean tests and clear issue descriptions, which is close to the best case and unlike most working codebases. A vendor scoring well has demonstrated something real but not the thing you need to know. Replay your own closed tickets instead; ten of them will tell you more than any leaderboard.",
             },
         ],
     },
 
     "galileo-ai": {
         overviewHtml: `
-            <p><strong>Galileo AI</strong> turns a text description into an actual editable design file rather than a static picture of one. Where many "AI design" demos produce a flattened image that a designer then has to manually rebuild in a real tool, Galileo's output lands as genuine layers, frames, and components inside Figma — the detail that made it stand out when generative UI tools first appeared. It sits closer to <a href="/tool/figma">Figma</a> in the workflow than to code-generation tools like <a href="/tool/v0-by-vercel">v0 by Vercel</a>: the deliverable is a design artifact for a designer to refine, not a deployable app.</p>
+            <p><strong>Galileo AI</strong> turns a text description into a user interface, and the detail that defines it is the file format of what comes out. Not a flat image to be traced over, and not front-end code to be deployed, but editable design content — frames, layers, and components you can select and change inside <a href="/tool/figma">Figma</a>. That single choice determines who it helps, who it does not, and which tools it genuinely competes with.</p>
 
-            <p>The core flow is a prompt — "a fintech onboarding flow," "a settings page for a fitness app" — that Galileo turns into one or more UI screens, applying reasonably current design conventions such as spacing, typography, and component patterns without the user needing to specify any of that explicitly. Because the output is native Figma content, a designer can immediately restyle it with their own components, swap colors and fonts to match a brand's design system, and use it as a starting layout rather than a reference image to trace over by hand. For a designer staring at a blank canvas, that single step — going from nothing to a plausible, editable arrangement of components — removes a surprising amount of the friction that makes early-stage design work feel slow.</p>
+            <h3>The deliverable decides the tool</h3>
 
-            <p>The honest limitation, and one the product's own materials don't hide, is that generated designs tend toward generic — competent, on-trend layouts that can look like countless other AI-generated screens rather than something distinctive to a brand. It is a genuinely useful accelerant for the blank-page problem at the start of a design, not a substitute for a designer's judgment on information architecture, brand voice, or the polish a shipped product needs before it goes in front of real users. Compared with prompt-to-app builders like <a href="/tool/bolt-new">Bolt.new</a> or <a href="/tool/lovable">Lovable</a>, which aim at a working application with real data and logic behind it, Galileo stays focused specifically on the design layer — it has no concept of a backend, an API, or application state, only the visual arrangement of a screen.</p>
+            <p>Generative UI splits cleanly into three outputs, and most confusion about these tools comes from conflating them. A picture is fast and useless downstream: it looks like a screen but nothing in it can be moved, so a designer rebuilds it by hand and saves nothing. Code is what <a href="/tool/v0-by-vercel">v0</a> and app builders like <a href="/tool/bolt-new">Bolt.new</a> and <a href="/tool/lovable">Lovable</a> produce, which is the right answer when the goal is a running thing and the wrong answer when the goal is a decision, because arguing about layout inside a React component is a slow way to argue. A design file is the third option, and it is the one that fits the part of the process where nothing has been decided yet. Galileo sits there deliberately. It has no concept of a backend, an API, or application state — only the arrangement of a screen. <a href="/blog/nocode-design-v0">The comparison between v0 and Builder.io</a> covers the code side of this split in more depth.</p>
 
-            <p>Who it is for: designers and product teams who want a fast first draft of a screen or flow to react to and rework, especially early in a project when speed matters more than originality and the goal is exploring options rather than shipping a final screen. Who it is not for: teams expecting a finished, brand-distinctive UI straight out of the tool, or anyone looking for a tool that also generates working code — pairing Galileo's output with a design system in <a href="/tool/figma">Figma</a>, then handing the refined design to a code-generation tool like <a href="/tool/builder-io">Builder.io</a>, is a more realistic pipeline than expecting either tool to do the whole job alone.</p>
+            <h3>The generated screen is not the finished work</h3>
+
+            <p>What arrives is a competent, on-trend layout: reasonable spacing, sane typographic hierarchy, the component patterns a current design would use. What it is not is yours. Generated screens are built from generic conventions, so a screen that looks fine in isolation will not match the button, the field, or the card your product already uses, and reconciling that is the actual labour. Expect to detach the generated components and re-map them onto your library rather than to reskin in place. For an established product with a mature design system this can be a net loss — starting from the system's own templates is faster than repairing something that merely resembles them. For a team without a system yet, or exploring a surface type nobody on the team has designed before, the same output is a real head start.</p>
+
+            <p>The second honest caveat is sameness. Prompt-generated interfaces converge, because the underlying model has learned what the average good screen looks like and the average is precisely what a distinctive product is trying not to be. Used as a first draft to react against, that is fine and arguably useful — it is easier to say what is wrong with a concrete screen than to fill an empty canvas. Used as a final deliverable, it produces a product that looks like every other product built the same way.</p>
+
+            <h3>When a generative UI tool is the wrong tool</h3>
+
+            <p>Skip it when the screen carries the brand — a landing page, an onboarding moment, anything a customer forms an impression from. Skip it for flows whose difficulty lives in logic rather than layout: empty states, permissions, error and loading behaviour, the fourteen states a real form has. Generated screens show the happy path, and the happy path is the part of the work that was never hard. Skip it when accessibility, localisation, or genuinely complex data density are requirements, because those constrain layout in ways a prompt does not express. And be deliberate about maintenance risk: standalone text-to-design tools occupy a narrow band between design incumbents shipping AI natively and code generators expanding upward, and that band has consolidated quickly. Before building a team workflow on any one of them, confirm it is still actively developed, and prefer a process where the output is disposable — a starting layout you rework — rather than one where the tool becomes a dependency in how your product gets designed. If the goal was working code all along, hand a refined design to <a href="/tool/builder-io">Builder.io</a> or start from <a href="/compare/cursor-vs-v0-by-vercel">a code-generation tool</a> instead of passing through a design step you will discard.</p>
         `,
         useCases: [
             {
-                title: "Early-stage wireframing",
-                body: "Product teams use Galileo to generate a rough but structurally sound first pass at a new screen or flow before a designer commits real time to it, compressing the blank-page phase of a project from hours to minutes.",
+                title: "Getting past the blank canvas at kickoff",
+                body: "The first plausible arrangement of a screen is the slowest part of early design, and it is the part where quality matters least because everything is about to change. Generating one gives the team something concrete to criticise, which is a far faster way to find the right structure than describing it in the abstract.",
             },
             {
-                title: "Design system exploration",
-                body: "Because the output is real Figma layers, designers can drop generated screens into an existing component library and see how quickly a concept can be reskinned to match an established brand, rather than starting from a plain wireframe.",
+                title: "Producing structural options to argue about",
+                body: "Generating several takes on the same prompt yields genuinely different layout approaches for the same content. The value is the spread, not any individual screen: seeing four arrangements side by side surfaces the actual disagreement about hierarchy much earlier than one polished mock does.",
             },
             {
-                title: "Rapid concept variations",
-                body: "Teams generate multiple UI variations for the same prompt to compare different layout approaches side by side, using the spread as a discussion starting point rather than a final answer.",
+                title: "Disposable mockups for conversations, not for shipping",
+                body: "Sales pitches, internal alignment decks, and feasibility conversations need something that looks like a product without being one. Generated screens fit that brief exactly, and the fact that they are generic matters much less when everyone knows the artefact is thrown away afterward.",
+            },
+            {
+                title: "Letting non-designers show instead of describe",
+                body: "A product manager or founder who can generate an editable screen brings a designer something to react to rather than a paragraph to interpret. The screen will be wrong, which is fine — a wrong screen communicates intent more precisely than a right document.",
+            },
+            {
+                title: "Exploring an unfamiliar surface type",
+                body: "When a team has to design something nobody on it has designed before — a scheduling interface, a permissions matrix, a data-heavy admin view — generated examples act as a survey of the conventions for that surface. Treat it as reconnaissance rather than as a solution.",
+            },
+            {
+                title: "Filling out the secondary screens of a prototype",
+                body: "Clickable prototypes need plausible settings pages and profile screens that nobody will study. Generating the screens around the flow being tested keeps attention on the part that matters instead of spending design hours on scenery.",
             },
         ],
         pricingDetail:
-            "Galileo AI follows a freemium model: a free tier lets individuals try text-to-design generation at limited volume, while paid plans raise generation limits and add features aimed at teams and design system integration. As with most tools at this stage of the market, expect the free tier to be a genuine trial rather than a production-scale allowance, and confirm current limits and pricing directly on Galileo's site before budgeting for a team rollout.",
+            "Galileo AI is offered on a freemium basis: a free tier lets an individual try text-to-design generation at limited volume, with paid plans raising generation limits and adding features aimed at teams. Confirm current limits and pricing on the vendor's own site before budgeting a rollout, and treat the free tier as a genuine trial rather than a production allowance. The more important budget question is not the subscription. It is how much designer time the generated output saves after the work of mapping it onto your own components, because on a product with an established design system that reconciliation can consume more hours than starting from your own templates would have.",
         faq: [
             {
-                q: "Does Galileo AI generate real Figma files or just images?",
-                a: "Real Figma content — actual layers, frames, and components you can select and edit inside Figma, not a flattened picture. That is the main thing that differentiates it from simpler AI mockup generators.",
+                q: "Does it produce real Figma layers or just a picture?",
+                a: "Editable design content — frames, layers, and components you can select and modify — which is the distinction that separates this category from simple AI mockup generators. It is worth confirming the current export path before committing a workflow to it, since the handoff mechanics are the part most likely to change.",
             },
             {
-                q: "Is Galileo AI a replacement for a product designer?",
-                a: "No. It is best treated as an accelerant for the earliest, blank-page stage of a design — generating a reasonable first layout to react to. The generic quality of AI-generated output means real product work still needs a designer's judgment on brand, hierarchy, and polish.",
+                q: "Will the output match our design system?",
+                a: "Not on its own. Generated screens are assembled from generic patterns, so components will resemble yours without being yours, and someone has to re-map them onto your library. On a mature design system, starting from your own templates is often faster than repairing a generated screen into compliance.",
             },
             {
-                q: "How is Galileo AI different from v0 by Vercel?",
-                a: "They operate at different layers of the same problem. Galileo outputs an editable design in Figma, aimed at designers refining a visual layout. v0 outputs working front-end code, aimed at developers who want a deployable component or page. Teams sometimes use both — Galileo for the design pass, then a code tool to implement it.",
+                q: "How does this differ from v0 or from AI features inside Figma?",
+                a: "By deliverable and by location. v0 outputs front-end code for developers; Galileo outputs a design file for designers. Design-tool vendors shipping generation natively are the more direct competitive pressure, since a feature inside the tool you already use avoids an export step entirely — which is the main reason to evaluate a standalone generator on whether it does something the built-in option does not.",
+            },
+            {
+                q: "Can it replace a designer?",
+                a: "No, and the reason is specific rather than defensive. It generates the happy path of a screen, which was never the difficult part. Information architecture, the fourteen states a real form has, accessibility, and everything that makes a product recognisably itself are exactly what a prompt does not specify and a model does not infer.",
             },
         ],
     },
 
     grok: {
         overviewHtml: `
-            <p><strong>Grok</strong> is xAI's conversational AI assistant, and its defining feature is one no other major assistant fully matches: live, structured access to what is happening on <strong>X</strong> right now. Ask it about a breaking news story, a trending topic, or what people are currently saying about something, and it can pull directly from the platform's real-time activity rather than relying on a periodic web index the way <a href="/tool/chatgpt">ChatGPT</a> or <a href="/tool/perplexity">Perplexity</a> do with their search tools. That single capability — plus a conversational tone that is noticeably more casual and less hedged than most competitors — is central to Grok's identity.</p>
+            <p><strong>Grok</strong> is xAI's conversational assistant, available as a standalone app and website and built directly into <strong>X</strong>. Its distinguishing feature is structural rather than stylistic: it has first-party access to activity on X. Most assistants reach current information through a web search tool over an index that updates on its own schedule. Grok can reach the conversation itself. That advantage is narrow, real, and worth understanding precisely, because it decides the handful of questions where Grok is the better answer and the many where it is not.</p>
 
-            <p>Access comes through a standalone Grok app and website, and through direct integration inside the X app itself, with multiple reasoning modes that trade speed for depth on harder questions and an image generation feature built in. The free tier gives a reasonable taste of the assistant, but the deepest integration — higher usage limits, the most current models, and the tightest X integration — has generally been tied to X Premium subscriptions rather than sold as a clean, separate Grok-only price, which is a different bundling model than the flat monthly plans most competitors use. xAI has also pushed Grok into developer and coding-adjacent use through its API, and the underlying models have shown up as an option inside third-party developer tools such as <a href="/tool/cursor">Cursor</a>'s model picker, extending Grok's reach beyond its own consumer app.</p>
+            <h3>What first-party access to X actually buys</h3>
 
-            <p>The strengths are real and specific: for anything tied to live discourse — breaking events, public reaction, a rapidly evolving story — Grok's grounding in X gives it a genuine edge that a general web-search assistant can't fully replicate, and its more permissive, opinionated tone appeals to users tired of overly cautious, hedge-everything responses from other chatbots. The honest weaknesses are just as specific: accuracy on niche or slow-moving topics varies more than with more research-oriented tools, X itself is not always a reliable source for nuanced or contested claims — a firehose of live posts is not the same thing as verified information — and pricing being entangled with a social media subscription makes the actual cost of full access less transparent than a standalone product would be.</p>
+            <p>Two things, mostly. The first is recency on events that are being discussed as they happen — a live sports result, an unfolding news event, an outage, an announcement made twenty minutes ago. A web index has to crawl an article that someone has to write first; posts exist immediately. The second is reaction, which is a different kind of question entirely. "What is the response to this launch" is not answerable from a search index at all, because the thing being asked about is a distribution of opinions rather than a fact. On that specific class of question, an assistant plugged into a live social platform has information that <a href="/tool/chatgpt">ChatGPT</a> and <a href="/tool/perplexity">Perplexity</a> structurally do not.</p>
 
-            <p>Who it is for: people who already use X and want an assistant that reflects live conversation on the platform, or anyone who prefers a more casual, less filtered conversational style over the more careful, qualified tone common to other assistants. Who it is not for: users who need consistently careful, source-verifiable answers on serious research, or anyone unwilling to have their assistant's pricing tied to an unrelated social media subscription — <a href="/tool/claude">Claude</a> or <a href="/tool/perplexity">Perplexity</a>'s citation-first approach are the more reliable choice there.</p>
+            <h3>Reasoning modes and deeper search</h3>
+
+            <p>Like its peers, Grok exposes more than one depth setting: a fast conversational mode for ordinary questions, a reasoning mode that spends longer working through harder ones, and an agentic search mode that goes and gathers sources across the web and X before answering rather than replying from what the model already knows. The practical guidance is the same as with any assistant offering this split — the slow modes are worth their latency on multi-step and research questions, and waste it on everything else. Grok also includes image generation and voice interaction alongside text, so for many users it functions as a general-purpose assistant with the live-data capability as an extra rather than as the reason they opened it.</p>
+
+            <h3>Grok as a model, not just an app</h3>
+
+            <p>xAI sells API access to its models, which is the part of the product most easily missed by anyone evaluating the chat app alone. It has also shipped coding-oriented model variants, and xAI models have appeared in the model pickers of third-party developer tools including <a href="/tool/cursor">Cursor</a> and <a href="/tool/github-copilot">GitHub Copilot</a>. This matters for two reasons. It means you can evaluate the model on your own work without adopting the assistant or the social platform around it, and it means "is Grok good" is really two questions — one about a consumer product and one about a model family — that frequently get answered as though they were one.</p>
+
+            <h3>Where real-time data stops helping</h3>
+
+            <p>Live social posts are a source with a specific and well-understood shape. They are fast, they are unfiltered, and they are not verified. For a developing story, the early posts are frequently wrong in ways that later reporting corrects, and an assistant summarising them faithfully will reproduce the error faithfully. For contested claims, volume is not evidence — the loudest account of an event is not the accurate one, and no summariser can tell the difference from the text alone. And for anything that is not discussed on X, the advantage simply does not apply: an obscure technical question, a historical topic, a scientific literature review all fall back to ordinary model knowledge plus web search, where citation-first tools are built for exactly that job. The rule of thumb is that Grok's edge tracks how much of the answer lives in conversation and decays to zero as the question moves toward the archive.</p>
+
+            <h3>When to use something else</h3>
+
+            <p>Pick a citation-first tool when the output has to be checkable: <a href="/tool/perplexity">Perplexity</a> is designed around showing its sources, and for research where you need to follow a claim back to its origin that design matters more than freshness. Pick <a href="/tool/claude">Claude</a> or a comparable assistant when the work is long-form reasoning, careful writing, or extended document analysis, where real-time access contributes nothing. And if you do not use X, weigh the product accordingly — a capability built on a platform you are not part of is a feature you will rarely trigger, and the honest comparison then is just model against model. The side-by-side pages for <a href="/compare/chatgpt-vs-grok">ChatGPT and Grok</a> and for <a href="/compare/claude-vs-grok">Claude and Grok</a> go through those trade-offs in more detail.</p>
         `,
         useCases: [
             {
-                title: "Live event and breaking news queries",
-                body: "Grok's link to X's real-time activity makes it useful for questions about things unfolding right now — a breaking news event, a viral moment, live reaction to an announcement — where a periodically-indexed search assistant is working with staler information.",
+                title: "Following a story while it is still developing",
+                body: "For events being discussed in real time — a breaking incident, a live result, a service outage — an assistant reading the platform directly is working from fresher material than one waiting on a crawler. Treat early consensus as provisional, because that is what it is.",
             },
             {
-                title: "Casual conversational assistant",
-                body: "Users who find other assistants overly cautious or repetitive use Grok for everyday chat, brainstorming, and quick questions where a more direct, less hedged tone is a feature rather than a drawback.",
+                title: "Gauging reaction rather than retrieving facts",
+                body: "Questions about how something landed publicly are not search queries. A distribution of opinion is only available where the opinions are, which is the one category where live social access is not a convenience but a prerequisite.",
             },
             {
-                title: "In-app assistant while browsing X",
-                body: "Because Grok is built into the X app itself, users ask it to summarize a thread, explain context behind a post, or generate a quick image without leaving the app they are already in.",
+                title: "Making sense of a thread without leaving X",
+                body: "Because Grok is embedded in the X app, summarising a long argument, getting background on an unfamiliar reference, or asking what a post is responding to happens in place. The value here is the absence of a context switch more than the answer quality.",
+            },
+            {
+                title: "Monitoring a topic that lives on the platform",
+                body: "Some subjects — parts of the developer ecosystem, crypto, sports, entertainment — have their primary discussion on X rather than in publications. For those, an assistant with platform access covers the actual source of record instead of the coverage about it.",
+            },
+            {
+                title: "A general assistant with a less hedged tone",
+                body: "For everyday questions, drafting, and brainstorming, some users prefer a model that answers directly rather than qualifying heavily. That is a genuine preference rather than a capability, and it cuts both ways: less hedging also means fewer signals about where the answer is uncertain.",
+            },
+            {
+                title: "Image generation inside the same assistant",
+                body: "Image generation is built in, which is convenient for casual and social use where the alternative is opening a separate tool. For production creative work, dedicated image tools remain the stronger choice on control and output quality.",
+            },
+            {
+                title: "Evaluating xAI models through the API or an editor",
+                body: "Developers can reach xAI models through the API or select them in third-party tools' model pickers, which makes it possible to test the models on real coding and reasoning work without adopting the consumer app at all — and separates the question of model quality from any opinion about the platform.",
             },
         ],
         pricingDetail:
-            "Grok offers a free tier with basic conversational access and rate-limited usage, while its fuller capabilities — higher limits, more advanced reasoning modes, and the deepest X integration — are largely accessed through X Premium subscription tiers rather than a Grok-only plan sold separately. This bundling with X's existing subscription structure is the main thing to understand before comparing Grok's cost to a standalone assistant like ChatGPT or Claude, which charge directly for their own tiers.",
+            "Grok has a free tier with rate-limited conversational access. Fuller capability — higher limits, the more capable models, and the deeper reasoning and search modes — has been sold both bundled into X's premium subscription tiers and as a standalone xAI subscription, and the balance between those two routes has changed more than once, so check what is currently offered before comparing cost against a competitor. The structural point for budgeting is that part of Grok's value is tied to a social platform: if you already subscribe to X, marginal cost is low and the integration is the payoff; if you do not, you are evaluating a general-purpose assistant whose headline differentiator applies to a platform you are not on. Developers have a third path entirely, since API access to xAI models is priced separately from any consumer subscription.",
         faq: [
             {
-                q: "What makes Grok different from ChatGPT or Claude?",
-                a: "Its tightest integration with X, giving it access to real-time posts and trending discussion that assistants relying on periodic web search don't have in the same form. It is also generally more casual and less restrictive in tone than competitors, which some users prefer and others find less reliable.",
+                q: "What can Grok do that ChatGPT and Claude cannot?",
+                a: "Read what is being said on X right now, as a first-party capability rather than through a general web search tool. That helps on live events and on questions about public reaction, and does nothing for questions whose answers live in documents rather than conversation.",
             },
             {
-                q: "Do I need X Premium to use Grok?",
-                a: "You can use a basic version of Grok for free, but the fuller feature set — higher usage limits, advanced reasoning modes, and full X integration — has generally been tied to X Premium subscription tiers rather than sold as a separate standalone plan.",
+                q: "Do I need an X subscription?",
+                a: "A free tier exists with limited usage. Fuller access has been available both through X's premium tiers and through a standalone subscription, and the packaging has shifted over time — verify current terms directly rather than relying on any summary, including this one.",
             },
             {
-                q: "Is Grok reliable for factual research?",
-                a: "It's strongest on live, X-native topics — breaking events and real-time discussion — and less consistently reliable on niche or contested factual questions than research-oriented tools. For citation-backed research, Perplexity or Claude are generally the safer choice.",
+                q: "Is it reliable for research?",
+                a: "It is strongest where the subject matter is live discussion and weaker where an answer needs to be traced to a verifiable source. Social posts are fast and unverified, and early accounts of a developing story are often wrong. For work that has to withstand checking, a citation-first tool is the safer default.",
+            },
+            {
+                q: "Can I use it for coding?",
+                a: "xAI has shipped coding-oriented model variants and its models have appeared in third-party developer tools' model pickers, so testing them inside an editor you already use is straightforward. Judge them on your own code — coding performance varies enough by language and task that a general impression of the chat app predicts very little.",
+            },
+            {
+                q: "Is there an API?",
+                a: "Yes, xAI offers API access to its models, priced separately from consumer subscriptions. This is the cleanest way to evaluate the underlying models on their merits, since it removes the app, the platform integration, and the tone from the assessment.",
+            },
+            {
+                q: "Is it worth using if I am not on X?",
+                a: "Then you are evaluating an ordinary general-purpose assistant, because the differentiator is the part you will not use. That can still be a fine outcome if you like how the model answers, but the comparison against competitors should be made on model quality and price rather than on the real-time capability.",
+            },
+            {
+                q: "What happens on topics nobody posts about?",
+                a: "It falls back to what the model knows plus ordinary web search, exactly like everything else. The real-time advantage is proportional to how much of the answer exists in conversation, so on obscure technical, historical, or academic questions it contributes nothing and the tool should be judged on general capability alone.",
             },
         ],
     },
 
     ollama: {
         overviewHtml: `
-            <p><strong>Ollama</strong> is the tool that made running large language models on your own computer genuinely simple. Before it existed, running an open-weight model like Llama or Mistral locally meant wrangling Python environments, drivers, and model-format conversions by hand. Ollama packages all of that behind a single command — pull a model, run it — in roughly the same spirit that made container tooling simple for developers a decade earlier. It is not a chatbot with a polished consumer interface first; it is infrastructure, and the interface layer — its own basic chat UI, or one of many third-party front-ends built on top of it — is secondary to the core job of serving models locally.</p>
+            <p><strong>Ollama</strong> belongs in a different category from almost everything else on this site. It is not an assistant, and comparing it with <a href="/tool/chatgpt">ChatGPT</a> or <a href="/tool/claude">Claude</a> is a category error in the same way as comparing a database server with a spreadsheet. Ollama is a runtime: it downloads open-weight models, manages them, and serves them from your own machine over a local API. What you do with that is up to whatever you point at it.</p>
 
-            <p>Under the hood, Ollama manages model downloads and quantization and exposes a simple local API that a large ecosystem of tools now talks to — everything from local chat interfaces to developer tools like <a href="/tool/aider">Aider</a> can be pointed at an Ollama endpoint instead of a cloud API. Its model library covers most major open-weight families, and updates to that library tend to arrive quickly after a new open model is released, since packaging and distributing new weights is the core of what the project does. Because everything runs on the user's own hardware, no data — prompts, code, documents — ever leaves the machine unless the user chooses to send it somewhere, which is a categorically different privacy posture than any cloud-hosted assistant can offer, no matter how strong that provider's data-handling policy is on paper.</p>
+            <h3>A runtime, not a chatbot</h3>
 
-            <p>The tradeoff is exactly what you'd expect from trading cloud compute for local compute: the models available to run locally at usable speed trail frontier proprietary models from <a href="/tool/chatgpt">ChatGPT</a> or <a href="/tool/claude">Claude</a> in raw capability, and getting good performance requires hardware with enough RAM or a capable GPU — a laptop with modest specs will run smaller models slowly or not at all, and the largest, most capable open-weight models are simply out of reach for most consumer machines regardless of patience. There is also no cloud fallback: if a task needs frontier-level reasoning, Ollama's local models generally won't get you there, no matter how the prompt is engineered, and there's no "upgrade" button the way a subscription plan offers — the ceiling is set by your hardware, full stop.</p>
+            <p>Its contribution was making this boring. Running an open model locally used to mean Python environments, driver versions, and model-format conversions performed by hand. Ollama reduced it to pulling a model and running it, in roughly the spirit that container tooling once did for deployment. Everything interesting about it follows from that, including the parts that disappoint people.</p>
 
-            <p>Who it is for: developers, hobbyists, and privacy-conscious users who want to experiment with open models, build offline-capable tools, or keep sensitive code and data from ever touching a third-party server, and who have hardware capable of running them at a usable speed. Who it is not for: anyone who wants frontier-level output quality with zero setup and no hardware constraints — for that, a hosted assistant remains simpler and, model-for-model, more capable, even if it costs more and requires trusting a third party with your data.</p>
+            <h3>The constraint that decides everything is memory</h3>
+
+            <p>The first question about any local model is not how smart it is. It is whether it fits. A model's weights have to be held in memory to be used, and if they fit in GPU memory the model runs at the speed the hardware allows. If they do not, work spills onto the CPU and system RAM and throughput falls off sharply — not slightly slower, but slow enough to change what the tool is for. This is why hardware advice in this space sounds monotonous: capability is gated by memory capacity more than by raw compute.</p>
+
+            <p>Practically, small models in the range most people run first are comfortable on ordinary consumer hardware, mid-sized models want a reasonably capable discrete GPU or a machine with a large unified memory pool, and the largest open-weight releases are out of reach for typical personal machines regardless of patience. Apple Silicon is unusually well suited here because the GPU addresses the same large memory pool as the CPU, which sidesteps the discrete-VRAM ceiling that limits many consumer graphics cards. One detail that catches people out: the weights are not the only thing consuming memory. Long contexts require additional memory that grows with the amount of text in play, so a model that loads comfortably can still run out of room on a long document. <a href="/blog/local-llm-llama4">The case for running models on your own machine</a> and <a href="/blog/agentic-hardware-m5-blackwell">the hardware side of it</a> go further into the trade-offs.</p>
+
+            <h3>Quantization is the dial you are already turning</h3>
+
+            <p>Models in Ollama's library are distributed in quantized form, meaning the weights are stored at reduced numerical precision so a model that would not otherwise fit does. This is the single most important thing to understand about local inference, because it is a quality setting that most users never realise they set. Heavier quantization shrinks a model and speeds it up, and it degrades output — usually gracefully at first, and then not. The useful heuristic is that a larger model quantized more aggressively often beats a smaller model at higher precision, but the crossover point depends on the model family and on your task, and the only way to find it is to try the variants on work you actually care about rather than on a puzzle you found online.</p>
+
+            <h3>What you get in exchange for the quality gap</h3>
+
+            <p>Be honest about the trade first: open-weight models you can run on consumer hardware generally trail frontier hosted models on hard reasoning, long-horizon coding, and instruction-following precision. There is no prompt that closes that gap and no upgrade button, because the ceiling is your hardware. What you get instead is three things a hosted API cannot offer at any price. Nothing leaves the machine, which is a categorically stronger guarantee than a vendor's retention policy, however well written — the relevant comparison is <a href="/blog/zero-knowledge-ai">what guarantees are actually available from hosted providers</a>, and "the request never happened" wins all of them. It works with no network, which matters for air-gapped environments, travel, and anything where connectivity is unreliable. And the marginal cost of a token is zero, which changes what you are willing to build: retry loops, bulk processing, and chatty agent designs that would be reckless against a metered API become unremarkable when the only meter is electricity.</p>
+
+            <h3>Wiring it into things you already use</h3>
+
+            <p>Ollama serves a local HTTP endpoint and provides an OpenAI-compatible interface, which is why the ecosystem around it grew so fast: a large amount of existing software can be pointed at a local endpoint by changing a base URL and a model name. Command-line and editor assistants take Ollama as a backend — <a href="/tool/aider">Aider</a> is the common pairing, since it already treats the model as a swappable component, and running it against a local model turns a per-token cost into a fixed one. A Modelfile lets you pin a system prompt and generation parameters to a named model so a particular configuration becomes reproducible rather than something you retype. The practical shape that works for most people is not all-local or all-cloud but a split: local models for high-volume, privacy-sensitive, or repetitive work, and a frontier hosted model for the hard problems.</p>
+
+            <h3>When running models locally is the wrong call</h3>
+
+            <p>Do not do this if you need the best available answer and have no constraint forcing the work onto your own hardware — you will spend a weekend to arrive somewhere a subscription would have taken you in a minute. Do not do it on underpowered hardware and conclude the technology is bad; you have measured your laptop, not the field. Do not choose it for a production service without accounting for what you are now operating, because a local endpoint is a service with capacity limits, upgrade work, and someone responsible when it stops. Do not assume "open weights" means "open source" — several widely used model licences carry restrictions on commercial use and redistribution, and that is a question for whoever signs off on your dependencies, not an afterthought. And do not adopt it purely to save money without doing the arithmetic: <a href="/blog/token-economics-2026">the cost of inference</a> only favours local hardware above a certain sustained volume, and below it the hardware sits idle while a metered API would have cost less than the electricity.</p>
         `,
         useCases: [
             {
-                title: "Private, offline coding assistance",
-                body: "Developers who cannot send proprietary code to a third-party API run Ollama alongside editor plugins to get local autocomplete and chat, keeping everything on their own machine.",
+                title: "Work that contractually cannot leave the machine",
+                body: "Where a client agreement, a regulatory rule, or an internal policy forbids sending source code or documents to a third party, local inference is not a preference but the only configuration that complies. The argument is unusually easy to make to a security reviewer because there is no outbound request to assess.",
             },
             {
-                title: "Experimenting with open-weight models",
-                body: "Hobbyists and researchers use Ollama to pull and compare different open models — Llama, Mistral, Gemma, and others — without managing Python environments or GPU drivers by hand, switching between them with a single command.",
+                title: "Backing a coding assistant without per-token billing",
+                body: "Tools that treat the model as a swappable component can be pointed at a local endpoint instead of a cloud API, which converts a usage-based bill into a fixed hardware cost. Pairing with Aider is the common example, and it changes how freely you iterate once every retry is free.",
             },
             {
-                title: "Building offline-capable applications",
-                body: "Developers embed Ollama's local API into applications that need to work without an internet connection or without per-token cloud billing, from personal note-taking tools to internal utilities.",
+                title: "Comparing open models without wrangling environments",
+                body: "Pulling several model families and switching between them with one command makes genuine comparison practical, which used to be a research chore involving conversion scripts and dependency conflicts. This is the fastest way to find out which open model is actually adequate for a specific job.",
+            },
+            {
+                title: "High-volume, low-difficulty batch work",
+                body: "Classification, tagging, extraction, and first-pass summarisation over large document sets are tasks where a smaller model is usually good enough and the volume is what costs money. Running these locally removes the per-token cost from the design entirely, which is often what makes the project viable.",
+            },
+            {
+                title: "Offline and disconnected environments",
+                body: "Air-gapped networks, field work, flights, and unreliable connectivity all rule out hosted assistants by default. A local runtime keeps working because it never needed the network in the first place, which is also what makes it a reasonable foundation for applications that must degrade gracefully.",
             },
         ],
         pricingDetail:
-            "Ollama is free and open-source with no subscription tiers at all — there is nothing to buy, because the software itself doesn't charge for inference; the real cost is whatever computer hardware, RAM and ideally a capable GPU, you need to run models at usable speed. This is fundamentally different from every hosted assistant on this site: there are no message limits, no credits, and no per-token bill, only your own machine's capability as the ceiling.",
+            "Ollama is free and open-source software with no subscription tiers, usage limits, or per-token billing — there is no plan to compare because inference is not being sold to you. That does not make it costless. The expense moves to hardware capable of holding a useful model in memory, to the electricity to run it, and to your own time configuring and maintaining it, none of which appear on an invoice. The comparison that matters is total cost over a sustained workload rather than price per request: a metered API is cheaper for intermittent use of a frontier model, while local hardware wins when volume is high and consistent, when the task does not demand frontier capability, or when a compliance requirement has already eliminated the hosted option and the real alternative is having no AI assistance at all.",
         faq: [
             {
-                q: "Is Ollama really free?",
-                a: "Yes, entirely. It is open-source software with no subscription, no usage limits, and no per-token billing. The only real cost is the hardware needed to run models at acceptable speed.",
+                q: "Is Ollama actually free?",
+                a: "Yes — open-source software with no subscription, no usage caps, and no per-token charge. The real cost is the hardware needed to run models at a speed you will tolerate, plus the time to set it up and keep it current.",
             },
             {
-                q: "What hardware do I need to run Ollama well?",
-                a: "It depends on model size — smaller models run acceptably on a modern laptop with enough RAM, while larger models benefit heavily from a dedicated GPU with sufficient VRAM. Underpowered hardware will still run smaller models, just more slowly.",
+                q: "What hardware do I need?",
+                a: "Memory capacity is the binding constraint. Smaller models run acceptably on ordinary modern machines, mid-sized ones want a capable GPU or a large unified memory pool, and the biggest open-weight releases are impractical on typical personal hardware. If a model does not fit in GPU memory, it will still run, but slowly enough that the experience changes character.",
             },
             {
                 q: "Are local models as good as ChatGPT or Claude?",
-                a: "Not in raw capability. Open-weight models runnable on consumer hardware generally trail frontier proprietary models on complex reasoning and coding tasks. Ollama's advantage is privacy, cost, and offline availability, not matching the top of the leaderboard.",
+                a: "Generally not on hard reasoning, long coding tasks, and precise instruction-following, and it is worth being blunt about that rather than discovering it mid-project. Ollama's advantages are privacy, offline operation, and cost control, not leaderboard performance. Many people run both and route work by difficulty.",
+            },
+            {
+                q: "What is quantization costing me?",
+                a: "Some output quality, in exchange for fitting in memory and running faster. The degradation is gradual up to a point and then noticeable. A bigger model at heavier quantization frequently outperforms a smaller model at lighter quantization, but where that crossover sits depends on the model and the task, so test the variants on your own work.",
+            },
+            {
+                q: "Can I use Ollama with tools I already have?",
+                a: "Usually. It serves a local HTTP endpoint with an OpenAI-compatible interface, so a great deal of existing software can be redirected to it by changing a base URL and a model name. That compatibility is the main reason the surrounding ecosystem grew as quickly as it did.",
+            },
+            {
+                q: "Does it work with no internet connection?",
+                a: "Once a model is downloaded, yes, completely. You need connectivity to pull models and updates, and nothing after that. This is what makes it usable on air-gapped networks and the reason it appears in environments where a hosted assistant was never an option.",
+            },
+            {
+                q: "Is open-weight the same as open-source?",
+                a: "No, and conflating them creates real legal exposure. Several widely used model licences place conditions on commercial use or redistribution that an OSI-approved licence would not. Read the licence for the specific model you intend to ship with rather than assuming the category is permissive.",
+            },
+            {
+                q: "Should I self-host instead of paying for an API?",
+                a: "Only if the arithmetic supports it. Sustained high volume, tasks that do not need frontier capability, and hard privacy requirements all favour local. Intermittent use of a genuinely difficult task favours the API, because idle hardware is pure cost while a metered call is not. Most teams end up splitting the work rather than choosing a side.",
             },
         ],
     },

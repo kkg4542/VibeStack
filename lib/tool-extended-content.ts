@@ -222,104 +222,200 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
     cursor: {
         overviewHtml: `
-            <p><strong>Cursor</strong> is an AI-first code editor built as a fork of VS Code, and by 2026 it is the tool many professional developers reach for first when they want AI deeply integrated into their workflow rather than bolted on. It keeps the familiar VS Code interface, extensions, and keybindings, then layers in AI features — tab autocomplete, an agent that can edit across multiple files, Composer for larger changes, and codebase-wide context — that feel native rather than like a plugin. The July 2026 <strong>Cursor 3.11</strong> release added a side chat, searchable agent transcripts, a public iOS beta, and a model picker that now includes xAI's <strong>Grok 4.5</strong> — a coding- and agent-focused model co-trained on real Cursor usage data — alongside Claude, GPT, and Gemini options.</p>
+            <p><strong>Cursor</strong> is a fork of VS Code with AI built into the editor rather than attached to it. That single architectural decision explains most of what is interesting about the product — why it spread as fast as it did, why it is so easy to trial, and why it can get expensive. The useful question is not what Cursor is. It is whether the way Cursor wants you to work matches the way your codebase actually changes.</p>
 
-            <p>The defining 2026 change is pricing: Cursor moved from a request-based model to a <strong>credit-based system</strong>, which means the value you get per dollar depends on which models you use and how complex your prompts are. Fast frontier-model requests (like Claude Sonnet) burn credits quickly; more economical models stretch further. This makes Cursor powerful but harder to predict on cost than a flat subscription.</p>
+            <h3>The fork is the strategy, not a footnote</h3>
 
-            <p>Its strengths are genuine. The editor is fast, the multi-file agent is among the best available, and because it is VS Code underneath, migrating to it costs almost nothing — your extensions and settings come with you. For developers doing sustained work in a real codebase, Cursor's codebase awareness and agentic editing are a meaningful productivity gain over autocomplete-only tools.</p>
+            <p>Because Cursor is VS Code underneath, adopting it costs close to nothing. Extensions install through the same marketplace flow, keybindings and settings import in a single step, the theme comes across, and the file tree, terminal, and debugger behave the way your hands already expect. There is no week of relearning muscle memory, which is the usual reason developers refuse to even evaluate a new editor.</p>
 
-            <p>The honest weaknesses: the credit-based pricing creates anxiety about "how much will this prompt cost," heavy users on the $20 Pro tier can exhaust their credit pool and face the jump to Pro+ ($60) or Ultra ($200), and as with all AI coding tools, the agent confidently makes wrong changes on complex tasks that require careful review. Compared with <a href="/tool/github-copilot">GitHub Copilot</a>, Cursor is more agentic and editor-centric; Copilot is cheaper and more deeply tied to the GitHub ecosystem. See <a href="/compare/cursor-vs-github-copilot">Cursor vs GitHub Copilot</a>, <a href="/compare/cursor-vs-windsurf-ide">Cursor vs Windsurf</a>, and — if the credit model is what worries you — <a href="/compare/cursor-vs-gemini-code-assist">Cursor vs Gemini Code Assist</a>, which weighs it against Google's free tier.</p>
+            <p>The underrated consequence is reversibility. Trialling Cursor is not a commitment, because the project you opened is still an ordinary VS Code project and you can go back mid-afternoon having lost nothing. For a team lead deciding whether to run a pilot, that asymmetry matters more than any feature table: the downside of trying is near zero, so the only real question is whether the upside shows up.</p>
 
-            <p>Who it is for: professional developers who want a best-in-class agentic editor and don't mind variable, usage-based costs. Who it is not for: hobbyists or budget-conscious developers who prefer predictable flat pricing, or anyone who wants AI assistance without leaving their existing JetBrains or Neovim setup.</p>
+            <p>The flip side is that none of this applies if VS Code is not where you live. A JetBrains or Neovim developer evaluating Cursor is being asked to change editors, not to add AI, and that is a much harder trade. Our look at <a href="/blog/cursor-vs-vscode">why developers leave VS Code for Cursor</a> covers what that transition feels like from the inside.</p>
+
+            <h3>Context management is the actual skill</h3>
+
+            <p>Most disappointing sessions with Cursor are context problems rather than model problems. The agent answers well when it is looking at the right code and badly when it is guessing, and which of those happens is largely under your control.</p>
+
+            <p>Cursor indexes the repository so it can retrieve relevant code semantically instead of relying on whatever you happen to have open, and you can steer that by referencing specific files, folders, symbols, and documentation directly in a prompt. Paths can be excluded from indexing with a <code>.cursorignore</code> file, which is worth doing for generated code, vendored dependencies, and large fixture sets that otherwise dilute retrieval. You can also commit rules files to the repository so every developer's agent inherits the same conventions — naming, banned libraries, what a test is supposed to look like — rather than each person re-explaining house style in every conversation.</p>
+
+            <p>Teams that get consistently good output treat those rules as a maintained artefact and review them like any other configuration. Teams that get mediocre output type one sentence into the chat box and blame the model.</p>
+
+            <h3>What usage-based pricing does to your working rhythm</h3>
+
+            <p>Cursor bills against a pool of usage credits rather than a flat allowance of requests, and the practical effect is behavioural more than financial. Frontier models drain the pool quickly; cheaper ones stretch it. Once you notice that, you start rationing — saving the expensive model for the hard problem, running exploratory questions on something lighter, hesitating before firing off a large agent run late in a billing period.</p>
+
+            <p>Whether that is good or bad depends on the person. Some developers find the pressure clarifying, because it discourages the habit of throwing an agent at code you have not read. Others find it corrosive: an editor that makes you price a thought before having it is a worse editor, whatever the arithmetic says. Either way, budget by how your team actually works rather than by the sticker price, because two developers on the same plan can have completely different months. Our piece on <a href="/blog/token-economics-2026">token economics</a> explains why nearly every tool in this category has drifted toward metering.</p>
+
+            <p>Tier names and credit amounts change often enough that any figure quoted anywhere — including here — ages badly. Confirm the current structure on Cursor's own pricing page before committing a team budget.</p>
+
+            <h3>Privacy mode, indexing, and what a team has to sign off on</h3>
+
+            <p>This is where rollouts usually stall, and it is much cheaper to resolve before the pilot than after. Cursor offers a privacy mode intended to ensure your code is not retained or used to train models, and on business plans it can be enforced across the organisation rather than left to each developer's settings. That enforcement is the part a security reviewer cares about, because a per-user toggle is not a control.</p>
+
+            <p>Be clear about what the mode does and does not promise. It is a retention and training guarantee, not local execution: prompts and the surrounding code still travel to a model provider in order to be answered, and building the index involves sending code out to be embedded. If your requirement is that source must never leave your network under any circumstances, this is the wrong shape of product entirely and you should be evaluating self-hosted assistants such as <a href="/tool/tabnine">Tabnine</a>. If your requirement is the far more common one — no training on our code, no retention, a report compliance can file — read Cursor's current security documentation and check it against your own policy rather than trusting anyone's summary of it.</p>
+
+            <h3>Cursor against the alternatives, honestly</h3>
+
+            <p>Against <a href="/tool/github-copilot">GitHub Copilot</a> the trade is editor depth versus institutional fit: Cursor's agent does more inside the editor, while Copilot sits closer to pull requests, organisation policy, and a purchasing path most companies have already walked — <a href="/compare/cursor-vs-github-copilot">Cursor vs GitHub Copilot</a> works through it. Against <a href="/tool/windsurf-ide">Windsurf</a> the products are genuinely close, and the decision usually turns on how the quota feels and which agent's habits you prefer; see <a href="/compare/cursor-vs-windsurf-ide">Cursor vs Windsurf</a>. Against generation-first tools like <a href="/tool/v0-by-vercel">v0</a> and <a href="/tool/bolt-new">Bolt.new</a> there is barely a comparison to make, because those start projects and Cursor maintains them. Plenty of developers use one of each.</p>
+
+            <h3>Who should not switch to Cursor</h3>
+
+            <p>Do not switch if your editor is not VS Code and you are happy in it. The migration cost that makes Cursor almost free for VS Code users makes it expensive for everyone else, and Copilot reaches your existing IDE through a plugin without asking you to leave.</p>
+
+            <p>Do not switch if you need a fixed, predictable monthly cost per developer. Usage-based billing across a team of unknown appetite is a forecasting problem, and finance tends to dislike it more than engineering does.</p>
+
+            <p>Do not switch if your review culture cannot absorb larger diffs. An agent that edits ten files at once only makes a team faster if somebody can genuinely read ten files of changes. Otherwise you have converted writing time into review debt, and the gain quietly disappears downstream.</p>
+
+            <p>And do not switch expecting an agent to work unsupervised on a codebase nobody on the team understands. Cursor is at its best in the hands of someone who could have made the change themselves and is choosing not to spend the afternoon doing it.</p>
         `,
         useCases: [
             {
-                title: "Multi-file refactoring",
-                body: "Cursor's agent can plan and execute changes across many files at once — renaming a concept throughout a codebase, migrating an API, or restructuring a module. This is where it most clearly beats autocomplete-only tools, though the output still needs careful review.",
+                title: "Refactors that touch more files than you want to open",
+                body: "Renaming a concept across a repository, migrating off a deprecated API, pulling a tangled module apart. This is the work where a codebase-aware agent most clearly beats autocomplete, and also the work where the review matters most — the agent is confident in the places it is wrong.",
             },
             {
-                title: "Learning an unfamiliar codebase",
-                body: "Developers dropped into a large, unfamiliar repo use Cursor's codebase-wide context to ask questions ('where is auth handled?', 'what calls this function?') and get grounded answers, dramatically shortening onboarding time.",
+                title: "Getting oriented in a repository you did not write",
+                body: "Asking where authentication is handled, what calls a function, or why a config value exists, and getting answers grounded in the actual code rather than in general knowledge about how such things are usually done. For a new joiner this replaces the first week of reading with a conversation.",
             },
             {
-                title: "Fast feature scaffolding",
-                body: "For greenfield features, Composer can generate a working first pass across components, routes, and tests, which the developer then refines. It compresses the boilerplate phase of building so the work shifts to logic and polish.",
+                title: "The unglamorous middle of a feature",
+                body: "The route, the form, the validation, the test file that mirrors the one next to it. Cursor compresses the part of the job that is pattern-following rather than thinking, which shifts your attention to the part that is not.",
+            },
+            {
+                title: "Languages you only visit occasionally",
+                body: "A backend developer touching the deployment scripts, or a frontend developer fixing something in a service they do not own. The agent supplies the idiom you would otherwise spend an hour searching for, and the fact that you can still read the result is what keeps it safe.",
             },
         ],
         pricingDetail:
             "Cursor offers Hobby (free, limited completions and agent requests), Pro ($20/mo, or $16/mo annually, with a $20 monthly credit pool, frontier models, MCPs, and cloud agents), Pro+ ($60/mo, 3x usage credits), Ultra ($200/mo, 20x usage), Teams ($40/user/mo with SSO and admin controls), and Enterprise (custom). The pricing trap: since the mid-2025 shift to credit-based billing, your real cost depends on model choice and prompt complexity. Fast Claude Sonnet requests deplete credits quickly while economical models stretch further, so two developers on the same $20 Pro plan can have very different experiences depending on how they work.",
         faq: [
             {
-                q: "Is Cursor better than GitHub Copilot?",
-                a: "They optimize for different things. Cursor is a full AI-first editor with a strong multi-file agent and is best when you want AI deeply woven into your workflow. Copilot is cheaper, more incremental, and tied tightly to the GitHub ecosystem. For agentic, editor-centric work Cursor often wins; for predictable cost and GitHub integration, Copilot does. See our Cursor vs GitHub Copilot comparison.",
+                q: "Do I have to learn a new editor?",
+                a: "No, as long as you already use VS Code. Cursor is a fork of it, so the interface, extensions, settings, and keybindings carry over and can be imported in one step. Most VS Code users are productive the same day. If you use JetBrains or Neovim, the honest answer is different — you would be changing editors, which is a real cost that no feature list offsets automatically.",
             },
             {
-                q: "How does Cursor's credit-based pricing work?",
-                a: "Since mid-2025, Cursor bills by usage credits rather than a fixed request count. Each plan includes a credit pool, and different models consume credits at different rates — fast frontier models like Claude Sonnet burn through them faster than economical models. This makes power usage flexible but harder to predict.",
+                q: "How does usage-based pricing change things day to day?",
+                a: "Less than the pricing page suggests and more than you would like. Each plan includes a credit pool, and different models draw on it at very different rates, so the meaningful variable is which model you reach for and how often you let an agent run long. The practical consequence is that you start making small economic decisions inside your editor, which some developers find focusing and others find distracting.",
             },
             {
-                q: "Do I have to learn a new editor to use Cursor?",
-                a: "No. Cursor is a fork of VS Code, so the interface, extensions, settings, and keybindings carry over. Most VS Code users are productive immediately and can import their existing setup in one step.",
+                q: "Can I keep Cursor away from parts of my codebase?",
+                a: "Yes. A .cursorignore file excludes paths from indexing, which is worth configuring for secrets-adjacent directories, vendored code, generated output, and anything large enough to pollute retrieval. Treat it as a quality setting as much as a privacy one — a tighter index usually produces better answers, not just safer ones.",
             },
             {
-                q: "Is the free Hobby plan enough?",
-                a: "For light or occasional use, yes — it includes the full editor with limited tab completions and agent requests. But anyone using AI assistance daily will hit the limits quickly and need Pro ($20/mo) or higher.",
+                q: "Is Cursor safe to roll out across a team?",
+                a: "That depends on what your policy actually requires. Cursor's privacy mode is designed so code is not retained or used for training, and on business plans it can be enforced organisation-wide rather than left to individual settings, which is the part security reviewers ask about. What it does not do is keep code on your machine — prompts and context still go to a model provider to be answered. If your rule is that source cannot leave the network at all, you need a self-hosted tool instead. Read Cursor's current security documentation rather than relying on a summary.",
             },
             {
-                q: "Can Cursor work across my whole codebase?",
-                a: "Yes. Codebase-wide context is one of its core strengths — it can answer questions about and make changes across an entire repository, which is what makes it effective for refactoring and onboarding into unfamiliar projects.",
+                q: "Cursor or GitHub Copilot?",
+                a: "Cursor if the centre of your work is the editor and you want an agent that makes multi-file changes with real codebase context. Copilot if the centre of your work is GitHub — pull requests, issues, organisation policy — or if predictable procurement matters more to whoever signs off than the last increment of editing power. Plenty of teams run both and do not find that wasteful.",
+            },
+            {
+                q: "Does the free plan get you anywhere?",
+                a: "It is enough to answer the only question that matters at the start: does this change how the work feels on your codebase, not on a demo repository. The limited completions and agent requests run out quickly under daily use, so treat the free tier as an evaluation rather than a plan.",
+            },
+            {
+                q: "What does Cursor do badly?",
+                a: "It is overconfident on tasks that require understanding something the code does not state — an undocumented business rule, a constraint that lives in someone's head, a workaround whose reason was never written down. It will produce a clean, plausible change that violates the rule without hesitating. It is also weak where it has no context to retrieve, which is exactly when a large agent run is most tempting and least advisable.",
             },
         ],
     },
 
     "github-copilot": {
         overviewHtml: `
-            <p><strong>GitHub Copilot</strong> is the most widely deployed AI coding assistant, and its deep integration with GitHub and the major editors makes it the default choice for a huge share of professional developers. In 2026 it has grown well beyond autocomplete: it now includes chat, <strong>agent mode</strong> (generally available on both VS Code and JetBrains as of March 2026), code review, a cloud coding agent, a CLI, and Copilot Apps. The JetBrains agent-mode milestone matters — it finally brought full agentic assistance to the large population of Java, Kotlin, and Python developers who never left JetBrains.</p>
+            <p><strong>GitHub Copilot</strong> is usually described as the assistant with the widest reach, which is true and also slightly beside the point. Its durable advantage is not that the model is better — model leadership in this category changes hands every few months — but that Copilot arrives attached to the system your code, your reviews, your identity provider, and frequently your existing vendor contract already run through. That is a different kind of moat, and it explains why Copilot loses individual bake-offs and wins organisational ones.</p>
 
-            <p>The big structural change is billing. As of <strong>June 1, 2026</strong>, all Copilot plans moved to <strong>usage-based billing</strong>: every plan includes a monthly allotment of GitHub AI Credits, and paid plans can buy more. Usage is calculated on token consumption (input, output, and cached) at each model's API rate. This makes Copilot more flexible for varied workloads but ends the era of truly unlimited flat-rate usage.</p>
+            <h3>Two evaluations, one product</h3>
 
-            <p>Copilot's strengths are reach and integration. It works across virtually every editor, ties directly into pull requests and the GitHub workflow, offers a broad model catalog, and is the safest institutional choice — most enterprises already trust GitHub. At $10/mo for Pro it is also the cheapest entry into serious AI coding, which keeps it the default for individuals testing the waters.</p>
+            <p>An individual developer and a platform team are effectively assessing different products, and conflating the two is the most common mistake in this comparison.</p>
 
-            <p>The honest weaknesses: the move to credit-based billing introduces cost unpredictability that did not exist before, the agent is still less aggressive and editor-native than <a href="/tool/cursor">Cursor</a>'s for heavy multi-file work, and the broad "works everywhere" design means it is rarely the absolute best at any single thing. For developers who want the most powerful agentic editor, Cursor or <a href="/tool/windsurf-ide">Windsurf</a> often edge it out; for the fastest raw autocomplete, single-purpose tools still beat it. See <a href="/compare/cursor-vs-github-copilot">Cursor vs GitHub Copilot</a>, <a href="/compare/github-copilot-vs-coderabbit">GitHub Copilot vs CodeRabbit</a> (writing code versus reviewing it), and <a href="/compare/github-copilot-vs-supermaven">GitHub Copilot vs Supermaven</a> (breadth versus completion speed).</p>
+            <p>Evaluated by a developer alone, Copilot is a competent, broadly available assistant with inline completions, chat, and an agent mode that now reaches the JetBrains IDEs as well as VS Code — the latter mattering more than it sounds, because it brought agentic assistance to a large population of Java, Kotlin, and Python developers who were never going to switch editors. On raw editing power it is a reasonable tool that rarely wins a head-to-head against <a href="/tool/cursor">Cursor</a> or <a href="/tool/windsurf-ide">Windsurf</a>.</p>
 
-            <p>Who it is for: developers who live in the GitHub ecosystem, JetBrains users who finally have full agent mode, and teams that want a trusted, low-cost, broadly-integrated standard. Who it is not for: developers chasing the most cutting-edge agentic editing, or anyone who specifically wanted to avoid usage-metered pricing.</p>
+            <p>Evaluated by an organisation, the question changes to: what will it take to put this in front of four hundred engineers, what can we turn off, what can we prove to an auditor, and how many quarters of procurement does it cost. On that scorecard Copilot is frequently the only candidate that clears the bar, and the editing gap stops being decisive.</p>
+
+            <h3>The procurement path is the product</h3>
+
+            <p>Copilot is administered where the rest of your GitHub estate is administered. Seats are assigned through the organisation, access follows your existing SSO and identity setup, and the policy controls are enterprise-shaped rather than user-shaped: administrators can enable or disable specific Copilot capabilities across an organisation, restrict which repositories or file paths the assistant is allowed to use as context, and require a filter that blocks suggestions matching publicly available code. Policy changes land in the audit log, which is the difference between a setting and a control you can evidence.</p>
+
+            <p>Two other things come up constantly in legal review. GitHub states that prompts and suggestions from the business and enterprise plans are not retained and not used to train models — verify the current terms yourself, because this is exactly the sentence that gets revised. And Microsoft offers an intellectual property indemnity covering Copilot output for paid plans, subject to conditions including having the public-code filter enabled. For a risk-averse buyer, an indemnity from a vendor of that size is often worth more than a measurably better completion.</p>
+
+            <p>Then there is the least glamorous advantage of all: if your company already buys GitHub, adding Copilot is a line item rather than a new vendor. Anyone who has taken a novel supplier through security review, data processing agreements, and finance knows how much that is worth in elapsed months.</p>
+
+            <h3>What the GitHub surface area gives you</h3>
+
+            <p>Because Copilot is native to the platform, it appears in places an editor extension structurally cannot reach. It can summarise a pull request, leave a first-pass review on a diff, and answer questions about a change in the same thread where the change is being discussed. Work can be handed to a coding agent that operates on an issue and comes back with a pull request, so the unit of delegation becomes a task in your tracker rather than a prompt in your sidebar.</p>
+
+            <p>That last shift is the interesting one. An editor-based agent assumes a developer is present and steering. A platform-based agent assumes the work arrives as a ticket and the output arrives as something reviewable. Which of those fits better is a question about how your team is organised, not about model quality.</p>
+
+            <h3>The cases where Copilot is the wrong purchase</h3>
+
+            <p>Skip it if the hard part of your work is large, multi-file editing under close supervision. That is where the editor-first tools have iterated hardest and Copilot is a step behind; if your developers are the sort who will actually notice the difference, they will notice it every day.</p>
+
+            <p>Skip it if your code does not live on GitHub. Strip away the platform integration and most of the argument for Copilot goes with it, leaving a mid-pack assistant chosen for reasons that no longer apply to you.</p>
+
+            <p>Be careful, too, about treating the entry price as the budget. Copilot's cheapest paid tier is the most approachable way into serious AI assistance, but usage-based billing means heavy chat and agent users draw down a credit allowance that flat-rate habits will exhaust. Forecast by how your heaviest users work, not by seat count multiplied by sticker price.</p>
+
+            <p>And do not buy it expecting to win an argument with skeptical senior engineers. Copilot is an excellent organisational default and a poor way to convince someone who has already formed an opinion from a better editor. If that constituency matters, budget for a second tool rather than a longer debate — <a href="/compare/cursor-vs-github-copilot">Cursor vs GitHub Copilot</a> and our <a href="/blog/cursor-vs-github-copilot">longer write-up on the same question</a> both land there.</p>
         `,
         useCases: [
             {
-                title: "In-editor autocomplete and chat",
-                body: "The core daily use: inline code suggestions and an editor chat that knows your open files. For most developers this alone justifies the $10/mo Pro plan, speeding up routine coding without changing how they work.",
+                title: "Completions as the boring baseline",
+                body: "Inline suggestions and an editor chat that can see the files you have open. This is the part most developers use most of the time, and for many teams it alone justifies the seat without anyone ever touching agent mode.",
             },
             {
-                title: "Pull request and code review flow",
-                body: "Because Copilot is native to GitHub, teams use it directly in pull requests — summarizing changes, suggesting review comments, and answering questions about a diff. This tight integration is something editor-only tools cannot match.",
+                title: "First-pass review on pull requests",
+                body: "Copilot can summarise a diff and leave review comments before a human opens it. It does not replace a reviewer, but it catches the class of issue that makes reviewers feel their time was wasted, which is a real contribution to the morale of a code review culture.",
             },
             {
-                title: "Agentic tasks across VS Code and JetBrains",
-                body: "With agent mode now GA on both VS Code and JetBrains, developers delegate multi-step tasks — implement this issue, fix this failing test — to the agent. JetBrains support in particular opened this up to Java, Kotlin, and Python teams previously left out.",
+                title: "Delegating an issue rather than a prompt",
+                body: "The coding agent takes a tracked issue and returns a pull request. The interesting consequence is organisational: the work item stays in the tracker where it can be prioritised, assigned, and audited, instead of living in a chat transcript on someone's laptop.",
+            },
+            {
+                title: "JetBrains teams that were previously excluded",
+                body: "Agent mode reaching the JetBrains IDEs opened agentic assistance to developers who were never going to abandon their editor to get it. For Java and Kotlin shops in particular, this removed the standing objection that serious AI tooling meant moving to VS Code.",
+            },
+            {
+                title: "Standardising a large engineering organisation",
+                body: "One assistant, one policy surface, one audit trail, one invoice. Platform teams do not choose Copilot because it is the most capable option; they choose it because it is the option they can turn on for everyone and still answer questions about six months later.",
+            },
+            {
+                title: "Answering questions where the answer already lives",
+                body: "Because Copilot sits inside GitHub, it can be asked about a repository, a diff, or a discussion from within GitHub itself. For someone trying to understand a change they did not make, that is often closer to the work than an editor would be.",
             },
         ],
         pricingDetail:
             "GitHub Copilot offers Free (limited features and models), Pro ($10/mo, unlimited completions plus an AI-credit allowance), Pro+ ($39/mo, higher allowance), Business ($19/user/mo), Enterprise ($39/user/mo), plus a Student plan with unlimited completions. The major 2026 change: as of June 1, all plans transitioned to usage-based billing. Every plan includes a monthly pool of GitHub AI Credits, and chat, agent mode, code review, the cloud agent, CLI, and Copilot Apps all consume those credits based on token usage. The trap to watch: what used to feel unlimited is now metered, so heavy agent and chat users can exhaust their credit allotment and need to buy more.",
         faq: [
             {
-                q: "Is GitHub Copilot still worth it at $10/month?",
-                a: "For most developers, yes — Pro at $10/mo remains the cheapest entry into serious AI coding, with unlimited completions and a credit allowance for chat and agents. The caveat is that since June 2026 heavier features are metered, so very heavy users may need to budget for additional usage.",
+                q: "Is the free plan worth using?",
+                a: "As an evaluation, yes. Copilot Free gives individuals limited access to features and models, and verified students get a considerably more generous plan. It is enough to learn whether inline assistance changes how you work, which is the question worth answering before anyone pays.",
             },
             {
-                q: "Does Copilot work in JetBrains IDEs now?",
-                a: "Yes, and this is a significant 2026 update. Agent mode became generally available on JetBrains (alongside VS Code) in March 2026, finally bringing full agentic assistance to Java, Kotlin, and Python developers who prefer the JetBrains environment.",
+                q: "What changed when Copilot moved to usage-based billing?",
+                a: "Every plan now includes a monthly allowance of credits that chat, agent mode, code review, and the cloud agent draw against, with the option to buy more. Completions remain the part that feels unlimited on paid plans. The practical effect is that the heaviest agent users in a team, not the average user, determine what the tool actually costs you.",
             },
             {
-                q: "What changed with Copilot's billing in 2026?",
-                a: "As of June 1, 2026, all Copilot plans moved to usage-based billing. Each plan includes a monthly allotment of GitHub AI Credits, and paid plans can purchase more. Usage is calculated on token consumption at each model's API rate, ending the previous flat-rate unlimited model.",
+                q: "Does GitHub train models on my code?",
+                a: "GitHub's position is that prompts and suggestions on the business and enterprise plans are not retained and are not used for training, with different handling on individual plans. Because these terms are revised periodically, confirm the current policy in GitHub's own documentation before a rollout rather than relying on any third-party description, including this one.",
             },
             {
-                q: "Copilot or Cursor — which should I choose?",
-                a: "Choose Copilot for low cost, broad editor support, and deep GitHub/pull-request integration. Choose Cursor for a more powerful, editor-native multi-file agent. Many developers use Copilot as their everyday assistant and reach for Cursor on heavier agentic tasks. See our Cursor vs GitHub Copilot comparison.",
+                q: "Can administrators restrict what Copilot sees?",
+                a: "Yes, and this is one of the stronger arguments for the business tiers. Organisations can exclude specific repositories and file paths from being used as context, enable or disable individual Copilot features, and see policy changes reflected in the audit log. The exclusions are worth configuring deliberately — secrets-adjacent directories and vendored code are the usual first candidates.",
             },
             {
-                q: "Is there a free version of GitHub Copilot?",
-                a: "Yes. Copilot Free gives individual developers limited access to features and models, and verified students get a Student plan with unlimited completions plus an AI-credit allowance. Both are good ways to evaluate it before paying for Pro.",
+                q: "What about suggestions that match public code?",
+                a: "Copilot can be configured to block suggestions that match publicly available code, and organisations can enforce that filter rather than leaving it to individuals. Microsoft's IP indemnity for paid plans is conditioned on protections like this being in place, so the setting is not only a legal preference but part of the assurance you are buying. Check the current terms with your account team.",
+            },
+            {
+                q: "Does agent mode work in JetBrains IDEs?",
+                a: "Yes. Agent mode is generally available in the JetBrains IDEs as well as VS Code, which mattered a great deal to Java, Kotlin, and Python teams that had been choosing between their editor and agentic assistance. If your organisation is JetBrains-standard, this is frequently the single fact that decides the purchase.",
+            },
+            {
+                q: "Copilot or Cursor?",
+                a: "Answer a different question first: who is deciding. An individual optimising their own day will usually prefer Cursor's editor-native agent. An organisation optimising for rollout, policy, audit, and procurement will usually land on Copilot, and will be right to. The two answers disagreeing is not a contradiction — they are different problems.",
+            },
+            {
+                q: "Do teams end up running more than one assistant?",
+                a: "Often, and it is a defensible outcome rather than a failure of decision-making. Copilot becomes the organisation-wide default that everyone gets, and a smaller group with heavier editing needs also carries a seat on an editor-first tool. The cost of the second tool is usually less than the cost of arguing about the first one for another quarter.",
             },
         ],
     },
@@ -638,156 +734,234 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
     "v0-by-vercel": {
         overviewHtml: `
-            <p><strong>v0</strong>, made by Vercel, is an AI tool that turns prompts into production-ready UI — React and Tailwind components, full pages, and increasingly complete front ends — with a strong bias toward clean, modern, shippable code. Because it comes from Vercel, it deploys to Vercel in one click and syncs with GitHub, making it the most natural choice for teams already in the Next.js ecosystem. A major February 2026 update added Git integration and a full VS Code-style editor, turning it from a component generator into something closer to a complete build environment.</p>
+            <p><strong>v0</strong> is the tool in this category most often evaluated against the wrong competitors. It gets compared to <a href="/tool/lovable">Lovable</a> and <a href="/tool/bolt-new">Bolt.new</a> because all three turn prompts into working software, but those two are trying to produce an application and v0 is trying to produce a layer. The realistic v0 session does not end with a deployed product. It ends with a component you paste into a repository that already exists.</p>
 
-            <p>The pricing is credit-based across five tiers. <strong>Free</strong> gives $5 in monthly credits and up to 200 projects with Design Mode and GitHub sync — enough to evaluate it seriously. <strong>Premium ($20/mo)</strong> adds $20 of monthly credits, Figma imports, the v0 API, and higher limits. All plans access the three model tiers (Mini, Pro, Max), differing mainly in credits and collaboration.</p>
+            <h3>What v0 actually emits</h3>
 
-            <p>Its strength is output quality and ecosystem fit. v0's generated code is unusually clean and idiomatic — real React and Tailwind a developer would be comfortable maintaining, not throwaway scaffolding. For anyone building on Next.js and deploying to Vercel, the end-to-end flow from prompt to deployed page is the smoothest available.</p>
+            <p>The output is React, styled with Tailwind, built on shadcn/ui primitives, and shaped to Next.js conventions. That is a specific and opinionated target, and how well v0 fits your team is mostly a question of how close your stack already sits to it. A team on Next.js and Tailwind is receiving code they can merge. A team on Vue, or on a CSS-in-JS system, or on a component library with its own primitives, is receiving a design to reimplement — still useful, but a different and slower kind of useful.</p>
 
-            <p>The honest weaknesses: the credit system means costs scale with how much you generate, and heavy users burn through the $20 Premium credits faster than expected. It is also the most opinionated tool here — it strongly favors the React/Tailwind/Vercel stack, so it is less useful if you work in other frameworks. Compared with <a href="/tool/bolt-new">Bolt.new</a> and <a href="/tool/lovable">Lovable</a>, v0 is more UI-and-developer-focused; Bolt and Lovable lean toward full-stack and non-developers respectively. See our <a href="/tool/bolt-new">Bolt.new</a> review for a closer look at that trade-off.</p>
+            <p>Worth noting that shadcn/ui is not a dependency you install and hide behind. Its components are copied into your project as source you own and edit. That property is why v0's output integrates as well as it does: it is generating code of the same kind you would already have in the repository, rather than configuration for a library only it understands.</p>
 
-            <p>Who it is for: developers and designers in the React/Next.js/Vercel ecosystem who want high-quality UI generation with a clean deploy path. Who it is not for: teams on other stacks, or anyone who wants a full-stack app builder for non-developers rather than a UI-first developer tool.</p>
+            <h3>The paste is the workflow</h3>
+
+            <p>Most of the value shows up in one narrow motion: you need a screen that is tedious rather than hard — a settings page, a data table with filters and empty states, a multi-step form, a dashboard shell — and you would rather not spend a day arranging it. You describe it, iterate in the chat or by manipulating elements directly, and move the result into your codebase. v0 provides a command-line path for dropping generated blocks into an existing project through the shadcn CLI as well as straightforward copying; check the current documentation for the exact invocation, since that surface has changed more than once.</p>
+
+            <p>Everything downstream of that paste is your normal process. Your router, your data fetching, your state management, your tests, your review. v0 does not want to own any of it, which is why it coexists comfortably with an editor-first tool like <a href="/tool/cursor">Cursor</a> rather than competing with one.</p>
+
+            <h3>If your team already has a design system</h3>
+
+            <p>This is the case where v0 is either excellent or actively annoying, with very little in between, and the deciding factor is how specific your system is.</p>
+
+            <p>If your design system is essentially Tailwind plus shadcn plus a theme, v0 lands close enough that adapting output is a matter of swapping tokens and tightening spacing. If your system has its own primitives, its own naming, and rules a reviewer will enforce, then generated code that ignores all of it creates a translation step that can cost more than writing the component would have. The mitigation is to show rather than describe: give v0 representative existing components as context so it can imitate concrete patterns instead of guessing from adjectives. It follows examples considerably better than it follows instructions.</p>
+
+            <p>There is also a quieter organisational risk. A generator that produces plausible, attractive, slightly-off components can erode a design system faster than it accelerates it, because the off-by-a-little version ships and becomes precedent. Teams that keep this under control tend to route v0 output through the same review that any component change would get, rather than treating it as already-approved because it looks finished.</p>
+
+            <h3>Credits, and why the bill tracks regeneration</h3>
+
+            <p>v0 is credit-metered, and the thing that consumes credits is iteration. Getting a complex screen to the state you wanted is rarely one generation; it is a sequence of refinements, and each one costs. The practical consequence is that a precise first prompt is worth real money, and that a habit of nudging the output repeatedly toward a picture in your head is the expensive way to use the tool. Past a certain point it is cheaper to accept the structure and finish the details by hand.</p>
+
+            <p>Because plan names and credit allowances change, treat any figure you read as provisional and confirm the current terms on Vercel's pricing page before planning around them.</p>
+
+            <h3>Where v0 stops being the right tool</h3>
+
+            <p>Stop at the point the work becomes behaviour rather than appearance. Authorisation rules, data consistency, background jobs, anything where the difficulty is in what happens rather than what it looks like — a UI generator has nothing distinctive to offer there, and asking it anyway produces confident code that has not considered your constraints.</p>
+
+            <p>Skip v0 entirely if you are not writing React, because the output is not portable in any meaningful sense. Skip it if you want something that builds and hosts an entire application for you, which is Lovable's job for non-developers and Bolt's for developers; our comparison of <a href="/blog/ai-app-builders-bolt-v0-lovable">Bolt, v0, and Lovable</a> separates those three cleanly, and <a href="/blog/nocode-design-v0">v0 against Builder.io</a> covers the design-tool angle. And be wary of reaching for it on components that are core to your product's identity. v0 is very good at the screens every product has and noticeably less interesting on the one screen yours is actually about.</p>
         `,
         useCases: [
             {
-                title: "Production-ready UI generation",
-                body: "v0's core strength: describe a component or page and get clean, idiomatic React + Tailwind that a developer can actually maintain. It compresses the from-scratch UI phase while producing code good enough to keep, not just prototype with.",
+                title: "The screens nobody wants to build from scratch",
+                body: "Settings pages, tables with sorting and filtering and a decent empty state, onboarding forms, dashboard shells. Interfaces where the requirements are well understood and the work is arrangement rather than invention, which is precisely where a generator's weaknesses do not surface.",
             },
             {
-                title: "Figma-to-code for Premium users",
-                body: "On Premium, designers import Figma designs and turn them into working components, bridging the design-to-code gap inside the Vercel ecosystem. This is especially valuable for teams already using Figma as their design source of truth.",
-            },
-            {
-                title: "Rapid Next.js prototyping and deploy",
-                body: "Because v0 deploys to Vercel in one click and syncs with GitHub, teams go from prompt to a live, shareable URL in minutes. For Next.js projects this end-to-end loop is the smoothest of any AI builder.",
+                title: "Moving a design into an existing React codebase",
+                body: "Designers on the paid tiers can bring Figma work in, and the output arrives as the same kind of Tailwind and shadcn source the repository already contains. The handoff stops being a document a developer interprets and becomes a component a developer edits, which is a shorter conversation.",
             },
         ],
         pricingDetail:
             "v0 has five credit-based tiers: Free ($0, $5 monthly credits, up to 200 projects, Design Mode, GitHub sync), Premium ($20/mo, $20 monthly credits, Figma imports, v0 API, higher limits), Team ($30/user/mo), Business ($100/user/mo), and Enterprise (custom). All tiers access the three model tiers (Mini, Pro, Max) and differ in credits, daily limits, and collaboration. Purchased credits expire after one year. The pricing trap: generation cost scales with complexity, so heavy users on Premium can exhaust their $20 credit pool and need to buy more — budget by how much you actually generate, not by the flat sticker price.",
         faq: [
             {
-                q: "Is v0's generated code actually production-ready?",
-                a: "More than most. v0 outputs clean, idiomatic React and Tailwind that developers are generally comfortable maintaining, rather than throwaway scaffolding. It is one of v0's main differentiators — the code quality is high enough to keep, especially within the Next.js ecosystem it targets.",
+                q: "Do I have to use Next.js and deploy to Vercel?",
+                a: "You can export the code and host it anywhere, but you should be honest about how opinionated the output is. It is React with Tailwind and shadcn/ui, shaped to Next.js conventions. Outside that stack you are translating rather than integrating, and the further away you are, the less of v0's advantage survives the trip.",
             },
             {
-                q: "How does v0's credit system work?",
-                a: "Each plan includes monthly credits that fuel AI generations on a token basis. Free gives $5/mo, Premium $20/mo, with the option to buy more. Generation cost scales with complexity, so two users on the same plan can have very different mileage depending on how much they build.",
+                q: "What does v0 actually give me?",
+                a: "Components and pages as source code you own, not a hosted artefact you rent. Because shadcn/ui components are copied into a project rather than installed as an opaque dependency, what you receive is ordinary code in your repository that any developer on the team can read and change without learning anything v0-specific.",
             },
             {
-                q: "v0 or Bolt.new — which should I use?",
-                a: "v0 is UI-and-developer-focused with the cleanest React/Tailwind output and tight Vercel integration. Bolt.new leans more full-stack, generating complete apps in the browser. Choose v0 if you live in the Next.js/Vercel ecosystem and care about UI code quality; choose Bolt for fast end-to-end full-stack builds. See our v0 vs Bolt.new comparison.",
+                q: "How do I get generated code into an existing project?",
+                a: "Either by copying it directly or through the shadcn command-line path v0 provides for adding a generated block to a project. The exact command has changed across releases, so take it from the current v0 documentation rather than from memory or an older tutorial.",
             },
             {
-                q: "Do I need to use Vercel to use v0?",
-                a: "No, but it is clearly designed for the Vercel ecosystem. You can export the code and host it anywhere, but the one-click deploy, GitHub sync, and overall workflow are smoothest if you deploy to Vercel and build on Next.js.",
+                q: "Can v0 follow our design system?",
+                a: "Partially, and it depends on how far your system sits from Tailwind and shadcn. The approach that works is showing it real components from your codebase as context so it can copy concrete patterns; the approach that disappoints is describing your system in prose and hoping. If your primitives are genuinely custom, expect to adapt output rather than merge it.",
             },
             {
-                q: "What did the February 2026 update add?",
-                a: "It added Git integration, a full VS Code-style editor, and improved previews — turning v0 from a component generator into a more complete build environment. Notably, pricing did not change with the update.",
+                q: "v0, Lovable, or Bolt.new?",
+                a: "They answer different questions. v0 produces UI for a codebase that already exists and assumes a developer will take it from there. Bolt.new builds a running full-stack project in the browser for developers who will steer it. Lovable builds an application for someone who does not intend to write code at all. If you already have a repository, v0 is the one designed for your situation.",
+            },
+            {
+                q: "Why do my credits disappear so quickly?",
+                a: "Because iteration is what costs, not output size. Each refinement of a complex screen is another metered generation, so a long back-and-forth chasing an exact visual result is the expensive path. Writing a more specific first prompt, and finishing the last ten percent by hand instead of asking for it, is usually both cheaper and faster.",
             },
         ],
     },
 
     "bolt-new": {
         overviewHtml: `
-            <p><strong>Bolt.new</strong>, built by StackBlitz, is an in-browser AI app builder that generates, runs, and deploys full-stack web applications from a prompt — entirely in the browser, with no local setup. Its distinguishing technical trick is WebContainers: it runs a real Node.js environment in the browser tab, so the generated app actually executes live as you build it, with a real preview rather than a mockup.</p>
+            <p><strong>Bolt.new</strong>, from StackBlitz, is the AI builder whose identity is a runtime rather than a model. Everything distinctive about it follows from one fact: the generated application runs inside your browser tab, in a real Node environment compiled to WebAssembly, with no server executing your code and nothing installed on your machine. Deciding whether Bolt suits you is mostly deciding whether you want that trade.</p>
 
-            <p>Pricing is token-based. The <strong>Free</strong> plan is genuinely functional — 1M tokens per month with a 300K daily limit, no credit card required — enough for real learning and prototyping, though deployed sites carry Bolt branding and cannot use a custom domain. <strong>Pro ($25/mo)</strong> gives 10M+ tokens, removes the daily limit, adds token rollover, custom domains, and drops the branding. A key detail: tokens are consumed mostly by syncing your project's file system to the AI, so <em>larger projects cost more per message</em> regardless of how small your change is.</p>
+            <h3>A whole stack, running in a browser tab</h3>
 
-            <p>Its strength is the genuine full-stack, run-it-live experience with zero setup. For developers who want to go from idea to a working, deployed full-stack app fast — and who are comfortable reading and steering the generated code — Bolt is one of the most capable options, particularly for Next.js and modern JS frameworks.</p>
+            <p>The practical experience is that you describe an application and then watch it run — not a preview image, not a mocked interaction, but the actual project executing with a package manager, a dev server, and a terminal you can type into. Errors appear as errors. The AI can see them and try again. Because nothing is provisioned, the gap between having an idea and watching it fail for a real reason is measured in seconds.</p>
 
-            <p>The honest weaknesses: the token economics are the real catch. Because tokens scale with codebase size, costs climb as your project grows, and heavy users can burn through even the Pro allotment on a larger app. Like all AI builders, it also struggles as complexity increases. Compared with <a href="/tool/lovable">Lovable</a> (full-stack but aimed at non-developers) and <a href="/tool/v0-by-vercel">v0</a> (UI-and-developer-focused), Bolt sits in the middle: full-stack, but best for developers. See our <a href="/tool/lovable">Lovable</a> review for a closer look at that trade-off.</p>
+            <p>This makes Bolt unusually good at a specific thing that the polished app builders are bad at: telling you quickly that an approach does not work. A tool that only shows you a rendering will let you believe a plan is fine for much longer than a tool that runs it.</p>
 
-            <p>Who it is for: developers who want a zero-setup, run-live, full-stack builder and can steer the generated code. Who it is not for: complete non-coders (Lovable is gentler), or anyone building a large app where token costs will scale uncomfortably.</p>
+            <h3>What the sandbox will not do</h3>
+
+            <p>The constraint is the same as the feature. A browser-based Node runtime is not a Linux machine, and the things it cannot do are specific rather than vague. Anything that depends on a native binary compiled for a host platform is out of reach. Runtimes that are not JavaScript — a Python service, a Go binary, a Ruby backend — are not what this environment is for. There is no container to run a database in, which is why persistence is handled by connecting to an external service such as Supabase rather than by something inside the tab, and why deployment goes out to a hosting provider rather than staying where you built it.</p>
+
+            <p>Browser support is narrower than an ordinary web application's, since the technology depends on capabilities not every browser exposes the same way; check the current requirements before you plan a workshop around it. And because the whole project lives in a tab, the session is more fragile than a checkout on disk. Connecting the project to a repository early is the difference between a bad afternoon and a lost one.</p>
+
+            <p>None of this is a defect. It is the cost of not installing anything, and it is a reasonable price for a JavaScript project. It is a fatal price for a polyglot one.</p>
+
+            <h3>Reasons to build somewhere else</h3>
+
+            <p>Do not use Bolt if you cannot read the code it produces. This is the sharpest difference from <a href="/tool/lovable">Lovable</a>, which is built for people who will never open the source and structures its whole experience around protecting them from it. Bolt assumes a developer is in the chair and hands you the project accordingly. When something goes wrong — and on anything non-trivial it will — Bolt's recovery path is that you understand what happened.</p>
+
+            <p>Do not use it for a project you expect to grow large. Token consumption is driven substantially by keeping the AI in sync with your files, so the cost of each message climbs with the size of the codebase rather than with the size of your request. A one-line change in a big project is not a cheap message. The economics favour small, fast, early work, which is also where the tool is most enjoyable.</p>
+
+            <p>Do not use it when the environment is the point. If your application depends on a specific runtime version, a native dependency, a local database, or infrastructure you have to configure, you will spend the session fighting the sandbox instead of benefiting from it — reach for a conventional setup and an editor-first tool like <a href="/tool/cursor">Cursor</a> instead, or a cloud environment such as <a href="/tool/replit">Replit</a> that gives you a real machine. And if you want UI rather than an application, <a href="/tool/v0-by-vercel">v0</a> is aimed at that narrower job. Our comparison of <a href="/blog/ai-app-builders-bolt-v0-lovable">Bolt, v0, and Lovable</a> lays the three out side by side, and <a href="/compare/cursor-vs-bolt-new">Cursor vs Bolt.new</a> covers the build-versus-maintain split.</p>
         `,
         useCases: [
             {
-                title: "Zero-setup full-stack prototyping",
-                body: "Bolt's signature use: describe an app and watch it build and run live in the browser via WebContainers — no local environment, no install. For quickly testing a full-stack idea with real execution, it removes all the setup friction.",
+                title: "Starting before you install anything",
+                body: "A borrowed laptop, a locked-down work machine, a tablet, a machine that does not have the right Node version. The entire setup step disappears, which is most valuable exactly when setting up would have been the largest part of the task.",
             },
             {
-                title: "Learning by building",
-                body: "Because the free tier is genuinely functional and the app runs live, beginners use Bolt to learn modern web development by watching working code get generated and being able to tweak it immediately, with instant feedback.",
+                title: "Learning with a runtime that actually runs",
+                body: "Beginners see generated code execute immediately and can break it on purpose to find out what happens. The feedback loop is what teaches; a builder that only shows a finished preview hides the part worth learning from.",
             },
             {
-                title: "Fast client demos",
-                body: "Developers spin up a working, deployed full-stack demo for a client or stakeholder in a single session. On Pro, custom domains and no Bolt branding make these demos look professional rather than like a prototype.",
+                title: "Time-boxed builds where setup is the enemy",
+                body: "Hackathons and one-day spikes, where hours spent on environment configuration are hours not spent on the idea. Bolt converts that overhead into build time, and the throwaway nature of the result means the token economics never get uncomfortable.",
+            },
+            {
+                title: "Answering a technical question by trying it",
+                body: "Does this library do what the README implies, does this API shape work, will this integration behave. Building a disposable app to find out is often faster than reading, and Bolt makes disposable genuinely cheap because nothing was set up to begin with.",
+            },
+            {
+                title: "Demos that need to be real",
+                body: "A working, deployed application for a client or stakeholder inside a single session. Paid plans remove Bolt branding and support a custom domain, which is the difference between showing a product and showing a tool you used.",
             },
         ],
         pricingDetail:
             "Bolt offers Free (1M tokens/month, 300K daily limit, no credit card, but Bolt branding and no custom domain), Pro ($25/mo or ~$22.50 annually, 10M+ tokens, no daily limit, token rollover for up to two months, custom domains, no branding), and Teams ($30/member/month). The crucial pricing mechanic: Bolt is token-based and most tokens are consumed syncing your project's files to the AI — so the larger your codebase, the more each message costs, independent of how small the edit is. Heavy users on bigger projects can exhaust even the Pro allotment, so budget by project size, not just message count.",
         faq: [
             {
-                q: "What makes Bolt.new different from other AI app builders?",
-                a: "WebContainers — Bolt runs a real Node.js environment inside the browser tab, so the app you build actually executes live as you go, with a real preview rather than a static mockup. Combined with zero local setup, this run-it-live experience is its main differentiator.",
+                q: "What is a WebContainer and why does it matter here?",
+                a: "It is StackBlitz's technology for running a Node environment inside the browser using WebAssembly, and it is the reason Bolt can execute your project rather than merely render it. Your code is not being run on a remote server that has to be provisioned for you; it runs locally in the tab, which is what makes starting instant and what makes the limits specific.",
             },
             {
-                q: "Why do my Bolt tokens run out so fast?",
-                a: "Because tokens are consumed mostly by syncing your project's file system to the AI, not just by your prompt length. As your codebase grows, each message costs more tokens regardless of how small the change is. This is the most common surprise for users on larger projects.",
+                q: "What cannot run inside Bolt?",
+                a: "Anything outside the JavaScript world, broadly. Non-JS runtimes, native binaries compiled for a host platform, containerised services, and a locally running database are not what this environment provides. Persistence comes from connecting an external service, and production hosting happens on a provider outside the tab. If your stack needs any of those, the sandbox is a wall rather than a convenience.",
             },
             {
-                q: "Is the free Bolt plan enough?",
-                a: "For learning and prototyping, yes — 1M tokens/month with a 300K daily limit and no credit card is genuinely functional. The limits are the Bolt branding on deployed sites and no custom domain, so anything client-facing or production-ready pushes you to Pro at $25/mo.",
+                q: "Why do my tokens drain faster as the project grows?",
+                a: "Because much of the consumption is keeping the AI aware of your project's files rather than processing your sentence. That means cost scales with codebase size, not edit size, and a trivial change to a mature project can be an expensive message. Budget by how big the project will get, and expect the tool to feel cheapest in exactly the early phase where it is also most fun.",
             },
             {
-                q: "Bolt.new or Lovable — which is right for me?",
-                a: "Both build full-stack apps, but Bolt is aimed at developers who want to steer the code and run it live, while Lovable is gentler and targeted at non-developers. Choose Bolt if you can read and direct the generated code; choose Lovable if you want the AI to handle as much of the stack as possible. See our Bolt.new vs Lovable comparison.",
-            },
-            {
-                q: "Can I use my own domain with Bolt?",
-                a: "Only on paid plans. The free tier deploys with Bolt branding and no custom domain support. Pro ($25/mo) and Teams add custom domains and remove the branding, which is why anything beyond prototyping generally requires upgrading.",
+                q: "Bolt.new or Lovable?",
+                a: "It comes down to who is sitting there. Bolt hands a developer a running project and expects them to steer, debug, and take over. Lovable is designed so that a non-developer never has to look at the code and has a guided path when things go wrong. If you can read a stack trace, Bolt gives you more control; if you cannot, it gives you a problem.",
             },
         ],
     },
 
     "windsurf-ide": {
         overviewHtml: `
-            <p><strong>Windsurf</strong> (formerly Codeium) is an AI-first code editor whose headline feature is <strong>Cascade</strong> — an agent that reads your codebase, plans multi-step changes, and executes them across files from a plain-language description. It is the most direct competitor to <a href="/tool/cursor">Cursor</a>: both are VS Code-style AI editors built around a powerful multi-file agent, and choosing between them is one of the more common decisions developers face in 2026.</p>
+            <p><strong>Windsurf</strong>, previously Codeium, is the closest thing <a href="/tool/cursor">Cursor</a> has to a direct rival, and almost everyone who evaluates one evaluates the other. Saying they are both good is technically true and completely useless, so this page is organised around the places they genuinely diverge — the agent's posture, the shape of the billing, where the company came from, and what an enterprise buyer can do with each. If none of those distinctions matter to you, the two products are close enough that you should pick on price and stop thinking about it.</p>
 
-            <p>Windsurf went through a significant pricing overhaul on March 19, 2026, <strong>retiring its credit-based system in favor of daily and weekly quotas</strong>, and raising Pro from $15 to $20/mo. The <strong>Free</strong> tier includes unlimited Tab autocomplete (which never touches quota) plus a light daily/weekly quota for Cascade and Chat — in practice good for two to three days of real coding per period before the quota runs dry. <strong>Pro ($20/mo)</strong> and <strong>Max ($200/mo)</strong> raise those quotas substantially.</p>
+            <h3>Cascade wants a longer leash</h3>
 
-            <p>Its strengths are a genuinely strong agent and a clean, fast editor. Cascade's plan-then-execute flow is well regarded, the editor is responsive, and because it is VS Code-based, migration is painless. For developers who want Cursor-style agentic editing, Windsurf is the main alternative and is often slightly cheaper at the Pro tier.</p>
+            <p>Cascade is Windsurf's agent, and the difference from a competitor's agent is one of posture rather than capability. It is built around reading the codebase, forming a plan that spans several files, and then carrying that plan out as a sequence of steps you watch rather than approve one at a time. The product's centre of gravity is the multi-step run: describe an outcome, let it work, review what came back.</p>
 
-            <p>The honest weaknesses: the free quota is genuinely tight — two or three days of real use and you are blocked until it resets, which pushes serious users to pay quickly. The 2026 switch from credits to quotas was disruptive for existing users, and the product's identity has shifted repeatedly (Codeium → Windsurf, credits → quotas). For most developers the practical question is simply Windsurf vs Cursor; they are close enough that pricing, quota feel, and personal preference decide it. See <a href="/compare/cursor-vs-windsurf-ide">Cursor vs Windsurf</a>.</p>
+            <p>Whether you like that depends on how you prefer to be wrong. A longer autonomous run gets further before you have to intervene, and when it has misunderstood something it gets further in the wrong direction too. Developers who work in outcomes tend to find this natural. Developers who work in increments, checking each edit as it lands, find it uncomfortable, and that discomfort is the real reason most Cursor-versus-Windsurf preferences are held so firmly with so little to point at.</p>
 
-            <p>Who it is for: developers who want a strong, affordable agentic AI editor and prefer Windsurf's Cascade flow or pricing. Who it is not for: anyone who needs heavy daily agent use on the free tier (the quota is too tight), or developers already happy in Cursor with no reason to switch.</p>
+            <h3>Quotas instead of credits</h3>
+
+            <p>Windsurf retired credit-based billing in favour of daily and weekly quotas, which is a meaningfully different experience even at a similar price. A credit pool invites you to price each request; a quota invites you to use what you have and stop when it is gone. Nothing accumulates, nothing carries over, and the reset is a date rather than a balance.</p>
+
+            <p>The two failure modes are different and worth matching against yourself. Credits fail by making you hesitate. Quotas fail by ending your day — you are mid-task, the quota is exhausted, and there is nothing to do but wait or upgrade. If your work arrives in unpredictable bursts, a hard stop is worse than a slow drain. If you work steadily, a quota is the calmer of the two and removes an entire category of small decisions.</p>
+
+            <p>Tab completion sits outside this entirely and does not draw down the quota, which makes the free tier genuinely usable as a permanent completion tool even though it is not usable as a permanent agent.</p>
+
+            <h3>Where Windsurf and Cursor actually diverge</h3>
+
+            <p>On editing, less than the discourse suggests. Both are VS Code-derived, both migrate your extensions and keybindings, both have a capable multi-file agent, and both change fast enough that any specific advantage described today may not survive the quarter.</p>
+
+            <p>The durable differences are these: Windsurf's billing is quota-shaped where Cursor's is credit-shaped; Windsurf's agent is tuned for longer autonomous runs where Cursor's is more comfortable being interrupted; Windsurf ships plugins that put its assistance inside editors you already use, which Cursor by construction cannot; and Windsurf inherits an enterprise deployment story from its Codeium era that Cursor approached from the other direction. Our <a href="/compare/cursor-vs-windsurf-ide">Cursor vs Windsurf comparison</a> and the longer <a href="/blog/cursor-vs-windsurf">write-up on the same question</a> go through the day-to-day feel.</p>
+
+            <h3>The ownership question that is not in any feature table</h3>
+
+            <p>Windsurf went through one of the more turbulent corporate stretches in this market. A widely reported acquisition by OpenAI did not complete; Google then struck a licensing arrangement that brought over the company's founders and part of its research team; and Cognition, the company behind <a href="/tool/devin-ai">Devin</a>, acquired what remained. The product kept shipping throughout, which is the most relevant fact, but a buyer signing a multi-year commitment is entitled to weigh it.</p>
+
+            <p>The reasonable reading is neither dismissal nor alarm. Windsurf is now part of a company whose own product is an autonomous coding agent, which suggests a coherent direction rather than a holding pattern. But if your procurement process asks about vendor stability — and for a tool this deep in the development workflow it should — this is the history you will be asked to explain, so know it before the meeting rather than during it.</p>
+
+            <h3>You do not have to change editors</h3>
+
+            <p>This is the option Cursor structurally cannot offer and it is underweighted in most comparisons. Windsurf's lineage as an editor extension means its assistance is still available as a plugin for other environments, including the JetBrains IDEs, rather than only inside its own editor. For a team that is standardised on JetBrains and has no intention of moving, that is the difference between a product they can evaluate and a product they cannot.</p>
+
+            <p>The editor gets the newest and deepest version of the experience; the plugins are a narrower surface. But narrower and available beats better and unreachable when the alternative is asking forty engineers to change how they work.</p>
+
+            <h3>The enterprise angle it inherited</h3>
+
+            <p>Codeium built an enterprise business before Windsurf was an editor, and that history shows up as deployment options aimed at organisations that cannot send source code to a vendor's cloud — including self-hosted and hybrid arrangements. For a defence contractor, a bank, or anyone whose policy makes the usual answer a non-starter, this is a materially different conversation from the one you have with most tools in this category.</p>
+
+            <p>Availability and terms in this area change, and it is not something to take on trust from a third party. If self-hosting is your reason for looking at Windsurf, confirm the current offering directly with the vendor before it becomes the basis of a decision.</p>
+
+            <h3>Who should stay on Cursor, or skip both</h3>
+
+            <p>Stay where you are if you are already productive in Cursor. The delta is not large enough to justify relearning an agent's habits, and switching costs are paid in attention rather than money.</p>
+
+            <p>Skip Windsurf if you need serious agent use without paying, because the free quota is genuinely tight and you will meet it in days rather than weeks — Tab completion is the only part that is free in any sustained sense. Skip it if a hard stop mid-task is worse for you than a gradually emptying budget, since that is exactly what quota billing produces. Skip it if you want continuous supervision of every edit, because you will be working against the grain of a product designed for longer runs. And skip both this and Cursor if your problem is starting projects rather than maintaining them: <a href="/tool/bolt-new">Bolt.new</a> and <a href="/tool/v0-by-vercel">v0</a> are aimed at that, and <a href="/compare/bolt-new-vs-windsurf-ide">Bolt.new vs Windsurf</a> works through why the two categories rarely substitute for each other.</p>
         `,
         useCases: [
             {
-                title: "Multi-step agentic changes with Cascade",
-                body: "Cascade is Windsurf's core: describe a change in plain language and it reads the codebase, builds a step-by-step plan, and executes across files. For refactors and feature work that span multiple files, this plan-then-do flow is its main draw.",
+                title: "Changes you would rather describe than perform",
+                body: "A migration that touches a dozen files, a pattern applied consistently across a module, a refactor whose shape is obvious and whose execution is tedious. Cascade's plan-then-execute run is built for exactly this, and it is the work where watching an agent go for several minutes is less stressful than approving each step.",
             },
             {
-                title: "Free unlimited autocomplete",
-                body: "Windsurf's Tab autocomplete is unlimited even on the free tier and never consumes quota. Developers who mainly want fast, AI-powered completions — without heavy agent use — can run on Free indefinitely for that specific workflow.",
+                title: "Free completions as a permanent baseline",
+                body: "Tab completion does not consume quota, so a developer who wants fast AI completions and nothing more can sit on the free tier indefinitely. That is a real, unusual offer in a market where the free tiers are mostly time-limited evaluations wearing a different name.",
             },
             {
-                title: "Migrating from VS Code or Cursor",
-                body: "Because Windsurf is VS Code-based, developers move over with their extensions and settings intact. Those evaluating Cursor alternatives use it as a near drop-in to compare Cascade against Cursor's agent on their own codebase.",
+                title: "A second agent for the change the first one got wrong",
+                body: "Some developers keep both Windsurf and Cursor and hand a stuck task to the other one. The agents fail differently enough that this works more often than it should, and given what an hour of a senior engineer costs, the second subscription is not the expensive part of that arrangement.",
             },
         ],
         pricingDetail:
             "After the March 19, 2026 overhaul, Windsurf offers Free ($0, unlimited Tab autocomplete plus a light daily/weekly quota for Cascade and Chat), Pro ($20/mo, up from $15), Max ($200/mo), Teams ($40/user/mo), and Enterprise (custom), with 17–20% off on annual billing. The big change: the old credit system was retired in favor of daily and weekly quotas. The trap to know: the free quota realistically lasts only two to three days of active coding before it runs dry, so anyone using the agent seriously will need Pro quickly — Tab autocomplete is the only truly unlimited free feature.",
         faq: [
             {
-                q: "Is Windsurf better than Cursor?",
-                a: "They are very close — both are VS Code-style AI editors built around a strong multi-file agent (Cascade for Windsurf, Composer for Cursor). Windsurf is often slightly cheaper at Pro and some prefer Cascade's plan-then-execute flow. The honest answer is that the decision usually comes down to pricing feel and personal preference. See our Cursor vs Windsurf comparison.",
-            },
-            {
                 q: "What happened to Codeium?",
-                a: "Codeium rebranded to Windsurf in late 2024, evolving from a pure autocomplete extension into a full AI code editor. If you used Codeium previously, Windsurf is its direct continuation with a much larger feature set centered on the Cascade agent.",
+                a: "Codeium became Windsurf, moving from an autocomplete extension into a full AI editor built around the Cascade agent. If you used Codeium, Windsurf is its direct continuation rather than a separate product, and the extension lineage is why assistance is still available inside other editors today.",
             },
             {
-                q: "How long does the free Windsurf plan last?",
-                a: "Tab autocomplete is unlimited and free forever, but Cascade and Chat run on a light daily/weekly quota that, in practice, lasts only two to three days of real coding before resetting. Serious agent users will need Pro ($20/mo) to avoid constantly hitting the quota.",
+                q: "Who owns Windsurf now, and should I care?",
+                a: "After a reported OpenAI acquisition fell through and Google licensed technology in a deal that took the founders and part of the research team, Cognition — the company behind Devin — acquired the remainder. You should care to the extent that your procurement process asks about vendor stability, which for a tool embedded this deeply in daily development it reasonably should. The product has continued shipping, and Cognition's own focus on autonomous coding agents is at least a consistent direction. Ask the vendor directly about roadmap commitments if you are signing for multiple years.",
             },
             {
-                q: "What changed with Windsurf's pricing in 2026?",
-                a: "On March 19, 2026, Windsurf retired its credit-based billing and replaced it with daily and weekly quotas, and raised Pro from $15 to $20/mo. This makes usage more predictable per period but removed the flexibility of carrying credits.",
+                q: "How far does the free tier actually go?",
+                a: "Tab completion is unlimited and stays that way, which makes the free tier a legitimate permanent option for that one workflow. Cascade and chat run against a light daily and weekly quota that a developer using the agent in earnest will exhaust in a couple of days. Treat the free plan as either a completions tool forever or an agent trial briefly, but not as both.",
             },
             {
-                q: "What is Cascade?",
-                a: "Cascade is Windsurf's agentic feature — the equivalent of Cursor's Composer. You describe what you want in plain language and Cascade reads your codebase, builds a step-by-step plan, and executes the changes across files, which you then review.",
+                q: "Windsurf or Cursor?",
+                a: "Decide on two things rather than on feature lists. First, do you prefer an agent that runs longer before checking in, or one you interrupt constantly — Windsurf leans toward the former. Second, would you rather be slowed by a draining credit balance or stopped by an exhausted quota, because that is the actual difference in how the bills feel. If neither distinction moves you, they are close enough that price should decide it.",
+            },
+            {
+                q: "Do I have to use the Windsurf editor to get Windsurf?",
+                a: "No, and this is worth knowing if your team will not change editors. Windsurf offers plugins that bring its assistance into other environments including the JetBrains IDEs, a legacy of its life as an extension. The standalone editor is where the deepest version of the experience lives, but the plugin route makes the tool evaluable for teams that would otherwise have to decline on principle.",
             },
         ],
     },
