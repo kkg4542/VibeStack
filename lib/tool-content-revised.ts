@@ -55,4 +55,11 @@ export const TOOL_CONTENT_REVISED_BY_SLUG: Record<string, string> = {
     "microsoft-365-copilot": "2026-09-16",
     grammarly: "2026-09-16",
     "openai-sora": "2026-09-16",
+    elevenlabs: "2026-09-16",
+    canva: "2026-09-16",
+    replit: "2026-09-16",
+    gamma: "2026-09-16",
+    vercel: "2026-09-16",
+    "devin-ai": "2026-09-16",
+    airtable: "2026-09-16",
 };

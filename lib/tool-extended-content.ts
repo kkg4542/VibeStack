@@ -776,52 +776,96 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
     canva: {
         overviewHtml: `
-            <p><strong>Canva</strong> is the design platform that made graphic design accessible to people who are not designers, and its <strong>Magic Studio</strong> suite extended that promise into AI. The core idea is unchanged — drag-and-drop templates anyone can use — but it now bundles text-to-image (Dream Lab), AI copywriting (Magic Write), object removal (Magic Eraser), image extension (Magic Expand), Background Remover, and more behind the same friendly interface.</p>
+            <p><strong>Canva</strong> is usually described as design software for people who are not designers, which is accurate and slightly misses the point. Its actual product is constraint. Templates, brand kits and locked elements let someone with no training produce something that looks deliberate, because most of the decisions that would go wrong have already been made by somebody else.</p>
 
-            <p>The pricing is a genuine freemium model. <strong>Canva Free</strong> is unusually generous — 1.6M+ templates, 4.7M+ free assets, real-time collaboration, and roughly 50 monthly AI credits — enough for real work, not just a teaser. <strong>Pro (around $15/mo, $120/yr)</strong> adds the Brand Kit, premium assets, and ~500 monthly AI credits, which covers moderate daily use of Magic Studio. <strong>Teams ($10/user/mo, 3-user minimum)</strong> brings collaboration and brand controls.</p>
+            <p>That reframing changes how you evaluate it. The question is not whether Canva can make a poster. It is whether your organisation has a supply of design decisions that needs distributing to people who should not be making those decisions themselves.</p>
 
-            <p>Its strength is approachability at scale. For social media, presentations, marketing one-pagers, and quick branded assets, Canva lets a non-designer produce a good-enough result in minutes, and Magic Studio removes even more of the manual work. For most small businesses and creators, it is the fastest path from idea to publishable visual.</p>
+            <h3>The brand kit is the product</h3>
 
-            <p>The honest weaknesses: AI features run on a <strong>pooled monthly credit system</strong>, so heavy Magic Studio users exhaust their credits and must wait or upgrade. Outputs can look templated — the same polish that makes Canva fast also makes Canva designs recognizable. And it is not a professional design-system tool; teams building serious product UI use <a href="/tool/figma">Figma</a> instead. The 2024 shift of Teams to per-seat pricing also raised costs sharply for small groups. See our <a href="/tool/figma">Figma</a> review for a closer look at that trade-off.</p>
+            <p>Individuals adopt Canva for the templates. Organisations keep it for the brand kit, and the two are different purchases.</p>
 
-            <p>Who it is for: non-designers, marketers, creators, and small teams who want fast, good-looking visuals without learning professional tools. Who it is not for: product designers building design systems, or anyone whose work demands a distinctive, non-templated visual identity.</p>
+            <p>A brand kit holds the fonts, the colours, the logo variants and the approved assets, and it can be attached to templates that lock some elements and leave others editable. The consequence is structural rather than aesthetic: a regional team can produce a campaign asset without being able to move the logo, substitute a font or invent a colour. The output is consistent because the wrong option was removed, not because everyone was trained and remembered.</p>
+
+            <p>This is why the value scales with the number of people producing things and with how far they sit from whoever owns the brand. A solo founder gets templates and a fast editor. A company with forty people in a dozen markets all making their own slides gets something closer to governance. If nobody outside a small trained group makes anything, you are buying the editor and not the mechanism, and the editor on its own is a much weaker argument.</p>
+
+            <h3>Canva and Figma are not competing for the same job</h3>
+
+            <p>The comparison is framed as an accessibility trade-off, as though Canva were a simpler <a href="/tool/figma">Figma</a>. It is more useful to ask two questions: who makes the artefact, and who maintains it afterwards.</p>
+
+            <p>Figma's work is maintained. A component library, a token set and a set of specifications exist to be changed once and propagate, and to be read by engineers implementing them. The artefact is a source of truth with a long life and a named owner, and the tool is built around versioning, components and handoff because those are the problems of maintenance.</p>
+
+            <p>Canva's work is mostly produced and consumed. A conference banner, a quarterly deck, a recruitment post and a campaign asset are made, used and superseded. They need to be on brand and they do not need to be maintainable, because nothing downstream depends on their internal structure. That is a genuinely different job, not a lesser one.</p>
+
+            <p>The healthy arrangement in a company large enough to have both is that the design team defines the system in Figma and expresses a slice of it as Canva templates and a brand kit for everyone else. The unhealthy arrangement is a product interface being designed in Canva, or a marketing team waiting three weeks for a designer to resize a banner.</p>
+
+            <h3>Where the template look becomes a liability</h3>
+
+            <p>Canva's defaults are good, which is the problem at the far end. A template that is good is a template many people use, and the compositional habits are recognisable to anyone who looks at a lot of marketing: the same layout logic, the same illustration style, the same stock treatments.</p>
+
+            <p>For most output this does not matter at all. Nobody chooses a vendor because its webinar banner was distinctive. It starts to matter in exactly two places. The first is anything that is the first impression of the brand itself — the site header, the pitch deck, the packaging, the launch asset — where looking like a competent template is worse than looking like nothing you have seen. The second is any market where your competitors are using the same templates, which you can check in an afternoon by looking at them.</p>
+
+            <p>The fix is not to abandon the tool. It is to feed the brand kit with assets that are yours — commissioned illustration, real photography, a typeface nobody else has — so that the templates are assembling your material rather than the library's. That requires a designer, which is the point people resist and should not.</p>
+
+            <h3>When not to use Canva</h3>
+
+            <p>Do not design a product interface in it. Screens, states, components and anything an engineer has to implement belong where components, variants and specifications exist. A Canva file of app screens is a picture of an app, and the moment anyone needs to know what the disabled state does, the picture stops being useful.</p>
+
+            <p>Do not use it as the source of truth for a design system. The organising unit is the document, not the component, so a change to the brand is a sweep through files rather than an edit that propagates. Small brand kits absorb this; a real system does not.</p>
+
+            <p>Do not use it for production print work with exact requirements without checking. Colour profiles, bleed, spot colours and print-house specifications are where a template-first tool and a printer's preflight disagree, and the disagreement is discovered late and expensively.</p>
+
+            <p>Do not use it where the design is the differentiator. If you are selling taste — an agency, a studio, a premium consumer brand — the tool that guarantees a competent result also caps it.</p>
+
+            <p>And do not roll it out to a team without someone building the kit first. Canva given to fifty people with no templates and no brand kit is fifty people making their own decisions faster, which is the problem you were trying to solve, now at higher velocity.</p>
         `,
         useCases: [
             {
-                title: "Social media and marketing assets",
-                body: "Canva's bread and butter: producing on-brand social posts, ads, and marketing one-pagers fast. Magic Write drafts the copy and Dream Lab generates supporting imagery, so a marketer can go from brief to publishable in a single session.",
+                title: "Campaign assets made by the people who own the campaign",
+                body: "Social posts, ads, event graphics and landing-page imagery produced by marketers directly rather than queued with a designer. The win is removing a handoff for work whose deadline is shorter than the queue, and it only holds if a brand kit is doing the guarding.",
             },
             {
-                title: "Presentations and documents",
-                body: "Non-designers use Canva to build presentations that look professionally designed without a designer. Templates plus Magic Studio's resizing and image tools make it easy to keep a deck consistent and polished.",
+                title: "Presentations by people who are not going to learn a design tool",
+                body: "Sales decks, internal updates and conference talks that need to be on brand without anyone opening a design file. This is where Canva quietly replaces the corporate template nobody could find and everybody modified.",
             },
             {
-                title: "Quick image editing with Magic Studio",
-                body: "Background Remover, Magic Eraser, and Magic Expand handle common photo edits that used to require Photoshop skills. For everyday tasks — clean up a product photo, extend a background — Canva does it in a couple of clicks.",
+                title: "A design team publishing templates for everyone else",
+                body: "The strongest organisational pattern: designers build locked templates with a brand kit attached, and the rest of the company fills them in. Design keeps control of the decisions that matter and stops being a resizing service.",
+            },
+            {
+                title: "Localised and field collateral at volume",
+                body: "Regional offices, franchisees, store managers and partner teams producing their own material within fixed bounds. The alternative is not better design, it is a folder of PowerPoint files with the logo stretched, and that is the comparison to judge it against.",
             },
         ],
         pricingDetail:
-            "Canva uses a freemium model: Free ($0, genuinely useful with 1.6M+ templates, 4.7M+ assets, and ~50 monthly AI credits), Pro (around $15/mo or $120/yr, with Brand Kit, premium assets, and ~500 monthly AI credits), Teams ($10/user/mo with a 3-user minimum), and Enterprise (custom). The pricing traps: AI features draw from a pooled monthly credit system shared across Magic Write, Dream Lab, Magic Resize and others, so heavy AI use depletes credits; and the 2024 move of Teams from a flat ~$120/yr (up to 5 users) to per-seat pricing raised costs 300%+ for small teams, which catches people off guard.",
+            "Canva runs a real freemium model: the free tier is a usable product rather than a trial, with the template library, the editor and collaboration included. Pro (around $15/month, cheaper billed annually) is where the Brand Kit, premium assets and the higher AI allowance live, and for organisations the Brand Kit is usually the line item that justifies the upgrade rather than the asset library. Teams is priced per seat with a three-seat minimum and adds shared brand controls and approval workflows; Enterprise is custom. Two structural things are worth knowing. First, Canva moved Teams from a flat rate covering a small group to per-seat pricing in 2024, which raised costs sharply for exactly the small teams that had adopted it under the old model, and it is still the change that surprises long-standing customers. Second, the AI features draw on a shared monthly credit pool rather than being unmetered, so heavy generative use runs out before the month does. The size of that allowance has been revised more than once, so check the current figure on Canva's own pricing page rather than relying on a number quoted elsewhere.",
         faq: [
             {
-                q: "Is Canva Free actually usable, or just a trial?",
-                a: "It is genuinely usable, not a time-limited trial. The free tier includes 1.6M+ templates, 4.7M+ free assets, real-time collaboration, and roughly 50 monthly AI credits. Many individuals never need to upgrade; Pro mainly adds the Brand Kit, premium content, and more AI credits.",
+                q: "Is the free tier actually usable, or is it a trial?",
+                a: "It is a real product. The editor, the bulk of the template library and collaboration are all there, and a great many individuals never pay. The paid line is drawn at brand control and premium content rather than at core functionality, which is why individuals often stay free and organisations almost always do not.",
             },
             {
-                q: "How do Canva's AI credits work?",
-                a: "Magic Studio features share a pooled monthly credit allowance — about 50 credits on Free and 500 on Pro — across Magic Write, Dream Lab image generation, Magic Resize, and others. Heavy AI users can run out before the month ends and must wait for the reset or upgrade.",
+                q: "Canva or Figma?",
+                a: "Ask who makes the artefact and who maintains it. Figma is for work that is maintained and implemented: components, tokens, product screens, specifications an engineer reads. Canva is for work that is produced and consumed: a banner, a deck, a campaign asset that will be superseded. Most companies with both use Figma to define the system and Canva to distribute a slice of it to everyone else. If you are choosing one, the question is whether your problem is designing things or distributing the ability to make things.",
             },
             {
-                q: "Canva or Figma — which should I use?",
-                a: "Canva is for fast, accessible visual content — social posts, presentations, marketing assets — by non-designers. Figma is for professional interface design and design systems. They serve different jobs; many teams use Canva for marketing and Figma for product. See our Canva vs Figma comparison.",
+                q: "Do we still need a designer if we have Canva?",
+                a: "Yes, and arguably more visibly. Somebody has to build the templates, assemble the brand kit, decide which elements are locked, and supply assets that are yours rather than the stock library's. Canva without that work is faster production of inconsistent material. What it removes is not the designer, it is the designer's queue of resize requests.",
             },
             {
-                q: "Why did Canva Teams get more expensive?",
-                a: "In September 2024 Canva moved Teams from a flat rate (about $120/yr for up to 5 users) to per-seat pricing at $10/user/month with a 3-user minimum. For a 5-person team that raised the annual cost from ~$120 to ~$500 — a 300%+ increase that surprised many existing customers.",
+                q: "Will our output look like everyone else's?",
+                a: "It can, and the risk concentrates in specific places rather than spreading evenly. Ordinary operational material can look templated with no cost at all. First-impression assets — the site header, the pitch deck, the launch campaign, the packaging — are where a recognisable template reads as a lack of investment. Populate the brand kit with commissioned assets and a distinctive typeface and most of the problem goes away.",
             },
             {
-                q: "Do Canva designs look generic?",
-                a: "They can. The template-driven approach that makes Canva fast also makes its output recognizable, and over-relying on defaults produces designs that look like everyone else's. With custom assets and a Brand Kit you can differentiate, but for a truly distinctive identity a professional designer and tool are still better.",
+                q: "What happens when we outgrow it?",
+                a: "The usual trigger is a rebrand or a product team that needs real specifications. Neither transfers cleanly: Canva organises work by document rather than by component, so a brand change is a sweep through files, and exported screens are pictures rather than implementable definitions. Plan for the brand kit and templates to be rebuilt rather than migrated, and keep anything engineering depends on out of Canva from the start.",
+            },
+            {
+                q: "Can it replace PowerPoint or Keynote as our presentation standard?",
+                a: "For most teams, yes, with two caveats worth checking before you standardise. Confirm that exports survive contact with whatever your clients and conference organisers require, and confirm that presenting works the way your people need it to when the venue wifi is bad. Those are the practical failure points, not the design features.",
+            },
+            {
+                q: "Do the AI features change the decision?",
+                a: "Not really. Generated images and copy are convenient inside an editor people already use, and they are not the reason to choose Canva over anything else, because every tool in this space now has them at a similar level. They are also metered from a shared monthly credit pool, so treat them as a bonus on top of the brand-control argument rather than as the argument itself.",
             },
         ],
     },
@@ -1232,52 +1276,106 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
     replit: {
         overviewHtml: `
-            <p><strong>Replit</strong> is a browser-based development platform that combines a full coding environment, hosting, databases, and an AI agent into one place — no local setup required. Its 2026 identity centers on <strong>Replit Agent</strong>, which can build and deploy working applications from a prompt, making Replit a popular choice for people who want to go from idea to live app without configuring anything locally.</p>
+            <p><strong>Replit</strong> is three things fused into one: a development environment that runs in a browser tab, hosting that the environment deploys to, and an AI agent that can write and ship code inside both. The fusion is the product. Every part of it exists separately and better somewhere else, and nowhere else are they the same thing.</p>
 
-            <p>The plan structure shifted in early 2026. <strong>Starter (Free)</strong> gives 1,200 minutes of development time per month, basic AI, one published app, and limited daily Agent credits — enough to learn and experiment. <strong>Core ($20/mo, or $25 monthly)</strong> unlocks full Replit Agent access, unlimited apps, more compute, and $25 in monthly usage credits. The old Teams plan is being replaced by a new <strong>Pro tier ($100/mo)</strong> for up to 15 builders with pooled credits, rolling out in February 2026.</p>
+            <p>Which means the question worth asking is not whether Replit's editor beats a local editor. It does not, and it is not trying to. The question is what the absence of a local machine is worth to you.</p>
 
-            <p>Its strength is being genuinely all-in-one and accessible. For education, hackathons, quick experiments, and non-developers building their first app, Replit removes every setup barrier — you open a browser tab and you are coding, with the Agent able to scaffold and deploy for you. The collaborative, run-anywhere nature is hard to match.</p>
+            <h3>What "nothing to install" is actually worth</h3>
 
-            <p>The honest weaknesses: Replit combines subscription tiers with <strong>usage-based charges that frequently surprise people</strong>, especially on AI-intensive Agent work — the bill can climb beyond the base subscription faster than expected. The Agent, like all such tools, is probabilistic and makes mistakes, and for sustained professional engineering many developers still prefer a local setup with <a href="/tool/cursor">Cursor</a> or <a href="/tool/github-copilot">GitHub Copilot</a>. See <a href="/compare/cursor-vs-replit">Cursor vs Replit</a>.</p>
+            <p>Every developer has paid the setup tax and most have stopped noticing it: a language runtime, a version manager, dependencies that conflict with another project's, a database running locally, environment variables, and the particular half-day where someone's machine has a compiler and someone else's does not.</p>
 
-            <p>Who it is for: learners, educators, hackathon builders, and non-developers who want a zero-setup, all-in-one environment with an AI agent that can deploy. Who it is not for: professional teams doing sustained engineering (a local setup is usually better), or anyone who needs predictable costs and dislikes usage-based billing surprises.</p>
+            <p>For a working engineer with a configured machine, that cost was paid once and Replit refunds almost nothing. For everyone else it is the entire obstacle. A student on a school-managed laptop, a contributor on a borrowed machine, an analyst who writes scripts but has never been given admin rights, a candidate in an interview, a colleague you want to hand a running reproduction to — for all of them the gap between wanting to run code and running code is not a small inconvenience, it is the thing that stops it happening.</p>
+
+            <p>So the honest framing is that Replit sells the removal of a barrier, and the barrier's height varies enormously by who you are. That is why the same product is described as indispensable by one group and pointless by another, and both are reporting accurately.</p>
+
+            <h3>Building and deploying are the same act</h3>
+
+            <p>The second structural feature is that what you build is already somewhere. There is no separate step where the working thing becomes a reachable URL, because it was reachable the whole time.</p>
+
+            <p>This collapses a distinction most tooling maintains carefully, and the benefit is real: the feedback loop for anything that has to be seen by another person — a demo, a webhook endpoint, a form, a thing you want a client to click — goes from hours to none. Showing someone a URL is a fundamentally different act from asking them to clone a repository.</p>
+
+            <p>It cuts the other way too. Things that would have stayed on a laptop become live services with an audience, and a live service accumulates obligations: secrets that are genuinely exposed rather than theoretically exposed, data someone now depends on, uptime somebody notices. Nothing about the environment forces you to take those seriously, and the ease of publishing means plenty of projects are published before anyone has thought about them. Treat the moment something acquires real users as the moment to ask whether it belongs where it is.</p>
+
+            <h3>The bill is a subscription plus a meter</h3>
+
+            <p>This is the most common complaint about Replit and it is a design consequence rather than a mistake. Because compute, storage and hosting are included in the product rather than provided by your own machine, they have to be paid for by somebody, and that somebody is metered.</p>
+
+            <p>The plan fee gets you access and an allowance. On top of it, sustained compute, agent work and anything your deployed app does at runtime draw against usage. Agent-heavy work is the most variable, because the cost of a task depends on how long the agent runs rather than on what you asked for, and a task that goes badly can run a long time.</p>
+
+            <p>The practical advice is boring and it works. Check what your allowance actually covers before you plan around it, watch the usage display during your first month rather than at the end of it, set whatever spending controls the platform offers, and treat a long-running agent session as something to supervise rather than start and walk away from. Teams that get surprised are almost always teams that assumed a subscription was a ceiling.</p>
+
+            <h3>Classrooms are the strongest case</h3>
+
+            <p>Education is where every property of Replit lines up at once, and it is worth stating why rather than just asserting it.</p>
+
+            <p>Every student gets an identical environment, so the instructor is teaching the subject instead of debugging thirty different machines in the first two weeks. There is nothing to install on hardware the school controls and will not grant rights on. Work is inspectable and shareable by link, so reviewing a student's actual running program is trivial. And a student can pick it up on a phone, a library machine or a borrowed laptop, which matters most for exactly the students who have the least stable access to a computer.</p>
+
+            <p>The same logic makes it strong for workshops, bootcamps, interview exercises and any situation where you need a group of people writing code within five minutes and you do not control their machines.</p>
+
+            <h3>Where it stops being the right tool</h3>
+
+            <p>Do not move a team with working local setups onto it for its own sake. If everyone already has a configured machine and a deployment pipeline, the barrier Replit removes is one you have already removed, and you would be trading a fast local editor and your existing tooling for a browser tab and a meter.</p>
+
+            <p>Do not run production systems with real obligations on it by drift. Something that started as a prototype and now holds customer data or runs a business process deserves a deliberate decision about where it lives, what the backup story is and who is on call. The problem is not that the platform cannot host it; it is that nothing prompted anyone to ask.</p>
+
+            <p>Do not use it where the work is heavy in ways a hosted environment resists: large local datasets, long compute jobs, GPU work, or a system of many services that has to run together. You will spend your time fighting the environment's shape.</p>
+
+            <p>Do not use it where your organisation has rules about where code and data may live. This is a hosted environment by definition, and for regulated work that is a procurement conversation rather than a signup.</p>
+
+            <p>And do not use it if unpredictable monthly costs are a genuine problem for you rather than an annoyance. A metered model is the wrong shape for a fixed budget, and no amount of care changes the shape.</p>
+
+            <h3>Replit, Bolt and Cursor are three different bets</h3>
+
+            <p><a href="/tool/cursor">Cursor</a> is an editor on your machine. It assumes you are a developer, that your project already exists, and that the AI's job is to make you faster inside it. Nothing about deployment is its problem. <a href="/compare/cursor-vs-replit">Cursor vs Replit</a> goes through that trade in detail, and the short version is that they are competing for different hours of your day.</p>
+
+            <p><a href="/tool/bolt-new">Bolt.new</a> is a generator: describe an app, get a working one, with the emphasis on the first result. Replit's agent does that too, and Replit is the one still standing when the app becomes a project you maintain — because underneath the agent there is an actual environment with a shell, a package manager and files, rather than a generation surface.</p>
+
+            <p>That is the cleanest way to hold all three. Cursor is for people who have an environment. Bolt is for people who want a result. Replit is for people who need the environment itself to be provided. Our piece on <a href="/blog/cloud-dev-environments-evolution">cloud development environments</a> covers where that category is heading more broadly.</p>
         `,
         useCases: [
             {
-                title: "Zero-setup app building with Agent",
-                body: "Replit Agent builds and deploys working apps from a prompt inside the browser. For non-developers and quick experiments, this removes all environment setup — you describe what you want and get a live, hosted result.",
+                title: "Teaching programming without an IT department",
+                body: "Identical environments for every student, nothing to install on managed hardware, and work that is inspectable by link. The instructor spends the first week on the subject rather than on thirty broken setups, which is the single biggest reason it took hold in classrooms.",
             },
             {
-                title: "Education and learning to code",
-                body: "Replit's all-in-one browser environment is widely used in classrooms and self-teaching because there is nothing to install and projects are instantly shareable. Students code, run, and collaborate from any device.",
+                title: "Interview exercises and pairing with people outside your company",
+                body: "A candidate or a contractor is coding within a minute, on their own machine, with no access request and no setup instructions to get wrong. You are also watching the same environment they are, which removes the usual argument about whether it works on their end.",
             },
             {
-                title: "Hackathons and rapid experiments",
-                body: "When speed matters, Replit's combination of editor, hosting, database, and Agent in one place lets teams ship a working prototype in hours. The instant deploy and collaboration make it a hackathon staple.",
+                title: "Hackathons and weekend prototypes",
+                body: "Editor, runtime, database and a public URL in one place, which is the entire toolchain for a project whose lifespan is measured in days. The deploy step disappearing matters more here than anywhere else, because the demo is the deliverable.",
+            },
+            {
+                title: "Internal tools that have to be live rather than local",
+                body: "A form, a small dashboard, a webhook receiver, a script somebody else needs to trigger. These die on a laptop and survive when they have a URL, and the amount of infrastructure work required to give them one is otherwise wildly out of proportion to their size.",
+            },
+            {
+                title: "Coding on a device you do not control",
+                body: "School laptops, locked-down corporate machines, tablets, borrowed computers. This is the least glamorous use and the one that most changes who gets to participate, because the barrier it removes is access rather than convenience.",
+            },
+            {
+                title: "Agent-built first versions of an idea",
+                body: "Describing an application and getting something running, then continuing in a real environment with a shell and files rather than being stuck inside a generation interface. The value is less the first draft than the fact that the second draft is ordinary development.",
+            },
+            {
+                title: "Shareable reproductions of a bug",
+                body: "Handing someone a link to a running program that misbehaves, instead of a description of a program that misbehaves. Maintainers and support engineers save an entire round trip, and the reproduction cannot rot on someone's machine.",
             },
         ],
         pricingDetail:
-            "Replit offers Starter (free, 1,200 dev minutes/month, basic AI, one published app, limited daily Agent credits), Core ($20/mo annually, $25 monthly — full Agent access, unlimited apps, more compute, $25 in monthly usage credits, custom domains, PostgreSQL), and a new Pro tier ($100/mo, up to 15 builders with pooled credits, one-month rollover) replacing the old Teams plan as of February 20, 2026. The major pricing trap: on top of the subscription, Replit charges usage-based fees that often surprise teams — AI-intensive Agent work can push the real monthly bill well beyond the base plan. Watch usage credits closely if you lean on the Agent.",
+            "Replit combines a plan fee with usage-based billing, and understanding the second half is what keeps the bill predictable. There is a free tier intended for learning and experimentation, a paid individual plan (around $20/month at the time of writing) that unlocks full agent access and more capacity, and a team plan with pooled usage and shared workspaces. On top of whichever plan you are on, sustained compute, agent work and whatever your deployed applications consume at runtime are metered, which means an intensive month can cost meaningfully more than the plan fee. Agent work is the most variable line, because what a task costs depends on how long the agent runs rather than on how large the request sounded, and a task that goes badly runs longer than one that goes well. Replit has restructured its plans and allowances more than once, so treat the tier names and included quotas quoted anywhere outside its own pricing page as indicative, check what your allowance actually covers before you budget, and set spending controls if a fixed monthly number matters to you.",
         faq: [
             {
-                q: "Why is my Replit bill higher than the subscription price?",
-                a: "Because Replit layers usage-based charges on top of the subscription. AI-intensive Agent work consumes usage credits, and once you exhaust your monthly allotment, additional usage is billed — which frequently surprises teams. If you rely heavily on the Agent, monitor your credit consumption closely.",
+                q: "Why is my bill higher than the plan price?",
+                a: "Because the plan fee buys access and an allowance, not a ceiling. Replit is providing the compute your laptop would otherwise provide, plus hosting for whatever you deploy, and both are metered once you pass the included amount. Agent sessions are the usual cause of a surprise, since the cost tracks how long the agent works rather than how big the request seemed. Watch the usage display during your first month rather than reading the invoice at the end of it, set whatever spending controls are available, and supervise long agent runs instead of starting one and walking away.",
             },
             {
-                q: "What is Replit Agent?",
-                a: "Replit Agent is the AI that builds and deploys applications from a natural-language prompt, all within Replit's browser environment. It is powerful but probabilistic — it can make mistakes — so review its output rather than assuming it is correct, especially for anything important.",
+                q: "Is it good enough for professional engineering?",
+                a: "For a team that already has configured machines and a deployment pipeline, it usually is not the right default, and not because the environment is weak. The barrier Replit removes is one you have already paid to remove, so you would be giving up a fast local editor and your existing tooling in exchange for a browser tab and a meter. The exceptions are real though: onboarding, working with people outside your organisation, anything that has to be running for someone else to look at, and situations where the machine in front of you is not yours.",
             },
             {
-                q: "Is the free Replit plan enough?",
-                a: "For learning and small experiments, yes — Starter gives 1,200 dev minutes/month, basic AI, one published app, and limited Agent credits. Anyone building seriously or using the Agent heavily will need Core ($20/mo) for full access and more credits.",
-            },
-            {
-                q: "Is Replit good for professional development?",
-                a: "It is excellent for learning, prototyping, education, and quick deploys, but for sustained professional engineering many developers still prefer a local setup with a tool like Cursor or GitHub Copilot. Replit's strength is accessibility and all-in-one convenience, not heavy production workflows. See our Cursor vs Replit comparison.",
-            },
-            {
-                q: "What happened to the Replit Teams plan?",
-                a: "It is being replaced by a new Pro tier at $100/month, launched around February 20, 2026, supporting up to 15 builders with pooled credits, one-month credit rollover, and priority support. Existing Teams users were migrated to the new structure.",
+                q: "Replit, Bolt.new or Cursor?",
+                a: "They answer different questions. Cursor assumes you have a machine and a project and makes you faster inside it. Bolt.new is optimised for producing a working application from a description, with the first result as the point. Replit is the one that provides the environment itself, which is why it holds up when the generated thing turns into something you maintain: underneath the agent there is a shell, a package manager and real files. Pick by whether your constraint is speed, a starting point, or the absence of a development machine.",
             },
         ],
     },
@@ -1624,52 +1722,88 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
     gamma: {
         overviewHtml: `
-            <p><strong>Gamma</strong> is an AI-native tool for creating presentations, documents, and webpages from a prompt. Instead of starting with a blank slide and fighting alignment and formatting, you describe what you want and Gamma generates a polished, on-brand deck you then refine in an editor designed around AI rather than around traditional slide software. It is one of the clearest answers to "I need a good-looking presentation and I don't want to spend hours in PowerPoint."</p>
+            <p><strong>Gamma</strong> generates presentations, documents and simple web pages from a prompt, and it does the thing it claims: a rough idea becomes a laid-out, reasonably attractive deck in the time it would take to format two slides by hand. The question this page is interested in is what happens after that, because the gap between a generated deck and a deck you can present is where the time actually goes.</p>
 
-            <p>The pricing runs on AI credits. <strong>Free</strong> gives 400 one-time credits — enough to generate a handful of real presentations — with Gamma branding on your work. <strong>Plus ($12/mo, or $8 annually)</strong> removes the branding, gives 1,000 refreshing monthly credits, unlocks better image models, and doubles the cards-per-prompt limit. <strong>Pro ($25/mo, or $15 annually)</strong> adds premium AI models, API access, custom fonts, analytics, and 4,000 monthly credits. Team and Business tiers add shared themes and admin controls.</p>
+            <h3>What it removes from the job, and what it leaves</h3>
 
-            <p>Its strength is speed to a good-looking result. For anyone who needs a presentation, pitch, or one-page site fast and values design polish without design skill, Gamma's prompt-to-deck flow is genuinely faster than building manually, and the default output looks intentional rather than templated-cheap.</p>
+            <p>Making a deck is several jobs that people treat as one. There is deciding what the argument is. There is finding the evidence. There is writing the words. There is laying it out, aligning things, choosing type sizes and fixing the slide where the text overflows. And there is the final pass where somebody senior reads it and it changes.</p>
 
-            <p>The honest weaknesses: it offers less fine-grained control than PowerPoint or Keynote, so designers who want pixel-level control can find it limiting, and at scale its output can take on a recognizable "Gamma look." The credit system also meters generation — heavy users on Free or Plus can run out, and credits generally do not roll over. For polished marketing graphics outside the deck format, <a href="/tool/canva">Canva</a> is more versatile. </p>
+            <p>Gamma is excellent at the fourth and competent at the third. It is not doing the first at all, and the thing it produces for the second is generic. That is not a criticism; it is what generation from a prompt can be. But it explains why the experience of using it is so often a fast, satisfying start followed by a slower middle than expected, because the parts it did not do were always the expensive parts, and now they are the only parts left.</p>
 
-            <p>Who it is for: founders, marketers, and professionals who need good-looking presentations and docs fast without slide-software fiddling. Who it is not for: designers who want precise control over every element, or heavy users who would chafe at the credit limits and the recognizable default style.</p>
+            <p>Structurally, the deck it produces is a plausible one: an introduction, a handful of sections proportional to the topic, a conclusion. Plausible structure is genuinely useful when you are staring at nothing. It is actively unhelpful when you had a specific argument to make, because the generated shape is persuasive enough that people edit inside it rather than replacing it, and a deck that follows a generic arc will land generically.</p>
+
+            <h3>The three places a generated deck breaks</h3>
+
+            <p>The first is data. Gamma fills slides with content that reads correctly, and a chart or a figure that appeared without you supplying it did not come from your systems. Anything numeric has to be either supplied by you or removed, and this needs to be a rule rather than an intention, because a well-formatted number on a slide is believed by everyone in the room. This is the single most dangerous failure mode of every generated-deck tool and it is also the easiest to police: no figure survives that you cannot trace to a source.</p>
+
+            <p>The second is brand specification. There is a difference between a deck that looks tasteful and a deck that is correct — the right typeface at the right weight, the approved colour values, the logo with its required clear space, the legal line at the required size. Theme controls get you close and closeness is not compliance. If your organisation has a brand team that checks these things, expect a correction pass, and expect the fiddly parts of it to be slower than they would be in a tool built around precise control.</p>
+
+            <p>The third is the executive finish. The last ten percent of a deck that goes to a board or a client is not design work at all. It is cutting three slides because the meeting is shorter than you thought, rewriting a headline because it makes a claim you cannot defend, reordering so the ask comes before the evidence, and anticipating the question the one sceptical person will ask. No generator does this, and it is most of what separates a deck that gets a decision from one that gets a follow-up meeting.</p>
+
+            <h3>When to use something else, and when not to use Gamma at all</h3>
+
+            <p>Use PowerPoint or Keynote when the file has to leave your control. A deck that gets emailed to a client, uploaded to a conference portal, edited by a third party or presented from a machine that is not yours is safer in the format everyone already handles. Exports exist and mostly work; layout that was generated for a web-native canvas does not always survive the trip, and finding that out in the room is a bad way to find out.</p>
+
+            <p>Use PowerPoint when the deck is a living document. Anything revised weekly by several people, with a review history and comments that need to persist, sits better in the tool your organisation's process is already built around.</p>
+
+            <p>Use <a href="/tool/canva">Canva</a> when the output is a designed artefact rather than an argument — a one-pager for print, a social carousel, an event banner, anything where the brand kit and the asset library matter more than the narrative. Canva is also the better answer if the presentation is one of many formats the same material has to appear in. And if the question is really about where your written work lives rather than how it looks, <a href="/compare/notion-ai-vs-gamma">Notion AI vs Gamma</a> is the comparison that maps onto that choice.</p>
+
+            <p>Do not use Gamma for a deck where being unmistakably yours is the point. A fundraise, a rebrand, a keynote, a competitive final round: these are judged partly on the evident investment, and a recognisable generated aesthetic reads as the opposite of investment to an audience that sees a lot of decks.</p>
+
+            <p>Do not use it for anything built on numbers you have not personally verified. Financial reviews, board reporting, anything with a compliance dimension. The efficiency gain is small on these decks because the data work dominates, and the risk of a fabricated-looking figure is highest.</p>
+
+            <p>Do not use it where design precision is the deliverable, such as a template other people will be required to use, or material that must match a specification exactly.</p>
+
+            <p>And do not use it as a substitute for knowing what you want to say. It will produce something anyway, and the something will be confidently structured, which is worse than a blank page because it feels like progress.</p>
         `,
         useCases: [
             {
-                title: "Fast presentation generation",
-                body: "Gamma's core: describe a topic and get a polished, on-brand deck in moments, then refine it. For pitches, internal updates, and client presentations, it removes the slow, fiddly part of slide-building while producing something that looks intentional.",
+                title: "Getting from an outline to something shareable in one sitting",
+                body: "You know the argument and you do not want to spend the evening aligning boxes. This is the strongest case: you supply the thinking and the content, and the tool removes the formatting labour that never improved the argument anyway.",
             },
             {
-                title: "Pitch and sales decks",
-                body: "Founders and sales teams use Gamma to produce investor and sales decks quickly, iterating on structure and design through prompts rather than manual formatting. The polished defaults make early drafts presentable without a designer.",
+                title: "Recurring internal material nobody grades on design",
+                body: "Team updates, project reviews, all-hands sections, training decks. The audience wants the information, the deck is disposable, and the polish ceiling is irrelevant. Consistency and speed are the whole requirement here, and they are exactly what a generator provides.",
             },
             {
-                title: "One-page sites and documents",
-                body: "Beyond slides, Gamma generates webpages and documents from prompts, letting users publish a simple landing page or a formatted doc without separate tools. It is a fast path to a shareable, good-looking page.",
+                title: "Web-native documents and one-pagers",
+                body: "Pages meant to be read in a browser and sent as a link rather than projected in a room. Gamma's canvas suits scrolling content better than slide software does, and the format sidesteps the export question entirely, since nothing ever has to become a PowerPoint file.",
             },
         ],
         pricingDetail:
-            "Gamma runs on AI credits: Free ($0, 400 one-time credits, Gamma branding), Plus ($12/mo or $8 annually — 1,000 refreshing monthly credits, no branding, advanced image models, 20 cards per prompt), Pro ($25/mo or $15 annually — premium AI models, API access, custom fonts, analytics, 4,000 monthly credits), Ultra ($100/mo), plus Team ($20/seat/mo, min 2) and Business ($40/seat/mo). The mechanics to know: generation is metered by credits, and on most plans unused credits do not roll over. Free's 400 credits are one-time (not refreshing), so once exhausted you need to upgrade to keep generating. Annual billing is required to hit the advertised lower rates.",
+            "Gamma meters generation with credits rather than charging a flat fee for unlimited use, and the structure has a few sharp edges. The free tier grants a block of credits once rather than refreshing them monthly, so once it is spent, continuing means upgrading — this is the detail that catches people who assumed a monthly free allowance. Paid tiers (Plus at around $12/month and Pro at around $25/month billed monthly, with lower effective rates on annual billing, plus higher individual and per-seat team tiers) refresh credits each month, remove Gamma branding from your work, and unlock better generation models, larger outputs, custom fonts and analytics as you move up. Credits generally do not roll over, so an unused month is not banked. Gamma has revised its allowances and tier contents more than once, so check the current credit figures on Gamma's own pricing page rather than budgeting from a number quoted elsewhere, and be aware that iterating heavily on one deck consumes credits each time you regenerate rather than only on the first attempt.",
         faq: [
             {
-                q: "How do Gamma's credits work?",
-                a: "Gamma meters AI generation with credits. Free gives 400 one-time credits (not refreshing), Plus gives 1,000 refreshing monthly credits, and Pro gives 4,000. On most plans unused credits do not roll over. Once Free's one-time credits are gone, you must upgrade to keep generating.",
+                q: "How do the credits work?",
+                a: "Generation is metered. Each time you generate or regenerate content, credits are consumed, which means iterating on a deck costs more than producing it once. The free tier's grant is one-time rather than monthly, paid tiers refresh each month, and unused credits generally do not carry over. The specific allowances have been revised, so read them on Gamma's own pricing page rather than trusting a figure from a review.",
             },
             {
-                q: "Is the free Gamma plan enough?",
-                a: "For trying it out, yes — 400 one-time credits generate a handful of real presentations. But because those credits are one-time rather than refreshing, and free work carries Gamma branding, regular users quickly move to Plus ($12/mo) for refreshing credits and no badge.",
+                q: "Is the free tier enough?",
+                a: "It is enough to find out whether you like the tool, and it is not a place to work from, because the credit grant does not refresh. Treat it as an evaluation rather than a plan, and evaluate the part that actually matters: how much editing the generated deck needs before you would present it, not how good the first screen looks.",
+            },
+            {
+                q: "Can it use our real numbers?",
+                a: "Only the ones you give it. Content it produces on its own is plausible rather than sourced, and a figure that appears on a slide without you supplying it should be treated as decoration and deleted. Make this a rule rather than a habit, because a cleanly formatted number on a slide is believed in the room, and tracing where it came from afterwards is much harder than removing it now.",
+            },
+            {
+                q: "Will it match our brand guidelines?",
+                a: "It will get close and close is not the same as correct. Theme settings, custom fonts on the higher tiers and your own colours will produce something that looks like your brand. Exact type weights, approved colour values, logo clear space and required legal text are the kind of precision a generation-first tool is not built around, so if a brand team reviews your material, plan for a correction pass and expect that pass to be slower than it would be in traditional slide software.",
+            },
+            {
+                q: "Can I export to PowerPoint?",
+                a: "Yes, and you should test it early rather than at the end. Gamma's canvas is web-native, and layouts that work there do not always survive conversion intact. If your deck is definitely going to be emailed as a file, edited by someone else, or presented from a machine you do not control, run a full export on day one and look at every slide before you commit to the workflow.",
             },
             {
                 q: "Is Gamma better than PowerPoint?",
-                a: "For speed and getting to a good-looking draft, often yes — Gamma's prompt-to-deck flow is far faster than building slides manually. But PowerPoint and Keynote offer more fine-grained control. Gamma trades precision for speed and design polish; choose based on whether you value getting it done fast or controlling every detail.",
+                a: "For getting to a decent-looking draft, easily. For control, compatibility and the last mile before a high-stakes meeting, no. The useful way to hold it is that Gamma is faster at the part that was never the hard part, so it wins outright for decks whose value is the information, and wins much less for decks whose value is the persuasion.",
             },
             {
-                q: "Do Gamma presentations look generic?",
-                a: "The defaults look polished, but at scale Gamma's output can take on a recognizable style. With custom themes, fonts (on Pro), and your own content you can differentiate, but as with any template-driven tool, leaning entirely on defaults produces decks that resemble other Gamma decks.",
+                q: "Gamma or Canva for a deck?",
+                a: "Gamma if the deck is an argument and you want structure and layout handled. Canva if the deck is one of several designed artefacts drawing on the same brand assets, or if a brand kit and an asset library matter more to you than getting a first draft out fast. If your company already runs its brand through Canva, that consistency usually outweighs the speed difference.",
             },
             {
-                q: "Can I use Gamma for more than slides?",
-                a: "Yes. Beyond presentations, Gamma generates documents and webpages from prompts, so you can produce a simple one-page site or a formatted document in the same tool. It is positioned as a general 'create polished content from a prompt' tool, not just a deck maker.",
+                q: "Do Gamma decks look generic?",
+                a: "At scale, yes, in the same way template-driven output always does. The defaults are good enough that lots of people accept them, which makes the result recognisable to anyone who sees many decks. For internal and informational material that costs you nothing. For a fundraise, a keynote or a competitive pitch, the appearance of effort is part of what is being judged, and a recognisable generated look works against you.",
             },
         ],
     },
@@ -1946,52 +2080,98 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
     airtable: {
         overviewHtml: `
-            <p><strong>Airtable</strong> is a spreadsheet-database hybrid that lets teams build flexible, relational apps without code — combining the familiarity of a spreadsheet with the structure of a database and an interface designer on top. In 2026 it relaunched as an AI-native platform: its assistant, <strong>Omni</strong> (which unified the earlier Cobuilder and Assistant features in June 2025), can build production-ready apps with data, automations, and interfaces from natural-language conversation — and, notably, asking Omni to build and iterate on apps comes at no additional cost.</p>
+            <p><strong>Airtable</strong> sits between a spreadsheet and a database, which is an accurate description that explains nothing about when to choose it. The more useful question is one of order: does your team's work start from data that several people need to see differently, or from a document that happens to contain some data?</p>
 
-            <p>The plan structure: <strong>Free</strong> includes unlimited bases but caps records at 1,000 per base and 5 editors, with 250 AI credits per editor for testing AI fields. <strong>Team ($20/user/mo annually)</strong> raises records to 50,000 per base with 25,000 automation runs and more AI credits. <strong>Business ($45/user/mo annually)</strong> adds 125,000 records, SSO, admin controls, and premium extensions. Enterprise is custom. Crucially, you are billed only for users with edit permissions — read-only collaborators and form submitters are free.</p>
+            <p>That question sorts this whole category more cleanly than any feature comparison, and it is the one this page is built around.</p>
 
-            <p>Its strengths are structured flexibility and the new AI-native app building. Where a spreadsheet sprawls into chaos, Airtable keeps data relational and queryable, and Omni now lets non-developers spin up real internal apps conversationally. For teams managing structured data — content calendars, CRMs, inventories, project trackers — it hits a sweet spot between a spreadsheet and a custom-built app.</p>
+            <h3>Data first or page first</h3>
 
-            <p>The honest weaknesses: the free tier's 1,000-record cap is hit fast by any real dataset, pushing teams to paid plans, and per-editor pricing adds up. Analysis-type AI questions consume credits (around 10 credits per response), so heavy AI use has a metered cost beyond app-building. For pure documents and notes, <a href="/tool/notion-ai">Notion</a> or <a href="/tool/coda">Coda</a> fit better — Airtable's strength is structured, relational data, not free-form docs.</p>
+            <p>Airtable's atom is the record. Everything else — the grid, the calendar, the board, the form, the interface someone else uses — is a way of looking at records that already exist. You define what a thing is once, with typed fields and relationships to other things, and the presentations follow from that definition.</p>
 
-            <p>Who it is for: teams managing structured, relational data who want to build flexible internal apps — now conversationally via Omni — without code. Who it is not for: teams whose work is mostly documents and notes (use Notion/Coda), or those whose datasets quickly blow past the free record limits on a tight budget.</p>
+            <p><a href="/tool/coda">Coda</a> and <a href="/tool/notion-ai">Notion AI</a> invert the order. Their atom is the page, and tables live inside pages, surrounded by the prose that explains them. A Coda doc reads like a written argument that happens to contain a live tracker; an Airtable base does not read at all, because reading is not what it is for.</p>
+
+            <p>The test is simple and reliable. If someone new to the team needs to read something to understand what is going on, you want a document tool. If they need to filter something to find their part of it, you want Airtable. Teams whose work is a process running continuously — every item the same shape, arriving and moving through stages — are in the second group. Teams whose work is a series of arguments, plans and write-ups that reference data are in the first.</p>
+
+            <p>Getting this backwards is the common failure. A strategy document built in Airtable is a table of paragraphs nobody reads. A production pipeline built in a document tool is a table that slowly acquires filters and stops being part of the document at all.</p>
+
+            <h3>One table, several audiences</h3>
+
+            <p>The capability that actually justifies the price is less discussed than the AI features: several audiences reading the same data through different windows, without copies.</p>
+
+            <p>The editorial team sees a grid with every field. The social team sees a calendar of published dates. The executive sees a chart of volume by channel. Legal sees a filtered list of the things awaiting approval and can edit only the approval field. An external contributor sees a form and nothing else. There is one set of records underneath all of it, so nothing can disagree with anything.</p>
+
+            <p>Anyone who has maintained the alternative knows what is being bought here. The alternative is a master spreadsheet, three exports, a slide that was accurate on Tuesday, and a recurring argument about which version is current. The moment a piece of data has more than about two audiences with different needs, the copies start, and from then on somebody's job includes reconciling them.</p>
+
+            <p>So a useful buying signal: count the audiences for your most important dataset. One audience means a spreadsheet is fine. Four audiences with genuinely different views means you are already paying for this problem somewhere, probably in someone's Thursday.</p>
+
+            <h3>When a spreadsheet is still the right answer</h3>
+
+            <p>Plenty of things that get rebuilt in Airtable were fine as spreadsheets, and the rebuild costs more than it returns.</p>
+
+            <p>If the data is one flat list with no relationships, a spreadsheet is the better tool. If the work is calculation rather than organisation — models, scenarios, anything where the formulas are the point — a spreadsheet is far better, and Airtable's formula surface will frustrate you. If the dataset is read by one person who already knows how it works, structure buys nothing. If it is genuinely temporary, do not give it a schema.</p>
+
+            <p>The honest signal to switch is not size, it is pain of a specific kind: people editing the same file at once and overwriting each other, the same entity typed slightly differently in three rows, a column containing four kinds of thing, a tab that exists only to be filtered differently, or a person whose job has quietly become keeping two files in agreement. Those are structural problems, and structure fixes them. A spreadsheet that is merely large is not a reason.</p>
+
+            <h3>When it becomes an app platform, and what that commits you to</h3>
+
+            <p>Past a certain point Airtable stops being a shared data store and becomes the system a business process runs on: forms feeding intake, automations firing on status changes, interfaces built for people who never see the underlying tables, and integrations pushing data to and from other systems.</p>
+
+            <p>That transition is usually gradual and usually undeclared, and it is worth declaring, because a system a process depends on has obligations a shared table does not. Someone has to know what happens when an automation fails silently. Someone has to be able to answer whether a change to a field breaks an integration. There should be a test base rather than editing live automations on Friday afternoon. And the permissions need to be deliberate, because an interface designed for a wide audience often sits on a base where anyone with access can delete a table.</p>
+
+            <p>None of this is an argument against using it as an app platform — it is genuinely good at it, and the alternative for most of these processes is an engineering project nobody will fund. It is an argument for noticing the moment it happened, because that is when it stops being free to ignore.</p>
+
+            <h3>The record ceiling is a design signal, not just a paywall</h3>
+
+            <p>Airtable caps records per base by plan, and the cap is usually read as pure monetisation. It is partly that and partly information.</p>
+
+            <p>The datasets that blow through a record ceiling are usually not the ones the tool is for. Event logs, analytics rows, sensor readings, per-message or per-transaction records — these are machine-generated streams, and the fact that they can be put in rows does not make them the kind of data a team curates. Airtable is built for records a human cares about individually: a campaign, a candidate, an asset, a client, an order.</p>
+
+            <p>So when you approach the ceiling, ask which kind you have before you upgrade. If it is curated records and the business genuinely has that many, upgrade. If it is machine-generated history, the right move is a real database or a warehouse with Airtable holding the curated layer on top, because the next ceiling will arrive the same way and performance will degrade before you get there.</p>
+
+            <h3>When not to use Airtable</h3>
+
+            <p>Do not use it as an application database. Software with users should not depend on a workspace where a well-meaning colleague can delete a field. The API is fine for integration, not for being your data layer.</p>
+
+            <p>Do not use it for anything where getting the numbers slightly wrong is a regulated problem. Financial reporting, payroll and anything auditable want a system with real controls, and the flexibility that makes Airtable pleasant is the opposite of what those need.</p>
+
+            <p>Do not use it for documents. Policies, proposals, specifications and knowledge belong in a document tool, and a base full of long-text fields is a document tool with the reading experience removed.</p>
+
+            <p>Do not use it as your project tracker if your team is engineering. Purpose-built trackers understand branches, reviews and cycles; you would be rebuilding that badly and maintaining it forever.</p>
+
+            <p>And do not adopt it per-team without a plan. Airtable spreads by enthusiasm, and the end state is eleven bases with overlapping data and no agreement about which one is true — which is precisely the problem it was brought in to solve, reconstructed one base at a time.</p>
         `,
         useCases: [
             {
-                title: "No-code internal apps with Omni",
-                body: "Airtable's 2026 headline: Omni builds production-ready apps — data, automations, interfaces — from natural-language conversation, at no extra cost. Non-developers spin up internal tools (trackers, CRMs, request systems) by describing what they need rather than configuring from scratch.",
+                title: "Content and campaign operations",
+                body: "The canonical case: one table of work in progress, read as a grid by the people producing it, a calendar by the people scheduling it, a filtered approval queue by the people signing it off, and a chart by whoever is asked how the quarter is going. One dataset, four audiences, no exports.",
             },
             {
-                title: "Structured data management",
-                body: "Where spreadsheets sprawl, Airtable keeps data relational and queryable — content calendars, inventories, project databases. The interface designer turns that data into usable views for the team, bridging spreadsheet familiarity and database structure.",
+                title: "Intake that has to arrive structured",
+                body: "Requests, submissions and applications collected through forms that write directly into a typed table. The value is not the form, it is that the data arrives already shaped, which removes the step where someone retypes an email thread into a spreadsheet.",
             },
             {
-                title: "Lightweight CRM and pipelines",
-                body: "Teams use Airtable to run CRMs and pipelines without dedicated software — linking records, automating follow-ups, and building custom views. Its flexibility makes it a fast way to stand up a structured system tailored to a specific process.",
+                title: "A pipeline whose process is still changing",
+                body: "Lightweight CRM, hiring, partnerships, grant tracking. Dedicated software encodes somebody else's process, and if yours is still being invented, the ability to add a stage on Tuesday is worth more than the features you are giving up. Revisit the decision once the process stops changing.",
+            },
+            {
+                title: "Registries several teams read and few teams edit",
+                body: "Assets, inventory, vendors, properties, equipment. Read access is wide, edit access is narrow, and the billing model fits that shape exactly, because you are charged for the people who change things rather than the people who look.",
             },
         ],
         pricingDetail:
-            "Airtable offers Free ($0, unlimited bases but 1,000 records/base, 5 editors, 250 AI credits/editor, 100 automation runs/mo), Team ($20/user/mo annually or $24 monthly — 50,000 records/base, 25,000 automation runs, more AI credits), Business ($45/user/mo annually or $54 monthly — 125,000 records, SSO, admin controls, premium extensions), and Enterprise Scale (custom). Billing applies only to users with edit permissions; read-only collaborators and form submitters are free. The traps: the free 1,000-record cap is hit quickly by real datasets, and AI analysis questions consume credits (~10 per response), so heavy AI use is metered on top of the plan — though building apps with Omni itself is free.",
+            "Airtable prices per user per month, with a free tier, Team (around $20/user/month billed annually) and Business (around $45/user/month billed annually) above it, and a custom enterprise tier. The billing detail that matters most is who counts: you are charged for collaborators with edit permission, while read-only viewers, form submitters and people opening a shared link are not billed. That makes it unusually cheap to give a dataset a wide audience and comparatively expensive to give many people the ability to change it, which suits registries and reporting far better than it suits everyone-edits workflows — and it is worth designing your permissions around deliberately rather than discovering at renewal. The other structural limit is records per base, capped by tier, with the free tier's cap low enough that any real dataset reaches it quickly; treat that ceiling as a question about what kind of data you have rather than purely as a paywall, since machine-generated rows belong in a database rather than in a higher plan. Airtable's AI features are metered by a credit allowance separate from the plan fee, and both the allowance and what consumes it have been revised since launch, so check the current terms on Airtable's own pricing page before planning around them.",
         faq: [
             {
-                q: "Is building apps with Airtable's AI free?",
-                a: "Yes — asking Omni to build and iterate on your apps comes at no additional cost. What does consume credits is AI analysis (questions about your data cost around 10 credits per response). So app-building via Omni is free, but heavy data-analysis AI use draws down your monthly credit allowance.",
+                q: "Airtable, Coda or Notion?",
+                a: "Ask what your work starts from. Airtable starts from records: you define what a thing is, and grids, calendars, forms and interfaces are all views onto the same rows. Coda and Notion start from a page, with tables living inside prose that explains them. If a newcomer needs to read something to understand the work, you want a document tool. If they need to filter something to find their part of it, you want Airtable. Teams running a continuous process where every item has the same shape are almost always in the second group, and teams producing plans, proposals and write-ups are almost always in the first.",
             },
             {
-                q: "What is Airtable Omni?",
-                a: "Omni is Airtable's integrated AI assistant, which in June 2025 unified the older Cobuilder and Assistant features into one conversational surface. It can build production-ready apps with data, automations, and interfaces, research the web, analyze data, and create or update records — all through natural-language conversation.",
+                q: "When should this be a real database instead?",
+                a: "When the data is machine-generated rather than curated — event logs, analytics, per-transaction records — because that is a stream rather than a set of records a person cares about individually, and the next record ceiling will arrive as fast as the last one. Also when software with real users depends on it, since an application data layer should not live somewhere a colleague can delete a field, and when the numbers are subject to audit or regulation and need controls that a flexible workspace deliberately does not impose. A common good answer is both: a database or warehouse underneath, with Airtable holding the curated layer humans actually work in.",
             },
             {
-                q: "Is the free Airtable plan enough?",
-                a: "For small projects and testing, yes, but the 1,000-records-per-base cap is the binding limit — real datasets exceed it quickly, pushing you to Team ($20/user/mo) for 50,000 records. The free tier is best for evaluating Airtable and Omni rather than running production data.",
-            },
-            {
-                q: "Airtable or Notion — which should I use?",
-                a: "Airtable is for structured, relational data and no-code apps — think databases, CRMs, and trackers. Notion is for documents, notes, and knowledge with lighter databases attached. If your center of gravity is structured data and app-building, Airtable; if it is docs and knowledge, Notion. Many teams use both.",
-            },
-            {
-                q: "How does Airtable bill for users?",
-                a: "On Team and Business plans you are charged only for users with edit permissions on at least one base. Read-only collaborators, form submitters, and share-link viewers are free. This makes it cheaper to share data widely while paying only for the people who actually build and edit.",
+                q: "How does the per-user billing work?",
+                a: "You pay for collaborators who can edit, not for everyone who can see. Read-only viewers, form submitters and people using a shared link do not consume a seat. That shape rewards a specific design — a small group maintaining the data, a wide group reading views of it — and it is worth structuring your permissions around on purpose. Where it fits badly is a workflow in which everyone genuinely needs to change things, since then every participant is a paid seat and the total can climb faster than the headline rate suggests.",
             },
         ],
     },
@@ -2076,52 +2256,106 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
     elevenlabs: {
         overviewHtml: `
-            <p><strong>ElevenLabs</strong> is the leading AI voice platform, best known for producing remarkably natural-sounding text-to-speech and voice cloning. In 2026 it spans a full audio stack — text-to-speech, voice cloning, dubbing, sound effects, music, and conversational AI agents — all under one credit system. For anyone who needs high-quality synthetic voice, from audiobook narration to app voiceovers to AI phone agents, it sets the quality benchmark.</p>
+            <p><strong>ElevenLabs</strong> is a synthetic voice platform, and the interesting questions about it are almost never about whether the voice sounds real. It usually does. The questions that decide whether a project ships are about permission, consistency and performance: whose voice you are allowed to use, whether the voice holds together across six hours of audio rather than six seconds, and which parts of a read a machine still cannot do.</p>
 
-            <p>The pricing has seven tiers built on credits, where one credit maps to roughly one character of text. <strong>Free</strong> gives 10,000 credits/month (about ten minutes of speech) but with no commercial rights and required attribution. <strong>Starter ($5/mo)</strong> unlocks commercial rights and instant voice cloning. <strong>Creator ($22/mo)</strong> adds professional voice cloning and 100,000 characters. <strong>Pro ($99/mo)</strong>, <strong>Scale ($330/mo)</strong>, and <strong>Business ($1,320/mo)</strong> raise volume for production use, with Enterprise custom. Conversational AI agents are billed separately at roughly $0.08–0.12 per minute.</p>
+            <p>This page is organised around those three, because they are what actually stops production.</p>
 
-            <p>Its strengths are voice quality and breadth. ElevenLabs' output is consistently the most natural in the market, its voice cloning is powerful (instant and professional tiers), and the platform covers nearly every audio-AI need in one place. For creators and developers building voice into products, it is the default choice.</p>
+            <h3>Whose voice is it, and can you prove it</h3>
 
-            <p>The honest weaknesses: the credit-to-character model means long-form or high-volume audio gets expensive, and serious production can require the higher tiers. The free tier's lack of commercial rights and required attribution make it strictly a trial. And powerful voice cloning raises real ethical and consent considerations that responsible users must handle carefully. For full video/podcast editing rather than pure voice, <a href="/tool/descript">Descript</a> is a better fit.</p>
+            <p>Voice cloning is the feature that sells the product and the feature that creates legal exposure. Two different permissions are involved and they get collapsed together constantly.</p>
 
-            <p>Who it is for: creators, developers, and businesses who need top-quality AI voice — narration, voiceovers, dubbing, or conversational agents. Who it is not for: casual users whose needs fit a free tier with attribution, or anyone needing a full video/podcast editor rather than a voice engine.</p>
+            <p>The first is consent from the person whose voice it is. A recording you have the right to distribute is not the same as a recording you have the right to synthesise from. An audiobook narrator who was paid for a performance did not necessarily grant the right to generate new performances from it, and a contract signed before synthesis was practical almost certainly does not address it. If the voice belongs to an employee, a founder, a customer or a contractor, get consent in writing that names synthesis specifically, and name what it may be used for and for how long.</p>
+
+            <p>The second is the platform's own verification. Higher-fidelity cloning typically requires the person to record a verification statement rather than letting you upload any audio you happen to have, which is a deliberate friction rather than an oversight. Treat any workflow that routes around that friction as a warning sign about the workflow, not about the platform.</p>
+
+            <p>Beyond consent there is the question of commercial rights, which vary by plan tier and have been revised, and beyond that the law, which varies by jurisdiction. Several places now treat a recognisable voice as a protected attribute of a person in its own right. None of this is a reason to avoid the technology. It is a reason to decide who owns the voice before you build a production pipeline around it, because retrofitting consent onto a published catalogue is not a task anyone enjoys.</p>
+
+            <h3>Short clips are easy, long-form is the real test</h3>
+
+            <p>A demo is thirty seconds long and reveals almost nothing about production use. The problems in long-form work are cumulative.</p>
+
+            <p>Pronunciation is the obvious one. Proper nouns, character names, technical vocabulary, acronyms and anything borrowed from another language will be guessed, and the guess is stable enough that a wrong guess is wrong every single time. Any serious long-form workflow needs a pronunciation pass and a per-project dictionary, and that pass is a real, recurring cost that the per-character price does not include.</p>
+
+            <p>The subtler problem is drift. Generate a chapter in one session and the next chapter a week later, after a model update or with different generation settings, and the two can differ in pace, brightness or energy in a way that is hard to name but audible on a continuous listen. The defences are unglamorous: fix your settings and record them, generate in the largest coherent unit the tool allows rather than sentence by sentence so context carries, keep the source of truth in a script file rather than in pasted fragments, and regenerate whole sections rather than patching single lines.</p>
+
+            <p>The third is that errors compound with length. A one-in-a-hundred oddity is invisible in a product video and appears dozens of times in an audiobook. Long-form work needs a listen-through by a human, which is the cost most budgets forget.</p>
+
+            <h3>What a human read still wins</h3>
+
+            <p>Synthetic voice has closed most of the gap on tone, clarity and naturalness, and it has not closed the gap on interpretation. The things it still does worse are specific rather than vague.</p>
+
+            <p>Breath and silence are used deliberately by a good reader. A pause before a revelation, a breath that signals exhaustion, a held beat that lets a joke land — these are performance choices made from understanding the text, and a model generating plausible prosody is not making them. It can be steered towards them with markup and direction, but you are the one deciding where they go, line by line, which is slower than people expect.</p>
+
+            <p>Sustained emotional arc is the other gap. A model can render a sentence as sad. Carrying a character through a scene where grief turns into anger, with the change audible in the voice before it is visible in the words, is a different task. Character work in dialogue compounds this: not just different voices, but the same character sounding different when speaking to different people.</p>
+
+            <p>And there is the question of the listener's contract. For a personal essay, a memorial, an apology from a company, or anything where the point is that a person is speaking to you, synthesis does not fail technically — it fails at the premise. Disclosure helps, and it does not restore what was lost.</p>
+
+            <h3>ElevenLabs or Descript</h3>
+
+            <p>These get compared because both touch audio, and they sit on opposite sides of a clean line. ElevenLabs generates audio that was never recorded. <a href="/tool/descript">Descript</a> edits audio that was: it transcribes a recording and lets you change the audio by changing the transcript, including patching a few words in a recorded voice.</p>
+
+            <p>The practical test is whether a recording exists. If a person sat down and read the thing and you need to cut, tighten or fix it, that is an editing job. If nothing was ever recorded and the script needs a voice — or if the volume of scripts means nobody is ever going to sit down and read them — that is a generation job. Podcast and interview workflows are editing. Documentation, e-learning catalogues and in-app voices are generation. Plenty of teams run both and route by that question. For a longer walk through the output quality, we have a separate <a href="/blog/elevenlabs-review">ElevenLabs review</a>.</p>
+
+            <h3>When not to use synthetic voice</h3>
+
+            <p>Do not use it for a voice you do not have documented, synthesis-specific permission to use. This is the one non-negotiable item on the list, and the awkward version of the mistake is internal: cloning a colleague's voice for a demo because it was funny is how an organisation discovers it has no policy.</p>
+
+            <p>Do not use it where the value of the audio is that a specific person chose to speak. Leadership messages during a crisis, condolences, anything framed as personal — the efficiency gain is real and it is not what is being bought.</p>
+
+            <p>Do not use it for a flagship performance without budgeting a human pass. Full-cast fiction, high-profile brand narration and anything where the read is the product will need a director's attention line by line, at which point you should compare the total cost honestly against hiring a narrator rather than against the per-character rate.</p>
+
+            <p>Do not use it for high-stakes short-form under time pressure with no review step. Legal disclaimers, medical instructions, safety announcements and financial terms are exactly where a mispronounced word or a dropped negation does damage, and exactly where the volume is low enough that generation was never saving you much.</p>
+
+            <p>And do not build an unguarded cloning feature into a consumer product. If users can upload arbitrary audio and get a usable clone, you have built an impersonation tool, and the fact that the underlying platform has verification requirements does not transfer that responsibility away from you.</p>
         `,
         useCases: [
             {
-                title: "Narration and voiceover",
-                body: "ElevenLabs' core: turning scripts into natural-sounding narration for audiobooks, videos, e-learning, and app voiceovers. Its quality is the market benchmark, making synthetic voice viable where it previously sounded too robotic to use.",
+                title: "Narration at a volume nobody would book a studio for",
+                body: "Internal training, product documentation, release notes read aloud, course modules that change every quarter. The economics here were never in favour of recording, which means synthetic voice is not replacing a narrator, it is replacing silence or an unread page.",
             },
             {
-                title: "Voice cloning and dubbing",
-                body: "With instant and professional voice cloning, creators replicate a specific voice for consistent narration, and the dubbing tools translate content into other languages while preserving voice character — powerful for scaling content across markets (with proper consent).",
+                title: "Pickups and corrections after the session",
+                body: "A price changed, a feature got renamed, a line was wrong. Regenerating one segment in a matched voice avoids rebooking a session for thirty seconds of audio. This is also the case where consent paperwork matters most, because the voice being matched usually belongs to someone specific.",
             },
             {
-                title: "Conversational AI agents",
-                body: "Developers build voice agents — phone assistants, in-app voices — on ElevenLabs' conversational AI, billed per minute (roughly $0.08–0.12). The natural voice quality makes these agents feel far less robotic than older text-to-speech systems.",
+                title: "Localisation into languages you cannot cast for",
+                body: "Dubbing and multilingual narration for markets where hiring a native narrator for every update is not realistic. Budget for a native speaker to review the output rather than shipping unreviewed, since the failure mode is a confidently wrong pronunciation that no one on your team can hear.",
+            },
+            {
+                title: "Placeholder dialogue during game and film production",
+                body: "Temporary lines so a scene can be blocked, timed and playtested before casting. Even studios that intend to record every final line use synthesis for the draft, because waiting on a booking to find out a scene does not work is expensive.",
+            },
+            {
+                title: "Voice interfaces, phone systems and in-product speech",
+                body: "Assistants, IVR flows and accessibility readouts where the text is generated at runtime and no recording could exist. Latency and interruption handling matter more than raw naturalness here, and they are what you should actually test.",
+            },
+            {
+                title: "Reading interfaces for long text",
+                body: "Turning articles, reports and documentation into audio for people who prefer or need to listen. The bar is comprehension over hours rather than beauty over seconds, which makes pronunciation handling the thing to evaluate.",
+            },
+            {
+                title: "Audiobooks whose economics do not support a narrator",
+                body: "Backlist titles, technical manuals and niche non-fiction that would never earn back a studio recording. This works, and it works best when someone listens to the whole thing before release and the listing is honest about how it was produced.",
             },
         ],
         pricingDetail:
-            "ElevenLabs has seven credit-based tiers (1 credit ≈ 1 character): Free ($0, 10,000 credits/mo ≈ ten minutes, no commercial rights, attribution required), Starter ($5/mo, commercial rights + instant voice cloning), Creator ($22/mo, 100,000 characters + professional voice cloning), Pro ($99/mo, 500,000 characters), Scale ($330/mo, 2M characters), Business ($1,320/mo), and Enterprise (custom). Annual billing saves ~17%. Conversational AI agents are billed separately at roughly $0.08–0.12/minute by model tier. The trap: long-form or high-volume audio consumes credits fast, so production work can require stepping up tiers — budget by total characters, not just the monthly sticker price.",
+            "ElevenLabs bills text-to-speech through credits, where one credit corresponds to roughly one character of text on the standard models, and layers several tiers on top of that: a free tier, then Starter (around $5/mo), Creator (around $22/mo), Pro (around $99/mo), and higher volume and business tiers up to a custom Enterprise plan. The structure matters more than any individual figure. Because you are billed by characters rather than by minutes, cost scales with script length, and a long-form project is best budgeted by counting the characters in the manuscript before you start rather than by looking at the monthly price. Regeneration is not free either, so a workflow that iterates on a chapter ten times costs roughly ten chapters. Conversational voice agents are metered separately from the character allowance, on a per-minute basis. Two plan details decide more purchases than the headline rate: which tier carries commercial usage rights and what attribution is required on the free tier, and which tier unlocks higher-fidelity voice cloning. ElevenLabs has revised allowances, tier contents and usage terms more than once, so confirm the current terms on its own pricing page before committing a production budget.",
         faq: [
             {
-                q: "Can I use ElevenLabs audio commercially?",
-                a: "Only on paid plans. The free tier explicitly excludes commercial rights and requires attributing ElevenLabs. Commercial usage rights begin at the Starter tier ($5/mo), which also unlocks instant voice cloning. If you plan to publish or monetize the audio, you need at least Starter.",
+                q: "Do I need permission to clone someone's voice?",
+                a: "Yes, and more specifically than people assume. Owning a recording is not the same as holding the right to generate new speech from it, and consent given before synthesis was practical usually does not cover synthesis. Get written permission that names voice synthesis explicitly, states what the generated audio may be used for, and states for how long. Higher-fidelity cloning generally also requires the person to record a verification statement, which is a deliberate check rather than a hurdle to route around. Several jurisdictions now treat a recognisable voice as a protected attribute of a person, so if the use is commercial, this is a question for counsel rather than for a review page.",
             },
             {
-                q: "How do ElevenLabs credits work?",
-                a: "Credits map directly to characters of text — using the standard Multilingual v2 model, 1 credit equals 1 character. Each plan includes a monthly credit allowance (10,000 on Free up to millions on higher tiers). Long-form or high-volume audio consumes credits quickly, so budget by total characters you expect to generate.",
+                q: "Can I use the output commercially?",
+                a: "That depends on the tier you are on, and the terms have been revised. Free usage has historically carried attribution requirements and narrower rights than paid usage. Rather than trusting any number or condition quoted second-hand, read the current usage terms for the specific plan you intend to buy before you publish, particularly if the audio will run in an advertisement or a paid product.",
             },
             {
-                q: "How good is ElevenLabs' voice cloning?",
-                a: "It is among the best available, offered in two forms: Instant Voice Cloning (from a short sample, on Starter+) and Professional Voice Cloning (higher fidelity, on Creator+). It is powerful enough that responsible use requires proper consent for any voice you clone — an important ethical consideration.",
+                q: "Will listeners notice across a whole audiobook?",
+                a: "More often than they notice in a clip, and for cumulative reasons. Proper nouns and technical terms get a fixed wrong pronunciation that recurs on every occurrence. Chapters generated weeks apart can drift in pace and energy. Rare artefacts that are invisible in a two-minute video appear repeatedly across six hours. All of this is manageable with a pronunciation dictionary, locked generation settings, generation in large coherent units and a human listen-through before release, but that listen-through is a real cost and it is the one most budgets leave out.",
             },
             {
-                q: "ElevenLabs or Descript — which do I need?",
-                a: "ElevenLabs is a voice engine — best for high-quality text-to-speech, cloning, dubbing, and voice agents. Descript is a full video and podcast editor with AI tools built in. If you need synthetic voice or voice infrastructure, ElevenLabs; if you need to edit recorded video/audio content, Descript.",
-            },
-            {
-                q: "How much do ElevenLabs voice agents cost?",
-                a: "Conversational AI agents are billed separately from the character-based plans, at roughly $0.08/minute (Standard), $0.10/minute (Turbo), and $0.12/minute (Premium) depending on the model tier. This per-minute model is distinct from the credit/character system used for text-to-speech.",
+                q: "ElevenLabs or Descript?",
+                a: "Ask whether a recording exists. Descript is for audio somebody recorded: it transcribes the take and lets you edit the audio by editing the text, including patching a handful of words. ElevenLabs is for audio nobody recorded and nobody is going to. Podcasts and interviews are editing work. Documentation, e-learning and in-product speech are generation work. Teams that do both usually run both and route each job by that single question.",
             },
         ],
     },
@@ -2208,104 +2442,214 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
     vercel: {
         overviewHtml: `
-            <p><strong>Vercel</strong> is the deployment and hosting platform built by the creators of Next.js, and the default home for modern front-end and full-stack JavaScript apps. Its pitch is frictionless deploys: connect a Git repository and every push ships to a fast global edge network with preview URLs for every branch. Around that core it has built an AI ecosystem — <a href="/tool/v0-by-vercel">v0</a> for AI UI generation and the Vercel AI SDK for building AI features into apps — making it as much an AI-app platform as a host in 2026.</p>
+            <p><strong>Vercel</strong> is listed in this directory alongside chat assistants and coding agents, and it does not belong to that category at all. It is deployment infrastructure: a place where web applications are built, hosted and served. It is here because a large number of the applications people build with the other tools on this site end up running on it, not because it is an AI product.</p>
 
-            <p>The plan structure: <strong>Hobby (Free)</strong> is genuinely useful for personal projects and prototypes, with generous limits, preview deploys, and HTTPS. <strong>Pro (around $20/user/mo)</strong> adds team collaboration, more compute and bandwidth, analytics, and higher limits. <strong>Enterprise</strong> (custom) brings SLAs, advanced security, and dedicated support. A crucial detail: on top of the subscription, Vercel charges <strong>usage-based fees</strong> for bandwidth, function execution, and other resources, which can grow with traffic.</p>
+            <p>Getting that straight is not pedantry. It changes what you should evaluate, what a good decision looks like, and what a bad one costs. Nobody has ever been locked into a chat assistant. A hosting platform is a different kind of commitment.</p>
 
-            <p>Its strengths are developer experience and ecosystem fit. For Next.js apps especially, nothing matches the smoothness of Vercel's deploy flow, preview environments, and edge performance. The integration with v0 and the AI SDK means you can design, build, and ship AI-powered apps within one coherent ecosystem.</p>
+            <h3>What you are actually buying</h3>
 
-            <p>The honest weaknesses: the usage-based pricing on top of the subscription is the recurring surprise — a viral app or heavy traffic can produce bills well above the $20 base, and developers have been caught out by this. It is also optimized for the JS/Next.js world, so other stacks see less benefit, and for simple static sites cheaper hosts suffice. For the UI-generation piece specifically, see <a href="/tool/v0-by-vercel">v0</a>.</p>
+            <p>Strip away the branding and Vercel sells four things. It builds your application when you push code. It serves the result from a distributed network so that a user far from you is not waiting on a single machine. It runs your server-side code on demand, without you provisioning anything. And it gives every branch its own working URL.</p>
 
-            <p>Who it is for: developers and teams building modern front-end or full-stack JS apps — especially Next.js — who want the smoothest deploy experience and an integrated AI ecosystem. Who it is not for: projects on other stacks, simple static sites where a cheaper host suffices, or teams who need fully predictable costs and dislike usage-based billing.</p>
+            <p>Notice what is absent from that list: nothing about intelligence, models or generation. What Vercel is competing on is the elimination of operational work — the build server you did not configure, the CDN you did not set up, the autoscaling you did not think about, the certificate that renewed itself. For a team without a platform engineer, that is a substantial amount of work not being done, and it is the entire argument.</p>
+
+            <h3>The Next.js relationship, stated precisely</h3>
+
+            <p>Vercel employs the people who build Next.js, which is a real advantage and a real thing to think about, and the internet tends to mangle both.</p>
+
+            <p>The advantage is that the framework and the platform are designed against each other. Features that require infrastructure support — rendering strategies, caching behaviour, image handling, streaming — work on Vercel on the day they ship, without you assembling the supporting pieces. That is not marketing; it is what having one team on both sides produces.</p>
+
+            <p>The thing to think about is the same fact from the other side. Next.js is open source and self-hostable, and a plain Next.js application runs on other platforms and on your own servers. But the closer you build to the framework's infrastructure-dependent edges, the more of Vercel's behaviour you are implicitly depending on, and the more a move elsewhere becomes an engineering project rather than a configuration change. This is not a trap and nobody is hiding it. It is simply worth knowing which of the framework's features are portable and which are effectively platform features, before you are attached to several of the latter. Our walkthrough of <a href="/blog/nextjs-14-server-actions">Next.js server actions</a> covers one of these framework capabilities in practical terms.</p>
+
+            <h3>What preview deployments actually change</h3>
+
+            <p>Every branch getting its own live URL sounds like a convenience feature. In practice it changes who is able to participate in review.</p>
+
+            <p>Before: a designer, a product manager or a subject-matter expert reviews a change by reading a description of it, looking at a screenshot, or asking an engineer to demonstrate it. Each of those is a lossy channel, and each one puts an engineer in the loop for something that is not an engineering question.</p>
+
+            <p>After: they open a link and use the thing. The feedback arrives before the merge instead of after the release, and it is about the actual behaviour rather than an interpretation of it. The engineering benefit is secondary — running the real build in the real environment catches the class of problem that only appears in production, which is the class that used to be discovered by users.</p>
+
+            <p>This is the feature that most changes how a team works, and it is the one people underrate when comparing platforms, because it reads as a checkbox rather than as a change in process.</p>
+
+            <h3>The cost model: a seat price plus a meter</h3>
+
+            <p>Vercel's pricing has three parts and only the first is a fixed number. There is a free tier for personal and non-commercial projects, a per-seat paid tier for teams that includes an allowance of platform resources, and a custom enterprise tier. On top of whichever you are on, the platform meters what your application consumes.</p>
+
+            <p>The metered dimensions are the ones any serverless-style platform has to charge for: how much data you serve, how many times your server-side functions are invoked and for how long they run, how much work the platform does transforming images, how much building you do, and how much of the various observability and edge features you use. Deliberately, no figures appear on this page: Vercel has restructured its pricing and renamed its billable units more than once, and a rate quoted in a review is a rate that will be wrong before the review is. Read the current pricing page.</p>
+
+            <p>The structural point survives every restructuring, though. Your bill is a function of traffic and computation, not of your team size, which means it is not something you can know in advance from a plan comparison. That is fine if you understand it and unpleasant if you do not.</p>
+
+            <h3>Where the meter surprises people</h3>
+
+            <p>The surprises cluster, and they are worth knowing before rather than after.</p>
+
+            <p>Success is the obvious one. A post that does well, a launch that lands, a link that circulates — traffic is the input to the bill, so the moment that feels best is the moment the meter runs fastest. This is the story that periodically appears online, and it is usually a small project without spending controls rather than a company with a finance team.</p>
+
+            <p>Traffic you did not want is the less obvious one. Crawlers, scrapers, automated scanners and outright abuse consume the same metered resources as real users. A site with no visitors can still generate a bill, and the people generating it are not going to convert.</p>
+
+            <p>Rendering choices are the one that catches engineers. Whether a page is served as a static file or computed per request is a decision made in your code, often casually, and it is the difference between a request that costs almost nothing and a request that runs a function. A single accidental data access can convert a whole section of a site from the first category into the second, and nothing will alert you.</p>
+
+            <p>The mitigations are not exotic: set spending controls and alerts on day one, understand which of your routes are static and which are dynamic, put caching in front of anything expensive, and check your traffic composition occasionally to see how much of it is bots.</p>
+
+            <h3>v0 is a different product from the same company</h3>
+
+            <p>Because they share a company and get mentioned together, these are routinely conflated. <a href="/tool/v0-by-vercel">v0</a> is a generation tool: you describe an interface and it produces front-end code. Vercel is where code runs. You can use v0 and deploy somewhere else, and you can use Vercel having never touched v0, and most Vercel customers have. The connection is convenience rather than dependency. If you are weighing v0 against an editor-based approach, <a href="/compare/cursor-vs-v0-by-vercel">Cursor vs v0</a> is the relevant comparison, and it is a separate decision from where you host.</p>
+
+            <h3>When not to use Vercel</h3>
+
+            <p>Do not use it for a purely static site with no server-side rendering and no functions. Plain object storage behind a CDN does that job for a rounding error, and you would be paying a platform premium for machinery you never start.</p>
+
+            <p>Do not use it as your general-purpose cloud. Long-running processes, background workers, scheduled jobs that run for a while, queues, stateful services and anything that wants a persistent connection all fit awkwardly on a platform built around request-scoped execution. Teams that try end up with an architecture bent around the hosting model.</p>
+
+            <p>Do not use it if your application is not a JavaScript web application. Other runtimes are supported to varying degrees, and the whole advantage is the integration with the JavaScript ecosystem. Without that, you are choosing a specialist platform for a job it does not specialise in.</p>
+
+            <p>Do not use it when a fixed, predictable monthly cost is a hard requirement — a fixed public-sector budget, a client contract with a set infrastructure line, a low-margin product where a traffic spike must not become an invoice. A fixed-capacity server is the correct shape for a fixed budget, even if it is worse in every other respect.</p>
+
+            <p>Do not use it where data residency, sovereignty or specific compliance certifications are non-negotiable, without confirming the specifics with Vercel directly rather than assuming. This is a procurement question, and it has a real answer, and the answer should come from them.</p>
+
+            <p>And do not use it because it is the default. It is a very good platform and a default is not a reason. If your team already runs infrastructure competently and has a deployment pipeline that works, the operational work Vercel removes is work you have already stopped doing, and you are paying for a refund you cannot collect.</p>
         `,
         useCases: [
             {
-                title: "Frictionless Git-based deploys",
-                body: "Vercel's core: connect a repository and every push deploys to a fast global edge network, with a unique preview URL for every branch and pull request. For modern web teams, this deploy-and-preview flow is the smoothest available, especially for Next.js.",
+                title: "Next.js applications where the deploy path should be a non-decision",
+                body: "The case Vercel is built for. Framework features that depend on infrastructure work on the day they ship, and nobody on your team has to learn why. If your application is Next.js and you do not have a platform engineer, this is the shortest path from repository to a fast global site.",
             },
             {
-                title: "Hosting AI-powered apps",
-                body: "With the Vercel AI SDK and tight integration with v0, Vercel is a natural home for AI-powered applications — you can build AI features with the SDK and deploy them on infrastructure designed for fast, edge-served responses, all in one ecosystem.",
+                title: "Review by people who do not run code",
+                body: "Preview URLs per branch let designers, product managers and stakeholders use a change rather than read about it. This is the feature that most changes how a team works, because it removes an engineer from the loop on every question that was never an engineering question.",
             },
             {
-                title: "Preview environments for collaboration",
-                body: "Every branch gets a live preview URL, so teams review real, deployed versions of changes before merging. Designers, PMs, and stakeholders can see and comment on actual working pages rather than local screenshots, tightening the feedback loop.",
+                title: "Marketing sites and content-heavy front ends",
+                body: "Sites with real traffic, real performance requirements and frequent content changes, where a global network and per-branch previews are worth more than the raw hosting. Watch which routes render per request rather than being served as static files, since that decision is what determines the bill.",
+            },
+            {
+                title: "Hosting AI features built into a web app",
+                body: "Streaming model responses to a browser is an awkward thing to host well, and Vercel's runtimes and SDK are built around it. Note the distinction that matters: the platform is hosting your AI feature, it is not providing intelligence. You are still buying model access from somebody else.",
+            },
+            {
+                title: "Teams without a platform engineer",
+                body: "Builds, certificates, the CDN, scaling and rollbacks all arrive configured. For a small team, the honest comparison is not against a cheaper host, it is against the salary and attention of the person who would otherwise own that work.",
+            },
+            {
+                title: "Standardising a fleet of small sites",
+                body: "Agencies and companies running many small front ends get one deployment model, one access model and one place to look when something breaks, rather than a different arrangement per client inherited from whoever built it.",
             },
         ],
         pricingDetail:
-            "Vercel offers Hobby (free, generous limits for personal projects with preview deploys and HTTPS), Pro (around $20/user/mo, adding team collaboration, more compute and bandwidth, analytics, and higher limits), and Enterprise (custom, with SLAs and advanced security). The critical thing to understand: on top of the subscription, Vercel bills usage-based fees for bandwidth, serverless/edge function execution, and other resources. A high-traffic or viral app can generate costs well beyond the $20 base — this is the most common billing surprise. Monitor usage and set spend limits if cost predictability matters.",
+            "Vercel charges a per-seat subscription plus metered usage, with a free tier for personal and non-commercial projects, a paid team tier that includes an allowance of platform resources, and a custom enterprise tier. No rates appear here on purpose: Vercel has restructured its pricing and renamed its billable units more than once, so any figure quoted in a review will be out of date before the review is, and the structure is the durable part anyway. What you are metered on is data served, server-side function invocations and their execution time, image transformations, build activity, and the observability and edge features you enable. The consequence is that your bill tracks traffic and computation rather than headcount, so it cannot be predicted from a plan comparison alone. Three things keep it under control: set spending limits and alerts before you launch rather than after, know which of your routes are served as static files and which execute code on every request, and check occasionally how much of your traffic is crawlers and scanners, since automated traffic consumes exactly the same metered resources as customers do. Confirm current rates and included allowances on Vercel's own pricing page.",
         faq: [
             {
-                q: "Why might my Vercel bill exceed the $20 Pro price?",
-                a: "Because Vercel charges usage-based fees on top of the subscription — for bandwidth, function execution, and other resources. A high-traffic or viral app can push these well beyond the base $20, which is the most common surprise for Vercel users. Set spending limits and monitor usage if predictable costs matter.",
+                q: "Is Vercel an AI tool?",
+                a: "No. It is deployment and hosting infrastructure. It appears in AI tool directories because a lot of applications built with AI tools are deployed on it, and because the same company makes a separate generation product, but Vercel itself builds, hosts and serves web applications. Evaluate it against hosting platforms, not against assistants.",
             },
             {
-                q: "Is Vercel only for Next.js?",
-                a: "It is optimized for Next.js (which Vercel created) and the broader JS/front-end ecosystem, where it shines. It supports other frameworks too, but the deepest benefits — performance optimizations, integrations, deploy smoothness — are greatest for Next.js apps. Other stacks see less advantage.",
+                q: "Why does the bill exceed the seat price?",
+                a: "Because the seat price buys access and an allowance, and the platform meters what your application consumes on top of that: data served, function invocations and their duration, image processing, builds. Your bill therefore tracks traffic and computation rather than team size. The three things that most often cause a surprise are a spike in real traffic, automated crawler traffic that consumes resources and converts nobody, and routes that quietly render per request instead of being served as static files. Spending limits and alerts set before launch solve most of this.",
             },
             {
-                q: "Is the free Hobby plan enough?",
-                a: "For personal projects, prototypes, and small sites, yes — Hobby is genuinely useful with generous limits, preview deploys, and HTTPS. You move to Pro when you need team collaboration, more compute and bandwidth, or commercial usage, which the Hobby plan's terms don't cover.",
+                q: "Are we locked into Vercel if we use Next.js?",
+                a: "Not in principle. Next.js is open source and a plain application runs elsewhere, including on your own servers. In practice, portability is a spectrum: the more you use framework features that depend on the platform's infrastructure, the more work a move becomes. The useful discipline is to know which capabilities you are relying on and which of those are effectively platform features, before you depend on several of them.",
             },
             {
-                q: "How does Vercel relate to v0?",
-                a: "Both are made by Vercel and designed to work together: v0 generates AI-powered UI and code, which deploys seamlessly to Vercel's hosting. Together with the Vercel AI SDK, they form an ecosystem for designing, building, and shipping AI-powered apps. See our v0 page for the UI-generation side.",
+                q: "What is the difference between Vercel and v0?",
+                a: "They are separate products from the same company. v0 generates front-end code and interfaces from a description. Vercel runs applications. You can use one without the other in either direction, and most Vercel customers have never used v0. The integration between them is convenience, not a requirement.",
             },
             {
-                q: "Is Vercel good for static sites?",
-                a: "It works well, but for simple static sites a cheaper or free host may suffice — Vercel's real value is in dynamic, full-stack, and AI-powered apps with edge functions and previews. If all you need is static hosting, you may not need everything Vercel offers (or its usage-based pricing).",
+                q: "When should we host somewhere else?",
+                a: "When the site is purely static, in which case object storage behind a CDN does the job far more cheaply. When the workload is long-running, scheduled, stateful or queue-shaped, which fits awkwardly on a platform built around request-scoped execution. When the application is not a JavaScript web application, since the ecosystem integration is the whole advantage. When a fixed monthly cost is a hard requirement rather than a preference, because a metered platform is the wrong shape for a fixed budget. And when data residency or specific certifications are non-negotiable, in which case ask Vercel directly rather than inferring the answer.",
             },
         ],
     },
 
     "devin-ai": {
         overviewHtml: `
-            <p><strong>Devin</strong>, made by Cognition, is marketed as an autonomous AI software engineer — an agent you assign tasks to, which then plans, writes, tests, and iterates on code largely on its own, working asynchronously in its own environment rather than as an in-editor assistant. It represents the most ambitious end of AI coding: not autocomplete or a pair programmer, but a system meant to take a ticket and return a pull request.</p>
+            <p><strong>Devin</strong>, from Cognition, is an autonomous coding agent: you describe a task, it works in its own environment, and it comes back with a change for you to review. It is the most discussed product in a category that is still young, and the discussion is mostly about capability — what it can and cannot finish. That is a reasonable thing to argue about and it is not what decides whether it is worth buying.</p>
 
-            <p>The most important 2026 news is price. With <strong>Devin 2.0</strong>, Cognition slashed the entry price from $500/mo to a <strong>Core plan starting at $20</strong>, with pay-as-you-go billing at $2.25 per ACU (Agentic Computing Unit — roughly 15 minutes of active autonomous work). The <strong>Team plan ($500/mo)</strong> includes 250 ACUs at a slightly better $2.00 rate with unlimited concurrent sessions (Core caps at 10). Enterprise is custom. This drop made Devin accessible to individual developers for the first time.</p>
+            <p>What decides it is arithmetic. An agent like this is only worth having if the total cost of getting a change through is lower than doing it yourself, and the total cost is not the invoice.</p>
 
-            <p>Its strength is genuine autonomy on well-scoped tasks. For clearly defined, self-contained work — fixing a bug, implementing a small feature, writing tests, doing a migration — Devin can take the task and return working code with little supervision, running multiple sessions in parallel. For teams wanting to offload routine engineering chores, that asynchronous, fire-and-forget model is genuinely different from editor-based tools.</p>
+            <h3>The invoice is the smaller half of the cost</h3>
 
-            <p>The honest weaknesses: autonomy is also the risk — Devin can confidently go down wrong paths on ambiguous or complex tasks, and ACU-based billing means a task that spirals costs real money with less visibility than a flat subscription. It works best on well-scoped work and still needs human review. For interactive, in-editor development most engineers still prefer <a href="/tool/cursor">Cursor</a> or <a href="/tool/github-copilot">GitHub Copilot</a>, using Devin as a complement for delegatable tasks rather than a replacement.</p>
+            <p>Devin is billed by how much work the agent does, in units of agent compute, rather than by seat. That alone changes the economics compared with a subscription tool, because a task that goes badly costs more than one that goes well — an agent that thrashes for an hour bills for the hour. Cost tracks difficulty and ambiguity rather than value delivered.</p>
 
-            <p>Who it is for: developers and teams who want to delegate well-scoped engineering tasks to an autonomous agent that works asynchronously. Who it is not for: those wanting interactive, in-editor assistance (use Cursor/Copilot), or anyone uncomfortable with usage-based costs on tasks that can occasionally run long.</p>
+            <p>But the metered compute is the part you can see, and it is usually the cheaper part. The real cost of a delegated change is that number plus the engineer's time to specify the task well enough to be attempted, plus the engineer's time to review what comes back, plus — and this is the line nobody budgets — the time spent reviewing changes that turn out to be wrong and are discarded.</p>
+
+            <p>That last item is what makes this arithmetic unintuitive. Reviewing a change you did not write is already slower than reviewing your own, because you have to reconstruct the intent before you can judge the execution. Reviewing a plausible-looking change that is subtly wrong is slower still, and reviewing several of them to find that none is usable is the worst outcome available: you have paid the compute and the review time and have nothing. A tool with a high proportion of near-misses can be more expensive than no tool, at any price per unit, and the price per unit will not tell you which regime you are in.</p>
+
+            <p>Which means the only honest way to evaluate this category is to run it on your own repository and measure two things: what fraction of delegated tasks produce something you actually merge, and how long a review takes compared with writing the change yourself. Both are cheap to measure and both are specific to your codebase, your test coverage and your task mix. Neither is knowable from a vendor page or from anyone else's experience, including ours. There is a broader discussion of where this category came from in our piece on <a href="/blog/autonomous-agents-devin">agentic engineering</a>.</p>
+
+            <p>One implication is worth stating plainly, because it inverts the usual intuition: the constraint on autonomous agents is generally review capacity, not agent capacity. Being able to run several sessions at once sounds like leverage and is only leverage if someone can absorb the output. A team that can run ten agent tasks and review two has bought a queue, not an engineer.</p>
+
+            <h3>Where delegation holds, and where it does not</h3>
+
+            <p>Delegation works when the person delegating can state what done means and something other than a human can check it. The strongest cases share those two properties: the change has a findable home in the code, and a test, a type checker or a script can distinguish success from failure without a person reading every line. When both hold, review is verification rather than reconstruction, and reconstruction is where your time goes.</p>
+
+            <p>It follows that the limiting factor is often your codebase rather than the agent. A repository with good test coverage, clear boundaries and a working local setup gives an agent both a way in and a way to check itself. One without those gives it neither, and no amount of model capability substitutes.</p>
+
+            <p>Now the other side, stated as conditions rather than as a verdict on the product.</p>
+
+            <p>Do not delegate work where the difficulty is deciding rather than implementing. If a task requires choosing between two designs with different long-term consequences, you are the one who has to make that choice, and an agent will make it implicitly and confidently inside a change you then have to reverse-engineer.</p>
+
+            <p>Do not delegate into code you do not understand yourself. You cannot review what you cannot read, and accepting a change you are not equipped to judge is how a codebase acquires sections nobody owns. This is the specific risk for small teams and solo developers, where there is no second reviewer to catch it.</p>
+
+            <p>Do not delegate anything where a subtle error is expensive and hard to detect: security boundaries, authentication, permissions, payments, data migrations, anything touching personal data. The failure mode of this category is not code that does not work, it is code that works in the obvious cases, and those are precisely the areas where the obvious cases all pass.</p>
+
+            <p>Do not adopt it as a replacement for hiring, on current evidence. The public claims in this category run well ahead of what teams report, and the honest position is that it changes what some engineers spend their time on rather than removing the need for them. Buying it on a headcount justification sets up a comparison it will lose.</p>
+
+            <p>Do not buy it if your review capacity is already the bottleneck. Adding a source of pull requests to a team that cannot keep up with its own is a way of making the bottleneck worse while paying for the privilege.</p>
+
+            <p>And do not buy it instead of an in-editor assistant. <a href="/tool/cursor">Cursor</a> and <a href="/tool/github-copilot">GitHub Copilot</a> are addressing a different hour of the day: you are present, you are steering, and correction is immediate. Devin's proposition is that you are not present. Most teams that use both use the editor tools daily and delegate selectively, which is a sensible arrangement and not the one the marketing in this category implies. <a href="/tool/cosine">Cosine</a> is a comparable agent-first product if you are evaluating the category rather than the vendor, and <a href="/compare/chatgpt-vs-devin-ai">ChatGPT vs Devin</a> covers the more basic question of when a chat assistant is enough.</p>
         `,
         useCases: [
             {
-                title: "Delegating well-scoped tasks",
-                body: "Devin's sweet spot: hand it a clearly defined, self-contained task — a bug fix, a small feature, a test suite, a migration — and it plans, codes, tests, and returns a pull request asynchronously, with little supervision. For routine, delegatable work it functions like an extra engineer.",
+                title: "Mechanical changes with a machine-checkable finish line",
+                body: "Renames across many files, a version bump with the fallout it causes, a lint rule applied everywhere, a repeated pattern replaced throughout a repository. The work is tedious rather than difficult, and a test suite or a compiler can confirm it landed, which is what makes review fast rather than forensic.",
             },
             {
-                title: "Parallel asynchronous work",
-                body: "Because Devin works in its own environment rather than your editor, you can run multiple sessions at once (unlimited on Team), assigning several tasks in parallel. Teams use this to offload a batch of routine chores simultaneously rather than doing them one by one.",
+                title: "Backlog chores that never get prioritised",
+                body: "Dependency upgrades, deprecation warnings, missing test coverage on old code, small cleanups everyone agrees about and nobody schedules. These are ideal not because an agent is especially good at them but because the alternative is that they continue not happening.",
             },
             {
-                title: "Migrations and repetitive refactors",
-                body: "Large, mechanical jobs — framework migrations, repetitive refactors across many files — suit Devin's autonomous model well, since the work is well-defined but tedious. It grinds through the repetition while engineers review the output.",
+                title: "Parallel attempts at one problem",
+                body: "Running several independent attempts at the same task and keeping whichever is best, or none. This is a genuinely different way of working that a human engineer cannot offer, and it only pays if you are honest about discarding attempts rather than salvaging the least bad one.",
+            },
+            {
+                title: "First-pass investigation of a reported bug",
+                body: "Reproducing a report, locating the relevant code, and coming back with a failing test and a hypothesis. Even when the proposed fix is wrong, a reproduction plus a starting point removes the slowest part of the job for whoever picks it up.",
+            },
+            {
+                title: "Pattern-driven migrations",
+                body: "Moving a codebase between frameworks, APIs or conventions where the transformation is the same shape a few hundred times. Do the first several yourself to establish the pattern, delegate the repetition, and keep the review focused on the cases that deviate.",
             },
         ],
         pricingDetail:
-            "After the Devin 2.0 launch, pricing dropped dramatically: Core starts at $20 with pay-as-you-go billing at $2.25 per ACU (Agentic Computing Unit ≈ 15 minutes of active autonomous work), capped at 10 concurrent sessions; Team is $500/mo including 250 ACUs at a better $2.00 rate with unlimited concurrent sessions; Enterprise is custom. The shift from a flat $500 entry to a $20 usage-based Core made Devin accessible to individuals for the first time. The trap: ACU billing means a task that spirals or runs long costs real money with less predictability than a subscription — scope tasks well and watch ACU consumption.",
+            "Devin is billed by agent work rather than by seat, in units of agent compute that Cognition calls ACUs. Cognition describes one ACU as roughly fifteen minutes of active agent work, and it bundles the underlying costs of a session — the virtual machine, the model inference and the data transfer — into a single normalised unit. Cognition originally sold Devin only at a high flat monthly commitment and later replaced that entry point with a low-commitment, pay-as-you-go plan, which is what opened it to individual developers; higher tiers bundle a block of compute at a better effective rate, and enterprise terms are custom. No current rates are quoted here, because the plan structure and the per-unit price have both been revised since launch — read them on Cognition's own pricing page. The structural consequence is the part that does not change: cost scales with how long the agent works, not with the value of the result, so an ambiguous task that thrashes costs more than a clear one that succeeds. And the larger cost is off the invoice entirely. Budget the engineer's time to specify each task and to review what comes back, including the reviews of changes you end up discarding, because that total is what determines whether this is cheaper than doing the work yourself.",
         faq: [
             {
-                q: "How much does Devin cost now?",
-                a: "With Devin 2.0, Cognition cut the entry price from $500/mo to a Core plan starting at $20, with pay-as-you-go billing at $2.25 per ACU. The Team plan is $500/mo with 250 ACUs at $2.00 each and unlimited concurrent sessions. This made Devin accessible to individual developers for the first time.",
+                q: "What does Devin actually cost?",
+                a: "More than the invoice, and the invoice is the part that varies least. You pay for agent compute by the unit, so a task that goes badly costs more than a task that goes well. Then add the engineer time to specify the task, the time to review the result, and the time spent reviewing results you throw away. That last item is the one that decides the economics, and it is invisible in any pricing comparison.",
             },
             {
                 q: "What is an ACU?",
-                a: "An ACU (Agentic Computing Unit) is Devin's normalized measure of resources used while actively working — VM time, model inference, and bandwidth. One ACU represents roughly 15 minutes of active autonomous work. You are billed per ACU consumed, so cost scales with how much actual work a task requires.",
+                a: "Cognition's normalised unit of agent work, covering the virtual machine, model inference and data transfer consumed during a session, described by Cognition as roughly fifteen minutes of active work. The practical implication is that you are billed for effort rather than outcome: an agent that spends an hour going in circles bills for the hour, which is why clearly scoped tasks are cheaper as well as more likely to succeed.",
             },
             {
-                q: "Is Devin better than Cursor or GitHub Copilot?",
-                a: "They are different categories. Devin is an autonomous agent you delegate whole tasks to, working asynchronously; Cursor and Copilot are interactive, in-editor assistants. Most engineers still prefer in-editor tools for day-to-day coding and use Devin to offload well-scoped, delegatable tasks. They complement rather than replace each other.",
+                q: "Can we stop reviewing its pull requests?",
+                a: "No, and the reason is specific to how this class of tool fails. It does not usually produce code that obviously does not work — it produces code that works in the cases you thought of. That is exactly the failure that review exists to catch. Anything touching authentication, permissions, payments, migrations or personal data needs the same scrutiny you would give an unfamiliar contractor's first pull request, and probably more.",
             },
             {
-                q: "Can Devin really work autonomously?",
-                a: "On well-scoped, self-contained tasks, yes — it can plan, code, test, and return a pull request with little supervision. But autonomy is also its risk: on ambiguous or complex work it can confidently go down wrong paths, so human review remains essential. It is best treated as a capable junior engineer, not a hands-off replacement.",
+                q: "Is it better than Cursor or GitHub Copilot?",
+                a: "It is answering a different question. Editor-based assistants help while you are present and steering, with corrections happening in seconds. Devin's premise is that you are not present. Teams that use both tend to use the editor tools every day and delegate selectively, which is a reasonable arrangement rather than an admission of failure. If you can only have one, the editor tool is the safer purchase for most teams.",
             },
             {
-                q: "What's the risk with Devin's pricing?",
-                a: "ACU-based billing means costs scale with actual work, so a task that spirals or runs longer than expected consumes more ACUs and costs more — with less predictability than a flat subscription. Scope tasks clearly and monitor ACU consumption to avoid surprises, especially on the pay-as-you-go Core plan.",
+                q: "Which tasks are worth delegating?",
+                a: "Ones where you can say what done means in a sentence, there is a findable place in the code where the change belongs, and something other than a human can verify it — a test, a type checker, a script. When all three hold, reviewing the result is verification. When they do not, reviewing means reconstructing what the agent was thinking, which is usually slower than having written it yourself.",
+            },
+            {
+                q: "How do we know if it is paying for itself?",
+                a: "Measure two things on your own repository, not on a benchmark. First, what fraction of delegated tasks produce a change you actually merge. Second, how long reviewing one takes compared with writing it yourself. Those two numbers, multiplied through your task mix, give you the answer, and they depend on your test coverage and code structure far more than on the vendor. A month of honest measurement beats any amount of published comparison.",
+            },
+            {
+                q: "Should we wait for the category to mature?",
+                a: "There is a defensible case for waiting and a defensible case for a small, bounded trial, and almost no case for a large commitment right now. Capability claims in this category are moving quickly and independent evidence is thin, so anything you conclude today has a short shelf life. The argument for trialling now is that the work which makes an agent effective — test coverage, clear module boundaries, a setup that works from a clean checkout — is work that pays off regardless of whether you keep the agent.",
             },
         ],
     },
