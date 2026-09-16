@@ -317,42 +317,104 @@ export const TOOL_EXTENDED_CONTENT_B3: Record<string, ToolExtendedContent> = {
 
     "openai-sora": {
         overviewHtml: `
-            <p><strong>Sora</strong> is OpenAI's text-to-video model, generating short video clips from a written prompt — and, depending on the version and access tier, from an input image or existing video as a starting point. What set it apart when it first appeared was the coherence of the physical world it renders: objects that stay consistent across a shot, camera movement that behaves plausibly, and scenes that hold together in ways earlier video-generation models struggled with, particularly around occlusion, reflections, and object permanence as a camera moves through a scene. It competes most directly with <a href="/tool/runway">Runway</a> in the dedicated AI-video category, though the two have taken somewhat different product paths since launch.</p>
+            <p><strong>Sora</strong> is OpenAI's video generation model, and the useful way to evaluate it is not to ask how good the output looks. The output looks good. The question that decides whether it belongs in your work is whether a clip it produces can leave the building — whether it can be cut, cleared, disclosed, and handed to someone who is paying for it. That is a different question from the one <a href="/tool/runway">Runway</a> is built to answer, and the two products sit on opposite sides of it.</p>
 
-            <p>Access to Sora has expanded gradually rather than arriving as a single, universally available product. It began as a research preview, then broadened through OpenAI's existing surfaces — inside <a href="/tool/chatgpt">ChatGPT</a> for subscribers on paid plans, and through a dedicated Sora app that added social, feed-based sharing of generated clips along with a "cameo" feature letting a verified user insert their own likeness into a generated video. Generation length, resolution, and volume all scale with the plan or access tier a user is on, rather than being uniform across the board, and OpenAI has continued to iterate on the underlying model rather than treating the initial release as a finished product.</p>
+            <p>Runway sells an editing suite with generation attached, so its promise is that you can keep working on what comes out. Sora's promise is close to the reverse: you describe a shot and it returns a finished one, picture and synchronised sound arriving together from a single pass. When the result is right, it is right faster than any other route to the same frame. When it is nearly right, you are back at the prompt, because there is no layer to open.</p>
 
-            <p>The strengths line up with what made it notable in the first place: output quality and physical plausibility that remain a benchmark other video generators are measured against, and, on higher tiers, the ability to generate longer continuous clips than many competitors manage while staying coherent from the first frame to the last. The honest limitations are just as real: broad, low-friction access has lagged well behind text and image generation tools, the compute cost of video generation keeps programmatic or API-scale access comparatively expensive and restricted relative to OpenAI's text products, and, given the obvious deepfake and misuse risk of photorealistic video, OpenAI applies tighter content and identity-verification guardrails around Sora than around its text or image products — a cameo of a real person, for instance, requires that person's own verified consent rather than being freely generatable by anyone.</p>
+            <h3>A finished clip is not an editable clip</h3>
 
-            <p>Who it is for: creators, marketers, and filmmakers experimenting with AI-generated video who are willing to work within access limits and content policies, especially existing ChatGPT subscribers who already have a paid plan that includes it and don't need production-scale volume. Who it is not for: teams needing cheap, high-volume, API-driven video generation at production scale today, or anyone expecting Sora access to be as unrestricted as a text prompt — for lighter-weight editing and voice work in the same content pipeline, tools like <a href="/tool/descript">Descript</a> and <a href="/tool/elevenlabs">ElevenLabs</a> are more mature and more accessible on cost.</p>
+            <p>Everything downstream follows from this. A composite generation is delivered as one baked image sequence: no mattes, no separated subject, no depth pass, no isolated background. If the actor's hand is wrong in the third second, you cannot fix the hand — you can only roll again and hope the rest survives. Iteration in Sora is a slot machine with a very good payout table, not a set of controls.</p>
+
+            <p>In practice this reshapes how you brief the work. Prompting becomes the craft, because it is the only lever, and shot selection happens before the edit rather than inside it. Teams that get good results treat generation as a casting call — produce many candidates cheaply, choose ruthlessly, and never plan a shot whose value depends on one specific detail landing. Teams that struggle are the ones who wrote a storyboard first and then tried to make the model match it frame for frame.</p>
+
+            <h3>Two products are wearing the same name</h3>
+
+            <p>Most arguments about Sora are people evaluating different things. One is the consumer app: a feed, a remix culture, cameos of friends, short vertical clips made and consumed in the same place. The other is Sora as a generation engine reached through OpenAI's paid subscriptions and, separately, through programmatic access. These have different limits, different surfaces, different watermarking behaviour and, frequently, different answers to whether something is allowed.</p>
+
+            <p>Decide which one you are buying before you form an opinion. If you came through <a href="/tool/chatgpt">ChatGPT</a> because a plan you already pay for includes some video generation, you are a creator using a bundled feature and the economics are excellent. If you need clips generated on a schedule, by a pipeline, with predictable cost per delivered asset, you are evaluating an API product and the questions are availability, rate limits, and per-asset cost — none of which the app tells you anything about.</p>
+
+            <h3>What travels with the file</h3>
+
+            <p>Generated video does not arrive as a neutral MP4. OpenAI has said Sora output carries C2PA provenance metadata identifying it as AI-generated, and downloads from the consumer surfaces have carried a visible moving watermark as well. Which tiers and which surfaces strip or keep the visible mark has already changed more than once, so confirm the current behaviour against OpenAI's own documentation before you quote a client a deliverable spec.</p>
+
+            <p>The part people underestimate is that provenance is a workflow problem, not just a policy one. Metadata is fragile — re-encoding, screen recording, and a fair number of upload pipelines drop it — while the visible watermark is the opposite: durable, and sitting in the frame where a brand safety reviewer will see it. Meanwhile the large distribution platforms now expect creators to disclose realistic synthetic media in their own right. Treat disclosure as something you plan for at the brief stage, alongside music licensing, rather than something you discover during delivery.</p>
+
+            <h3>Likeness is gated, and that is the point</h3>
+
+            <p>The app's cameo feature lets a person insert their own likeness into generated video, and it is built around verified consent: the person records themselves to establish the likeness, controls who is permitted to use it, and can withdraw that permission. This is the single clearest signal of how OpenAI is positioning the product, because it is an explicit decision to make the most commercially tempting feature the least freely available one.</p>
+
+            <p>For commercial work the consequence is simple and easy to forget. You cannot cast someone in a Sora video the way you would cast them in an edit. Real people have to opt in themselves, which means talent, executives, and customers become scheduling dependencies rather than prompt parameters. Plan for that before you sell a concept that depends on a recognisable face.</p>
+
+            <h3>Characters and brands you do not own</h3>
+
+            <p>The model is good enough to produce something that reads as an established character or a recognisable brand world, and that capability is exactly where the legal ground is least settled. OpenAI's approach to third-party rightsholders has already shifted once since the product launched, in the direction of giving those rightsholders more control rather than less — which tells you something about the direction of travel even if the specifics change again.</p>
+
+            <p>The practical rule for anyone spending a client's money: do not build a campaign concept on intellectual property you do not control, and do not assume that what the model will generate today is what it will generate, or permit, next quarter. Generated homage is fine for a mood board and dangerous on a media buy.</p>
+
+            <h3>The limits that decide whether a shot survives an edit</h3>
+
+            <p>Sora produces shots, not sequences. Clips are short, and asking for longer output is where coherence typically degrades first. Continuity across separate generations is the harder version of the same problem: the same character, wardrobe, location and lighting across three clips is not something you can simply request, which is why generated material tends to work best when each shot stands alone rather than cutting together into a scene.</p>
+
+            <p>Two other failure modes are worth knowing before you promise anything. Legible on-screen text — signage, packaging, a UI, a headline — is unreliable, so plan to add type in post rather than generate it. And matching generated footage to material you actually shot remains genuinely hard: grain structure, lens character, and lighting direction will not line up, and an audience that could not name the problem will still feel that the cut is wrong.</p>
+
+            <h3>When not to use Sora</h3>
+
+            <p>Do not use it when the shot has to be fixed rather than replaced. Anything that needs a subject matted, an object removed, a region retimed, or a specific element replaced belongs in <a href="/tool/runway">Runway</a>, where those tools exist, and the quality gap between the two generators matters far less than the existence of a second attempt that is not a full re-roll. Do not use it for a continuous scene, for a shot that must intercut with live-action plates, or for anything where a real person, a specific product, or an exact brand asset has to be reproduced faithfully.</p>
+
+            <p>Do not use it, either, where the medium is wrong. If the deliverable is a still image, a still-image tool such as <a href="/tool/midjourney">Midjourney</a> gives more control over the frame than pulling one out of generated motion. If the job is really editing talking-head footage or a podcast, <a href="/tool/descript">Descript</a> is the correct tool, and if the missing piece is a voice track rather than a picture, <a href="/tool/elevenlabs">ElevenLabs</a> is more mature at it. And do not use it where the client's review process cannot accommodate a disclosure line or a visible mark on the file — that is a conversation to have before the work, not after. Our wider view of where generative video has got to is in <a href="/blog/sora-video-generation-revolution">this piece on Sora and AI video generation</a>.</p>
         `,
         useCases: [
             {
-                title: "Short-form marketing and social clips",
-                body: "Marketers use Sora to generate short video assets — product visualizations, concept trailers, social clips — without a camera crew or production budget, especially for early creative concepting before committing to a real shoot.",
+                title: "Atmosphere shots nobody is checking against reality",
+                body: "Establishing views, textures, weather, abstract motion, an aerial-feeling pass over a landscape that does not exist. This is where a single baked clip is genuinely enough, because the brief is a mood rather than a specific fact, and no editor is going to need to remove something from the frame later.",
             },
             {
-                title: "Concept and pitch visualization",
-                body: "Filmmakers and creators use Sora to visualize a scene or concept for a pitch before any real production begins, giving stakeholders something closer to a rough scene than a static storyboard.",
+                title: "Moving pitch material for unfunded work",
+                body: "A director, agency, or founder showing what an idea feels like before anyone has committed a budget to it. The audience understands they are looking at intent rather than a deliverable, which removes most of the clearance and continuity problems at a stroke.",
             },
             {
-                title: "Personal and social clips via the Sora app",
-                body: "Through the standalone Sora app, individual users generate and share short AI video clips socially, including inserting their own likeness into scenes with the cameo feature — a distinctly more consumer-facing use case than professional production.",
+                title: "Social-first clips where the generation is the whole deliverable",
+                body: "Short vertical content made for a feed, where there is no edit downstream and no plate to match. The consumer app is built for exactly this, and it is the one context where the lack of an editing suite genuinely costs you nothing.",
+            },
+            {
+                title: "Internal drafts that replace a description",
+                body: "Showing a team what a proposed sequence, transition, or visual direction looks like instead of arguing about it in a document. These clips are disposable by design, which makes generation quality and speed the only things that matter and licensing questions moot.",
             },
         ],
         pricingDetail:
             "Sora is not sold as its own standalone subscription; access is bundled through OpenAI's existing products — primarily paid ChatGPT plans and the dedicated Sora app — with generation limits, resolution, and clip length scaling by tier rather than a flat per-tool price. Broader programmatic or enterprise-scale access to Sora remains more limited and considerably more expensive than OpenAI's text-based APIs, reflecting the much higher compute cost of video generation; there is no meaningful free tier for unrestricted use.",
         faq: [
             {
-                q: "Do I need a separate subscription for Sora?",
-                a: "No standalone Sora-only plan exists in the way there is for a text assistant; access comes bundled through OpenAI's existing paid ChatGPT plans and the dedicated Sora app, with usage limits that scale by tier rather than a single flat price.",
+                q: "Can I put a Sora clip in paid client work?",
+                a: "Paid access is intended to cover commercial use, but that is rarely the binding constraint. What actually stops delivery is everything around the clip: whether a recognisable person consented, whether the concept leans on intellectual property you do not own, whether a visible watermark is acceptable on the file, and whether the distribution platform requires a synthetic-media disclosure. Read OpenAI's current terms for the surface you are generating on, and treat the clearance questions as part of the brief rather than a formality at the end.",
             },
             {
-                q: "How is Sora different from Runway?",
-                a: "Both are prominent AI video generators, but they've taken different product paths — Sora is tightly integrated into OpenAI's ChatGPT ecosystem and its own consumer-facing app with social sharing, while Runway leans further into a broader creative and production toolset. Which fits better depends on whether you want a consumer app experience or a more production-oriented workflow.",
+                q: "Does the watermark come off?",
+                a: "Whether a visible mark appears at all depends on which surface and which tier you generated on, and that behaviour has changed as the product has evolved, so check the current documentation rather than a blog post. What does not change is the framing: removing a mark is a terms question before it is a technical one, and it does nothing about the provenance metadata or about a platform's own disclosure rules.",
             },
             {
-                q: "Can I use my own face in a Sora video?",
-                a: "The Sora app's cameo feature lets verified users insert their own likeness into generated videos, but this is deliberately access-controlled given the obvious risk of misuse with photorealistic video generation — it is not an open, unrestricted feature.",
+                q: "Will anyone be able to tell the footage was generated?",
+                a: "OpenAI has said Sora output carries C2PA provenance metadata marking it as AI-generated, and a visible watermark has accompanied downloads from the consumer surfaces. Metadata is easy to lose by accident — re-encoding and some upload pipelines drop it — so its absence proves nothing either way. Do not build a plan around footage being untraceable, and do not assume a file that has lost its metadata has therefore lost its origin.",
+            },
+            {
+                q: "Sora or Runway when there is a deadline?",
+                a: "Runway, in most cases, because a deadline is really a question about what happens when a shot is eighty percent right. Runway gives you rotoscoping, inpainting, and retiming to rescue it; Sora gives you the prompt again. Choose Sora when the shot stands alone, the brief is atmosphere, and speed to a usable first result is the thing being optimised.",
+            },
+            {
+                q: "Can I generate a video of a specific real person?",
+                a: "Not as an open capability. The cameo feature is built on verified consent from the person themselves, who controls who may use their likeness and can revoke it. This is deliberate rather than an oversight, and it means a recognisable face in a commercial concept is a casting and scheduling problem, not a prompting one.",
+            },
+            {
+                q: "What if I prompt a character or brand I do not own?",
+                a: "You may or may not get output, because the policy around third-party rightsholders has already shifted once since launch toward giving those holders more control. Either way the risk sits with you the moment the clip is used commercially. Homage is fine on a mood board; it is a bad foundation for a campaign, and what the model permits this quarter is not a licence.",
+            },
+            {
+                q: "Why does the shot fall apart when I ask for something longer?",
+                a: "Because these models hold a scene together over a shot, not over a sequence, and the longer the requested duration the more opportunities there are for an object, a face, or a background to drift. The working answer is to structure the idea as separate short shots rather than fighting for one long take. Current duration and resolution limits vary by tier and change often enough that the official documentation is the only reliable source.",
+            },
+            {
+                q: "Is there a way to use it programmatically rather than through the app?",
+                a: "Programmatic access has been rolled out separately from the consumer app, with its own availability, restrictions, and cost structure. Because video generation is expensive to serve, the terms here move more than they do on text models, so check OpenAI's API documentation for what is currently offered before you design a pipeline around it — and cost a pilot batch before you commit to volume.",
             },
         ],
     },

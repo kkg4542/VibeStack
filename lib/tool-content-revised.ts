@@ -47,4 +47,12 @@ export const TOOL_CONTENT_REVISED_BY_SLUG: Record<string, string> = {
     supermaven: "2026-09-16",
     "zoom-ai-companion": "2026-09-16",
     "slack-ai": "2026-09-16",
+    linear: "2026-09-16",
+    jira: "2026-09-16",
+    monday: "2026-09-16",
+    asana: "2026-09-16",
+    "microsoft-copilot": "2026-09-16",
+    "microsoft-365-copilot": "2026-09-16",
+    grammarly: "2026-09-16",
+    "openai-sora": "2026-09-16",
 };

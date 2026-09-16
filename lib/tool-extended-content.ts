@@ -908,52 +908,90 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
     grammarly: {
         overviewHtml: `
-            <p><strong>Grammarly</strong> is the most widely used AI writing assistant, and its defining advantage is ubiquity: it works almost everywhere you type — browser, desktop apps, email, docs — checking grammar, spelling, tone, and clarity in real time. In 2026 it has grown from a corrector into a generative writing tool, with AI drafting, full-sentence rewrites, and tone adjustment now standard across every tier, including Free.</p>
+            <p><strong>Grammarly</strong> occupies an awkward position that most reviews of it never address. General-purpose assistants now correct grammar perfectly well, for free, and a great many people have one open already. So the interesting question is not whether Grammarly checks writing accurately — it does — but why a dedicated product for this still exists, and what you are actually agreeing to when you put it on every machine in a company.</p>
 
-            <p>The plan structure simplified in 2026 to <strong>Free, Pro, and Enterprise</strong>. <strong>Free</strong> covers the fundamentals — real-time grammar, spelling, punctuation, conciseness — plus 100 AI prompts per month, so you can use generative features without paying. <strong>Pro ($12/user/mo billed annually, $30 monthly)</strong> raises that to 2,000 AI prompts and adds plagiarism detection, full rewrites, and team features like style guides and brand tones, covering 1–149 seats. <strong>Enterprise</strong> (custom) adds unlimited AI, security controls, and governance for 150+ users.</p>
+            <p>Three things decide that, and none of them is feature coverage.</p>
 
-            <p>Its strength is being everywhere, frictionlessly. Because Grammarly runs as a browser extension and system-wide assistant, it improves your writing in the tools you already use without you having to go to a separate app. For professionals who write constantly across email, documents, and the web, that ambient, always-on correction is genuinely valuable and hard to replicate.</p>
+            <h3>The first question a security review asks: where does the text go?</h3>
 
-            <p>The honest weaknesses: its suggestions can be over-eager, pushing changes that flatten voice or miss context, and its generative writing is competent but not as strong as a frontier model like <a href="/tool/chatgpt">ChatGPT</a> for substantial drafting. The free AI prompt cap (100/mo) is easy to exhaust, and privacy-conscious users are uneasy about a tool that reads everything they type. For heavy generative work, a dedicated assistant is better; Grammarly's edge is correction-in-place, not creation.</p>
+            <p>This is the argument that stops or starts most organisational deployments, and it is worth understanding structurally rather than as a yes-or-no.</p>
 
-            <p>Who it is for: professionals, students, and teams who write across many apps and want always-on grammar, clarity, and tone help. Who it is not for: users who mainly want long-form generative drafting (a general assistant is stronger), or anyone uncomfortable with a tool monitoring everything they type.</p>
+            <p>Grammarly's value comes from working everywhere you type, and that mechanism is the concern. A browser extension and a desktop integration that can suggest improvements to a sentence must be able to read that sentence, which means text from your mail client, your internal tools, your ticketing system and your documents is in scope by default. This is not a hidden behaviour or an accusation; it is how ambient correction necessarily works. Any tool offering the same convenience has the same shape.</p>
+
+            <p>What varies, and what you should actually be evaluating, is the configuration around it: which applications and domains the integration is permitted on, whether text is processed and discarded or retained, whether organisational content can be excluded from model training, what the retention period is, and whether administrators can enforce any of that centrally rather than trusting each user's settings. Those controls are a function of which plan you are on and which admin surface you get, and the answers have been revised more than once, so read the current data-processing documentation rather than a summary of it. Our piece on <a href="/blog/zero-knowledge-ai">keeping sensitive data out of model providers</a> covers the general shape of this problem.</p>
+
+            <p>The unhelpful version of this conversation ends in a blanket ban, which usually just moves the same text into a personal account on an unmanaged browser. The useful version is narrower: decide which teams are excluded outright — legal, anything under privilege, anything handling regulated personal data, pre-announcement material — and deploy with an application allowlist for everyone else.</p>
+
+            <h3>Why a dedicated corrector still beats asking an assistant</h3>
+
+            <p>The honest case for Grammarly in the age of capable general models is not quality. It is the absence of a decision.</p>
+
+            <p>Sending a sentence to <a href="/tool/chatgpt">ChatGPT</a> or <a href="/tool/claude">Claude</a> for a check costs a context switch, a copy, a paste, a prompt and a paste back. That is cheap enough that nobody objects and expensive enough that nobody does it for the message they are about to send in a chat window. The result is that assistant-based proofreading happens for documents that felt important and does not happen for the hundred smaller pieces of writing where errors are actually embarrassing — the reply to a customer, the release note, the comment on a shared file.</p>
+
+            <p>Grammarly wins that ground by removing the decision entirely. Its correction is ambient rather than requested. That is a genuine and narrow advantage, and it collapses the moment your writing is concentrated in one place: if everything you produce is a long document you were going to edit deliberately anyway, an assistant will do more for you and you are paying for ubiquity you do not use.</p>
+
+            <p>The comparison with <a href="/tool/notion-ai">Notion AI</a> makes the same point from the other direction — <a href="/compare/notion-ai-vs-grammarly">the two products</a> are separated by where your writing lives, not by how well either one spots a comma splice.</p>
+
+            <h3>Accepting every suggestion makes everyone sound the same</h3>
+
+            <p>The correction engine handles two categories of suggestion and does not usefully distinguish them for the user. The first is mechanical: spelling, agreement, punctuation, obvious repetition. These are close to objectively right and accepting them without thought is fine.</p>
+
+            <p>The second is stylistic: split that sentence, soften that phrase, use the active voice, remove the qualifier, reword for confidence. These are opinions dressed as corrections, and the opinion is a general one about neutral professional English. Applied once, it improves a clumsy paragraph. Applied to everything a team writes, it converges on a middle register — the rhythm flattens, the long deliberate sentence gets broken up, the dry aside gets removed as unclear, and everyone's mail starts to sound like everyone else's.</p>
+
+            <p>For most internal writing, that convergence is a fair trade or even a benefit. It is a real cost for anyone whose writing is meant to be identifiable: marketing copy, anything published under a person's name, communication where warmth or bluntness is doing work. Distinguish between people using it for correctness and people using it for voice, and let the second group ignore most of the second category.</p>
+
+            <p>The related warning for the enterprise features: a brand-tone or style-guide configuration is a genuine consistency tool, and it is also a mechanism for enforcing sameness at scale. Deploy it where consistency is the goal, not across the whole company by default.</p>
+
+            <h3>When not to deploy it</h3>
+
+            <p>Do not deploy it where the text is confidential by obligation rather than by preference — privileged legal material, regulated personal or health data, anything under embargo — unless your compliance function has reviewed the specific configuration in writing.</p>
+
+            <p>Do not buy it as a drafting tool. Generative writing is bundled into it now, and it is fine, but it is not the reason this product is better than the alternatives and it is not where a frontier assistant loses.</p>
+
+            <p>Do not deploy it to people who write in a second language and need to learn, without saying so explicitly. Accepting corrections silently is a fast path to fluent output and slow improvement, which may be exactly what you want, but it should be a decision rather than a side effect.</p>
+
+            <p>And do not roll it out to an entire organisation because a few teams asked. Ubiquity is the whole product, which means the deployment surface is every application on every machine — a scope worth choosing deliberately rather than by default.</p>
         `,
         useCases: [
             {
-                title: "Always-on writing correction",
-                body: "Grammarly's core value: real-time grammar, spelling, clarity, and tone checks everywhere you type — email, docs, browser, chat. Because it is ambient and system-wide, it improves writing without requiring you to switch to a dedicated app.",
+                title: "Correcting the writing nobody would proofread",
+                body: "Chat replies, ticket comments, short mail, review notes. This is where ambient correction earns its keep, because these are precisely the pieces nobody would paste into an assistant and precisely where a visible error costs something.",
             },
             {
-                title: "Tone and professionalism tuning",
-                body: "Professionals use Grammarly's tone detection and rewrite suggestions to make sure an email or message lands the way they intend — more formal, more confident, more friendly. It catches tone problems that grammar checks miss.",
+                title: "Customer-facing communication under time pressure",
+                body: "Support and success teams writing quickly to people who will judge the company by the sentence. Correctness matters more than voice here, which makes it the population where accepting almost every suggestion is the right default.",
             },
             {
-                title: "Team style and brand consistency",
-                body: "On Pro and Enterprise, teams configure style guides and brand tones so everyone's writing stays consistent with company voice. Combined with plagiarism detection, it becomes a writing-governance layer for organizations.",
+                title: "Writing in a second language at work",
+                body: "The largest and least-discussed use. It removes a class of error that has nothing to do with competence and quietly changes how a person's contributions are received in writing-heavy organisations.",
+            },
+            {
+                title: "Catching tone before it lands badly",
+                body: "Flagging that a message reads as curt or combative before it is sent. Treat it as a prompt to reread rather than an instruction to soften, since the suggestion has no idea what the relationship or the history is.",
+            },
+            {
+                title: "Enforcing terminology across a team",
+                body: "Style-guide and brand-tone configuration on the team tiers, used to keep product names, spellings and forbidden phrasings consistent. Useful where consistency is genuinely the objective; corrosive if applied to writing that is supposed to sound like a person.",
+            },
+            {
+                title: "Academic and long-form editing passes",
+                body: "A mechanical sweep before a human edit, including the plagiarism check where a submission requires one. It handles the pass that rewards patience rather than judgement, and it is a poor substitute for the pass that rewards judgement.",
             },
         ],
         pricingDetail:
-            "Grammarly simplified to three tiers in 2026: Free ($0, real-time grammar/spelling/clarity plus 100 AI prompts per month), Pro ($12/user/mo billed annually, or $30/mo monthly — 2,000 AI prompts, plagiarism detection, full-sentence rewrites, and team style guides, supporting 1–149 seats), and Enterprise (custom, with unlimited AI, security controls, and governance for 150+ users). AI features are now standard on every tier; the real difference is the prompt allowance — 100/mo Free, 2,000/mo Pro, unlimited Enterprise. The trap: the free 100-prompt cap is easy to hit if you lean on generative rewrites, and monthly Pro billing ($30) is more than double the annual rate ($12).",
+            "Grammarly's plan structure is Free, Pro and Enterprise. Free covers real-time grammar, spelling, punctuation and clarity plus a monthly allowance of AI prompts (100/mo at the time of writing), so the generative features are usable without paying. Pro ($12/user/mo billed annually, or $30/mo month-to-month) raises that allowance substantially, adds plagiarism detection and full rewrites, and carries the team features — style guides and brand tones — for teams up to 149 seats. Enterprise (custom) is where the security controls, governance and administrative enforcement live, from 150 seats. Two things matter more than the headline rate. The month-to-month price is far above the annual one, so a short trial is disproportionately expensive. And for any organisational deployment the relevant question is which tier carries the admin controls your security review will ask about, since that — not the AI allowance — is usually what decides the tier. Grammarly has revised both the plan boundaries and the allowances, so confirm current terms on its own pricing page.",
         faq: [
             {
-                q: "Does the free Grammarly plan include AI features?",
-                a: "Yes. As of 2026 generative AI is standard on every tier, including Free, which gets 100 AI prompts per month alongside unlimited real-time grammar, spelling, and clarity checks. Pro raises the allowance to 2,000 prompts and Enterprise to unlimited.",
+                q: "Why pay for this when ChatGPT corrects writing for free?",
+                a: "Because the advantage is not quality, it is the removal of a decision. Pasting into an assistant is cheap enough that nobody objects and expensive enough that nobody does it for a chat reply or a ticket comment, which is where visible errors actually happen. Grammarly's correction is ambient rather than requested. If your writing is concentrated in long documents you were going to edit deliberately anyway, that advantage does not apply and an assistant will do more for you.",
             },
             {
-                q: "Is Grammarly Pro worth it over Free?",
-                a: "If you use generative rewrites heavily or need plagiarism detection, full-sentence rewrites, and team style guides, yes — the jump from 100 to 2,000 monthly AI prompts is the main reason. If you mostly want basic grammar and spelling correction, the free tier is genuinely sufficient.",
+                q: "What should our security review actually ask about?",
+                a: "Not whether it reads your text — it has to, that is how ambient correction works. Ask which applications and domains the integration can run on and whether that is centrally enforceable, whether text is retained or discarded after processing, whether organisational content is excluded from model training, and what the retention period is. Those answers depend on the tier and have been revised, so get them from current documentation rather than from a summary. Then exclude the teams whose material is confidential by obligation rather than preference, and allowlist applications for everyone else.",
             },
             {
-                q: "Can Grammarly replace ChatGPT for writing?",
-                a: "Not really — they do different jobs. Grammarly excels at correcting and polishing what you write, everywhere you write it. ChatGPT is stronger for generating substantial drafts from scratch. Many writers use Grammarly for ambient correction and a general assistant for heavy drafting.",
-            },
-            {
-                q: "How much does Grammarly Pro actually cost?",
-                a: "Pro is $12 per user per month when billed annually, but $30 per month if you pay month-to-month — so the annual commitment is more than half off. It supports 1 to 149 seats and now covers everything the old Business plan handled.",
-            },
-            {
-                q: "Is Grammarly a privacy concern?",
-                a: "It is a reasonable consideration. Grammarly works by reading what you type across apps and the web, which some privacy-conscious users and organizations are uncomfortable with. Grammarly offers security controls on Enterprise, but if you handle highly sensitive text, review its data handling before deploying it widely.",
+                q: "Will it flatten how our team writes?",
+                a: "If people accept every suggestion, yes, and the mechanism is worth naming. Mechanical fixes are close to objectively correct. Style suggestions — split this, soften that, use the active voice — are opinions about neutral professional English, and applied across everything a team writes they converge on a middle register. That is a fair trade for internal and support writing. It is a real cost for anything published under a person's name, where the right instruction is to ignore most of the stylistic category.",
             },
         ],
     },
@@ -1322,52 +1360,110 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
     jira: {
         overviewHtml: `
-            <p><strong>Jira</strong>, made by Atlassian, is the dominant issue tracker and project management tool for software teams. For agile development — sprints, backlogs, scrum and kanban boards, and detailed issue workflows — it is the industry default, deeply entrenched in how most engineering organizations plan and track work. In 2026 it folds in <strong>Atlassian Intelligence</strong>, AI that helps draft issues, summarize work, surface dependencies via natural language, and assist with editing.</p>
+            <p><strong>Jira</strong> is the tool people complain about while renewing it, and both halves of that sentence are informative. The complaints are real and they are mostly accurate. The renewals are also rational, because the organisations that keep paying are usually the ones where the alternative is not a lighter tracker but an inability to answer a question someone external is entitled to ask.</p>
 
-            <p>The plan structure: <strong>Free</strong> covers up to 10 users with scrum/kanban boards, agile reporting, and custom workflows — genuinely usable for small teams. <strong>Standard (~$7.91/user/mo)</strong> adds scale and permissions, while <strong>Premium (~$14.54/user/mo)</strong> is where the AI lives — Atlassian Intelligence is included at no extra charge, along with advanced roadmaps, automation, and a 99.9% SLA. <strong>Enterprise</strong> (custom) adds centralized security and unlimited sites.</p>
+            <p>So this page does not argue that Jira is good or bad. It argues that Jira is the correct answer to one specific condition — a process you did not get to design — and the wrong answer to almost everything else.</p>
 
-            <p>Its strengths are depth and ecosystem. Nothing matches Jira's configurability for complex software workflows, its reporting, or its integration ecosystem — and it ties tightly into the rest of Atlassian (Confluence, Bitbucket). For large engineering teams with intricate processes, that depth is exactly why it remains the standard.</p>
+            <h3>What "heavy" actually means, concretely</h3>
 
-            <p>The honest weaknesses: that same depth makes Jira heavy and complex — it can feel like overkill and slow down small teams who do not need its machinery, and the AI features only arrive at the Premium tier. Teams wanting a lighter, faster experience often prefer <a href="/tool/linear">Linear</a>, and those wanting an all-in-one flexible workspace look at <a href="/tool/clickup">ClickUp</a> or <a href="/tool/asana">Asana</a>. See our <a href="/tool/linear">Linear</a> review for the full comparison.</p>
+            <p>The word gets thrown around without content, so here is the content. Jira is heavy in four distinguishable ways, and only some of them apply to any given installation.</p>
 
-            <p>Who it is for: software teams — especially larger ones — that need deep agile workflows, configurability, and the Atlassian ecosystem. Who it is not for: small teams who want speed and simplicity, or anyone who finds Jira's complexity outweighs its power for their scale.</p>
+            <p>It is heavy at the interface: more fields, more screens, more clicks between intending to file something and having filed it. It is heavy at the data model: a project carries workflow schemes, screen schemes, field configurations, permission schemes and notification schemes, each of which can be shared across projects or not. It is heavy at the process layer, because everything the data model allows, some team has turned on. And it is heavy administratively, because all of the above has to be maintained by a person as teams reorganise.</p>
+
+            <p>A small team that creates one project and never touches a scheme experiences almost none of this. A team that joins a company with six years of accumulated configuration experiences all of it on day one. When someone says Jira is slow and bloated, ask which of the four they mean, because two of them are the vendor's fault and two of them are the previous administrator's.</p>
+
+            <h3>Someone has to own the configuration</h3>
+
+            <p>This is the cost people forget to budget. Configurability is not free capability; it is capability that requires a maintainer. In practice that means a named person — an internal admin, a platform team, or a consultant on retainer — who owns workflows, permissions and the field taxonomy, and who says no to requests that would make the instance worse.</p>
+
+            <p>Instances without that person degrade in a recognisable way. Required fields accumulate because someone once wanted a report. Workflow states multiply until nobody can explain the difference between two of them. Automation rules fire in unexpected combinations. None of this is a defect in the software; it is what happens to a configurable system with no owner, and it is the single best predictor of whether a team will describe Jira as powerful or as a swamp.</p>
+
+            <h3>Where Jira wins outright</h3>
+
+            <p>Jira is the right tool when the workflow is specified by someone who is not on your team and the specification has consequences. Regulated development where a change has to show review, approval and test evidence in a fixed order. Safety-relevant engineering where traceability from requirement to implementation to verification has to be reconstructable years later. Organisations under audit obligations where "we followed the process" has to be demonstrated rather than asserted. Customer contracts that dictate escalation paths and response handling.</p>
+
+            <p>In every one of those cases, the ability to enforce a workflow — to make a transition impossible unless conditions are met, and to record who did what and when — is the entire purchase. Lighter trackers do not merely make this harder; most of them have deliberately declined to build it, because enforcement is exactly the weight they were trying to shed.</p>
+
+            <h3>The ecosystem is an asset and a lock-in at once</h3>
+
+            <p>Jira sits inside Atlassian's other products and a large third-party marketplace, and this is genuinely useful: requirements written in Confluence that link both ways, code branches in Bitbucket that attach to issues, and marketplace apps that cover gaps the base product leaves.</p>
+
+            <p>Be honest about the second effect, though. Marketplace apps become load-bearing quietly. A team adds one for time reporting, another for a specific chart an executive likes, a third for test management, and eighteen months later a migration proposal has to account for four vendors rather than one. Track which apps are load-bearing, because that list is your actual switching cost, not the issue export.</p>
+
+            <h3>Migration is the expensive part, in both directions</h3>
+
+            <p>Getting issues out of Jira is straightforward. Getting the process out is not. Workflows, permission schemes, automation rules and the reports built on top of custom fields do not have equivalents in a tool that deliberately lacks those concepts, so a migration to something lighter is usually a process redesign wearing a migration's clothes.</p>
+
+            <p>The same applies in reverse, which is the part teams underestimate when they consolidate onto Jira. Importing another tracker's issues is easy; deciding how its conventions map onto schemes is where the weeks go. Budget the design work explicitly in either direction and the project stops surprising people.</p>
+
+            <h3>The AI features are not the reason to buy it</h3>
+
+            <p>Assisted issue drafting, summarisation and natural-language queries are now present across this entire category at a broadly similar level, so they do not distinguish Jira from anything else on this list. What is worth checking before planning around them is which tier they sit in, since that placement has been revised more than once and a feature you assumed was included may sit a plan above where you are.</p>
+
+            <p>The AI capability that would actually matter here is different from what is generally shipped: not drafting issues faster, but reading six years of accumulated configuration and telling you which of it is dead. Nobody has solved that, and it is the problem large instances actually have.</p>
+
+            <h3>When to pick Linear, Monday or Asana instead</h3>
+
+            <p>Pick <a href="/tool/linear">Linear</a> when your team owns its own process and nobody outside it needs to inspect the procedure. You are trading enforcement for speed, and if there is nothing to enforce, the trade is free.</p>
+
+            <p>Pick <a href="/tool/monday">Monday</a> when the work is not software. Marketing calendars, client delivery and operations queues can be modelled in Jira, and the result is always a worse version of a tool built for that audience, maintained by an engineer who resents it.</p>
+
+            <p>Pick <a href="/tool/asana">Asana</a> when the reporting audience is executive rather than operational — when the recurring question is how a portfolio of initiatives is tracking across departments, not what happened to a specific ticket. Jira can produce that view with enough configuration, which is precisely the problem. <a href="/tool/clickup">ClickUp</a> is the middle option for organisations that want one system for both and will accept interface density in exchange.</p>
+
+            <p>And do not pick Jira because it is what everyone uses. That reasoning is how instances acquire their first thousand unnecessary fields.</p>
         `,
         useCases: [
             {
-                title: "Agile software development",
-                body: "Jira's core: managing sprints, backlogs, and scrum/kanban boards with detailed issue workflows. For engineering teams running agile, it is the default tool, with the reporting and configurability to support complex development processes at scale.",
+                title: "Development under an external process obligation",
+                body: "Regulated, safety-relevant or contractually-governed work where transitions must be gated and the audit trail has to be reconstructable later. This is the case where Jira's weight is the product rather than a side effect, and where lighter trackers are not a cheaper option but a non-option.",
             },
             {
-                title: "Cross-project roadmaps and dependencies",
-                body: "On Premium, advanced roadmaps map cross-project dependencies, and Atlassian Intelligence helps surface related issues via natural language. Large organizations use this to coordinate work spanning many teams and projects.",
+                title: "Coordinating work across many teams and projects",
+                body: "Dependency mapping, cross-project hierarchies and roll-up views for organisations where one initiative touches several groups with different workflows. The value comes from those groups not having to share a process, which is exactly what an opinionated tracker refuses to allow.",
             },
             {
-                title: "Atlassian ecosystem integration",
-                body: "Teams already using Confluence and Bitbucket use Jira as the connective tissue of their workflow — issues link to docs and code, creating an integrated planning-to-shipping pipeline that standalone trackers cannot replicate.",
+                title: "Service desks and intake with enforced handling",
+                body: "Requests arriving from outside engineering with response expectations, escalation paths and queue ownership attached. Enforcement and recording matter more than interface speed here, and this is often the workload that justifies the instance for the rest of the company.",
+            },
+            {
+                title: "Consolidating trackers after an acquisition",
+                body: "When several groups arrive with incompatible conventions, a tool that can express all of them without forcing one team's process onto another is the pragmatic choice. Plan for the mapping design to take longer than the data import, because it always does.",
             },
         ],
         pricingDetail:
-            "Jira has four tiers: Free (up to 10 users, scrum/kanban boards, agile reporting, custom workflows, 2GB storage), Standard (~$7.91/user/mo, more scale and permissions), Premium (~$14.54/user/mo, up to 300 users), and Enterprise (custom). The key thing for AI buyers: Atlassian Intelligence is included at no extra charge but only from the Premium tier — Free and Standard users do not get the AI features. Annual billing saves up to 20%. For very large self-hosted deployments, Jira Data Center starts at around $51,000/year, a different league entirely.",
+            "Jira has four tiers: Free (up to 10 users, scrum/kanban boards, agile reporting, custom workflows, 2GB storage), Standard (~$7.91/user/mo, more scale and permissions), Premium (~$14.54/user/mo), and Enterprise (custom). Two structural points matter more than the per-seat figure. First, the AI features and the advanced planning views sit in the upper tiers rather than the lower ones, so check which tier carries the specific capability you are planning around before you budget. Second, marketplace apps are billed separately and scale with your user count, so an instance that depends on several of them can cost meaningfully more than the plan price suggests. Atlassian revises tier contents and self-managed licensing regularly, so treat any figure quoted outside its own pricing page as indicative only.",
         faq: [
             {
-                q: "Which Jira plan includes AI?",
-                a: "Atlassian Intelligence is included at no extra cost starting with the Premium tier (~$14.54/user/mo). Free and Standard plans do not include the AI features, so if AI-assisted issue drafting, summarizing, and dependency surfacing matter to you, you need Premium or Enterprise.",
-            },
-            {
-                q: "Is Jira's free plan actually usable?",
-                a: "Yes, for small teams. The free tier supports up to 10 users with scrum and kanban boards, agile reporting, and custom workflows — enough to run real agile development. The main limits are 2GB storage and the lack of AI and advanced roadmap features.",
-            },
-            {
-                q: "Jira or Linear — which should we use?",
-                a: "Jira is deeper, more configurable, and the standard for large or complex engineering organizations, especially within the Atlassian ecosystem. Linear is faster, simpler, and favored by teams who value speed and a clean experience over configurability. Choose based on whether you need depth or lightness. See our Jira vs Linear comparison.",
-            },
-            {
                 q: "Is Jira too complex for a small team?",
-                a: "It can be. Jira's power comes from depth and configurability, which is overkill for small teams with simple needs and can slow them down. If your team wants to move fast without heavy setup, a lighter tool like Linear is often a better fit than Jira's full machinery.",
+                a: "Usually, yes — but for a reason worth stating precisely. A small team creating one project with default settings does not experience much complexity at all. The complexity arrives with accumulated configuration, and a small team has neither accumulated any nor has anyone to maintain it later. If nobody outside your team dictates your process, you are paying for enforcement you will never use.",
             },
             {
-                q: "Does Jira work well with other Atlassian tools?",
-                a: "Yes — that is one of its biggest advantages. Jira integrates tightly with Confluence (docs) and Bitbucket (code), letting issues link to documentation and source. For teams already in the Atlassian ecosystem, this connected workflow is a major reason to choose it.",
+                q: "Do we need a dedicated Jira administrator?",
+                a: "Any instance that will still be running in three years needs a named owner, even part-time. The role is less about configuring things than about declining to configure things: keeping the field taxonomy small, keeping workflow states meaningful, and retiring what a reorganisation left behind. Instances without that person do not fail dramatically, they just become slowly unusable.",
+            },
+            {
+                q: "Jira or Linear?",
+                a: "Ask who owns the process. If your team designs its own workflow, Linear removes friction you are currently paying for. If the workflow is imposed from outside and compliance with it has to be demonstrable, Linear has deliberately not built the enforcement you need. Preference for one interface over another is a real consideration but it is the tiebreaker, not the decision.",
+            },
+            {
+                q: "Can we use Jira for non-engineering teams?",
+                a: "You can, and it works well for intake and service-style queues where enforcement matters. It works badly for marketing calendars, campaign planning and client delivery, where the audience wants a visual surface and no vocabulary lessons. Forcing those teams in usually produces a shadow spreadsheet within a quarter, which is worse than having chosen a second tool on purpose.",
+            },
+            {
+                q: "How bad is migrating away from Jira?",
+                a: "The issue data moves easily. The process does not. Workflows, permission schemes, automation and any reporting built on custom fields have no equivalent in tools that deliberately lack those concepts, so the migration is really a process redesign. Add to that any marketplace apps that have become load-bearing, since each one is a separate vendor to unwind.",
+            },
+            {
+                q: "Is the free plan usable?",
+                a: "For a genuinely small group, yes — boards, agile reporting and custom workflows are all present. Treat it as an honest trial rather than a destination, since the constraints that push teams to pay are user count and storage rather than feature crippling, and both arrive without warning.",
+            },
+            {
+                q: "Are the AI features a reason to upgrade?",
+                a: "On their own, no. Assisted drafting, summarising and natural-language search now exist across every tool in this category at a comparable level, so they should not move a platform decision. If you are upgrading, upgrade for the planning, permission or governance capability in the tier and treat the AI as something that came in the box.",
+            },
+            {
+                q: "Why does Jira have such a bad reputation if so many teams use it?",
+                a: "Because most people encounter it as a user of someone else's configuration. The experience that generates the complaints — twelve required fields, states nobody can define, a board that loads slowly because it queries half the instance — is the output of years of unowned accumulation rather than of the product's defaults. That distinction matters when you are choosing, because you are choosing whether to take on the maintenance, not just the software.",
             },
         ],
     },
@@ -1442,52 +1538,86 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
     asana: {
         overviewHtml: `
-            <p><strong>Asana</strong> is a work management platform for coordinating tasks, projects, and goals across teams. Where some tools target engineers specifically, Asana aims broadly at cross-functional work — marketing, operations, product, and beyond — with a clean interface and strong reporting. In 2026 it adds <strong>AI Studio</strong>, which lets teams build AI-powered workflows and automate routine work, included at a basic level starting from the Starter tier.</p>
+            <p><strong>Asana</strong> is bought for a reason its feature list does not advertise. Organisations rarely adopt it because their teams need somewhere to put tasks — they already have somewhere, usually three somewheres. They adopt it because somebody senior cannot get a trustworthy answer to the question "how are our priorities actually tracking", and Asana is structured around producing that answer.</p>
 
-            <p>The plan structure: the <strong>Personal</strong> plan is free for small groups (up to 10 users with basic features but no timelines, goals, or automations). <strong>Starter ($10.99/user/mo)</strong> adds timeline and Gantt views, unlimited automations, dashboards, forms, and AI Studio Basic with 50,000 monthly credits. <strong>Advanced ($24.99/user/mo)</strong> brings goals, portfolios, workload tracking, and deeper integrations. <strong>Enterprise</strong> (custom) adds governance and scale.</p>
+            <p>That makes it a different kind of purchase from the tools it is usually listed beside, and it fails for a different reason too.</p>
 
-            <p>Its strengths are clarity and cross-team coordination. Asana is easier to onboard than heavier tools, its reporting and goal-tracking are strong, and it works well for organizations coordinating many types of work rather than just software. The inclusion of AI Studio Basic from the Starter tier means AI is available without jumping to the top plan.</p>
+            <h3>It is a reporting instrument before it is a task list</h3>
 
-            <p>The honest weaknesses: the free Personal tier is limited (no timelines, goals, or automations), so real use generally requires a paid plan, and per-seat costs add up for larger teams. For pure software development, engineering teams often prefer <a href="/tool/jira">Jira</a> or <a href="/tool/linear">Linear</a>; for maximum flexibility and feature density, <a href="/tool/clickup">ClickUp</a> packs more per dollar. Asana's sweet spot is clean cross-functional coordination rather than deep specialization. See our <a href="/tool/monday">Monday.com</a> review for the full comparison.</p>
+            <p>The parts of Asana that justify its price are the upper ones: goals, portfolios, workload and the roll-ups built on them. A goal is meant to be a durable statement of intent that individual projects roll into, so that progress on the goal is derived from work rather than typed in by whoever prepares the slide.</p>
 
-            <p>Who it is for: cross-functional teams who want a clean, well-organized work management tool with strong reporting and approachable onboarding. Who it is not for: engineering teams needing deep agile tooling (Jira/Linear), or very small teams who can't justify paying past the limited free tier.</p>
+            <p>Compare that to an issue tracker, which is built bottom-up: the issue is the atom, and anything resembling a portfolio is assembled afterwards from queries. Asana is built top-down, and the task exists partly so that something above it has a number. This is not a criticism. It is the correct architecture for the problem it is solving, and it is the reason engineers who evaluate it on task-level ergonomics come away unimpressed — they are inspecting the foundation and reporting that it is not a nice room.</p>
+
+            <h3>Goals and portfolios only work if the bottom is honest</h3>
+
+            <p>Here is the failure mode, and it is close to universal in unsuccessful rollouts. Leadership adopts Asana for visibility. Teams keep doing their real work where they were already doing it. Somebody is then asked to keep Asana updated for reporting purposes, which turns it into a second system maintained for an audience rather than a first system used by practitioners.</p>
+
+            <p>A derived number computed from data nobody maintains is worse than no number, because it is believed. Executives make calls on a dashboard that reflects how recently someone remembered to tick a box. If you cannot answer the question "where does a person actually doing this work spend their day", buying portfolio reporting will produce confident fiction, and the tool will get the blame for a rollout decision.</p>
+
+            <h3>Rollout is the hard part, not configuration</h3>
+
+            <p>Asana is not difficult to set up, and that is misleading. The difficult work is social: getting the teams whose data feeds the roll-up to treat it as the place the work lives, which means giving them something in return. Usually that is the removal of a status meeting, a weekly report, or a recurring request for an update — and it has to be an actual removal, not a promise.</p>
+
+            <p>Rollouts that skip this step follow a recognisable arc. Adoption is high in the first month because it is new, drops in the second, and by the fourth the portfolio view is stale enough that leadership stops trusting it and reinstates the status meeting. The tool did nothing wrong at any point in that sequence.</p>
+
+            <h3>Why it loses to a tracker in engineering</h3>
+
+            <p>Engineering teams reject Asana for reasons that are specific and worth naming rather than dismissing as preference. There is no equivalent of the tight branch, commit and review loop that a developer tracker provides. Filing is heavier than engineers will tolerate for the volume of small items they generate. The vocabulary is task-and-project rather than issue-and-cycle. And the cadence model does not match how a team that ships continuously actually plans.</p>
+
+            <p>The pragmatic arrangement in most mid-size companies is not to win that argument. Engineering keeps its tracker; Asana carries the initiative-level record that the rest of the company reads, with a link between them. Trying to collapse both into one system is how you end up with a portfolio nobody updates.</p>
+
+            <h3>The overlap with Monday is real, and the difference is temperament</h3>
+
+            <p>Asana and <a href="/tool/monday">Monday</a> can both do most of what the other does, so comparing capability lists will not separate them. The difference is what each optimises when forced to choose. Monday optimises the operator's daily surface: visual, immediate, shaped by whoever owns the board. Asana optimises the structure above the work: consistent objects, goals that roll up, portfolios that mean the same thing in two departments.</p>
+
+            <p>The practical test is who complains after three months. If it is the people doing the work, saying the tool is fussy, you probably wanted Monday. If it is the people reading the reports, saying they cannot compare two departments, you probably wanted Asana.</p>
+
+            <h3>When to pick Linear, Jira or Monday instead</h3>
+
+            <p>Pick <a href="/tool/linear">Linear</a> when the users are engineers and the reporting audience is the team itself. Pick <a href="/tool/jira">Jira</a> when a process has to be enforced and evidenced rather than merely tracked, which Asana does not attempt. Pick <a href="/tool/monday">Monday</a> when the buyer is a department head who wants a visual system running this week and nobody upstairs is asking for cross-department comparability. And pick <a href="/tool/clickup">ClickUp</a> if you genuinely want one dense system for everything and will accept the interface that comes with that ambition.</p>
+
+            <p>Finally, do not buy Asana to solve a prioritisation problem. If leadership has not decided what matters, a portfolio view will render the indecision in a nicer typeface and change nothing else.</p>
         `,
         useCases: [
             {
-                title: "Cross-functional project coordination",
-                body: "Asana's strength: coordinating projects across marketing, operations, product, and other teams in one clean system. Its approachable interface and strong reporting make it well-suited to organizations managing many types of work, not just software.",
+                title: "Giving leadership a derived view of initiatives",
+                body: "Goals and portfolios that compute progress from projects instead of from a manually-prepared slide. This is the purchase justification in most organisations, and it only holds if the underlying projects are genuinely maintained by the people doing the work.",
             },
             {
-                title: "Goals and portfolio tracking",
-                body: "On Advanced and above, teams track individual, team, and org-wide goals and manage portfolios of projects with workload views. Leadership uses this to connect day-to-day work to higher-level objectives across the organization.",
+                title: "Coordinating work that crosses departments",
+                body: "Launches, campaigns and programmes where marketing, operations, legal and product each own a piece with dependencies between them. Consistent project structure across functions is what makes the handoffs legible, and it is the thing ad-hoc boards lose first.",
             },
             {
-                title: "AI-powered workflow automation",
-                body: "AI Studio lets teams build AI workflows that take on routine, manual work — included at a basic level (50,000 monthly credits) from the Starter tier. Teams automate intake, triage, and status updates without needing the top plan.",
+                title: "Replacing a recurring status meeting",
+                body: "The rollout tactic that determines whether adoption survives. Teams maintain the record because doing so removes an obligation they already resent; if nothing is removed in exchange, the data goes stale and the reporting above it becomes fiction.",
+            },
+            {
+                title: "Workload and capacity conversations",
+                body: "Seeing who is committed to what across several projects before adding another one. The value is in the argument it enables with a stakeholder, not in the chart itself, and it depends on estimates being entered with some consistency.",
+            },
+            {
+                title: "Structured intake for a shared service team",
+                body: "Forms that turn requests from the rest of the company into tasks with owners and required fields, so a design, legal or IT group stops being managed through direct messages. Modest, unglamorous, and often the part of the deployment people actually thank you for.",
             },
         ],
         pricingDetail:
-            "Asana offers Personal (free, up to 10 users with basic features but no timelines, goals, or automations), Starter ($10.99/user/mo annually — timeline/Gantt, unlimited automations, dashboards, forms, plus AI Studio Basic with 50,000 monthly credits), Advanced ($24.99/user/mo annually — goals, portfolios, workload, advanced integrations), and Enterprise/Enterprise+ (custom). AI Studio comes in Basic (included, rate-limited), Plus (paid), and Pro (paid, annual) options. The thing to note: the free tier is genuinely limited — no timelines, goals, or automations — so most teams that need real project management will be on Starter or above, where per-seat costs add up at scale.",
+            "Asana offers Personal (free, up to 10 users, with basic features but no timelines, goals, or automations), Starter ($10.99/user/mo annually — timeline and Gantt views, unlimited automations, dashboards and forms), Advanced ($24.99/user/mo annually — goals, portfolios, workload and advanced integrations), and Enterprise tiers (custom). The structural point that decides most purchases: the capabilities Asana is actually bought for — goals, portfolios and workload — sit in the Advanced tier and above, so the Starter price is rarely the price a company reporting to an executive audience ends up paying. AI capabilities are distributed across tiers with usage allowances that Asana has revised more than once, so check the current plan comparison before assuming a given AI feature is included at your level.",
         faq: [
             {
-                q: "Does Asana include AI?",
-                a: "Yes — AI Studio is available from the Starter tier, with AI Studio Basic included (50,000 monthly credits, rate-limited) and paid Plus and Pro options for heavier use. Unlike some competitors where AI is a separate add-on, Asana includes entry-level AI capabilities starting at Starter.",
+                q: "Is Asana worth it if teams already have their own tools?",
+                a: "It depends entirely on whether those teams will maintain their work in Asana as the primary record. If they will, the roll-up above it is genuinely valuable and hard to get any other way. If they will not, you are buying a second system that someone updates for reporting purposes, and a derived number computed from stale data is more dangerous than no number at all.",
             },
             {
-                q: "Is Asana's free plan enough?",
-                a: "Only for very basic use. The free Personal plan supports up to 10 users but lacks timelines, goals, and automations — the features most teams actually need for real project management. Serious use generally requires Starter ($10.99/user/mo) or above.",
+                q: "Which tier do we actually need?",
+                a: "Most organisations buying Asana for the reason they think they are buying it need goals, portfolios and workload, which sit above the entry tier. If the entry tier looks sufficient on paper, it is worth checking whether what you actually wanted was a lighter tool — a team that only needs projects and tasks is not yet the customer Asana is designed for.",
             },
             {
-                q: "Asana or Monday.com — which is better?",
-                a: "Both are strong cross-functional work management tools. Asana is known for clean organization, strong goal-tracking, and approachable reporting; Monday.com is more visual and highly customizable. The choice often comes down to whether your team prefers Asana's structured clarity or Monday's colorful flexibility. See our Asana vs Monday.com comparison.",
+                q: "Can engineering use Asana as its tracker?",
+                a: "It can be made to work and it rarely survives. Engineers reject it for concrete reasons: no tight loop with branches and reviews, heavier filing than the volume of small items justifies, and a cadence model that does not match continuous shipping. The arrangement that holds in practice is engineering keeping its own tracker while the initiative-level record the rest of the company reads lives in Asana.",
             },
             {
-                q: "Is Asana good for software teams?",
-                a: "It can work, but dedicated engineering teams often prefer Jira or Linear for deep agile workflows. Asana's strength is cross-functional coordination across marketing, ops, and product rather than specialized software development. If your work spans many functions, Asana fits; if it is pure engineering, consider a dev-focused tool.",
-            },
-            {
-                q: "What is AI Studio?",
-                a: "AI Studio is Asana's framework for building AI-powered workflows that automate routine, manual work — intake, triage, status updates, and more. It comes in Basic (included from Starter, with limits), Plus, and Pro tiers, letting teams add AI automation without moving to the top plan.",
+                q: "Why do Asana rollouts fail?",
+                a: "Almost always the same way: it is introduced as a visibility requirement from above without removing any existing obligation below. Adoption spikes, decays over a couple of months, and the portfolio view becomes stale enough that leadership stops trusting it. Successful rollouts trade something away — a status meeting, a weekly report, a recurring update request — and make the trade visible to the people being asked to change.",
             },
         ],
     },
@@ -1636,104 +1766,180 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
     linear: {
         overviewHtml: `
-            <p><strong>Linear</strong> is a project and issue tracker built for software teams who value speed and focus. Where <a href="/tool/jira">Jira</a> optimizes for depth and configurability, Linear optimizes for the opposite: a fast, keyboard-driven, opinionated experience that gets out of the way. It has become the tool of choice for many startups and product teams who found heavier trackers slowing them down, and in 2026 it has layered in AI agents and AI-assisted workflows without compromising that speed-first identity.</p>
+            <p><strong>Linear</strong> is the rare tool that is easier to evaluate by what it refuses to do. Almost every question worth asking about it — should we migrate, will the team accept it, will it still fit in two years — reduces to a single test: are you willing to change how you work to match the tool, or do you expect the tool to change to match you? Linear only rewards the first answer. Teams that arrive expecting the second one churn, and they usually blame the wrong thing on the way out.</p>
 
-            <p>The plan structure is simple. <strong>Free</strong> supports unlimited members with a cap on issues and is genuinely enough for small teams to run real work. <strong>Basic (around $8/user/mo)</strong> raises limits, and <strong>Business (around $14/user/mo)</strong> adds advanced features, more integrations, and AI capabilities. Enterprise (custom) brings SSO, advanced security, and scale. Pricing is per active user, billed monthly or annually.</p>
+            <h3>The opinion is the product, and it is not negotiable</h3>
 
-            <p>Its strengths are speed, design, and opinion. Linear is fast, every interaction is keyboard-accessible, and its strong defaults mean teams spend time shipping rather than configuring. The product's cycles, projects, and roadmap features encode a particular, effective way of working — which is exactly why teams who align with that philosophy love it.</p>
+            <p>Most trackers sell configurability and let each team build its own process on top. Linear sells a process and lets you adjust the edges. Issues are small. Status sets are short. Estimates are optional and deliberately coarse. Work is planned in fixed-length cycles rather than in whatever container a project manager invents. None of that is a technical limitation — it is a position, argued publicly by the company, that most of the configuration other trackers offer is a way for organisations to encode dysfunction and then maintain it forever.</p>
 
-            <p>The honest weaknesses: that same opinionatedness means Linear is less configurable than Jira, so teams with complex, non-standard processes can hit its guardrails. It is built primarily for software development, so cross-functional, non-engineering teams may find <a href="/tool/asana">Asana</a> or <a href="/tool/clickup">ClickUp</a> a better fit. And as it adds features, some worry it could drift from its lean roots. See our <a href="/tool/jira">Jira</a> review for the full comparison.</p>
+            <p>If you agree with that position, the tool feels like relief. If you do not, it feels like being told no by software. Both reactions are correct responses to the same product, which is why "is Linear good" is a question with no answer and "does our process survive contact with Linear's defaults" is a question with a very quick one.</p>
 
-            <p>Who it is for: startups and product/engineering teams who want a fast, focused, well-designed tracker with strong defaults. Who it is not for: organizations needing deep configurability for complex workflows (Jira), or cross-functional teams whose work spans far beyond software.</p>
+            <h3>Speed is a workflow claim, not a benchmark claim</h3>
+
+            <p>Linear's reputation for being fast is usually described as a rendering story, and that undersells it. The thing that actually changes behaviour is that the entire application is reachable from the keyboard, and issue creation is cheap enough that people do it while they are still talking. In trackers where filing takes a minute and a decision about six fields, engineers batch it, forget it, and keep the real backlog in their heads or in a chat thread. The observable difference after a migration is not that anyone types faster; it is that things get written down that previously did not.</p>
+
+            <p>That also sets the ceiling on the benefit. If your team's problem is that work is poorly specified, or that priorities change weekly from above, a faster input box does not touch it. Linear makes a well-run team quicker. It does not make a badly-run one well-run, and teams that adopt it hoping for the second outcome report, accurately, that nothing improved.</p>
+
+            <h3>Cycles are not sprints, and the difference is the point</h3>
+
+            <p>A cycle is a fixed window that work flows through, not a commitment your team signs up to hit. Unfinished issues roll forward automatically. There is no ceremony for accepting scope and no ritual for explaining a miss. The intent is that the cadence gives you a rhythm and a set of charts without giving anyone a stick.</p>
+
+            <p>This is genuinely at odds with how scrum is practised in many organisations, where the sprint commitment is the unit of accountability and the burndown is reported upward. If someone above your team needs sprint-level predictability from a signed commitment, Linear will be used against its grain and you will spend your time reconstructing scrum inside a tool built to avoid it. Our write-up of <a href="/blog/linear-method-explained">the Linear method</a> covers the reasoning behind the cadence in more detail; you can adopt the reasoning without adopting the tool, and some teams should.</p>
+
+            <h3>Where the guardrails actually stop you</h3>
+
+            <p>The limits are consistent and predictable, which is the best thing you can say about limits. Workflow states are constrained rather than arbitrary. Custom fields exist but are not the heart of the data model, so processes that depend on many required attributes per issue feel wrong here. There are no elaborate permission schemes that let you hide projects from most of the company, which is a feature if you want default transparency and a blocker if you have contractual reasons to compartmentalise. Approval gates, sign-off chains and validation rules that must be enforced rather than agreed are not really available.</p>
+
+            <p>Read that list as a disqualification test rather than a wish list. If two or more of those items are requirements handed to you by someone who is not on your team, Linear is the wrong purchase and no amount of enthusiasm from engineering will change that.</p>
+
+            <h3>When to pick Jira, Monday or Asana instead</h3>
+
+            <p>Pick <a href="/tool/jira">Jira</a> when the process is not yours to design — when auditors, regulators, safety standards or a parent company specify the workflow and you have to prove it was followed. Jira's configurability is the cost of being able to model a process you did not choose, and Linear has deliberately not paid that cost.</p>
+
+            <p>Pick <a href="/tool/monday">Monday</a> when the people who need to see the work are in marketing, sales or operations and do not think in issues at all. Linear's interface assumes an engineering reader; a visual board that a campaign manager can run without training is a different product for a different audience, not a worse version of this one.</p>
+
+            <p>Pick <a href="/tool/asana">Asana</a> when the question being asked is "how are the company's twelve initiatives tracking" rather than "what is this team shipping this week". Linear has projects and roadmaps, but it is built bottom-up from the issue, and portfolio reporting to an executive audience is not what it optimises. <a href="/tool/clickup">ClickUp</a> is the option when you want one system covering both and are willing to accept a denser interface to get it.</p>
+
+            <p>And pick nothing at all if you are two people. A shared document listing what each of you is doing is not a worse tracker; it is the correct tool until coordination actually costs you something.</p>
         `,
         useCases: [
             {
-                title: "Fast issue tracking for product teams",
-                body: "Linear's core: a fast, keyboard-driven tracker where creating, triaging, and updating issues feels instant. Product and engineering teams adopt it specifically to escape the friction of heavier tools and keep momentum on shipping.",
+                title: "A product team that ships continuously",
+                body: "The case Linear is designed around: a small-to-mid engineering group with authority over its own process, shipping on a steady cadence, where the main enemy is friction rather than governance. Everything the tool does well is aimed at this shape of team, and everything it refuses to do is refused on this team's behalf.",
             },
             {
-                title: "Cycle-based planning",
-                body: "Linear's cycles (its take on sprints) and projects encode an effective, opinionated workflow. Teams use them to plan in short iterations with clear scope, leaning on Linear's strong defaults instead of configuring everything from scratch.",
+                title: "Getting work out of chat and into writing",
+                body: "Teams whose real backlog lives in message threads adopt Linear less for the reporting than for the fact that filing an issue is cheap enough to do mid-conversation. The measurable change is in what gets recorded, not in how fast anyone works, and it is the most reliable return on a migration.",
             },
             {
-                title: "AI-assisted triage and workflows",
-                body: "With its 2026 AI agents and AI-assisted features, Linear helps draft issues, summarize, and automate routine triage — adding intelligence without slowing down the fast core experience the tool is known for.",
+                title: "Writing tickets that an AI agent can act on",
+                body: "Once coding agents started implementing tickets, the specificity of the ticket became the bottleneck. Linear's small, tightly-scoped issues paste into an agent brief far better than a loosely-worded epic does, which is a side effect of the format rather than an AI feature.",
             },
         ],
         pricingDetail:
-            "Linear keeps pricing simple: Free (unlimited members with an issue cap, enough for small teams), Basic (around $8/user/mo), Business (around $14/user/mo, adding advanced features, more integrations, and AI), and Enterprise (custom, with SSO and advanced security). Billing is per active user, monthly or annual, with the usual annual discount. Because exact figures shift, confirm current numbers on Linear's site before quoting them to a team. The main thing to weigh is not the price — which is reasonable — but whether Linear's opinionated, software-focused workflow matches how your team actually works.",
+            "Linear keeps pricing simple: Free (unlimited members with an issue cap, enough for small teams), Basic (around $8/user/mo), Business (around $14/user/mo, adding advanced features, more integrations, and AI), and Enterprise (custom, with SSO and advanced security). Billing is per active user, monthly or annual, with the usual annual discount. Because exact figures and what sits behind each tier shift, confirm the current plan comparison on Linear's own site before quoting numbers to a team. The number is rarely the deciding factor anyway — the deciding factor is whether Linear's opinionated, software-focused workflow matches how your team already works, because the tool will not bend to meet you.",
         faq: [
             {
-                q: "Linear or Jira — which should we use?",
-                a: "Linear is faster, cleaner, and opinionated — ideal for startups and product teams who value speed over configurability. Jira is deeper and more customizable — better for large or complex engineering organizations, especially in the Atlassian ecosystem. Choose based on whether you want lightness or depth. See our Jira vs Linear comparison.",
+                q: "Linear or Jira?",
+                a: "Decide it on who owns your process. If your team designs its own workflow and answers for outcomes rather than for procedure, Linear removes work. If the workflow is specified by someone outside the team — compliance, a regulator, a parent company, a customer contract — you need a tool that can model an arbitrary process and prove it was followed, and that is Jira. Speed and design preferences are real but they are the tiebreaker, not the criterion.",
             },
             {
-                q: "Is Linear's free plan enough?",
-                a: "For small teams, often yes. The free plan supports unlimited members with a cap on issues, which covers real work for early-stage teams. You move to a paid tier when you hit the issue limit or need advanced features, integrations, and AI capabilities.",
+                q: "Can we make Linear work like our current process?",
+                a: "Partially, and the parts that do not fit are the ones that will decide it. Linear expects short status sets, small issues, optional coarse estimates and a fixed cadence. If your process depends on many required fields per issue, enforced approval gates, or hiding projects from most of the organisation, you will be fighting the product rather than configuring it.",
             },
             {
-                q: "Is Linear only for software teams?",
-                a: "It is built primarily for software development — its cycles, projects, and workflows reflect how engineering teams ship. Some cross-functional teams use it, but if your work spans marketing, ops, and other non-engineering functions heavily, a broader tool like Asana or ClickUp usually fits better.",
+                q: "Is the free plan enough to run a real team?",
+                a: "For a small team, often yes. The free tier supports unlimited members with a cap on total issues, which is a limit you hit through age rather than through headcount — a team of five will reach it eventually simply by existing. Treat the free plan as a genuine trial of the workflow rather than as a permanent arrangement.",
             },
             {
-                q: "Does Linear have AI features?",
-                a: "Yes. In 2026 Linear added AI agents and AI-assisted workflows — helping draft issues, summarize, and automate triage — on its higher tiers. The notable thing is that it added these without compromising the fast, focused experience that defines the product.",
+                q: "Will non-engineers use it?",
+                a: "Some will, reluctantly. Designers and technical product managers generally adapt. Marketing, sales and operations usually do not, because the vocabulary and the keyboard-first interface assume you think in issues and cycles. If a significant share of the people who need visibility are outside engineering, expect to run a second tool for them or to choose a broader one for everybody.",
             },
             {
-                q: "Why do teams switch to Linear?",
-                a: "Almost always for speed and focus. Teams frustrated by slow, over-configurable trackers move to Linear for its fast, keyboard-driven interface and strong opinionated defaults, which let them spend time shipping rather than configuring. The trade-off is less flexibility for unusual workflows.",
+                q: "What breaks when a company grows into it?",
+                a: "Two things, reliably. Cross-team dependency tracking gets harder than it is in a tool built around portfolio structure, and the absence of granular permissions becomes a real conversation once there is work that legal or HR does not want visible by default. Neither is fatal, but both arrive around the same growth stage and both are easier to plan for than to discover.",
+            },
+            {
+                q: "Do the AI features change the decision?",
+                a: "No, and it is worth saying plainly. Assisted drafting, summarising and triage are now present in every tracker in this category at a broadly comparable level, so they are not a differentiator in either direction. Choose on workflow fit and treat the AI as a convenience that arrives regardless of what you pick.",
+            },
+            {
+                q: "Is migrating off it hard if we change our minds?",
+                a: "Less hard than migrating off a heavily-configured tracker, because there is less configuration to lose. Issues, comments and history export in conventional forms, and the thing that does not survive is the process convention itself — the cycles, the scoped issues, the short status sets — which was the reason you were there. Teams rarely regret the data; they regret rebuilding the habit.",
+            },
+            {
+                q: "Why do teams switch to Linear and then switch away again?",
+                a: "Almost always the same story. Engineering adopts it, likes it, and the company then grows a set of requirements engineering does not control — audit trails, approval chains, non-engineering departments needing the same system, executive portfolio reporting. Linear did not get worse; the buying criteria changed. Knowing that in advance is the best argument for choosing it deliberately rather than by enthusiasm.",
             },
         ],
     },
 
     monday: {
         overviewHtml: `
-            <p><strong>Monday.com</strong> is a highly visual "Work OS" — a flexible platform for managing projects, CRM, operations, and more through colorful, customizable boards. Its appeal is approachability: teams can shape it to almost any workflow without technical skill, and the bright, visual interface makes status obvious at a glance. In 2026 it bundles AI features (monday AI) for automations, content generation, and surfacing insights across boards.</p>
+            <p><strong>Monday.com</strong> is usually evaluated against engineering trackers, which is the wrong comparison and produces the wrong conclusion. It is not competing with <a href="/tool/linear">Linear</a> or <a href="/tool/jira">Jira</a> for the same buyer. It is competing with a shared spreadsheet, an email thread and a whiteboard, in departments that have never had a system at all — and that is a much larger population than engineering.</p>
 
-            <p>The plan structure spans several tiers. <strong>Free</strong> is limited to a small number of seats and basic boards. <strong>Basic (around $9/seat/mo)</strong> and <strong>Standard (around $12/seat/mo)</strong> add timeline views, automations, and integrations, with Standard being the common starting point for real teams. <strong>Pro (around $19/seat/mo)</strong> brings advanced automations, time tracking, and more AI, and Enterprise (custom) adds governance and scale. Pricing is per seat and scales quickly with team size.</p>
+            <h3>The buyer is usually not IT, and that explains the product</h3>
 
-            <p>Its strengths are flexibility and visual clarity. Monday adapts to project management, sales pipelines, marketing calendars, and operations workflows equally well, and non-technical teams onboard quickly because the interface is intuitive and satisfying to use. For organizations that want one adaptable system across many departments, it is a strong fit.</p>
+            <p>Most of this category is sold into engineering or into a central IT function, so it is designed to survive a technical evaluation. Monday is generally bought by a marketing lead, an operations manager or an agency owner who needs the thing working this week, has no administrator to call, and will abandon it if the first hour is confusing.</p>
 
-            <p>The honest weaknesses: per-seat pricing climbs fast for larger teams, and seats are often sold in tiers (e.g. 3, 5) that force you to pay for unused seats. The flexibility can also become clutter without discipline, and heavy users sometimes find the AI features shallower than the marketing suggests. Teams comparing options also look at <a href="/tool/asana">Asana</a> (cleaner, goal-focused) and <a href="/tool/clickup">ClickUp</a> (more features per dollar). See our full <a href="/tool/asana">Asana</a> review for more.</p>
+            <p>Every visible design choice follows from that. Colour is used as data rather than decoration, because a status you can read from across a room is worth more than a status you have to click into. Templates are prominent, because a blank board is a failure for this buyer in a way it is not for an engineer. Automations are written in near-English sentences, because the person who needs one cannot write a rule expression and will not open documentation. Critics read this as unserious. It is the specification.</p>
 
-            <p>Who it is for: cross-functional teams who want a flexible, visual platform that adapts across departments without technical setup. Who it is not for: cost-sensitive teams wary of per-seat pricing, or teams who want depth in one domain rather than broad adaptability.</p>
+            <h3>A board is a spreadsheet that can send email</h3>
+
+            <p>The most useful way to understand what Monday actually is: take the spreadsheet a team is already running, keep its shape, and give the columns behaviour. A status column notifies someone when it changes. A date column escalates when it passes. A person column becomes an assignment. A form feeds new rows in from outside the company without giving anyone a seat.</p>
+
+            <p>That framing predicts both the wins and the failures. It wins wherever a team's real system of record is a spreadsheet that has outgrown itself — the giveaway being colour-coded cells, a tab per month, and one person who is the only one allowed to edit it. It fails wherever the work has genuine structural depth: many-to-many relationships, versioned artefacts, dependency graphs that actually need solving. Those are not spreadsheet problems and dressing a spreadsheet in colour does not make them tractable.</p>
+
+            <h3>Flexibility becomes sprawl on a schedule</h3>
+
+            <p>Because anyone can create a board, everyone does, and the failure mode arrives in a predictable sequence. First, two departments model the same entity — a client, a campaign, a request — differently. Then someone links them and discovers the fields do not correspond. Then a third board is created to reconcile the first two. By the time anyone asks for a cross-department report, the data cannot support one.</p>
+
+            <p>The fix is unglamorous and has to be decided early, before boards multiply: a small number of shared entity definitions that departments extend rather than reinvent, and one person who owns that vocabulary. This is the same maintenance burden that heavier tools carry, arriving through the back door because nobody thought they were buying an administered system. Seat-based billing compounds it, since boards that nobody has used in months keep consuming licences.</p>
+
+            <h3>When to pick Linear, Jira or Asana instead</h3>
+
+            <p>Pick <a href="/tool/linear">Linear</a> if the work is software and the users are engineers. Monday can hold a development backlog and engineers will route around it within a quarter, because the vocabulary, the keyboard behaviour and the branch and pull-request connections they expect are not there.</p>
+
+            <p>Pick <a href="/tool/jira">Jira</a> if any workflow has to be enforced rather than agreed. Monday's automations are conveniences, not gates; they can notify and update, but they are not designed to make an unauthorised transition impossible or to prove to an auditor that it was never possible.</p>
+
+            <p>Pick <a href="/tool/asana">Asana</a> if the primary reader is an executive rather than the person doing the work. The two products overlap heavily in what they can do, and the honest difference is temperament: Monday optimises for the operator's daily surface, Asana optimises for the structured roll-up above it. <a href="/tool/airtable">Airtable</a> is the better answer when the thing you actually have is a relational database with a project-management skin, and <a href="/tool/clickup">ClickUp</a> when you want maximum feature coverage in one place.</p>
         `,
         useCases: [
             {
-                title: "Visual project and operations management",
-                body: "Monday's signature use: colorful, customizable boards that make project and operations status obvious at a glance. Teams shape boards to their workflow — tasks, pipelines, calendars — and the visual interface keeps everyone aligned without digging.",
+                title: "Marketing campaign and content calendars",
+                body: "Briefs, owners, review stages and publish dates on one board, with the state of every item legible at a glance. This is the workload Monday is most often bought for and the one it handles with the least configuration.",
             },
             {
-                title: "Cross-department Work OS",
-                body: "Because monday adapts to project management, CRM, marketing, and operations alike, organizations use it as a single platform across departments. One tool covering many functions reduces tool sprawl for teams that value consistency.",
+                title: "Client and agency delivery tracking",
+                body: "One board per client or one row per engagement, with intake forms from the client side and status columns that notify account managers on change. Agencies value that a client can be given a filtered view without being given a licence.",
             },
             {
-                title: "AI-assisted automation",
-                body: "monday AI adds automations, content generation, and insight-surfacing across boards — automating status updates, drafting content, and flagging risks. It layers intelligence onto the visual workflow without requiring technical setup.",
+                title: "A lightweight sales pipeline",
+                body: "Deals as rows, stages as a status column, automations for follow-up reminders. It suits teams whose pipeline is genuinely simple and who would otherwise be running it in a spreadsheet; teams with real forecasting and quota requirements outgrow it and should buy a CRM.",
+            },
+            {
+                title: "Operations request queues",
+                body: "Facilities, finance and internal-services requests arriving through a form and moving across a board with ownership visible. The value is that the requester needs no account and the queue owner needs no training.",
+            },
+            {
+                title: "Recruiting pipelines",
+                body: "Candidates by stage, with interviewers assigned and dates driving reminders. Reasonable for a company hiring occasionally, and a poor substitute for an applicant tracking system once compliance record-keeping or structured scorecards are required.",
+            },
+            {
+                title: "Event and launch coordination",
+                body: "Cross-department checklists with hard dates, where the point is that ten people from five functions can see the same countdown without a status meeting. Timeline and calendar views carry this case more than the board view does.",
+            },
+            {
+                title: "Retiring a spreadsheet that outgrew itself",
+                body: "The most common real migration: a colour-coded sheet with a tab per month and a single person permitted to edit it. Monday keeps the shape people already understand and adds notification, ownership and intake, which is usually the whole requirement.",
             },
         ],
         pricingDetail:
-            "Monday.com offers Free (limited seats and basic boards), Basic (around $9/seat/mo), Standard (around $12/seat/mo, the common real-team starting point with timeline views and automations), Pro (around $19/seat/mo, advanced automations, time tracking, more AI), and Enterprise (custom). The pricing traps to know: it is per seat and climbs quickly with team size, and seats are often sold in fixed tiers (3, 5, etc.), so you can end up paying for unused seats. Confirm current per-seat numbers on monday's site, as they adjust periodically.",
+            "Monday.com offers Free (limited seats and basic boards), Basic (around $9/seat/mo), Standard (around $12/seat/mo, the common real-team starting point with timeline views and automations), Pro (around $19/seat/mo, advanced automations, time tracking, more AI), and Enterprise (custom). Two structural traps matter more than the headline rate. Seats are sold in fixed bands rather than one at a time, so a team that grows by one person can jump a band and pay for several unused seats. And automation and integration usage is metered per month on the lower tiers, which is the most common reason a team upgrades mid-year without having added anybody. Confirm current per-seat figures and band sizes on monday's own pricing page, as both are adjusted periodically.",
         faq: [
             {
-                q: "Asana or Monday.com — which is better?",
-                a: "Both are strong cross-functional work tools. Monday is more visual, colorful, and broadly adaptable across departments; Asana is cleaner with stronger goal-tracking and reporting. The choice usually comes down to whether your team prefers Monday's flexible, visual style or Asana's structured clarity. See our Asana vs Monday.com comparison.",
+                q: "Is Monday.com suitable for a software team?",
+                a: "As the engineering team's primary tracker, no. It can hold a backlog, but it lacks the vocabulary, the keyboard-driven speed and the code integrations engineers expect, and teams route around it. It is a reasonable place for the work around engineering — launch coordination, roadmap communication to other departments — while the engineers use a tracker built for them.",
             },
             {
-                q: "How does Monday.com's seat pricing work?",
-                a: "Pricing is per seat and often sold in fixed tiers (such as 3 or 5 seats), so you may pay for seats you don't fully use, and costs climb quickly as the team grows. Budget by total seats across the tiers rather than the headline per-seat number.",
+                q: "How do the seat bands actually bite?",
+                a: "Seats come in fixed bands rather than individually, so adding one person can move you to the next band and bill you for several seats nobody occupies. Budget by the band you will land in after your next two hires rather than by your current headcount, and audit for seats held by people who have stopped using the tool.",
             },
             {
-                q: "Is the free Monday.com plan usable?",
-                a: "Only for very small teams or trials — the free tier is limited in seats and features. Most real teams start on Standard (around $12/seat/mo) for timeline views, automations, and integrations. Factor the per-seat cost into your decision early.",
+                q: "When does Monday stop being the right tool?",
+                a: "At the point where your data has real structure — many-to-many relationships, records that need versioning, dependencies that must be computed rather than noted. A board is a spreadsheet with behaviour, and those are not spreadsheet problems. If you find yourself building a third board purely to reconcile the first two, you have hit it.",
             },
             {
-                q: "What can monday AI do?",
-                a: "monday AI adds automations, content generation, and insight-surfacing across your boards — drafting updates, automating routine steps, and flagging risks. It is genuinely useful for cutting manual work, though some heavy users find it shallower than the marketing implies.",
+                q: "Monday or Asana?",
+                a: "They overlap enough that capability lists will not separate them. Choose on who the primary reader is. If it is the person doing the work and they want a visual surface they can run themselves, Monday. If it is a leadership audience asking how a portfolio of initiatives is tracking across departments, Asana's goals and portfolio structure is built for that question and Monday's is not.",
             },
             {
-                q: "Is Monday.com good for software teams?",
-                a: "It can work, but it is a general Work OS rather than a developer-specific tool. Engineering teams who want deep agile workflows usually prefer Jira or Linear, while monday shines for cross-functional and operations work where visual flexibility matters more than dev-specific features.",
+                q: "How do we stop boards from multiplying out of control?",
+                a: "Decide early, because it is far cheaper before the sprawl than after. Agree a small set of shared definitions for the entities several departments touch — client, campaign, request — and give one person the authority to say no to a board that reinvents one. The sprawl is not a product defect; it is what happens to any system where creation is free and nobody owns the vocabulary.",
+            },
+            {
+                q: "Are the AI features worth upgrading for?",
+                a: "Treat them as a convenience rather than a reason. Drafting, summarising and suggested automations are now standard across this whole category, and users who lean on them heavily tend to report they are shallower than the marketing implies. Upgrade for the automation volume, the views or the governance you need, and accept the AI as something that came along with the tier.",
             },
         ],
     },
@@ -2106,104 +2312,172 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
     "microsoft-copilot": {
         overviewHtml: `
-            <p><strong>Microsoft Copilot</strong> is Microsoft's consumer AI assistant — a chat, search, and image-generation tool integrated across Windows, Edge, and Bing. It is positioned as the everyday AI companion for the Microsoft ecosystem: built into the operating system and browser most people already use, with web-grounded answers and image generation, free to start. It is distinct from <a href="/tool/microsoft-365-copilot">Microsoft 365 Copilot</a>, which is the paid, Office-integrated version for work documents.</p>
+            <p><strong>Microsoft Copilot</strong> has a naming problem that costs real money, and clearing it up is the most useful thing this page can do.</p>
 
-            <p>The pricing is straightforward freemium. <strong>Free</strong> gives conversational AI, web-grounded answers, and image generation, built into Windows and Edge. <strong>Copilot Pro (around $20/mo)</strong> adds priority access to the latest models, faster performance during peak times, and enhanced image generation. For most consumers the free tier covers everyday needs, with Pro aimed at heavier individual users.</p>
+            <h3>Check which Copilot you are shopping for</h3>
 
-            <p>Its strengths are accessibility and integration. Because Copilot is built into Windows and Edge, it is the AI that is simply <em>there</em> for hundreds of millions of users — no install, no separate app, free to use. For quick questions, web-grounded answers with citations, and casual image generation within the Microsoft environment, it is convenient and capable.</p>
+            <p>Microsoft applies the Copilot name to several unrelated products. Two of them get confused constantly, and they are not variants of each other — they are different products, sold to different buyers, doing different jobs.</p>
 
-            <p>The honest weaknesses: on hard reasoning, coding, or specialized tasks it generally trails the frontier offerings of <a href="/tool/chatgpt">ChatGPT</a> and <a href="/tool/claude">Claude</a>, and the experience can feel inconsistent across its many surfaces (Windows, Edge, web, mobile). It is a strong default for Microsoft users but rarely the most capable choice for demanding work. Note also that the consumer Copilot is separate from the work-focused Microsoft 365 Copilot, which is a different product and price.</p>
+            <p>This page is about the <strong>consumer assistant</strong>: the chat, web-answer and image-generation tool that appears in Windows, in Edge, on the web and on phones. You can use it without asking anyone's permission, it does not know anything about your employer's files, and there is a free tier.</p>
 
-            <p>Who it is for: Windows and Edge users who want a free, built-in AI assistant for everyday questions, web answers, and casual image generation. Who it is not for: users with demanding reasoning, coding, or specialized needs (a frontier assistant serves better), or those seeking deep Office-document integration (that is Microsoft 365 Copilot).</p>
+            <p><a href="/tool/microsoft-365-copilot">Microsoft 365 Copilot</a> is the other one: a licensed add-on that appears inside Word, Excel, PowerPoint, Outlook and Teams and works on your organisation's actual documents, mail and meetings. It is bought by an IT department, per seat, on top of an existing Microsoft 365 subscription. If what you want is something that can summarise the email thread you are looking at or build a deck from a file in your company's storage, this is not that, and no upgrade to the consumer tier will make it that.</p>
+
+            <p>The tell is simple. If a person can buy it for themselves with a card, it is the consumer product. If a licence has to be assigned to them by an administrator, it is the work product. There is also a separately-branded coding assistant, <a href="/tool/github-copilot">GitHub Copilot</a>, which shares only the word.</p>
+
+            <h3>The honest case for using it</h3>
+
+            <p>The consumer assistant's argument is not capability, it is placement. It is in the operating system and the browser that a very large number of people already have open, which means the cost of asking it something is close to zero — no tab, no account decision, no subscription conversation with yourself. For questions that are quick, low-stakes and better answered with a look at the live web than from memory, that placement wins more often than a marginally better model in a different window does.</p>
+
+            <p>That is a real benefit and a narrow one. It is the assistant you use because it is there, and being there is most of the value proposition. Judge it against the effort of opening something else rather than against a frontier assistant's ceiling, because the latter comparison is one it does not win.</p>
+
+            <h3>When to use something else</h3>
+
+            <p>Use a frontier assistant when the output matters. For long reasoning, substantial writing, code you intend to run, or analysis of a document you are going to act on, <a href="/tool/chatgpt">ChatGPT</a> and <a href="/tool/claude">Claude</a> are where people who do this work daily end up. Our <a href="/compare/chatgpt-vs-microsoft-copilot">ChatGPT vs Microsoft Copilot</a> comparison walks through where the gap shows up in practice.</p>
+
+            <p>Use a research tool when you have to defend the answer. Web-grounded responses with links attached look like sourcing but are not the same as a product designed around citation; if the claim is going into something with your name on it, <a href="/tool/perplexity">Perplexity</a> is built for that job and this is not.</p>
+
+            <p>And do not use the consumer assistant for anything confidential at work. A personal account is outside whatever data-handling arrangement your employer has negotiated, and pasting internal material into it is the exact behaviour organisations buy the licensed product to stop. If your company has not given you a sanctioned option, the answer is to ask for one, not to route around the question.</p>
         `,
         useCases: [
             {
-                title: "Built-in everyday assistant",
-                body: "Copilot's main role: the AI that is simply present in Windows and Edge for everyday questions, quick help, and web-grounded answers. For hundreds of millions of Microsoft users, it is the zero-setup, free assistant always within reach.",
+                title: "The zero-effort question",
+                body: "Quick, low-stakes lookups asked from the taskbar or the browser sidebar without opening anything. The entire benefit is that the cost of asking is near zero, which means it captures the questions that were never going to justify switching tools.",
             },
             {
-                title: "Web-grounded search and answers",
-                body: "Built on Bing, Copilot provides conversational answers grounded in live web results with citations — useful for quick research and fact-checking directly in the browser without switching to a separate tool.",
-            },
-            {
-                title: "Casual image generation",
-                body: "Copilot includes image generation, letting users create visuals from prompts for free within the Microsoft environment. For casual, occasional image needs it is convenient, though dedicated tools produce higher-quality results.",
+                title: "Reading the page you are already on",
+                body: "Summarising or interrogating the article or document open in the browser, where the context comes from the tab rather than from an upload. Convenient for triage; not a substitute for reading anything you intend to rely on.",
             },
         ],
         pricingDetail:
-            "Microsoft Copilot (the consumer assistant) is freemium: Free includes conversational AI, web-grounded answers, and image generation, built into Windows and Edge. Copilot Pro (around $20/mo) adds priority access to the latest models, faster performance during peak times, and enhanced image generation for heavier individual users. Important distinction: this consumer Copilot is separate from Microsoft 365 Copilot, the paid Office-integrated product (Business ~$18–21/user/mo) that works inside Word, Excel, and Teams. Don't confuse the two — they are different products at different prices for different needs.",
+            "Microsoft Copilot (the consumer assistant) is freemium: the free tier includes conversational AI, web-grounded answers and image generation, built into Windows and Edge. Copilot Pro (around $20/mo) adds priority access to the newest models, better performance at peak times and enhanced image generation for heavier individual users. The important budgeting point is not the number but the product boundary: this consumer subscription is entirely separate from Microsoft 365 Copilot, the per-seat licence that works inside Word, Excel, Outlook and Teams on your organisation's content. Paying for Copilot Pro does not give you any of that, and the two are billed through different routes. Microsoft revises tier contents frequently, so confirm what each currently includes on its own pricing pages.",
         faq: [
             {
-                q: "What's the difference between Microsoft Copilot and Microsoft 365 Copilot?",
-                a: "Microsoft Copilot is the free consumer assistant built into Windows, Edge, and Bing for chat, web answers, and image generation. Microsoft 365 Copilot is the paid, work-focused product (~$18–21/user/mo) that integrates into Word, Excel, PowerPoint, Outlook, and Teams to work on your documents. Same brand, different products and prices.",
+                q: "What is the difference between Microsoft Copilot and Microsoft 365 Copilot?",
+                a: "They are different products that share a brand. Microsoft Copilot is the consumer assistant in Windows, Edge and the web: chat, web answers, image generation, free to start, bought by an individual. Microsoft 365 Copilot is a per-seat licence assigned by an administrator that works inside Word, Excel, PowerPoint, Outlook and Teams on your organisation's own documents, mail and meetings. Upgrading the consumer one never gets you the work one.",
             },
             {
-                q: "Is Microsoft Copilot free?",
-                a: "Yes — the consumer Copilot is free, with conversational AI, web-grounded answers, and image generation built into Windows and Edge. Copilot Pro (around $20/mo) adds priority model access, faster peak performance, and enhanced image generation for users who want more.",
+                q: "Will it read my company's files or email?",
+                a: "No. The consumer assistant has no connection to your organisation's storage, mailbox or meetings. That grounding is the defining capability of the licensed work product, and it is the single clearest line between the two.",
             },
             {
-                q: "Is Microsoft Copilot as good as ChatGPT?",
-                a: "For everyday questions and web-grounded answers, it is convenient and capable, especially given it's free and built into Windows. But on hard reasoning, coding, and specialized tasks it generally trails frontier assistants like ChatGPT and Claude. It is a strong default rather than the most powerful option.",
+                q: "Is it as good as ChatGPT or Claude?",
+                a: "For quick, low-stakes questions answered from the live web, the difference rarely matters and the convenience of it already being open often decides it. For extended reasoning, substantial writing, code, or work you will be held to, the frontier assistants are where people who do that work every day end up. Judge it on placement rather than on ceiling.",
             },
             {
-                q: "Where can I use Microsoft Copilot?",
-                a: "It is integrated across Windows (built into the OS), Edge (in the browser), Bing (search), and available on the web and mobile apps. This ubiquity within the Microsoft ecosystem is its main advantage — though the experience can feel somewhat inconsistent across these different surfaces.",
+                q: "Is Copilot Pro worth paying for?",
+                a: "Only if you are a heavy individual user who is hitting the free tier's limits and specifically wants faster access to the newest models and better image generation. If you are considering it because you want it to work on your work documents, stop — that is a different product and this subscription will not get you there.",
             },
             {
-                q: "Is Copilot Pro worth $20/month?",
-                a: "For most casual users, the free tier is enough. Copilot Pro makes sense if you use it heavily and want priority access to the latest models, faster responses during peak times, and better image generation. If you mainly need occasional answers, the free version covers it.",
+                q: "Is it safe to paste work material into it?",
+                a: "Treat a personal account as outside your employer's data-handling arrangements, because it is. Pasting internal material into a consumer assistant is precisely the behaviour that organisations license a work-grade product to prevent, and it is not something a setting toggle resolves. If there is no sanctioned option at your company, the right move is to ask for one.",
             },
         ],
     },
 
     "microsoft-365-copilot": {
         overviewHtml: `
-            <p><strong>Microsoft 365 Copilot</strong> is the AI assistant woven directly into the Microsoft Office apps — Word, Excel, PowerPoint, Outlook, and Teams. Unlike a standalone chatbot, its whole value is that it works on <em>your</em> content: drafting documents, analyzing spreadsheets, building presentations, summarizing email threads, and recapping Teams meetings, all grounded in your organization's files and data via Microsoft Graph. For enterprises already standardized on Office, it brings AI to where work already happens.</p>
+            <p><strong>Microsoft 365 Copilot</strong> is a seat-based enterprise purchase, and enterprise purchases fail for reasons that have very little to do with how good the model is. Almost everything that determines whether this deployment is judged a success happens before anyone types a prompt: who gets a licence, how your files are permissioned, what you promised the finance committee it would do, and whether anyone can tell afterwards.</p>
 
-            <p>The pricing has a free-and-paid structure that is easy to misread. <strong>Microsoft 365 Copilot Chat</strong> is available at no additional cost for eligible Microsoft 365 users, but it does <em>not</em> connect to your Office apps — it can't read your emails, summarize your meetings, or analyze your Excel data. The full in-app experience requires a paid add-on: <strong>Business (around $18–21/user/mo)</strong> on top of a qualifying Microsoft 365 plan, or <strong>Enterprise (around $30/user/mo)</strong>. The promotional $18 Business rate runs through mid-2026 before rising.</p>
+            <p>So this page is about the buying decision. It assumes you already know it writes documents.</p>
 
-            <p>Its strengths are deep integration and enterprise grounding. Because it operates inside the Office apps on your real documents and data, it can do things no external assistant can — summarize the specific email thread, build a deck from your existing files, analyze your actual spreadsheet — all within Microsoft's enterprise security and compliance boundary. For large organizations, that combination is uniquely valuable.</p>
+            <h3>Two products share the name, and only one of them costs money</h3>
 
-            <p>The honest weaknesses: the cost is significant — a paid add-on per user <em>on top of</em> an existing Microsoft 365 subscription — and output quality varies by app, with some integrations stronger than others. The free Copilot Chat tier's lack of document connection confuses buyers who expect the full experience. For individuals or teams not deep in Office, a general assistant or <a href="/tool/notion-ai">Notion AI</a> may deliver more value per dollar. It is also distinct from the free consumer <a href="/tool/microsoft-copilot">Microsoft Copilot</a>.</p>
+            <p>Clear this up first, because it is the most common source of confusion in this purchase. <a href="/tool/microsoft-copilot">Microsoft Copilot</a> is the free consumer assistant in Windows, Edge and the browser — chat, web answers, image generation, no connection to anything your company owns.</p>
 
-            <p>Who it is for: enterprises and teams standardized on Microsoft Office who want AI grounded in their real documents, email, and meetings within Microsoft's security boundary. Who it is not for: individuals or small teams not heavily invested in Office, or anyone unwilling to pay an add-on on top of their existing Microsoft 365 subscription.</p>
+            <p>Microsoft 365 Copilot is a licence an administrator assigns to a named person, on top of a qualifying Microsoft 365 subscription, that puts the assistant inside Word, Excel, PowerPoint, Outlook and Teams and connects it to your organisation's own content. The grounding in your own files is the entire product. Everything else about it is available for free somewhere else.</p>
+
+            <h3>Copilot Chat is not the thing you are being sold</h3>
+
+            <p>There is a chat experience available to eligible Microsoft 365 users at no additional licence cost, and it is the single biggest source of disappointed expectations here. It is a chat window with enterprise data protection on it. It is not the in-app assistant. It does not summarise the meeting you missed, it does not answer questions from your mailbox, and it does not analyse the spreadsheet you have open.</p>
+
+            <p>The practical consequence is that a pilot run on the no-cost chat tier tells you nothing about whether the licensed product is worth buying, because the capability you are evaluating is absent from what you tested. Pilot the licensed version on a real team or do not pilot at all.</p>
+
+            <h3>Grounding quality is a function of your permissions, not the model</h3>
+
+            <p>This is the part that surprises organisations and it deserves to be understood before rollout rather than during it. Copilot answers from content the user already has access to. That sounds like a safety guarantee, and it is — but it is a guarantee about permissions, not about intent.</p>
+
+            <p>Most large tenants have years of accumulated oversharing: sites shared with "everyone in the organisation" for convenience, files in a team space that half the company inherited access to, links generated for one recipient that became permanent. Nobody noticed, because finding those files required knowing they existed. A capable assistant over the same permissions is very good at finding things nobody knew they could reach. It has not leaked anything; it has surfaced an access model that was already wrong.</p>
+
+            <p>Treat a permissions and oversharing review as a prerequisite of the deployment rather than a follow-up item. Organisations that skip it tend to discover the problem through an incident, and the incident gets attributed to the AI.</p>
+
+            <h3>The per-app experience is uneven, and predictably so</h3>
+
+            <p>Buyers evaluate this as one product and then use it as five, which is where the disappointment clusters. The pattern is consistent enough to plan around: the assistant does best where the input is a large amount of prose that needs compressing, and worst where correctness is binary and the source of truth is structured.</p>
+
+            <p>Meeting recaps and long mail threads are the strongest cases; the work is summarisation and the reader can verify quickly. Drafting from an existing document is solid. Slide generation produces a serviceable starting structure and a deck nobody would present unedited. Spreadsheet work is the weakest link and the one most often demoed, because the failure mode is a confident formula that is subtly wrong, which is exactly the error type a non-expert reviewer cannot catch.</p>
+
+            <p>Set expectations by app when you communicate the rollout. A user whose first three attempts were in Excel will conclude the product does not work, and they will not be entirely wrong about their case.</p>
+
+            <h3>Buying seats for everyone is the common mistake</h3>
+
+            <p>The distribution of value across an organisation is not uniform, and per-seat pricing punishes pretending otherwise. The people who gain most are the ones drowning in communication volume: managers in many meetings, roles that live in a mailbox, anyone who writes documents for a living. The people who gain least are those whose work is in a line-of-business application that Copilot does not touch, and they are frequently a majority of headcount.</p>
+
+            <p>Deploy to the roles where the argument is obvious, instrument what happens, and expand on evidence. Watch for the pattern where licences are assigned broadly, enthusiasm carries the first month, and usage concentrates in a small group by the third — that is the shape of a renewal conversation that goes badly, and it is entirely avoidable by starting narrow.</p>
+
+            <h3>When something else is the better purchase</h3>
+
+            <p>If your organisation does not actually live in Office — if the documents are in another suite, the chat is elsewhere, the knowledge is in a wiki — the grounding advantage evaporates and you are paying a premium for an assistant that cannot see your work. <a href="/tool/notion-ai">Notion AI</a> makes the same argument for organisations whose content lives in Notion, and <a href="/compare/notion-ai-vs-microsoft-365-copilot">the comparison between them</a> is really a question about where your documents already are.</p>
+
+            <p>If the need is individual rather than organisational — better writing, better reasoning, analysis of files a person uploads themselves — a frontier assistant like <a href="/tool/chatgpt">ChatGPT</a> or <a href="/tool/claude">Claude</a> typically delivers more capability per pound, with the trade-off that it knows nothing about your tenant.</p>
+
+            <p>And if the goal is compliant coverage rather than capability, note that the no-cost chat tier already gives eligible users a protected place to work, which for some populations is the entire requirement. Buying licences for people whose real need was "somewhere sanctioned to paste things" is an expensive way to solve a cheap problem.</p>
         `,
         useCases: [
             {
-                title: "AI across Word, Excel, and PowerPoint",
-                body: "Microsoft 365 Copilot's core: drafting documents in Word, analyzing and formulating in Excel, and building presentations in PowerPoint — all working on your actual files. It brings AI assistance into the apps where the work already happens rather than a separate window.",
+                title: "Recapping meetings and the threads around them",
+                body: "The strongest case by a distance: attendance is optional, decisions and actions are extracted, and the person who missed the call can verify the summary in seconds. This is also the capability that most reliably justifies a licence for a manager.",
             },
             {
-                title: "Email and meeting intelligence",
-                body: "In Outlook and Teams, Copilot summarizes long email threads, drafts replies, and recaps meetings — including what you missed and the action items. For information-heavy roles, this recall and summarization across communications is a major time saver.",
+                title: "Triaging a mailbox that has become the job",
+                body: "Summarising long threads, surfacing what needs a response and drafting replies in context. Value scales with communication volume, which is why the licence pays for itself in some roles and sits unused in others.",
             },
             {
-                title: "Enterprise-grounded answers",
-                body: "Through Microsoft Graph, Copilot answers grounded in your organization's documents and data within Microsoft's security and compliance boundary. It can pull from your real files to answer work questions, something external assistants can't do safely.",
+                title: "Drafting from documents you already own",
+                body: "Producing a first version of a report, proposal or summary grounded in existing files rather than from a blank page. Reliable enough to change how the work starts, and still a draft that a subject-matter expert has to own.",
+            },
+            {
+                title: "Turning a document into a presentable structure",
+                body: "Generating a deck outline from source material, which saves the tedious part and produces something nobody should present unedited. Useful as scaffolding; misleading if demoed as a finished artefact.",
+            },
+            {
+                title: "Answering questions from organisational content",
+                body: "Locating the current version of a policy, a past proposal or a specification across the tenant. This is where an internal assistant beats any external one, and also where an untidy permissions model becomes visible.",
+            },
+            {
+                title: "Giving staff a sanctioned place to work",
+                body: "Moving the pasting that already happens in personal accounts onto infrastructure with enterprise data protection. Worth separating from the rest of the business case, because the no-cost chat tier may already cover this population.",
             },
         ],
         pricingDetail:
-            "Microsoft 365 Copilot has a free-and-paid structure that's easy to misread. Copilot Chat is included at no additional cost for eligible Microsoft 365 users — but it does NOT connect to your Office apps (no reading email, summarizing meetings, or analyzing Excel). The full in-app experience requires a paid add-on: Business (around $18–21/user/mo, with the $18 promotional annual rate running through June 30, 2026 before rising to $21) on top of a qualifying Microsoft 365 plan, or Enterprise (around $30/user/mo). The key trap: the meaningful AI requires both an existing Microsoft 365 subscription and the Copilot add-on, so the real cost is the sum of both.",
+            "Microsoft 365 Copilot has a free-and-paid structure that is easy to misread. Copilot Chat is included at no additional licence cost for eligible Microsoft 365 users, but it does not connect to your Office apps — no reading mail, no meeting recaps, no analysis of your spreadsheets. The full in-app experience is a paid per-user add-on, quoted separately for business and enterprise customers, that sits on top of a qualifying Microsoft 365 subscription. Two things follow. The real cost is the sum of the underlying subscription and the add-on, so the add-on figure alone understates it for anyone not already licensed. And Microsoft has repeatedly revised both the per-seat rates and which plans qualify, so take current figures from Microsoft's own pricing page rather than from any summary, including this one.",
         faq: [
             {
                 q: "Is Microsoft 365 Copilot free?",
-                a: "Partly. Microsoft 365 Copilot Chat is included at no extra cost for eligible Microsoft 365 users, but it does not connect to your Office apps — it can't read your email, summarize meetings, or analyze your spreadsheets. The full in-app experience requires a paid add-on (Business ~$18–21/user/mo or Enterprise ~$30) on top of your Microsoft 365 plan.",
+                a: "Partly, and the free part is not the part people mean. Copilot Chat is included for eligible Microsoft 365 users, but it does not connect to your Office apps: it cannot read your mail, recap your meetings or analyse your spreadsheets. The in-app assistant that does those things is a paid per-user add-on on top of your existing subscription.",
             },
             {
-                q: "What does Microsoft 365 Copilot actually cost?",
-                a: "The meaningful version requires two things: a qualifying Microsoft 365 subscription plus the Copilot add-on (around $18–21/user/mo for Business, with $18 promotional through June 2026, or ~$30 for Enterprise). The real cost is the sum of both — the add-on price alone understates it if you're not already on Microsoft 365.",
+                q: "Can we evaluate it on the free chat tier first?",
+                a: "Not meaningfully. The capability you would be deciding on — grounding in your own documents, mail and meetings — is exactly what the no-cost tier lacks, so a pilot there measures a different product. Buy a small number of licences for a team whose work is communication-heavy and evaluate that instead.",
             },
             {
-                q: "How is this different from the free Microsoft Copilot?",
-                a: "Microsoft Copilot is the free consumer assistant in Windows, Edge, and Bing for chat and web answers. Microsoft 365 Copilot is the paid, work-focused product that integrates into Word, Excel, PowerPoint, Outlook, and Teams to work on your actual documents and data. Same brand, very different products.",
+                q: "Can it see files a user should not have access to?",
+                a: "It answers from content the user already has permission to open, so it does not bypass access controls. The practical risk is different: most large tenants have years of accidental oversharing that stayed harmless only because the files were hard to find. A capable assistant over the same permissions makes them easy to find. Run a permissions and oversharing review before rollout, not after.",
             },
             {
-                q: "Is Microsoft 365 Copilot worth it?",
-                a: "For enterprises deeply standardized on Office, yes — its ability to work on your real documents, email, and meetings within Microsoft's security boundary is something no external assistant can match. For individuals or teams not heavily invested in Office, a general assistant or Notion AI often delivers more value per dollar.",
+                q: "Which apps does it actually work well in?",
+                a: "It is strongest where the job is compressing a lot of prose — meeting recaps, long mail threads, drafting from documents you already have. It is weakest in spreadsheets, where a confident but subtly wrong formula is the characteristic failure and the reviewer least able to catch it is the one most likely to have asked. Set expectations per app or users will generalise from their worst experience.",
             },
             {
-                q: "What can Microsoft 365 Copilot do that ChatGPT can't?",
-                a: "It operates inside your Office apps on your actual content — summarizing the specific email thread, building a deck from your existing files, analyzing your real spreadsheet, recapping your Teams meeting — all grounded in your organization's data via Microsoft Graph and within enterprise compliance. A general assistant like ChatGPT has no access to that internal context.",
+                q: "Who should get a licence?",
+                a: "Start with the roles whose day is communication volume: managers in many meetings, mailbox-centric functions, people who write documents for a living. Staff whose work happens in a line-of-business application outside the Office suite gain very little, and they are often the majority. Assigning licences broadly and hoping for uniform adoption is the pattern that produces a bad renewal conversation.",
+            },
+            {
+                q: "How do we tell whether it worked?",
+                a: "Decide before you buy, because retrofitting a measure to a renewal is not persuasive. Licence-level usage data will tell you who actually kept using it after the novelty passed, which is the most honest single signal available. Pair it with something concrete you expected to change — a meeting removed, a report no longer written by hand — rather than a self-reported time saving, which surveys inflate reliably.",
+            },
+            {
+                q: "Should we buy this or a frontier assistant?",
+                a: "They answer different questions. This is worth its premium only if the grounding in your own tenant is the point; if your documents, chat and knowledge live outside the Microsoft suite, you are paying for an advantage you cannot use. For individual capability — reasoning, writing, analysing files a person uploads — a frontier assistant generally gives more per seat, and plenty of organisations end up running both for different populations.",
             },
         ],
     },
