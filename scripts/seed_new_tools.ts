@@ -62,21 +62,6 @@ const newTools = [
     cons: ["Still in early access", "Can be unpredictable on large monolithic legacy codebases"],
     isFeatured: true,
     tier: "premium"
-  },
-  {
-    slug: "galileo-ai",
-    title: "Galileo AI",
-    description: "Generative UI design tool that turns text prompts into editable Figma designs instantly.",
-    category: "Design",
-    pricing: "Freemium",
-    websiteUrl: "https://usegalileo.ai",
-    color: "text-pink-500",
-    bgGradient: "from-pink-500/20 to-pink-600/20",
-    features: ["Text to Figma", "Design System Integration", "Component Auto-Generation", "UI Variations"],
-    pros: ["Speeds up initial wireframing", "Outputs real Figma layers", "Modern design defaults"],
-    cons: ["Can produce generic designs", "Requires manual polish"],
-    isFeatured: true,
-    tier: "free"
   }
 ];
 

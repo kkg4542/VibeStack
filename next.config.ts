@@ -75,6 +75,21 @@ const nextConfig: NextConfig = {
         destination: '/blog/local-llm-llama4',
         permanent: true,
       },
+      // Galileo AI was acquired by Google and folded into Stitch (usegalileo.ai
+      // now redirects to stitch.withgoogle.com), so it was retired from the
+      // directory (see RETIRED_TOOL_SLUGS in lib/tools-db.ts). /tool/[slug] and
+      // /compare/[slug] both use dynamicParams: false, so these already-indexed
+      // URLs would hard-404 without these redirects.
+      {
+        source: '/tool/galileo-ai',
+        destination: '/best/design',
+        permanent: true,
+      },
+      {
+        source: '/compare/midjourney-vs-galileo-ai',
+        destination: '/tool/midjourney',
+        permanent: true,
+      },
     ];
   },
   async headers() {

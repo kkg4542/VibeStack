@@ -27,8 +27,36 @@ export const POPULARITY_ORDER: string[] = [
     "descript",
     "devin-ai",
     "openai-sora",
-    "galileo-ai",
 ];
+
+/**
+ * Slugs held back from the directory: the product no longer exists as a
+ * standalone tool, so listing it would send readers to a vendor that is gone.
+ * The URL itself is 301'd in next.config.ts rather than left to 404.
+ *
+ * This is deliberately a *read-time* filter rather than a database delete: the
+ * `Tool` row still has Review/Favorite/AffiliateClick/Sponsorship/StackTool
+ * rows hanging off it, and dropping the row would cascade them away
+ * irreversibly. Removing a slug from this set puts the tool straight back.
+ *
+ * Applied *after* the MIN_EXPECTED_TOOLS floor (that floor measures what the
+ * database returned, not what we choose to publish), and applied on every path
+ * that turns a `Tool` row into `ToolData` so listings, `generateStaticParams()`
+ * and the sitemap can never disagree about which URLs exist.
+ *
+ * - galileo-ai: acquired by Google and folded into Stitch; usegalileo.ai now
+ *   redirects to stitch.withgoogle.com.
+ */
+export const RETIRED_TOOL_SLUGS = new Set(["galileo-ai"]);
+
+/** True when a slug has been retired from the public directory. */
+export function isRetiredTool(slug: string): boolean {
+    return RETIRED_TOOL_SLUGS.has(slug);
+}
+
+function excludeRetired(list: ToolData[]): ToolData[] {
+    return list.filter((tool) => !isRetiredTool(tool.slug));
+}
 
 function popularityRank(slug: string): number {
     const i = POPULARITY_ORDER.indexOf(slug);
@@ -187,7 +215,7 @@ async function loadToolsStrict(context: string): Promise<ToolData[]> {
         );
     }
 
-    return sortByPopularity(dbTools.map(mapTool));
+    return excludeRetired(sortByPopularity(dbTools.map(mapTool)));
 }
 
 /**
@@ -261,18 +289,21 @@ export async function getTools(): Promise<ToolData[]> {
 
     try {
         const dbTools = await prisma.tool.findMany();
-        return sortByPopularity(dbTools.map(mapTool));
+        return excludeRetired(sortByPopularity(dbTools.map(mapTool)));
     } catch (error) {
         console.error(
             `Failed to fetch tools from database, falling back to the in-repo array (${tools.length} tools):`,
             error
         );
-        if (tools && tools.length > 0) return sortByPopularity(tools); // Fallback to hardcoded array
+        if (tools && tools.length > 0) return excludeRetired(sortByPopularity(tools)); // Fallback to hardcoded array
         return []; // Fallback to empty array so a request can still be served
     }
 }
 
 export async function getToolBySlug(slug: string): Promise<ToolData | null> {
+    // Retired tools are gone from every listing, so the page must not resolve
+    // either — /tool/galileo-ai is served by the 301 in next.config.ts instead.
+    if (isRetiredTool(slug)) return null;
 
     // At build time, serve from the memoized full-table read instead of issuing
     // one findUnique per prerendered page (48 tool pages × page + metadata + OG
@@ -308,6 +339,6 @@ export async function getToolBySlug(slug: string): Promise<ToolData | null> {
         };
     } catch (error) {
         console.error(`Failed to fetch tool ${slug} from database:`, error);
-        return tools.find(t => t.slug === slug) || null;
+        return tools.find(t => t.slug === slug && !isRetiredTool(t.slug)) || null;
     }
 }

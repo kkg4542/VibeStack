@@ -35,7 +35,6 @@ const TOOL_GROUPS: ToolGroup[] = [
         icon: Palette,
         tools: [
             { slug: "adobe-firefly", label: "Adobe Firefly", blurb: "Commercial-safe generative AI for Creative Cloud" },
-            { slug: "galileo-ai", label: "Galileo AI", blurb: "Turns text prompts into editable Figma files" },
             { slug: "openai-sora", label: "Sora", blurb: "OpenAI's photorealistic text-to-video model" },
             { slug: "builder-io", label: "Builder.io", blurb: "AI visual page building for real codebases" },
         ],

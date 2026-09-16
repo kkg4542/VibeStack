@@ -93,7 +93,7 @@ export const BEST_CATEGORIES: CategoryCopy[] = [
     intro:
       "From image generation to full website design, AI design tools now produce production-ready output. These are the best AI design tools of 2026 — ranked for designers, founders, and creators who need results they can actually ship.",
     body: [
-      "There is no single best AI design tool — it depends on what you're making. For still images, <a href=\"/tool/midjourney\">Midjourney</a> still sets the bar on aesthetics. For video, <a href=\"/tool/runway\">Runway</a> and <a href=\"/tool/openai-sora\">Sora</a> lead. For product and UI design, <a href=\"/tool/galileo-ai\">Galileo AI</a> turns prompts into editable Figma files, and <a href=\"/tool/figma\">Figma</a>'s own AI is built into the tool designers already use. For full websites, <a href=\"/tool/framer\">Framer</a> and <a href=\"/tool/lovable\">Lovable</a> ship real, production sites from a description.",
+      "There is no single best AI design tool — it depends on what you're making. For still images, <a href=\"/tool/midjourney\">Midjourney</a> still sets the bar on aesthetics. For video, <a href=\"/tool/runway\">Runway</a> and <a href=\"/tool/openai-sora\">Sora</a> lead. For product and UI design, <a href=\"/tool/figma\">Figma</a>'s own AI is built into the tool designers already use, and <a href=\"/tool/v0-by-vercel\">v0</a> turns a prompt into a working front-end you can hand to developers. For full websites, <a href=\"/tool/framer\">Framer</a> and <a href=\"/tool/lovable\">Lovable</a> ship real, production sites from a description.",
       "What separates a genuinely useful AI design tool from a toy in 2026 comes down to four things: <strong>output quality</strong>, <strong>editability</strong> (can you refine the result, or is it one-shot?), <strong>brand control</strong> (style references and design systems that keep output on-brand), and <strong>licensing</strong> (commercial-use rights for what you ship). The flashy demos all look similar — these four practical factors decide which tool survives in a real workflow.",
       "Budget and licensing deserve a closer look than the pricing page suggests. <a href=\"/tool/canva\">Canva</a>, Figma, and Framer all have capable free tiers to start on, while Midjourney and Sora are paid-first. Crucially, commercial-use terms vary by tool and even by plan — so if you're shipping AI-generated work to clients or production, confirm the license for your specific tier before you do. The comparison table and ranked breakdowns below cover output type, pricing, and the trade-offs for each.",
     ],
@@ -106,7 +106,7 @@ export const BEST_CATEGORIES: CategoryCopy[] = [
     faqs: [
       {
         q: "What is the best AI design tool in 2026?",
-        a: "It depends on the output. Midjourney leads for image aesthetics, Runway and Sora for video, Galileo AI and Figma for UI and product design, and Framer for full websites. There's no universal winner — pick by what you're actually making, which is how the ranked list below is organized.",
+        a: "It depends on the output. Midjourney leads for image aesthetics, Runway and Sora for video, Figma and v0 for UI and product design, and Framer for full websites. There's no universal winner — pick by what you're actually making, which is how the ranked list below is organized.",
       },
       {
         q: "What's the best AI tool for generating images?",
@@ -118,7 +118,7 @@ export const BEST_CATEGORIES: CategoryCopy[] = [
       },
       {
         q: "What's the best AI tool for UI and web design?",
-        a: "For product and UI design, Galileo AI generates editable Figma files from prompts, and Figma's built-in AI works inside the files you already have. For shipping actual websites, Framer and Lovable generate production-ready sites from a plain-English description.",
+        a: "For product and UI design, Figma's built-in AI works inside the files you already have, and v0 generates a working front-end from a prompt. For shipping actual websites, Framer and Lovable generate production-ready sites from a plain-English description.",
       },
       {
         q: "Can I use AI-generated designs commercially?",

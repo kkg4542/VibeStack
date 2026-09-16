@@ -6,7 +6,7 @@ import type { ToolExtendedContent } from "./tool-extended-content";
  * for the shared interface and rendering contract). Kept in a separate file
  * to avoid merge conflicts with other batches being authored in parallel.
  *
- * Covers: cody, cosine, galileo-ai, grok, ollama, openai-sora
+ * Covers: cody, cosine, grok, ollama, openai-sora
  */
 export const TOOL_EXTENDED_CONTENT_B3: Record<string, ToolExtendedContent> = {
     cody: {
@@ -133,72 +133,6 @@ export const TOOL_EXTENDED_CONTENT_B3: Record<string, ToolExtendedContent> = {
             {
                 q: "How much should I trust published benchmark numbers?",
                 a: "Less than the marketing around them implies. Agent benchmarks run against curated public repositories with clean tests and clear issue descriptions, which is close to the best case and unlike most working codebases. A vendor scoring well has demonstrated something real but not the thing you need to know. Replay your own closed tickets instead; ten of them will tell you more than any leaderboard.",
-            },
-        ],
-    },
-
-    "galileo-ai": {
-        overviewHtml: `
-            <p><strong>Galileo AI</strong> turns a text description into a user interface, and the detail that defines it is the file format of what comes out. Not a flat image to be traced over, and not front-end code to be deployed, but editable design content — frames, layers, and components you can select and change inside <a href="/tool/figma">Figma</a>. That single choice determines who it helps, who it does not, and which tools it genuinely competes with.</p>
-
-            <h3>The deliverable decides the tool</h3>
-
-            <p>Generative UI splits cleanly into three outputs, and most confusion about these tools comes from conflating them. A picture is fast and useless downstream: it looks like a screen but nothing in it can be moved, so a designer rebuilds it by hand and saves nothing. Code is what <a href="/tool/v0-by-vercel">v0</a> and app builders like <a href="/tool/bolt-new">Bolt.new</a> and <a href="/tool/lovable">Lovable</a> produce, which is the right answer when the goal is a running thing and the wrong answer when the goal is a decision, because arguing about layout inside a React component is a slow way to argue. A design file is the third option, and it is the one that fits the part of the process where nothing has been decided yet. Galileo sits there deliberately. It has no concept of a backend, an API, or application state — only the arrangement of a screen. <a href="/blog/nocode-design-v0">The comparison between v0 and Builder.io</a> covers the code side of this split in more depth.</p>
-
-            <h3>The generated screen is not the finished work</h3>
-
-            <p>What arrives is a competent, on-trend layout: reasonable spacing, sane typographic hierarchy, the component patterns a current design would use. What it is not is yours. Generated screens are built from generic conventions, so a screen that looks fine in isolation will not match the button, the field, or the card your product already uses, and reconciling that is the actual labour. Expect to detach the generated components and re-map them onto your library rather than to reskin in place. For an established product with a mature design system this can be a net loss — starting from the system's own templates is faster than repairing something that merely resembles them. For a team without a system yet, or exploring a surface type nobody on the team has designed before, the same output is a real head start.</p>
-
-            <p>The second honest caveat is sameness. Prompt-generated interfaces converge, because the underlying model has learned what the average good screen looks like and the average is precisely what a distinctive product is trying not to be. Used as a first draft to react against, that is fine and arguably useful — it is easier to say what is wrong with a concrete screen than to fill an empty canvas. Used as a final deliverable, it produces a product that looks like every other product built the same way.</p>
-
-            <h3>When a generative UI tool is the wrong tool</h3>
-
-            <p>Skip it when the screen carries the brand — a landing page, an onboarding moment, anything a customer forms an impression from. Skip it for flows whose difficulty lives in logic rather than layout: empty states, permissions, error and loading behaviour, the fourteen states a real form has. Generated screens show the happy path, and the happy path is the part of the work that was never hard. Skip it when accessibility, localisation, or genuinely complex data density are requirements, because those constrain layout in ways a prompt does not express. And be deliberate about maintenance risk: standalone text-to-design tools occupy a narrow band between design incumbents shipping AI natively and code generators expanding upward, and that band has consolidated quickly. Before building a team workflow on any one of them, confirm it is still actively developed, and prefer a process where the output is disposable — a starting layout you rework — rather than one where the tool becomes a dependency in how your product gets designed. If the goal was working code all along, hand a refined design to <a href="/tool/builder-io">Builder.io</a> or start from <a href="/compare/cursor-vs-v0-by-vercel">a code-generation tool</a> instead of passing through a design step you will discard.</p>
-        `,
-        useCases: [
-            {
-                title: "Getting past the blank canvas at kickoff",
-                body: "The first plausible arrangement of a screen is the slowest part of early design, and it is the part where quality matters least because everything is about to change. Generating one gives the team something concrete to criticise, which is a far faster way to find the right structure than describing it in the abstract.",
-            },
-            {
-                title: "Producing structural options to argue about",
-                body: "Generating several takes on the same prompt yields genuinely different layout approaches for the same content. The value is the spread, not any individual screen: seeing four arrangements side by side surfaces the actual disagreement about hierarchy much earlier than one polished mock does.",
-            },
-            {
-                title: "Disposable mockups for conversations, not for shipping",
-                body: "Sales pitches, internal alignment decks, and feasibility conversations need something that looks like a product without being one. Generated screens fit that brief exactly, and the fact that they are generic matters much less when everyone knows the artefact is thrown away afterward.",
-            },
-            {
-                title: "Letting non-designers show instead of describe",
-                body: "A product manager or founder who can generate an editable screen brings a designer something to react to rather than a paragraph to interpret. The screen will be wrong, which is fine — a wrong screen communicates intent more precisely than a right document.",
-            },
-            {
-                title: "Exploring an unfamiliar surface type",
-                body: "When a team has to design something nobody on it has designed before — a scheduling interface, a permissions matrix, a data-heavy admin view — generated examples act as a survey of the conventions for that surface. Treat it as reconnaissance rather than as a solution.",
-            },
-            {
-                title: "Filling out the secondary screens of a prototype",
-                body: "Clickable prototypes need plausible settings pages and profile screens that nobody will study. Generating the screens around the flow being tested keeps attention on the part that matters instead of spending design hours on scenery.",
-            },
-        ],
-        pricingDetail:
-            "Galileo AI is offered on a freemium basis: a free tier lets an individual try text-to-design generation at limited volume, with paid plans raising generation limits and adding features aimed at teams. Confirm current limits and pricing on the vendor's own site before budgeting a rollout, and treat the free tier as a genuine trial rather than a production allowance. The more important budget question is not the subscription. It is how much designer time the generated output saves after the work of mapping it onto your own components, because on a product with an established design system that reconciliation can consume more hours than starting from your own templates would have.",
-        faq: [
-            {
-                q: "Does it produce real Figma layers or just a picture?",
-                a: "Editable design content — frames, layers, and components you can select and modify — which is the distinction that separates this category from simple AI mockup generators. It is worth confirming the current export path before committing a workflow to it, since the handoff mechanics are the part most likely to change.",
-            },
-            {
-                q: "Will the output match our design system?",
-                a: "Not on its own. Generated screens are assembled from generic patterns, so components will resemble yours without being yours, and someone has to re-map them onto your library. On a mature design system, starting from your own templates is often faster than repairing a generated screen into compliance.",
-            },
-            {
-                q: "How does this differ from v0 or from AI features inside Figma?",
-                a: "By deliverable and by location. v0 outputs front-end code for developers; Galileo outputs a design file for designers. Design-tool vendors shipping generation natively are the more direct competitive pressure, since a feature inside the tool you already use avoids an export step entirely — which is the main reason to evaluate a standalone generator on whether it does something the built-in option does not.",
-            },
-            {
-                q: "Can it replace a designer?",
-                a: "No, and the reason is specific rather than defensive. It generates the happy path of a screen, which was never the difficult part. Information architecture, the fourteen states a real form has, accessibility, and everything that makes a product recognisably itself are exactly what a prompt does not specify and a model does not infer.",
             },
         ],
     },

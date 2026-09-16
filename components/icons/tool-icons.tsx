@@ -29,7 +29,6 @@ import {
   VercelIcon,
   BoltIcon,
   SoraIcon,
-  GalileoIcon,
 } from "@/components/icons/AiIcons";
 import { ComponentType } from "react";
 
@@ -66,7 +65,6 @@ const baseIconMap: Record<string, ToolIcon> = {
   vercel: VercelIcon,
   bolt: BoltIcon,
   sora: SoraIcon,
-  galileo: GalileoIcon,
 };
 
 // Aliases for common slug variations
@@ -83,7 +81,6 @@ const iconAliases: Record<string, string> = {
   "replit-ai": "replit",
   "bolt-new": "bolt",
   "openai-sora": "sora",
-  "galileo-ai": "galileo",
   "v0-by-vercel": "v0",
 };
 

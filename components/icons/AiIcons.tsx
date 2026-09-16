@@ -449,13 +449,3 @@ export function SoraIcon({ className }: { className?: string }) {
         </svg>
     );
 }
-
-// Galileo — generative UI sparkle/frame
-export function GalileoIcon({ className }: { className?: string }) {
-    return (
-        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2l2.4 5.6L20 10l-5.6 2.4L12 18l-2.4-5.6L4 10l5.6-2.4z" />
-            <circle cx="18.5" cy="18.5" r="2" />
-        </svg>
-    );
-}

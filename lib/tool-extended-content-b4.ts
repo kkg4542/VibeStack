@@ -85,88 +85,159 @@ export const TOOL_EXTENDED_CONTENT_B4: Record<string, ToolExtendedContent> = {
 
     "slack-ai": {
         overviewHtml: `
-            <p><strong>Slack AI</strong> tackles a different problem than meeting assistants like <a href="/tool/otter-ai">Otter.ai</a> or <a href="/tool/zoom-ai-companion">Zoom AI Companion</a>: it isn't about audio at all, it's about the sheer volume of written asynchronous conversation that piles up across channels and threads. In a busy Slack workspace, the cost of missing a day is real — dozens of channels, hundreds of messages, and no realistic way to read them all. Slack AI is built directly into Slack to summarize that backlog, recap what you missed, and let you ask questions of your workspace's message history in plain language instead of scrolling, and unlike a bolt-on browser extension, it runs natively inside the same interface people already spend the day in.</p>
+            <p><strong>Slack AI</strong> is search and summarization built into Slack: thread and channel summaries, recaps of what you missed, and a search layer you can ask questions in plain language rather than guessing keywords. Unlike <a href="/tool/otter-ai">Otter.ai</a> or <a href="/tool/zoom-ai-companion">Zoom AI Companion</a>, none of it involves audio. It works on the written backlog, the channels and threads that pile up whether or not anyone reads them. The pitch is time saved. The variable that actually decides the outcome is something no vendor page asks about: whether your workspace's accumulated conversation is an archive worth querying or noise with timestamps. Two companies with identical headcount and identical seat counts land on opposite sides of that line.</p>
 
-            <p>The concrete features are channel and thread summaries (condensing a long-running discussion into a few sentences), daily recap digests delivered automatically, and an AI-powered search layer that answers natural-language questions grounded in your actual Slack history — conceptually similar to how <a href="/tool/notion-ai">Notion AI</a>'s Ask Notion answers from your own documents rather than the open web. All of it runs inside Slack's existing security and permissions boundary, so summaries and search results stay scoped to channels you already have access to; there is no separate index that leaks content from private channels you were never a member of. For a manager returning from a week away, or a new hire trying to understand why a decision was made, that grounded search is often more useful than the summaries themselves.</p>
+            <h3>Archive or backlog?</h3>
 
-            <p>The strength is real: for anyone in a large, high-volume workspace, cutting through channel overload with a two-sentence summary instead of scrolling a 300-message thread is a genuine time saver, and it compounds across a team rather than helping just one person. The honest weaknesses are structural. Slack AI is only as good as your Slack hygiene — a workspace with messy channel naming, no clear structure, and important decisions buried in random DMs gives Slack AI little to work with, and it has nothing to say about context that lives outside Slack entirely, in a tool like <a href="/tool/jira">Jira</a> or a document in <a href="/tool/coda">Coda</a>. It is also sold as a paid add-on layered on top of an existing paid Slack plan rather than something available to free or entry-tier workspaces, which puts it out of reach for smaller or budget-constrained teams who might benefit from it just as much as a large enterprise would.</p>
+            <p>An archive is where the reasoning behind decisions ended up. A backlog is volume that was never worth reading in the first place, and summarizing noise produces shorter noise. The distinction is testable before you spend anything. Pick three decisions your team made last quarter and try to reconstruct why each one went the way it did, using Slack search by hand. If the reasoning is in there and finding it is merely tedious, Slack AI turns a tedious retrieval into a cheap one, which is a real and repeatable gain. If the reasoning is not in there because it happened in a call, a DM, or someone's head, no model retrieves what was never written down. That test takes twenty minutes and predicts the outcome better than any trial.</p>
 
-            <p>Who it is for: mid-size and large organizations with genuinely high Slack message volume, distributed or async-first teams spread across time zones who can't realistically read everything live, and anyone tired of scrolling long threads to find one decision. Who it is not for: small teams with light Slack usage where there's little backlog to summarize in the first place, or teams whose real institutional knowledge lives outside Slack in documents and tickets rather than in chat messages, where the summaries simply have less to draw on.</p>
+            <h3>Retention policy sets the ceiling</h3>
+
+            <p>Any AI layer over your history inherits whatever your workspace keeps. If retention deletes messages after a few months, model quality is irrelevant to a question about last year, and short retention is usually deliberate rather than accidental, set by legal for exactly the reason that makes it inconvenient here. Free workspaces have historically limited how far back history is visible at all, which is a second, separate ceiling.</p>
+
+            <p>The inverse is the part teams miss. Extending retention to make the AI more useful also extends what is discoverable in litigation and what is exposed if the workspace is ever breached. That is a legal decision wearing a product costume, and it should be made by the people who own the retention policy rather than by whoever is running the AI pilot. Find out what your workspace actually retains, and who set it, before the evaluation rather than after.</p>
+
+            <h3>Where your decisions actually live</h3>
+
+            <p>If your organization records decisions in <a href="/tool/notion-ai">Notion</a>, tracks work in <a href="/tool/jira">Jira</a> or <a href="/tool/linear">Linear</a>, and writes specs in <a href="/tool/coda">Coda</a>, then Slack holds the coordination around decisions rather than the decisions themselves. It knows the team is shipping Thursday. It rarely knows why Thursday. Slack has been extending search across connected tools, so this boundary is moving and you should verify what your plan actually connects today rather than assuming either the narrow version or the expansive one. The underlying judgment holds either way: an assistant answers well about the surface it can see, and a strongly documented organization may get more from the AI inside its documentation tool than from the AI inside its chat tool.</p>
+
+            <h3>What the summaries flatten</h3>
+
+            <p>A summary compresses a conversation into its apparent consensus, and the losses are predictable enough to plan around. The objection raised once and never repeated tends to disappear. A decision reversed in the last few messages can be reported as the original decision. The difference between someone committing to do a thing and someone agreeing the thing should happen collapses into one sentence. Tone goes first of all, so a joke or a sarcastic aside can be read back as a plain statement of intent.</p>
+
+            <p>For catching up, none of that matters much. For anything consequential, open the thread. The summary is excellent at telling you which thread to open, and that is most of the value on offer here.</p>
+
+            <h3>Permissions and the objection you will hear</h3>
+
+            <p>Results stay scoped to what you can already see: the channels you belong to and your own conversations. It does not surface private channels you were never in. This is worth stating plainly in your rollout note, because the first reaction from employees is that the company has started reading Slack with a machine, and the accurate answer is that the feature does not widen anyone's access. It is also worth being honest about the corollary: because scope is per-user, an administrator and a new hire asking the same question can get different answers, and neither is wrong.</p>
+
+            <p>Whether your content is used to train models is a separate question and a fair one to raise in review. Slack's stated position has been that customer content is not used to train generative models and that the models serving these features operate within Slack-controlled infrastructure. If that matters to your legal or security team, take the current commitment from Slack's own documentation and put it in writing before the question arrives in an all-hands, rather than relying on any secondhand summary including this one.</p>
+
+            <h3>When not to buy it</h3>
+
+            <ul>
+                <li><strong>The workspace is small or quiet.</strong> If nobody on the team has a backlog, you are paying per seat to summarize a scroll that takes a minute to read.</li>
+                <li><strong>Retention is short by policy.</strong> The questions people most want answered are historical, and those are the exact questions a short retention window has already deleted.</li>
+                <li><strong>The real problem is channel chaos.</strong> Structure, naming conventions, and a habit of posting decisions where they belong are prerequisites, not things the AI supplies. Over a disorganized workspace it returns confident answers assembled from the wrong context, which is worse than an empty result because it looks like an answer.</li>
+                <li><strong>Your institutional knowledge lives in documents and tickets.</strong> Buy the AI where the knowledge is.</li>
+                <li><strong>Your pain is meetings, not messages.</strong> That is a different product category entirely, and <a href="/tool/otter-ai">Otter.ai</a> or a native assistant like <a href="/tool/zoom-ai-companion">Zoom AI Companion</a> is the place to look.</li>
+                <li><strong>You are hoping it replaces documentation.</strong> A tool that can half-reconstruct a decision from chat reduces the pressure to write the decision down, and a reconstruction is worse than a one-paragraph decision record every single time.</li>
+            </ul>
+
+            <p>Who it fits: a mid-size or large workspace with genuine volume, a long-lived history, and a culture that argues in channels rather than in DMs. For everyone else, the honest recommendation is to fix where decisions get written before paying to search where they did not.</p>
         `,
         useCases: [
             {
-                title: "Catching up after time off",
-                body: "Returning from vacation or a busy stretch, employees use Slack AI's recap to get a condensed summary of what happened in their key channels instead of scrolling back through days of unread messages.",
+                title: "Catching up on a workspace that genuinely has volume",
+                body: "Someone returning from a week away, or covering for a colleague across time zones, reads channel recaps and thread summaries instead of scrolling days of unread messages. This is the use case that survives contact with reality most reliably, because it depends only on volume existing rather than on the content being well organized. The value scales with how much you actually missed, which is why the same feature feels essential in a busy workspace and pointless in a quiet one.",
             },
             {
-                title: "Summarizing long-running threads",
-                body: "When a debate in a channel spirals into hundreds of replies, Slack AI can condense the thread into a short summary of the actual decision or outcome, saving anyone who joins late from reading the whole history.",
-            },
-            {
-                title: "Workspace search for institutional knowledge",
-                body: "Instead of guessing which channel a past decision was made in, employees ask Slack AI's search a plain-language question and get an answer grounded in the actual message history, cutting out manual keyword searching.",
-            },
-            {
-                title: "Async-first distributed teams",
-                body: "Teams spread across time zones, where no single person sees every channel live, use daily digests and summaries to stay aligned without requiring everyone to be online and reading in real time.",
+                title: "Reconstructing why something was decided",
+                body: "When a settled question resurfaces months later, asking in plain language across accumulated history beats guessing which channel it happened in. The honest precondition, and the reason this list is short: it only works if the reasoning was written in a channel the asker can access and is still inside your retention window. Where teams debate in threads and then post the outcome, this is the strongest argument for the product. Where they debate on calls and post only the conclusion, it returns the conclusion you already had.",
             },
         ],
         pricingDetail:
-            "Slack AI is sold as a paid add-on layered on top of an existing paid Slack plan, priced per seat rather than bundled free into every tier — it is not available on Slack's free plan. Because it's an add-on rather than a standalone product, the practical cost for a team is the underlying Slack plan plus the per-seat AI add-on charge, which is why it tends to show up in mid-size and larger organizations rather than small workspaces evaluating cost per head.",
+            "Slack AI is a capability layered on paid Slack rather than a standalone product, and its commercial packaging has moved over time: it has been sold as a per-seat add-on on top of an existing paid plan, and it has also been positioned as part of paid plans, with more advanced search and agent capabilities licensed separately. Because packaging is exactly the kind of thing that changes between renewals, price it from Slack's current plan documentation or your account team rather than from any third-party description. What holds regardless of the current arrangement: it is not something a free workspace gets, cost tracks seats rather than message volume, and it rides on top of what you already pay for Slack. So the number to compare against a dedicated alternative is the incremental cost per seat, not the whole Slack bill.",
         faq: [
             {
-                q: "Is Slack AI free?",
-                a: "No. Slack AI is a paid, per-seat add-on layered on top of an existing paid Slack plan — it isn't available on Slack's free tier, and there's no separate standalone free version.",
+                q: "Is Slack AI included in our plan, or an extra cost?",
+                a: "Check your own plan rather than a description of it. Slack has packaged these features as a paid per-seat add-on and has also bundled them into paid tiers, with more advanced capability licensed separately, and that arrangement has changed more than once. The only durable answer is that it requires a paid Slack plan and that cost scales per seat.",
             },
             {
-                q: "How is Slack AI different from a meeting assistant like Otter.ai?",
-                a: "Slack AI summarizes and searches written, asynchronous conversation inside Slack channels and threads. Otter.ai and Zoom AI Companion transcribe and summarize spoken meetings. They solve different problems and are commonly used together rather than as alternatives.",
+                q: "Can it read private channels or DMs I am not a member of?",
+                a: "No. Summaries and answers stay inside the permissions you already have, so the feature does not widen anyone's access to content. One consequence worth communicating during rollout is that scope is per-user, which means an administrator and a new hire can ask the same question and get legitimately different answers.",
             },
             {
-                q: "Does Slack AI's search only look at messages I can already see?",
-                a: "Yes. Summaries and AI search results stay scoped to the channels and conversations you already have permission to access — it doesn't surface anything from private channels or DMs you're not a member of.",
+                q: "Is it useful if our message retention is only a few months?",
+                a: "Much less useful, and this is the single most underrated constraint. Retention sets a hard ceiling on what any AI layer can retrieve, and the historical questions people most want answered are the ones a short window has already deleted. Extending retention to compensate is a legal decision about discoverability, not a product setting, so raise it with whoever owns the policy.",
+            },
+            {
+                q: "Is our Slack content used to train AI models?",
+                a: "Slack's stated position has been that customer content is not used to train generative models and that the models behind these features run within Slack-controlled infrastructure. If your security or legal team needs that as a commitment rather than a summary, get the current terms from Slack directly, since this is precisely the kind of language vendors revise.",
+            },
+            {
+                q: "Should we buy this or a meeting assistant?",
+                a: "They solve unrelated problems and the choice depends on where your information is stranded. If people are losing decisions inside long written threads, this is the right category. If they are losing them inside calls nobody took notes on, you want transcription instead, and teams frequently end up running both because the two failures are independent.",
             },
         ],
     },
 
     supermaven: {
         overviewHtml: `
-            <p><strong>Supermaven</strong> is a code-completion tool that deliberately does one thing rather than many. Where <a href="/tool/cursor">Cursor</a> and <a href="/tool/github-copilot">GitHub Copilot</a> have expanded into chat, multi-file agents, code review, and CLIs, Supermaven has stayed narrowly focused on inline autocomplete — the tab-key suggestion that appears as you type — and optimized it as hard as possible for two things: latency and context. It ships as an extension for VS Code, JetBrains IDEs, and Neovim, and installs alongside whatever chat or agent tool a developer already uses rather than trying to replace it. That narrowness is a deliberate bet: rather than competing on feature breadth against much larger platforms, it competes on being the single best version of one specific interaction.</p>
+            <p><strong>Supermaven</strong> does one thing. While <a href="/tool/cursor">Cursor</a> and <a href="/tool/github-copilot">GitHub Copilot</a> expanded into chat, multi-file agents, code review, and command-line tools, Supermaven stayed on inline autocomplete, the grey suggestion you accept with the tab key, and optimized it for two properties: how quickly it appears and how much of your project it has already read. It ships as an extension for VS Code, JetBrains IDEs, and Neovim, and it is built to sit beside whatever agent you already use rather than to replace it. Evaluating it as a Copilot alternative is the most common route to the wrong conclusion about it, because it is not trying to occupy that slot.</p>
 
-            <p>The two specs it leads on aren't abstract marketing numbers — they change how the tool actually feels to use. A claimed 1-million-token context window means it can hold far more of a project's surrounding code in view than typical completion models, so suggestions are less likely to hallucinate a function signature that doesn't exist or miss a type defined in a file you haven't opened. On a large monorepo, that shows up concretely as fewer wrong imports and fewer plausible-looking APIs that don't actually exist in your codebase. The low-latency completion pipeline means suggestions tend to appear before your eyes have even left the line you're typing, which keeps you in flow instead of pausing to evaluate a popup that showed up a beat late — a difference that feels small in isolation but compounds meaningfully over a full day of typing.</p>
+            <h3>Latency is the feature, and it is not a gimmick</h3>
 
-            <p>The tradeoff is exactly what you'd expect from a single-purpose tool: Supermaven has no chat, no agent mode, and can't plan or execute a multi-file refactor — for that kind of work you still need <a href="/tool/cursor">Cursor</a>, <a href="/tool/windsurf-ide">Windsurf</a>, or Copilot's agent mode. Its ecosystem and integrations are also considerably smaller than Copilot's, since it isn't wired into a platform the way Copilot is wired into GitHub pull requests, and there's no code-review or CLI surface to speak of. One detail worth knowing before standardizing a team on it: the Supermaven team joined Cursor's parent company, Anysphere, in late 2024, so it's worth checking the current state of its roadmap and editor support rather than assuming a fully independent trajectory going forward.</p>
+            <p>Speed reads like a marketing axis until you notice it changes the interaction itself. A completion that arrives while your fingers are still moving gets evaluated as part of typing: you glance, take it or keep going, and never leave the line. A completion that arrives after you have stopped is a decision. You have already switched into reading mode, and the cost of considering it is paid whether you accept it or not. Supermaven optimizes hard for the first case, which is why people who like it describe it in terms of flow rather than in terms of output quality.</p>
 
-            <p>Who it is for: developers who already have a chat or agent tool for planning and multi-file work and specifically want the fastest, most context-aware autocomplete layered on top of it — and who care enough about typing-flow latency to notice the difference day to day. Who it is not for: developers who want one consolidated tool covering completion, chat, and agentic edits, or teams that specifically want deep GitHub-native workflow integration; <a href="/tool/github-copilot">GitHub Copilot</a> or <a href="/tool/tabnine">Tabnine</a> fit those needs better.</p>
+            <p>The corollary matters just as much and is rarely said out loud. Low latency is only valuable when rejecting a suggestion is nearly free, which is true of a one-line completion and false of a multi-file change you have to read. That is the honest boundary of the entire product: it improves the cheap-to-reject interaction and has nothing to offer on the expensive ones.</p>
+
+            <h3>A long context window changes what it gets wrong</h3>
+
+            <p>The second claim is an unusually large context window, meaning how much surrounding code the model holds while completing. Rather than quoting a token figure that shifts with each model release, it is more useful to know what the difference looks like at the keyboard: fewer invented helper functions, fewer imports from modules that do not exist, and completions that follow a convention defined in a file you never opened this session. On a large monorepo that is exactly where narrow-context completers fail most visibly, and the failures are annoying out of proportion to their size because each one costs a lookup.</p>
+
+            <p>What a large window does not buy is judgment. It will still complete a call into the wrong abstraction layer, because seeing your code is not the same as knowing which parts of it you are supposed to use. More context reduces factual errors about your codebase. It does not reduce architectural ones, and no amount of it turns a completer into a reviewer.</p>
+
+            <h3>Running it next to Cursor or Copilot</h3>
+
+            <p>Two tools both drawing inline suggestions will fight over the same slot, and the symptoms are flickering ghost text, duplicated suggestions, or one quietly winning in a way that makes both feel worse. The working arrangement is to let Supermaven own the tab key and switch off inline completions in the other tool while keeping its chat and agent surfaces. That also frames the cost honestly: this is a second subscription stacked on one you already pay for, and it has to justify itself on typing alone. If you have not settled the primary tool yet, settle that first. <a href="/compare/cursor-vs-supermaven">Cursor against Supermaven</a> and <a href="/compare/github-copilot-vs-supermaven">Copilot against Supermaven</a> are comparisons between a platform and a component, and reading them that way is what makes them useful.</p>
+
+            <h3>When Supermaven is the wrong choice</h3>
+
+            <ul>
+                <li><strong>You want one tool rather than a stack.</strong> A consolidated platform that does completion, chat, and agentic edits at a good-enough level beats a best-in-class completer plus three other subscriptions for most individuals, and every extra tool is a configuration to maintain.</li>
+                <li><strong>Typing is not your bottleneck.</strong> If your days go to unfamiliar code, test design, or deciding what to build, faster keystrokes multiply the part that was never slowing you down.</li>
+                <li><strong>You need GitHub-native workflow.</strong> Pull request review, issue context, and repository-level automation live with <a href="/tool/github-copilot">GitHub Copilot</a>. Supermaven has no surface there and is not attempting one.</li>
+                <li><strong>Your code cannot leave your network.</strong> This is a hosted completion service, so surrounding context goes to the vendor to be completed. Where that is disqualifying, the category to look at is self-hosted assistants such as <a href="/tool/tabnine">Tabnine</a>, and you should read the current data-handling terms rather than infer them.</li>
+                <li><strong>You are standardizing a whole team on it.</strong> The Supermaven team joined Anysphere, the company behind Cursor, in late 2024. What that means today, whether the standalone extensions are still being updated, still open to new signups, and still on their own roadmap rather than being folded into Cursor, is something to confirm directly with the vendor before a team commits. Acquisitions and shutdowns are frequent in this category and any write-up, this one included, ages quickly.</li>
+            </ul>
+
+            <p>Who it fits: developers who already have an agent for planning and multi-file work and who notice completion latency day to day. If you are earlier than that and still assembling the basics, <a href="/blog/cursor-vs-github-copilot">the Cursor and Copilot comparison</a> is the better starting point, because the primary tool decision determines whether a specialist completer is worth adding at all.</p>
         `,
         useCases: [
             {
-                title: "Fast inline autocomplete for daily coding",
-                body: "Developers who type a lot of routine, boilerplate-adjacent code use Supermaven purely for its tab-completion speed, keeping a separate chat or agent tool open for anything that requires planning or multi-file changes.",
+                title: "Fast inline completion alongside a separate agent",
+                body: "Developers who keep a chat or agent tool open for planning and refactors run Supermaven purely for the tab key, on the theory that the two jobs have different requirements. Planning wants a strong model and tolerates a wait. Typing wants a suggestion before attention moves, and one tool optimized for each beats one tool splitting the difference.",
             },
             {
-                title: "Working in large monorepos",
-                body: "The large context window means completions are more likely to correctly reference helper functions and types defined elsewhere in a big codebase, reducing the frequency of hallucinated imports or wrong function signatures on large projects.",
+                title: "Large monorepos where narrow context fails",
+                body: "In a codebase where the helper you need was defined in a file you have never opened, completers with small context windows invent plausible names and imports. A large window makes completions more likely to reference what actually exists, which shows up as fewer interruptions to go look something up rather than as a visible feature.",
             },
             {
-                title: "Pairing with a separate chat or agent tool",
-                body: "Because Supermaven has no chat or agent surface of its own, developers commonly run it alongside a tool like Claude or Cursor's chat for planning and reasoning, using Supermaven strictly to accelerate the actual typing.",
+                title: "Editors the agentic tools do not reach",
+                body: "Neovim and JetBrains users often cannot or will not migrate to a VS Code fork to get a modern assistant. Because Supermaven ships as an extension rather than an editor, it adds current-generation completion without changing where you work, which is frequently the deciding factor for developers with a long-tuned environment.",
             },
         ],
         pricingDetail:
-            "Supermaven is freemium: a free individual tier covers everyday completion use, while a low-cost paid Pro tier removes usage limits. Pricing is flat rather than metered by tokens or credits, which is part of its pitch — it aims to be cheap and predictable compared with agent-heavy tools that bill by usage. Because it offers no chat or agent features, there's no separate agent-usage tier the way there is with broader platforms.",
+            "Supermaven is structured as freemium: a free individual tier covers ordinary completion use and a paid tier lifts the limits. The model matters more than the figure. Billing is flat per user rather than metered by tokens, credits, or agent runs, which is a direct consequence of the product doing only completion, and there is no agent tier because there are no agents. Two cautions before budgeting. First, this is usually a second subscription next to the agent you already pay for, so judge it on the typing experience rather than on total capability. Second, confirm current availability and terms with the vendor, since ownership of the product changed after those tiers were introduced.",
         faq: [
             {
-                q: "Is Supermaven faster than GitHub Copilot?",
-                a: "Speed is Supermaven's entire pitch, and in practice its completions do tend to surface noticeably sooner than Copilot's. Whether that matters depends on how you work: if you accept inline suggestions constantly while typing, the lower latency meaningfully changes how it feels to code. If you mostly use chat and agents, it's largely irrelevant.",
+                q: "Is Supermaven actually faster than GitHub Copilot?",
+                a: "Latency is its entire reason for existing, and developers who use both generally report its suggestions arriving sooner. Rather than trusting a figure from anyone, install it for a day and watch whether suggestions land before your attention leaves the line, because that threshold is what the whole claim rests on and it depends on your machine, your network, and your typing speed.",
             },
             {
-                q: "Does Supermaven have chat or agent features?",
-                a: "No. Supermaven is deliberately autocomplete-only — a large context window feeding fast inline completions. It won't execute multi-file changes, run terminal commands, or hold a conversation. For agentic work you'd pair it with a separate tool like Cursor or Copilot's agent mode.",
+                q: "Does it have chat or agent features?",
+                a: "No, deliberately. There is no chat panel, no agent mode, no terminal execution, and no multi-file planning. If you want those, you need a separate tool, which is the setup Supermaven assumes you already have.",
             },
             {
-                q: "Can I use Supermaven and Cursor or Copilot at the same time?",
-                a: "You can, but not with two tools both providing inline completions — they'll compete for the same suggestion slot. The common setup is disabling the other tool's inline completions while keeping its chat or agent features, and letting Supermaven own the tab key.",
+                q: "Can I run it at the same time as Cursor or Copilot?",
+                a: "Yes, but not with both providing inline completions, since they compete for the same suggestion slot and the result is flicker or duplicated ghost text. Disable inline completions in the other tool, keep its chat and agent surfaces, and let Supermaven own the tab key.",
+            },
+            {
+                q: "Is Supermaven still an independent product?",
+                a: "The team joined Anysphere, the company behind Cursor, in late 2024. Where that leaves the standalone extensions now, whether they are actively maintained, accepting new users, and developed separately from Cursor, is worth checking against the vendor's own current status page before you build a workflow or a team rollout on it.",
+            },
+            {
+                q: "Which editors does it support?",
+                a: "It has shipped extensions for VS Code, the JetBrains IDEs, and Neovim, which is the main reason it appears in setups where a VS Code fork is not an option. Confirm the current list and the maintenance status of the specific extension you need, because plugin support across editors is uneven and can lag.",
+            },
+            {
+                q: "Does my code leave my machine?",
+                a: "Yes, as with other hosted completion tools. Surrounding context is sent to the vendor's service to generate a suggestion, so this is not local inference. If your organization cannot allow that, you are in the on-premises category rather than the low-latency one, and should read the vendor's current data-handling and retention terms instead of assuming either way.",
+            },
+            {
+                q: "Is it worth paying for if I already pay for Cursor or Copilot?",
+                a: "Only on one test: whether you accept inline suggestions constantly while typing. If you do, the interaction you perform hundreds of times a day gets better and the second subscription is easy to justify. If you mostly drive work through chat and agents, you are paying for a property of an interaction you barely use.",
             },
         ],
     },
@@ -248,46 +319,72 @@ export const TOOL_EXTENDED_CONTENT_B4: Record<string, ToolExtendedContent> = {
 
     "zoom-ai-companion": {
         overviewHtml: `
-            <p><strong>Zoom AI Companion</strong> is Zoom's own built-in meeting assistant, and its defining trait is exactly that: it's native, not an add-on. Where <a href="/tool/otter-ai">Otter.ai</a> joins as a third-party bot that has to be invited into a call on any platform, AI Companion is simply already there inside every eligible Zoom meeting, with no separate app to install and no bot to admit and no participant to see join the call. For organizations already standardized on Zoom for video calls, that zero-setup integration is the whole appeal — it removes an entire category of rollout friction that a third-party tool has to solve for.</p>
+            <p><strong>Zoom AI Companion</strong> is Zoom's own meeting assistant, and the most consequential thing about it is not on the feature list. For an organization already running on Zoom, there is almost nothing to decide. No new vendor to review, no data processing agreement to negotiate, no third-party bot appearing in the participant list, no second tool for people to learn. It is a setting an administrator turns on. That single fact reframes every comparison against a dedicated product like <a href="/tool/otter-ai">Otter.ai</a>, because the specialist is not being judged against a blank slate. It is being judged against something already switched on and already paid for.</p>
 
-            <p>Inside a meeting, AI Companion generates a post-meeting summary with highlights and next steps, and its "Catch Me Up" feature lets someone joining late — or catching up afterward — get a quick recap of what they missed without rewatching the recording. Outside the meeting itself, it extends into Zoom Team Chat with smart compose suggestions and into Zoom Docs and Whiteboard with AI-assisted content and mind-map generation, so the assistant follows you across Zoom's broader product suite rather than staying confined to the call window. That breadth across chat, docs, and whiteboarding is something a call-only transcription bot like <a href="/tool/otter-ai">Otter.ai</a> simply doesn't attempt, since Otter's whole product is scoped to the meeting itself.</p>
+            <h3>Almost nothing to buy, and that is the point</h3>
 
-            <p>Its biggest strength is also its biggest limitation: because it's bundled directly into Zoom, there's no separate per-seat AI subscription to buy or bot to manage the way there is with <a href="/tool/slack-ai">Slack AI</a>'s add-on pricing model — it's simply included as part of an eligible Zoom plan, which lowers the barrier for a team to turn it on and start using it immediately. But that same tight integration means it only helps with meetings that actually happen in Zoom; it has nothing to offer for calls on Teams or Meet, which is exactly the gap that a cross-platform tool like Otter.ai exists to fill for teams that aren't fully standardized on one video vendor. Users and reviewers also consistently note that its meeting summaries, while useful for a quick recap, can miss nuance and context compared to a dedicated transcription-first product that has made summarization accuracy its entire focus rather than one feature among many.</p>
+            <p>The capabilities are what you would expect from a platform assistant rather than a specialist: a post-meeting summary with highlights and next steps, a Catch Me Up recap for someone arriving late, the ability to ask what has been covered while the meeting is still running, thread summaries and message drafting in Zoom Team Chat, and content and mind-map generation in Zoom Docs and Whiteboard. None of these individually beats a tool built solely for that job. They win on a different axis, which is that the cost of trying them is an admin toggle rather than a procurement cycle.</p>
 
-            <p>Who it is for: teams and organizations already running their meetings on Zoom who want in-meeting AI recall and summaries without adding another vendor, bot, or subscription to manage, and admins who value having AI usage governed under the same plan and account controls as the rest of Zoom. Who it is not for: teams whose meetings are spread across multiple video platforms, who will get more consistent results from a platform-agnostic tool like Otter.ai, or anyone who needs a meeting summary with more depth and nuance than a quick auto-generated recap provides.</p>
+            <p>Commercial packaging works the same way, and it is worth being careful here because this is where write-ups go stale fastest. AI Companion has been positioned as included with eligible paid Zoom accounts rather than sold as a separate per-seat AI subscription, and Zoom has also introduced paid add-on tiers covering more advanced capability. Which features sit on which side of that line moves release to release, so confirm your own plan's entitlements in Zoom's current documentation instead of trusting any third-party summary, this one included. The structural point survives the details: the baseline assistant is a plan feature, not a separate purchase, which is a different model from paying per seat for an assistant layered onto a chat tool such as <a href="/tool/slack-ai">Slack AI</a>.</p>
+
+            <h3>The split with Otter is your calendar, not accuracy</h3>
+
+            <p>Most comparisons ask which one writes better summaries. That is close to the least decision-relevant question available, because differences in summary quality are small next to a coverage difference that is absolute. Ask where your meetings happen instead. If they all happen in Zoom, a native assistant covers all of them and a third-party tool is a second bill for the same output. If a meaningful share happen on Microsoft Teams or Google Meet, AI Companion cannot see those at all, and you end up with two or three archives in different formats and no single place to search, which is precisely the problem <a href="/tool/otter-ai">Otter.ai</a> exists to solve by joining through your calendar regardless of platform.</p>
+
+            <p>A second axis is worth adding: what you need out of the meeting afterward. A recap you read once and discard is exactly what a native assistant is built to produce. A transcript you need to keep, quote, search months later, or hand to someone else, as with interviews, user research, or anything evidentiary, favors a transcription-first product where the transcript is the deliverable rather than a byproduct of generating the summary.</p>
+
+            <h3>When to leave it turned off</h3>
+
+            <p>Native does not mean harmless, and there are meetings where the correct configuration is off. Sensitive conversations, including HR matters, investigations, terminations, and clinical or legal discussions, produce a generated record that is as discoverable as any other record, and the person being discussed did not agree to it. Summaries also travel further than the meeting did, so decide who may forward one before you find out. Anything treated as minutes deserves particular suspicion: a recap that misattributes a decision or quietly drops the dissent is worse than no notes, and the discipline that keeps the feature useful is treating it as recall rather than as record. Data handling is a review question worth doing once rather than assuming, and Zoom's public position has been that customer content is not used to train its AI models, which your compliance team should take from Zoom's current terms rather than from a summary of them. Finally, if the underlying problem is that you have too many meetings, an assistant makes bad meetings cheaper to hold rather than rarer, which is the one outcome nobody is actually trying to buy.</p>
         `,
         useCases: [
             {
-                title: "Zero-setup meeting summaries",
-                body: "Teams already on Zoom get automatic post-meeting summaries and next-step highlights with no bot to invite and no separate app to configure, since the assistant is built directly into the platform they're already using.",
+                title: "Summaries for an organization already standardized on Zoom",
+                body: "Teams whose calls all happen in one place get post-meeting summaries and next steps without adding a vendor, a bot, or a subscription. The reason this is the dominant use case is not quality. It is that the alternative requires someone to run a procurement and a security review for a marginal improvement.",
             },
             {
-                title: "Catching up on missed meetings",
-                body: "Employees who join a call late, or miss it entirely, use Catch Me Up to get a fast recap of what happened instead of scrubbing through a full recording, saving time on meetings that ran long.",
+                title: "Catching up without rewatching",
+                body: "Someone joining twenty minutes late, or reviewing afterward, gets a recap instead of scrubbing a recording. Asking what has been covered while the meeting is still running is the more useful version of this, because it lets a late arrival rejoin the conversation rather than reconstruct it later.",
             },
             {
-                title: "In-meeting whiteboard and mind-map generation",
-                body: "During brainstorms, teams use AI Companion inside Zoom Whiteboard to generate mind maps and organize ideas on the fly, keeping the ideation and the AI assistance in the same window as the discussion.",
+                title: "Meetings you deliberately decline",
+                body: "Once a reliable recap exists, attendance becomes optional for meetings where someone is present only to stay informed. Used this way the assistant is a scheduling lever rather than a note-taking feature, and it is the highest-value outcome available here.",
             },
             {
-                title: "Chat drafting in Zoom Team Chat",
-                body: "Outside of meetings, employees use AI Companion's smart compose in Zoom Team Chat to draft messages and follow-ups faster, extending the assistant's usefulness beyond the meeting itself.",
+                title: "Calls where an external recorder is unwelcome",
+                body: "Some hosts, clients, and security teams object to a third-party bot joining, independent of whether recording itself is permitted. A native feature avoids introducing a new processor into the call, which is a lower bar to clear than approving another vendor, though it is not a substitute for checking your own recording and consent rules.",
+            },
+            {
+                title: "Team Chat backlog and drafting",
+                body: "Outside meetings, thread summaries and compose suggestions in Zoom Team Chat extend the assistant to written conversation. This matters mainly to organizations that use Zoom as their chat tool rather than running chat elsewhere, where the equivalent feature belongs to that vendor instead.",
+            },
+            {
+                title: "Drafting in Docs and Whiteboard during a session",
+                body: "Generating a first outline in Zoom Docs or organizing a brainstorm into a mind map in Whiteboard keeps ideation and assistance in the same window as the discussion, which is the practical advantage of an assistant that spans a suite rather than one that stops at the call.",
+            },
+            {
+                title: "Governed rollout instead of shadow notetakers",
+                body: "Left alone, employees install personal AI notetakers and join them to company calls, which is the actual data exposure most organizations have. Enabling a native assistant under existing account controls gives IT one place to set policy and one behavior to communicate, and removes the motivation for the unmanaged version.",
             },
         ],
         pricingDetail:
-            "Zoom AI Companion is bundled into eligible Zoom plans rather than sold as a separate subscription or per-seat add-on — there is no standalone AI Companion purchase. Its availability depends on the Zoom plan and account type a host is on rather than an extra AI-specific fee, which is a structurally different model from Slack AI's paid per-seat add-on approach. Because it's included rather than metered, the practical cost consideration is simply which Zoom plan tier makes AI Companion available on your account, not a separate line item to budget for.",
+            "Zoom AI Companion is packaged as a feature of eligible paid Zoom plans rather than as a standalone AI product, and Zoom has also introduced paid add-on tiers that extend it beyond the included baseline. The practical consequence is that the budget question is not how many AI seats to buy but which plan your accounts are on and which capabilities that plan currently entitles them to, and the answer moves as Zoom repackages. Confirm entitlements against Zoom's own current plan documentation before assuming a given feature is included, and treat the included baseline as the thing to compare against a dedicated tool's per-seat cost.",
         faq: [
             {
-                q: "Do I have to pay extra for Zoom AI Companion?",
-                a: "No separate subscription — it's bundled into eligible Zoom plans rather than sold as a standalone add-on. Availability depends on which Zoom plan and account type you're on rather than an additional AI-specific charge.",
+                q: "Do we have to pay extra for AI Companion?",
+                a: "The baseline assistant has been packaged as part of eligible paid Zoom plans rather than sold as a separate per-seat subscription, and Zoom has also introduced paid add-on tiers for more advanced capability. Because that boundary moves, verify what your specific plan includes in Zoom's current documentation rather than relying on a secondhand description.",
             },
             {
-                q: "Does Zoom AI Companion work for meetings on other platforms like Teams or Google Meet?",
-                a: "No. It's built into Zoom specifically and only works within Zoom meetings, chat, docs, and whiteboard. If your team's meetings are spread across multiple video platforms, a cross-platform tool like Otter.ai will give you more consistent coverage.",
+                q: "Does it work for meetings on Microsoft Teams or Google Meet?",
+                a: "No. It only sees meetings, chat, docs, and whiteboards inside Zoom. That is the entire reason cross-platform tools exist, and if a meaningful share of your calls happen elsewhere, a native assistant leaves you with partial coverage and a split archive.",
             },
             {
-                q: "How good are Zoom AI Companion's meeting summaries?",
-                a: "Useful for a quick recap of highlights and next steps, but users consistently note that the summaries can miss nuance and finer context compared to a dedicated transcription-first tool. Treat it as a fast overview rather than a substitute for reviewing the recording on anything high-stakes.",
+                q: "Should we use AI Companion or Otter.ai?",
+                a: "Decide on coverage first, not quality. All meetings in Zoom means the native assistant is already there and a second tool is a second bill. A mixed calendar means only a platform-agnostic tool gives you one archive. The tiebreaker after that is what you need afterward: a disposable recap favors the native option, while a transcript you must keep, quote, and search later favors a transcription-first product.",
+            },
+            {
+                q: "Can we treat the summaries as official meeting minutes?",
+                a: "No, and it is worth saying so explicitly when you roll it out. Generated recaps can flatten a reversal made late in the call, drop an objection raised once, or attribute a decision to the wrong person. Use them for recall and spot-check anything consequential, because a plausible wrong record is more damaging than no record at all.",
             },
         ],
     },

@@ -118,104 +118,192 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
     chatgpt: {
         overviewHtml: `
-            <p><strong>ChatGPT</strong> is the product that turned large language models into a mainstream tool, and in mid-2026 it remains the default AI assistant for most people. The underlying model line has moved to <strong>GPT-5.6</strong> (launched July 2026), which ships as three variants — the flagship Sol, the balanced Terra, and the fast, affordable Luna — on paid tiers, while the free tier runs a limited Luna-based model with tight message limits and, in the US, ads. OpenAI also launched <strong>ChatGPT Work</strong>, a separate enterprise-focused workspace product, alongside GPT-5.6. For most users "AI assistant" and "ChatGPT" are still synonyms — which is both its biggest strength and the reason expectations of it are unrealistically high.</p>
+            <p><strong>ChatGPT</strong> is the page nobody needs to read to know what the product is, which is exactly why a description of it is worthless. The interesting thing about ChatGPT in its current form is that it is no longer really an assistant. It is a platform with an assistant on the front, and almost every serious question about it — is the subscription worth it, should we buy it for the company, do we need Claude as well — is a question about the platform rather than about how well it answers a prompt.</p>
 
-            <p>What you actually get depends heavily on the tier. The <strong>Free</strong> plan is genuinely useful for occasional questions but throttles you to a handful of messages per window before downgrading to a smaller model. <strong>Plus ($20/mo)</strong> is the tier most individuals should consider: it unlocks the full model suite, Deep Research, image generation with Sora, Agent Mode, and the Codex coding tools, ad-free. <strong>Pro ($200/mo)</strong> exists for power users who want the largest context window and high Deep Research limits, and is hard to justify unless you are running AI as a core part of daily work.</p>
+            <h3>It is a platform now, and that changes the evaluation</h3>
 
-            <p>The real strength of ChatGPT is breadth. It is competent at writing, coding, analysis, image generation, voice, and increasingly agentic tasks, all behind one interface, with the largest ecosystem of integrations and the most polished mobile and desktop apps. For someone who wants one tool that does most things acceptably well, nothing else matches its surface area.</p>
+            <p>The chat box is the least differentiated part of the product. Every frontier assistant has one, they are all fluent, and the ranking between them changes often enough that choosing on conversational quality is choosing on noise. What surrounds the chat box is harder to replicate: file handling, a code-execution environment for data work, image generation, voice, connectors into other applications, custom assistants you can configure and share, and a mobile and desktop client that most competitors have not matched for polish.</p>
 
-            <p>The honest weaknesses: it still hallucinates confidently, the free tier's ads and limits are a real downgrade from a year ago, and the gap between the $20 and $200 tiers leaves a frustrating middle for heavy-but-not-professional users. For sustained, careful reasoning or long-document work, many users find <a href="/tool/claude">Claude</a> more reliable, and for research with live citations <a href="/tool/perplexity">Perplexity</a> is often the better tool. See <a href="/compare/chatgpt-vs-claude">ChatGPT vs Claude</a> and <a href="/compare/chatgpt-vs-perplexity">ChatGPT vs Perplexity</a> for head-to-head breakdowns.</p>
+            <p>That surface area is the actual product, and it is why the honest comparison against a rival is rarely "which one writes better." It is "which one already has the thing I need attached to it." For a large number of people the answer is ChatGPT by default, not because it is the strongest model on any given week but because the capability they wanted was already in the same window.</p>
 
-            <p>Who it is for: anyone who wants the most capable general-purpose AI with the widest feature set. Who it is not for: users who only need one narrow capability (a dedicated tool is usually cheaper and better), or anyone uncomfortable with ads and aggressive rate limits on the free tier.</p>
+            <h3>Files, data, and the feature people underuse</h3>
+
+            <p>The single most underused thing in the paid product is uploading a document or a spreadsheet and asking questions of it. Analysis runs in a sandboxed environment where the model writes and executes code against your file, which means you can get charts, cleaned tables, and calculations from someone who has never opened a data notebook. For the many jobs where the data work is not hard but is annoying — reconciling two exports, finding the rows that do not match, summarising a quarter of survey responses — this closes a real gap.</p>
+
+            <p>It also fails in ways worth knowing before you rely on it. It is confident about what a column means, it will quietly drop rows it could not parse, and it does not know the business rules that make a number correct. Treat the output the way you would treat work from a fast, bright contractor who has never seen your data: worth having, worth checking. The same applies to long documents, where summarising is reliable and finding the one clause that matters is not.</p>
+
+            <h3>Custom GPTs, and the honest ceiling on them</h3>
+
+            <p>A custom GPT is a saved configuration: instructions, some uploaded reference material, optionally a connection to an external service, wrapped in a shareable link. What you are buying is not intelligence but the elimination of setup — the analyst who re-explains the reporting format every Monday builds it once, and the rest of the team stops re-explaining it too.</p>
+
+            <p>The ceiling arrives quickly. A custom GPT is a prompt with attachments, not an application. It has no state between conversations, no reliable enforcement of the rules you wrote, and no way to guarantee that a user who asks sideways gets the behaviour you intended. Teams that expect an internal product from one tend to be disappointed; teams that expect a well-made shortcut are usually happy. If you find yourself wanting version control, tests, and audit logs around one, you have outgrown the format and want the API.</p>
+
+            <h3>The subscription and the API are separate purchases</h3>
+
+            <p>This trips up more people than it should. Paying for ChatGPT does not give you API access, and paying for the API does not give you the app. They are billed separately, metered differently, and aimed at different users: the subscription is a flat-rate consumer product with usage limits, the API is metered by tokens and has no interface at all.</p>
+
+            <p>The practical implication for anyone building something is that the app is where you work out whether an idea is viable and the API is where you ship it. Getting a prompt to behave in the chat window costs you a subscription you already have; running it ten thousand times a day is a line in an infrastructure budget. Our piece on <a href="/blog/token-economics-2026">token economics</a> covers why that second number behaves so differently from the first, and <a href="/blog/future-prompting">how prompting is changing</a> covers the first.</p>
+
+            <h3>Buying it for a team is a different question</h3>
+
+            <p>An individual asks whether the monthly fee improves their day. An organisation asks a completely different set of questions, and the answers are what actually decide the purchase: can we administer seats centrally, does it connect to our identity provider, can we control which connectors are enabled, is workspace data excluded from model training by default, what is retained and for how long, and can we produce an answer for an auditor about all of it.</p>
+
+            <p>The business and enterprise tiers exist to answer those, and the gap between them and an individual subscription is administrative rather than conversational — the model is not smarter, the controls are. The specifics of what each tier includes have been revised repeatedly, so confirm the current terms in OpenAI's own documentation rather than trusting any summary, including this one. What is stable enough to plan around is the shape: individual plans are consumer products with consumer data handling, and the business tiers are where the controls a security review asks about actually live.</p>
+
+            <p>The unglamorous part matters too. Shadow usage is the normal state of affairs in companies that have not bought anything — people paste work into a personal account because nobody gave them a sanctioned option. Buying a workspace is frequently less about enabling AI than about moving usage that already happens onto infrastructure you can see.</p>
+
+            <h3>When ChatGPT is the wrong default</h3>
+
+            <p>It is the wrong default when you need to verify rather than read. A general assistant produces fluent claims with no reliable provenance, and the browsing it does when prompted is not the same as a tool built around citation. If the output is going to be defended to someone, start with <a href="/tool/perplexity">Perplexity</a> instead — <a href="/compare/chatgpt-vs-perplexity">ChatGPT vs Perplexity</a> separates the two cases.</p>
+
+            <p>It is the wrong default when the work is one very long document or one very large piece of code and the failure mode you fear is losing the thread halfway through. Plenty of people who use ChatGPT for everything else keep <a href="/tool/claude">Claude</a> open for exactly that; <a href="/compare/chatgpt-vs-claude">ChatGPT vs Claude</a> and our <a href="/blog/chatgpt-vs-claude">longer write-up</a> both land on the same split.</p>
+
+            <p>It is the wrong default inside a codebase. It will write good code for a problem you describe, and it has no idea what is in your repository. An editor-integrated tool like <a href="/tool/cursor">Cursor</a> is not competing on model quality there; it is competing on knowing what the other four hundred files say.</p>
+
+            <p>And it is the wrong default if you only ever needed one narrow thing. A person who wanted transcription, or image generation, or grammar checking, and bought a general assistant to get it, has usually bought a worse version of a dedicated tool at a similar price. Breadth is only an advantage if you use the breadth.</p>
         `,
         useCases: [
             {
-                title: "Everyday generalist assistant",
-                body: "Most people use ChatGPT as a catch-all: drafting emails, explaining concepts, summarizing documents, brainstorming, and quick coding help. Its strength here is that it is 'good enough' across all of these without switching tools, which is why it remains the default for non-specialists.",
+                title: "The place questions get asked by default",
+                body: "Drafting, explaining, rewriting, summarising, working out what you actually think. This is the majority of usage and it is not exciting, but the fact that no tool switch is required is most of the reason it wins over marginally better single-purpose products.",
             },
             {
-                title: "Multimodal creation",
-                body: "On paid tiers, ChatGPT combines text, image (Sora), and voice in one place. Creators use it to generate visuals, iterate on copy, and produce voiceovers in a single session rather than stitching together three separate tools.",
+                title: "Interrogating a document you were not going to read",
+                body: "A contract, a policy, a long report, a set of meeting notes. Summarising is dependable; locating the one clause that changes your decision is less so, which makes this an accelerant for reading rather than a substitute for it.",
             },
             {
-                title: "Agentic task automation",
-                body: "Agent Mode lets ChatGPT carry out multi-step tasks — browsing, filling forms, compiling research — with limited supervision. It is still early and error-prone, but for repetitive web-based chores it can save real time for Plus and Pro subscribers.",
+                title: "Spreadsheet work by someone who is not an analyst",
+                body: "Upload the file and the model writes and runs code against it, returning cleaned tables and charts. The value is concentrated in the tedious middle of data work, and the risk is that it does not know which of your columns is authoritative.",
+            },
+            {
+                title: "Packaging a repeated task as a custom GPT",
+                body: "Any request you re-explain weekly is a configuration you could have saved once and shared. The gain is removing setup, not adding capability, and it holds up well until somebody expects it to behave like an application.",
+            },
+            {
+                title: "First drafts of things nobody enjoys writing",
+                body: "Job descriptions, release notes, status updates, the third version of an announcement. Output quality matters less here than escape velocity from a blank page, which is the one thing a general assistant is unambiguously good at.",
+            },
+            {
+                title: "Proving out a prompt before it becomes an API call",
+                body: "Developers use the app to find the phrasing that works, then move the stable version into code where it can be versioned and tested. Using the chat window as a workbench is cheaper than iterating against a metered endpoint.",
             },
         ],
         pricingDetail:
             "ChatGPT has six tiers in 2026: Free ($0, with ads and tight limits in the US), Go ($8/mo, more volume but still ad-supported and missing advanced features), Plus ($20/mo, the sweet spot with full models and features), Pro ($200/mo, for power users wanting the largest context and highest Deep Research limits), Business ($25/user/mo), and Enterprise (custom). The pricing trap to watch: the free and Go tiers are noticeably degraded by ads and rate limits compared to a year ago, and the jump from $20 Plus to $200 Pro is steep with little in between — heavy users can outgrow Plus without Pro being worth 10x the cost.",
         faq: [
             {
-                q: "Is ChatGPT still worth it over Claude or Gemini?",
-                a: "For breadth, yes — ChatGPT has the widest feature set (image, voice, agents, coding) and the best apps. For careful long-form reasoning many users prefer Claude, and for research with citations Perplexity often wins. The honest answer is that the frontier models are close enough that ecosystem and habit matter as much as raw capability.",
+                q: "Is the paid subscription worth it over the free tier?",
+                a: "For occasional questions, no. For anything where you would be annoyed to hit a limit mid-task, yes, and the reason is usually access to the fuller feature set rather than a better conversation — file analysis, image generation, and the higher-capability models are where the paid tiers separate themselves. The specific limits and what sits behind each tier change frequently, so check the current plan comparison rather than an article.",
             },
             {
-                q: "Does the free version have ads now?",
-                a: "Yes, in the US the free tier shows ads as of 2026 and limits you to roughly 10 messages per 5-hour window on the better model before downgrading. It is still usable for light use, but it is a clear step down from the ad-free experience of earlier years.",
+                q: "Does OpenAI train on what I type?",
+                a: "It depends on which product you are using, and this is worth getting right rather than guessing. Consumer plans and business or enterprise workspaces are handled differently, and the consumer settings include controls over whether your conversations can be used to improve models. Because these terms are revised periodically, read OpenAI's current documentation before making a policy decision for a team, and do not rely on a third-party description of it.",
             },
             {
-                q: "Is the $200 Pro plan worth it?",
-                a: "Only if AI is central to your daily work. Pro adds the largest context window and high Deep Research limits, but for most individuals the $20 Plus tier covers the same models and features. Pro is aimed at researchers, heavy coders, and professionals who hit Plus limits constantly.",
+                q: "Does my subscription include API access?",
+                a: "No. The subscription and the API are separate products with separate billing. The subscription gives you the applications and their usage limits; the API is metered by token usage and gives you no interface. If you are building something, expect to pay for both — one to develop against and one to run on.",
             },
             {
-                q: "What model does ChatGPT use in 2026?",
-                a: "Paid tiers run GPT-5.6 (launched July 2026), which comes in three variants — Sol (flagship), Terra (balanced), and Luna (fast and cheap) — including inside the Codex coding tools. The free tier stays on a limited Luna-based model with a smaller context window. Exact model availability shifts frequently, so check the current model picker in the app.",
+                q: "ChatGPT or Claude?",
+                a: "Decide on the shape of your work rather than on which is smarter, because that ranking is unstable and the differences that matter are not. ChatGPT if you want the widest set of capabilities behind one interface and the best clients to reach them through. Claude if your work is long documents, long code, or prose you will publish with your name on it. Many people who are honest about their usage end up paying for both, and treat that as a reasonable cost rather than an indecisive one.",
             },
             {
-                q: "Can ChatGPT write and run code?",
-                a: "Yes. The built-in Codex tools let it write, edit, and execute code, and Agent Mode can carry out multi-step development chores. For sustained engineering work inside your own codebase, a dedicated tool like Cursor or GitHub Copilot is usually a better fit.",
+                q: "How much should I trust what it tells me?",
+                a: "Trust it on shape and distrust it on specifics. It is reliable at structure, explanation, rephrasing, and telling you what kind of thing you are looking at. It is unreliable on figures, citations, dates, names, and anything it would have to have looked up. The failure mode is not vagueness but confident precision, which is the hardest kind of error to catch by reading.",
             },
         ],
     },
 
     claude: {
         overviewHtml: `
-            <p><strong>Claude</strong>, made by Anthropic, is the assistant most often chosen by people who care about the quality of reasoning and writing over breadth of features. As of July 2026 its flagship model is <strong>Claude Fable 5</strong>, a new top-tier release that sits above Opus, alongside <strong>Claude Sonnet 5</strong> (launched June 2026) as the default model for Free and Pro users and the prior-generation <strong>Opus 4.8</strong> and <strong>Haiku 4.5</strong> still available for those who want them. That lineage traces back to the Opus 4.6 generation, which had extended context to roughly one million tokens in some configurations and doubled output capacity — changes that matter most for long documents, large codebases, and multi-step analysis. Claude's reputation is built on being careful, articulate, and unusually good at staying coherent across very long inputs.</p>
+            <p><strong>Claude</strong>, made by Anthropic, is the assistant people choose for a narrower set of reasons than they choose <a href="/tool/chatgpt">ChatGPT</a> for, and those reasons hold up better over time than any benchmark does. It is the tool that gets picked when the input is long, when the output has to read well, or when a developer wants to build something on top of a model rather than talk to one. Very little of that is about which model scored what this quarter.</p>
 
-            <p>The plan structure is worth understanding because it is commonly misread. <strong>Free</strong> gives access to Claude (running Sonnet 5 by default) on web and mobile with text, image, and code generation plus web search, but excludes Claude Code, Research mode, and access to the top-tier Fable 5 and Opus models. <strong>Pro ($20/mo)</strong> is the standard professional tier. The two <strong>Max</strong> tiers ($100 and $200/mo) are frequently misunderstood: they are <em>not</em> model upgrades — they give the same models as Pro but with 5x and 20x the per-session usage capacity. You pay Max for volume, not intelligence.</p>
+            <h3>Long context is a working style, not a spec line</h3>
 
-            <p>Claude's strengths are concentrated and real: it is the model many writers and engineers reach for when output quality matters, it handles very long context without losing the thread, and its coding tooling (Claude Code, with parallel "Agent Teams") is highly regarded for sustained development work. The 2026 Opus price cut — a 67% reduction in API costs — also made it dramatically more affordable for developers building on the API, and the June 2026 launch of Sonnet 5 extended that value further with introductory API pricing of $2/$10 per million input/output tokens (rising to $3/$15 from September 2026).</p>
+            <p>Every assistant advertises a context window, and the number is close to meaningless on its own. What matters is whether the model still behaves sensibly when the window is actually full — whether it remembers a constraint you set at the top after forty exchanges, whether it notices that page nine contradicts page two, whether it stays on the register you asked for instead of drifting back to a default voice.</p>
 
-            <p>The honest weaknesses: Claude has a narrower feature surface than <a href="/tool/chatgpt">ChatGPT</a> — image generation and voice are less central, and the consumer ecosystem is smaller. The Max tiers' "usage bucket, not upgrade" model confuses buyers who expect a smarter model for more money. And for quick, casual, multimodal tasks, ChatGPT's breadth often wins. See <a href="/compare/chatgpt-vs-claude">ChatGPT vs Claude</a> for the direct comparison.</p>
+            <p>That is where Claude earned its reputation, and it shows up as a different way of working rather than as a feature you switch on. Instead of chunking a document and summarising the summaries, you put the whole thing in and ask questions of it. Instead of describing your code, you paste the files. The practical test is simple and you should run it on your own material: take the longest, messiest input you genuinely deal with, and see whether the answer degrades at the end the way you expect it to. Published limits vary by model and plan and are revised often, so check the current documentation rather than planning around a figure.</p>
 
-            <p>Who it is for: writers, researchers, and engineers who value reasoning quality, long-context reliability, and clean prose. Who it is not for: users who want the widest multimodal feature set in one app, or anyone who assumed the $100–$200 Max tiers unlock a more capable model than Pro.</p>
+            <h3>Why writers keep choosing it</h3>
+
+            <p>The claim that Claude writes better is the kind of subjective thing this site normally avoids, but it is worth stating precisely because the precise version is defensible. Editors who use it report less of a specific tax: fewer throat-clearing openers, less padding toward a word count, fewer of the tics that make a paragraph legible as machine output. The drafts need less removal.</p>
+
+            <p>It is also unusually good at holding a voice across a long piece and at following editorial instructions that are about restraint — do not add a conclusion, do not use lists, keep the original sentence structure. Models tend to over-serve when asked to under-serve, and this one does it less.</p>
+
+            <p>None of which makes it a writer. It makes it a faster path to a draft that a writer has to fix less, which is a smaller claim and a more useful one. If your bottleneck is having something to say rather than typing it, no assistant changes your week.</p>
+
+            <h3>The developer story the consumer page undersells</h3>
+
+            <p>A large share of Claude's real usage never touches the chat interface. Anthropic's API is a primary product rather than an afterthought, and the surrounding tooling — a command-line coding agent, a protocol for connecting models to external tools and data sources, SDKs for building agents — has made it a common default for teams building AI features rather than consuming them.</p>
+
+            <p>That matters even if you are evaluating the consumer subscription, because it determines where the product's attention goes. Features tend to arrive shaped for people building things: longer context, better tool use, more reliable instruction-following on structured output. If what you want is voice, image generation, and a consumer ecosystem, you are not the user this roadmap is for, and you will feel it.</p>
+
+            <p>For sustained work inside a real repository the coding agent is the part worth evaluating, and it is a different experience from pasting code into a chat window. It reads files, runs commands, and works across a project. Whether that beats an editor-integrated tool like <a href="/tool/cursor">Cursor</a> depends mostly on whether you would rather stay in your editor or work from a terminal.</p>
+
+            <h3>Most teams that pick Claude keep ChatGPT too</h3>
+
+            <p>This is the part comparison articles are reluctant to say, and it is the most accurate observation available: among people who use AI seriously, running both is common and is not a failure of decision-making. The tools have genuinely different centres of gravity, the marginal subscription is cheap relative to a salaried hour, and the switching cost is a browser tab.</p>
+
+            <p>The split people describe is consistent. Claude for the long document, the code, the thing being published. ChatGPT for the quick question, the image, the voice conversation, the task that touches something else in its ecosystem. If you are trying to standardise a team on exactly one, be clear that you are optimising for procurement simplicity and not for output, because the people doing the work will route around you. <a href="/compare/chatgpt-vs-claude">ChatGPT vs Claude</a> works through where each lands, and our <a href="/blog/gpt5-vs-claude5">head-to-head on the frontier models</a> covers the capability question that this argument usually hides behind.</p>
+
+            <h3>When Claude is the wrong choice</h3>
+
+            <p>Do not choose it if you want one application that does everything. The feature surface is deliberately narrower — image generation and voice are not where the investment goes — and choosing Claude as your only assistant means accepting that some tasks will send you elsewhere.</p>
+
+            <p>Do not choose it expecting the expensive plans to be a smarter model. The higher consumer tiers buy usage capacity, not capability, and buyers misread this constantly. If you are not hitting limits, the upgrade changes nothing about the answers you get.</p>
+
+            <p>Do not choose it for research that has to be sourced. Like any general assistant, it produces fluent claims whose provenance you cannot check from the output, and a citation-first tool such as <a href="/tool/perplexity">Perplexity</a> is a different category of instrument — see <a href="/compare/claude-vs-perplexity">Claude vs Perplexity</a>.</p>
+
+            <p>And do not choose it on the assumption that careful phrasing means careful facts. The prose being measured and the content being correct are unrelated properties, and a well-hedged wrong answer is harder to catch than a badly written one.</p>
         `,
         useCases: [
             {
-                title: "Long-document analysis",
-                body: "With context up to roughly a million tokens on Opus, Claude can ingest entire contracts, codebases, or research corpora and reason across them without losing coherence. This is the use case where it most clearly outperforms shorter-context competitors.",
+                title: "Reading the long thing end to end",
+                body: "A contract, a policy set, a research corpus, a codebase you inherited. The distinguishing behaviour is not that it can accept the input but that it is still coherent about the beginning once it has reached the end, which is what makes cross-referencing questions worth asking.",
             },
             {
-                title: "High-quality writing and editing",
-                body: "Writers and editors use Claude for drafting and refining prose because its output tends to need less cleanup. It is particularly strong at maintaining a consistent voice across long pieces and at following nuanced editorial instructions.",
+                title: "Editing that does not flatten a voice",
+                body: "Tightening, restructuring, and cutting while keeping the author's register intact. It follows restraint instructions better than most, which matters because the usual complaint about AI editing is that it makes everything sound the same.",
             },
             {
-                title: "Sustained software engineering",
-                body: "Through Claude Code and its Agent Teams feature, developers run parallel agents across multi-file changes. Combined with the 2026 Opus API price cut, it became a practical choice for serious engineering work rather than just quick snippets.",
+                title: "Sustained work in a real repository",
+                body: "Through the command-line coding agent, multi-file changes with the project actually in view rather than described. This is a different activity from asking a chat window for a function, and it is the form most developers who stay with Claude settle into.",
+            },
+            {
+                title: "Building a product on the API",
+                body: "Teams shipping AI features often pick Anthropic because instruction-following and structured output are dependable enough to build on. The relevant question there is not which model is smartest but which one behaves the same way tomorrow.",
             },
         ],
         pricingDetail:
             "Claude offers Free ($0), Pro ($20/mo), Max 5x ($100/mo), Max 20x ($200/mo), Team (from $25/seat/mo), and Enterprise (custom). The critical thing to understand: the Max tiers are usage multipliers, not model upgrades — Max 5x and 20x give you the same models as Pro but with 5x and 20x the per-session capacity. Buy Max only if you are hitting Pro's session limits, not because you expect a smarter model. On the API side, the Opus 4.6 launch cut input/output costs by 67% (from $15/$75 to $5/$25 per million tokens), and the June 2026 launch of Sonnet 5 added a cheaper mid-tier option at an introductory $2/$10 per million tokens (rising to $3/$15 from September 2026). Claude Fable 5 now sits above Opus as Anthropic's flagship model, with Opus 4.8 and Haiku 4.5 continuing as prior-generation options.",
         faq: [
             {
-                q: "What is the difference between Claude Pro and Max?",
-                a: "Capacity, not capability. Pro ($20/mo) and both Max tiers ($100 and $200/mo) run the same models. Max 5x and Max 20x simply give you 5x and 20x Pro's per-session usage limit. If you regularly hit Pro's limits, Max is worth it; if you want a 'smarter' Claude, Max does not provide that.",
+                q: "What is the difference between the Pro and Max plans?",
+                a: "Capacity, not capability. The higher consumer tiers run the same models and give you more usage before you hit a limit. This is the single most misread thing about Claude's pricing: people buy up expecting better answers and get the same answers, more often. Upgrade if you are actually hitting session limits; otherwise it changes nothing.",
             },
             {
                 q: "Is Claude better than ChatGPT?",
-                a: "For reasoning quality, long-context work, and writing, many users prefer Claude. For breadth — image generation, voice, agents, the widest app ecosystem — ChatGPT generally wins. They are close at the frontier, so the right choice depends on whether you value depth or breadth. See our ChatGPT vs Claude comparison.",
+                a: "At different things, and the honest answer annoys people who want one. Claude for long inputs, code you will maintain, and prose you will publish. ChatGPT for breadth, multimodal work, and having the widest set of capabilities in one place. Neither holds a durable lead on raw reasoning for long enough to build a purchasing decision on it.",
             },
             {
-                q: "Does the free Claude plan include Opus and Claude Code?",
-                a: "No. Free includes Claude (running Sonnet 5 by default) on web and mobile with text, image, and code generation plus web search, but it excludes access to the top-tier Fable 5 and Opus models, Research mode, and Claude Code. Those require Pro or higher.",
+                q: "What does the free plan actually give you?",
+                a: "Enough to judge whether the writing and reasoning suit you, which is the only question a free tier needs to answer. It runs on a capable default model with meaningful usage limits, and the developer-oriented tooling and the highest-capability models sit behind the paid tiers. Because what each tier includes is revised regularly, check the current plan page before assuming any specific feature is or is not included.",
             },
             {
-                q: "How big is Claude's context window?",
-                a: "Opus 4.6 supported up to roughly one million tokens in some configurations, with output capacity up to about 128K tokens — the trait that made it strong for whole-codebase and long-document tasks. That generation has since been joined by Claude Fable 5 as the new flagship and Opus 4.8 as the current Opus-tier model, with Claude Sonnet 5 serving as the default for Free and Pro users.",
+                q: "How much can I actually put into one conversation?",
+                a: "Enough for a full contract, a long report, or a substantial chunk of a codebase, which is the practically useful way to describe it. Exact token limits differ by model and plan and have moved several times, so treat any number you see quoted as provisional and confirm it in Anthropic's documentation. The more useful test is empirical: give it your longest real input and see whether the quality holds at the end.",
             },
             {
-                q: "Did Claude get cheaper for developers in 2026?",
-                a: "Yes, significantly. At the Opus 4.6 launch, Anthropic cut API pricing by 67% — from $15/$75 to $5/$25 per million input/output tokens. The June 2026 launch of Claude Sonnet 5 pushed this further with an introductory $2/$10 per million tokens (rising to $3/$15 from September 2026), giving developers a cheaper option alongside the flagship-tier models.",
+                q: "Is it a good choice for coding?",
+                a: "It is one of the two or three answers most developers would accept, with a caveat about form. If you want AI inside your editor, an editor-first tool is the better shape. If you are comfortable working from a terminal and want an agent that reads files and runs commands across a project, the Claude coding tooling is well regarded for exactly that. Both approaches beat pasting snippets into a chat window.",
+            },
+            {
+                q: "Can we use it with company data?",
+                a: "That is a question about which plan and which terms, not about the model. The team and enterprise tiers are where the administrative controls, retention settings, and compliance documentation live, and the handling differs from consumer plans. Read Anthropic's current terms and security documentation before a rollout rather than relying on a summary, because this is precisely the area that gets revised.",
+            },
+            {
+                q: "What does Claude do badly?",
+                a: "It is over-cautious in ways that occasionally get in the way of legitimate work, particularly around anything that pattern-matches to a sensitive topic. It has a smaller consumer ecosystem than its main competitor, so integrations you expect may not exist. And its fluency is not evidence of accuracy — a measured, well-structured, entirely wrong answer is a real output, and the polish makes it harder to spot.",
             },
         ],
     },
@@ -422,156 +510,266 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
     midjourney: {
         overviewHtml: `
-            <p><strong>Midjourney</strong> is the AI image generator most associated with sheer aesthetic quality. Where other tools compete on integration or price, Midjourney has consistently led on the look of its output — its images tend to be the ones that feel intentional and polished rather than generated. By 2026, with <strong>V7</strong> (and incremental releases beyond it), it added <strong>Omni Reference</strong> for precise character consistency and measurably improved photorealism, addressing two of the longest-standing complaints about generative image tools.</p>
+            <p><strong>Midjourney</strong> is the image generator people reach for when the picture is the point. That is a smaller claim than "best image model" and a more durable one: the ranking of image models by any measurable property changes constantly, while the reasons a designer keeps a Midjourney subscription open have stayed remarkably stable. Those reasons are aesthetic consistency, style control, and the fact that its output usually looks like someone decided how it should look.</p>
 
-            <p>A key 2026 reality: <strong>there is no free tier</strong>. Midjourney is subscription-only, starting at <strong>Basic ($10/mo)</strong>, which gives roughly 3.3 hours of fast GPU time (about 200 images) with no unlimited "Relax Mode." <strong>Standard ($30/mo)</strong> adds unlimited relaxed generations plus 15 fast GPU hours and is the tier most regular users settle on. <strong>Pro ($60/mo)</strong> and <strong>Mega ($120/mo)</strong> add more fast hours, stealth/privacy, and production-scale workflows.</p>
+            <h3>The house style is a feature, and you cannot fully escape it</h3>
 
-            <p>Originally Discord-only — a famously divisive interface — Midjourney now offers a proper web app alongside the Discord bot, removing the biggest barrier to entry for new users. The combination of a real web UI, character consistency via Omni Reference, and top-tier image quality makes it markedly more approachable than it was a couple of years ago.</p>
+            <p>Midjourney is opinionated in a way most generators are not. Ask for something plain and you tend to get something composed — considered lighting, a deliberate palette, a sense that the frame was chosen. For concept work, editorial imagery, and anything where mediocrity is the real risk, that bias does most of the work for you.</p>
 
-            <p>The honest weaknesses: the lack of any free tier means you cannot try it without paying, fast GPU hours on the Basic plan run out quickly for heavy users, and it is a dedicated image tool — it does not fit into a broader assistant workflow the way image generation inside <a href="/tool/chatgpt">ChatGPT</a> does. For users who want "good enough" images alongside everything else, an all-in-one assistant may be the more practical choice; for users who want the best images, Midjourney is still the benchmark.</p>
+            <p>It cuts the other way when you need neutrality. A flat product shot on white, a diagram, an image that must not editorialise — these fight the model's instincts, and you spend your prompt budget suppressing style rather than specifying content. If the majority of your output needs to be unremarkable, a less opinionated generator is less work.</p>
 
-            <p>Who it is for: designers, marketers, and artists who care most about output quality and want fine control over style and character consistency. Who it is not for: casual users unwilling to pay before trying, or anyone who would rather have image generation bundled into a general AI assistant than run as a separate subscription.</p>
+            <h3>Style control is the actual skill</h3>
+
+            <p>The gap between people who get good results and people who do not is almost entirely about control, and prompt wording is the least of it. The levers that matter are the ones that make a result repeatable: style parameters that dial how much the model asserts its own taste, stylisation and variety settings, reference images that steer the look rather than the subject, and seeds that let you return to a result instead of hoping.</p>
+
+            <p>Reference-based steering is the part worth learning properly. Showing the model an image and saying "like this" is far more precise than any adjective, and it is how people maintain a recognisable look across a body of work. There is also a personalisation mechanism that learns your preferences from your own ratings, which pushes defaults toward the kind of image you keep choosing. The exact parameter names and syntax change between versions, so learn the concepts here and confirm the current flags in Midjourney's own documentation.</p>
+
+            <h3>Consistency across a set is the professional requirement</h3>
+
+            <p>One good image is a demo. A series where the same character, product, or environment appears across a dozen frames is a job, and it is the thing generative tools were bad at for years. Midjourney's reference features are aimed squarely at this: locking a subject's appearance so it survives changes of pose, scene, and lighting.</p>
+
+            <p>It works well enough to be useful and not well enough to be automatic. Expect to generate more than you keep, expect small drift in details that a viewer will notice across a sequence, and expect to do finishing work outside the tool. It has moved storyboards, series illustration, and campaign work from impossible to laborious, which is a genuine change, but nobody should promise a client frame-exact consistency on the strength of it.</p>
+
+            <h3>Commercial use is the question most people skip</h3>
+
+            <p>This is where an afternoon of fun becomes a business decision, and it deserves more care than it usually gets.</p>
+
+            <p>Midjourney's terms of service grant paid subscribers ownership of the assets they create, subject to conditions in those terms — and the conditions are the part to read, not the headline. Historically they have included additional requirements for companies above a certain size, and rights have been tied to maintaining an active subscription in ways that are easy to misremember. Do not take this paragraph as legal advice or as current; open the terms yourself before a commercial deployment, and involve someone who reads contracts if the deployment is significant.</p>
+
+            <p>Two related things catch people out. First, generations are public by default on the standard tiers — your prompts and images are visible in the community feed — with private generation available only on the higher plans. If you are exploring an unannounced product or a client's brand, that is a confidentiality problem before it is a preference. Second, ownership of the output is not the same as clearance of what is in it. An image that reproduces a recognisable trademark, a public figure, or a distinctive artist's style carries risks that no generator's terms resolve for you.</p>
+
+            <h3>Where the precision breaks down</h3>
+
+            <p>Text inside images remains the most reliable disappointment. It has improved to the point where short words sometimes land, and it is nowhere near the point where you can put a headline, a logo, or a label in an image and ship it. Anything with type belongs in a design tool, with the generated image as a layer underneath.</p>
+
+            <p>Precise editing is the other wall. Midjourney can vary regions and extend a canvas, and it is not a retoucher — you cannot reliably ask for this hand to have the right number of fingers, this label moved two centimetres left, this exact shade. Generation is a proposal, not a spec, and the last ten percent of a professional image happens in <a href="/tool/canva">Canva</a> or Photoshop regardless.</p>
+
+            <h3>There is no free door</h3>
+
+            <p>Midjourney is subscription-only, which is an unusual position now that most competitors offer some free allowance. Practically, it means you cannot evaluate it the way you evaluate everything else: you commit a month, and the first month is partly spent learning the controls rather than judging the ceiling.</p>
+
+            <p>The tier structure is built around generation speed and privacy rather than image quality, so the model you get is the same at every level. That makes the choice a throughput question, and throughput is genuinely hard to estimate before you have worked the way the tool wants you to. Budget for a month of tuition.</p>
+
+            <h3>When to use something else</h3>
+
+            <p>Use something else when you need images casually and occasionally. Generation bundled into <a href="/tool/chatgpt">ChatGPT</a> is less controllable and vastly more convenient, and for a blog header nobody will study, convenience wins outright.</p>
+
+            <p>Use something else when licensing and indemnity are the requirement rather than the look. Tools built for enterprise creative work, such as <a href="/tool/adobe-firefly">Adobe Firefly</a>, compete precisely on trained-data provenance and commercial assurances — <a href="/compare/midjourney-vs-adobe-firefly">Midjourney vs Adobe Firefly</a> is that argument in full.</p>
+
+            <p>Use something else when the deliverable moves. Video is a different discipline with different tools, and <a href="/compare/midjourney-vs-runway">Midjourney vs Runway</a> and <a href="/tool/openai-sora">Sora</a> cover that ground; our piece on <a href="/blog/sora-video-generation-revolution">where generative video has got to</a> is the wider view.</p>
+
+            <p>And use something else when what you need is design rather than an image — a layout, a deck, a set of branded assets with type in them. Midjourney makes pictures. It does not make artefacts.</p>
         `,
         useCases: [
             {
-                title: "Brand and marketing visuals",
-                body: "Marketing teams use Midjourney to produce on-brand hero images, social assets, and campaign concepts at a quality that often rivals stock or commissioned art. Omni Reference lets them keep a consistent character or mascot across an entire campaign.",
+                title: "Exploring a visual direction before committing",
+                body: "Generating many variations of a concept to find out what a project should look like. The opinionated aesthetic is an advantage here, because the failure mode of exploration is blandness and this model is not bland.",
             },
             {
-                title: "Concept art and ideation",
-                body: "Artists and designers use it to explore visual directions quickly — generating dozens of stylistic variations of a concept before committing. The aesthetic quality of the output makes these explorations genuinely useful rather than rough sketches.",
+                title: "Editorial and campaign imagery where the look carries the work",
+                body: "Hero images, article art, and campaign visuals that would otherwise be stock photography or a commission. The quality clears the bar for published work, with the caveat that anything containing type gets assembled elsewhere.",
             },
             {
-                title: "Character-consistent illustration",
-                body: "With Omni Reference, illustrators can maintain the same character's appearance across multiple scenes and poses — a long-standing weakness of generative tools — making Midjourney viable for storyboards, comics, and series work.",
+                title: "Series work with a recurring character or subject",
+                body: "Storyboards, illustrated sequences, and campaigns built around a mascot. Reference-based consistency makes this feasible rather than automatic — expect to generate generously and to fix drift by hand.",
+            },
+            {
+                title: "Pitch and mood boards",
+                body: "Assembling a visual argument for a client or an internal review, fast enough that you can arrive with three directions instead of one. This is low-risk usage, since nothing in a mood board ships.",
+            },
+            {
+                title: "Backgrounds, textures, and environment plates",
+                body: "Source material destined for compositing rather than standalone images. The absence of precise editing matters less when the output was always going to be one layer in a larger file.",
             },
         ],
         pricingDetail:
             "Midjourney has four subscription tiers and, as of 2026, no free trial: Basic ($10/mo, ~3.3 fast GPU hours / ~200 images, no Relax Mode), Standard ($30/mo, unlimited relaxed generations + 15 fast GPU hours), Pro ($60/mo, 30 fast GPU hours + stealth mode), and Mega ($120/mo, for production pipelines). Annual billing knocks 20% off each. The pricing trap: 'fast GPU hours' are the real currency, and on the $10 Basic plan they run out fast — heavy users effectively need Standard or higher for unlimited (relaxed) generation. There is no way to evaluate the tool without subscribing.",
         faq: [
             {
-                q: "Does Midjourney have a free trial in 2026?",
-                a: "No. As of 2026 there is no free tier or trial — you must subscribe to use it, starting at Basic ($10/mo). This is a real barrier compared with tools that offer free image generation, so factor it in before committing.",
+                q: "Can I use Midjourney images commercially?",
+                a: "Generally yes for paid subscribers, with conditions that you need to read rather than assume. Midjourney's terms grant subscribers ownership of what they create, subject to provisions that have historically included extra requirements for larger companies and a dependence on keeping the subscription active. Separately, owning the output does not clear what is depicted in it — recognisable trademarks, public figures, and distinctive artist styles carry their own risks. Read the current terms, and take advice if the use is commercially significant.",
             },
             {
-                q: "Do I still need Discord to use Midjourney?",
-                a: "No longer. Midjourney now has a full web app in addition to the original Discord bot. You can generate, browse, and manage images entirely on the web, which removed the biggest usability complaint about the tool.",
+                q: "Are my images and prompts private?",
+                a: "Not by default on the standard tiers. Generations appear in the public community feed unless you are on a plan that includes private generation. This surprises people working on unannounced products or client brands, and it is worth settling before you paste a confidential brief into a prompt box.",
             },
             {
-                q: "What is Omni Reference?",
-                a: "Introduced with V7, Omni Reference lets you lock a specific character or subject's appearance and keep it consistent across multiple generations. It addresses the long-standing problem of characters changing between images, making Midjourney usable for storyboards and series work.",
+                q: "Do I still have to use Discord?",
+                a: "No. There is a full web application alongside the original Discord bot, and you can generate, organise, and manage images entirely there. The Discord-only requirement was the single biggest reason people bounced off the tool, and its removal makes the current product much easier to recommend to anyone who is not already a Discord user.",
             },
             {
-                q: "Which Midjourney plan should I choose?",
-                a: "Basic ($10/mo) suits light users who generate occasionally. Most regular users land on Standard ($30/mo) for its unlimited relaxed generations. Pro ($60) and Mega ($120) are for professionals who need more fast hours, privacy/stealth, and production-scale throughput.",
-            },
-            {
-                q: "Is Midjourney better than ChatGPT's image generation?",
-                a: "For pure image quality and control, Midjourney is still the benchmark. ChatGPT's built-in generation is more convenient because it lives alongside everything else, which is better for casual 'good enough' visuals. Choose Midjourney when the image is the point; choose an all-in-one assistant when it is one task among many.",
+                q: "Midjourney or the image generation built into a general assistant?",
+                a: "Depends whether the image is the deliverable or a garnish. If you need something visual to accompany work whose substance is elsewhere, the bundled generator is less controllable and far more convenient, and it costs you nothing extra. If the image is what you are actually making — if someone will look at it closely and judge it — the control that Midjourney gives you over style, references, and consistency is what you are paying a separate subscription for.",
             },
         ],
     },
 
     perplexity: {
         overviewHtml: `
-            <p><strong>Perplexity</strong> is an AI answer engine — it sits between a search engine and a chatbot, answering questions in natural language while citing live web sources for every claim. That citation-first design is its whole identity: where general assistants generate fluent answers you have to trust, Perplexity shows you where each statement came from, which makes it the tool of choice for research, fact-finding, and any task where being able to verify matters.</p>
+            <p><strong>Perplexity</strong> is usually introduced as a search engine with an AI on top, which undersells the only thing about it that actually matters. A general assistant gives you an answer you have to take on faith. Perplexity gives you an answer with the sources attached, which means you can do something no chatbot output permits: check it. Everything worth saying about the product follows from that one property, including the ways it fails.</p>
 
-            <p>In 2026 it runs its own <strong>Sonar</strong> model family and also lets paid users pick frontier third-party models (GPT-5.6, Claude Fable 5, Gemini 3.5 Flash) for a given query. The <strong>Free</strong> tier is genuinely useful — 5 Deep Research queries and 3 Pro Searches per day — and is enough for casual research. <strong>Pro ($20/mo)</strong> unlocks the full Sonar family, model selection, Spaces, Pages, and Labs. <strong>Max ($200/mo)</strong> adds Perplexity Computer, which orchestrates 19 models as specialized sub-agents for complex multi-step projects.</p>
+            <h3>Citations change what you are allowed to do with the answer</h3>
 
-            <p>A notable 2026 move: Perplexity's <strong>Comet browser</strong> dropped its paywall in March and is now free across iOS, Android, Windows, and Mac, with agentic search, page summarization, voice mode, and Deep Research built into the browser itself. This made Perplexity's core experience accessible to anyone without a subscription.</p>
+            <p>An unsourced answer from a language model is, epistemically, a rumour. It may well be right, and you have no route from reading it to knowing it. That is fine for drafting an email and disqualifying for anything you will assert to someone else.</p>
 
-            <p>The honest weaknesses: as a dedicated answer engine it is narrower than <a href="/tool/chatgpt">ChatGPT</a> — it is not built for long creative writing, coding workflows, or image generation. Its answers are only as good as the sources it retrieves, so on niche or fast-moving topics it can cite weak pages confidently. And the $20-to-$200 jump to Max is steep for what most researchers need. See <a href="/compare/chatgpt-vs-perplexity">ChatGPT vs Perplexity</a> for the trade-off.</p>
+            <p>Perplexity retrieves live sources, synthesises an answer from them, and links each claim back to where it came from. The practical effect is that the tool stops being an oracle and becomes a research assistant: it finds and reads faster than you do, and you retain the job of deciding what is true. For anyone who has to defend a number in a meeting, that is a categorical difference rather than a feature.</p>
 
-            <p>Who it is for: researchers, analysts, students, and anyone who wants cited, verifiable answers rather than a confident black box. Who it is not for: users who primarily want creative writing, coding help, or a single do-everything assistant — a general model serves those better.</p>
+            <p>It also changes the shape of the work. The right way to use it is to read the answer as a map of where to look, then open the two or three sources that carry the weight of your conclusion. People who use it well spend meaningful time in the citation panel. People who treat the summary as the deliverable have bought a chatbot with extra steps.</p>
+
+            <h3>Where the citation model breaks</h3>
+
+            <p>This is the section every other review of this tool leaves out, and it is the one that determines whether you can rely on it.</p>
+
+            <p>The first and most common failure is that a citation is present but does not support the sentence it is attached to. The source is real, the link works, the page is roughly on-topic, and the specific claim is either not in it or is a distorted version of something adjacent. Because a footnote reads as verification, this is far more dangerous than an obviously unsourced assertion — the apparatus of rigour is doing the opposite of its job. Any claim you intend to rely on needs the source opened, not counted.</p>
+
+            <p>The second is source quality. Synthesis inherits the reliability of what was retrieved, and on thin, contested, or commercially crowded topics what gets retrieved is content marketing, aggregator pages, and forum posts. The answer will be written with exactly the same confidence as one built from primary research. Notice what is in the citation list before you notice how well the paragraph reads.</p>
+
+            <p>The third is recency and drift. A live index means the answer to the same question can change between Tuesday and Thursday, which is a feature when the world changed and a problem when you are trying to reproduce a piece of analysis. If a finding matters, save the sources rather than the answer.</p>
+
+            <p>And the fourth is that summarising several sources into one paragraph can manufacture a consensus that does not exist. Disagreement between sources is information, and a synthesis that smooths it into a single confident statement has destroyed the most useful thing on the page.</p>
+
+            <h3>Against a search engine, and against a chatbot</h3>
+
+            <p>Against a conventional search engine, the trade is speed for control. Perplexity is faster when your question has an answer that exists across several pages and you would otherwise assemble it yourself. A search engine is better when you know what you are looking for, when you need the primary source rather than a description of it, or when the ranking itself is the information — sometimes what you want to know is which pages exist, not what they collectively say. Most people who adopt Perplexity do not stop searching; they stop searching for the class of question that was really a research task.</p>
+
+            <p>Against a general assistant, the boundary is cleaner than it looks. <a href="/tool/chatgpt">ChatGPT</a> and <a href="/tool/claude">Claude</a> can browse when asked, and that is not the same as being built around retrieval — the citation is an option in one architecture and the foundation of the other. Conversely, Perplexity is not the tool for extended creative writing, for working through a long document you supply, or for anything inside a codebase. <a href="/compare/chatgpt-vs-perplexity">ChatGPT vs Perplexity</a> and <a href="/compare/claude-vs-perplexity">Claude vs Perplexity</a> both come down to whether the output needs provenance, and our <a href="/blog/chatgpt-vs-perplexity">longer write-up</a> goes through the cases.</p>
+
+            <h3>When not to use Perplexity</h3>
+
+            <p>Do not use it as your only assistant. It is a research instrument, and asking it to be a general-purpose companion means accepting a worse version of a product that costs about the same.</p>
+
+            <p>Do not use it for anything where the answer must be right rather than probably right, without opening the sources. Medical, legal, financial, and regulatory questions are exactly where the citation-that-does-not-support-the-claim failure does the most damage, because the reader is least equipped to notice.</p>
+
+            <p>Do not use it as a citation manager. The links in an answer are evidence that something was read, not a bibliography you can paste into a paper. Academic and professional citation requires you to have read and cited the source yourself, and reviewers are increasingly good at spotting work where that did not happen.</p>
+
+            <p>And do not use it for questions about your own material — your documents, your data, your internal decisions. It is pointed at the open web. Something workspace-grounded like <a href="/tool/notion-ai">Notion AI</a> is aimed at that problem, and a general assistant with your file uploaded is aimed at it too.</p>
         `,
         useCases: [
             {
-                title: "Cited research and fact-finding",
-                body: "Perplexity's core use: ask a question and get a synthesized answer with inline citations to live sources. Analysts and writers use it when they need to verify claims rather than trust a model's unsourced output, which is its decisive advantage over general chatbots.",
+                title: "Fact-finding you will have to defend",
+                body: "Any question where the next step is telling someone else the answer. The citation trail is what turns a plausible paragraph into something you can stand behind, provided you actually open the two or three sources doing the real work.",
             },
             {
-                title: "Deep Research reports",
-                body: "Deep Research runs an extended, multi-source investigation into a topic and returns a structured report with citations. Even the free tier's daily allowance is enough for occasional deep dives; Pro and Max raise the limits for heavy research workflows.",
+                title: "Extended research on an unfamiliar topic",
+                body: "The deeper research mode runs a longer, multi-source investigation and returns something structured. It is at its best as a well-organised starting point for reading rather than as a finished report, which is roughly the standard you would hold a capable intern to.",
             },
             {
-                title: "In-browser agentic search with Comet",
-                body: "With the now-free Comet browser, users get agentic search, page summarization, and Deep Research directly while browsing — asking questions about the page they are on or delegating multi-step web tasks without leaving the tab.",
+                title: "Catching up on something that moved recently",
+                body: "Because retrieval is live, it handles the last few months better than a model relying on training data. This is the clearest everyday advantage over a general assistant and the reason many people keep it open alongside one.",
             },
         ],
         pricingDetail:
             "Perplexity offers Free ($0, 5 Deep Research + 3 Pro Searches per day), Pro ($20/mo or $200/yr, full Sonar family + selectable GPT-5.6/Claude Fable 5/Gemini 3.5 Flash, Spaces, Pages, Labs), Max ($200/mo, adds Perplexity Computer orchestrating 19 sub-agent models), Education Pro ($10/mo for students), Enterprise Pro ($40/seat/mo), and Enterprise Max ($325/seat/mo). The Comet browser is free for everyone, with Comet Plus ($5/mo, or included with Pro/Max) unlocking premium publisher content. The pricing note: the free tier is unusually generous for casual research, and the leap to Max is only worth it for power users who need the multi-agent Computer feature.",
         faq: [
             {
-                q: "How is Perplexity different from ChatGPT?",
-                a: "Perplexity is an answer engine built around citations — every answer links to live web sources you can verify. ChatGPT is a general assistant that generates fluent answers you largely have to trust. For research and fact-finding Perplexity wins; for creative writing, coding, and breadth ChatGPT wins. Many people use both. See our ChatGPT vs Perplexity comparison.",
+                q: "How is this different from just asking ChatGPT?",
+                a: "Provenance. A general assistant produces a fluent answer you have to trust; Perplexity produces one with sources you can open. Both can be wrong, but only one of them lets you find out from the output itself. For anything you will repeat to another person, that difference is the entire product.",
             },
             {
-                q: "Is the Comet browser still paid?",
-                a: "No. Perplexity dropped Comet's paywall in March 2026, and it is now free on iOS, Android, Windows, and Mac with agentic search, summarization, voice mode, and Deep Research built in. Comet Plus ($5/mo, or free with Pro/Max) adds premium publisher content.",
+                q: "If there is a citation, does that mean the answer is correct?",
+                a: "No, and this is the single most important thing to understand about the tool. A citation can be real, live, and roughly on-topic while failing to support the specific sentence attached to it. Footnotes read as rigour, which makes this failure harder to catch than a plainly unsourced claim. Open the sources for anything you intend to rely on.",
             },
             {
-                q: "Is the free Perplexity plan enough?",
-                a: "For casual research, yes — Free includes 5 Deep Research queries and 3 Pro Searches per day. Heavy researchers who hit those daily limits, or who want to select specific frontier models, will want Pro at $20/mo.",
+                q: "Does it replace Google?",
+                a: "For research-shaped questions, largely. For navigation, for finding a specific primary source, and for cases where the set of results is itself the information, no. Most people end up using both and routing by question type without thinking about it much.",
             },
             {
-                q: "What is Perplexity Max's 'Computer' feature?",
-                a: "Available on the $200/mo Max tier, Perplexity Computer orchestrates 19 different AI models as specialized sub-agents. When you assign a complex project, it decomposes the task, routes each part to the best-fit model, and synthesizes the results — aimed at power users with multi-step research workloads.",
+                q: "Is the free tier enough?",
+                a: "For occasional research, generally yes — the free plan includes a daily allowance of the more thorough search and research modes, which is enough to learn whether the workflow suits you. Daily researchers hit the limits. Because those allowances are adjusted periodically, check the current plan page rather than any figure quoted in an article.",
             },
             {
-                q: "Can I choose which AI model Perplexity uses?",
-                a: "On Pro and above, yes. You can run queries on Perplexity's own Sonar family or select third-party frontier models including GPT-5.6, Claude Fable 5, and Gemini 3.5 Flash, picking the best model for a given question.",
+                q: "Can I choose which underlying model it uses?",
+                a: "On the paid tiers you can generally select between Perplexity's own models and frontier models from other providers. It matters less than you would expect, because the quality of a retrieval-based answer is dominated by what got retrieved rather than by which model wrote the paragraph. Improving your question beats changing the model.",
+            },
+            {
+                q: "Can I cite Perplexity in academic or professional work?",
+                a: "Cite the sources, never the tool. Perplexity is a way of finding material, equivalent to a database search, and the scholarly requirement that you read what you cite is unchanged by how you found it. Passing along a citation you have not opened is a failure mode that predates AI and is now much easier to commit.",
+            },
+            {
+                q: "Is it any good for writing or coding?",
+                a: "It is competent and it is not what the product is for. Extended creative writing, work on a long document you supply, and anything inside a codebase are all better served elsewhere. Buying a research tool and using it as a general assistant gets you a worse assistant at a similar price.",
+            },
+            {
+                q: "What is the honest case against it?",
+                a: "That it is a narrow product and its core promise degrades quietly. The narrowness is manageable — you keep a general assistant too. The quiet degradation is the real risk: weak sources and unsupported citations produce output that looks more rigorous than an unsourced answer while being no more reliable, and the only defence is the discipline of actually reading what it links to.",
             },
         ],
     },
 
     "notion-ai": {
         overviewHtml: `
-            <p><strong>Notion AI</strong> is the layer of AI features built into Notion, the all-in-one workspace for notes, docs, wikis, and project databases. Rather than being a standalone product, it lives inside the tool teams already use — drafting and summarizing in the editor, autofilling database properties, and, most powerfully, answering questions across your entire workspace and connected sources like Google Drive and Slack.</p>
+            <p><strong>Notion AI</strong> is the one tool on this site where the buying decision is almost entirely determined before you look at the product. It is not a standalone assistant that happens to live in Notion. It is a set of capabilities whose value is a function of what is already in your workspace, which means two companies can buy the identical thing and have completely different experiences of it. If your organisation does not run on Notion, this page can save you the evaluation: it is not a candidate, and nothing in the feature list changes that.</p>
 
-            <p>The most important 2026 fact is how it is priced. In May 2025 Notion <strong>eliminated the separate $10/mo AI add-on</strong> and folded full AI access into the <strong>Business plan ($20/user/mo)</strong>. So AI is no longer something you bolt on — it is the reason to choose Business over Plus. Business AI includes AI Agents and "Ask Notion," which queries your whole workspace, while Free and Plus tiers keep only a limited trial of basic AI writing.</p>
+            <h3>This is not a product you can evaluate on its own</h3>
 
-            <p>Its strength is context. Because Notion AI sits on top of your actual notes, docs, and databases, it answers from <em>your</em> knowledge rather than the open web. "Ask Notion" turning your workspace into a queryable knowledge base is the feature that justifies the product for teams who have invested in Notion as their source of truth. Notion 3.3 (Feb 2026) added Custom Agents for building specialized workflows.</p>
+            <p>Compare Notion AI to <a href="/tool/chatgpt">ChatGPT</a> or <a href="/tool/claude">Claude</a> on writing quality and it loses, which tells you nothing, because nobody buys it for that. The drafting and rewriting features are competent and interchangeable with what a general assistant does. What a general assistant cannot do is answer a question about what your team decided in March.</p>
 
-            <p>The honest weaknesses: the AI is only as useful as your Notion hygiene — a messy, sparse workspace yields weak answers. The 2026 shift means meaningful AI now effectively requires the $20 Business tier, doubling the cost for teams who were happy on Plus. And Custom Agents began consuming paid credits ($10 per 1,000 monthly credits) in May 2026, adding a metered cost on top. For pure AI writing unconnected to a workspace, a general assistant is cheaper. Teams weighing an all-in-one doc tool may also compare it with <a href="/tool/coda">Coda</a>.</p>
+            <p>The distinctive capability is retrieval over your own workspace — asking a question in plain language and getting an answer drawn from your pages, databases, and, where connected, from other systems your team uses. That reframes the purchase. You are not comparing assistants; you are deciding whether to make your accumulated internal writing queryable.</p>
 
-            <p>Who it is for: teams already committed to Notion who want AI grounded in their own workspace. Who it is not for: individuals who only need AI writing (cheaper elsewhere), or small teams unwilling to move up to the Business tier just for AI.</p>
+            <p>Which means the honest evaluation sequence is: are we on Notion, is the knowledge that matters actually in Notion, and do people look for it often enough that finding it faster is worth a per-seat increase. Answer no to the first and you are done. Answer yes to the first and no to the second and you have a content problem that buying AI will not solve — it will just produce confident answers from your three most out-of-date pages.</p>
+
+            <h3>Workspace answers are only as good as the workspace</h3>
+
+            <p>Every retrieval product inherits the quality of what it retrieves from, and internal documentation is usually worse than teams believe. The specific failure is not sparseness, which is obvious and easy to diagnose. It is stale material that reads authoritative: the superseded spec, the pricing page from two strategies ago, the onboarding doc nobody updated. A human searching finds five results and notices the dates. An AI answer picks one and states it.</p>
+
+            <p>Teams that get real value from this tend to have done unglamorous work first — archiving what is dead, giving pages owners, keeping decisions in documents rather than in chat threads. That work pays off with or without AI, which is a reasonable way to think about the spend: you are not buying a knowledge base, you are buying better access to one you have to maintain anyway.</p>
+
+            <p>There is a second-order effect worth planning for. Once people trust workspace answers, the incentive to write things down changes, in both directions. Some teams start documenting more carefully because the documentation is finally being read. Others stop reading the source entirely and treat the summary as canon, which is how a wrong page becomes institutional truth. Which of those happens is about your culture, not about the tool.</p>
+
+            <h3>When not to buy it</h3>
+
+            <p>Do not buy it if you are not already committed to Notion. Adopting a workspace in order to get its AI layer is an enormous change justified by a small one, and the migration cost dwarfs the benefit. Choose the workspace on its merits — <a href="/compare/notion-ai-vs-coda">Notion AI vs Coda</a> covers the nearest alternative — and treat the AI as something you get afterwards.</p>
+
+            <p>Do not buy it if your knowledge actually lives somewhere else. Companies whose real source of truth is a shared drive, a ticket tracker, or a chat history will find that workspace search answers from the fraction of reality that happens to be in Notion, with no indication that the rest exists. Where your documents live decides which vendor's AI is relevant to you; <a href="/compare/notion-ai-vs-microsoft-365-copilot">Notion AI vs Microsoft 365 Copilot</a> is that comparison for organisations on the Microsoft stack.</p>
+
+            <p>Do not buy it as a writing tool. If what you want is drafting and editing, a general assistant is better at it and a dedicated writing product like <a href="/tool/grammarly">Grammarly</a> is more thorough about it — see <a href="/compare/notion-ai-vs-grammarly">Notion AI vs Grammarly</a>. Paying a per-seat workspace upgrade to get mid-tier drafting is the most common way to overpay here.</p>
+
+            <p>And do not buy it for a small team with a small workspace. The value scales with the volume of internal writing that exists and with how many people need to find it. Four people who all remember where everything is do not have the problem this solves.</p>
         `,
         useCases: [
             {
-                title: "Workspace-wide Q&A with Ask Notion",
-                body: "Teams use Ask Notion to query their entire workspace — and connected Google Drive and Slack — in natural language. Instead of hunting through pages, you ask 'what did we decide about pricing?' and get an answer grounded in your own docs. This is the feature that most justifies Notion AI.",
+                title: "Asking the workspace instead of searching it",
+                body: "Questions like what we decided about pricing, or who owns this integration, answered from your own pages rather than from the open web. This is the capability that justifies the product, and it degrades exactly as far as your documentation does.",
             },
             {
-                title: "In-editor drafting and summarizing",
-                body: "Inside any page, Notion AI drafts content, rewrites for tone, and summarizes long documents. Because it lives where the work already happens, there is no copy-pasting between a separate chatbot and your notes.",
+                title: "Drafting and rewriting where the work already is",
+                body: "Composing, restructuring, and summarising inside the page rather than in a separate tab. The quality is ordinary; the absence of copy-paste is the point, and for a lot of daily writing that is enough to change behaviour.",
             },
             {
-                title: "Database autofill and custom agents",
-                body: "Notion AI can autofill database properties — categorizing, summarizing, or extracting data across rows — and, with Custom Agents (Notion 3.3), teams build specialized recurring workflows. Note that Custom Agents consume paid credits as of May 2026.",
+                title: "Filling in database properties at scale",
+                body: "Categorising, extracting, or summarising across many rows at once — turning a list of raw entries into something with structure. This is the most quietly useful feature and the one most likely to justify the upgrade for operations teams.",
+            },
+            {
+                title: "Turning raw capture into something findable",
+                body: "Meeting notes, research dumps, and interview transcripts processed into structured pages in the same place the project lives. The gain is less about the summary than about the material ending up somewhere it can be retrieved later.",
             },
         ],
         pricingDetail:
             "Notion has four tiers: Free ($0), Plus ($10/user/mo annually, $12 monthly), Business ($20/user/mo annually, $24 monthly), and Enterprise (custom). The pivotal 2026 change: the old $10/mo standalone AI add-on was eliminated in May 2025, and full AI — AI Agents and Ask Notion — now lives in the Business plan. Free and Plus get only a limited AI trial that stops responding once exhausted. The catch to budget for: Custom Agents began running on Notion credits ($10 per 1,000 monthly credits) as of May 4, 2026, though the standard Notion Agent, AI writing, database autofill, and AI search do not burn credits.",
         faq: [
             {
-                q: "Is Notion AI still a separate add-on?",
-                a: "No. Notion eliminated the standalone $10/mo AI add-on in May 2025 and moved full AI access into the Business plan ($20/user/mo). To get AI Agents and Ask Notion, you now choose Business rather than buying AI separately. Free and Plus retain only a limited AI trial.",
+                q: "Can I use Notion AI without using Notion?",
+                a: "No, and the question is worth taking literally. There is no standalone product and no meaningful version of this that operates on documents living elsewhere. If you are not a Notion organisation, this is not a shortlist item, and evaluating it further is time you will not get back.",
             },
             {
-                q: "What is 'Ask Notion'?",
-                a: "Ask Notion lets you query your entire workspace — plus connected sources like Google Drive and Slack — in natural language. It turns your accumulated notes and docs into a searchable knowledge base, which is the most distinctive thing Notion AI does because the answers come from your own content.",
+                q: "Is AI included in my plan or does it cost extra?",
+                a: "This has changed more than once. Notion previously sold AI as a separate per-seat add-on and later folded the full capability into a higher plan tier, so the effective answer for most teams is that meaningful AI means being on a more expensive plan rather than buying a bolt-on. Some advanced agent features also draw on a separately purchased credit pool. Because the packaging keeps moving, check Notion's current pricing page before budgeting.",
             },
             {
-                q: "Do Notion AI features cost extra credits?",
-                a: "Mostly no, but with one exception. The standard Notion Agent, AI writing tools, database autofill, and AI search are included. However, Custom Agents (introduced in Notion 3.3) run on Notion credits priced at $10 per 1,000 monthly credits as of May 2026.",
+                q: "How good is workspace search in practice?",
+                a: "Good in proportion to your documentation and unreliable in proportion to your clutter. It is genuinely strong at finding something you know exists but cannot locate, and weak at distinguishing a current document from a superseded one that reads just as confidently. Treat it as a fast way to find the page, and then read the page.",
             },
             {
-                q: "Is Notion AI worth upgrading to Business for?",
-                a: "If your team already lives in Notion and wants AI grounded in your own workspace, yes — Ask Notion alone can justify it. If you just need AI writing unconnected to a workspace, a general assistant is cheaper. The decision hinges on whether you want AI on top of your existing Notion knowledge.",
+                q: "Does it search tools outside Notion?",
+                a: "It can connect to some common systems so answers draw on more than your workspace alone, which materially improves coverage for teams whose documents are split across a couple of places. Which connectors exist and what each tier includes changes, so confirm the current list rather than assuming your stack is covered.",
             },
             {
-                q: "Does the quality of Notion AI depend on my workspace?",
-                a: "Yes, heavily. Because it answers from your own notes and databases, a well-organized, content-rich workspace gives strong answers while a sparse or messy one yields weak ones. Notion AI rewards teams that have already invested in keeping their workspace as a real source of truth.",
+                q: "Does this replace a subscription to a general assistant?",
+                a: "For almost nobody. They solve different problems: one answers from your internal knowledge, the other answers from general knowledge and is better at reasoning, coding, and long-form work. Most teams that adopt Notion AI keep a general assistant too, and the spend is additive rather than substitutive — worth saying out loud during budgeting.",
+            },
+            {
+                q: "What is the most common way this disappoints teams?",
+                a: "Buying it to fix a documentation problem. A workspace where knowledge is thin, stale, or scattered produces answers that are thin, stale, or scattered, delivered with more confidence than a search result would have carried. The tool amplifies whatever discipline you already had about writing things down; it does not supply it.",
             },
         ],
     },
@@ -630,52 +828,80 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
     figma: {
         overviewHtml: `
-            <p><strong>Figma</strong> is the industry-standard tool for interface design, and in 2026 it remains the place where most professional product design happens. Its original breakthrough was making design collaborative and browser-based — multiple people editing the same file in real time — and that collaborative core still defines it. On top of it, Figma has layered AI features and <strong>Make</strong>, which shares Design and Dev Mode context with AI coding agents to generate code aligned with your components and design system.</p>
+            <p><strong>Figma</strong> does not need introducing to anybody evaluating it, so this page skips that and answers the question people actually arrive with: given that our team is already in Figma, do its AI features mean we do not need one of the standalone generation tools? The answer is more often yes than the standalone vendors would like, and the reason has almost nothing to do with which product generates a better-looking screen.</p>
 
-            <p>The plan structure: <strong>Starter</strong> is free but limited to 3 design files and 3 FigJam boards — fine for trying it or solo hobby work. <strong>Professional ($16/user/mo)</strong> is the real working tier with unlimited files, version history, team libraries, and plugins. <strong>Organization ($55/user/mo)</strong> and <strong>Enterprise ($90/user/mo)</strong> add SSO, advanced admin, and org-wide design systems for larger companies. Each tier includes a monthly pool of AI credits (500 on Starter up to 4,250 on Enterprise), with add-on credit packs available.</p>
+            <h3>The question is not whether Figma has AI</h3>
 
-            <p>Figma's strengths are depth and ecosystem. Real-time collaboration, a massive plugin library, Dev Mode for handoff to engineers, and now AI-assisted design and code generation make it a complete pipeline from idea to implementation. For teams building real software, its position as the shared source of truth between designers and developers is hard to displace.</p>
+            <p>A separate generation tool produces something outside your design system, outside your file structure, and outside the review process your team uses. Every one of those boundaries is a handoff, and handoffs are where the time you saved goes. Figma's advantage is not the quality of its generation; it is that whatever gets generated arrives already inside the file where the work was going to happen, alongside your components, your libraries, and the people who comment on it.</p>
 
-            <p>The honest weaknesses: the free Starter tier's 3-file limit is restrictive enough that any real use requires paying, the AI features are still maturing relative to dedicated generative tools, and the per-seat cost adds up quickly for larger teams. For fast marketing graphics by non-designers, <a href="/tool/canva">Canva</a> is the more practical choice — Figma is overkill for a social post. See our <a href="/tool/canva">Canva</a> review for a closer look at that trade-off.</p>
+            <p>That is a meaningful bar for a challenger to clear. To be worth adopting, an external tool has to be enough better at generating to outweigh the fact that its output starts life in the wrong place. For screens that are variations on things your product already has, it usually is not. For a greenfield concept where you have no system to respect, it often is.</p>
 
-            <p>Who it is for: product designers, design teams, and anyone building software interfaces who needs collaboration, design systems, and developer handoff. Who it is not for: non-designers making quick marketing visuals, or solo users who only need a few files and balk at the per-seat pricing.</p>
+            <h3>First drafts in the file you were going to open anyway</h3>
+
+            <p>The features that earn their keep are unglamorous and cumulatively significant. Generating a first-pass layout from a description gets you past the blank canvas, which is a real cost even for experienced designers. Producing plausible placeholder content instead of repeated dummy text makes a mock-up read like a product rather than like a mock-up, and it changes the quality of feedback you get in review — people respond to realistic content and ignore lorem ipsum.</p>
+
+            <p>Then there is search and reuse, which matters more the larger your system is. In a mature library the most common waste is rebuilding a component that already exists because nobody could find it, and better retrieval across your own design system addresses that directly. It is the least exciting AI feature in the product and probably the one with the best return.</p>
+
+            <p>What none of this does is design. The generated layout is a competent arrangement of conventional patterns, which is exactly what you want for the fourth settings page and exactly what you do not want for the screen your product is actually about.</p>
+
+            <h3>Design to code, and what the handoff really saves</h3>
+
+            <p>Figma's push toward generating code from designs is aimed at the oldest waste in the pipeline: a developer rebuilding, by hand and by eye, something that was already fully specified. Dev Mode has carried the practical version of this for a while — specs, measurements, assets, and tokens read directly from the file — and the AI layer extends it toward emitting code that reflects your actual components rather than generic markup.</p>
+
+            <p>Be realistic about the ceiling. Generated code is a starting point that respects your design decisions, not a component you merge unreviewed, and how useful it is depends heavily on whether your design system and your codebase agree with each other. Teams whose Figma components map cleanly onto real front-end components get a lot from this. Teams where the design system is aspirational and the codebase is a decade of accumulated decisions get a plausible file that does not fit anything.</p>
+
+            <p>The comparison people actually want here is against a generator like <a href="/tool/v0-by-vercel">v0</a>, and the honest framing is that they start from opposite ends. v0 starts from a prompt and produces code; Figma starts from a design that already exists and tries to carry it across. If the design is the artefact your organisation agrees on, the second direction is the one that matches how you work — our look at <a href="/blog/nocode-design-v0">design tools generating code</a> covers the trade in more depth.</p>
+
+            <h3>Seats, credits, and the part finance asks about</h3>
+
+            <p>Two cost mechanics are worth understanding before an upgrade conversation. The first is that the free tier is a trial rather than a plan: the cap on files is low enough that any sustained real work requires paying, so treat the free tier as a way to answer whether the tool suits you and not as a way to run a team.</p>
+
+            <p>The second is that AI features consume a metered allowance included with each plan, with more available to buy. The practical consequence is that AI usage is a variable cost layered on top of a per-seat fixed cost, which is a shape finance departments dislike and engineering leads forget to mention. The allowances and add-on prices are revised periodically, so confirm current figures on Figma's pricing page rather than planning around a number in an article.</p>
+
+            <h3>When a separate generation tool is the better answer</h3>
+
+            <p>Reach outside Figma when you have no design system to protect. Early-stage work, a brand-new product, a throwaway concept for a pitch — nothing is being violated, so the advantage of staying inside the file mostly evaporates and raw generation speed wins.</p>
+
+            <p>Reach outside when the deliverable is a working thing rather than a design of one. If what you need at the end of the afternoon is a deployed site, that is <a href="/tool/framer">Framer</a>'s job. If it is a running application, that is <a href="/tool/lovable">Lovable</a>'s. Figma produces designs, and expecting a shipped artefact from it is a category error rather than a shortfall.</p>
+
+            <p>And reach outside if you are not a designer and never intended to become one. Figma's AI features lower the floor; they do not remove it, and the interface still assumes you know what a constraint and an auto-layout are. Someone who needs a presentation or a social graphic wants <a href="/tool/canva">Canva</a>, and will be much happier there.</p>
         `,
         useCases: [
             {
-                title: "Collaborative interface design",
-                body: "Figma's defining use: multiple designers (and stakeholders) working in the same file in real time. This collaborative model is why it became the standard — design reviews, edits, and feedback all happen in one shared, always-current source of truth.",
+                title: "Getting past the blank canvas",
+                body: "Generating a first-pass layout from a description so the work starts as editing rather than as invention. The output is conventional by construction, which is fine for the screens that should be conventional and unhelpful for the ones that should not.",
             },
             {
-                title: "Design systems and component libraries",
-                body: "Teams build and maintain design systems in Figma — shared components, variables, and team libraries that keep a product visually consistent at scale. On Professional and above, these libraries are the backbone of serious product design work.",
+                title: "Realistic placeholder content",
+                body: "Replacing dummy text and grey boxes with content that reads like the real thing. This changes the quality of review feedback more than it changes the design, because stakeholders respond to plausible content and skim past filler.",
             },
             {
-                title: "Design-to-code handoff with Make and Dev Mode",
-                body: "Dev Mode and Make bridge design and engineering: Dev Mode gives developers specs and assets, while Make shares design-system context with AI coding agents to generate aligned code. This shortens the gap between a finished design and a working implementation.",
+                title: "Finding what your design system already has",
+                body: "Better retrieval across a large library, so a designer stops rebuilding a component that exists three pages away. Unexciting, and probably the highest-return AI feature in the product for any team with a mature system.",
+            },
+            {
+                title: "Engineers consuming designs without designing",
+                body: "Dev Mode gives developers specs, measurements, assets, and tokens straight from the file, with code generation on top. A large share of Figma seats belong to people who never draw anything, and this is what they are paying for.",
+            },
+            {
+                title: "Prototyping interaction without wiring every state",
+                body: "Producing clickable flows fast enough to test a hypothesis with real users in the same week you had it. The value is in shortening the loop between a question about behaviour and an observation of it.",
             },
         ],
         pricingDetail:
             "Figma offers Starter (free, but capped at 3 design files and 3 FigJam boards), Professional ($16/user/mo, unlimited files, version history, team libraries, plugins), Organization ($55/user/mo, SSO and org-wide design systems), and Enterprise ($90/user/mo). Each tier includes monthly AI credits (500 on Starter, 3,000 Professional, 3,500 Organization, 4,250 Enterprise), with add-on packs (e.g. 5,000 credits for $120/mo) or pay-as-you-go at $0.03/credit. The thing to understand in 2026: you can no longer buy individual tools (Dev Mode, Make, FigJam) separately — access is bundled through plans and seat types, so cost is managed at the plan level rather than per feature.",
         faq: [
             {
-                q: "Is the free Figma plan enough?",
-                a: "Only for trying it or very light solo work. The free Starter plan caps you at 3 design files and 3 FigJam boards, which most real projects exceed quickly. Serious use requires the Professional tier ($16/user/mo) for unlimited files and team features.",
+                q: "Do Figma's AI features remove the need for a tool like v0?",
+                a: "For most teams with an existing product, largely yes, and not because the generation is better. Output that appears inside your file, next to your components and your reviewers, avoids a handoff that usually costs more than the generation saved. The exception is greenfield work with no design system to respect, where an external generator's speed is not offset by anything.",
             },
             {
-                q: "What is Figma Make?",
-                a: "Make shares your Design and Dev Mode context with AI coding agents so they can generate code that aligns with your actual components and design system. It is part of Figma's push to shorten the gap between a finished design and working front-end code.",
+                q: "Is the free plan enough for real work?",
+                a: "No, and it is not meant to be. The file cap on the free tier is low enough that any sustained project exceeds it quickly, so treat it as an evaluation rather than a plan. Serious use means the paid working tier, which is where unlimited files, version history, shared libraries, and plugins live.",
             },
             {
-                q: "Figma or Canva — which is right for me?",
-                a: "Figma is for professional interface design, design systems, and developer handoff. Canva is for fast, accessible marketing and social visuals by non-designers. If you are building software UI, Figma; if you are making a social post or presentation, Canva. See our Figma vs Canva comparison.",
-            },
-            {
-                q: "How do Figma's AI credits work?",
-                a: "Each plan includes a monthly AI credit pool — 500 on Starter up to 4,250 on Enterprise — used by AI and Make features. If you run out, you can buy add-on packs (such as 5,000 credits for $120/mo) or pay as you go at $0.03 per credit.",
-            },
-            {
-                q: "Can developers get value from Figma without designing?",
-                a: "Yes. Dev Mode is built for engineers — it provides specs, measurements, assets, and code hints from a design, and Make can generate component-aligned code. Many developers use Figma purely to consume designs and bridge to implementation rather than to create.",
+                q: "Do the AI features cost extra on top of my seat?",
+                a: "Effectively yes, in the form of a metered allowance. Each plan includes a pool of AI credits, and heavier use means buying more, which turns AI into a variable cost sitting on top of a fixed per-seat one. Allowances and add-on pricing are adjusted periodically, so check the current pricing page before assuming your team's usage fits inside what is included.",
             },
         ],
     },
@@ -1320,52 +1546,90 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
     framer: {
         overviewHtml: `
-            <p><strong>Framer</strong> is a website builder that combines designer-grade visual control with AI assistance and production hosting — letting you design a site visually and publish it live without hand-coding. It occupies a distinct space: more design-focused and polished than typical site builders, but more accessible than coding a site from scratch. Its AI features include <strong>AI Wireframer</strong> for generating layouts and <strong>AI Workshop</strong> as a coding assistant, plus AI translation and third-party AI plugins (OpenAI, Anthropic, Gemini).</p>
+            <p><strong>Framer</strong> is easiest to place by what comes out of the far end of it. <a href="/tool/figma">Figma</a> produces a design. A code generator produces a repository. Framer produces a website that is live, hosted, on your domain, and being served to visitors — and it does that from an interface that a designer, rather than a developer, is expected to drive. Everything appealing and everything limiting about the product follows from that one commitment.</p>
 
-            <p>Framer overhauled its pricing in October 2025. The current tiers are <strong>Free</strong> (design and try, with Framer branding and a framer.website subdomain), <strong>Basic ($10/mo annually)</strong> which removes branding and adds a free custom domain and 30 site pages, <strong>Pro ($30/mo annually)</strong> with 150 pages, more CMS capacity, staging, roles, and analytics, and <strong>Scale ($100/mo)</strong> and Enterprise for larger needs. Monthly billing runs noticeably higher than annual.</p>
+            <h3>The deliverable is a live site, not a file</h3>
 
-            <p>Its strength is design quality with real publishing. Framer produces genuinely polished, animated, responsive sites that look custom-designed, and it handles hosting, CMS, and SEO basics so you ship a real site, not just a mockup. For designers, marketers, and founders who want a beautiful site without a developer, it hits a sweet spot.</p>
+            <p>The motion Framer is built around is design, publish, done. There is no export step, no handoff, no ticket asking someone to implement the thing you drew. For a marketer who needs a landing page by Thursday or a founder who needs a site before a launch, collapsing those three stages into one is the entire value proposition, and it is a larger change to how work feels than any individual feature.</p>
 
-            <p>The honest weaknesses: it has a steeper learning curve than drag-and-drop builders aimed at total beginners, the page and CMS limits on lower tiers can force an upgrade as a site grows, and it is a website tool — not an interface-design tool for app UI, where <a href="/tool/figma">Figma</a> is the right choice. For quick marketing graphics rather than full sites, <a href="/tool/canva">Canva</a> is more appropriate. Framer is best when the deliverable is a polished, published website.</p>
+            <p>The visual control is genuinely designer-grade rather than template-grade. Responsive behaviour, layout, typography, and animation are all directly manipulable, and sites built in it tend not to look like they came from a builder — which is a low bar that most builders still fail. The AI features sit on top of this rather than underneath it: layout generation to get a structure started, assistance with copy and translation, help with small pieces of custom code. They shorten the beginning of the work. The visual editor is still where the work happens.</p>
 
-            <p>Who it is for: designers, marketers, and founders who want to design and publish a beautiful, custom-feeling website without coding. Who it is not for: people who want the simplest possible drag-and-drop builder, or those designing app interfaces rather than websites (use Figma).</p>
+            <h3>Hosting is part of the product, for better and worse</h3>
+
+            <p>Publishing is not an integration; it is the product. Framer runs the infrastructure, handles the domain, serves the pages, and manages the things that make a site work in public — meta tags, sitemaps, redirects, and pages rendered so that crawlers see real content rather than an empty shell. For a small team with nobody who wants to own a deployment pipeline, removing that entire category of concern is worth real money.</p>
+
+            <p>The cost is that you have chosen a platform and not just a tool. Your site runs where Framer runs it, under Framer's plan structure, with page and content limits that belong to your tier rather than to your hosting bill. Growth is therefore a pricing event: adding pages or content can push you up a tier in a way that has nothing to do with traffic. Plan limits and prices have been restructured before, so check the current plans before committing a site you expect to grow substantially.</p>
+
+            <h3>Against Webflow, the nearest real comparison</h3>
+
+            <p>These two occupy the same territory and lean different ways, and choosing between them is mostly a question about who is doing the work.</p>
+
+            <p>Webflow is the more powerful and more literal tool: it exposes the underlying box model, gives you finer structural control, and rewards someone who understands how HTML and CSS actually behave. Framer is the more designer-native one, where the interface resembles a design tool and animation and interaction are unusually easy to get right. The rough heuristic is that a person who thinks in stylesheets will find Framer occasionally constraining, and a person who thinks in frames and layers will find Webflow occasionally tedious. Neither is wrong, and the deciding factor is usually which description fits the person who will maintain the site in six months.</p>
+
+            <h3>Against Lovable and the app builders</h3>
+
+            <p>This comparison comes up constantly and it should not. <a href="/tool/lovable">Lovable</a> and its neighbours generate applications — with databases, authentication, and business logic — from prompts, and hand you a codebase. Framer builds websites: marketing pages, content, forms, the public face of a company.</p>
+
+            <p>The boundary is whether users log in and change state. Sites that inform, persuade, and collect enquiries are Framer's domain and it is very good at them. The moment you need accounts, permissions, stored data, or anything a user manipulates, you are building an application and this is the wrong tool — see <a href="/blog/ai-app-builders-bolt-v0-lovable">the app builders compared</a> for that category. Plenty of companies correctly use both: a marketing site in Framer and a product built somewhere else entirely.</p>
+
+            <h3>The wall you hit when you need code</h3>
+
+            <p>Framer allows custom code components and script insertion, so it is not a sealed box, and there is still a real ceiling that matters for anyone thinking about the long term.</p>
+
+            <p>The important question is portability. Framer is not designed around handing you a complete codebase you can host somewhere else, which means the site you build largely lives where you built it. If an eventual migration to your own infrastructure is a requirement rather than a hypothetical — because a developer will take it over, because of a procurement rule, or because you want the option — establish exactly what you could extract before you build fifty pages, not after. Confirm current capabilities directly rather than trusting a description.</p>
+
+            <p>The second ceiling is integration depth. Anything that needs server-side logic, a real backend, custom API routes, or behaviour that does not fit the platform's model becomes awkward at best. The right time to notice this is during evaluation, when the requirements list is still honest, rather than at the point where one stakeholder request does not fit.</p>
+
+            <h3>When not to choose Framer</h3>
+
+            <p>Do not choose it if nobody on the team has design judgement. It gives you control, and control without taste produces worse results than a rigid template would. A team with no designer is often better served by something more opinionated that constrains them into a decent outcome.</p>
+
+            <p>Do not choose it if a developer will own the site anyway. If someone is going to maintain it in code, the reasons to accept a proprietary platform mostly disappear, and a conventional framework with a headless content source gives more control and no lock-in.</p>
+
+            <p>Do not choose it for an application. Repeating this because it is the most expensive mistake available here: the moment the requirements include accounts and stored state, you have left the category.</p>
+
+            <p>And do not choose it if your content volume is about to explode. Page and content limits are tied to plan tiers, so a site that grows into hundreds of pages carries a cost curve worth modelling before you start rather than discovering at renewal.</p>
         `,
         useCases: [
             {
-                title: "Designer-quality marketing sites",
-                body: "Framer's core: building polished, animated, responsive marketing and landing sites that look custom-coded, then publishing them live with hosting included. Designers and founders use it to ship beautiful sites without handing off to a developer.",
+                title: "Marketing sites a designer can ship alone",
+                body: "Landing pages, product sites, and campaign microsites built and published without a developer in the loop. The compression of design, build, and deploy into one person's afternoon is the reason teams adopt it, and it holds up as long as the site stays a site.",
             },
             {
-                title: "AI-assisted layout with Wireframer",
-                body: "AI Wireframer generates layout structures from prompts, giving a starting point that designers refine. Combined with AI Workshop (a coding assistant) and AI plugins, it speeds up the from-scratch phase of building a site.",
-            },
-            {
-                title: "CMS-driven content sites",
-                body: "Framer's built-in CMS lets teams run blogs, case-study libraries, and other structured content with design control. Higher tiers raise the CMS item and collection limits for content-heavy sites.",
+                title: "Content-driven sites someone non-technical maintains",
+                body: "Blogs, case study libraries, and documentation-style content running on the built-in CMS, where a marketer adds entries without touching layout. Worth checking the content and collection limits on your intended tier early, because this is the usage that grows fastest.",
             },
         ],
         pricingDetail:
             "After its October 2025 overhaul, Framer offers Free ($0, design and try with Framer branding and a subdomain), Basic ($10/mo annually, $15 monthly — removes branding, free custom domain, 30 pages, 1 CMS collection), Pro ($30/mo annually, $45 monthly — 150 pages, 10 CMS collections, 2,500 CMS items, staging, roles, redirects, 90-day analytics), Scale ($100/mo annually, with expandable add-ons), and Enterprise (custom). The older Mini ($5) and several other tiers were removed in the overhaul. The trap: page, CMS-item, and bandwidth limits on lower tiers can force an upgrade as a site grows, and monthly billing is meaningfully more expensive than annual.",
         faq: [
             {
-                q: "Is Framer a website builder or a design tool?",
-                a: "Both, in a sense — you design visually and publish a live, hosted website from the same tool. It is more design-focused than typical site builders but is specifically for building and shipping websites, not for designing app interfaces (that is Figma's domain).",
+                q: "Framer or Webflow?",
+                a: "Pick by who maintains the site. Webflow exposes more of the underlying web platform and rewards someone comfortable with how HTML and CSS behave; Framer feels like a design tool and makes interaction and animation notably easier. A person who thinks in stylesheets will occasionally find Framer constraining. A person who thinks in layers and frames will occasionally find Webflow tedious.",
             },
             {
-                q: "What AI features does Framer have?",
-                a: "Framer includes AI Wireframer for generating layouts, AI Workshop as a coding assistant, AI translation, and integrations with third-party AI (OpenAI, Anthropic, Gemini) for content and image generation. These speed up building but the core value is still the visual design-and-publish workflow.",
+                q: "Framer or Figma?",
+                a: "They are not alternatives. Figma is where you design interfaces and hand them to developers; Framer is where you build and publish a website. If your output is a live marketing site, Framer. If it is app UI, a design system, or a specification for engineers, Figma. Many teams use both without any overlap at all.",
             },
             {
-                q: "Is the free Framer plan usable for a real site?",
-                a: "For trying it or building a template, yes, but a real published site generally needs Basic ($10/mo) or higher — the free tier shows Framer branding and uses a framer.website subdomain. Basic removes branding and adds a free custom domain and 30 pages.",
+                q: "Can I export my site as code and host it elsewhere?",
+                a: "Do not assume so. Framer is built around publishing on its own infrastructure rather than around producing a portable codebase, so treat the site as living where you built it. If future migration is a hard requirement, confirm exactly what can be extracted before you invest in a large site, and confirm it with Framer directly rather than from any article.",
             },
             {
-                q: "Framer or Figma — which do I need?",
-                a: "Framer is for designing and publishing actual websites; Figma is for interface design, design systems, and developer handoff. If your deliverable is a live website, Framer; if it is app UI or a design system, Figma. They solve different problems and many teams use both.",
+                q: "Is the free plan usable for a real site?",
+                a: "For building, learning, and showing someone a draft, yes. For a site the public is meant to take seriously, no — the free tier carries Framer branding and a Framer subdomain. The first paid tier is what removes both and attaches your own domain, which is the practical minimum for anything customer-facing.",
             },
             {
-                q: "Did Framer's pricing change recently?",
-                a: "Yes. In October 2025 Framer overhauled its pricing, removing older tiers like Mini ($5) and restructuring into Free, Basic ($10), Pro ($30), Scale ($100), and Enterprise. Annual billing is required to hit the advertised rates; monthly billing is meaningfully higher.",
+                q: "Can I add custom code?",
+                a: "Yes, within limits. You can build custom code components and insert scripts, which covers analytics, third-party widgets, and bespoke interactive pieces. What it does not cover is server-side logic, a real backend, or anything needing custom API routes. It is an escape hatch for extending a website, not a route to building an application.",
+            },
+            {
+                q: "Is it any good for SEO?",
+                a: "The fundamentals are handled. Pages are served so that crawlers see actual content rather than an empty shell, and the usual controls — meta tags, sitemaps, redirects — are part of the product rather than plugins you bolt on. Beyond that, the ranking outcome depends on your content and your site structure, which is true of every platform and is where the effort actually goes.",
+            },
+            {
+                q: "When is Framer the wrong tool?",
+                a: "When users log in. Anything with accounts, permissions, or stored state that people manipulate is an application, and you want an app builder or a developer instead. It is also the wrong tool when a developer was always going to own the site, since the platform trade-off buys you nothing in that case, and when nobody involved has the design judgement to use the control it gives you.",
             },
         ],
     },
