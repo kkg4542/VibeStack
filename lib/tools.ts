@@ -49,7 +49,7 @@ export const tools: ToolData[] = [
     description: "The world's first fully autonomous AI software engineer capable of taking Jira tickets to production.",
     category: "Assistance",
     pricing: "Paid",
-    websiteUrl: "https://cognition-labs.ai",
+    websiteUrl: "https://devin.ai",
     color: "text-purple-500",
     bgGradient: "from-purple-500/20 to-purple-600/20",
     features: ["Autonomous Coding", "Self Debugging", "Integration Planning", "Continuous Deployment"],
