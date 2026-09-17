@@ -99,42 +99,21 @@ export const stacks: Stack[] = [
     {
         id: "10x-engineer",
         name: "The 10x Engineer Stack",
-        description: "Autonomous agents and massive context windows for maximum velocity.",
-        longDescription: "For developers who want to move at maximum speed. This stack combines autonomous coding agents with smart project management to handle even the most complex workflows.",
+        description: "An autonomous coding agent paired with fast, opinionated issue tracking for maximum velocity.",
+        longDescription: "For developers who want to move at maximum speed. This stack combines an autonomous coding agent with smart project management to handle even the most complex workflows.",
         totalPrice: "$40+/mo",
         tags: ["Advanced", "Pro", "Autonomous", "Productivity"],
-        tools: ["devin-ai", "supermaven", "linear"],
+        tools: ["devin-ai", "linear"],
         idealFor: ["Senior developers", "Startups", "Complex projects", "Fast shipping"],
         workflow: [
             "1. Define tasks in Linear",
             "2. Devin AI handles implementation",
-            "3. SuperMaven accelerates coding",
-            "4. Deploy with confidence"
+            "3. Deploy with confidence"
         ],
         icon: "🚀",
         color: "text-orange-500",
         metaTitle: "AI Coding Agent Stack for Senior Developers",
-        metaDescription: "An autonomous-agent stack for senior developers: Devin AI ships features, Supermaven speeds up completions, and Linear tracks the work at speed.",
-    },
-    {
-        id: "efficiency",
-        name: "The Efficiency Stack",
-        description: "Fast, free, and smart tools to speed up your workflow.",
-        longDescription: "Balance speed and cost. This stack provides intelligent code completion and AI assistance without breaking the bank.",
-        totalPrice: "$0/mo",
-        tags: ["Productivity", "Free", "Smart", "Fast"],
-        tools: ["supermaven", "cursor"],
-        idealFor: ["Freelancers", "Side projects", "Budget-conscious", "Speed-focused"],
-        workflow: [
-            "1. Install Cursor IDE",
-            "2. Enable SuperMaven autocomplete",
-            "3. Get intelligent suggestions instantly",
-            "4. Ship features faster"
-        ],
-        icon: "⚡",
-        color: "text-yellow-500",
-        metaTitle: "Free Coding Stack: Cursor + Supermaven",
-        metaDescription: "A free, fast coding stack for budget-conscious developers: Cursor's AI editor plus Supermaven's autocomplete, both usable without paying a cent.",
+        metaDescription: "An autonomous-agent stack for senior developers: Devin AI ships features end to end while Linear tracks the work at speed.",
     },
     {
         id: "power-pair",

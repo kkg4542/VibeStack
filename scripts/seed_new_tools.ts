@@ -19,36 +19,6 @@ const newTools = [
     tier: "free"
   },
   {
-    slug: "windsurf-ide",
-    title: "Windsurf",
-    description: "Codeium's agentic IDE that predicts your next steps and works as an intelligent pair programmer.",
-    category: "Coding",
-    pricing: "Paid",
-    websiteUrl: "https://codeium.com/windsurf",
-    color: "text-emerald-500",
-    bgGradient: "from-emerald-500/20 to-emerald-600/20",
-    features: ["Flow State", "Deep Codebase Context", "Agentic Chat", "Refactoring Engine"],
-    pros: ["Very fast AI responses", "Deep context understanding", "Built-in intelligent chat"],
-    cons: ["Paid only", "Requires learning new workflows"],
-    isFeatured: true,
-    tier: "premium"
-  },
-  {
-    slug: "openai-sora",
-    title: "Sora",
-    description: "OpenAI's groundbreaking text-to-video AI model that creates hyper-realistic and imaginative scenes.",
-    category: "Design",
-    pricing: "Enterprise",
-    websiteUrl: "https://openai.com/sora",
-    color: "text-indigo-500",
-    bgGradient: "from-indigo-500/20 to-indigo-600/20",
-    features: ["Text-to-Video", "Photorealism", "Physical World Simulation", "High Quality Generaton"],
-    pros: ["Unmatched quality", "Understands physical dynamics", "Longer video generations"],
-    cons: ["Not widely available yet", "High cost API"],
-    isFeatured: true,
-    tier: "enterprise"
-  },
-  {
     slug: "devin-ai",
     title: "Devin",
     description: "The world's first fully autonomous AI software engineer capable of taking Jira tickets to production.",

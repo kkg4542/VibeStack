@@ -20,7 +20,7 @@ function normalize(s: string): string {
 /**
  * Cumulative prefixes and suffixes of a slug's segments, e.g. "v0-by-vercel"
  * → ["v0", "v0by", "v0byvercel", "byvercel", "vercel"]. Lets a tag like
- * "Windsurf" match "windsurf-ide" without the false positives of substring
+ * "v0" match "v0-by-vercel" without the false positives of substring
  * matching.
  */
 function slugAliases(slug: string): { prefixes: string[]; suffixes: string[] } {

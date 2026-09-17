@@ -14,7 +14,7 @@ export const postsBatch3: BlogPost[] = [
     excerpt:
       "Cursor rebuilt the editor around AI; Copilot added AI to the editor you already use. We compare agents, autocomplete, and price to help you choose in 2026.",
     date: "Jul 18, 2026",
-    updated: "Jul 28, 2026",
+    updated: "Sep 16, 2026",
     author: "David Kim",
     category: "Comparison",
     readTime: "8 min read",
@@ -69,7 +69,7 @@ export const postsBatch3: BlogPost[] = [
         <li><strong>Choose <a href="/tool/github-copilot">GitHub Copilot</a></strong> if you want AI inside your current editor with broad coverage, enterprise controls, and tight GitHub integration. It's the safer choice for larger teams and regulated environments.</li>
       </ul>
       <p>The honest test: install both free tiers, push the same real task — say, adding a feature that touches three files — through each, and keep the one whose flow clicks for you. For most independent developers building fast in 2026, that ends up being Cursor; for teams living inside GitHub, it's Copilot.</p>
-      <p>Still deciding? See our full ranking of the <a href="/best/coding">best AI coding tools</a> for more options like Windsurf, Aider, and Supermaven, or read <a href="/blog/cursor-vs-windsurf">Cursor vs Windsurf</a> for the other big editor rivalry. If the editor is only one piece of what you're assembling, our guide to the <a href="/blog/best-ai-tools-for-vibe-coding">best AI tools for vibe coding</a> covers the rest of the stack.</p>
+      <p>Still deciding? See our full ranking of the <a href="/best/coding">best AI coding tools</a> for more options like Aider and <a href="/tool/devin-ai">Devin</a>. Two names you'll still see in older roundups have moved: Codeium's Windsurf editor now ships as Devin Desktop after Cognition's June 2026 relaunch, and Supermaven was acquired by Cursor's maker and folded into Cursor Tab before being sunset in November 2025. Our <a href="/blog/cursor-vs-windsurf">Cursor vs Windsurf</a> comparison covers that editor as it stood before the rebrand. If the editor is only one piece of what you're assembling, our guide to the <a href="/blog/best-ai-tools-for-vibe-coding">best AI tools for vibe coding</a> covers the rest of the stack.</p>
     `,
     faq: [
       {
@@ -198,7 +198,7 @@ export const postsBatch3: BlogPost[] = [
     excerpt:
       "ElevenLabs is the default for realistic AI voices and cloning — but it fails in specific, predictable places. A 2026 review covering real workflows, where the quality breaks down, how it compares to Descript, licensing for commercial use, the character math behind your bill, and when to use something else.",
     date: "Jul 18, 2026",
-    updated: "Aug 16, 2026",
+    updated: "Sep 16, 2026",
     author: "David Kim",
     category: "Review",
     readTime: "10 min read",
@@ -274,7 +274,7 @@ export const postsBatch3: BlogPost[] = [
       </table>
       <p>The most useful comparison is against <a href="/tool/descript">Descript</a>, because the two get pitched at the same people and solve opposite problems. Descript starts from a recording: it transcribes what you said and lets you edit the audio by editing the text, with voice cloning positioned as a way to patch a flubbed line without re-recording the take. ElevenLabs starts from a blank page — there is no recording, and the voice is the output. If you narrate your own videos and want to remove filler words and fix mistakes, Descript is the better buy and ElevenLabs is redundant. If you don't want to be on the mic at all, or you need a voice in a language you don't speak, ElevenLabs is the obvious answer. Plenty of teams run both: record and edit in Descript, generate the localized versions in ElevenLabs.</p>
       <p>Against the text-to-speech offered by the big assistant labs, the trade is cost versus control. If you just need an app to read a notification aloud, general-purpose TTS is cheaper and entirely adequate. What you give up is cloning, a voice library, per-line tuning, and long-form project tooling — exactly what you need the moment voice becomes a product surface rather than a convenience.</p>
-      <p>In a wider media pipeline, <a href="/tool/otter-ai">Otter</a> handles transcription, <a href="/tool/runway">Runway</a> and <a href="/tool/openai-sora">Sora</a> generate the visuals (see <a href="/blog/sora-video-generation-revolution">where AI video generation stands</a>), and ElevenLabs supplies the voice track.</p>
+      <p>In a wider media pipeline, <a href="/tool/otter-ai">Otter</a> handles transcription, <a href="/tool/runway">Runway</a> generates the visuals (see <a href="/blog/sora-video-generation-revolution">where AI video generation stands</a>), and ElevenLabs supplies the voice track.</p>
 
       <h2>Licensing and commercial use</h2>
       <p>This is the part most reviews skip, and it's the part that can cost you. Two separate questions matter, and they have different answers.</p>
@@ -327,7 +327,7 @@ export const postsBatch3: BlogPost[] = [
     excerpt:
       "Bolt.new, v0, and Lovable all turn a prompt into a working app — but they generate different things, bill in three different currencies, and hit their ceilings at different points. A 2026 comparison with pricing, code ownership, and scenario-by-scenario picks.",
     date: "Jul 18, 2026",
-    updated: "Aug 16, 2026",
+    updated: "Sep 16, 2026",
     author: "David Kim",
     category: "Comparison",
     readTime: "11 min read",
@@ -371,7 +371,7 @@ export const postsBatch3: BlogPost[] = [
         <li><strong>An MVP that real users will log into</strong> &rarr; Lovable. Auth, database, and hosting arrive wired up, which is most of the work you were dreading.</li>
         <li><strong>You're a designer sitting on Figma files</strong> &rarr; v0 Premium, which imports <a href="/tool/figma">Figma</a> designs and turns them into working components.</li>
         <li><strong>You're learning to build</strong> &rarr; Bolt.new's free tier. It runs live, needs no credit card, and watching working code get generated and immediately execute is a genuinely good way to learn.</li>
-        <li><strong>The project will clearly become a serious codebase</strong> &rarr; use any of them for the first twenty percent, then move into <a href="/tool/cursor">Cursor</a> or <a href="/tool/windsurf-ide">Windsurf</a>. Our <a href="/compare/cursor-vs-bolt-new">Cursor vs Bolt.new comparison</a> covers where that handoff makes sense.</li>
+        <li><strong>The project will clearly become a serious codebase</strong> &rarr; use any of them for the first twenty percent, then move into <a href="/tool/cursor">Cursor</a> or <a href="/tool/devin-ai">Devin Desktop</a> (the editor Codeium launched as Windsurf). Our <a href="/compare/cursor-vs-bolt-new">Cursor vs Bolt.new comparison</a> covers where that handoff makes sense.</li>
       </ul>
       <p>One more option worth knowing: <a href="/tool/replit">Replit</a> occupies adjacent ground with its Agent, and is the better fit if what you actually want is a full cloud IDE with hosting and a database attached rather than a prompt-first builder.</p>
 
@@ -454,7 +454,7 @@ export const postsBatch3: BlogPost[] = [
     excerpt:
       "Both answer questions, but only one is built for research with citations. A 2026 breakdown of Perplexity vs ChatGPT: what each is actually built for, tier-by-tier pricing, the free Comet browser, where each one fails, and how to use both together.",
     date: "Jul 18, 2026",
-    updated: "Aug 16, 2026",
+    updated: "Sep 16, 2026",
     author: "David Kim",
     category: "Comparison",
     readTime: "11 min read",
@@ -492,7 +492,7 @@ export const postsBatch3: BlogPost[] = [
         </thead>
         <tbody>
           <tr><td>Free</td><td>5 Deep Research queries + 3 Pro Searches per day</td><td>A limited fast model with tight message caps; ads in the US</td></tr>
-          <tr><td>~$20/mo</td><td>Pro: full Sonar family, third-party model selection, Spaces, Pages, Labs</td><td>Plus: full model suite, Deep Research, Sora image generation, Agent Mode, Codex tools, ad-free</td></tr>
+          <tr><td>~$20/mo</td><td>Pro: full Sonar family, third-party model selection, Spaces, Pages, Labs</td><td>Plus: full model suite, Deep Research, image generation, Agent Mode, Codex tools, ad-free</td></tr>
           <tr><td>$200/mo</td><td>Max: adds Perplexity Computer, orchestrating 19 models as sub-agents</td><td>Pro: largest context window and high Deep Research limits</td></tr>
           <tr><td>Students</td><td>Education Pro around $10/mo</td><td>&mdash;</td></tr>
           <tr><td>Teams</td><td>Enterprise Pro around $40/seat/mo; Enterprise Max around $325/seat/mo</td><td>ChatGPT Work, a separate enterprise workspace</td></tr>

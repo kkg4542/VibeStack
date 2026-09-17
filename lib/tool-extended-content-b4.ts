@@ -1,8 +1,8 @@
 import type { ToolExtendedContent } from "./tool-extended-content";
 
 /**
- * Batch 4 extended editorial content — otter-ai, slack-ai, supermaven,
- * tabnine, zoom-ai-companion. Written to match the tone, structure, and
+ * Batch 4 extended editorial content — otter-ai, slack-ai, tabnine,
+ * zoom-ai-companion. Written to match the tone, structure, and
  * internal-linking pattern of lib/tool-extended-content.ts. Kept as a
  * separate module to avoid merge conflicts with other in-flight batches;
  * merge into TOOL_EXTENDED_CONTENT (or have getExtendedContent read both)
@@ -162,86 +162,6 @@ export const TOOL_EXTENDED_CONTENT_B4: Record<string, ToolExtendedContent> = {
         ],
     },
 
-    supermaven: {
-        overviewHtml: `
-            <p><strong>Supermaven</strong> does one thing. While <a href="/tool/cursor">Cursor</a> and <a href="/tool/github-copilot">GitHub Copilot</a> expanded into chat, multi-file agents, code review, and command-line tools, Supermaven stayed on inline autocomplete, the grey suggestion you accept with the tab key, and optimized it for two properties: how quickly it appears and how much of your project it has already read. It ships as an extension for VS Code, JetBrains IDEs, and Neovim, and it is built to sit beside whatever agent you already use rather than to replace it. Evaluating it as a Copilot alternative is the most common route to the wrong conclusion about it, because it is not trying to occupy that slot.</p>
-
-            <h3>Latency is the feature, and it is not a gimmick</h3>
-
-            <p>Speed reads like a marketing axis until you notice it changes the interaction itself. A completion that arrives while your fingers are still moving gets evaluated as part of typing: you glance, take it or keep going, and never leave the line. A completion that arrives after you have stopped is a decision. You have already switched into reading mode, and the cost of considering it is paid whether you accept it or not. Supermaven optimizes hard for the first case, which is why people who like it describe it in terms of flow rather than in terms of output quality.</p>
-
-            <p>The corollary matters just as much and is rarely said out loud. Low latency is only valuable when rejecting a suggestion is nearly free, which is true of a one-line completion and false of a multi-file change you have to read. That is the honest boundary of the entire product: it improves the cheap-to-reject interaction and has nothing to offer on the expensive ones.</p>
-
-            <h3>A long context window changes what it gets wrong</h3>
-
-            <p>The second claim is an unusually large context window, meaning how much surrounding code the model holds while completing. Rather than quoting a token figure that shifts with each model release, it is more useful to know what the difference looks like at the keyboard: fewer invented helper functions, fewer imports from modules that do not exist, and completions that follow a convention defined in a file you never opened this session. On a large monorepo that is exactly where narrow-context completers fail most visibly, and the failures are annoying out of proportion to their size because each one costs a lookup.</p>
-
-            <p>What a large window does not buy is judgment. It will still complete a call into the wrong abstraction layer, because seeing your code is not the same as knowing which parts of it you are supposed to use. More context reduces factual errors about your codebase. It does not reduce architectural ones, and no amount of it turns a completer into a reviewer.</p>
-
-            <h3>Running it next to Cursor or Copilot</h3>
-
-            <p>Two tools both drawing inline suggestions will fight over the same slot, and the symptoms are flickering ghost text, duplicated suggestions, or one quietly winning in a way that makes both feel worse. The working arrangement is to let Supermaven own the tab key and switch off inline completions in the other tool while keeping its chat and agent surfaces. That also frames the cost honestly: this is a second subscription stacked on one you already pay for, and it has to justify itself on typing alone. If you have not settled the primary tool yet, settle that first. <a href="/compare/cursor-vs-supermaven">Cursor against Supermaven</a> and <a href="/compare/github-copilot-vs-supermaven">Copilot against Supermaven</a> are comparisons between a platform and a component, and reading them that way is what makes them useful.</p>
-
-            <h3>When Supermaven is the wrong choice</h3>
-
-            <ul>
-                <li><strong>You want one tool rather than a stack.</strong> A consolidated platform that does completion, chat, and agentic edits at a good-enough level beats a best-in-class completer plus three other subscriptions for most individuals, and every extra tool is a configuration to maintain.</li>
-                <li><strong>Typing is not your bottleneck.</strong> If your days go to unfamiliar code, test design, or deciding what to build, faster keystrokes multiply the part that was never slowing you down.</li>
-                <li><strong>You need GitHub-native workflow.</strong> Pull request review, issue context, and repository-level automation live with <a href="/tool/github-copilot">GitHub Copilot</a>. Supermaven has no surface there and is not attempting one.</li>
-                <li><strong>Your code cannot leave your network.</strong> This is a hosted completion service, so surrounding context goes to the vendor to be completed. Where that is disqualifying, the category to look at is self-hosted assistants such as <a href="/tool/tabnine">Tabnine</a>, and you should read the current data-handling terms rather than infer them.</li>
-                <li><strong>You are standardizing a whole team on it.</strong> The Supermaven team joined Anysphere, the company behind Cursor, in late 2024. What that means today, whether the standalone extensions are still being updated, still open to new signups, and still on their own roadmap rather than being folded into Cursor, is something to confirm directly with the vendor before a team commits. Acquisitions and shutdowns are frequent in this category and any write-up, this one included, ages quickly.</li>
-            </ul>
-
-            <p>Who it fits: developers who already have an agent for planning and multi-file work and who notice completion latency day to day. If you are earlier than that and still assembling the basics, <a href="/blog/cursor-vs-github-copilot">the Cursor and Copilot comparison</a> is the better starting point, because the primary tool decision determines whether a specialist completer is worth adding at all.</p>
-        `,
-        useCases: [
-            {
-                title: "Fast inline completion alongside a separate agent",
-                body: "Developers who keep a chat or agent tool open for planning and refactors run Supermaven purely for the tab key, on the theory that the two jobs have different requirements. Planning wants a strong model and tolerates a wait. Typing wants a suggestion before attention moves, and one tool optimized for each beats one tool splitting the difference.",
-            },
-            {
-                title: "Large monorepos where narrow context fails",
-                body: "In a codebase where the helper you need was defined in a file you have never opened, completers with small context windows invent plausible names and imports. A large window makes completions more likely to reference what actually exists, which shows up as fewer interruptions to go look something up rather than as a visible feature.",
-            },
-            {
-                title: "Editors the agentic tools do not reach",
-                body: "Neovim and JetBrains users often cannot or will not migrate to a VS Code fork to get a modern assistant. Because Supermaven ships as an extension rather than an editor, it adds current-generation completion without changing where you work, which is frequently the deciding factor for developers with a long-tuned environment.",
-            },
-        ],
-        pricingDetail:
-            "Supermaven is structured as freemium: a free individual tier covers ordinary completion use and a paid tier lifts the limits. The model matters more than the figure. Billing is flat per user rather than metered by tokens, credits, or agent runs, which is a direct consequence of the product doing only completion, and there is no agent tier because there are no agents. Two cautions before budgeting. First, this is usually a second subscription next to the agent you already pay for, so judge it on the typing experience rather than on total capability. Second, confirm current availability and terms with the vendor, since ownership of the product changed after those tiers were introduced.",
-        faq: [
-            {
-                q: "Is Supermaven actually faster than GitHub Copilot?",
-                a: "Latency is its entire reason for existing, and developers who use both generally report its suggestions arriving sooner. Rather than trusting a figure from anyone, install it for a day and watch whether suggestions land before your attention leaves the line, because that threshold is what the whole claim rests on and it depends on your machine, your network, and your typing speed.",
-            },
-            {
-                q: "Does it have chat or agent features?",
-                a: "No, deliberately. There is no chat panel, no agent mode, no terminal execution, and no multi-file planning. If you want those, you need a separate tool, which is the setup Supermaven assumes you already have.",
-            },
-            {
-                q: "Can I run it at the same time as Cursor or Copilot?",
-                a: "Yes, but not with both providing inline completions, since they compete for the same suggestion slot and the result is flicker or duplicated ghost text. Disable inline completions in the other tool, keep its chat and agent surfaces, and let Supermaven own the tab key.",
-            },
-            {
-                q: "Is Supermaven still an independent product?",
-                a: "The team joined Anysphere, the company behind Cursor, in late 2024. Where that leaves the standalone extensions now, whether they are actively maintained, accepting new users, and developed separately from Cursor, is worth checking against the vendor's own current status page before you build a workflow or a team rollout on it.",
-            },
-            {
-                q: "Which editors does it support?",
-                a: "It has shipped extensions for VS Code, the JetBrains IDEs, and Neovim, which is the main reason it appears in setups where a VS Code fork is not an option. Confirm the current list and the maintenance status of the specific extension you need, because plugin support across editors is uneven and can lag.",
-            },
-            {
-                q: "Does my code leave my machine?",
-                a: "Yes, as with other hosted completion tools. Surrounding context is sent to the vendor's service to generate a suggestion, so this is not local inference. If your organization cannot allow that, you are in the on-premises category rather than the low-latency one, and should read the vendor's current data-handling and retention terms instead of assuming either way.",
-            },
-            {
-                q: "Is it worth paying for if I already pay for Cursor or Copilot?",
-                a: "Only on one test: whether you accept inline suggestions constantly while typing. If you do, the interaction you perform hundreds of times a day gets better and the second subscription is easy to justify. If you mostly drive work through chat and agents, you are paying for a property of an interaction you barely use.",
-            },
-        ],
-    },
-
     tabnine: {
         overviewHtml: `
             <p><strong>Tabnine</strong> predates the current generation of AI coding assistants and has spent the years since being out-featured by them. It is still deployed widely, and the reason has almost nothing to do with completion quality. Tabnine competes on where the software runs and on what its vendor can prove about the model's training data. For the organizations that buy it, those are not nice-to-haves layered on top of a coding tool; they are the entire purchasing criterion, and everything else is a secondary score.</p>
@@ -260,7 +180,7 @@ export const TOOL_EXTENDED_CONTENT_B4: Record<string, ToolExtendedContent> = {
 
             <h3>What you trade away</h3>
 
-            <p>Capability, mostly. Developers who have used both consistently place <a href="/tool/github-copilot">GitHub Copilot</a>, <a href="/tool/cursor">Cursor</a>, and latency-focused tools like <a href="/tool/supermaven">Supermaven</a> ahead of Tabnine on raw completion quality and on agentic multi-file work. That gap is structural rather than a matter of effort — a competitor free to call the largest hosted model available has options that a product which must also run on a customer's own hardware simply does not.</p>
+            <p>Capability, mostly. Developers who have used both consistently place <a href="/tool/github-copilot">GitHub Copilot</a> and <a href="/tool/cursor">Cursor</a> ahead of Tabnine on raw completion quality and on agentic multi-file work. That gap is structural rather than a matter of effort — a competitor free to call the largest hosted model available has options that a product which must also run on a customer's own hardware simply does not.</p>
 
             <p>The second trade is felt at signup, and it damages Tabnine's reputation more than the first. The free and individual paid tiers deliver an ordinary autocomplete tool; on-premises deployment, air-gapped operation, and private-codebase tuning — the entire reason to choose Tabnine — sit behind the enterprise plan. A developer evaluating it casually is testing a product stripped of its thesis and concludes, reasonably, that it is unremarkable. <a href="/compare/cursor-vs-tabnine">Comparing it with Cursor</a> on completions alone reaches the same verdict and misses the point in the same way.</p>
 
@@ -304,7 +224,7 @@ export const TOOL_EXTENDED_CONTENT_B4: Record<string, ToolExtendedContent> = {
             },
             {
                 q: "Is Tabnine as good as Copilot at completions?",
-                a: "Generally not, and the honest comparisons say so. Copilot, Cursor, and latency-focused tools like Supermaven tend to come out ahead on raw suggestion quality and agentic multi-file work. Tabnine's advantage is architectural, and it only matters if your constraints make the cloud alternatives ineligible.",
+                a: "Generally not, and the honest comparisons say so. Copilot and Cursor tend to come out ahead on raw suggestion quality and agentic multi-file work. Tabnine's advantage is architectural, and it only matters if your constraints make the cloud alternatives ineligible.",
             },
             {
                 q: "Does Tabnine support my IDE?",

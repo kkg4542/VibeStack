@@ -151,14 +151,6 @@ export const COMPARE_EDITORIAL: Record<string, CompareEditorial> = {
       },
     ],
   },
-  "cursor-vs-windsurf-ide": {
-    intro: [
-      "Cursor and Windsurf are the two leading AI-native editors, both VS Code forks, both built around agentic coding. Cursor got there first and has the larger user base and more mature ecosystem. Windsurf (from Codeium) counters with its Cascade agent, which emphasizes automatically tracking your intent across a session, and aggressive pricing.",
-      "In day-to-day use they are closer than their marketing suggests: both offer codebase-aware chat, multi-file edits, and background agents. Differences come down to feel — Cursor gives the developer more explicit control, Windsurf leans further into automation — and to which model access and pricing tier fits your budget.",
-    ],
-    verdict:
-      "You can't go badly wrong with either. Choose Cursor for the more proven option with the larger community and finer-grained control. Choose Windsurf if its agent-first flow or pricing suits you better — it's the strongest Cursor alternative available.",
-  },
   "cursor-vs-bolt-new": {
     intro: [
       "Cursor and Bolt.new both generate code with AI, but for different audiences. Cursor is a professional IDE for developers working in real codebases — you own the environment, the git history, and every line. Bolt.new is a browser-based app builder: describe what you want, and it scaffolds, runs, and deploys a full-stack app without any local setup.",
@@ -218,32 +210,6 @@ export const COMPARE_EDITORIAL: Record<string, CompareEditorial> = {
       {
         q: "Do I need both Copilot and CodeRabbit?",
         a: "Only if both stages of your workflow are slow. They cover different points in the cycle — authoring versus reviewing — so running both is redundant only in budget, not in function. Start with whichever bottleneck costs you more hours per week and add the second once you can measure the gap.",
-      },
-    ],
-  },
-  "github-copilot-vs-supermaven": {
-    title: "GitHub Copilot vs Supermaven: Speed & Context",
-    description:
-      "Copilot covers chat, agents, and PR review; Supermaven does one thing — the fastest, most context-aware autocomplete with a 1M-token window.",
-    intro: [
-      "Supermaven and GitHub Copilot both autocomplete your code, and that's roughly where the similarity ends. Supermaven is a single-purpose speed tool: a 1M-token context window and completions that arrive fast enough to feel like part of the editor rather than a round trip to a server. Copilot is a platform — completions, chat, agent mode (generally available on VS Code and JetBrains since March 2026), code review inside pull requests, a CLI, and a cloud agent.",
-      "The two specs Supermaven leads on aren't marketing abstractions; they change how the tool feels. Latency decides whether you wait for a suggestion or read one that's already sitting there. When completions land before your eyes leave the line you're typing, you stay in flow instead of pausing to evaluate a popup — and that difference compounds over a day far more than a few percentage points of suggestion quality. The 1M-token window decides how much of your repository the model saw before guessing: with a window that large, completions match the helper functions and types defined in files you never opened, rather than inventing plausible-looking APIs. On a big monorepo that shows up concretely as fewer hallucinated imports and fewer wrong function signatures.",
-      "Where Supermaven stops is everything past the cursor. It won't plan a multi-file refactor, open a pull request, or review a diff, and its ecosystem and integrations are much smaller than Copilot's. Copilot does all of that and is wired into GitHub, where the rest of your workflow already lives — at the price of usage-metered billing since June 2026 and completions that feel a step slower. One more thing worth knowing before standardizing a team on Supermaven: its team joined Cursor's parent company Anysphere in late 2024, so check the current state of the extension for your editor rather than assuming an independent roadmap.",
-    ],
-    verdict:
-      "Choose Supermaven if autocomplete is the part of AI coding you actually use all day and you want the fastest, most context-aware version of it for a low flat price. Choose GitHub Copilot if you want one tool covering the whole cycle — completion, chat, agents, and pull request review — and you'll trade a little latency and predictable billing for that breadth. There's also a hybrid a lot of completion-sensitive developers land on: turn off Copilot's inline suggestions, keep its chat and agent features, and let Supermaven own the tab key.",
-    faqs: [
-      {
-        q: "Is Supermaven faster than GitHub Copilot?",
-        a: "Speed is Supermaven's entire pitch, and in practice its completions do surface noticeably sooner than Copilot's. Whether that matters depends on how you work: if you accept suggestions constantly while typing, the lower latency is the difference between staying in flow and waiting. If you mostly use chat and agents, it's irrelevant.",
-      },
-      {
-        q: "Can I run Supermaven and GitHub Copilot at the same time?",
-        a: "Yes, but not with both providing inline completions — two extensions competing for the same suggestion slot fight each other. The workable setup is to disable Copilot's inline suggestions in your editor settings while keeping Copilot Chat, agent mode, and PR review, and let Supermaven handle autocomplete.",
-      },
-      {
-        q: "Does Supermaven have agent features?",
-        a: "No. Supermaven is deliberately autocomplete-first — a 1M-token context window feeding fast, in-line completions. It won't execute multi-file changes, run terminal commands, or open pull requests. If you need agentic work, that's Copilot's agent mode or a full AI editor like Cursor.",
       },
     ],
   },
@@ -350,16 +316,6 @@ export const COMPARE_EDITORIAL: Record<string, CompareEditorial> = {
     verdict:
       "These aren't really alternatives to choose between — pick Midjourney for image generation and Lovable for building a working application, and expect to use both together rather than instead of each other if your project needs custom visuals inside a real app.",
   },
-  "cursor-vs-supermaven": {
-    description:
-      "Cursor is a full agentic AI editor; Supermaven is a single-purpose autocomplete tool built for the fastest, most context-aware completions.",
-    intro: [
-      "Cursor and Supermaven sit at different points on the same spectrum. Cursor is a complete AI-native code editor — a VS Code fork built around agentic, multi-file edits, codebase-wide chat, and a model picker spanning Claude, GPT, Gemini, and Grok. Supermaven is deliberately narrower: it's an autocomplete extension you add to whatever editor you already use, built around a 1M-token context window and completions fast enough to feel like part of typing rather than a round trip to a server.",
-      "The tradeoff is breadth versus depth in one specific skill. Cursor can plan and execute changes across a whole codebase, open pull requests, and hold a conversation about your architecture — capabilities Supermaven doesn't attempt. Supermaven's narrower focus means its tab-completion is often faster and more context-aware than what a general-purpose agentic editor prioritizes, since that's the only thing it's optimizing for.",
-    ],
-    verdict:
-      "Choose Cursor if agentic, multi-file development is the actual job you need done. Choose Supermaven if autocomplete is the AI feature you use constantly and you want the fastest, most context-aware version of it in your existing editor. Some developers run both: Cursor for agent work, Supermaven's extension for raw completion speed elsewhere.",
-  },
   "chatgpt-vs-devin-ai": {
     description:
       "ChatGPT is a general-purpose assistant you converse with; Devin is an autonomous coding agent that takes a ticket and returns a pull request.",
@@ -379,16 +335,6 @@ export const COMPARE_EDITORIAL: Record<string, CompareEditorial> = {
     ],
     verdict:
       "Choose Cursor if you want the most capable agentic coding experience available and don't have restrictions on sending code to a cloud model. Choose Tabnine if your organization has compliance requirements that rule out third-party cloud APIs and you're willing to trade some capability — and pay for Tabnine's enterprise plan — for on-premises or air-gapped deployment.",
-  },
-  "bolt-new-vs-windsurf-ide": {
-    description:
-      "Bolt.new builds full-stack apps from a prompt in your browser; Windsurf is an AI-native desktop IDE built for ongoing development.",
-    intro: [
-      "Bolt.new and Windsurf both bring agentic AI to building software, but for different stages of a project. Bolt.new is a browser-based app builder: describe what you want, and it scaffolds, runs, and deploys a full-stack app instantly, with zero local setup. Windsurf is a full desktop IDE — a VS Code fork built around an agent (Cascade) that tracks your intent across a session, handles deep codebase context, and supports multi-file edits and refactoring the way a professional development environment needs to.",
-      "The right tool tracks how far along your project is. For a zero-to-prototype app or a quick MVP, Bolt's sandboxed browser environment gets something working in front of you fastest, with nothing to configure. Once a project needs a real local environment, git history, custom tooling, or ongoing maintenance across a growing codebase, Windsurf's full IDE gives you the control Bolt's browser sandbox doesn't.",
-    ],
-    verdict:
-      "Choose Bolt.new for fast prototypes and simple apps you want running in minutes with no setup. Choose Windsurf for real, ongoing development where you need a complete local IDE and deeper codebase-aware editing. A common path: prototype in Bolt, then move into Windsurf (or another full IDE) once the project needs to grow past a demo.",
   },
   "github-copilot-vs-aider": {
     description:

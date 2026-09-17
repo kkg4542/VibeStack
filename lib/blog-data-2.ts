@@ -438,22 +438,24 @@ export const postsBatch2: BlogPost[] = [
     title: "Making Imagination Real: How Sora Sparked the Video-Generation Revolution",
     excerpt: "Watch a text prompt turn into a 60-second, cinema-grade video clip. Here's how OpenAI's Sora rewrote the rules of entertainment production — and what's changed since launch.",
     date: "Jul 18, 2026",
-    updated: "Aug 16, 2026",
+    updated: "Sep 16, 2026",
     author: "VibeStack AI",
     category: "Generative AI",
     readTime: "4 min read",
     image: "/images/blog/sora-video-gen.png",
     tags: ["Sora", "Video AI", "World Models"],
     content: `
+      <p><strong>Update:</strong> OpenAI has discontinued Sora. The web and app experience shut down on April 26, 2026, and the API is scheduled to follow on September 24, 2026; openai.com/sora now redirects to OpenAI's help-center article about the discontinuation. What follows is a look back at what Sora changed. For video generation you can actually use today, start with <a href="/tool/runway">Runway</a> and the rest of our <a href="/best/design">best AI design tools</a>.</p>
+
       <h2>The Real Singularity of Text-to-Video</h2>
-      <p>Shallow attempts at "text into video" have been around for years — loops of vaguely related pixels stitched together by early diffusion models. OpenAI's <a href="/tool/openai-sora"><strong>Sora</strong></a> is a different category of thing entirely. Feed it a sentence and it doesn't retrieve or remix stock footage; it renders a scene from something closer to a <strong>world model</strong> — an internal understanding of how shadows should fall as a camera pans, how cloth drapes under gravity, and how liquid should behave when a glass tips over on a table that was never explicitly described.</p>
+      <p>Shallow attempts at "text into video" have been around for years — loops of vaguely related pixels stitched together by early diffusion models. OpenAI's <strong>Sora</strong> was a different category of thing entirely. Fed a sentence, it didn't retrieve or remix stock footage; it rendered a scene from something closer to a <strong>world model</strong> — an internal understanding of how shadows should fall as a camera pans, how cloth drapes under gravity, and how liquid should behave when a glass tips over on a table that was never explicitly described.</p>
 
       <h3>Hollywood's Crisis, and the Independent Creator's Liberation</h3>
-      <p>The era of multi-million-dollar location shoots and CG rendering farms as the only path to a blockbuster-looking sequence is ending. Sora can render a shot that once required a helicopter, a stunt team, and three weeks of post-production from a single prompt and a laptop. That is an extraordinary unlock for storytellers who were previously locked out by capital requirements. A screenwriter with no production budget can now see their imagined world rendered on screen within minutes — and that experience is giving rise to an entirely new genre: the one-person feature film.</p>
-      <p>Independent creators are the biggest beneficiaries. A three-person studio can now storyboard, generate, and iterate on an entire short film in the time it used to take to book a single day of location scouting. Festivals have started adding "AI-assisted" categories specifically because the volume of Sora-native submissions became too large to ignore.</p>
+      <p>The era of multi-million-dollar location shoots and CG rendering farms as the only path to a blockbuster-looking sequence is ending. Sora could render a shot that once required a helicopter, a stunt team, and three weeks of post-production from a single prompt and a laptop. That is an extraordinary unlock for storytellers who were previously locked out by capital requirements. A screenwriter with no production budget can now see their imagined world rendered on screen within minutes — and that experience is giving rise to an entirely new genre: the one-person feature film.</p>
+      <p>Independent creators were the biggest beneficiaries, and they still are — the capability did not leave with the product. A three-person studio can storyboard, generate, and iterate on an entire short film in the time it used to take to book a single day of location scouting. Festivals have added "AI-assisted" categories specifically because the volume of generated submissions became too large to ignore.</p>
 
       <h3>Where the Early Flaws Went</h3>
-      <p>Early Sora output had tells: hands with the wrong number of fingers, objects that briefly phased through walls, physics that fell apart under a longer shot. As the underlying models scaled, these artifacts have dropped off exponentially — what used to be a one-in-five chance of a visible glitch in a 20-second clip is now closer to one in fifty for well-constructed prompts. The practical result is that "prompt engineering" for video has quietly merged with <strong>cinematic directing</strong> as a skill: the bottleneck is no longer getting a clean render, it's knowing what story is worth telling and how to frame it.</p>
+      <p>Early Sora output had tells: hands with the wrong number of fingers, objects that briefly phased through walls, physics that fell apart under a longer shot. As the underlying models scaled, those artifacts became noticeably rarer, and the same trend has held across the rival models that outlived Sora. The practical result is that "prompt engineering" for video has quietly merged with <strong>cinematic directing</strong> as a skill: the bottleneck is no longer getting a clean render, it's knowing what story is worth telling and how to frame it.</p>
 
       <h3>Who's Actually Using It</h3>
       <table>
@@ -465,7 +467,7 @@ export const postsBatch2: BlogPost[] = [
       </table>
 
       <h3>The Competitive Response</h3>
-      <p>Sora no longer has the field to itself. <a href="/tool/runway">Runway</a> and other rival video models have narrowed the visual-quality gap over the past year, and the competition has pushed prices for a finished minute of generated footage down sharply. For studios, that's good news: multiple credible vendors means better pricing and fewer platform-risk conversations with legal. It also means the realistic production stack is a chain rather than a single tool — generate shots in one model, cut and caption in an editor like <a href="/tool/descript">Descript</a>, and handle voice and dubbing in <a href="/tool/elevenlabs">ElevenLabs</a>, which we look at closely in our <a href="/blog/elevenlabs-review">ElevenLabs review</a>.</p>
+      <p>Sora never kept the field to itself, and with its discontinuation it has left the field entirely. <a href="/tool/runway">Runway</a> and other rival video models had already narrowed the visual-quality gap, and the competition pushed prices for a finished minute of generated footage down. For studios, that competition is what made Sora's exit survivable: multiple credible vendors means better pricing, fewer platform-risk conversations with legal, and somewhere to go when a vendor retires a product. It also means the realistic production stack is a chain rather than a single tool — generate shots in one model, cut and caption in an editor like <a href="/tool/descript">Descript</a>, and handle voice and dubbing in <a href="/tool/elevenlabs">ElevenLabs</a>, which we look at closely in our <a href="/blog/elevenlabs-review">ElevenLabs review</a>.</p>
 
       <h3>What This Means Going Forward</h3>
       <p>The scarce resource in entertainment is shifting from "who has the budget to shoot it" to "who has the taste to know what's worth making." That is a genuinely democratizing shift, and it is why so many working screenwriters and editors — not just technologists — are the ones most excited about where this goes next.</p>
@@ -476,12 +478,12 @@ export const postsBatch2: BlogPost[] = [
     `,
     faq: [
       {
-        q: "What makes Sora different from earlier text-to-video tools?",
-        a: "Earlier tools mostly interpolated between frames, which is why their output drifted and objects lost coherence within a couple of seconds. Sora is trained to behave more like a world model: it renders a scene with some internal notion of how a camera moves through space, how light falls, and how objects respond to gravity and contact. The practical difference is shot-level consistency — a subject that stays the same subject as the camera moves — rather than raw resolution.",
+        q: "What made Sora different from earlier text-to-video tools?",
+        a: "Earlier tools mostly interpolated between frames, which is why their output drifted and objects lost coherence within a couple of seconds. Sora was trained to behave more like a world model: it rendered a scene with some internal notion of how a camera moves through space, how light falls, and how objects respond to gravity and contact. The practical difference was shot-level consistency — a subject that stays the same subject as the camera moves — rather than raw resolution. OpenAI has since discontinued Sora, but that world-model framing is now the standard bar for the models that replaced it.",
       },
       {
-        q: "What are the best Sora alternatives?",
-        a: "Runway is the most established alternative for generative video and has narrowed the quality gap considerably, and several other labs now ship credible models. In practice most teams don't pick one: they generate in whichever model handles the specific shot best, then edit elsewhere. For the post-production half of the chain, Descript covers cutting and captioning and ElevenLabs covers voice and dubbing.",
+        q: "What should I use now that Sora is discontinued?",
+        a: "Runway is the most established option for generative video, and several other labs now ship credible models. In practice most teams don't pick one: they generate in whichever model handles the specific shot best, then edit elsewhere. For the post-production half of the chain, Descript covers cutting and captioning and ElevenLabs covers voice and dubbing.",
       },
       {
         q: "Will AI video generation replace video editors?",
@@ -933,7 +935,7 @@ export const postsBatch2: BlogPost[] = [
     title: "Cursor 1.0 Ships: The End of Pure Typing — and What Came After",
     excerpt: "Cursor didn't just bolt AI onto an editor — it changed what an IDE is for. Here's what actually shifted from 1.0 to 3.11, the limits nobody puts on the landing page, and how to restructure a workflow around it.",
     date: "Jul 18, 2026",
-    updated: "Aug 16, 2026",
+    updated: "Sep 16, 2026",
     author: "David Kim",
     category: "Developer",
     readTime: "8 min read",
@@ -1013,7 +1015,7 @@ export const postsBatch2: BlogPost[] = [
       <p>Cursor isn't shipping this fast in a vacuum. Every major coding assistant is racing on the same two axes: how much of a task an agent completes unsupervised, and how cheaply. Moving its agents onto Grok 4.5 is a bet on specialization — a model co-trained on real Cursor usage should be better calibrated to IDE-embedded agent patterns than a general-purpose one. Whether that edge survives as GPT-5.6 and Claude Fable 5 keep improving at general coding is the open question.</p>
 
       <h3>Does This Mean Traditional Editors Are Finished?</h3>
-      <p>No. VS Code, JetBrains, and Neovim remain better at what a text editor is for: navigating a symbol graph, conditional-breakpoint debugging, profiling, and a decade of accumulated plugin ergonomics. What they aren't built around is the review-and-approve loop. That's the real dividing line — not "AI versus no AI," since every major editor has AI now, but whether the interface treats an agent's output as the primary artifact. <a href="/blog/cursor-vs-vscode">Cursor vs VS Code</a> argues the migration out in detail, <a href="/tool/windsurf-ide">Windsurf</a> is the closest competitor on the same premise, and <a href="/best/coding">best AI coding tools</a> covers the rest of the field.</p>
+      <p>No. VS Code, JetBrains, and Neovim remain better at what a text editor is for: navigating a symbol graph, conditional-breakpoint debugging, profiling, and a decade of accumulated plugin ergonomics. What they aren't built around is the review-and-approve loop. That's the real dividing line — not "AI versus no AI," since every major editor has AI now, but whether the interface treats an agent's output as the primary artifact. <a href="/blog/cursor-vs-vscode">Cursor vs VS Code</a> argues the migration out in detail, <a href="/tool/devin-ai">Devin Desktop</a> — the editor Codeium launched as Windsurf, relaunched under Cognition in June 2026 — is the closest competitor on the same premise, and <a href="/best/coding">best AI coding tools</a> covers the rest of the field.</p>
 
       <h3>The Bigger Shift This Represents</h3>
       <p>Step back far enough and Cursor's journey from 1.0 to 3.11 is really a story about where developer trust gets built. Version 1.0 earned trust by being fast and rarely wrong on small, contained edits. Version 3.11 is trying to earn a harder kind of trust — trust to run unsupervised for longer stretches — by giving developers better tools to check its work after the fact rather than asking them to simply believe it got things right. That's a healthier direction than blind faith in a faster autocomplete, and it's probably the template every AI-native tool ends up following as agents take on more of the actual work. The same trajectory is visible in fully autonomous coding agents, which we cover in <a href="/blog/autonomous-agents-devin">the dawn of agentic engineering</a>, and in the broader toolchain rundown in <a href="/blog/best-ai-tools-for-vibe-coding">best AI tools for vibe coding</a>.</p>

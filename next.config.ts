@@ -90,6 +90,73 @@ const nextConfig: NextConfig = {
         destination: '/tool/midjourney',
         permanent: true,
       },
+      // Sora is being discontinued (openai.com/sora now redirects to OpenAI's
+      // help center article on the shutdown: web/app end 2026-04-26, API ends
+      // 2026-09-24). Windsurf was rebranded Devin Desktop after Cognition's
+      // acquisition (codeium.com/windsurf and windsurf.com both land on
+      // devin.ai/desktop). Supermaven was acquired by Anysphere and folded into
+      // Cursor Tab (vendor blog: "Sunsetting Supermaven", 2025-11-21). All three
+      // are retired from the directory (see RETIRED_TOOL_SLUGS in
+      // lib/tools-db.ts); /tool/[slug] and /compare/[slug] both use
+      // dynamicParams: false, so these already-indexed URLs would hard-404
+      // without these redirects.
+      {
+        source: '/tool/openai-sora',
+        destination: '/best/design',
+        permanent: true,
+      },
+      {
+        source: '/tool/windsurf-ide',
+        destination: '/tool/devin-ai',
+        permanent: true,
+      },
+      {
+        source: '/tool/supermaven',
+        destination: '/tool/cursor',
+        permanent: true,
+      },
+      {
+        source: '/compare/cursor-vs-windsurf-ide',
+        destination: '/tool/cursor',
+        permanent: true,
+      },
+      {
+        source: '/compare/github-copilot-vs-windsurf-ide',
+        destination: '/tool/github-copilot',
+        permanent: true,
+      },
+      {
+        source: '/compare/bolt-new-vs-windsurf-ide',
+        destination: '/tool/bolt-new',
+        permanent: true,
+      },
+      {
+        source: '/compare/cursor-vs-supermaven',
+        destination: '/tool/cursor',
+        permanent: true,
+      },
+      {
+        source: '/compare/github-copilot-vs-supermaven',
+        destination: '/tool/github-copilot',
+        permanent: true,
+      },
+      {
+        source: '/compare/midjourney-vs-openai-sora',
+        destination: '/tool/midjourney',
+        permanent: true,
+      },
+      // The Efficiency Stack was Supermaven + Cursor. Retiring Supermaven left
+      // it a one-tool "stack", so it was dropped from lib/stacks.ts rather than
+      // published as a list of one. /stack/[stackId] uses dynamicParams: false
+      // and /stack/efficiency was in the sitemap, so it needs a redirect for the
+      // same reason the tool and compare URLs above do. The Power Pair Stack is
+      // the closest surviving equivalent: the same fast-autocomplete-plus-
+      // reasoning shape, and still usable on free tiers.
+      {
+        source: '/stack/efficiency',
+        destination: '/stack/power-pair',
+        permanent: true,
+      },
     ];
   },
   async headers() {

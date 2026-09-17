@@ -5,7 +5,6 @@ import {
   GeminiIcon,
   CursorIcon,
   DevinIcon,
-  SupermavenIcon,
   OllamaIcon,
   LinearIcon,
   NotionIcon,
@@ -19,7 +18,6 @@ import {
   CodeRabbitIcon,
   CosineIcon,
   AiderIcon,
-  WindsurfIcon,
   CopilotIcon,
   ElevenLabsIcon,
   DescriptIcon,
@@ -28,7 +26,6 @@ import {
   FramerIcon,
   VercelIcon,
   BoltIcon,
-  SoraIcon,
 } from "@/components/icons/AiIcons";
 import { ComponentType } from "react";
 
@@ -41,7 +38,6 @@ const baseIconMap: Record<string, ToolIcon> = {
   gemini: GeminiIcon,
   cursor: CursorIcon,
   devin: DevinIcon,
-  supermaven: SupermavenIcon,
   ollama: OllamaIcon,
   github: CopilotIcon,
   linear: LinearIcon,
@@ -56,7 +52,6 @@ const baseIconMap: Record<string, ToolIcon> = {
   coderabbit: CodeRabbitIcon,
   cosine: CosineIcon,
   aider: AiderIcon,
-  windsurf: WindsurfIcon,
   elevenlabs: ElevenLabsIcon,
   descript: DescriptIcon,
   runway: RunwayIcon,
@@ -64,7 +59,6 @@ const baseIconMap: Record<string, ToolIcon> = {
   framer: FramerIcon,
   vercel: VercelIcon,
   bolt: BoltIcon,
-  sora: SoraIcon,
 };
 
 // Aliases for common slug variations
@@ -74,13 +68,11 @@ const iconAliases: Record<string, string> = {
   "google-gemini": "gemini",
   "openai-chatgpt": "chatgpt",
   "github-copilot": "github",
-  "windsurf-ide": "windsurf",
   "devin-ai": "devin",
   "builder-io": "builder",
   "notion-ai": "notion",
   "replit-ai": "replit",
   "bolt-new": "bolt",
-  "openai-sora": "sora",
   "v0-by-vercel": "v0",
 };
 

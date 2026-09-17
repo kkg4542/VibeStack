@@ -48,16 +48,6 @@ export function OllamaIcon({ className }: { className?: string }) {
     );
 }
 
-export function SupermavenIcon({ className }: { className?: string }) {
-    return (
-        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M2.604 7.2524C2.0896 6.86 1.3696 6.956 1.0336 7.5292 0.2128 8.9444-.0832 10.612.0192 12.28c.204 3.328 1.9844 6.2624 4.8 8.0248.9264.58 1.8848 1.0044 2.8584 1.3 1.1516.3496 2.1724-.7248 1.9636-1.9096-.1472-.8348-.8756-1.4104-1.6936-1.6184-.5504-.14-1.0924-.3404-1.614-.6144-1.9392-1.0196-3.224-2.832-3.6112-4.876-.2088-1.102.2256-2.1804.8048-3.1L5.824 6.3768c.688-1.0912.568-2.5288-.396-3.438-.8212-.774-2.0936-.8656-3.0024-.1692z" />
-            <path d="M21.4 7.252c.5144-.3924 1.2344-.2964 1.5704.2768.8208 1.4152 1.1168 3.0828 1.0144 4.7508-.204 3.328-1.9844 6.2624-4.8 8.0248-.9264.58-1.8848 1.0044-2.8584 1.3-1.1516.3496-2.172-.7248-1.9636-1.9096.1472-.8348.8756-1.4104 1.6936-1.6184.5504-.14 1.0924-.3404 1.614-.6144 1.9392-1.0196 3.224-2.832 3.6112-4.876.2088-1.102-.2256-2.1804-.8048-3.1l-2.196-3.1144c-.688-1.0912-.568-2.5288.396-3.438.8212-.774 2.0936-.8656 3.0024-.1692z" />
-            <path d="M14.6024 4.8856c-.184-1.1596-1.2532-1.9372-2.386-1.7368-1.1328.2004-1.888 1.2872-1.704 2.4468l1.7556 11.0176c.184 1.1596 1.2532 1.9372 2.386 1.7368 1.1328-.2004 1.888-1.2872 1.704-2.4468z" />
-        </svg>
-    );
-}
-
 export function LinearIcon({ className }: { className?: string }) {
     return (
         <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
@@ -156,14 +146,6 @@ export function AiderIcon({ className }: { className?: string }) {
     return (
         <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
             <path d="M2 4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4zm3.5 3.5l4.5 4.5-4.5 4.5 1.5 1.5 6-6-6-6-1.5 1.5zM12 17h6v2h-6v-2z" />
-        </svg>
-    );
-}
-
-export function WindsurfIcon({ className }: { className?: string }) {
-    return (
-        <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-            <path d="M23.55 5.067c-1.2038-.002-2.1806.973-2.1806 2.1765v4.8676c0 .972-.8035 1.7594-1.7597 1.7594-.568 0-1.1352-.286-1.4718-.7659l-4.9713-7.1003c-.4125-.5896-1.0837-.941-1.8103-.941-1.1334 0-2.1533.9635-2.1533 2.153v4.8957c0 .972-.7969 1.7594-1.7596 1.7594-.57 0-1.1363-.286-1.4728-.7658L.4076 5.1598C.2822 4.9798 0 5.0688 0 5.2882v4.2452c0 .2147.0656.4228.1884.599l5.4748 7.8183c.3234.462.8006.8052 1.3509.9298 1.3771.313 2.6446-.747 2.6446-2.0977v-4.893c0-.972.7875-1.7593 1.7596-1.7593h.003a1.798 1.798 0 0 1 1.4718.7658l4.9723 7.0994c.4135.5905 1.05.941 1.8093.941 1.1587 0 2.1515-.9645 2.1515-2.153v-4.8948c0-.972.7875-1.7594 1.7596-1.7594h.194a.22.22 0 0 0 .2204-.2202v-4.622a.22.22 0 0 0-.2203-.2203Z" />
         </svg>
     );
 }
@@ -439,13 +421,3 @@ export function BoltIcon({ className }: { className?: string }) {
     );
 }
 
-// Sora — abstract aperture/spiral for OpenAI's video model
-export function SoraIcon({ className }: { className?: string }) {
-    return (
-        <svg role="img" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="9" />
-            <path d="M12 3a9 9 0 0 1 0 18M12 3a9 9 0 0 0 0 18" strokeWidth="1.5" />
-            <path d="M3 12h18" strokeWidth="1.5" />
-        </svg>
-    );
-}

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import { Star, Users, Zap, Target, Layers, Brain, GraduationCap, Paintbrush, Wand2 } from "lucide-react";
+import { Star, Users, Zap, Layers, Brain, GraduationCap, Paintbrush, Wand2 } from "lucide-react";
 import { designSystem } from "@/lib/design-system";
 
 // Ids/names/descriptions/tools/price below mirror the curated stacks in
@@ -15,8 +15,8 @@ export const POPULAR_STACKS = [
   {
     id: "10x-engineer",
     name: "The 10x Engineer Stack",
-    description: "Autonomous agents and massive context windows for maximum velocity",
-    tools: ["devin-ai", "supermaven", "linear"],
+    description: "An autonomous coding agent paired with fast, opinionated issue tracking for maximum velocity",
+    tools: ["devin-ai", "linear"],
     price: "$40+/mo",
     users: 2847,
     rating: 4.9,
@@ -44,17 +44,6 @@ export const POPULAR_STACKS = [
     rating: 4.8,
     color: "from-emerald-500 to-teal-500",
     icon: GraduationCap
-  },
-  {
-    id: "efficiency",
-    name: "The Efficiency Stack",
-    description: "Fast, free, and smart tools to speed up your workflow",
-    tools: ["supermaven", "cursor"],
-    price: "$0/mo",
-    users: 3156,
-    rating: 4.6,
-    color: "from-amber-500 to-orange-500",
-    icon: Target
   },
   {
     id: "power-pair",

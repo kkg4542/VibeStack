@@ -26,7 +26,6 @@ const TOOL_GROUPS: ToolGroup[] = [
             { slug: "cody", label: "Cody", blurb: "Sourcegraph's codebase-aware assistant" },
             { slug: "cosine", label: "Cosine", blurb: "Autonomous agent that fixes bugs and ships PRs" },
             { slug: "tabnine", label: "Tabnine", blurb: "Private, on-prem AI autocomplete" },
-            { slug: "supermaven", label: "Supermaven", blurb: "The fastest AI autocomplete around" },
         ],
     },
     {
@@ -35,7 +34,6 @@ const TOOL_GROUPS: ToolGroup[] = [
         icon: Palette,
         tools: [
             { slug: "adobe-firefly", label: "Adobe Firefly", blurb: "Commercial-safe generative AI for Creative Cloud" },
-            { slug: "openai-sora", label: "Sora", blurb: "OpenAI's photorealistic text-to-video model" },
             { slug: "builder-io", label: "Builder.io", blurb: "AI visual page building for real codebases" },
         ],
     },

@@ -344,7 +344,7 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
             <h3>Cursor against the alternatives, honestly</h3>
 
-            <p>Against <a href="/tool/github-copilot">GitHub Copilot</a> the trade is editor depth versus institutional fit: Cursor's agent does more inside the editor, while Copilot sits closer to pull requests, organisation policy, and a purchasing path most companies have already walked — <a href="/compare/cursor-vs-github-copilot">Cursor vs GitHub Copilot</a> works through it. Against <a href="/tool/windsurf-ide">Windsurf</a> the products are genuinely close, and the decision usually turns on how the quota feels and which agent's habits you prefer; see <a href="/compare/cursor-vs-windsurf-ide">Cursor vs Windsurf</a>. Against generation-first tools like <a href="/tool/v0-by-vercel">v0</a> and <a href="/tool/bolt-new">Bolt.new</a> there is barely a comparison to make, because those start projects and Cursor maintains them. Plenty of developers use one of each.</p>
+            <p>Against <a href="/tool/github-copilot">GitHub Copilot</a> the trade is editor depth versus institutional fit: Cursor's agent does more inside the editor, while Copilot sits closer to pull requests, organisation policy, and a purchasing path most companies have already walked — <a href="/compare/cursor-vs-github-copilot">Cursor vs GitHub Copilot</a> works through it. The rival AI-native editors Cursor is usually weighed against have a habit of being acquired and folded into something else, which is its own argument for the incumbent when you are committing a team's daily workflow for a year. Against generation-first tools like <a href="/tool/v0-by-vercel">v0</a> and <a href="/tool/bolt-new">Bolt.new</a> there is barely a comparison to make, because those start projects and Cursor maintains them. Plenty of developers use one of each.</p>
 
             <h3>Who should not switch to Cursor</h3>
 
@@ -416,7 +416,7 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
             <p>An individual developer and a platform team are effectively assessing different products, and conflating the two is the most common mistake in this comparison.</p>
 
-            <p>Evaluated by a developer alone, Copilot is a competent, broadly available assistant with inline completions, chat, and an agent mode that now reaches the JetBrains IDEs as well as VS Code — the latter mattering more than it sounds, because it brought agentic assistance to a large population of Java, Kotlin, and Python developers who were never going to switch editors. On raw editing power it is a reasonable tool that rarely wins a head-to-head against <a href="/tool/cursor">Cursor</a> or <a href="/tool/windsurf-ide">Windsurf</a>.</p>
+            <p>Evaluated by a developer alone, Copilot is a competent, broadly available assistant with inline completions, chat, and an agent mode that now reaches the JetBrains IDEs as well as VS Code — the latter mattering more than it sounds, because it brought agentic assistance to a large population of Java, Kotlin, and Python developers who were never going to switch editors. On raw editing power it is a reasonable tool that rarely wins a head-to-head against <a href="/tool/cursor">Cursor</a>.</p>
 
             <p>Evaluated by an organisation, the question changes to: what will it take to put this in front of four hundred engineers, what can we turn off, what can we prove to an auditor, and how many quarters of procurement does it cost. On that scorecard Copilot is frequently the only candidate that clears the bar, and the editing gap stops being decisive.</p>
 
@@ -556,7 +556,7 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
             <p>Use something else when licensing and indemnity are the requirement rather than the look. Tools built for enterprise creative work, such as <a href="/tool/adobe-firefly">Adobe Firefly</a>, compete precisely on trained-data provenance and commercial assurances — <a href="/compare/midjourney-vs-adobe-firefly">Midjourney vs Adobe Firefly</a> is that argument in full.</p>
 
-            <p>Use something else when the deliverable moves. Video is a different discipline with different tools, and <a href="/compare/midjourney-vs-runway">Midjourney vs Runway</a> and <a href="/tool/openai-sora">Sora</a> cover that ground; our piece on <a href="/blog/sora-video-generation-revolution">where generative video has got to</a> is the wider view.</p>
+            <p>Use something else when the deliverable moves. Video is a different discipline with different tools — <a href="/compare/midjourney-vs-runway">Midjourney vs Runway</a> covers where the line falls, and our piece on <a href="/blog/sora-video-generation-revolution">where generative video has got to</a> is the wider view.</p>
 
             <p>And use something else when what you need is design rather than an image — a layout, a deck, a set of branded assets with type in them. Midjourney makes pictures. It does not make artefacts.</p>
         `,
@@ -1186,94 +1186,6 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
         ],
     },
 
-    "windsurf-ide": {
-        overviewHtml: `
-            <p><strong>Windsurf</strong>, previously Codeium, is the closest thing <a href="/tool/cursor">Cursor</a> has to a direct rival, and almost everyone who evaluates one evaluates the other. Saying they are both good is technically true and completely useless, so this page is organised around the places they genuinely diverge — the agent's posture, the shape of the billing, where the company came from, and what an enterprise buyer can do with each. If none of those distinctions matter to you, the two products are close enough that you should pick on price and stop thinking about it.</p>
-
-            <h3>Cascade wants a longer leash</h3>
-
-            <p>Cascade is Windsurf's agent, and the difference from a competitor's agent is one of posture rather than capability. It is built around reading the codebase, forming a plan that spans several files, and then carrying that plan out as a sequence of steps you watch rather than approve one at a time. The product's centre of gravity is the multi-step run: describe an outcome, let it work, review what came back.</p>
-
-            <p>Whether you like that depends on how you prefer to be wrong. A longer autonomous run gets further before you have to intervene, and when it has misunderstood something it gets further in the wrong direction too. Developers who work in outcomes tend to find this natural. Developers who work in increments, checking each edit as it lands, find it uncomfortable, and that discomfort is the real reason most Cursor-versus-Windsurf preferences are held so firmly with so little to point at.</p>
-
-            <h3>Quotas instead of credits</h3>
-
-            <p>Windsurf retired credit-based billing in favour of daily and weekly quotas, which is a meaningfully different experience even at a similar price. A credit pool invites you to price each request; a quota invites you to use what you have and stop when it is gone. Nothing accumulates, nothing carries over, and the reset is a date rather than a balance.</p>
-
-            <p>The two failure modes are different and worth matching against yourself. Credits fail by making you hesitate. Quotas fail by ending your day — you are mid-task, the quota is exhausted, and there is nothing to do but wait or upgrade. If your work arrives in unpredictable bursts, a hard stop is worse than a slow drain. If you work steadily, a quota is the calmer of the two and removes an entire category of small decisions.</p>
-
-            <p>Tab completion sits outside this entirely and does not draw down the quota, which makes the free tier genuinely usable as a permanent completion tool even though it is not usable as a permanent agent.</p>
-
-            <h3>Where Windsurf and Cursor actually diverge</h3>
-
-            <p>On editing, less than the discourse suggests. Both are VS Code-derived, both migrate your extensions and keybindings, both have a capable multi-file agent, and both change fast enough that any specific advantage described today may not survive the quarter.</p>
-
-            <p>The durable differences are these: Windsurf's billing is quota-shaped where Cursor's is credit-shaped; Windsurf's agent is tuned for longer autonomous runs where Cursor's is more comfortable being interrupted; Windsurf ships plugins that put its assistance inside editors you already use, which Cursor by construction cannot; and Windsurf inherits an enterprise deployment story from its Codeium era that Cursor approached from the other direction. Our <a href="/compare/cursor-vs-windsurf-ide">Cursor vs Windsurf comparison</a> and the longer <a href="/blog/cursor-vs-windsurf">write-up on the same question</a> go through the day-to-day feel.</p>
-
-            <h3>The ownership question that is not in any feature table</h3>
-
-            <p>Windsurf went through one of the more turbulent corporate stretches in this market. A widely reported acquisition by OpenAI did not complete; Google then struck a licensing arrangement that brought over the company's founders and part of its research team; and Cognition, the company behind <a href="/tool/devin-ai">Devin</a>, acquired what remained. The product kept shipping throughout, which is the most relevant fact, but a buyer signing a multi-year commitment is entitled to weigh it.</p>
-
-            <p>The reasonable reading is neither dismissal nor alarm. Windsurf is now part of a company whose own product is an autonomous coding agent, which suggests a coherent direction rather than a holding pattern. But if your procurement process asks about vendor stability — and for a tool this deep in the development workflow it should — this is the history you will be asked to explain, so know it before the meeting rather than during it.</p>
-
-            <h3>You do not have to change editors</h3>
-
-            <p>This is the option Cursor structurally cannot offer and it is underweighted in most comparisons. Windsurf's lineage as an editor extension means its assistance is still available as a plugin for other environments, including the JetBrains IDEs, rather than only inside its own editor. For a team that is standardised on JetBrains and has no intention of moving, that is the difference between a product they can evaluate and a product they cannot.</p>
-
-            <p>The editor gets the newest and deepest version of the experience; the plugins are a narrower surface. But narrower and available beats better and unreachable when the alternative is asking forty engineers to change how they work.</p>
-
-            <h3>The enterprise angle it inherited</h3>
-
-            <p>Codeium built an enterprise business before Windsurf was an editor, and that history shows up as deployment options aimed at organisations that cannot send source code to a vendor's cloud — including self-hosted and hybrid arrangements. For a defence contractor, a bank, or anyone whose policy makes the usual answer a non-starter, this is a materially different conversation from the one you have with most tools in this category.</p>
-
-            <p>Availability and terms in this area change, and it is not something to take on trust from a third party. If self-hosting is your reason for looking at Windsurf, confirm the current offering directly with the vendor before it becomes the basis of a decision.</p>
-
-            <h3>Who should stay on Cursor, or skip both</h3>
-
-            <p>Stay where you are if you are already productive in Cursor. The delta is not large enough to justify relearning an agent's habits, and switching costs are paid in attention rather than money.</p>
-
-            <p>Skip Windsurf if you need serious agent use without paying, because the free quota is genuinely tight and you will meet it in days rather than weeks — Tab completion is the only part that is free in any sustained sense. Skip it if a hard stop mid-task is worse for you than a gradually emptying budget, since that is exactly what quota billing produces. Skip it if you want continuous supervision of every edit, because you will be working against the grain of a product designed for longer runs. And skip both this and Cursor if your problem is starting projects rather than maintaining them: <a href="/tool/bolt-new">Bolt.new</a> and <a href="/tool/v0-by-vercel">v0</a> are aimed at that, and <a href="/compare/bolt-new-vs-windsurf-ide">Bolt.new vs Windsurf</a> works through why the two categories rarely substitute for each other.</p>
-        `,
-        useCases: [
-            {
-                title: "Changes you would rather describe than perform",
-                body: "A migration that touches a dozen files, a pattern applied consistently across a module, a refactor whose shape is obvious and whose execution is tedious. Cascade's plan-then-execute run is built for exactly this, and it is the work where watching an agent go for several minutes is less stressful than approving each step.",
-            },
-            {
-                title: "Free completions as a permanent baseline",
-                body: "Tab completion does not consume quota, so a developer who wants fast AI completions and nothing more can sit on the free tier indefinitely. That is a real, unusual offer in a market where the free tiers are mostly time-limited evaluations wearing a different name.",
-            },
-            {
-                title: "A second agent for the change the first one got wrong",
-                body: "Some developers keep both Windsurf and Cursor and hand a stuck task to the other one. The agents fail differently enough that this works more often than it should, and given what an hour of a senior engineer costs, the second subscription is not the expensive part of that arrangement.",
-            },
-        ],
-        pricingDetail:
-            "After the March 19, 2026 overhaul, Windsurf offers Free ($0, unlimited Tab autocomplete plus a light daily/weekly quota for Cascade and Chat), Pro ($20/mo, up from $15), Max ($200/mo), Teams ($40/user/mo), and Enterprise (custom), with 17–20% off on annual billing. The big change: the old credit system was retired in favor of daily and weekly quotas. The trap to know: the free quota realistically lasts only two to three days of active coding before it runs dry, so anyone using the agent seriously will need Pro quickly — Tab autocomplete is the only truly unlimited free feature.",
-        faq: [
-            {
-                q: "What happened to Codeium?",
-                a: "Codeium became Windsurf, moving from an autocomplete extension into a full AI editor built around the Cascade agent. If you used Codeium, Windsurf is its direct continuation rather than a separate product, and the extension lineage is why assistance is still available inside other editors today.",
-            },
-            {
-                q: "Who owns Windsurf now, and should I care?",
-                a: "After a reported OpenAI acquisition fell through and Google licensed technology in a deal that took the founders and part of the research team, Cognition — the company behind Devin — acquired the remainder. You should care to the extent that your procurement process asks about vendor stability, which for a tool embedded this deeply in daily development it reasonably should. The product has continued shipping, and Cognition's own focus on autonomous coding agents is at least a consistent direction. Ask the vendor directly about roadmap commitments if you are signing for multiple years.",
-            },
-            {
-                q: "How far does the free tier actually go?",
-                a: "Tab completion is unlimited and stays that way, which makes the free tier a legitimate permanent option for that one workflow. Cascade and chat run against a light daily and weekly quota that a developer using the agent in earnest will exhaust in a couple of days. Treat the free plan as either a completions tool forever or an agent trial briefly, but not as both.",
-            },
-            {
-                q: "Windsurf or Cursor?",
-                a: "Decide on two things rather than on feature lists. First, do you prefer an agent that runs longer before checking in, or one you interrupt constantly — Windsurf leans toward the former. Second, would you rather be slowed by a draining credit balance or stopped by an exhausted quota, because that is the actual difference in how the bills feel. If neither distinction moves you, they are close enough that price should decide it.",
-            },
-            {
-                q: "Do I have to use the Windsurf editor to get Windsurf?",
-                a: "No, and this is worth knowing if your team will not change editors. Windsurf offers plugins that bring its assistance into other environments including the JetBrains IDEs, a legacy of its life as an extension. The standalone editor is where the deepest version of the experience lives, but the plugin route makes the tool evaluable for teams that would otherwise have to decline on principle.",
-            },
-        ],
-    },
-
     replit: {
         overviewHtml: `
             <p><strong>Replit</strong> is three things fused into one: a development environment that runs in a browser tab, hosting that the environment deploys to, and an AI agent that can write and ship code inside both. The fusion is the product. Every part of it exists separately and better somewhere else, and nowhere else are they the same thing.</p>
@@ -1416,7 +1328,7 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
             <h3>When not to pick Gemini Code Assist</h3>
 
-            <p>Skip it if you are not on Google Cloud. Almost the entire argument for the tool is the platform integration, and without that you are choosing a mid-pack assistant over more mature alternatives for no reason. Skip it if you want a state-of-the-art agentic editor that plans and executes multi-file changes with minimal supervision — that is where <a href="/tool/cursor">Cursor</a> and <a href="/tool/windsurf-ide">Windsurf</a> have been iterating hardest. Skip it if your code lives in GitHub and your workflow is organised around pull requests, where Copilot's integration is simply closer to the work.</p>
+            <p>Skip it if you are not on Google Cloud. Almost the entire argument for the tool is the platform integration, and without that you are choosing a mid-pack assistant over more mature alternatives for no reason. Skip it if you want a state-of-the-art agentic editor that plans and executes multi-file changes with minimal supervision — that is where <a href="/tool/cursor">Cursor</a> has been iterating hardest. Skip it if your code lives in GitHub and your workflow is organised around pull requests, where Copilot's integration is simply closer to the work.</p>
 
             <p>And be careful about building an individual workflow on the free tier right now. The announced transition to Antigravity means the individual-tier experience is in motion, and "free and generous" is a weak foundation if the product underneath you is changing shape. Organisations on the paid Cloud tiers are in a considerably more stable position.</p>
         `,
@@ -2208,7 +2120,7 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
             <p>Do not reach for Runway when the deliverable needs to match footage you already shot exactly — matching grain, lens characteristics, and lighting to real plates remains genuinely hard, and a mismatch reads as wrong to viewers who could not tell you why. Do not use it for long-form continuous scenes; generated video works in shots, not sequences, and the seams get harder to hide the longer you ask it to run. Do not use it where text has to be legible on screen, or where a specific real person, product, or brand asset has to be reproduced faithfully.</p>
 
-            <p>It is also the wrong purchase for occasional use. The credit model rewards people working on something continuously and punishes the user who wants one clip a month — that person is better served by a general-purpose tool they already pay for. And if the output you need is a still image rather than motion, <a href="/tool/midjourney">Midjourney</a> remains the stronger craft tool; see <a href="/compare/midjourney-vs-runway">Midjourney vs Runway</a> for where the line falls. For raw generative quality without the editing suite, <a href="/tool/openai-sora">Sora</a> is the obvious alternative to weigh.</p>
+            <p>It is also the wrong purchase for occasional use. The credit model rewards people working on something continuously and punishes the user who wants one clip a month — that person is better served by a general-purpose tool they already pay for. And if the output you need is a still image rather than motion, <a href="/tool/midjourney">Midjourney</a> remains the stronger craft tool; see <a href="/compare/midjourney-vs-runway">Midjourney vs Runway</a> for where the line falls.</p>
         `,
         useCases: [
             {
@@ -2248,8 +2160,8 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
                 a: "Runway's paid plans have been intended for commercial use, and the free tier's watermarking makes its status obvious. Read the current terms before a client deliverable rather than trusting a summary, and note that broader questions about training data and generative output remain unsettled across the industry — for work with real legal exposure, agencies increasingly route generated material past their own counsel, the same way they would with stock or archive footage.",
             },
             {
-                q: "Runway or Sora?",
-                a: "Sora is the stronger pure generator; Runway is the stronger production environment. If you want the best single clip a prompt can produce, weigh Sora. If the clip has to be matted, cleaned, extended, or cut together with other shots, Runway's editing tools are the reason to be there, and they matter more than a marginal quality difference once the work has a deadline attached.",
+                q: "Should I wait for a better model instead of subscribing?",
+                a: "Waiting is a reasonable instinct and a bad plan, because the thing you are buying here is not the generator. Pure text-to-video models improve, get withdrawn, and get replaced on a timescale measured in months — OpenAI's Sora was launched, iterated on, and then discontinued inside the life of this page. What survives a model change is the production layer around it: rotoscoping, inpainting, retiming, extension, and a place to keep working on a shot that came back eighty percent right. Judge Runway on whether that layer earns the credits, not on whether its generator is currently the best one available.",
             },
         ],
     },

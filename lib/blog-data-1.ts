@@ -6,7 +6,7 @@ export const postsBatch1: BlogPost[] = [
     title: "The Ultimate Developer Stack for 2026: Productivity Tools You Can't Miss",
     excerpt: "The full production engineering stack for 2026 — editor, backend, database, infra, model routing, and observability — with the selection criteria behind each layer, the friction that shows up where layers meet, budget tiers, and the mistakes that cost teams the most.",
     date: "Jul 18, 2026",
-    updated: "Aug 16, 2026",
+    updated: "Sep 16, 2026",
     author: "David Kim",
     category: "Guide",
     readTime: "13 min read",
@@ -40,7 +40,7 @@ export const postsBatch1: BlogPost[] = [
       <p>The days of writing boilerplate are over. Your editor should be your pair programmer.</p>
       <ul>
         <li><strong>Cursor 3.11:</strong> The undisputed king. The latest release adds a side chat panel, an iOS public beta, and ships with xAI's <strong>Grok 4.5</strong> as a selectable model alongside the usual frontier options. Its local index of your codebase and "Composer" capabilities make it feel less like an editor and more like an agentic workspace. (See our comparison: <a href="/blog/cursor-vs-vscode">Cursor vs VS Code</a>)</li>
-        <li><strong>Windsurf:</strong> A strong contender from Codeium, offering deep context awareness and "Flow" state features that predict your next move.</li>
+        <li><strong>Devin Desktop:</strong> The editor Codeium shipped as Windsurf. Cognition acquired it and relaunched it as <a href="/tool/devin-ai">Devin Desktop</a> on June 2, 2026 &mdash; codeium.com and windsurf.com both point there now. Cognition calls it the next generation of Windsurf, and at launch it stayed compatible with Windsurf and VS Code extensions, keybindings, and LSP integrations, so moving over is closer to a rename than a migration.</li>
         <li><strong>GPT-5.6 & Claude Sonnet 5:</strong> You need both. OpenAI's July 2026 release ships three tiers — <strong>Sol</strong> ($5/$30 per million tokens, with an "ultra" reasoning mode and a 54% improvement in agentic-coding token efficiency), <strong>Terra</strong> ($2.50/$15), and <strong>Luna</strong> ($1/$6) — and Sol is genuinely the best coding model OpenAI has shipped. Anthropic's <strong>Claude Sonnet 5</strong> (intro pricing $2/$10 through August, rising to $3/$15 in September) remains the default for architectural planning and reading huge docs, while <strong>Claude Fable 5</strong> is the flagship tier above Opus 4.8 for the hardest, highest-stakes refactors. (Read more: <a href="/blog/gpt5-vs-claude5">GPT-5.6 vs Claude Sonnet 5</a>)</li>
       </ul>
 
@@ -1301,7 +1301,7 @@ export const postsBatch1: BlogPost[] = [
     title: "Why Developers are Abandoning VS Code for Cursor",
     excerpt: "Cursor is a fork of VS Code, which makes this comparison narrower and more decidable than it looks. A hands-on breakdown of where the two editors actually diverge, the extension gap, the real pricing structures, and how much switching (or switching back) costs you.",
     date: "Jul 18, 2026",
-    updated: "Aug 16, 2026",
+    updated: "Sep 16, 2026",
     author: "David Kim",
     category: "Comparison",
     readTime: "14 min read",
@@ -1388,7 +1388,7 @@ export const postsBatch1: BlogPost[] = [
       <h2>Pick One: A Straight Decision Guide</h2>
       <p><strong>Choose Cursor if</strong> you work mostly in TypeScript, Python, or another well-represented web-stack language; a meaningful share of your changes span several files; you frequently work in code you didn't write; you want to choose your model per task; and no Microsoft-licensed extension is load-bearing in your daily workflow.</p>
       <p><strong>Stay on VS Code if</strong> remote development or dev containers are central to how you work; you depend on a proprietary first-party language extension; your organization restricts which vendors may process source code; your work is mostly small, local edits in code you know intimately; or you already have Copilot and haven't yet hit its ceiling.</p>
-      <p><strong>Try both for two weeks if</strong> you're unsure — which, given how cheap the experiment is, is most people. Also worth piloting alongside Cursor: <a href="/tool/windsurf-ide"><strong>Windsurf</strong></a>, the other major VS Code fork, whose "Flow" context awareness gives a calmer, more guided agent experience at the same $20/month. We break down the differences in <a href="/blog/cursor-vs-windsurf">Cursor vs Windsurf</a>.</p>
+      <p><strong>Try both for two weeks if</strong> you're unsure — which, given how cheap the experiment is, is most people. The other major VS Code fork is worth piloting alongside Cursor too, though it has changed hands and names: Codeium's Windsurf was acquired by Cognition and relaunched as <a href="/tool/devin-ai"><strong>Devin Desktop</strong></a> on June 2, 2026, keeping compatibility with VS Code extensions and keybindings. Our <a href="/blog/cursor-vs-windsurf">Cursor vs Windsurf</a> comparison describes that editor as it stood before the rebrand.</p>
 
       <h2>The Honest Limits of Each</h2>
       <p>Cursor's weaknesses are the ones you'd predict from a fast-moving fork: usage limits and billing that have been reshuffled more than once, a lag behind upstream VS Code releases, an index that goes stale on very large or fast-changing repositories, and an agent whose failures look exactly as confident as its successes. That last one is the important one — a wrong multi-file diff is beautifully formatted, and the only real defence is a test suite and a review habit.</p>

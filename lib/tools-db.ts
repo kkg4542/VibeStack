@@ -17,7 +17,6 @@ export const POPULARITY_ORDER: string[] = [
     "notion-ai",
     "v0-by-vercel",
     "bolt-new",
-    "windsurf-ide",
     "elevenlabs",
     "runway",
     "framer",
@@ -26,7 +25,6 @@ export const POPULARITY_ORDER: string[] = [
     "replit",
     "descript",
     "devin-ai",
-    "openai-sora",
 ];
 
 /**
@@ -46,8 +44,17 @@ export const POPULARITY_ORDER: string[] = [
  *
  * - galileo-ai: acquired by Google and folded into Stitch; usegalileo.ai now
  *   redirects to stitch.withgoogle.com.
+ * - openai-sora: openai.com/sora now redirects to an OpenAI help center article
+ *   on the Sora discontinuation; the web/app shuts down 2026-04-26 and the API
+ *   2026-09-24.
+ * - windsurf-ide: Cognition acquired Windsurf (2025-07) and rebranded it as
+ *   Devin Desktop on 2026-06-02; codeium.com/windsurf and windsurf.com both
+ *   redirect (via windsurf.com/editor) to devin.ai/desktop.
+ * - supermaven: Anysphere (Cursor) acquired Supermaven; the vendor's own blog
+ *   posted "Sunsetting Supermaven" (2025-11-21) after "Supermaven joins Cursor"
+ *   (2024-11-12), and the technology was absorbed into Cursor Tab.
  */
-export const RETIRED_TOOL_SLUGS = new Set(["galileo-ai"]);
+export const RETIRED_TOOL_SLUGS = new Set(["galileo-ai", "openai-sora", "windsurf-ide", "supermaven"]);
 
 /** True when a slug has been retired from the public directory. */
 export function isRetiredTool(slug: string): boolean {

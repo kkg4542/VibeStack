@@ -172,28 +172,20 @@ export function useStackRecommendation(answers: Record<string, string>): StackRe
           name: "The 10x Engineer Stack",
           description: "Autonomous agents and massive context windows for maximum velocity",
           totalPrice: "$40-60/mo",
-          tools: ["devin-ai", "supermaven", "cursor"],
-          whyThisStack: "Devin works independently while you focus on architecture. Supermaven predicts your next moves.",
+          tools: ["devin-ai", "cursor"],
+          whyThisStack: "Devin works independently while you focus on architecture, and Cursor keeps you in the loop for everything you want to steer directly.",
           compatibility: "Works with any codebase, massive context windows",
           bestFor: ["Complex projects", "Senior developers", "High-velocity teams"],
           usersCount: 2847,
           rating: 4.9,
           stackId: "10x-engineer"
         };
-      } else {
-        stack = {
-          name: "The Efficiency Stack",
-          description: "Fast, free, and smart tools to speed up your workflow",
-          totalPrice: "$0-20/mo",
-          tools: ["supermaven", "cursor"],
-          whyThisStack: "Supermaven's speed combined with Cursor's IDE integration",
-          compatibility: "VS Code extension, supports all major languages",
-          bestFor: ["Daily coding", "Refactoring", "Boilerplate"],
-          usersCount: 6234,
-          rating: 4.7,
-          stackId: "efficiency"
-        };
       }
+      // Otherwise falls through to the default Universal Stack (Cursor + Claude)
+      // above. This branch used to recommend a Supermaven + Cursor "Efficiency
+      // Stack," but Supermaven was discontinued (folded into Cursor Tab), and
+      // a single remaining tool isn't a "stack" worth a dedicated result — see
+      // lib/stacks.ts, where the same curated stack was retired outright.
     }
 
     // Full-stack
@@ -203,7 +195,7 @@ export function useStackRecommendation(answers: Record<string, string>): StackRe
           name: "The Full-Stack Pro Stack",
           description: "Complete frontend to backend coverage with AI assistance",
           totalPrice: "$50-70/mo",
-          tools: ["cursor", "supermaven", "v0-by-vercel", "claude"],
+          tools: ["cursor", "v0-by-vercel", "claude"],
           whyThisStack: "Every layer of your stack enhanced with AI",
           compatibility: "Works across frontend, backend, and database",
           bestFor: ["Full-stack apps", "Startups", "Agencies"],

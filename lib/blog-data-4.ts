@@ -14,7 +14,7 @@ export const postsBatch4: BlogPost[] = [
     excerpt:
       "The exact stack that makes vibe coding work in 2026 — editor, app builder, assistant, review, and deployment — plus why each pick wins its layer, where the layers grind against each other, what to cut at each budget, and the mistakes that quietly cost you a weekend.",
     date: "Jul 18, 2026",
-    updated: "Aug 16, 2026",
+    updated: "Sep 16, 2026",
     author: "David Kim",
     category: "Guide",
     readTime: "12 min read",
@@ -27,7 +27,7 @@ export const postsBatch4: BlogPost[] = [
 
       <h2>1. The editor — where you live</h2>
       <p><a href="/tool/cursor">Cursor</a> is the heart of most vibe coding stacks. It's an AI-first editor that indexes your whole codebase, predicts multi-file edits, and runs an agent that can implement a feature from a single sentence. The Cursor 3.11 release (July 2026) added a side chat panel, searchable agent transcripts, a Cursor for iOS public beta, and first-class support for xAI's <strong>Grok 4.5</strong> — a model co-trained on real Cursor usage data. Its Composer 2.5 agent handles the multi-file heavy lifting. If you want the most powerful "describe it and watch it happen" experience, start here.</p>
-      <p>Prefer to stay in your current editor? <a href="/tool/github-copilot">GitHub Copilot</a> brings strong AI into VS Code, JetBrains, and more — see our <a href="/blog/cursor-vs-github-copilot">Cursor vs GitHub Copilot</a> breakdown. Also worth a look: <a href="/tool/windsurf-ide">Windsurf</a>, Codeium's AI editor whose "Flow" context awareness keeps a long session coherent (<a href="/blog/cursor-vs-windsurf">Cursor vs Windsurf</a>).</p>
+      <p>Prefer to stay in your current editor? <a href="/tool/github-copilot">GitHub Copilot</a> brings strong AI into VS Code, JetBrains, and more — see our <a href="/blog/cursor-vs-github-copilot">Cursor vs GitHub Copilot</a> breakdown. Also worth a look: <a href="/tool/devin-ai">Devin Desktop</a>, the AI editor Codeium shipped as Windsurf — Cognition acquired it and relaunched it under the Devin name on June 2, 2026, keeping VS Code extension and keybinding compatibility (our <a href="/blog/cursor-vs-windsurf">Cursor vs Windsurf</a> comparison describes the pre-rebrand version).</p>
 
       <h2>2. The app builder — zero to working app</h2>
       <p>When you want to go from prompt to a running app without local setup, reach for an app builder:</p>
@@ -114,7 +114,7 @@ export const postsBatch4: BlogPost[] = [
           <tr><th>Layer</th><th>Top pick</th><th>Alternatives</th></tr>
         </thead>
         <tbody>
-          <tr><td>Editor</td><td>Cursor (3.11, Composer 2.5)</td><td>GitHub Copilot, Windsurf</td></tr>
+          <tr><td>Editor</td><td>Cursor (3.11, Composer 2.5)</td><td>GitHub Copilot, Devin Desktop</td></tr>
           <tr><td>App builder</td><td>v0 by Vercel</td><td>Bolt.new, Lovable</td></tr>
           <tr><td>Assistant</td><td>Claude (Sonnet 5 / Fable 5)</td><td>ChatGPT (GPT-5.6), Gemini 3.5 Flash</td></tr>
           <tr><td>Research</td><td>Perplexity</td><td>ChatGPT deep research</td></tr>
@@ -257,14 +257,16 @@ export const postsBatch4: BlogPost[] = [
     excerpt:
       "Both are AI-first code editors built for vibe coding. Here's how Cursor and Windsurf compare on agents, codebase context, models, UX, and price in mid-2026.",
     date: "Jul 18, 2026",
-    updated: "Jul 28, 2026",
+    updated: "Sep 16, 2026",
     author: "David Kim",
     category: "Comparison",
     readTime: "6 min read",
     image: "/images/blog/blog_cursor_ide.png",
     tags: ["Cursor", "Windsurf", "AI Editor"],
     content: `
-      <p>If you're choosing an AI-first editor for vibe coding, the two names that come up most are <a href="/tool/cursor">Cursor</a> and <a href="/tool/windsurf-ide">Windsurf</a>. Both are forks of VS Code reimagined around AI, so your extensions and keybindings come along either way. The differences are in the agent, the flow, and the feel. Here's how they compare in mid-2026.</p>
+      <p><strong>Update:</strong> Windsurf no longer ships under that name. Cognition acquired it from Codeium in July 2025 and relaunched it as <a href="/tool/devin-ai">Devin Desktop</a> on June 2, 2026; codeium.com and windsurf.com now both redirect to devin.ai/desktop. Cognition describes Devin Desktop as the next generation of Windsurf and said at launch that it remains compatible with Windsurf and VS Code extensions, keybindings, and LSP integrations. The comparison below describes Windsurf as it stood before that relaunch — treat its pricing and feature specifics as historical, and check Cognition's site for what Devin Desktop offers today.</p>
+
+      <p>If you're choosing an AI-first editor for vibe coding, the two names that come up most are <a href="/tool/cursor">Cursor</a> and Windsurf, now <a href="/tool/devin-ai">Devin Desktop</a>. Both are forks of VS Code reimagined around AI, so your extensions and keybindings come along either way. The differences are in the agent, the flow, and the feel. Here's how they compare in mid-2026.</p>
 
       <h2>Agents &amp; multi-file editing</h2>
       <p>Both can take a natural-language instruction and edit across multiple files. Cursor's agent — now on the <strong>Composer 2.5</strong> architecture in the Cursor 3.11 release (July 2026) — is extremely mature and fast, and the update added a side chat panel, searchable agent transcripts, and a Cursor for iOS public beta. Windsurf, built by Codeium, leans on its <strong>Flow</strong> context awareness, which is praised for keeping track of what you're doing across a long session and feeling more guided. If you like an agent that proactively follows your train of thought, Windsurf is compelling; if you want maximum raw agent power and control, Cursor edges ahead.</p>
@@ -320,7 +322,7 @@ export const postsBatch4: BlogPost[] = [
       <h2>Verdict</h2>
       <ul>
         <li><strong><a href="/tool/cursor">Cursor</a></strong> — the most powerful, most popular choice, and the safe default for maximum agentic control.</li>
-        <li><strong><a href="/tool/windsurf-ide">Windsurf</a></strong> — a cleaner, guided agent flow that many developers prefer for its calm, coherent sessions.</li>
+        <li><strong>Windsurf, now <a href="/tool/devin-ai">Devin Desktop</a></strong> — a cleaner, guided agent flow that many developers preferred for its calm, coherent sessions; Cognition's relaunch is the version you would install today.</li>
       </ul>
       <p>Either one anchors a great <a href="/blog/complete-vibe-coding-stack-2026">vibe coding stack</a>. The editor is only the first layer, though — see the <a href="/blog/best-ai-tools-for-vibe-coding">best AI tools for vibe coding</a> for the assistant, app builder, and deployment pieces that go around it. You can also browse more options in our <a href="/best/coding">best AI coding tools</a> guide, or compare Cursor with the other big rival in <a href="/blog/cursor-vs-github-copilot">Cursor vs GitHub Copilot</a>.</p>
     `,
@@ -339,7 +341,7 @@ export const postsBatch4: BlogPost[] = [
       },
       {
         q: "Is Windsurf the same as Codeium?",
-        a: "Yes — Codeium rebranded to Windsurf in late 2024, evolving from an autocomplete extension into a full AI editor. Its agent is called Cascade, and it's the direct equivalent of Cursor's Composer: you describe a change, it reads the codebase, builds a plan, and executes across files.",
+        a: "Codeium rebranded to Windsurf in late 2024, evolving from an autocomplete extension into a full AI editor, with an agent called Cascade — the direct equivalent of Cursor's Composer. The name changed again after that: Cognition acquired Windsurf in July 2025 and relaunched it as Devin Desktop on June 2, 2026, so codeium.com and windsurf.com both lead to devin.ai/desktop today.",
       },
       {
         q: "Can I switch between Cursor and Windsurf easily?",
@@ -357,7 +359,7 @@ export const postsBatch4: BlogPost[] = [
     excerpt:
       "A step-by-step playbook for shipping a working app in a weekend with vibe coding — the exact AI tools for each stage, hour by hour, updated for 2026.",
     date: "Jul 18, 2026",
-    updated: "Aug 7, 2026",
+    updated: "Sep 16, 2026",
     author: "David Kim",
     category: "Guide",
     readTime: "5 min read",
@@ -387,7 +389,7 @@ export const postsBatch4: BlogPost[] = [
       <p>Use <a href="/tool/v0-by-vercel">v0</a> to generate the screens from a prompt, or <a href="/tool/bolt-new">Bolt.new</a> to spin up a full-stack starter with a live preview. You'll have something clickable within the first hour. Don't polish yet — you just want the skeleton of every screen your core flow touches, so you can feel whether the flow makes sense before you build the logic behind it. (Comparing the two? See <a href="/blog/ai-app-builders-bolt-v0-lovable">Bolt.new vs v0 vs Lovable</a>.)</p>
 
       <h2>Saturday afternoon — build the core in your editor</h2>
-      <p>Move into <a href="/tool/cursor">Cursor</a> (or <a href="/tool/windsurf-ide">Windsurf</a> — see <a href="/blog/cursor-vs-windsurf">Cursor vs Windsurf</a> if you're undecided) and implement the core flow by describing it. Let the agent — Cursor's Composer 2.5 handles multi-file work — wire up state, routes, and the database. Two rules keep this fast: <strong>review every change</strong> (vibe coding works because you stay the editor-in-chief), and <strong>run the app after every step</strong> so a bug never hides three prompts deep. If the agent goes down a wrong path, stop it early and re-specify rather than patching on top of a bad foundation.</p>
+      <p>Move into <a href="/tool/cursor">Cursor</a> (or <a href="/tool/devin-ai">Devin Desktop</a>, the editor Codeium launched as Windsurf, if you prefer a calmer flow) and implement the core flow by describing it. Let the agent — Cursor's Composer 2.5 handles multi-file work — wire up state, routes, and the database. Two rules keep this fast: <strong>review every change</strong> (vibe coding works because you stay the editor-in-chief), and <strong>run the app after every step</strong> so a bug never hides three prompts deep. If the agent goes down a wrong path, stop it early and re-specify rather than patching on top of a bad foundation.</p>
 
       <h2>Sunday morning — connect the real pieces</h2>
       <p>Now wire in the things a demo can fake but a product can't: authentication, a real database, and any external API your core flow needs. Describe each integration to your editor's agent and let it scaffold the boilerplate, then test the unhappy paths — what happens when a request fails, a field is empty, or a user isn't logged in. This is where vibe coding pays off most: the tedious plumbing that used to eat a full day now takes an hour of prompting and review.</p>
@@ -412,7 +414,7 @@ export const postsBatch4: BlogPost[] = [
         <tbody>
           <tr><td>Plan</td><td>Claude / ChatGPT</td><td>Scope down to one core flow</td></tr>
           <tr><td>UI</td><td>v0 / Bolt.new</td><td>Clickable screens fast</td></tr>
-          <tr><td>Build</td><td>Cursor / Windsurf</td><td>Implement the core flow</td></tr>
+          <tr><td>Build</td><td>Cursor / Devin Desktop</td><td>Implement the core flow</td></tr>
           <tr><td>Integrate</td><td>Cursor agent</td><td>Auth, database, APIs</td></tr>
           <tr><td>Ship</td><td>Framer + Vercel</td><td>Landing page &amp; deploy</td></tr>
         </tbody>
@@ -426,7 +428,7 @@ export const postsBatch4: BlogPost[] = [
       },
       {
         q: "What AI tools do I need to build an app in a weekend?",
-        a: "One per stage: an assistant (Claude or ChatGPT) to shape the idea and cut scope, an app builder (v0 or Bolt.new) to generate clickable screens fast, an AI editor (Cursor or Windsurf) to implement the core flow and wire up auth and data, and Vercel to deploy. Framer is optional for a landing page. Every one of these has a free tier, so the whole stack costs nothing for a first build.",
+        a: "One per stage: an assistant (Claude or ChatGPT) to shape the idea and cut scope, an app builder (v0 or Bolt.new) to generate clickable screens fast, an AI editor (Cursor) to implement the core flow and wire up auth and data, and Vercel to deploy. Framer is optional for a landing page. Every one of these has a free tier, so the whole stack costs nothing for a first build.",
       },
       {
         q: "Do I need to know how to code to do this?",
@@ -452,7 +454,7 @@ export const postsBatch4: BlogPost[] = [
     excerpt:
       "The best AI tools for vibe coding in 2026: the editors, assistants, app builders, and deploy tools that matter — plus how to build a stack free or for $20.",
     date: "Jul 18, 2026",
-    updated: "Aug 7, 2026",
+    updated: "Sep 16, 2026",
     author: "David Kim",
     category: "Guide",
     readTime: "16 min read",
@@ -491,7 +493,7 @@ export const postsBatch4: BlogPost[] = [
           <tr><th>Layer</th><th>What it does</th><th>Top picks</th></tr>
         </thead>
         <tbody>
-          <tr><td>Editor</td><td>Where you build and where the agent works</td><td>Cursor, Windsurf, GitHub Copilot</td></tr>
+          <tr><td>Editor</td><td>Where you build and where the agent works</td><td>Cursor, GitHub Copilot, Devin Desktop</td></tr>
           <tr><td>Assistant</td><td>Planning, debugging, code review, writing</td><td>Claude, ChatGPT, Perplexity</td></tr>
           <tr><td>App builder</td><td>Prompt to running app, no local setup</td><td>v0, Bolt.new, Lovable, Replit</td></tr>
           <tr><td>Design &amp; media</td><td>Sites, UI, imagery, voice</td><td>Framer, Figma, Midjourney, ElevenLabs</td></tr>
@@ -504,10 +506,10 @@ export const postsBatch4: BlogPost[] = [
       <p>The editor is the highest-leverage choice in the stack, because it's where the agent does its work and where you spend your hours. Get this one right and everything else is swappable.</p>
       <ul>
         <li><strong><a href="/tool/cursor">Cursor</a></strong> — the default AI-first editor and the safe pick for maximum agentic power. It's a VS Code fork, so your extensions, themes, and keybindings come with you. The July 2026 <strong>3.11</strong> release added a side chat panel, searchable agent transcripts, a Cursor for iOS public beta, and first-class support for xAI's <strong>Grok 4.5</strong>, all riding on the <strong>Composer 2.5</strong> agent. Its "Tab" prediction is the underrated part: it stages multi-line edits and your next likely refactor, not just the next token. Pricing is credit-based — Hobby (free), Pro ($20/mo, or $16/mo annually), Pro+ ($60/mo), Ultra ($200/mo) — so heavy frontier-model use drains the pool faster than economical models.</li>
-        <li><strong><a href="/tool/windsurf-ide">Windsurf</a></strong> — Codeium's editor, also a VS Code fork, with a cleaner default UI and "Flow" context awareness that keeps long sessions coherent. Its <strong>Cascade</strong> agent plans a multi-step change and then executes it across files. Since the March 19, 2026 overhaul it runs on daily and weekly quotas instead of credits: Free ($0, with unlimited Tab autocomplete that never touches quota), Pro ($20/mo, up from $15), Max ($200/mo). Full breakdown: <a href="/blog/cursor-vs-windsurf">Cursor vs Windsurf</a>.</li>
+        <li><strong><a href="/tool/devin-ai">Devin Desktop</a></strong> — the editor Codeium shipped as Windsurf, also a VS Code fork, known for a cleaner default UI and context handling that keeps long sessions coherent. Cognition acquired it in July 2025 and relaunched it under the Devin name on June 2, 2026; codeium.com and windsurf.com now both redirect to devin.ai/desktop. Cognition calls it the next generation of Windsurf and kept it compatible with Windsurf and VS Code extensions, keybindings, and LSP integrations at launch, so switching is closer to a rename than a migration. Check Cognition's site for current plans — the old Windsurf tiers no longer apply. Our <a href="/blog/cursor-vs-windsurf">Cursor vs Windsurf</a> comparison covers the pre-rebrand editor.</li>
         <li><strong><a href="/tool/github-copilot">GitHub Copilot</a></strong> — AI inside the editor you already use: VS Code, Visual Studio, JetBrains, Neovim, Xcode and more. Its agent mode is capable and its GitHub-native flow (turn an issue into a pull request) is genuinely strong, and it has the best enterprise controls — SSO, audit logs, policy management, content exclusions. Roughly $10&ndash;20/mo with a free tier. See <a href="/blog/cursor-vs-github-copilot">Cursor vs GitHub Copilot</a>.</li>
       </ul>
-      <p><strong>How to choose:</strong> if you want the agent to do the heavy lifting and don't mind switching editors, take Cursor. If you want a calmer, more guided experience, take Windsurf. If you need to stay in JetBrains or you're buying for a team with a security review, take Copilot. All three have free tiers, and because Cursor and Windsurf are both VS Code forks, trying the other one costs you an afternoon at most.</p>
+      <p><strong>How to choose:</strong> if you want the agent to do the heavy lifting and don't mind switching editors, take Cursor. If you need to stay in JetBrains or you're buying for a team with a security review, take Copilot. Devin Desktop is the third option, and the one to follow if it was Windsurf's calmer, more guided flow you liked. Cursor and Copilot both have free tiers, and because Cursor and Devin Desktop are both VS Code forks, trying the other one costs you an afternoon at most.</p>
 
       <h2>Layer 2: the assistant — your thinking partner</h2>
       <p>The editor writes the code; the assistant is where you figure out <em>what</em> to build, unstick a bug, and get a second opinion on a design. Most people who vibe code seriously keep one open in a browser tab all day.</p>
@@ -553,10 +555,10 @@ export const postsBatch4: BlogPost[] = [
       <p>You do not need to spend money to vibe code well. What you buy with a subscription is mostly the removal of limits that interrupt your flow — so upgrade when a cap starts costing you time, not before. Three realistic tiers:</p>
 
       <h3>Free ($0/month)</h3>
-      <p>A complete loop, genuinely. Use <strong>Cursor Hobby</strong> or <strong>Windsurf Free</strong> as your editor (Windsurf's Tab autocomplete is unlimited on free and never touches quota, which makes it a strong free-tier pick). Add <strong>Claude</strong>'s free tier, which runs on Sonnet 5, or <strong>ChatGPT</strong>'s free tier for planning and debugging. Use <strong>v0 Free</strong> ($5 in monthly credits) or <strong>Bolt.new Free</strong> (1M tokens a month, no credit card) when you want to start from a running app. Ship on <strong>Vercel</strong>'s free tier, version with git. Total: nothing. This is enough to build and launch a real project — the constraint is agent quota, not capability.</p>
+      <p>A complete loop, genuinely. Use <strong>Cursor Hobby</strong> as your editor, or <strong>GitHub Copilot</strong>'s free tier if you would rather stay in the editor you already have. Add <strong>Claude</strong>'s free tier, which runs on Sonnet 5, or <strong>ChatGPT</strong>'s free tier for planning and debugging. Use <strong>v0 Free</strong> ($5 in monthly credits) or <strong>Bolt.new Free</strong> (1M tokens a month, no credit card) when you want to start from a running app. Ship on <strong>Vercel</strong>'s free tier, version with git. Total: nothing. This is enough to build and launch a real project — the constraint is agent quota, not capability.</p>
 
       <h3>About $20/month</h3>
-      <p>Buy exactly one upgrade: the layer you hit limits in first. For most people that's the editor — <strong>Cursor Pro</strong> ($20/mo, $16 annually) or <strong>Windsurf Pro</strong> ($20/mo) removes the interruptions that break flow during a long build session. If you spend more time planning and debugging in chat than in the agent, spend the $20 on <strong>Claude Pro</strong> or <strong>ChatGPT Plus</strong> instead and stay on the free editor tier. One paid tool, chosen honestly, beats three half-used ones.</p>
+      <p>Buy exactly one upgrade: the layer you hit limits in first. For most people that's the editor — <strong>Cursor Pro</strong> ($20/mo, $16 annually) removes the interruptions that break flow during a long build session. If you spend more time planning and debugging in chat than in the agent, spend the $20 on <strong>Claude Pro</strong> or <strong>ChatGPT Plus</strong> instead and stay on the free editor tier. One paid tool, chosen honestly, beats three half-used ones.</p>
 
       <h3>$50+/month</h3>
       <p>Now you're building regularly and each tool earns its keep. The common shape is <strong>editor Pro ($20) + assistant Pro ($20)</strong> — roughly $40&ndash;60/month all in — which is the sweet spot for a solo builder shipping weekly. Past that, add capability rather than duplicates: an app builder you actually use (<strong>v0 Premium</strong> at $20/mo or <strong>Bolt Pro</strong> at $25/mo), <strong>Framer Basic</strong> ($10/mo annually) if you're publishing landing pages, or a second assistant so you can generate with one and review with the other. Heavy agent users step up within a tool instead — Cursor Pro+ at $60/mo or Ultra at $200/mo.</p>
@@ -566,8 +568,8 @@ export const postsBatch4: BlogPost[] = [
           <tr><th>Budget</th><th>Editor</th><th>Assistant</th><th>App builder</th><th>Ship</th></tr>
         </thead>
         <tbody>
-          <tr><td>$0</td><td>Cursor Hobby / Windsurf Free</td><td>Claude or ChatGPT free tier</td><td>v0 Free / Bolt Free</td><td>Vercel free + git</td></tr>
-          <tr><td>~$20/mo</td><td>Cursor Pro or Windsurf Pro ($20)</td><td>Free tier</td><td>Free tier</td><td>Vercel free</td></tr>
+          <tr><td>$0</td><td>Cursor Hobby / Copilot Free</td><td>Claude or ChatGPT free tier</td><td>v0 Free / Bolt Free</td><td>Vercel free + git</td></tr>
+          <tr><td>~$20/mo</td><td>Cursor Pro ($20)</td><td>Free tier</td><td>Free tier</td><td>Vercel free</td></tr>
           <tr><td>~$40&ndash;60/mo</td><td>Cursor Pro ($20)</td><td>Claude Pro or ChatGPT Plus ($20)</td><td>Free tier</td><td>Vercel free</td></tr>
           <tr><td>$80&ndash;120/mo</td><td>Editor Pro ($20)</td><td>Both assistants ($40)</td><td>v0 Premium ($20) or Bolt Pro ($25)</td><td>Framer Basic ($10)</td></tr>
         </tbody>
@@ -584,7 +586,6 @@ export const postsBatch4: BlogPost[] = [
         </thead>
         <tbody>
           <tr><td><a href="/tool/cursor">Cursor</a></td><td>Editor</td><td>Maximum agentic power, repo-wide edits</td><td>Yes (Hobby)</td><td>$20/mo Pro</td></tr>
-          <tr><td><a href="/tool/windsurf-ide">Windsurf</a></td><td>Editor</td><td>Calm, guided flow; unlimited free autocomplete</td><td>Yes</td><td>$20/mo Pro</td></tr>
           <tr><td><a href="/tool/github-copilot">GitHub Copilot</a></td><td>Editor</td><td>Staying in your current IDE; team controls</td><td>Yes</td><td>~$10&ndash;20/mo</td></tr>
           <tr><td><a href="/tool/claude">Claude</a></td><td>Assistant</td><td>Writing, code review, long-context work</td><td>Yes (Sonnet 5)</td><td>~$20/mo Pro</td></tr>
           <tr><td><a href="/tool/chatgpt">ChatGPT</a></td><td>Assistant</td><td>Ecosystem, multimodal, all-round convenience</td><td>Yes</td><td>~$20/mo Plus</td></tr>
@@ -602,7 +603,7 @@ export const postsBatch4: BlogPost[] = [
       <ol>
         <li><strong>Friday night — shape it.</strong> Talk the idea through with <a href="/tool/claude">Claude</a> or <a href="/tool/chatgpt">ChatGPT</a>: who it's for, the one core flow, the simplest version worth shipping. Then cut scope until the app fits in one sentence. This is the step that decides whether you finish.</li>
         <li><strong>Saturday morning — generate the UI.</strong> Use <a href="/tool/v0-by-vercel">v0</a> for screens you'll paste into a codebase, or <a href="/tool/bolt-new">Bolt.new</a> for a full-stack starter with a live preview. You want something clickable within the hour — skeleton, not polish.</li>
-        <li><strong>Saturday afternoon — build the core.</strong> Move into <a href="/tool/cursor">Cursor</a> or <a href="/tool/windsurf-ide">Windsurf</a> and describe the core flow. Let the agent wire up state, routes, and data. Review every change and run the app after each step so a bug can't hide three prompts deep.</li>
+        <li><strong>Saturday afternoon — build the core.</strong> Move into <a href="/tool/cursor">Cursor</a> or <a href="/tool/devin-ai">Devin Desktop</a> and describe the core flow. Let the agent wire up state, routes, and data. Review every change and run the app after each step so a bug can't hide three prompts deep.</li>
         <li><strong>Sunday morning — connect the real pieces.</strong> Auth, a real database, any external API. Describe each integration to the agent, then test the unhappy paths: failed requests, empty fields, logged-out users.</li>
         <li><strong>Sunday afternoon — ship.</strong> A quick landing page in <a href="/tool/framer">Framer</a>, deploy on <a href="/tool/vercel">Vercel</a>, launch copy from your assistant. Resist one more feature. A shipped small app beats an unshipped ambitious one.</li>
       </ol>
@@ -618,11 +619,11 @@ export const postsBatch4: BlogPost[] = [
     faq: [
       {
         q: "What tools do I need to start vibe coding?",
-        a: "Three, and all of them have free tiers: an AI-first editor (Cursor or Windsurf), an assistant for planning and debugging (Claude or ChatGPT), and somewhere to deploy (Vercel, plus git for version control). That's a complete loop — build, review, ship. Add an app builder like v0 or Bolt.new the first time you want to skip setup and start from a running app.",
+        a: "Three, and all of them have free tiers: an AI-first editor (Cursor), an assistant for planning and debugging (Claude or ChatGPT), and somewhere to deploy (Vercel, plus git for version control). That's a complete loop — build, review, ship. Add an app builder like v0 or Bolt.new the first time you want to skip setup and start from a running app.",
       },
       {
         q: "What is the best AI tool for vibe coding in 2026?",
-        a: "For most people, Cursor. It's the AI-first editor with the most mature agent — Composer 2.5, with repo-wide context, terminal execution, and Tab prediction that stages your next edit — and the July 2026 3.11 release added a side chat, searchable agent transcripts, and an iOS beta. Windsurf is the main alternative if you prefer a calmer, more guided flow, and GitHub Copilot is the pick if you need to stay in JetBrains or need enterprise controls.",
+        a: "For most people, Cursor. It's the AI-first editor with the most mature agent — Composer 2.5, with repo-wide context, terminal execution, and Tab prediction that stages your next edit — and the July 2026 3.11 release added a side chat, searchable agent transcripts, and an iOS beta. Devin Desktop — the editor Codeium launched as Windsurf, relaunched under Cognition in June 2026 — is the main alternative if you prefer a calmer, more guided flow, and GitHub Copilot is the pick if you need to stay in JetBrains or need enterprise controls.",
       },
       {
         q: "How much does a vibe coding stack cost?",
@@ -638,7 +639,7 @@ export const postsBatch4: BlogPost[] = [
       },
       {
         q: "What's the difference between an AI editor and an app builder?",
-        a: "An AI editor (Cursor, Windsurf) works on code on your machine, with your repo, your git history, and full control — it's where you finish real projects. An app builder (v0, Bolt.new, Lovable, Replit) runs in the browser and goes from prompt to a running app with no setup, which is unbeatable for prototypes and first drafts. The common workflow is to prototype in a builder and then move the code into an editor to finish the hard parts.",
+        a: "An AI editor (Cursor, GitHub Copilot, Devin Desktop) works on code on your machine, with your repo, your git history, and full control — it's where you finish real projects. An app builder (v0, Bolt.new, Lovable, Replit) runs in the browser and goes from prompt to a running app with no setup, which is unbeatable for prototypes and first drafts. The common workflow is to prototype in a builder and then move the code into an editor to finish the hard parts.",
       },
     ],
   },

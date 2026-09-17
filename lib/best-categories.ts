@@ -42,8 +42,8 @@ export const BEST_CATEGORIES: CategoryCopy[] = [
     intro:
       "AI coding tools have gone from autocomplete to full agents that ship features. Here are the best AI coding tools of 2026 — ranked by how much they actually accelerate real development work.",
     body: [
-      "There is no single best AI coding tool — the right pick depends on how you work. For agentic, multi-file editing inside a real codebase, <a href=\"/tool/cursor\">Cursor</a> and <a href=\"/tool/windsurf-ide\">Windsurf</a> lead. If you want AI inside the IDE you already use, <a href=\"/tool/github-copilot\">GitHub Copilot</a> and <a href=\"/tool/gemini-code-assist\">Gemini Code Assist</a> are the safe defaults. To go from a prompt to a working app, <a href=\"/tool/bolt-new\">Bolt.new</a>, <a href=\"/tool/v0-by-vercel\">v0</a>, and <a href=\"/tool/replit\">Replit</a> are purpose-built.",
-      "It helps to think in three modes. <strong>Autocomplete</strong> tools (Supermaven, Tabnine, Copilot's inline completions) finish your lines as you type — fast and low-friction. <strong>Agentic editors</strong> (Cursor, Windsurf) take a task and make multi-file changes for your review. <strong>App builders</strong> (Bolt.new, v0, Replit) scaffold whole projects from a description. Most professional developers end up pairing a fast autocomplete with one agentic editor; the app builders shine for prototypes and front-end work.",
+      "There is no single best AI coding tool — the right pick depends on how you work. For agentic, multi-file editing inside a real codebase, <a href=\"/tool/cursor\">Cursor</a> is the reference point. If you want AI inside the IDE you already use, <a href=\"/tool/github-copilot\">GitHub Copilot</a> and <a href=\"/tool/gemini-code-assist\">Gemini Code Assist</a> are the safe defaults. To go from a prompt to a working app, <a href=\"/tool/bolt-new\">Bolt.new</a>, <a href=\"/tool/v0-by-vercel\">v0</a>, and <a href=\"/tool/replit\">Replit</a> are purpose-built.",
+      "It helps to think in three modes. <strong>Autocomplete</strong> tools (Tabnine, Copilot's inline completions) finish your lines as you type — fast and low-friction. <strong>Agentic editors</strong> (Cursor, Copilot's agent mode) take a task and make multi-file changes for your review. <strong>App builders</strong> (Bolt.new, v0, Replit) scaffold whole projects from a description. Most professional developers end up pairing a fast autocomplete with one agentic editor; the app builders shine for prototypes and front-end work.",
       "Cost and privacy decide it at the edges. <a href=\"/tool/aider\">Aider</a> is free and open source if you bring your own API key, and Tabnine plus local runners keep code on your own machine for privacy-sensitive teams. Almost every tool has a free tier worth trying before you commit to Pro — and for teams, the per-seat math matters more than the headline price. The comparison table and full breakdowns below cover each tool's strengths, pricing, and who it's for.",
     ],
     buyingGuide: [
@@ -63,7 +63,7 @@ export const BEST_CATEGORIES: CategoryCopy[] = [
       },
       {
         q: "What's the best free AI coding tool?",
-        a: "Aider is fully free and open source (you supply your own API key), and Cursor, GitHub Copilot, and Windsurf all have usable free tiers. For privacy, Tabnine offers a free local mode. Start free and upgrade only when you hit real limits.",
+        a: "Aider is fully free and open source (you supply your own API key), and Cursor and GitHub Copilot both have usable free tiers. For privacy, Tabnine offers a free local mode, and Ollama runs models entirely on your own hardware. Start free and upgrade only when you hit real limits.",
       },
       {
         q: "Cursor vs GitHub Copilot — which is better?",
@@ -71,7 +71,7 @@ export const BEST_CATEGORIES: CategoryCopy[] = [
       },
       {
         q: "What's the best AI assistant for autocomplete?",
-        a: "Supermaven is the fastest with a huge context window, and GitHub Copilot's inline completions are the most widely integrated. Tabnine is the pick when privacy and on-prem training matter.",
+        a: "GitHub Copilot's inline completions are the most widely integrated, and they are available inside almost every editor people actually use. Tabnine is the pick when privacy and on-prem deployment matter. Note that this corner of the market consolidates fast — several standalone autocomplete products have been absorbed into larger editors — so check that a tool is still independently maintained before standardizing a team on it.",
       },
       {
         q: "Are AI coding tools worth paying for?",
@@ -93,9 +93,9 @@ export const BEST_CATEGORIES: CategoryCopy[] = [
     intro:
       "From image generation to full website design, AI design tools now produce production-ready output. These are the best AI design tools of 2026 — ranked for designers, founders, and creators who need results they can actually ship.",
     body: [
-      "There is no single best AI design tool — it depends on what you're making. For still images, <a href=\"/tool/midjourney\">Midjourney</a> still sets the bar on aesthetics. For video, <a href=\"/tool/runway\">Runway</a> and <a href=\"/tool/openai-sora\">Sora</a> lead. For product and UI design, <a href=\"/tool/figma\">Figma</a>'s own AI is built into the tool designers already use, and <a href=\"/tool/v0-by-vercel\">v0</a> turns a prompt into a working front-end you can hand to developers. For full websites, <a href=\"/tool/framer\">Framer</a> and <a href=\"/tool/lovable\">Lovable</a> ship real, production sites from a description.",
+      "There is no single best AI design tool — it depends on what you're making. For still images, <a href=\"/tool/midjourney\">Midjourney</a> still sets the bar on aesthetics. For video, <a href=\"/tool/runway\">Runway</a> leads. For product and UI design, <a href=\"/tool/figma\">Figma</a>'s own AI is built into the tool designers already use, and <a href=\"/tool/v0-by-vercel\">v0</a> turns a prompt into a working front-end you can hand to developers. For full websites, <a href=\"/tool/framer\">Framer</a> and <a href=\"/tool/lovable\">Lovable</a> ship real, production sites from a description.",
       "What separates a genuinely useful AI design tool from a toy in 2026 comes down to four things: <strong>output quality</strong>, <strong>editability</strong> (can you refine the result, or is it one-shot?), <strong>brand control</strong> (style references and design systems that keep output on-brand), and <strong>licensing</strong> (commercial-use rights for what you ship). The flashy demos all look similar — these four practical factors decide which tool survives in a real workflow.",
-      "Budget and licensing deserve a closer look than the pricing page suggests. <a href=\"/tool/canva\">Canva</a>, Figma, and Framer all have capable free tiers to start on, while Midjourney and Sora are paid-first. Crucially, commercial-use terms vary by tool and even by plan — so if you're shipping AI-generated work to clients or production, confirm the license for your specific tier before you do. The comparison table and ranked breakdowns below cover output type, pricing, and the trade-offs for each.",
+      "Budget and licensing deserve a closer look than the pricing page suggests. <a href=\"/tool/canva\">Canva</a>, Figma, and Framer all have capable free tiers to start on, while Midjourney is paid-first. Crucially, commercial-use terms vary by tool and even by plan — so if you're shipping AI-generated work to clients or production, confirm the license for your specific tier before you do. The comparison table and ranked breakdowns below cover output type, pricing, and the trade-offs for each.",
     ],
     buyingGuide: [
       "Output type: image, video, UI, or full websites — pick for your job.",
@@ -106,7 +106,7 @@ export const BEST_CATEGORIES: CategoryCopy[] = [
     faqs: [
       {
         q: "What is the best AI design tool in 2026?",
-        a: "It depends on the output. Midjourney leads for image aesthetics, Runway and Sora for video, Figma and v0 for UI and product design, and Framer for full websites. There's no universal winner — pick by what you're actually making, which is how the ranked list below is organized.",
+        a: "It depends on the output. Midjourney leads for image aesthetics, Runway for video, Figma and v0 for UI and product design, and Framer for full websites. There's no universal winner — pick by what you're actually making, which is how the ranked list below is organized.",
       },
       {
         q: "What's the best AI tool for generating images?",
@@ -114,7 +114,7 @@ export const BEST_CATEGORIES: CategoryCopy[] = [
       },
       {
         q: "What's the best AI tool for video generation?",
-        a: "Runway is the pro choice for controllable, editable video with motion brush and lip sync, while Sora pushes the frontier on photorealism and physical realism. Pick Runway for production control, Sora for raw quality.",
+        a: "Runway is the pick for controllable, editable video — motion brush, lip sync, and the ability to keep working on a shot that came out eighty percent right instead of re-rolling it. Generative video is the least stable category on this site, with models and whole products appearing and being withdrawn inside a single year, so treat any ranking here as shorter-lived than the rest.",
       },
       {
         q: "What's the best AI tool for UI and web design?",

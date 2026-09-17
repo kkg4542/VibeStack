@@ -6,39 +6,41 @@ import type { ToolExtendedContent } from "./tool-extended-content";
  * for the shared interface and rendering contract). Kept in a separate file
  * to avoid merge conflicts with other batches being authored in parallel.
  *
- * Covers: cody, cosine, grok, ollama, openai-sora
+ * Covers: cody, cosine, grok, ollama
  */
 export const TOOL_EXTENDED_CONTENT_B3: Record<string, ToolExtendedContent> = {
     cody: {
         overviewHtml: `
-            <p><strong>Cody</strong> is Sourcegraph's AI coding assistant, and the most useful way to evaluate it is to start with the company rather than the product. Sourcegraph sells code search to organizations whose codebases are too large for anyone to hold in their head: hundreds of repositories, millions of files, years of accumulated decisions. Cody is what happens when you put a language model in front of that index. Every assistant has to answer the same question — which code should the model actually see? — and most answer it by guessing from your open tabs and recent edits. Cody answers it by running a search.</p>
+            <p>Before anything else about the product: <strong>Cody is an enterprise purchase now, and only an enterprise purchase.</strong> Sourcegraph closed new signups for Cody Free, Cody Pro and Enterprise Starter on 25 June 2025 and shut those plans down on 23 July 2025, announced on its own blog under the title "Changes to Cody Free, Pro, and Enterprise Starter plans". The consumer-facing marketing page at sourcegraph.com/cody now redirects to the documentation, and the first line of that documentation is a support notice: Sourcegraph Enterprise. The listed price is 59 dollars per user per month on an annual contract.</p>
 
-            <p>That is an architectural difference rather than a marketing one, and it has a consequence worth understanding before you trial anything: Cody's value is not roughly constant across teams the way <a href="/tool/github-copilot">GitHub Copilot</a>'s or <a href="/tool/cursor">Cursor</a>'s is. It scales with the size and the disorder of the thing being searched.</p>
+            <p>So if you arrived here as an individual developer comparing assistants, this one is not on the shortlist any more, and no amount of feature discussion changes that. Everything below is written for the only reader who can still act on it: someone deciding whether an organisation should run Sourcegraph and put Cody on top of it.</p>
 
             <h3>Retrieval is the product; completion is the commodity</h3>
 
-            <p>Cody runs as an extension in VS Code and the JetBrains IDEs and does what everything in this category does — chat, inline completion, commands for drafting tests or explaining a selection. Nobody picks it for those. What differs is where the context comes from. Cody can pull in code from repositories you have never opened, because Sourcegraph already indexed them. Ask why a service returns a particular error and a local-context tool can only reason about the file in front of it; a search-backed one can surface the other call sites, the shared helper living two repositories over, and the migration that changed the behaviour in the first place.</p>
+            <p>Sourcegraph sells code search to organisations whose codebases are too large for anyone to hold in their head — hundreds of repositories, millions of files, years of accumulated decisions. Cody is what happens when you put a language model in front of that index. Every assistant has to answer the same question, which is which code the model should actually see, and most answer it by guessing from your open tabs and recent edits. Cody answers it by running a search.</p>
 
-            <p>Cody also lets a team choose among several underlying models rather than being welded to one vendor's. That reads like a checkbox and is not one: inside an organisation where legal has approved exactly one model provider, an assistant that cannot switch providers is an assistant that cannot be deployed at all.</p>
+            <p>That is an architectural difference rather than a marketing one, and it has a consequence worth understanding before a trial: Cody's value is not roughly constant across teams the way <a href="/tool/github-copilot">GitHub Copilot</a>'s or <a href="/tool/cursor">Cursor</a>'s is. It scales with the size and the disorder of the thing being searched. It runs as an extension in VS Code and the JetBrains IDEs and does the usual things — chat, inline completion, commands for drafting tests or explaining a selection — and nobody picks it for those. What differs is that it can pull in code from repositories nobody on the team has open, because Sourcegraph already indexed them. Ask why a service returns a particular error and a local-context tool can only reason about the file in front of it; a search-backed one can surface the other call sites, the shared helper living two repositories over, and the migration that changed the behaviour in the first place.</p>
+
+            <p>Cody also lets an organisation choose among several underlying models rather than being welded to one vendor's. That reads like a checkbox and is not one: where legal has approved exactly one model provider, an assistant that cannot switch providers is an assistant that cannot be deployed at all.</p>
+
+            <h3>The price is the filter, and the platform underneath is the real bill</h3>
+
+            <p>59 dollars per user per month, committed annually, is roughly three times what the per-seat assistants cost, and that is only the licence. The context that differentiates Cody depends on Sourcegraph's index, so the actual decision is whether the organisation is prepared to run Sourcegraph — self-hosted, dedicated, or managed — and to keep it indexed as the code moves. For an enterprise already running it, Cody is close to free marginal effort, and the security posture is a genuine argument in its favour: code is indexed and served inside infrastructure you control rather than shipped to a shared third-party service, which is the kind of guarantee that decides procurement in regulated environments. Teams working through what those guarantees are actually worth may find <a href="/blog/zero-knowledge-ai">the confidential-computation framing</a> a useful companion. For a team not already running Sourcegraph, the honest cost of Cody includes standing up and operating a code search platform, which is a different conversation from installing an extension.</p>
 
             <h3>Small repositories erase the advantage</h3>
 
             <p>Retrieval only helps when retrieval is hard. On a project of a few dozen files, a modern assistant can hold the relevant code in its context window directly, and the machinery that makes Cody interesting has nothing left to do. You still pay for it, though — an index to stand up, a deployment to configure, and freshness to worry about, because a search index that lags behind the branch you are working on will describe code that no longer exists with complete confidence.</p>
 
-            <p>The inverse case is where the price makes sense. A codebase with undocumented internal libraries, two half-finished framework migrations, and conventions that live only in the memory of people who left is a retrieval problem, and retrieval is what Sourcegraph spent years building. So the question to settle first is not whether Cody is good. It is whether your codebase is large enough and tangled enough that whole-estate context is worth the setup it demands.</p>
-
-            <h3>You are adopting Sourcegraph, not an editor plugin</h3>
-
-            <p>This is the part that catches teams out. The context that differentiates Cody depends on Sourcegraph's index, so the real decision is whether your organisation is prepared to run Sourcegraph — self-hosted, in a dedicated instance, or managed — and to keep it indexed as the code moves. For an enterprise already running it, Cody is close to free marginal effort, and the security posture is a genuine argument in its favour: code is indexed and served inside infrastructure you control rather than shipped to a shared third-party service, which is the kind of guarantee that decides procurement in regulated environments. Teams working through what those guarantees are actually worth may find <a href="/blog/zero-knowledge-ai">the confidential-computation framing</a> a useful companion. For a team not already running Sourcegraph, the honest cost of Cody includes standing up and operating a code search platform, which is a different conversation than installing an extension. Sourcegraph has also repositioned its individual-developer tiers more than once while concentrating on the enterprise product, so confirm what is currently offered to individuals rather than planning around a free or Pro plan that may have moved.</p>
+            <p>The inverse case is where the price makes sense. A codebase with undocumented internal libraries, two half-finished framework migrations, and conventions that live only in the memory of people who left is a retrieval problem, and retrieval is what Sourcegraph spent years building. So the question to settle first is not whether Cody is good. It is whether your estate is large enough and tangled enough that whole-estate context justifies both the seat price and the platform beneath it.</p>
 
             <h3>When to pick something else</h3>
 
-            <p>Cody is a strongly grounded assistant, not an autonomous one. If the goal is to hand over a ticket and return to a finished pull request, <a href="/tool/devin-ai">Devin</a> or the multi-file agent flows in <a href="/tool/windsurf-ide">Windsurf</a> are aimed at that job in a way Cody is not. If you want the most fluid in-editor experience with no infrastructure behind it, <a href="/compare/cursor-vs-github-copilot">the Cursor and Copilot comparison</a> is the more relevant read. If the hard requirement is that no source code may leave your network under any circumstances, an on-premises completion tool like <a href="/tool/tabnine">Tabnine</a> attacks that directly rather than as a side effect of where your search index happens to live. And if you are starting a greenfield project this week, there is nothing to search yet — revisit it when the codebase has enough history to be worth indexing.</p>
+            <p>If you are one developer, or a startup, or anyone without a procurement process, pick something else — there is no tier for you, and that is the end of the analysis. If the goal is to hand over a ticket and return to a finished pull request, <a href="/tool/devin-ai">Devin</a> is aimed at that job in a way Cody is not; Cody is a strongly grounded assistant rather than an autonomous one. If you want the most fluid in-editor experience with no infrastructure behind it, <a href="/compare/cursor-vs-github-copilot">the Cursor and Copilot comparison</a> is the more relevant read. If the hard requirement is that no source code may leave your network under any circumstances, an on-premises completion tool like <a href="/tool/tabnine">Tabnine</a> attacks that directly rather than as a side effect of where your search index happens to live. And if you are starting a greenfield project this week, there is nothing to search yet — revisit it when the codebase has enough history to be worth indexing.</p>
         `,
         useCases: [
             {
                 title: "Ramping up inside a codebase nobody fully understands",
-                body: "A new engineer can ask in plain language how a subsystem works and get an answer grounded in the code that is actually deployed rather than documentation written two reorganisations ago. This is the single most commonly cited reason large engineering organisations keep paying for it.",
+                body: "A new engineer can ask in plain language how a subsystem works and get an answer grounded in the code that is actually deployed rather than documentation written two reorganisations ago. This is the single most commonly cited reason large engineering organisations keep paying for it, and it is the use case that most obviously justifies an enterprise seat price.",
             },
             {
                 title: "Tracing a change across repository boundaries",
@@ -54,19 +56,27 @@ export const TOOL_EXTENDED_CONTENT_B3: Record<string, ToolExtendedContent> = {
             },
         ],
         pricingDetail:
-            "Cody has carried a free tier for individuals and a paid Pro tier above it, but those individual plans have been repositioned more than once as Sourcegraph concentrated on its enterprise business, so treat any description of them — including this one — as something to verify on Sourcegraph's own site before planning around it. The tier that actually matters is Enterprise, where self-hosted or dedicated deployment, administrative controls, model-provider selection, and the codebase indexing that makes whole-estate context possible are negotiated per organisation. Budget for the platform underneath as well as the assistant on top: the recurring cost of Cody is not only its licence but the Sourcegraph deployment that gives it something to search.",
+            "There is no individual tier. Cody Free, Cody Pro and Enterprise Starter stopped accepting new signups on 25 June 2025 and were discontinued on 23 July 2025; what remains is Sourcegraph Enterprise, listed at 59 dollars per user per month on an annual commitment. Any page still describing a free or 9-dollar Pro plan — and there are many — predates that change. Budget for the platform as well as the seats: the recurring cost of Cody is not only its licence but the Sourcegraph deployment that gives it something to search, plus whatever the chosen model provider charges under the terms you negotiate. Sourcegraph has since put its newer effort behind a separate product called Amp, which is sold on its own terms rather than as a Cody tier, so confirm which product a quote actually covers before signing.",
         faq: [
             {
+                q: "Is there still a free version of Cody?",
+                a: "No. Sourcegraph closed new signups on 25 June 2025 and ended Cody Free, Cody Pro and Enterprise Starter on 23 July 2025. Cody is supported on Sourcegraph Enterprise only, and the documentation says so in its first line. If a comparison table still shows a free Cody tier, it has not been updated since mid-2025.",
+            },
+            {
+                q: "What should an individual developer use instead?",
+                a: "Something with a tier they can actually buy. Copilot and Cursor both sell to individuals; Tabnine is the answer when code must not leave your machine; Ollama plus an editor plugin is the answer when you want to pay nothing and own the hardware. None of them reproduce Cody's cross-repository retrieval, but that capability was never really aimed at a single developer's project anyway.",
+            },
+            {
                 q: "How is Cody actually different from Copilot or Cursor?",
-                a: "Where the context comes from. Copilot and Cursor build context primarily from your open workspace and are generally faster and smoother for moment-to-moment editing. Cody queries Sourcegraph's index, which lets it answer questions that span repositories you do not have open. On a small project that difference is invisible; on a large multi-repository estate it is the whole point.",
+                a: "Where the context comes from. Copilot and Cursor build context primarily from your open workspace and are generally faster and smoother for moment-to-moment editing. Cody queries Sourcegraph's index, which lets it answer questions that span repositories you do not have open. On a small project that difference is invisible; on a large multi-repository estate it is the whole point, which is also why the product ended up priced and packaged for that estate and nobody else.",
             },
             {
                 q: "Do I need Sourcegraph to get the benefit?",
-                a: "Effectively yes. The whole-codebase and cross-repository context that distinguishes Cody comes from Sourcegraph's search index, so the adoption decision is really about whether you are willing to run and maintain that platform. Teams that want context with no infrastructure step should look at editor-native tools instead.",
+                a: "Yes, and now literally so — Cody is only supported on Sourcegraph Enterprise. The whole-codebase and cross-repository context that distinguishes it comes from Sourcegraph's search index, so the adoption decision is really about whether you are willing to run and maintain that platform. Teams that want context with no infrastructure step should look at editor-native tools instead.",
             },
             {
                 q: "Can Cody run on our own infrastructure?",
-                a: "Yes — running it against a self-hosted or dedicated Sourcegraph deployment is one of the main reasons security-conscious organisations choose it over cloud-only competitors. Confirm the current deployment options and the data-handling terms for whichever model provider you select, since those are two separate questions and only one of them is answered by self-hosting the index.",
+                a: "Yes — running it against a self-hosted or dedicated Sourcegraph deployment is one of the main reasons security-conscious organisations still choose it over cloud-only competitors. Confirm the current deployment options and the data-handling terms for whichever model provider you select, since those are two separate questions and only one of them is answered by self-hosting the index.",
             },
             {
                 q: "Can we choose which model Cody uses?",
@@ -81,58 +91,62 @@ export const TOOL_EXTENDED_CONTENT_B3: Record<string, ToolExtendedContent> = {
 
     cosine: {
         overviewHtml: `
-            <p><strong>Cosine</strong> builds an autonomous coding agent, marketed as <strong>Genie</strong>, in the same category as <a href="/tool/devin-ai">Devin</a> rather than the completion-first category occupied by <a href="/tool/github-copilot">GitHub Copilot</a>. The intended shape of use is familiar by now: you describe a bug or a feature, the agent explores the repository, forms a plan, edits however many files the change touches, and hands back something for a human to review.</p>
+            <p><strong>Cosine has pivoted, and most of what you will read about it elsewhere describes a product that no longer exists.</strong> It was known for Genie, an autonomous coding agent in roughly the same category as <a href="/tool/devin-ai">Devin</a>: describe a bug, the agent searches the repository, plans, edits the files the change touches, and hands back a diff. That is not how the company presents itself now. cosine.sh describes Cosine as <em>the Sovereign AI Lab</em>, and the one-sentence version of the business is that it trains AI models and specialised coding agents for organisations that need frontier capability inside secure environments.</p>
 
-            <p>Writing usefully about a tool like this requires admitting something first. This is a young category and Cosine is a small vendor inside it, which means specific capability claims age in weeks and independent evidence is thin. So the honest thing to publish is not a feature list that may be wrong by the time you read it, but the two things that do not change: what work this class of tool is currently good for, and what you have to verify yourself before trusting any product in it — including this one.</p>
+            <p>The distinction that matters is who that sentence is addressed to. The reader it describes is not a developer choosing an assistant; it is an organisation with a constraint — a classification boundary, an air gap, a regulator, a codebase written in something the general-purpose models barely saw during training — that rules out the normal options before the evaluation starts. Worth noting that the pricing page has not entirely followed the front page there: it still sells a $19 Starter plan described as being for solo developers and side projects. So the self-serve door is open, but the product behind it is being built for the constrained buyer, and that is the gap to keep in mind when you read a feature list written for someone whose problems are not yours.</p>
 
-            <h3>The shape of work that suits an autonomous agent</h3>
+            <h3>What is actually on offer</h3>
 
-            <p>Agents in this category perform best on tasks with three properties, and the properties matter far more than which vendor you pick. The task has to be <strong>locatable</strong> — there has to be a findable place in the code where the change belongs, rather than a design decision to be made first. It has to be <strong>bounded</strong>, meaning a competent engineer could describe what done looks like in a sentence or two. And it has to be <strong>verifiable</strong> by something other than a human reading the diff: a test that fails before and passes after, a type checker, a linter, a reproduction script. Where all three hold, delegating the work and reviewing a pull request is a reasonable trade. Where any one fails, you get plausible code that solves a problem adjacent to yours, and reviewing it costs more than writing it would have.</p>
+            <p>The product line is a set of models under the Lumen name — Lumen Scout, Lumen Outpost and Lumen Sovereign — rather than a single subscription tier list, and the naming tracks the deployment story rather than a good, better, best ladder. Around them the site organises its solutions along four axes: sovereign AI, air-gapped operation, cybersecurity, and niche languages. Applications are narrower and more specific than a general coding assistant: a red-team application is offered, and a training application is listed as coming soon. You reach the system through a CLI or through Cosine's cloud rather than as an editor plugin, which tells you something about the assumed user — this is tooling for an engineering or security team with an environment to integrate with, not a tab-completion experience.</p>
 
-            <p>The failure mode specific to this category is worth naming because it is not obvious from a demo. An agent that misidentifies where a change belongs does not stop; it commits to the wrong location and then makes every subsequent edit consistent with that mistake. The output is internally coherent and entirely wrong, which is considerably harder to catch in review than code that is simply broken. That is why every vendor here talks about codebase understanding before generation — Cosine's stated emphasis is semantic search over the repository ahead of planning — and why a human in the loop is not a temporary limitation of the current generation but the thing that makes the current generation usable.</p>
+            <p>Of those four axes, niche languages is the one most worth pausing on, because it is the only one that is about capability rather than deployment. A general-purpose assistant's competence in a language tracks how much of that language it saw in training, which is why they are fluent in TypeScript and vague in whatever your industrial control system is written in. A lab that trains its own models can attack that directly. Whether it succeeds is not something this page can tell you, and it is not something a vendor's own numbers can tell you either — Cosine publishes benchmark results of its own devising, and vendor-run benchmarks are evidence about the vendor's confidence rather than about your codebase.</p>
 
-            <h3>Where it does not belong, and what to check before adopting</h3>
+            <h3>When Cosine is the wrong conversation</h3>
 
-            <p>Do not reach for an autonomous agent when the hard part of the work is deciding what to build. Ambiguous requirements, architecture choices, anything touching auth, payments, migrations, or data deletion, and anything where the cost of a subtly wrong change is measured in customer trust — all of it belongs with a person, possibly a person using <a href="/tool/cursor">Cursor</a>, where a developer sees each change as it happens. It is also the wrong tool if your repository lacks the test coverage to tell you whether a change is safe: an agent removes the writing effort, not the verifying effort, and without tests you have simply moved the whole burden into code review. And if your team is not already comfortable rejecting AI-generated pull requests, adding a machine that produces them faster will not help.</p>
+            <p>If your code can go to a commercial cloud API, this is not your tool, and the pivot is the reason: you would be buying a sovereignty and security story you do not need, from a small vendor, in place of mature products. A developer who wants an assistant should be reading about <a href="/tool/cursor">Cursor</a> or <a href="/tool/github-copilot">GitHub Copilot</a>; a team that wants tickets worked autonomously should be reading about <a href="/tool/devin-ai">Devin</a> and <a href="/blog/autonomous-agents-devin">the broader shift from assistants to agents</a>. Cosine only becomes the interesting answer at the point where those have already been eliminated by a rule somebody else wrote.</p>
 
-            <p>Before committing to Cosine or any competitor, run your own evaluation rather than accepting anyone's reported benchmark scores, this page included. Public agent benchmarks measure performance on curated public repositories, which is not the same thing as performance on your undocumented internal framework. Take ten tickets your team actually closed last quarter, replay them, and count how many produced a diff you would have merged with light edits. Separately, ask the vendor where your code goes during a run, what is retained, and — since this is a young company in a consolidating market — what happens to your workflows if the product is acquired or discontinued. Those questions are answerable now and are more predictive than any leaderboard. <a href="/blog/autonomous-agents-devin">The broader shift from assistants to agents</a> is worth reading before you scope a pilot.</p>
+            <p>The evaluation advice for the old Genie still applies to the coding-agent half of this, and it is the part vendors are least keen to have you do: take ten tickets your team actually closed last quarter, replay them, and count how many produced a diff you would have merged with light edits. That number is the one that predicts anything. Everything else — the leaderboard, the demo, this page — is a proxy for it. And because deployment is the whole premise here, get the deployment questions answered in writing before a pilot: where the weights live, what leaves the boundary during a run, what is retained, and what happens to your workflows if the company is acquired.</p>
         `,
         useCases: [
             {
-                title: "Mechanical changes with a clear finish line",
-                body: "Dependency bumps that require touching call sites, renaming a concept across a package, backfilling tests for existing functions, adding an endpoint that mirrors three existing ones. These are locatable, bounded, and verifiable, which is exactly the profile where handing off the writing and keeping the reviewing is a favourable trade.",
+                title: "Coding assistance inside an air-gapped or classified environment",
+                body: "The premise of the whole product. Where an environment has no route to a commercial model API, the choice is not between vendors but between having AI assistance at all and not having it, and that is the only situation in which a specialist lab beats an incumbent on anything other than price.",
             },
             {
-                title: "Running a real evaluation of the agent category",
-                body: "Because nobody can tell you from outside whether an agent works on your codebase, the most valuable early use is a structured trial: replay closed tickets, measure how often the output is mergeable, and note where it went wrong. That exercise is worth doing regardless of which vendor you eventually choose, and it is the only way to find out whether your repository is legible enough for any agent to work in.",
+                title: "Codebases in languages the mainstream models handle badly",
+                body: "Defence, industrial, telecoms and financial systems are full of languages and dialects that general-purpose assistants saw little of in training, and their output degrades accordingly. A vendor that trains its own models can target that gap directly, which is a different proposition from a thinner wrapper around someone else's frontier model.",
+            },
+            {
+                title: "Security work rather than feature work",
+                body: "Cosine lists a red-team application alongside its coding agents, which puts it in front of a security team rather than a product team. Treat that as a separate evaluation with separate success criteria — the question is what it finds on a system you already know the answers for, not whether it writes pleasant code.",
             },
         ],
         pricingDetail:
-            "Cosine has been offered on a freemium basis, with a free tier intended for evaluation and paid plans for teams needing more volume, collaboration features, or a self-managed deployment. Pricing and packaging in the autonomous-agent category change frequently, so confirm current terms on the vendor's own site rather than relying on any third-party summary. The more useful budgeting point is that seat or subscription cost is rarely the dominant expense here: agent runs consume model tokens, and the review time a team spends on agent-authored pull requests is a real cost that does not appear on any invoice. Model both before concluding an agent is cheaper than the engineer it was supposed to free up.",
+            "There is no free tier, so any description of Cosine as freemium — including an earlier version of this page — is out of date. The published plans are self-serve and credit-based rather than per-seat: Starter at $19/month with 4M credits, which the pricing page addresses to solo developers and side projects; Team at $199/month with 47M credits; and Enterprise at $999/month with 240M credits, aimed at highly regulated industries that prioritise data privacy. Extra credits are sold by the million and get cheaper as the plan gets larger — roughly $6.50, $5.00 and $4.50 per million across the three tiers — which is worth an extra second of arithmetic, because it means the entry plan carries the worst unit price at exactly the point a heavy user starts overrunning its allowance. The credit mechanic is the real budgeting risk, and the vendor is straightforward about why: its own FAQ defines credits as usage across agent work, model calls and cloud execution, with actual consumption depending on task size, model choice and runtime. That is an honest answer and an unforecastable one. The bill tracks how much work the agents do rather than how many people you employ, so a team of four can outspend a team of forty, and nobody — the vendor included — can tell you what one of your tickets costs until you have run a few. Meter a representative sample before committing to a tier. Private and air-gapped deployments sit outside the table entirely: the same FAQ says enterprise and private deployments are scoped with sales because infrastructure, support and security requirements differ, so if a deployment constraint is why you are reading this, treat the published prices as context rather than as your quote. These figures come from the vendor's own pricing page and this is a market where they move — confirm them there before budgeting.",
         faq: [
             {
-                q: "Is Cosine the same kind of thing as Devin?",
-                a: "Conceptually yes — both are autonomous coding agents that take a task description and attempt to plan and execute a complete change, as opposed to suggesting code inline. The differences between vendors in this category are mostly maturity, integrations, and deployment options rather than the underlying idea, which is why evaluating on your own repository matters more than comparing feature lists.",
+                q: "Is Cosine still the company behind Genie?",
+                a: "It is the same company, but the positioning has moved. Cosine now presents itself as a sovereign AI lab training models and specialised coding agents for organisations working inside secure environments, with a model line called Lumen. If you came here looking for a general-purpose autonomous coding agent to point at a normal repository, that is no longer what the front door describes.",
             },
             {
-                q: "Can I let it merge without review?",
-                a: "No, and that is not a limitation of this particular product. No autonomous coding agent available today should merge unreviewed into a codebase anyone depends on. The specific risk is that a wrong change is internally consistent rather than obviously broken, which makes it harder to spot than ordinary bad code.",
+                q: "Who is this actually for?",
+                a: "Organisations whose environment disqualifies the mainstream tools before the comparison starts — air-gapped networks, classified or sovereignty-constrained deployments, security teams, and codebases written in languages that general-purpose models handle poorly. Anyone can buy the $19 Starter plan, and the pricing page still names solo developers on it, so nothing stops an individual trying it. But if none of those constraints describe you, you are evaluating a specialist against incumbents with far more maturity and a much larger support surface, and the entry price is close enough to theirs that it will not be what decides it.",
             },
             {
-                q: "What kinds of tickets actually work?",
-                a: "Ones where the change has a findable home in the code, where done can be described in a sentence, and where something automated can prove it worked. If a ticket requires deciding what to build, or if nothing but a human reading the diff can confirm correctness, it is the wrong candidate no matter how capable the agent is.",
+                q: "How do you use it — is there an editor extension?",
+                a: "The surfaces the company lists are a CLI and its cloud, not an IDE plugin. That is consistent with the buyer: a team integrating a capability into an existing secure environment and its pipelines, rather than an individual developer installing something into VS Code over lunch.",
             },
             {
-                q: "Can it run on our own infrastructure?",
-                a: "A self-managed deployment has been part of Cosine's stated positioning, which is aimed at teams that cannot send proprietary code to a third-party service. Treat this as a question for the vendor rather than a settled fact — get the current deployment options, the data-retention terms, and whether any model calls leave your boundary, in writing.",
+                q: "Should I trust the benchmark numbers on the site?",
+                a: "Treat them as vendor-run, because they are. A benchmark designed and executed by the company whose product it scores is a statement of what the company believes it is good at, which is genuinely informative and is not independent evidence. For a specialist claim like competence in an unusual language, the only test that settles it is running the thing against your own code.",
+            },
+            {
+                q: "Can I let a coding agent merge without review?",
+                a: "No, and that is not a limitation of this particular vendor. No autonomous coding agent available today should merge unreviewed into a codebase anyone depends on. The specific risk is that a wrong change is internally consistent rather than obviously broken: an agent that misidentifies where a change belongs does not stop, it makes every subsequent edit consistent with the mistake, and the result is harder to catch in review than code that is simply broken.",
             },
             {
                 q: "Should we buy this instead of Cursor or Copilot?",
-                a: "They solve different problems and are not really substitutes. An editor-native assistant makes a developer faster at work they are doing; an agent attempts work in their absence. Most teams that adopt an agent keep the assistant, because the agent only covers the narrow slice of tickets that are well-scoped enough to delegate.",
-            },
-            {
-                q: "How much should I trust published benchmark numbers?",
-                a: "Less than the marketing around them implies. Agent benchmarks run against curated public repositories with clean tests and clear issue descriptions, which is close to the best case and unlike most working codebases. A vendor scoring well has demonstrated something real but not the thing you need to know. Replay your own closed tickets instead; ten of them will tell you more than any leaderboard.",
+                a: "Only if a rule prevents you from buying those. They solve the everyday problem — making a developer faster at work they are already doing — with far more maturity and a much larger support surface. Cosine is aimed at the case where that option is off the table. The cost of picking it anyway is not really the sticker price, which starts in the same range as a Cursor or Copilot seat; it is a smaller vendor, a thinner ecosystem, and a credit-metered bill that moves with how hard the agents work rather than with headcount.",
             },
         ],
     },
@@ -311,110 +325,6 @@ export const TOOL_EXTENDED_CONTENT_B3: Record<string, ToolExtendedContent> = {
             {
                 q: "Should I self-host instead of paying for an API?",
                 a: "Only if the arithmetic supports it. Sustained high volume, tasks that do not need frontier capability, and hard privacy requirements all favour local. Intermittent use of a genuinely difficult task favours the API, because idle hardware is pure cost while a metered call is not. Most teams end up splitting the work rather than choosing a side.",
-            },
-        ],
-    },
-
-    "openai-sora": {
-        overviewHtml: `
-            <p><strong>Sora</strong> is OpenAI's video generation model, and the useful way to evaluate it is not to ask how good the output looks. The output looks good. The question that decides whether it belongs in your work is whether a clip it produces can leave the building — whether it can be cut, cleared, disclosed, and handed to someone who is paying for it. That is a different question from the one <a href="/tool/runway">Runway</a> is built to answer, and the two products sit on opposite sides of it.</p>
-
-            <p>Runway sells an editing suite with generation attached, so its promise is that you can keep working on what comes out. Sora's promise is close to the reverse: you describe a shot and it returns a finished one, picture and synchronised sound arriving together from a single pass. When the result is right, it is right faster than any other route to the same frame. When it is nearly right, you are back at the prompt, because there is no layer to open.</p>
-
-            <h3>A finished clip is not an editable clip</h3>
-
-            <p>Everything downstream follows from this. A composite generation is delivered as one baked image sequence: no mattes, no separated subject, no depth pass, no isolated background. If the actor's hand is wrong in the third second, you cannot fix the hand — you can only roll again and hope the rest survives. Iteration in Sora is a slot machine with a very good payout table, not a set of controls.</p>
-
-            <p>In practice this reshapes how you brief the work. Prompting becomes the craft, because it is the only lever, and shot selection happens before the edit rather than inside it. Teams that get good results treat generation as a casting call — produce many candidates cheaply, choose ruthlessly, and never plan a shot whose value depends on one specific detail landing. Teams that struggle are the ones who wrote a storyboard first and then tried to make the model match it frame for frame.</p>
-
-            <h3>Two products are wearing the same name</h3>
-
-            <p>Most arguments about Sora are people evaluating different things. One is the consumer app: a feed, a remix culture, cameos of friends, short vertical clips made and consumed in the same place. The other is Sora as a generation engine reached through OpenAI's paid subscriptions and, separately, through programmatic access. These have different limits, different surfaces, different watermarking behaviour and, frequently, different answers to whether something is allowed.</p>
-
-            <p>Decide which one you are buying before you form an opinion. If you came through <a href="/tool/chatgpt">ChatGPT</a> because a plan you already pay for includes some video generation, you are a creator using a bundled feature and the economics are excellent. If you need clips generated on a schedule, by a pipeline, with predictable cost per delivered asset, you are evaluating an API product and the questions are availability, rate limits, and per-asset cost — none of which the app tells you anything about.</p>
-
-            <h3>What travels with the file</h3>
-
-            <p>Generated video does not arrive as a neutral MP4. OpenAI has said Sora output carries C2PA provenance metadata identifying it as AI-generated, and downloads from the consumer surfaces have carried a visible moving watermark as well. Which tiers and which surfaces strip or keep the visible mark has already changed more than once, so confirm the current behaviour against OpenAI's own documentation before you quote a client a deliverable spec.</p>
-
-            <p>The part people underestimate is that provenance is a workflow problem, not just a policy one. Metadata is fragile — re-encoding, screen recording, and a fair number of upload pipelines drop it — while the visible watermark is the opposite: durable, and sitting in the frame where a brand safety reviewer will see it. Meanwhile the large distribution platforms now expect creators to disclose realistic synthetic media in their own right. Treat disclosure as something you plan for at the brief stage, alongside music licensing, rather than something you discover during delivery.</p>
-
-            <h3>Likeness is gated, and that is the point</h3>
-
-            <p>The app's cameo feature lets a person insert their own likeness into generated video, and it is built around verified consent: the person records themselves to establish the likeness, controls who is permitted to use it, and can withdraw that permission. This is the single clearest signal of how OpenAI is positioning the product, because it is an explicit decision to make the most commercially tempting feature the least freely available one.</p>
-
-            <p>For commercial work the consequence is simple and easy to forget. You cannot cast someone in a Sora video the way you would cast them in an edit. Real people have to opt in themselves, which means talent, executives, and customers become scheduling dependencies rather than prompt parameters. Plan for that before you sell a concept that depends on a recognisable face.</p>
-
-            <h3>Characters and brands you do not own</h3>
-
-            <p>The model is good enough to produce something that reads as an established character or a recognisable brand world, and that capability is exactly where the legal ground is least settled. OpenAI's approach to third-party rightsholders has already shifted once since the product launched, in the direction of giving those rightsholders more control rather than less — which tells you something about the direction of travel even if the specifics change again.</p>
-
-            <p>The practical rule for anyone spending a client's money: do not build a campaign concept on intellectual property you do not control, and do not assume that what the model will generate today is what it will generate, or permit, next quarter. Generated homage is fine for a mood board and dangerous on a media buy.</p>
-
-            <h3>The limits that decide whether a shot survives an edit</h3>
-
-            <p>Sora produces shots, not sequences. Clips are short, and asking for longer output is where coherence typically degrades first. Continuity across separate generations is the harder version of the same problem: the same character, wardrobe, location and lighting across three clips is not something you can simply request, which is why generated material tends to work best when each shot stands alone rather than cutting together into a scene.</p>
-
-            <p>Two other failure modes are worth knowing before you promise anything. Legible on-screen text — signage, packaging, a UI, a headline — is unreliable, so plan to add type in post rather than generate it. And matching generated footage to material you actually shot remains genuinely hard: grain structure, lens character, and lighting direction will not line up, and an audience that could not name the problem will still feel that the cut is wrong.</p>
-
-            <h3>When not to use Sora</h3>
-
-            <p>Do not use it when the shot has to be fixed rather than replaced. Anything that needs a subject matted, an object removed, a region retimed, or a specific element replaced belongs in <a href="/tool/runway">Runway</a>, where those tools exist, and the quality gap between the two generators matters far less than the existence of a second attempt that is not a full re-roll. Do not use it for a continuous scene, for a shot that must intercut with live-action plates, or for anything where a real person, a specific product, or an exact brand asset has to be reproduced faithfully.</p>
-
-            <p>Do not use it, either, where the medium is wrong. If the deliverable is a still image, a still-image tool such as <a href="/tool/midjourney">Midjourney</a> gives more control over the frame than pulling one out of generated motion. If the job is really editing talking-head footage or a podcast, <a href="/tool/descript">Descript</a> is the correct tool, and if the missing piece is a voice track rather than a picture, <a href="/tool/elevenlabs">ElevenLabs</a> is more mature at it. And do not use it where the client's review process cannot accommodate a disclosure line or a visible mark on the file — that is a conversation to have before the work, not after. Our wider view of where generative video has got to is in <a href="/blog/sora-video-generation-revolution">this piece on Sora and AI video generation</a>.</p>
-        `,
-        useCases: [
-            {
-                title: "Atmosphere shots nobody is checking against reality",
-                body: "Establishing views, textures, weather, abstract motion, an aerial-feeling pass over a landscape that does not exist. This is where a single baked clip is genuinely enough, because the brief is a mood rather than a specific fact, and no editor is going to need to remove something from the frame later.",
-            },
-            {
-                title: "Moving pitch material for unfunded work",
-                body: "A director, agency, or founder showing what an idea feels like before anyone has committed a budget to it. The audience understands they are looking at intent rather than a deliverable, which removes most of the clearance and continuity problems at a stroke.",
-            },
-            {
-                title: "Social-first clips where the generation is the whole deliverable",
-                body: "Short vertical content made for a feed, where there is no edit downstream and no plate to match. The consumer app is built for exactly this, and it is the one context where the lack of an editing suite genuinely costs you nothing.",
-            },
-            {
-                title: "Internal drafts that replace a description",
-                body: "Showing a team what a proposed sequence, transition, or visual direction looks like instead of arguing about it in a document. These clips are disposable by design, which makes generation quality and speed the only things that matter and licensing questions moot.",
-            },
-        ],
-        pricingDetail:
-            "Sora is not sold as its own standalone subscription; access is bundled through OpenAI's existing products — primarily paid ChatGPT plans and the dedicated Sora app — with generation limits, resolution, and clip length scaling by tier rather than a flat per-tool price. Broader programmatic or enterprise-scale access to Sora remains more limited and considerably more expensive than OpenAI's text-based APIs, reflecting the much higher compute cost of video generation; there is no meaningful free tier for unrestricted use.",
-        faq: [
-            {
-                q: "Can I put a Sora clip in paid client work?",
-                a: "Paid access is intended to cover commercial use, but that is rarely the binding constraint. What actually stops delivery is everything around the clip: whether a recognisable person consented, whether the concept leans on intellectual property you do not own, whether a visible watermark is acceptable on the file, and whether the distribution platform requires a synthetic-media disclosure. Read OpenAI's current terms for the surface you are generating on, and treat the clearance questions as part of the brief rather than a formality at the end.",
-            },
-            {
-                q: "Does the watermark come off?",
-                a: "Whether a visible mark appears at all depends on which surface and which tier you generated on, and that behaviour has changed as the product has evolved, so check the current documentation rather than a blog post. What does not change is the framing: removing a mark is a terms question before it is a technical one, and it does nothing about the provenance metadata or about a platform's own disclosure rules.",
-            },
-            {
-                q: "Will anyone be able to tell the footage was generated?",
-                a: "OpenAI has said Sora output carries C2PA provenance metadata marking it as AI-generated, and a visible watermark has accompanied downloads from the consumer surfaces. Metadata is easy to lose by accident — re-encoding and some upload pipelines drop it — so its absence proves nothing either way. Do not build a plan around footage being untraceable, and do not assume a file that has lost its metadata has therefore lost its origin.",
-            },
-            {
-                q: "Sora or Runway when there is a deadline?",
-                a: "Runway, in most cases, because a deadline is really a question about what happens when a shot is eighty percent right. Runway gives you rotoscoping, inpainting, and retiming to rescue it; Sora gives you the prompt again. Choose Sora when the shot stands alone, the brief is atmosphere, and speed to a usable first result is the thing being optimised.",
-            },
-            {
-                q: "Can I generate a video of a specific real person?",
-                a: "Not as an open capability. The cameo feature is built on verified consent from the person themselves, who controls who may use their likeness and can revoke it. This is deliberate rather than an oversight, and it means a recognisable face in a commercial concept is a casting and scheduling problem, not a prompting one.",
-            },
-            {
-                q: "What if I prompt a character or brand I do not own?",
-                a: "You may or may not get output, because the policy around third-party rightsholders has already shifted once since launch toward giving those holders more control. Either way the risk sits with you the moment the clip is used commercially. Homage is fine on a mood board; it is a bad foundation for a campaign, and what the model permits this quarter is not a licence.",
-            },
-            {
-                q: "Why does the shot fall apart when I ask for something longer?",
-                a: "Because these models hold a scene together over a shot, not over a sequence, and the longer the requested duration the more opportunities there are for an object, a face, or a background to drift. The working answer is to structure the idea as separate short shots rather than fighting for one long take. Current duration and resolution limits vary by tier and change often enough that the official documentation is the only reliable source.",
-            },
-            {
-                q: "Is there a way to use it programmatically rather than through the app?",
-                a: "Programmatic access has been rolled out separately from the consumer app, with its own availability, restrictions, and cost structure. Because video generation is expensive to serve, the terms here move more than they do on text models, so check OpenAI's API documentation for what is currently offered before you design a pipeline around it — and cost a pilot batch before you commit to volume.",
             },
         ],
     },
