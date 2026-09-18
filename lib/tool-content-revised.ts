@@ -41,7 +41,7 @@ export const TOOL_CONTENT_REVISED_BY_SLUG: Record<string, string> = {
     grok: "2026-09-16",
     chatgpt: "2026-09-16",
     claude: "2026-09-17",
-    perplexity: "2026-09-16",
+    perplexity: "2026-09-18",
     midjourney: "2026-09-16",
     "notion-ai": "2026-09-16",
     figma: "2026-09-16",
