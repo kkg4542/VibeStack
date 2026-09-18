@@ -460,7 +460,7 @@ export const postsBatch2: BlogPost[] = [
       <h3>Who's Actually Using It</h3>
       <table>
         <tr><th>Industry</th><th>Use Case</th><th>Impact</th></tr>
-        <tr><td>Advertising</td><td>Rapid concept ads for A/B testing</td><td>Campaign turnaround cut from weeks to days</td></tr>
+        <tr><td>Advertising</td><td>Rapid concept ads for A/B testing</td><td>Concept rounds that no longer wait on a shoot</td></tr>
         <tr><td>Indie film</td><td>B-roll, establishing shots, previz</td><td>Budgets redirected toward story and sound</td></tr>
         <tr><td>Education</td><td>Historical re-creations, science visualizations</td><td>Custom visuals for niche topics that never had footage</td></tr>
         <tr><td>Game studios</td><td>Cutscene previsualization</td><td>Faster greenlight decisions on narrative sequences</td></tr>
