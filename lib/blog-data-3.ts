@@ -14,7 +14,7 @@ export const postsBatch3: BlogPost[] = [
     excerpt:
       "Cursor rebuilt the editor around AI; Copilot added AI to the editor you already use. We compare agents, autocomplete, and price to help you choose in 2026.",
     date: "Jul 18, 2026",
-    updated: "Sep 16, 2026",
+    updated: "Sep 17, 2026",
     author: "David Kim",
     category: "Comparison",
     readTime: "8 min read",
@@ -34,7 +34,7 @@ export const postsBatch3: BlogPost[] = [
       <p>This is where the gap is widest. Cursor's multi-file agent — running on the Composer 2.5 agent architecture in the Cursor 3.11 release (July 2026) — can take an instruction like "rename this component and update every import," apply the changes across the repo, run terminal commands, and verify the result compiles. Cursor 3.11 also added a side chat panel, searchable agent transcripts, and a Cursor for iOS public beta, so you can review or kick off agent runs from your phone. Copilot has a capable agent mode too, and its GitHub-native flow — turning an issue into a pull request — is genuinely strong. But Cursor's agent is tighter and more central to the moment-to-moment workflow.</p>
 
       <h2>Models under the hood</h2>
-      <p>Both tools are model-agnostic and let you choose. In mid-2026 that means access to the newest releases: OpenAI's <strong>GPT-5.6</strong> family (its flagship "Sol" variant is OpenAI's self-described best coding model yet, with roughly a 54% improvement in token efficiency on agentic tasks), Anthropic's <strong>Claude Sonnet 5</strong> plus the new top-tier <strong>Claude Fable 5</strong>, and xAI's <strong>Grok 4.5</strong>. Grok 4.5 is interesting here: it was co-trained on real Cursor usage data, and Cursor ships it as a first-class option — a sign of how tightly the editor and model worlds are now intertwined. Copilot exposes a similar model picker, so on raw model quality the two are close. The difference is how each tool <em>uses</em> those models around your code.</p>
+      <p>Both tools are model-agnostic and let you choose. In mid-2026 that means access to the newest releases: OpenAI's <strong>GPT-5.6</strong> family (its flagship "Sol" variant is OpenAI's self-described best coding model yet, with roughly a 54% improvement in token efficiency on agentic tasks), Anthropic's <strong>Claude Sonnet 5</strong> plus the frontier tiers above it, <strong>Claude Opus 5</strong> and <strong>Claude Fable 5.1</strong>, and xAI's <strong>Grok 4.5</strong>. Grok 4.5 is interesting here: it was co-trained on real Cursor usage data, and Cursor ships it as a first-class option — a sign of how tightly the editor and model worlds are now intertwined. Copilot exposes a similar model picker, so on raw model quality the two are close. The difference is how each tool <em>uses</em> those models around your code.</p>
 
       <h2>IDE coverage & teams</h2>
       <p>Copilot wins on reach. It works across many editors and has mature enterprise controls — SSO, audit logs, policy management — plus deep integration with the GitHub platform your team may already run on. If your org is standardized on JetBrains, has strict procurement requirements, or wants AI review baked into pull requests, Copilot is the safer institutional choice.</p>
@@ -50,7 +50,7 @@ export const postsBatch3: BlogPost[] = [
           <tr><td>Autocomplete</td><td>Multi-line, repo-aware "Tab"</td><td>Fast inline suggestions</td></tr>
           <tr><td>Agent</td><td>Composer 2.5, multi-file, runs terminal</td><td>Agent mode, GitHub-native (issue &rarr; PR)</td></tr>
           <tr><td>Editor coverage</td><td>Its own editor + iOS public beta</td><td>VS Code, JetBrains, Neovim, Xcode, more</td></tr>
-          <tr><td>Model choice</td><td>GPT-5.6, Claude Sonnet 5 / Fable 5, Grok 4.5</td><td>GPT-5.6, Claude, Gemini and more</td></tr>
+          <tr><td>Model choice</td><td>GPT-5.6, Claude Sonnet 5 / Opus 5 / Fable 5.1, Grok 4.5</td><td>GPT-5.6, Claude, Gemini and more</td></tr>
           <tr><td>Free tier</td><td>Yes</td><td>Yes</td></tr>
           <tr><td>Individual price</td><td>~$20/mo</td><td>~$10&ndash;20/mo</td></tr>
           <tr><td>Best for</td><td>Maximum agentic power</td><td>AI inside your current setup</td></tr>
@@ -86,7 +86,7 @@ export const postsBatch3: BlogPost[] = [
       },
       {
         q: "Do Cursor and Copilot use the same AI models?",
-        a: "Largely, yes. Both are model-agnostic and expose a picker covering the current frontier: OpenAI's GPT-5.6 family, Anthropic's Claude Sonnet 5 and Claude Fable 5, and more. Cursor additionally ships xAI's Grok 4.5 as a first-class option — the model was co-trained on real Cursor usage data. On raw model quality the two are close; the difference is how each tool uses those models around your code.",
+        a: "Largely, yes. Both are model-agnostic and expose a picker covering the current frontier: OpenAI's GPT-5.6 family, Anthropic's Claude Sonnet 5, Claude Opus 5 and Claude Fable 5.1, and more. Cursor additionally ships xAI's Grok 4.5 as a first-class option — the model was co-trained on real Cursor usage data. On raw model quality the two are close; the difference is how each tool uses those models around your code.",
       },
       {
         q: "Which one is better for teams and enterprises?",
@@ -123,7 +123,7 @@ export const postsBatch3: BlogPost[] = [
       <p>ChatGPT has the broadest ecosystem — custom GPTs, a huge app and plugin surface, image generation, voice, and deep integrations. Alongside GPT-5.6, OpenAI also launched <strong>ChatGPT Work</strong>, an enterprise-focused workspace built for business use. For "do a bit of everything in one place," ChatGPT is still hard to beat.</p>
 
       <h2>Coding</h2>
-      <p>Both are strong coding partners. GPT-5.6 Sol is OpenAI's most capable coding model to date, with roughly a 54% improvement in token efficiency on agentic tasks — meaningful if you run long autonomous coding sessions where token cost adds up. Claude Opus 5 is equally at home reviewing large diffs, explaining unfamiliar code, and reasoning across a big codebase without losing the thread. Many developers keep both open: one for quick generation, one for careful review and explanation. If you only want one, run the same real task in each and keep the winner — our <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5</a> comparison covers how the two families differ by design, and gives you a repeatable method for testing them on your own codebase.</p>
+      <p>Both are strong coding partners. GPT-5.6 Sol is OpenAI's most capable coding model to date, with roughly a 54% improvement in token efficiency on agentic tasks — meaningful if you run long autonomous coding sessions where token cost adds up. Claude Opus 5 is equally at home reviewing large diffs, explaining unfamiliar code, and reasoning across a big codebase without losing the thread. Many developers keep both open: one for quick generation, one for careful review and explanation. If you only want one, run the same real task in each and keep the winner — our <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5.1</a> comparison covers how the two families differ by design, and gives you a repeatable method for testing them on your own codebase.</p>
 
       <h2>Context windows &amp; memory</h2>
       <p>Both handle large inputs comfortably now, but they lean different ways. Claude's long-context handling remains a headline strength — paste in a sprawling module, a long contract, or a book chapter and it tends to keep details straight across the whole thing. ChatGPT counters with persistent memory across conversations plus its broader tool surface, so it can pull in files, browse the web, and run code as part of a single session. If your work is "reason carefully over one big document," lean Claude; if it's "juggle many tools and remember me over time," lean ChatGPT.</p>
@@ -523,7 +523,7 @@ export const postsBatch3: BlogPost[] = [
 
       <h2>Using both together</h2>
       <p>The most productive setup isn't picking a winner — it's a two-step pipeline. Start in Perplexity: ask the research question, let it gather and cite, and keep the thread in a Space so the sources stay organized as the topic develops over days rather than minutes. Then move to ChatGPT with the cited findings in hand and do the thing you actually needed: structure the argument, draft the piece, build the model, write the code. Finally, take any claim that will carry weight in the finished work and check it against the original source Perplexity linked, because the second pass through a generative model is exactly where a small distortion creeps in.</p>
-      <p>That split maps onto a broader habit worth forming with AI tools generally: use the retrieval tool for facts and the reasoning tool for judgment, and never let one do the other's job silently. If your work is code rather than prose, the same principle applies with different players — see <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5</a> for how the frontier models compare on production coding tasks.</p>
+      <p>That split maps onto a broader habit worth forming with AI tools generally: use the retrieval tool for facts and the reasoning tool for judgment, and never let one do the other's job silently. If your work is code rather than prose, the same principle applies with different players — see <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5.1</a> for how the frontier models compare on production coding tasks.</p>
 
       <h2>When to use which</h2>
       <ul>

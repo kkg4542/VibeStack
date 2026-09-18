@@ -393,7 +393,7 @@ export const postsBatch1: BlogPost[] = [
         <li><strong>A free tier with no per-user ceiling</strong>, which makes your marketing budget and your inference budget the same budget.</li>
         <li><strong>Development and eval traffic billed against production.</strong> Tag it so you at least know what you are choosing.</li>
       </ul>
-      <p>Then review quarterly, roughly the cadence at which the labs ship: which features have the highest cost per resolved task, what share of requests hit the flagship tier unnecessarily, which provider prices have changed, and what margin looks like for your heaviest decile of users rather than your median one. A release like the <a href="/blog/claude-opus-4-6-release">Claude Sonnet 5 and Fable 5 launches</a> should trigger an unscheduled review rather than waiting for the calendar.</p>
+      <p>Then review quarterly, roughly the cadence at which the labs ship: which features have the highest cost per resolved task, what share of requests hit the flagship tier unnecessarily, which provider prices have changed, and what margin looks like for your heaviest decile of users rather than your median one. A release like the <a href="/blog/claude-opus-4-6-release">Claude Sonnet 5 and Fable 5.1 launches</a> should trigger an unscheduled review rather than waiting for the calendar.</p>
 
       <h3>The Takeaway for Founders</h3>
       <p>Treat your model bill the way a factory treats its raw materials line, not the way a SaaS company treats its AWS bill. Materials costs get modeled per unit, tracked obsessively, and re-negotiated the moment a cheaper supplier appears. Token costs deserve the same discipline — because unlike your AWS bill, which was basically a rounding error against your ARR, your token bill can now be a double-digit percentage of revenue if you don't actively manage it.</p>
@@ -478,7 +478,7 @@ export const postsBatch1: BlogPost[] = [
 
       <h3>What Hasn't Changed</h3>
       <p>Despite the rapid pace of releases, the underlying decision framework from a year ago mostly still holds: reach for large-context, careful reasoning when the task spans many files and the cost of a mistake is high; reach for fast, cheap tiers when the task is well-specified and low-stakes; and never trust a single model's output on anything irreversible without a second pass, whether that second pass is another model or a human. The specific model names keep changing every few months — the discipline of routing tasks to the right tool doesn't, and that discipline is worth more than knowing today's benchmark scores by heart.</p>
-      <p>Picking a model is only half the decision — the editor and agent you wrap around it matter just as much. See our guide to the <a href="/blog/best-ai-tools-for-vibe-coding">best AI tools for vibe coding</a> for the rest of the stack, and if the question you actually care about is which flagship writes better code, our <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5</a> comparison sets out the design differences and a repeatable way to test both on your own repo.</p>
+      <p>Picking a model is only half the decision — the editor and agent you wrap around it matter just as much. See our guide to the <a href="/blog/best-ai-tools-for-vibe-coding">best AI tools for vibe coding</a> for the rest of the stack, and if the question you actually care about is which flagship writes better code, our <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5.1</a> comparison sets out the design differences and a repeatable way to test both on your own repo.</p>
     `,
     faq: [
       {
@@ -490,7 +490,7 @@ export const postsBatch1: BlogPost[] = [
         a: "GPT-5.6 ships as a family: Sol at $5/$30 per million input/output tokens, Terra at $2.50/$15, and Luna at $1/$6. Claude Sonnet 5 lists at $2/$10 per million input/output tokens, with Claude Opus 5 at $5/$25 and Claude Fable 5.1 at $10/$50 above it — so Sonnet 5 undercuts Sol meaningfully on cost while remaining excellent at large-scale analysis.",
       },
       {
-        q: "What is Claude Fable 5 and when should I use it?",
+        q: "What is Claude Fable 5.1 and when should I use it?",
         a: "The Fable line's current release is Claude Fable 5.1, Anthropic's escalation tier at $10/$50 per million input/output tokens, documented for demanding reasoning and long-horizon agentic work. Anthropic's own advice is to start with Claude Opus 5 ($5/$25) for most workloads — including the genuinely irreversible ones such as a database migration, an auth rewrite, a pricing change, or a mission-critical architecture review — and to move up to Fable 5.1 when your evals on Opus 5 at higher effort still fall short. For everyday context-heavy work, Sonnet 5 is the better value.",
       },
       {
@@ -513,7 +513,7 @@ export const postsBatch1: BlogPost[] = [
     title: "Gemini 3 Pro Deep Dive: Google's Flagship in 2026",
     excerpt: "A working deep dive on Gemini 3 Pro: what its long context and native multimodality actually change in day-to-day development, when the cheaper Flash tiers win, where Gemini 3.5 Pro stands, and how Google's flagship compares to GPT-5.6 and Claude.",
     date: "Jul 18, 2026",
-    updated: "Aug 16, 2026",
+    updated: "Sep 17, 2026",
     author: "Sarah Jenkins",
     category: "Deep Dive",
     readTime: "12 min read",
@@ -577,21 +577,21 @@ export const postsBatch1: BlogPost[] = [
           <tr><td>Bulk document summarization</td><td>Gemini 3.5 Flash</td><td>Low cost, high throughput, native multimodal input</td></tr>
           <tr><td>Straightforward video bug-repro debugging</td><td>Gemini 3.5 Flash</td><td>Native video understanding, no transcription step</td></tr>
           <tr><td>Long-context reasoning over a whole subsystem</td><td>Gemini 3 Pro</td><td>Flagship reasoning plus the largest context window in the family</td></tr>
-          <tr><td>Ambiguous specs and irreversible changes</td><td>Gemini 3 Pro, GPT-5.6 Sol, or Claude Fable 5</td><td>Lower per-step error rate is worth the price when mistakes are costly</td></tr>
+          <tr><td>Ambiguous specs and irreversible changes</td><td>Gemini 3 Pro, GPT-5.6 Sol, or Claude Opus 5 (Fable 5.1 above it)</td><td>Lower per-step error rate is worth the price when mistakes are costly</td></tr>
         </tbody>
       </table>
       <p>The operational version of this table is simpler than the table itself: <strong>start every new task on Flash, and escalate only when your evals say Flash isn't good enough.</strong> Most teams do the opposite — they default to the flagship, never measure, and quietly pay several times more than they need to for tasks a cheap model handles perfectly. Our piece on <a href="/blog/token-economics-2026">token economics</a> goes deeper on how that spending compounds.</p>
 
       <h2>The Gemini 3.5 Pro Delay, and How to Plan Around It</h2>
       <p><strong>Gemini 3.5 Pro</strong> has slipped by several months and, as of this writing, has not shipped. The rumor mill has floated a 2M-token context window and a "Deep Think" reasoning mode, but neither is confirmed and Google has said nothing official about a new release date. Anyone telling you Gemini 3.5 Pro is generally available right now is working from stale information.</p>
-      <p>If your product roadmap assumed a 2M-token, deep-reasoning Gemini model would land this quarter, revisit that plan. Building around a competitor's unreleased model is, in practice, betting on a rumor. The pragmatic move is to design your architecture so the "big reasoning model" slot is pluggable — route your hardest tasks to whichever flagship is actually shipping today (Gemini 3 Pro, GPT-5.6 Sol, Claude Sonnet 5, or Claude Fable 5) and keep the Flash tier in the fast, cheap, multimodal lane where it already excels.</p>
+      <p>If your product roadmap assumed a 2M-token, deep-reasoning Gemini model would land this quarter, revisit that plan. Building around a competitor's unreleased model is, in practice, betting on a rumor. The pragmatic move is to design your architecture so the "big reasoning model" slot is pluggable — route your hardest tasks to whichever flagship is actually shipping today (Gemini 3 Pro, GPT-5.6 Sol, Claude Opus 5, or Claude Fable 5.1) and keep the Flash tier in the fast, cheap, multimodal lane where it already excels.</p>
       <p>Concretely, that means keeping your prompt templates, your evaluation harness, and your retrieval pipeline provider-agnostic, so swapping in Gemini 3.5 Pro later — if and when it ships — is a configuration change rather than a rewrite. Teams that hard-coded assumptions about a specific unreleased model's context window or reasoning mode are the ones with the most rework ahead of them.</p>
       <p>None of this is a knock on Google's research. Deep Think style extended reasoning is hard to ship reliably at flagship scale, and a delay is far better than a rushed, unreliable release. The lesson isn't "don't trust Google's roadmap." It's "don't build your current architecture around anyone's unconfirmed one," whichever lab it belongs to.</p>
 
       <h2>An Honest Comparison With GPT-5.6 and Claude</h2>
       <p>Nobody should pick a model family on vibes, so here is where we think Gemini 3 Pro genuinely wins and genuinely loses against the other frontier options in mid-2026.</p>
       <p><strong>Where Gemini wins.</strong> Multimodal breadth is the clearest advantage — native video and audio understanding in the same pass as text is something the competition still handles less gracefully. Long-context economics is the second: when your workload really does involve stuffing hundreds of thousands of tokens into every request, Google's context pricing and caching behavior tend to be kinder than the alternatives. And if your infrastructure already lives in Google Cloud, the integration story is genuinely hard to beat.</p>
-      <p><strong>Where Gemini loses.</strong> The agentic coding ecosystem has largely standardized around OpenAI and Anthropic models. If your workflow runs through <a href="/tool/cursor">Cursor</a>, an autonomous coding agent, or any tool whose prompts and tool-calling scaffolding were tuned against GPT and Claude, you'll feel the difference — not because Gemini reasons worse, but because the surrounding software was built and evaluated against someone else's model. Our <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5 coding comparison</a> covers that territory, and <a href="/blog/gpt5-vs-claude5">GPT-5.6 vs Claude Sonnet 5</a> covers the general-purpose head-to-head.</p>
+      <p><strong>Where Gemini loses.</strong> The agentic coding ecosystem has largely standardized around OpenAI and Anthropic models. If your workflow runs through <a href="/tool/cursor">Cursor</a>, an autonomous coding agent, or any tool whose prompts and tool-calling scaffolding were tuned against GPT and Claude, you'll feel the difference — not because Gemini reasons worse, but because the surrounding software was built and evaluated against someone else's model. Our <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5.1 coding comparison</a> covers that territory, and <a href="/blog/gpt5-vs-claude5">GPT-5.6 vs Claude Sonnet 5</a> covers the general-purpose head-to-head.</p>
       <p><strong>Where it's a wash.</strong> Ordinary text generation, summarization, extraction, and classification. At the Flash tier especially, the frontier labs have converged hard on the common cases, and the differences you'll measure on your own evals will usually be smaller than the differences in price and latency. That's a good thing: it means the choice can be made on integration and cost rather than on a leaderboard.</p>
 
       <h2>Migration Notes: What Actually Bites</h2>
@@ -814,7 +814,7 @@ export const postsBatch1: BlogPost[] = [
     title: "Digital Sovereignty: Why Your Next AI Will Live on Your Mac",
     excerpt: "With the M5 chip, Llama 4, and now Meta's frontier Llama 5 release, running GPT-4-class models locally is a reality — from your Mac all the way down to the NPU in your phone. Updated for August 2026.",
     date: "Jul 18, 2026",
-    updated: "Aug 16, 2026",
+    updated: "Sep 17, 2026",
     author: "David Kim",
     category: "Tutorial",
     readTime: "13 min read",
@@ -839,7 +839,7 @@ export const postsBatch1: BlogPost[] = [
       <h2>Why "Local Wins" Is Not the Whole Story</h2>
       <p>It would be dishonest to pretend the cloud is finished. There are still three areas where hosted frontier models clearly dominate:</p>
       <ul>
-        <li><strong>Frontier reasoning.</strong> If you need the absolute best one-shot reasoning on a hard problem — research-grade math, novel code architecture, complex legal analysis — Claude Fable 5 and GPT-5.6 Sol are still measurably ahead. The gap is shrinking quarter over quarter, but it is real.</li>
+        <li><strong>Frontier reasoning.</strong> If you need the absolute best one-shot reasoning on a hard problem — research-grade math, novel code architecture, complex legal analysis — Claude Fable 5.1 and GPT-5.6 Sol are still measurably ahead. The gap is shrinking quarter over quarter, but it is real.</li>
         <li><strong>Multimodal breadth.</strong> Native audio and video understanding, real-time voice, and image generation at production quality still live in cloud-hosted stacks. Local equivalents exist (Whisper for ASR, SDXL Turbo for images) but the integration and quality gap is significant.</li>
         <li><strong>Massive context windows.</strong> A 1M-token context with reliable retrieval is something hosted providers have invested heavily in — <a href="/blog/gemini-3-pro-deep-dive">Gemini 3 Pro</a> in particular has made long-context work its signature capability. Local models nominally support large contexts but quality degrades sharply past ~32K tokens on consumer hardware.</li>
       </ul>
@@ -1636,10 +1636,10 @@ export const postsBatch1: BlogPost[] = [
       },
     ]
   },
-  // 15. Claude Sonnet 5 and Claude Fable 5: The Agent Teams Era Continues
+  // 15. Claude Sonnet 5 and Claude Fable 5.1: The Agent Teams Era Continues
   {
     slug: "claude-opus-4-6-release",
-    title: "Claude Sonnet 5 and Claude Fable 5: The Agent Teams Era Continues",
+    title: "Claude Sonnet 5 and Claude Fable 5.1: The Agent Teams Era Continues",
     excerpt: "Anthropic's Agent Teams era didn't stop with Opus 4.8. Claude Sonnet 5 (June 30) and flagship Claude Fable 5.1 push parallel agent coordination even further. Updated for September 2026.",
     date: "Jul 18, 2026",
     updated: "Sep 17, 2026",
@@ -1689,7 +1689,7 @@ export const postsBatch1: BlogPost[] = [
     `,
     faq: [
       {
-        q: "What is the difference between Claude Sonnet 5 and Claude Fable 5?",
+        q: "What is the difference between Claude Sonnet 5 and Claude Fable 5.1?",
         a: "Sonnet 5 is the everyday tier at $2/$10 per million input/output tokens — it launched June 30, 2026 and brings a lighter-weight version of Agent Teams to a much cheaper price point. The Fable line's current release, Claude Fable 5.1, is the top tier at $10/$50, documented for demanding reasoning and long-horizon agentic work, and it raises the ceiling on how many agents can be coordinated at once and how long they can run before needing a human check-in. Between them sits Claude Opus 5 at $5/$25, which Anthropic recommends as the starting point for most workloads.",
       },
       {
