@@ -14,7 +14,7 @@ export const postsBatch3: BlogPost[] = [
     excerpt:
       "Cursor rebuilt the editor around AI; Copilot added AI to the editor you already use. We compare agents, autocomplete, and price to help you choose in 2026.",
     date: "Jul 18, 2026",
-    updated: "Sep 17, 2026",
+    updated: "Sep 18, 2026",
     author: "David Kim",
     category: "Comparison",
     readTime: "8 min read",
@@ -34,7 +34,7 @@ export const postsBatch3: BlogPost[] = [
       <p>This is where the gap is widest. Cursor's multi-file agent — running on the Composer 2.5 agent architecture in the Cursor 3.11 release (July 2026) — can take an instruction like "rename this component and update every import," apply the changes across the repo, run terminal commands, and verify the result compiles. Cursor 3.11 also added a side chat panel, searchable agent transcripts, and a Cursor for iOS public beta, so you can review or kick off agent runs from your phone. Copilot has a capable agent mode too, and its GitHub-native flow — turning an issue into a pull request — is genuinely strong. But Cursor's agent is tighter and more central to the moment-to-moment workflow.</p>
 
       <h2>Models under the hood</h2>
-      <p>Both tools are model-agnostic and let you choose. In mid-2026 that means access to the newest releases: OpenAI's <strong>GPT-5.6</strong> family (its flagship "Sol" variant is OpenAI's self-described best coding model yet, with roughly a 54% improvement in token efficiency on agentic tasks), Anthropic's <strong>Claude Sonnet 5</strong> plus the frontier tiers above it, <strong>Claude Opus 5</strong> and <strong>Claude Fable 5.1</strong>, and xAI's <strong>Grok 4.5</strong>. Grok 4.5 is interesting here: it was co-trained on real Cursor usage data, and Cursor ships it as a first-class option — a sign of how tightly the editor and model worlds are now intertwined. Copilot exposes a similar model picker, so on raw model quality the two are close. The difference is how each tool <em>uses</em> those models around your code.</p>
+      <p>Both tools are model-agnostic and let you choose, and the frontier keeps moving underneath them. OpenAI's current flagship is <strong>GPT-6 Astra</strong> (announced September 3, 2026), which OpenAI calls "the world's most intelligent and aligned model" and describes as state of the art on software engineering, computer use, and browsing; the earlier <strong>GPT-5.6</strong> family — Sol, Terra, and Luna — is still around and still good. Anthropic fields <strong>Claude Sonnet 5</strong> plus the frontier tiers above it, <strong>Claude Opus 5</strong> and <strong>Claude Fable 5.1</strong>, and xAI is now on <strong>Grok 4.6</strong>, which xAI says builds on Grok 4.5 "with a particular focus on long-running agents and more ambitious interactive and visual work." Grok's Cursor connection is worth knowing: Grok 4.5 was co-trained on real Cursor usage data and Cursor added first-class support for it in the 3.11 release — a sign of how tightly the editor and model worlds are now intertwined. Exactly which models sit in each picker changes release to release, so check the list in the app rather than a blog post. Copilot exposes a similar picker, so on raw model quality the two are close. The difference is how each tool <em>uses</em> those models around your code.</p>
 
       <h2>IDE coverage & teams</h2>
       <p>Copilot wins on reach. It works across many editors and has mature enterprise controls — SSO, audit logs, policy management — plus deep integration with the GitHub platform your team may already run on. If your org is standardized on JetBrains, has strict procurement requirements, or wants AI review baked into pull requests, Copilot is the safer institutional choice.</p>
@@ -50,7 +50,7 @@ export const postsBatch3: BlogPost[] = [
           <tr><td>Autocomplete</td><td>Multi-line, repo-aware "Tab"</td><td>Fast inline suggestions</td></tr>
           <tr><td>Agent</td><td>Composer 2.5, multi-file, runs terminal</td><td>Agent mode, GitHub-native (issue &rarr; PR)</td></tr>
           <tr><td>Editor coverage</td><td>Its own editor + iOS public beta</td><td>VS Code, JetBrains, Neovim, Xcode, more</td></tr>
-          <tr><td>Model choice</td><td>GPT-5.6, Claude Sonnet 5 / Opus 5 / Fable 5.1, Grok 4.5</td><td>GPT-5.6, Claude, Gemini and more</td></tr>
+          <tr><td>Model choice</td><td>Frontier models from OpenAI, Anthropic and xAI (Grok added in 3.11)</td><td>Frontier models from OpenAI, Anthropic, Google and more</td></tr>
           <tr><td>Free tier</td><td>Yes</td><td>Yes</td></tr>
           <tr><td>Individual price</td><td>~$20/mo</td><td>~$10&ndash;20/mo</td></tr>
           <tr><td>Best for</td><td>Maximum agentic power</td><td>AI inside your current setup</td></tr>
@@ -86,7 +86,7 @@ export const postsBatch3: BlogPost[] = [
       },
       {
         q: "Do Cursor and Copilot use the same AI models?",
-        a: "Largely, yes. Both are model-agnostic and expose a picker covering the current frontier: OpenAI's GPT-5.6 family, Anthropic's Claude Sonnet 5, Claude Opus 5 and Claude Fable 5.1, and more. Cursor additionally ships xAI's Grok 4.5 as a first-class option — the model was co-trained on real Cursor usage data. On raw model quality the two are close; the difference is how each tool uses those models around your code.",
+        a: "Largely, yes. Both are model-agnostic and expose a picker covering the current frontier — OpenAI's GPT-6 Astra and GPT-5.6 generations, Anthropic's Claude Sonnet 5, Claude Opus 5 and Claude Fable 5.1, and more. The exact list changes release to release, so check the picker in the app. Cursor additionally added xAI's Grok as a first-class option in its 3.11 release; Grok 4.5 was co-trained on real Cursor usage data, and xAI has since shipped Grok 4.6. On raw model quality the two are close; the difference is how each tool uses those models around your code.",
       },
       {
         q: "Which one is better for teams and enterprises?",
@@ -102,9 +102,9 @@ export const postsBatch3: BlogPost[] = [
     slug: "chatgpt-vs-claude",
     title: "ChatGPT vs Claude: Which AI Wins in 2026?",
     excerpt:
-      "ChatGPT (GPT-5.6) and Claude (Sonnet 5, Opus 5) are the top AI assistants of 2026, but they win at different things. A breakdown by task and price.",
+      "ChatGPT (GPT-6 Astra) and Claude (Sonnet 5, Opus 5) are the top AI assistants of 2026, but they win at different things. A breakdown by task and price.",
     date: "Jul 18, 2026",
-    updated: "Sep 17, 2026",
+    updated: "Sep 18, 2026",
     author: "David Kim",
     category: "Comparison",
     readTime: "8 min read",
@@ -114,7 +114,7 @@ export const postsBatch3: BlogPost[] = [
       <p><a href="/tool/chatgpt">ChatGPT</a> and <a href="/tool/claude">Claude</a> are the assistants most people reach for first. Both are excellent generalists, and in 2026 both are backed by brand-new frontier models. The right pick depends on what you do most — so let's start with what actually shipped this year, then match it to your work.</p>
 
       <h2>The 2026 lineup</h2>
-      <p>Both labs moved fast, so a refresher helps. ChatGPT now runs on OpenAI's <strong>GPT-5.6</strong> family, released in July 2026 in three variants: <strong>Sol</strong> (the flagship, with an "ultra" mode that delegates subtasks to smaller models), <strong>Terra</strong> (the balanced default), and <strong>Luna</strong> (tuned for speed). OpenAI calls Sol its best coding model yet. Claude, meanwhile, is led by <strong>Claude Opus 5</strong> — the tier Anthropic tells you to start with for most workloads — with <strong>Claude Fable 5.1</strong> above it as the escalation tier for demanding reasoning and long-horizon agentic work, <strong>Claude Sonnet 5</strong> (released June 2026) as the fast, capable default for Free and Pro users, and <strong>Claude Haiku 4.5</strong> as the fastest tier. Anthropic's previous generation, Opus 4.8 and earlier, is still available for those who want it.</p>
+      <p>Both labs moved fast, so a refresher helps. ChatGPT is now led by OpenAI's <strong>GPT-6 Astra</strong>, announced on September 3, 2026 and billed by OpenAI as "the world's most intelligent and aligned model" — state of the art, in OpenAI's own framing, on computer use, browsing, software engineering, cybersecurity, science, and professional work. It went to a limited set of organizations first, then across ChatGPT Plus, Pro, Business and Enterprise, plus the OpenAI API, Microsoft Azure, and AWS Bedrock. The previous <strong>GPT-5.6</strong> family is still available: released in July 2026 in three variants — <strong>Sol</strong> (that generation's flagship, with an "ultra" mode that delegates subtasks to smaller models), <strong>Terra</strong> (the balanced default), and <strong>Luna</strong> (tuned for speed). Claude, meanwhile, is led by <strong>Claude Opus 5</strong> — the tier Anthropic tells you to start with for most workloads — with <strong>Claude Fable 5.1</strong> above it as the escalation tier for demanding reasoning and long-horizon agentic work, <strong>Claude Sonnet 5</strong> (released June 2026) as the fast, capable default for Free and Pro users, and <strong>Claude Haiku 4.5</strong> as the fastest tier. Anthropic's previous generation, Opus 4.8 and earlier, is still available for those who want it.</p>
 
       <h2>Writing &amp; long documents</h2>
       <p>Claude has a long-standing reputation for natural, controlled prose and remains a favorite for long-form writing, editing, and working with big documents thanks to its large context window. Sonnet 5 keeps that everyday polish, and Fable 5.1 pushes it further on nuance and instruction-following. If you paste in a full report or a long thread and ask for a careful, faithful rewrite, Claude tends to hold the thread better.</p>
@@ -123,7 +123,7 @@ export const postsBatch3: BlogPost[] = [
       <p>ChatGPT has the broadest ecosystem — custom GPTs, a huge app and plugin surface, image generation, voice, and deep integrations. Alongside GPT-5.6, OpenAI also launched <strong>ChatGPT Work</strong>, an enterprise-focused workspace built for business use. For "do a bit of everything in one place," ChatGPT is still hard to beat.</p>
 
       <h2>Coding</h2>
-      <p>Both are strong coding partners. GPT-5.6 Sol is OpenAI's most capable coding model to date, with roughly a 54% improvement in token efficiency on agentic tasks — meaningful if you run long autonomous coding sessions where token cost adds up. Claude Opus 5 is equally at home reviewing large diffs, explaining unfamiliar code, and reasoning across a big codebase without losing the thread. Many developers keep both open: one for quick generation, one for careful review and explanation. If you only want one, run the same real task in each and keep the winner — our <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5.1</a> comparison covers how the two families differ by design, and gives you a repeatable method for testing them on your own codebase.</p>
+      <p>Both are strong coding partners. OpenAI positions <strong>GPT-6 Astra</strong> as state of the art on software engineering, and reports it scoring 64.6% against Claude Fable 5.1's 52.6% on Terminal-Bench Science 0.1 at an estimated API cost roughly 31% lower — a vendor-run comparison, so treat it as a starting point rather than a verdict. The older GPT-5.6 Sol is still a capable coding model: OpenAI has said Sol at maximum reasoning used 54% fewer output tokens than the next-highest-scoring model on the third-party Artificial Analysis Coding Agent Index — note that the comparison there is against a rival model on that index, not against OpenAI's own earlier releases. Claude Opus 5 is equally at home reviewing large diffs, explaining unfamiliar code, and reasoning across a big codebase without losing the thread. Many developers keep both open: one for quick generation, one for careful review and explanation. If you only want one, run the same real task in each and keep the winner — our <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5.1</a> comparison covers how the two families differ by design, and gives you a repeatable method for testing them on your own codebase.</p>
 
       <h2>Context windows &amp; memory</h2>
       <p>Both handle large inputs comfortably now, but they lean different ways. Claude's long-context handling remains a headline strength — paste in a sprawling module, a long contract, or a book chapter and it tends to keep details straight across the whole thing. ChatGPT counters with persistent memory across conversations plus its broader tool surface, so it can pull in files, browse the web, and run code as part of a single session. If your work is "reason carefully over one big document," lean Claude; if it's "juggle many tools and remember me over time," lean ChatGPT.</p>
@@ -138,37 +138,37 @@ export const postsBatch3: BlogPost[] = [
       <p>For consumers, both charge around $20/month for their Pro/Plus tiers. The bigger differences show up in API pricing, which matters if you're building on top of them:</p>
       <table>
         <thead>
-          <tr><th></th><th>ChatGPT / GPT-5.6</th><th>Claude</th></tr>
+          <tr><th></th><th>ChatGPT (OpenAI)</th><th>Claude</th></tr>
         </thead>
         <tbody>
-          <tr><td>Flagship model</td><td>GPT-5.6 Sol</td><td>Claude Opus 5 (Fable 5.1 above it)</td></tr>
+          <tr><td>Flagship model</td><td>GPT-6 Astra</td><td>Claude Opus 5 (Fable 5.1 above it)</td></tr>
           <tr><td>Default fast model</td><td>GPT-5.6 Terra / Luna</td><td>Claude Sonnet 5</td></tr>
           <tr><td>Consumer plan</td><td>~$20/mo (Plus)</td><td>~$20/mo (Pro)</td></tr>
-          <tr><td>API flagship (per 1M in/out)</td><td>$5 / $30 (Sol)</td><td>Opus 5: $5 / $25</td></tr>
-          <tr><td>Cheapest API tier</td><td>$1 / $6 (Luna)</td><td>Haiku 4.5: $1 / $5</td></tr>
+          <tr><td>API flagship (per 1M in/out)</td><td>$10 / $50 (GPT-6 Astra)</td><td>Opus 5: $5 / $25</td></tr>
+          <tr><td>Cheapest API tier</td><td>GPT-5.6 Luna (repriced &mdash; check OpenAI)</td><td>Haiku 4.5: $1 / $5</td></tr>
           <tr><td>Enterprise</td><td>ChatGPT Work</td><td>Claude for Work / Team</td></tr>
           <tr><td>Best for</td><td>All-rounder, integrations, coding</td><td>Writing, editing, long-context reasoning</td></tr>
         </tbody>
       </table>
-      <p>Note that Claude Sonnet 5's API rate is $2/$10 per million tokens — worth factoring in if you're planning a build around it.</p>
+      <p>Note that Claude Sonnet 5's API rate is $2/$10 per million tokens — worth factoring in if you're planning a build around it. On the OpenAI side, the GPT-5.6 tiers have been repriced since launch: OpenAI announced an 80% cut to Luna and a 20% cut to Terra on July 30, 2026, and a further cut of more than 20% to Sol API and credit pricing from August 21, 2026, running for three months. Its published price table hasn't consistently reflected those changes, so check OpenAI's pricing page for the current numbers before you budget.</p>
 
       <h2>Research</h2>
       <p>For cited, up-to-date research specifically, a dedicated tool like <a href="/tool/perplexity">Perplexity</a> often beats both — see our <a href="/blog/chatgpt-vs-perplexity">ChatGPT vs Perplexity</a> comparison for when to use which.</p>
 
       <h2>Free tiers &amp; getting started</h2>
-      <p>Both let you start for nothing. ChatGPT's free tier gives you access to a capable GPT-5.6 variant with usage limits, and Claude's free tier runs on Sonnet 5 — genuinely strong for everyday work. That makes the "which is better" question easy to settle for yourself: sign in to both, run a week of your actual tasks through each, and notice which one you instinctively reach for. Subscriptions (~$20/month) mainly buy higher limits, priority access to the flagship models, and heavier features like advanced voice or bigger context windows. Most people know their pick within a few days of real use.</p>
+      <p>Both let you start for nothing. ChatGPT's free tier gives you access to a capable model with usage limits, and Claude's free tier runs on Sonnet 5 — genuinely strong for everyday work. That makes the "which is better" question easy to settle for yourself: sign in to both, run a week of your actual tasks through each, and notice which one you instinctively reach for. Subscriptions (~$20/month) mainly buy higher limits, priority access to the flagship models, and heavier features like advanced voice or bigger context windows. Most people know their pick within a few days of real use.</p>
 
       <h2>Bottom line</h2>
       <ul>
         <li><strong>Claude</strong> (Sonnet 5 for everyday, Opus 5 for the hardest work, Fable 5.1 when that still isn't enough) for writing, editing, and long-context reasoning.</li>
-        <li><strong>ChatGPT</strong> (GPT-5.6) for the widest ecosystem, integrations, and all-rounder convenience.</li>
+        <li><strong>ChatGPT</strong> (GPT-6 Astra) for the widest ecosystem, integrations, and all-rounder convenience.</li>
       </ul>
       <p>Both have generous free tiers — the honest answer is to try each on your real work for a week. Explore more options in our <a href="/best/assistance">best AI assistants</a> guide, or see where an assistant fits alongside an editor and app builder in the <a href="/blog/best-ai-tools-for-vibe-coding">best AI tools for vibe coding</a>.</p>
     `,
     faq: [
       {
         q: "Is ChatGPT or Claude better for coding?",
-        a: "Both are strong, and many developers keep both open — one for quick generation, one for careful review. GPT-5.6 Sol is OpenAI's most capable coding model to date, with roughly a 54% improvement in token efficiency on agentic tasks, which matters if you run long autonomous coding sessions. Claude Opus 5 is equally at home reviewing large diffs, explaining unfamiliar code, and reasoning across a big codebase without losing the thread.",
+        a: "Both are strong, and many developers keep both open — one for quick generation, one for careful review. OpenAI positions GPT-6 Astra as state of the art on software engineering and reports it scoring 64.6% against Claude Fable 5.1's 52.6% on Terminal-Bench Science 0.1, at an estimated API cost roughly 31% lower — a vendor-run comparison, so treat it as a starting point. The older GPT-5.6 Sol is still capable: OpenAI has said Sol at maximum reasoning used 54% fewer output tokens than the next-highest-scoring model on the third-party Artificial Analysis Coding Agent Index, a comparison against a rival model on that index rather than against OpenAI's own earlier releases. Claude Opus 5 is equally at home reviewing large diffs, explaining unfamiliar code, and reasoning across a big codebase without losing the thread.",
       },
       {
         q: "Which is better for writing and long documents?",
@@ -176,15 +176,15 @@ export const postsBatch3: BlogPost[] = [
       },
       {
         q: "Which models power ChatGPT and Claude in 2026?",
-        a: "ChatGPT runs on OpenAI's GPT-5.6 family, released in July 2026: Sol (the flagship, with an \"ultra\" mode that delegates subtasks to smaller models), Terra (the balanced default), and Luna (tuned for speed). Claude is led by Claude Opus 5, which Anthropic recommends as the starting point for most workloads, with Claude Fable 5.1 above it for demanding reasoning and long-horizon agentic work, Claude Sonnet 5 — released June 2026 — as the fast default for Free and Pro users, and Claude Haiku 4.5 as the fastest tier. The previous generation, Opus 4.8 and earlier, is still available.",
+        a: "ChatGPT is led by OpenAI's GPT-6 Astra, announced September 3, 2026 and described by OpenAI as its most intelligent and aligned model, rolled out across ChatGPT Plus, Pro, Business and Enterprise as well as the OpenAI API, Azure, and AWS Bedrock. The earlier GPT-5.6 family, released in July 2026, is still available: Sol (that generation's flagship, with an \"ultra\" mode that delegates subtasks to smaller models), Terra (the balanced default), and Luna (tuned for speed). Claude is led by Claude Opus 5, which Anthropic recommends as the starting point for most workloads, with Claude Fable 5.1 above it for demanding reasoning and long-horizon agentic work, Claude Sonnet 5 — released June 2026 — as the fast default for Free and Pro users, and Claude Haiku 4.5 as the fastest tier. The previous generation, Opus 4.8 and earlier, is still available.",
       },
       {
         q: "How much do ChatGPT and Claude cost?",
-        a: "For consumers both charge around $20/month for their Pro/Plus tiers. The bigger differences are in API pricing: GPT-5.6 Sol runs $5/$30 per million input/output tokens and Luna $1/$6, while Claude Sonnet 5 runs $2/$10 — worth factoring in if you're planning a build around it.",
+        a: "For consumers both charge around $20/month for their Pro/Plus tiers. The bigger differences are in API pricing: GPT-6 Astra runs $10/$50 per million input/output tokens, while Claude Opus 5 runs $5/$25 and Claude Sonnet 5 $2/$10. OpenAI has announced repeated price cuts to the older GPT-5.6 tiers without consistently updating its published price table, so check OpenAI's pricing page for those before you budget.",
       },
       {
         q: "Are the free tiers good enough?",
-        a: "For most everyday work, yes. ChatGPT's free tier gives you a capable GPT-5.6 variant with usage limits, and Claude's free tier runs on Sonnet 5. Subscriptions mainly buy higher limits, priority access to the flagship models, and heavier features like advanced voice or bigger context windows.",
+        a: "For most everyday work, yes. ChatGPT's free tier gives you a capable model with usage limits, and Claude's free tier runs on Sonnet 5. Subscriptions mainly buy higher limits, priority access to the flagship models, and heavier features like advanced voice or bigger context windows.",
       },
       {
         q: "Should I pay for both?",
@@ -330,7 +330,7 @@ export const postsBatch3: BlogPost[] = [
     updated: "Sep 16, 2026",
     author: "David Kim",
     category: "Comparison",
-    readTime: "11 min read",
+    readTime: "10 min read",
     image: "/images/blog/blog_cloud_dev.png",
     tags: ["Bolt.new", "v0", "Lovable", "No-Code"],
     content: `
@@ -454,7 +454,7 @@ export const postsBatch3: BlogPost[] = [
     excerpt:
       "Both answer questions, but only one is built for research with citations. A 2026 breakdown of Perplexity vs ChatGPT: what each is actually built for, tier-by-tier pricing, the free Comet browser, where each one fails, and how to use both together.",
     date: "Jul 18, 2026",
-    updated: "Sep 16, 2026",
+    updated: "Sep 18, 2026",
     author: "David Kim",
     category: "Comparison",
     readTime: "11 min read",
@@ -467,12 +467,12 @@ export const postsBatch3: BlogPost[] = [
       <p><a href="/tool/perplexity">Perplexity</a> searches the live web and returns answers with inline citations you can click and verify. For "what's the current state of X," fact-checking, or comparing sources, that transparency is the entire point — you're not asked to trust a black box, you're shown where each claim came from. Its research-focused modes go further, running multi-step searches and assembling a cited briefing on a topic. Perplexity also routes to frontier models under the hood, so answer quality has kept pace with the broader jump in model capability this year. The effect is that it feels less like a chatbot and more like a research assistant that always shows its work.</p>
 
       <h2>ChatGPT is built for reasoning and creation</h2>
-      <p><a href="/tool/chatgpt">ChatGPT</a>, now running on OpenAI's <strong>GPT-5.6</strong> family, can browse too, but it shines when you need to think through a problem, draft something, write code, or work across its broad ecosystem of tools, custom GPTs, and integrations. Its deep-research capability can produce a long, structured report — but its default strength is doing something <em>with</em> information, not just retrieving and citing it. Ask it to weigh trade-offs, restructure an argument, or turn findings into a plan, and it's in its element.</p>
+      <p><a href="/tool/chatgpt">ChatGPT</a>, now led by OpenAI's <strong>GPT-6 Astra</strong>, can browse too, but it shines when you need to think through a problem, draft something, write code, or work across its broad ecosystem of tools, custom GPTs, and integrations. Its deep-research capability can produce a long, structured report — but its default strength is doing something <em>with</em> information, not just retrieving and citing it. Ask it to weigh trade-offs, restructure an argument, or turn findings into a plan, and it's in its element.</p>
 
       <h2>Side-by-side</h2>
       <table>
         <thead>
-          <tr><th></th><th>Perplexity</th><th>ChatGPT (GPT-5.6)</th></tr>
+          <tr><th></th><th>Perplexity</th><th>ChatGPT (GPT-6 Astra)</th></tr>
         </thead>
         <tbody>
           <tr><td>Core strength</td><td>Cited, verifiable answers</td><td>Reasoning, drafting, building</td></tr>
@@ -532,7 +532,7 @@ export const postsBatch3: BlogPost[] = [
       </ul>
 
       <h2>The models behind both</h2>
-      <p>It's worth remembering that neither tool is a model — they're products wrapped around frontier models. ChatGPT runs on OpenAI's GPT-5.6 family, while Perplexity routes your query to strong models under the hood and layers its own search and citation pipeline on top. That's why "which one has the smarter AI" is the wrong question: both have access to excellent reasoning. The real difference is the workflow each is built to serve — retrieval and verification on one side, reasoning and creation on the other. Choose the product whose job matches yours, not the one you assume has the better brain.</p>
+      <p>It's worth remembering that neither tool is a model — they're products wrapped around frontier models. ChatGPT runs on OpenAI's GPT-6 Astra, with the older GPT-5.6 family still available, while Perplexity routes your query to strong models under the hood and layers its own search and citation pipeline on top. That's why "which one has the smarter AI" is the wrong question: both have access to excellent reasoning. The real difference is the workflow each is built to serve — retrieval and verification on one side, reasoning and creation on the other. Choose the product whose job matches yours, not the one you assume has the better brain.</p>
 
       <h2>Everyday speed &amp; interface</h2>
       <p>For a quick factual question, Perplexity is often the faster path: you type, it searches, you get a sourced answer without wading through a page of blue links. It has become a genuine replacement for a traditional search engine for a lot of people. ChatGPT's interface is built around conversation and doing work, so for a one-off lookup it can feel like more machinery than the task needs — but the moment your question turns into a back-and-forth, that conversational surface is exactly what you want.</p>
