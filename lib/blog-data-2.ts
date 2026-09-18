@@ -1,34 +1,36 @@
 import { BlogPost } from "./blog-types";
 export const postsBatch2: BlogPost[] = [
-  // 16. GPT-5.5 Codex vs Claude Sonnet 4.8 Comparison
+  // 16. GPT-5.6 vs Claude Fable 5: Best Coding AI
   {
     slug: "gpt-5-3-codex-vs-claude-4-6",
     title: "GPT-5.6 vs Claude Fable 5: Best Coding AI",
     excerpt: "GPT-5.6 vs Claude Fable 5: how OpenAI and Anthropic's coding models differ on price, context, and agentic design — plus a repeatable way to test both on your own codebase.",
     date: "Jul 18, 2026",
-    updated: "Aug 16, 2026",
+    updated: "Sep 17, 2026",
     author: "Sarah Jenkins",
     category: "Comparison",
     readTime: "9 min read",
     image: "/images/blog/gpt-vs-claude-2026.png",
     tags: ["ChatGPT", "Claude", "Cursor", "AI Models"],
     content: `
-      <h2>The Short Answer in August 2026</h2>
-      <p>If you only want the recommendation: <a href="/tool/chatgpt">ChatGPT</a>'s <strong>GPT-5.6 Sol</strong> is the one to reach for when you want long autonomous runs at a predictable cost, and <a href="/tool/claude">Claude</a>'s <strong>Fable 5</strong> is the one to reach for when the work spans a large existing codebase and the cost of a wrong edit is high.</p>
+      <h2>The Short Answer in September 2026</h2>
+      <p>If you only want the recommendation: <a href="/tool/chatgpt">ChatGPT</a>'s <strong>GPT-5.6 Sol</strong> is the one to reach for when you want long autonomous runs at a predictable cost, and on the <a href="/tool/claude">Claude</a> side <strong>Opus 5</strong> — Anthropic's own recommended starting point for most workloads — is the one to reach for when the work spans a large existing codebase and the cost of a wrong edit is high, with <strong>Fable 5.1</strong> as the escalation tier above it for demanding reasoning and long-horizon agentic work.</p>
       <p>One thing to get out of the way first, because most "best coding AI" articles skip it: <strong>nobody's published head-to-head is a substitute for your own.</strong> Coding-model comparisons are unusually sensitive to the harness (which editor, which tool permissions, which retry policy), to the prompt style the author happens to use, and to the shape of the codebase. A number produced on someone else's repo, with someone else's prompt, in a run you cannot reproduce, is entertainment. So this piece does two things instead: it lays out the differences that are actually documented, and then it gives you a method to settle the question on your own code in an afternoon.</p>
 
       <h2>What Each Lab Has Actually Shipped</h2>
       <p>OpenAI shipped <strong>GPT-5.6</strong> on July 9, 2026 in three tiers: <strong>Sol</strong> (the flagship, $5/$30 per million input/output tokens, with an "ultra" mode that delegates sub-tasks to smaller internal models), <strong>Terra</strong> ($2.50/$15), and <strong>Luna</strong> ($1/$6). OpenAI markets Sol as its "best coding model yet" and its "strongest cybersecurity model yet," and reports that it cut agentic-coding token consumption by roughly 54% versus GPT-5.5 Codex — a vendor figure, but a structurally believable one given the delegation architecture underneath it. The launch was paired with <strong>ChatGPT Work</strong>, a dedicated enterprise workspace product.</p>
-      <p>Anthropic reshuffled its lineup over the same window. <strong>Claude Sonnet 5</strong> landed June 30, 2026 at an introductory $2/$10 per million tokens, rising to $3/$15 in September, and became the mid-tier workhorse and the default for Free and Pro users. Above it sits <strong>Claude Fable 5</strong>, a "Mythos-class" flagship that displaced Opus 4.8 at the top of the lineup — Opus 4.8 and Haiku 4.5 are both previous-generation models now. Both inherit the lineage that made Opus 4.8 popular with engineers: a very large context window and <strong>Agent Teams</strong>, where the model spawns specialized sub-agents that work in parallel and coordinate through shared state.</p>
+      <p>Anthropic reshuffled its lineup over the same window, and the current roster runs four deep. <strong>Claude Sonnet 5</strong> landed June 30, 2026 and lists at $2/$10 per million tokens, positioned as "the best combination of speed and intelligence" and the default for Free and Pro users; <strong>Claude Haiku 4.5</strong> sits below it as the fastest tier. Two frontier tiers sit above them: <strong>Claude Opus 5</strong> ($5/$25), documented as the model "for complex agentic coding and enterprise work" and the one Anthropic tells you to start with if you're unsure, and <strong>Claude Fable 5.1</strong> ($10/$50), the escalation tier "for demanding reasoning and long-horizon agentic work." Anyone still on <strong>Opus 4.8</strong> or earlier is on a previous generation — Anthropic's documented migration path from there points at Opus 5. Sonnet 5, Opus 5 and Fable 5.1 all carry a 1-million-token context window, and Sonnet 5 and Fable 5.1 inherit the <strong>Agent Teams</strong> lineage that made Opus 4.8 popular with engineers, where the model spawns specialized sub-agents that work in parallel and coordinate through shared state.</p>
       <table>
-        <tr><th>Model (August 2026)</th><th>Pricing (in/out per 1M tokens)</th><th>Positioning</th></tr>
+        <tr><th>Model (September 2026)</th><th>Pricing (in/out per 1M tokens)</th><th>Positioning</th></tr>
         <tr><td>GPT-5.6 Sol</td><td>$5 / $30</td><td>Flagship; "ultra" delegation mode, ~54% better agentic token efficiency per OpenAI</td></tr>
         <tr><td>GPT-5.6 Terra</td><td>$2.50 / $15</td><td>Balanced default tier</td></tr>
         <tr><td>GPT-5.6 Luna</td><td>$1 / $6</td><td>High-volume, latency-sensitive work</td></tr>
-        <tr><td>Claude Fable 5</td><td>Flagship (Mythos-class)</td><td>Successor to Opus 4.8; long-context engineering partner</td></tr>
-        <tr><td>Claude Sonnet 5</td><td>$2&ndash;3 / $10&ndash;15</td><td>Mid-tier workhorse, launched June 30, 2026</td></tr>
+        <tr><td>Claude Fable 5.1</td><td>$10 / $50</td><td>Escalation tier: "for demanding reasoning and long-horizon agentic work"; the slowest of Anthropic's four</td></tr>
+        <tr><td>Claude Opus 5</td><td>$5 / $25</td><td>Anthropic's recommended starting point: "for complex agentic coding and enterprise work"</td></tr>
+        <tr><td>Claude Sonnet 5</td><td>$2 / $10</td><td>"The best combination of speed and intelligence"; launched June 30, 2026</td></tr>
+        <tr><td>Claude Haiku 4.5</td><td>$1 / $5</td><td>"The fastest model with near-frontier intelligence"; 200K context</td></tr>
       </table>
-      <p>Note the tier mismatch that trips up most comparisons: Sol's natural counterpart is Fable 5, and Terra's is Sonnet 5. Benchmarking a flagship against a mid-tier and declaring a winner tells you about pricing, not about capability.</p>
+      <p>Note the tier mismatch that trips up most comparisons: Sol's natural counterparts are Claude Opus 5 and, a step above it, Fable 5.1; Terra's is Sonnet 5. Benchmarking a flagship against a mid-tier and declaring a winner tells you about pricing, not about capability.</p>
 
       <h2>The Design Differences You'll Actually Feel</h2>
       <p>Set the scores aside and the two families differ in ways you can reason about from documentation alone. These are the differences that predict where each one will frustrate you.</p>
@@ -88,7 +90,7 @@ export const postsBatch2: BlogPost[] = [
       <ul>
         <li><strong>Scaffolding, boilerplate, and glue</strong> — the cheapest tier that clears your test suite. GPT-5.6 Luna and Claude Sonnet 5 both live here, and flagship pricing on this work is pure waste.</li>
         <li><strong>Long autonomous runs</strong> — GPT-5.6 Sol, where the delegation architecture and the token-efficiency claim are aimed squarely at sessions that run for hours.</li>
-        <li><strong>Repo-wide refactors and large-diff review</strong> — Claude Fable 5, where holding the whole picture at once is the job.</li>
+        <li><strong>Repo-wide refactors and large-diff review</strong> — Claude Opus 5, where holding the whole picture at once is the job; escalate to Claude Fable 5.1 when the reasoning is demanding enough, or the run long enough, that Opus 5 at higher effort still falls short.</li>
         <li><strong>Anything irreversible</strong> — a production migration, an auth rewrite, a pricing change — flagship tier, human review, and the diff read line by line regardless of which model wrote it.</li>
       </ul>
       <p>If you're assembling the rest of that setup, our guide to the <a href="/blog/best-ai-tools-for-vibe-coding">best AI tools for vibe coding</a> covers the editor, assistant, and deploy layers around the model.</p>
@@ -101,11 +103,11 @@ export const postsBatch2: BlogPost[] = [
     faq: [
       {
         q: "What is the best coding AI in 2026?",
-        a: "There isn't one winner for every job. GPT-5.6 Sol is OpenAI's best coding model yet and by far the most token-efficient — it cut agentic-coding token usage by roughly 54% versus GPT-5.5 Codex — so it's the cheaper choice for long autonomous runs. Claude Fable 5 is the stronger pick when the task spans a large existing codebase, because Claude's long-context handling still holds detail better across tens of thousands of lines. The workflow most teams settle on is to draft with the fast model and review with the careful one.",
+        a: "There isn't one winner for every job. GPT-5.6 Sol is OpenAI's best coding model yet and by far the most token-efficient — it cut agentic-coding token usage by roughly 54% versus GPT-5.5 Codex — so it's the cheaper choice for long autonomous runs. Claude Opus 5 — Anthropic's recommended default for most workloads — is the stronger pick when the task spans a large existing codebase, because Claude's long-context handling still holds detail better across tens of thousands of lines, with Claude Fable 5.1 as the escalation above it for demanding reasoning and long-horizon agentic runs. The workflow most teams settle on is to draft with the fast model and review with the careful one.",
       },
       {
         q: "Is GPT-5.6 better than Claude Fable 5?",
-        a: "Neither is better across the board, and the honest answer is that it depends on your codebase. On cost for long autonomous runs, OpenAI has the stronger case: it reports a 54% token-efficiency gain for Sol over GPT-5.5 Codex, and it calls Sol its strongest cybersecurity model yet. On work that spans a large existing repository, Claude's long-context lineage is the reason engineers keep reaching for it. Rather than trust either claim, run the same four tasks from your own backlog through both at matched tiers and grade them against your test suite.",
+        a: "Neither is better across the board, and the honest answer is that it depends on your codebase. On cost for long autonomous runs, OpenAI has the stronger case: it reports a 54% token-efficiency gain for Sol over GPT-5.5 Codex, and it calls Sol its strongest cybersecurity model yet. On work that spans a large existing repository, Claude's long-context lineage is the reason engineers keep reaching for it. Rather than trust either claim, run the same four tasks from your own backlog through both at matched tiers — Sol against Claude Opus 5, or against Claude Fable 5.1 if the work is demanding enough that you would escalate — and grade them against your test suite.",
       },
       {
         q: "How does GPT-5.6 reasoning work?",
@@ -113,11 +115,11 @@ export const postsBatch2: BlogPost[] = [
       },
       {
         q: "GPT-5.6 vs Claude Sonnet 5 — which should I use?",
-        a: "Claude Sonnet 5 launched June 30, 2026 at an introductory $2/$10 per million tokens, rising to $3/$15 in September, which puts it between GPT-5.6 Terra and Luna on price. It's Anthropic's mid-tier workhorse and the default for Claude Free and Pro users, so the fair comparison is against GPT-5.6 Terra rather than against Sol. For everyday coding the two are close — lean Sonnet 5 when you paste in long files, and Terra when you want OpenAI's wider tool ecosystem.",
+        a: "Claude Sonnet 5 launched June 30, 2026 and lists at $2/$10 per million tokens, which puts it between GPT-5.6 Terra and Luna on price. It's Anthropic's mid-tier workhorse and the default for Claude Free and Pro users, so the fair comparison is against GPT-5.6 Terra rather than against Sol. For everyday coding the two are close — lean Sonnet 5 when you paste in long files, and Terra when you want OpenAI's wider tool ecosystem.",
       },
       {
         q: "What is Claude Fable 5?",
-        a: "Fable 5 is Anthropic's \"Mythos-class\" flagship, sitting above Sonnet 5 and replacing Opus 4.8 at the top of the lineup — Opus 4.8 and Haiku 4.5 are both previous-generation models now. It inherits the long-context handling and Agent Teams sub-agent model that made Opus 4.8 popular with engineers, which is why it's the tier people reach for on large refactors, long specs, and multi-file reviews.",
+        a: "Fable is Anthropic's \"Mythos-class\" top line, and the current release is Claude Fable 5.1 at $10/$50 per million input/output tokens — documented as the model for demanding reasoning and long-horizon agentic work. It sits above Claude Opus 5 ($5/$25), which is what Anthropic tells you to start with for most workloads, and above Sonnet 5 and Haiku 4.5. The documented pattern is to start on Opus 5 and move up to Fable 5.1 when your evals on Opus 5 at higher effort still fall short. Opus 4.8 and earlier are previous-generation, with a migration path to Opus 5. Fable 5.1 inherits the long-context handling and Agent Teams sub-agent model that made Opus 4.8 popular with engineers, which is why it is what people reach for on large refactors, long specs, and multi-file reviews.",
       },
       {
         q: "How do I test which coding model is better for my codebase?",
@@ -125,7 +127,7 @@ export const postsBatch2: BlogPost[] = [
       },
       {
         q: "Is there a Claude 3.8?",
-        a: "No. Anthropic's 3-series topped out at Claude 3.7 Sonnet, and the numbering then moved through 4, 4.5 and 4.8 before jumping to the 5 generation. If you're searching for Claude 3.8, what you almost certainly want is either Claude Sonnet 5 (the current fast default, free to use) or Claude Fable 5 (the current flagship).",
+        a: "No. Anthropic's 3-series topped out at Claude 3.7 Sonnet, and the numbering then moved through 4, 4.5 and 4.8 before jumping to the 5 generation. If you're searching for Claude 3.8, what you almost certainly want is either Claude Sonnet 5 (the current fast default, free to use) or one of the two frontier tiers above it, Claude Opus 5 or Claude Fable 5.1.",
       },
     ],
   },
@@ -574,7 +576,7 @@ export const postsBatch2: BlogPost[] = [
     title: "The Reasoning Leap: How System-2 Thinking Took Over AI",
     excerpt: "Beyond next-token prediction: reasoning models that think, verify, and check their own logic have become the single strongest bridge toward AGI — and by mid-2026, nearly every frontier lab has one.",
     date: "Jul 18, 2026",
-    updated: "Aug 16, 2026",
+    updated: "Sep 17, 2026",
     author: "VibeStack AI",
     category: "Deep Dive",
     readTime: "4 min read",
@@ -587,14 +589,15 @@ export const postsBatch2: BlogPost[] = [
       <h3>Chain of Verification, Not Just Chain of Thought</h3>
       <p>Modern reasoning models don't blurt out an answer to a proof, a legal question, or a multi-step coding problem. Internally, they ask themselves follow-up questions, draft an answer, then re-test their own logic for holes — sometimes running this verification loop thousands of times before returning a final response. Under the hood, this blends reinforcement learning with search techniques descended from Monte Carlo tree search, letting the model deductively converge on an answer it has actual confidence in, rather than the most statistically likely-sounding one.</p>
 
-      <h3>The State of Reasoning Models in July 2026</h3>
-      <p>What used to be a research curiosity is now table stakes for every frontier lab. As of July 2026, the reasoning landscape looks like this:</p>
+      <h3>The State of Reasoning Models in September 2026</h3>
+      <p>What used to be a research curiosity is now table stakes for every frontier lab. As of September 2026, the reasoning landscape looks like this:</p>
       <table>
         <tr><th>Model</th><th>Lab</th><th>Reasoning Strength</th></tr>
         <tr><td>GPT-5.6 Sol</td><td>OpenAI</td><td>Flagship tier with an "ultra" mode that delegates sub-steps to smaller models mid-reasoning; OpenAI's best coding and cybersecurity reasoning to date</td></tr>
         <tr><td>GPT-5.6 Terra / Luna</td><td>OpenAI</td><td>Cheaper tiers that trade some depth of verification for speed and cost</td></tr>
-        <tr><td>Claude Fable 5</td><td>Anthropic</td><td>New Mythos-class flagship, Anthropic's strongest reasoning and planning model, sitting above Opus 4.8</td></tr>
-        <tr><td>Claude Sonnet 5</td><td>Anthropic</td><td>Mid-tier reasoning workhorse launched June 30, 2026</td></tr>
+        <tr><td>Claude Fable 5.1</td><td>Anthropic</td><td>Mythos-class escalation tier ($10/$50), documented for demanding reasoning and long-horizon agentic work; the slowest and priciest of Anthropic's four current models</td></tr>
+        <tr><td>Claude Opus 5</td><td>Anthropic</td><td>Anthropic's recommended starting point for most workloads ($5/$25), aimed at complex agentic coding and enterprise work; supersedes Opus 4.8</td></tr>
+        <tr><td>Claude Sonnet 5</td><td>Anthropic</td><td>Mid-tier reasoning workhorse launched June 30, 2026 ($2/$10)</td></tr>
         <tr><td>Gemini 3.5 Flash</td><td>Google</td><td>Fast reasoning tier, now generally available (Gemini 3.5 Pro has not shipped yet — it remains delayed, with rumors of a 2M-token context and a "Deep Think" mode)</td></tr>
         <tr><td>Grok 4.5</td><td>xAI</td><td>Co-trained on real Cursor usage data; strong at coding-flavored reasoning, not available in the EU</td></tr>
       </table>
@@ -607,7 +610,7 @@ export const postsBatch2: BlogPost[] = [
       <p>Reasoning models are pushing AI past language generation and into something closer to a genuine logic engine. As these models start optimizing code, proposing new drug-candidate structures, and deriving novel equations in physics research, they stop being an assistant to human thought and start entering the territory of independent discovery. That's the reason "reasoning models" — not raw parameter count, not multimodal breadth — is the metric researchers now treat as the closest proxy for progress toward AGI.</p>
 
       <h3>What This Means for Builders</h3>
-      <p>If you're building on top of these models, the practical implication is simple: match the reasoning tier to the task. Use a flagship reasoning model — <a href="/tool/chatgpt">ChatGPT</a>'s GPT-5.6 Sol or <a href="/tool/claude">Claude</a> Fable 5 — for anything with real stakes: a legal contract, a production incident, a multi-file refactor. Use a cheaper tier (Terra, Luna, Sonnet 5, Gemini 3.5 Flash) for the majority of requests that don't need deep verification. The cost difference between tiers is large enough now that picking the wrong one, in either direction, is a real line item on your bill — our <a href="/blog/gpt-5-3-codex-vs-claude-4-6">head-to-head on those two flagships</a> covers where each one earns its price, and <a href="/blog/token-economics-2026">token economics</a> covers how to model the bill itself.</p>
+      <p>If you're building on top of these models, the practical implication is simple: match the reasoning tier to the task. Use a flagship reasoning model — <a href="/tool/chatgpt">ChatGPT</a>'s GPT-5.6 Sol or <a href="/tool/claude">Claude</a> Opus 5, escalating to Claude Fable 5.1 when the reasoning is genuinely demanding or the run genuinely long — for anything with real stakes: a legal contract, a production incident, a multi-file refactor. Use a cheaper tier (Terra, Luna, Sonnet 5, Haiku 4.5, Gemini 3.5 Flash) for the majority of requests that don't need deep verification. The cost difference between tiers is large enough now that picking the wrong one, in either direction, is a real line item on your bill — our <a href="/blog/gpt-5-3-codex-vs-claude-4-6">head-to-head on those two flagships</a> covers where each one earns its price, and <a href="/blog/token-economics-2026">token economics</a> covers how to model the bill itself.</p>
       <p>One prompting consequence worth noting: the elaborate step-by-step scaffolding people wrote for earlier models is now often counterproductive, because the model already runs its own verification loop and your instructions can cut across it. State the goal and the constraints, supply the context, and let it plan — a shift we unpack in <a href="/blog/future-prompting">the future of prompting</a>.</p>
 
       <h3>The Caveat Everyone Skips</h3>
@@ -695,7 +698,7 @@ export const postsBatch2: BlogPost[] = [
       },
     ],
   },
-  // 26. GPT-5.5 Vision
+  // 26. GPT-5.5 Vision Arrives: A New Bar for AI That Sees the World
   {
     slug: "gpt-5-5-vision-next-gen",
     title: "GPT-5.5 Vision Arrives: A New Bar for AI That Sees the World",

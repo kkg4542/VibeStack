@@ -6,7 +6,7 @@ export const postsBatch1: BlogPost[] = [
     title: "The Ultimate Developer Stack for 2026: Productivity Tools You Can't Miss",
     excerpt: "The full production engineering stack for 2026 — editor, backend, database, infra, model routing, and observability — with the selection criteria behind each layer, the friction that shows up where layers meet, budget tiers, and the mistakes that cost teams the most.",
     date: "Jul 18, 2026",
-    updated: "Sep 16, 2026",
+    updated: "Sep 17, 2026",
     author: "David Kim",
     category: "Guide",
     readTime: "13 min read",
@@ -41,7 +41,7 @@ export const postsBatch1: BlogPost[] = [
       <ul>
         <li><strong>Cursor 3.11:</strong> The undisputed king. The latest release adds a side chat panel, an iOS public beta, and ships with xAI's <strong>Grok 4.5</strong> as a selectable model alongside the usual frontier options. Its local index of your codebase and "Composer" capabilities make it feel less like an editor and more like an agentic workspace. (See our comparison: <a href="/blog/cursor-vs-vscode">Cursor vs VS Code</a>)</li>
         <li><strong>Devin Desktop:</strong> The editor Codeium shipped as Windsurf. Cognition acquired it and relaunched it as <a href="/tool/devin-ai">Devin Desktop</a> on June 2, 2026 &mdash; codeium.com and windsurf.com both point there now. Cognition calls it the next generation of Windsurf, and at launch it stayed compatible with Windsurf and VS Code extensions, keybindings, and LSP integrations, so moving over is closer to a rename than a migration.</li>
-        <li><strong>GPT-5.6 & Claude Sonnet 5:</strong> You need both. OpenAI's July 2026 release ships three tiers — <strong>Sol</strong> ($5/$30 per million tokens, with an "ultra" reasoning mode and a 54% improvement in agentic-coding token efficiency), <strong>Terra</strong> ($2.50/$15), and <strong>Luna</strong> ($1/$6) — and Sol is genuinely the best coding model OpenAI has shipped. Anthropic's <strong>Claude Sonnet 5</strong> (intro pricing $2/$10 through August, rising to $3/$15 in September) remains the default for architectural planning and reading huge docs, while <strong>Claude Fable 5</strong> is the flagship tier above Opus 4.8 for the hardest, highest-stakes refactors. (Read more: <a href="/blog/gpt5-vs-claude5">GPT-5.6 vs Claude Sonnet 5</a>)</li>
+        <li><strong>GPT-5.6 & Claude Sonnet 5:</strong> You need both. OpenAI's July 2026 release ships three tiers — <strong>Sol</strong> ($5/$30 per million tokens, with an "ultra" reasoning mode and a 54% improvement in agentic-coding token efficiency), <strong>Terra</strong> ($2.50/$15), and <strong>Luna</strong> ($1/$6) — and Sol is genuinely the best coding model OpenAI has shipped. Anthropic's <strong>Claude Sonnet 5</strong> ($2/$10 per million tokens) remains the default for architectural planning and reading huge docs, while <strong>Claude Opus 5</strong> ($5/$25) is Anthropic's recommended starting point for the hardest, highest-stakes refactors, with <strong>Claude Fable 5.1</strong> ($10/$50) as the escalation tier above it. (Read more: <a href="/blog/gpt5-vs-claude5">GPT-5.6 vs Claude Sonnet 5</a>)</li>
       </ul>
 
       <h3>2. The Backend & Database</h3>
@@ -86,13 +86,14 @@ export const postsBatch1: BlogPost[] = [
           <tr><td>GPT-5.6 Sol</td><td>$5 / $30 (ultra mode available)</td><td>Frontier agentic coding, hardest logic tasks</td></tr>
           <tr><td>GPT-5.6 Terra</td><td>$2.50 / $15</td><td>Balanced everyday coding assistant</td></tr>
           <tr><td>GPT-5.6 Luna</td><td>$1 / $6</td><td>High-volume, latency-sensitive calls</td></tr>
-          <tr><td>Claude Sonnet 5</td><td>$2 / $10 (intro), $3 / $15 from Sept</td><td>Architectural planning, long-document reasoning</td></tr>
-          <tr><td>Claude Fable 5</td><td>Premium flagship tier</td><td>Highest-stakes, multi-file refactors</td></tr>
+          <tr><td>Claude Sonnet 5</td><td>$2 / $10</td><td>Architectural planning, long-document reasoning</td></tr>
+          <tr><td>Claude Opus 5</td><td>$5 / $25</td><td>Anthropic's recommended starting point; highest-stakes, multi-file refactors</td></tr>
+          <tr><td>Claude Fable 5.1</td><td>$10 / $50</td><td>Escalation tier for demanding reasoning and long-horizon agentic work</td></tr>
           <tr><td>Gemini 3.5 Flash</td><td>Low-cost, high-throughput</td><td>Bulk summarization, RAG pipelines</td></tr>
           <tr><td>Grok 4.5</td><td>$2 / $6 (not available in the EU)</td><td>Cursor-native agentic coding</td></tr>
         </tbody>
       </table>
-      <p>Building even a lightweight router that sends "fix this typo" to Luna or Gemini 3.5 Flash and "redesign this auth system" to Sol or Fable 5 will cut your monthly AI bill dramatically without sacrificing quality where it matters. Our deeper treatment of <a href="/blog/token-economics-2026">token economics</a> covers how to work out the crossover points for your own traffic, and if your volume is high and your tasks are routine, <a href="/blog/local-llm-llama4">running a model on your own hardware</a> is a serious fifth option in the router.</p>
+      <p>Building even a lightweight router that sends "fix this typo" to Luna or Gemini 3.5 Flash and "redesign this auth system" to Sol or Claude Opus 5 will cut your monthly AI bill dramatically without sacrificing quality where it matters. Our deeper treatment of <a href="/blog/token-economics-2026">token economics</a> covers how to work out the crossover points for your own traffic, and if your volume is high and your tasks are routine, <a href="/blog/local-llm-llama4">running a model on your own hardware</a> is a serious fifth option in the router.</p>
 
       <h3>7. Observability: The Layer Everyone Skips</h3>
       <p>This is the layer missing from almost every "AI stack" list, and the one that separates a demo from a product. When most of your code is generated and most of your review happens at the level of behaviour rather than lines, your ability to see what production is actually doing <em>is</em> your quality process. Four components, in order of how much you'll regret skipping them:</p>
@@ -302,7 +303,7 @@ export const postsBatch1: BlogPost[] = [
     title: "Token Economics: Navigating the Cost of Intelligence",
     excerpt: "Intelligence is a metered utility now. Here is how to model AI cost of goods sold in the GPT-5.6 and Claude Sonnet 5 era — where the tokens actually go, the four numbers worth instrumenting, caching and routing, and how to price a product on top of costs that move every quarter.",
     date: "Jul 18, 2026",
-    updated: "Aug 16, 2026",
+    updated: "Sep 17, 2026",
     author: "Sarah Jenkins",
     category: "Business",
     readTime: "12 min read",
@@ -373,7 +374,7 @@ export const postsBatch1: BlogPost[] = [
 
       <h3>Intelligence Arbitrage and the Model Router</h3>
       <p>There is also an arbitrage opportunity. You can route simple queries to cheaper, faster models (like locally-hosted <strong>Llama 5</strong> or GPT-5.6 Luna) and only route complex "System 2" reasoning tasks to expensive frontier models (GPT-5.6 Sol or Claude Sonnet 5). Building this "Model Router" infrastructure is the secret sauce of profitable AI companies today.</p>
-      <p>A minimal router needs three things: a cheap classifier model that scores task complexity in under 50ms, a fallback ladder (Luna → Terra → Sol, or Sonnet 5 → Fable 5) that escalates only on low-confidence outputs, and a logging pipeline that tracks cost-per-resolved-task rather than cost-per-call. Google's Flash tiers are a common bottom rung on that ladder — our <a href="/blog/gemini-3-pro-deep-dive">Gemini 3 Pro deep dive</a> walks through when Flash is genuinely sufficient and when the flagship tier is worth the multiplier. Startups that skip the router and hardcode a single flagship model for every request are, in effect, running their COGS on autopilot — and in a market where token prices swing every quarter, that is a solvable, and expensive, mistake.</p>
+      <p>A minimal router needs three things: a cheap classifier model that scores task complexity in under 50ms, a fallback ladder (Luna → Terra → Sol, or Sonnet 5 → Opus 5 → Fable 5.1) that escalates only on low-confidence outputs, and a logging pipeline that tracks cost-per-resolved-task rather than cost-per-call. Google's Flash tiers are a common bottom rung on that ladder — our <a href="/blog/gemini-3-pro-deep-dive">Gemini 3 Pro deep dive</a> walks through when Flash is genuinely sufficient and when the flagship tier is worth the multiplier. Startups that skip the router and hardcode a single flagship model for every request are, in effect, running their COGS on autopilot — and in a market where token prices swing every quarter, that is a solvable, and expensive, mistake.</p>
 
       <h3>When Buying Hardware Beats Buying Tokens</h3>
       <p>Every router eventually needs a bottom rung that isn't an invoice. Self-hosted inference converts a variable opex line into a fixed capex one, and past a certain volume that conversion is simply the correct financial decision. The crossover depends on three inputs: monthly token volume, how routine the tasks are, and how much engineering time you will spend running infrastructure. High-volume, low-variance work — classification, embeddings, summarization, first-pass completion — amortizes hardware quickly. Forty hard architecture questions a month never will, and you would be trading frontier capability for nothing.</p>
@@ -425,28 +426,28 @@ export const postsBatch1: BlogPost[] = [
       },
     ]
   },
-  // 3. GPT-5.5 vs Claude Opus 4.8 (Expanded)
+  // 3. GPT-5.6 vs Claude Sonnet 5: Which Model Wins in 2026? (Expanded)
   {
     slug: "gpt5-vs-claude5",
     title: "GPT-5.6 vs Claude Sonnet 5: Which Model Wins in 2026?",
-    excerpt: "We compare the two titans of mid-2026. Does OpenAI's Sol tier beat Anthropic's Claude Sonnet 5 and Claude Fable 5 for real engineering work?",
+    excerpt: "We compare the two titans of mid-2026. Does OpenAI's Sol tier beat Anthropic's Claude Sonnet 5, Claude Opus 5 and Claude Fable 5.1 for real engineering work?",
     date: "Jul 18, 2026",
-    updated: "Aug 16, 2026",
+    updated: "Sep 17, 2026",
     author: "David Kim",
     category: "Comparison",
     readTime: "16 min read",
     image: "/images/blog/gpt5-vs-claude5.png",
     content: `
       <h2>The Titans Clash, Again</h2>
-      <p>The AI landscape in mid-2026 is defined by two rapid-fire releases: <a href="/tool/chatgpt">ChatGPT</a>'s <strong>GPT-5.6</strong> (shipped July 9th, replacing GPT-5.5) and <a href="/tool/claude">Claude</a>'s <strong>Claude Sonnet 5</strong> (shipped June 30th, sitting below the flagship <strong>Claude Fable 5</strong> tier). Both companies pushed the boundaries of what we thought possible within weeks of each other, but they excel in fundamentally different areas. The choice isn't "which is better?", but "which tool fits my cognitive workflow, and my budget?" (Google is the serious third contender here, and we cover its lineup separately in the <a href="/blog/gemini-3-pro-deep-dive">Gemini 3 Pro deep dive</a>.)</p>
+      <p>The AI landscape in mid-2026 is defined by two rapid-fire releases: <a href="/tool/chatgpt">ChatGPT</a>'s <strong>GPT-5.6</strong> (shipped July 9th, replacing GPT-5.5) and <a href="/tool/claude">Claude</a>'s <strong>Claude Sonnet 5</strong> (shipped June 30th, sitting below the <strong>Claude Opus 5</strong> and <strong>Claude Fable 5.1</strong> tiers above it). Both companies pushed the boundaries of what we thought possible within weeks of each other, but they excel in fundamentally different areas. The choice isn't "which is better?", but "which tool fits my cognitive workflow, and my budget?" (Google is the serious third contender here, and we cover its lineup separately in the <a href="/blog/gemini-3-pro-deep-dive">Gemini 3 Pro deep dive</a>.)</p>
 
       <h3>GPT-5.6: Three Tiers, One Philosophy</h3>
       <p>Unlike previous single-model releases, GPT-5.6 ships as a family: <strong>Sol</strong> (the flagship, $5/$30 per million tokens, with an "ultra" reasoning mode for the hardest problems), <strong>Terra</strong> ($2.50/$15, the balanced default), and <strong>Luna</strong> ($1/$6, for high-volume and latency-sensitive calls). OpenAI is explicitly marketing Sol as "the best coding model yet," and the numbers back it up — a 54% improvement in agentic-coding token efficiency over GPT-5.5 means Sol can carry out longer autonomous coding sessions before losing the thread or burning through your budget.</p>
       <p>On hard, vague, multi-step engineering challenges, Sol consistently shines. It's the model to reach for when you need it to <em>think</em> deeply about constraints, edge cases, and security vulnerabilities — and OpenAI simultaneously launched <strong>ChatGPT Work</strong>, a workspace-focused product built around exactly this kind of high-stakes reasoning for teams.</p>
 
       <h3>Claude Sonnet 5: The Context and Value King</h3>
-      <p>Claude Sonnet 5 launched at aggressive introductory pricing — $2/$10 per million tokens through the end of August, rising to $3/$15 in September — undercutting Sol on cost while remaining excellent at large-scale analysis. You can dump entire repositories, legal contracts, or long design documents into it, and it holds the bigger picture together well.</p>
-      <p>Where Sol feels like a brilliant consultant working through a locked-room puzzle, Sonnet 5 feels like a researcher who has read everything in your library and can find the one paragraph that matters. For "Project-Wide Refactoring" tasks where the model needs to understand how a change in <code>utils.ts</code> affects a component five layers deep, Sonnet 5 remains extremely strong — and when a task genuinely needs Anthropic's absolute best reasoning, <strong>Claude Fable 5</strong> is there as the premium escalation tier, priced and positioned above Opus 4.8.</p>
+      <p>Claude Sonnet 5 launched at aggressive pricing — $2/$10 per million tokens — undercutting Sol on cost while remaining excellent at large-scale analysis. You can dump entire repositories, legal contracts, or long design documents into it, and it holds the bigger picture together well.</p>
+      <p>Where Sol feels like a brilliant consultant working through a locked-room puzzle, Sonnet 5 feels like a researcher who has read everything in your library and can find the one paragraph that matters. For "Project-Wide Refactoring" tasks where the model needs to understand how a change in <code>utils.ts</code> affects a component five layers deep, Sonnet 5 remains extremely strong — and when a task needs more than the mid-tier, Anthropic's own guidance is to move up to <strong>Claude Opus 5</strong> ($5/$25 per million tokens), the model it documents for complex agentic coding and enterprise work and the one it tells you to start with if you're unsure, then to escalate again to <strong>Claude Fable 5.1</strong> ($10/$50) for demanding reasoning and long-horizon agentic work.</p>
 
       <h3>Head-to-Head: Where Each One Wins</h3>
       <table>
@@ -456,8 +457,8 @@ export const postsBatch1: BlogPost[] = [
         <tbody>
           <tr><td>Greenfield feature, ambiguous spec</td><td>GPT-5.6 Sol</td><td>Ultra reasoning mode explores more of the solution space</td></tr>
           <tr><td>Refactor spanning 40+ files</td><td>Claude Sonnet 5</td><td>Strong long-context recall across the whole repo</td></tr>
-          <tr><td>High-volume support / chat bot</td><td>GPT-5.6 Luna or Sonnet 5 (intro pricing)</td><td>Lowest cost per resolved query</td></tr>
-          <tr><td>Mission-critical architecture review</td><td>Claude Fable 5</td><td>Flagship-tier reasoning for irreversible decisions</td></tr>
+          <tr><td>High-volume support / chat bot</td><td>GPT-5.6 Luna, Claude Haiku 4.5, or Sonnet 5</td><td>Lowest cost per resolved query</td></tr>
+          <tr><td>Mission-critical architecture review</td><td>Claude Opus 5, escalating to Fable 5.1</td><td>Frontier-tier reasoning for irreversible decisions</td></tr>
           <tr><td>Fast, budget agentic coding in Cursor</td><td>Grok 4.5</td><td>Co-trained on Cursor data at $2/$6, tightly integrated</td></tr>
         </tbody>
       </table>
@@ -467,13 +468,13 @@ export const postsBatch1: BlogPost[] = [
       <ol>
         <li>Use <strong>Claude Sonnet 5</strong> to ingest the codebase and identify relevant files (Context).</li>
         <li>Pass those specific files to <strong>GPT-5.6 Sol</strong> to plan the architecture and write the critical logic (Reasoning).</li>
-        <li>Escalate anything genuinely irreversible — a database migration, an auth rewrite, a pricing change — to <strong>Claude Fable 5</strong> for a final review pass.</li>
+        <li>Escalate anything genuinely irreversible — a database migration, an auth rewrite, a pricing change — to <strong>Claude Opus 5</strong> for a final review pass, and on to <strong>Claude Fable 5.1</strong> when Opus 5 at higher effort still isn't enough.</li>
         <li>Use <strong>Claude Sonnet 5</strong> again to write documentation and update tests (Context).</li>
       </ol>
       <p>This hybrid approach leverages the strengths of both labs' current lineups and is, as of this month, the state-of-the-art pattern for autonomous coding teams. The gap between "flagship" and "mid-tier" models within each family is now wide enough that picking the wrong tier for a given task is often a bigger mistake than picking the wrong lab entirely.</p>
 
       <h3>A Note on Cursor's Third Option: Grok 4.5</h3>
-      <p>Any GPT-5.6 vs Claude Sonnet 5 comparison in July 2026 is incomplete without mentioning xAI's <strong>Grok 4.5</strong>, which shipped July 8th and was co-trained on real Cursor usage data. At $2/$6 per million tokens — cheaper than both Sol and Fable 5, and competitive with Sonnet 5's intro pricing — <a href="/tool/grok">Grok 4.5</a> has quickly become a default third option inside <a href="/tool/cursor">Cursor</a> 3.11 specifically for fast, iterative agentic edits. It's not currently available in the EU, which matters if your team is distributed, but for US and most international teams it's worth benchmarking against your existing Sol/Sonnet 5 split before assuming the two-horse race is the whole story.</p>
+      <p>Any GPT-5.6 vs Claude Sonnet 5 comparison in July 2026 is incomplete without mentioning xAI's <strong>Grok 4.5</strong>, which shipped July 8th and was co-trained on real Cursor usage data. At $2/$6 per million tokens — cheaper than Sol and cheaper than Claude's Opus 5 and Fable 5.1 tiers, and level with Sonnet 5 on input price — <a href="/tool/grok">Grok 4.5</a> has quickly become a default third option inside <a href="/tool/cursor">Cursor</a> 3.11 specifically for fast, iterative agentic edits. It's not currently available in the EU, which matters if your team is distributed, but for US and most international teams it's worth benchmarking against your existing Sol/Sonnet 5 split before assuming the two-horse race is the whole story.</p>
 
       <h3>What Hasn't Changed</h3>
       <p>Despite the rapid pace of releases, the underlying decision framework from a year ago mostly still holds: reach for large-context, careful reasoning when the task spans many files and the cost of a mistake is high; reach for fast, cheap tiers when the task is well-specified and low-stakes; and never trust a single model's output on anything irreversible without a second pass, whether that second pass is another model or a human. The specific model names keep changing every few months — the discipline of routing tasks to the right tool doesn't, and that discipline is worth more than knowing today's benchmark scores by heart.</p>
@@ -486,23 +487,23 @@ export const postsBatch1: BlogPost[] = [
       },
       {
         q: "How much do GPT-5.6 and Claude Sonnet 5 cost per million tokens?",
-        a: "GPT-5.6 ships as a family: Sol at $5/$30 per million input/output tokens, Terra at $2.50/$15, and Luna at $1/$6. Claude Sonnet 5 launched at an introductory $2/$10 through the end of August 2026, rising to $3/$15 in September — so it currently undercuts Sol meaningfully on cost while remaining excellent at large-scale analysis.",
+        a: "GPT-5.6 ships as a family: Sol at $5/$30 per million input/output tokens, Terra at $2.50/$15, and Luna at $1/$6. Claude Sonnet 5 lists at $2/$10 per million input/output tokens, with Claude Opus 5 at $5/$25 and Claude Fable 5.1 at $10/$50 above it — so Sonnet 5 undercuts Sol meaningfully on cost while remaining excellent at large-scale analysis.",
       },
       {
         q: "What is Claude Fable 5 and when should I use it?",
-        a: "Fable 5 is Anthropic's premium escalation tier, priced and positioned above Opus 4.8. Save it for work that is genuinely irreversible — a database migration, an auth rewrite, a pricing change, or a mission-critical architecture review. For everyday context-heavy work, Sonnet 5 is the better value.",
+        a: "The Fable line's current release is Claude Fable 5.1, Anthropic's escalation tier at $10/$50 per million input/output tokens, documented for demanding reasoning and long-horizon agentic work. Anthropic's own advice is to start with Claude Opus 5 ($5/$25) for most workloads — including the genuinely irreversible ones such as a database migration, an auth rewrite, a pricing change, or a mission-critical architecture review — and to move up to Fable 5.1 when your evals on Opus 5 at higher effort still fall short. For everyday context-heavy work, Sonnet 5 is the better value.",
       },
       {
         q: "Is Grok 4.5 better than Claude for coding?",
-        a: "For fast, iterative agentic edits inside Cursor, Grok 4.5 is hard to beat on value — it shipped July 8, 2026, was co-trained on real Cursor usage data, and runs $2/$6 per million tokens, cheaper than both Sol and Fable 5. For large-context reasoning across a repo or a final review pass on something irreversible, Claude still wins. One caveat: Grok 4.5 isn't currently available in the EU, which matters for distributed teams.",
+        a: "For fast, iterative agentic edits inside Cursor, Grok 4.5 is hard to beat on value — it shipped July 8, 2026, was co-trained on real Cursor usage data, and runs $2/$6 per million tokens, cheaper than Sol and cheaper than Claude's Opus 5 and Fable 5.1 tiers. For large-context reasoning across a repo or a final review pass on something irreversible, Claude still wins. One caveat: Grok 4.5 isn't currently available in the EU, which matters for distributed teams.",
       },
       {
         q: "Should I just pick one model for everything?",
-        a: "No — the most effective engineers chain them. The pattern we recommend for July 2026: use Sonnet 5 to ingest the codebase and identify relevant files, pass those files to GPT-5.6 Sol to plan the architecture and write the critical logic, escalate anything irreversible to Claude Fable 5 for a final review, then return to Sonnet 5 for docs and tests.",
+        a: "No — the most effective engineers chain them. The pattern we recommend for July 2026: use Sonnet 5 to ingest the codebase and identify relevant files, pass those files to GPT-5.6 Sol to plan the architecture and write the critical logic, escalate anything irreversible to Claude Opus 5 — or Claude Fable 5.1 if Opus 5 isn't enough — for a final review, then return to Sonnet 5 for docs and tests.",
       },
       {
         q: "Which model should I use for a high-volume chatbot?",
-        a: "GPT-5.6 Luna or Claude Sonnet 5 on its introductory pricing. Both give you the lowest cost per resolved query, and high-volume support traffic is exactly the kind of well-specified, low-stakes work where a flagship tier is wasted spend.",
+        a: "GPT-5.6 Luna, Claude Haiku 4.5, or Claude Sonnet 5. All three give you a low cost per resolved query, and high-volume support traffic is exactly the kind of well-specified, low-stakes work where a flagship tier is wasted spend.",
       },
     ]
   },
@@ -1635,23 +1636,23 @@ export const postsBatch1: BlogPost[] = [
       },
     ]
   },
-  // 15. Claude Opus 4.8 - Main Article
+  // 15. Claude Sonnet 5 and Claude Fable 5: The Agent Teams Era Continues
   {
     slug: "claude-opus-4-6-release",
     title: "Claude Sonnet 5 and Claude Fable 5: The Agent Teams Era Continues",
-    excerpt: "Anthropic's Agent Teams era didn't stop with Opus 4.8. Claude Sonnet 5 (June 30) and flagship Claude Fable 5 push parallel agent coordination even further. Updated for August 2026.",
+    excerpt: "Anthropic's Agent Teams era didn't stop with Opus 4.8. Claude Sonnet 5 (June 30) and flagship Claude Fable 5.1 push parallel agent coordination even further. Updated for September 2026.",
     date: "Jul 18, 2026",
-    updated: "Aug 16, 2026",
+    updated: "Sep 17, 2026",
     author: "David Kim",
     category: "News",
     readTime: "6 min read",
     image: "/images/blog/claude-opus-4-6.png",
     content: `
       <h2>The Biggest Claude Releases Since Agent Teams Launched</h2>
-      <p>Six months ago, Anthropic's <strong>Claude Opus 4.8</strong> release fundamentally changed how we think about AI agents, introducing a 1-million-token context window and "Agent Teams" — the ability to coordinate multiple autonomous workers on a complex, multi-step task in parallel. That release wasn't a one-off. Anthropic has kept shipping on the same trajectory: <strong>Claude Sonnet 5</strong> landed June 30th at aggressive introductory pricing ($2/$10 per million tokens through August, rising to $3/$15 in September), and <strong>Claude Fable 5</strong> now sits above Opus 4.8 as the new flagship tier, inheriting and extending the Agent Teams model.</p>
+      <p>Six months ago, Anthropic's <strong>Claude Opus 4.8</strong> release fundamentally changed how we think about AI agents, introducing a 1-million-token context window and "Agent Teams" — the ability to coordinate multiple autonomous workers on a complex, multi-step task in parallel. That release wasn't a one-off. Anthropic has kept shipping on the same trajectory: <strong>Claude Sonnet 5</strong> landed June 30th at aggressive pricing ($2/$10 per million tokens), and two frontier tiers now sit above it — <strong>Claude Opus 5</strong> ($5/$25), documented for complex agentic coding and enterprise work and the tier Anthropic tells you to start with for most workloads, and <strong>Claude Fable 5.1</strong> ($10/$50), the escalation tier for demanding reasoning and long-horizon agentic work. Fable 5.1 inherits and extends the Agent Teams model, and Opus 4.8 and earlier are now a previous generation with a documented migration path to Opus 5.</p>
 
       <h3>Agent Teams, Now Available at Two Price Points</h3>
-      <p>The headline feature that made Opus 4.8 famous — spawning specialized sub-agents that work in parallel and coordinate through shared state — is no longer locked to a single expensive tier. Claude Sonnet 5 brings a lighter-weight version of Agent Teams to a much cheaper price point, while Claude Fable 5 pushes the ceiling on how many agents can be coordinated at once and how long they can run before needing a human check-in.</p>
+      <p>The headline feature that made Opus 4.8 famous — spawning specialized sub-agents that work in parallel and coordinate through shared state — is no longer locked to a single expensive tier. Claude Sonnet 5 brings a lighter-weight version of Agent Teams to a much cheaper price point, while Claude Fable 5.1 pushes the ceiling on how many agents can be coordinated at once and how long they can run before needing a human check-in — it is the tier documented for long-horizon agentic work.</p>
       <p>Here's how it plays out in practice: you ask <a href="/tool/claude">Claude</a> to "build a full-stack e-commerce dashboard." Instead of generating files one by one, it spins up specialized workers:</p>
       <ul>
         <li><strong>Frontend Agent:</strong> Builds React components, handles state management, implements responsive design</li>
@@ -1661,25 +1662,27 @@ export const postsBatch1: BlogPost[] = [
       </ul>
       <p>These agents communicate through a shared context, resolve conflicts automatically, and the orchestrator model ensures consistency. What used to take a week now takes an afternoon — and with <a href="/blog/token-economics-2026">Sonnet 5's pricing</a>, teams can now run this workflow routinely rather than reserving it for special occasions.</p>
 
-      <h3>Sonnet 5 vs. Fable 5: Which One Do You Actually Need?</h3>
+      <h3>Sonnet 5, Opus 5 or Fable 5.1: Which One Do You Actually Need?</h3>
       <table>
         <thead>
           <tr><th>Model</th><th>Pricing</th><th>Best For</th></tr>
         </thead>
         <tbody>
-          <tr><td>Claude Sonnet 5</td><td>$2/$10 (intro, until Sept), then $3/$15</td><td>Everyday Agent Teams workflows, most refactors</td></tr>
-          <tr><td>Claude Fable 5</td><td>Premium flagship tier</td><td>Longest-running, highest-stakes agent coordination</td></tr>
-          <tr><td>Opus 4.8 (previous gen)</td><td>Legacy pricing</td><td>Still solid, being phased out as Sonnet 5 / Fable 5 mature</td></tr>
+          <tr><td>Claude Haiku 4.5</td><td>$1/$5</td><td>The fastest tier; high-volume, latency-sensitive work (200K context)</td></tr>
+          <tr><td>Claude Sonnet 5</td><td>$2/$10</td><td>Everyday Agent Teams workflows, most refactors</td></tr>
+          <tr><td>Claude Opus 5</td><td>$5/$25</td><td>Anthropic's recommended starting point: complex agentic coding and enterprise work</td></tr>
+          <tr><td>Claude Fable 5.1</td><td>$10/$50</td><td>Demanding reasoning and long-horizon agentic work; longest-running, highest-stakes agent coordination</td></tr>
+          <tr><td>Opus 4.8 (previous gen)</td><td>Legacy pricing</td><td>Superseded; Anthropic's documented migration path is to Opus 5</td></tr>
         </tbody>
       </table>
-      <p>The sane default is to run Sonnet 5 for day-to-day Agent Teams work and reserve Fable 5 for the handful of tasks per week that are genuinely irreversible — a production database migration, an authentication rewrite, a pricing model change — where the extra cost of the flagship tier is trivial compared to the cost of getting it wrong.</p>
+      <p>The sane default is to run Sonnet 5 for day-to-day Agent Teams work, move up to Opus 5 — Anthropic's own "if you're unsure, start here" pick — for the handful of tasks per week that are genuinely irreversible (a production database migration, an authentication rewrite, a pricing model change), and reserve Fable 5.1 for the cases where Opus 5 at higher effort still isn't enough. At that point the extra cost of the top tier is trivial compared to the cost of getting it wrong.</p>
 
       <h3>Context Window: Still a Differentiator</h3>
-      <p>The million-token context window that debuted with Opus 4.8 remains a defining strength of the Claude lineup, and it carries forward into both newer models. Dumping an entire monorepo — hundreds of thousands of lines of code, READMEs, API docs, and architecture decisions — into a single prompt still lets Claude reason about cross-module impacts in a way that shorter-context competitors struggle to match. A legacy Django app's authentication modernization, spanning dozens of affected files and a dozen microservices, remains the kind of task where this context advantage does real, measurable work.</p>
+      <p>The million-token context window that debuted with Opus 4.8 remains a defining strength of the Claude lineup, and it carries forward into Sonnet 5, Opus 5 and Fable 5.1 alike. Dumping an entire monorepo — hundreds of thousands of lines of code, READMEs, API docs, and architecture decisions — into a single prompt still lets Claude reason about cross-module impacts in a way that shorter-context competitors struggle to match. A legacy Django app's authentication modernization, spanning dozens of affected files and a dozen microservices, remains the kind of task where this context advantage does real, measurable work.</p>
 
       <h3>What This Means for Developers</h3>
-      <p>If you're still writing boilerplate code, you're doing it wrong. Between GPT-5.6 Sol on one side and Claude Sonnet 5 / Fable 5 on the other, both major labs now ship genuine multi-agent orchestration at accessible price points. The developers who thrive in mid-2026 are those who master the art of delegation: writing precise specifications, setting clear constraints, and reviewing the output of <a href="/blog/autonomous-agents-devin">their AI teams</a> rather than every individual line.</p>
-      <p>The barrier to building complex software keeps dropping. A solo founder with Claude Sonnet 5 or Fable 5 can out-ship teams many times their size. This isn't hype — it's the compounding effect of a trend that started with Opus 4.8 and hasn't slowed down since.</p>
+      <p>If you're still writing boilerplate code, you're doing it wrong. Between GPT-5.6 Sol on one side and Claude Sonnet 5 and Fable 5.1 on the other, both major labs now ship genuine multi-agent orchestration at accessible price points. The developers who thrive in mid-2026 are those who master the art of delegation: writing precise specifications, setting clear constraints, and reviewing the output of <a href="/blog/autonomous-agents-devin">their AI teams</a> rather than every individual line.</p>
+      <p>The barrier to building complex software keeps dropping. A solo founder with Claude Sonnet 5 or Fable 5.1 can out-ship teams many times their size. This isn't hype — it's the compounding effect of a trend that started with Opus 4.8 and hasn't slowed down since.</p>
 
       <h3>How This Compares to OpenAI's July Release</h3>
       <p>Anthropic isn't shipping in a vacuum. <a href="/blog/gpt5-vs-claude5">OpenAI's GPT-5.6</a> launched just over a week after Sonnet 5, with its own three-tier lineup (Sol, Terra, Luna) and a claimed 54% improvement in agentic-coding token efficiency for the flagship Sol tier. The two labs are now trading blows on almost identical timelines, which is genuinely good news for developers: the competitive pressure is compressing both price and the gap between "flagship" and "fast" tiers within each lineup, faster than either lab would move on its own. If you haven't <a href="/blog/gpt-5-3-codex-vs-claude-4-6">re-benchmarked your production model choice</a> against both lineups in the last month, this release cycle is a good forcing function to do it.</p>
@@ -1687,15 +1690,15 @@ export const postsBatch1: BlogPost[] = [
     faq: [
       {
         q: "What is the difference between Claude Sonnet 5 and Claude Fable 5?",
-        a: "Sonnet 5 is the everyday tier and Fable 5 is the premium flagship, positioned above Opus 4.8. Sonnet 5 launched June 30, 2026 at introductory pricing of $2/$10 per million input/output tokens through August, rising to $3/$15 in September, and brings a lighter-weight version of Agent Teams to a much cheaper price point. Fable 5 raises the ceiling on how many agents can be coordinated at once and how long they can run before needing a human check-in.",
+        a: "Sonnet 5 is the everyday tier at $2/$10 per million input/output tokens — it launched June 30, 2026 and brings a lighter-weight version of Agent Teams to a much cheaper price point. The Fable line's current release, Claude Fable 5.1, is the top tier at $10/$50, documented for demanding reasoning and long-horizon agentic work, and it raises the ceiling on how many agents can be coordinated at once and how long they can run before needing a human check-in. Between them sits Claude Opus 5 at $5/$25, which Anthropic recommends as the starting point for most workloads.",
       },
       {
         q: "What are Claude Agent Teams?",
-        a: "Agent Teams is the capability introduced with Claude Opus 4.8 that lets the model spawn specialized sub-agents which work in parallel and coordinate through shared state, with an orchestrator keeping them consistent. A single request such as building a dashboard can fan out into frontend, backend, DevOps, and QA workers rather than generating files one at a time. Both Sonnet 5 and Fable 5 inherit and extend the model.",
+        a: "Agent Teams is the capability introduced with Claude Opus 4.8 that lets the model spawn specialized sub-agents which work in parallel and coordinate through shared state, with an orchestrator keeping them consistent. A single request such as building a dashboard can fan out into frontend, backend, DevOps, and QA workers rather than generating files one at a time. Both Sonnet 5 and Fable 5.1 inherit and extend the model.",
       },
       {
         q: "Which Claude model should I actually use day to day?",
-        a: "A sane default is to run Sonnet 5 for everyday Agent Teams work and refactors, and reserve Fable 5 for the handful of genuinely irreversible tasks each week — a production database migration, an authentication rewrite, a pricing change — where the extra cost of the flagship is trivial next to the cost of getting it wrong. Opus 4.8 remains solid but is being phased out as the newer pair matures.",
+        a: "Anthropic's own guidance is to start with Claude Opus 5 if you are unsure, and that maps well to practice: run Sonnet 5 for everyday Agent Teams work and refactors, move up to Opus 5 for the handful of genuinely irreversible tasks each week — a production database migration, an authentication rewrite, a pricing change — and escalate to Claude Fable 5.1 when your evals on Opus 5 at higher effort still fall short. Opus 4.8 and earlier are a previous generation now, with a documented migration path to Opus 5.",
       },
       {
         q: "Is Claude Sonnet 5 better than GPT-5.6?",

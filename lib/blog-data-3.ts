@@ -102,9 +102,9 @@ export const postsBatch3: BlogPost[] = [
     slug: "chatgpt-vs-claude",
     title: "ChatGPT vs Claude: Which AI Wins in 2026?",
     excerpt:
-      "ChatGPT (GPT-5.6) and Claude (Sonnet 5, Fable 5) are the top AI assistants of 2026, but they win at different things. A breakdown by task and price.",
+      "ChatGPT (GPT-5.6) and Claude (Sonnet 5, Opus 5) are the top AI assistants of 2026, but they win at different things. A breakdown by task and price.",
     date: "Jul 18, 2026",
-    updated: "Jul 28, 2026",
+    updated: "Sep 17, 2026",
     author: "David Kim",
     category: "Comparison",
     readTime: "8 min read",
@@ -114,16 +114,16 @@ export const postsBatch3: BlogPost[] = [
       <p><a href="/tool/chatgpt">ChatGPT</a> and <a href="/tool/claude">Claude</a> are the assistants most people reach for first. Both are excellent generalists, and in 2026 both are backed by brand-new frontier models. The right pick depends on what you do most — so let's start with what actually shipped this year, then match it to your work.</p>
 
       <h2>The 2026 lineup</h2>
-      <p>Both labs moved fast, so a refresher helps. ChatGPT now runs on OpenAI's <strong>GPT-5.6</strong> family, released in July 2026 in three variants: <strong>Sol</strong> (the flagship, with an "ultra" mode that delegates subtasks to smaller models), <strong>Terra</strong> (the balanced default), and <strong>Luna</strong> (tuned for speed). OpenAI calls Sol its best coding model yet. Claude, meanwhile, is led by <strong>Claude Fable 5</strong> — Anthropic's new top-tier flagship — with <strong>Claude Sonnet 5</strong> (released June 2026) as the fast, capable default for Free and Pro users. Anthropic's previous generation, Opus 4.8 and Haiku 4.5, is still available for those who want it.</p>
+      <p>Both labs moved fast, so a refresher helps. ChatGPT now runs on OpenAI's <strong>GPT-5.6</strong> family, released in July 2026 in three variants: <strong>Sol</strong> (the flagship, with an "ultra" mode that delegates subtasks to smaller models), <strong>Terra</strong> (the balanced default), and <strong>Luna</strong> (tuned for speed). OpenAI calls Sol its best coding model yet. Claude, meanwhile, is led by <strong>Claude Opus 5</strong> — the tier Anthropic tells you to start with for most workloads — with <strong>Claude Fable 5.1</strong> above it as the escalation tier for demanding reasoning and long-horizon agentic work, <strong>Claude Sonnet 5</strong> (released June 2026) as the fast, capable default for Free and Pro users, and <strong>Claude Haiku 4.5</strong> as the fastest tier. Anthropic's previous generation, Opus 4.8 and earlier, is still available for those who want it.</p>
 
       <h2>Writing &amp; long documents</h2>
-      <p>Claude has a long-standing reputation for natural, controlled prose and remains a favorite for long-form writing, editing, and working with big documents thanks to its large context window. Sonnet 5 keeps that everyday polish, and Fable 5 pushes it further on nuance and instruction-following. If you paste in a full report or a long thread and ask for a careful, faithful rewrite, Claude tends to hold the thread better.</p>
+      <p>Claude has a long-standing reputation for natural, controlled prose and remains a favorite for long-form writing, editing, and working with big documents thanks to its large context window. Sonnet 5 keeps that everyday polish, and Fable 5.1 pushes it further on nuance and instruction-following. If you paste in a full report or a long thread and ask for a careful, faithful rewrite, Claude tends to hold the thread better.</p>
 
       <h2>Ecosystem &amp; everyday tasks</h2>
       <p>ChatGPT has the broadest ecosystem — custom GPTs, a huge app and plugin surface, image generation, voice, and deep integrations. Alongside GPT-5.6, OpenAI also launched <strong>ChatGPT Work</strong>, an enterprise-focused workspace built for business use. For "do a bit of everything in one place," ChatGPT is still hard to beat.</p>
 
       <h2>Coding</h2>
-      <p>Both are strong coding partners. GPT-5.6 Sol is OpenAI's most capable coding model to date, with roughly a 54% improvement in token efficiency on agentic tasks — meaningful if you run long autonomous coding sessions where token cost adds up. Claude Fable 5 is equally at home reviewing large diffs, explaining unfamiliar code, and reasoning across a big codebase without losing the thread. Many developers keep both open: one for quick generation, one for careful review and explanation. If you only want one, run the same real task in each and keep the winner — our <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5</a> comparison covers how the two families differ by design, and gives you a repeatable method for testing them on your own codebase.</p>
+      <p>Both are strong coding partners. GPT-5.6 Sol is OpenAI's most capable coding model to date, with roughly a 54% improvement in token efficiency on agentic tasks — meaningful if you run long autonomous coding sessions where token cost adds up. Claude Opus 5 is equally at home reviewing large diffs, explaining unfamiliar code, and reasoning across a big codebase without losing the thread. Many developers keep both open: one for quick generation, one for careful review and explanation. If you only want one, run the same real task in each and keep the winner — our <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5</a> comparison covers how the two families differ by design, and gives you a repeatable method for testing them on your own codebase.</p>
 
       <h2>Context windows &amp; memory</h2>
       <p>Both handle large inputs comfortably now, but they lean different ways. Claude's long-context handling remains a headline strength — paste in a sprawling module, a long contract, or a book chapter and it tends to keep details straight across the whole thing. ChatGPT counters with persistent memory across conversations plus its broader tool surface, so it can pull in files, browse the web, and run code as part of a single session. If your work is "reason carefully over one big document," lean Claude; if it's "juggle many tools and remember me over time," lean ChatGPT.</p>
@@ -141,16 +141,16 @@ export const postsBatch3: BlogPost[] = [
           <tr><th></th><th>ChatGPT / GPT-5.6</th><th>Claude</th></tr>
         </thead>
         <tbody>
-          <tr><td>Flagship model</td><td>GPT-5.6 Sol</td><td>Claude Fable 5</td></tr>
+          <tr><td>Flagship model</td><td>GPT-5.6 Sol</td><td>Claude Opus 5 (Fable 5.1 above it)</td></tr>
           <tr><td>Default fast model</td><td>GPT-5.6 Terra / Luna</td><td>Claude Sonnet 5</td></tr>
           <tr><td>Consumer plan</td><td>~$20/mo (Plus)</td><td>~$20/mo (Pro)</td></tr>
-          <tr><td>API flagship (per 1M in/out)</td><td>$5 / $30 (Sol)</td><td>Sonnet 5: $2 / $10 intro</td></tr>
-          <tr><td>Cheapest API tier</td><td>$1 / $6 (Luna)</td><td>Sonnet 5 rises to $3 / $15 after Aug 31, 2026</td></tr>
+          <tr><td>API flagship (per 1M in/out)</td><td>$5 / $30 (Sol)</td><td>Opus 5: $5 / $25</td></tr>
+          <tr><td>Cheapest API tier</td><td>$1 / $6 (Luna)</td><td>Haiku 4.5: $1 / $5</td></tr>
           <tr><td>Enterprise</td><td>ChatGPT Work</td><td>Claude for Work / Team</td></tr>
           <tr><td>Best for</td><td>All-rounder, integrations, coding</td><td>Writing, editing, long-context reasoning</td></tr>
         </tbody>
       </table>
-      <p>Note that Claude Sonnet 5's introductory API rate of $2/$10 per million tokens rises to $3/$15 after August 31, 2026 — worth factoring in if you're planning a build around it.</p>
+      <p>Note that Claude Sonnet 5's API rate is $2/$10 per million tokens — worth factoring in if you're planning a build around it.</p>
 
       <h2>Research</h2>
       <p>For cited, up-to-date research specifically, a dedicated tool like <a href="/tool/perplexity">Perplexity</a> often beats both — see our <a href="/blog/chatgpt-vs-perplexity">ChatGPT vs Perplexity</a> comparison for when to use which.</p>
@@ -160,7 +160,7 @@ export const postsBatch3: BlogPost[] = [
 
       <h2>Bottom line</h2>
       <ul>
-        <li><strong>Claude</strong> (Sonnet 5 for everyday, Fable 5 for the hardest work) for writing, editing, and long-context reasoning.</li>
+        <li><strong>Claude</strong> (Sonnet 5 for everyday, Opus 5 for the hardest work, Fable 5.1 when that still isn't enough) for writing, editing, and long-context reasoning.</li>
         <li><strong>ChatGPT</strong> (GPT-5.6) for the widest ecosystem, integrations, and all-rounder convenience.</li>
       </ul>
       <p>Both have generous free tiers — the honest answer is to try each on your real work for a week. Explore more options in our <a href="/best/assistance">best AI assistants</a> guide, or see where an assistant fits alongside an editor and app builder in the <a href="/blog/best-ai-tools-for-vibe-coding">best AI tools for vibe coding</a>.</p>
@@ -168,19 +168,19 @@ export const postsBatch3: BlogPost[] = [
     faq: [
       {
         q: "Is ChatGPT or Claude better for coding?",
-        a: "Both are strong, and many developers keep both open — one for quick generation, one for careful review. GPT-5.6 Sol is OpenAI's most capable coding model to date, with roughly a 54% improvement in token efficiency on agentic tasks, which matters if you run long autonomous coding sessions. Claude Fable 5 is equally at home reviewing large diffs, explaining unfamiliar code, and reasoning across a big codebase without losing the thread.",
+        a: "Both are strong, and many developers keep both open — one for quick generation, one for careful review. GPT-5.6 Sol is OpenAI's most capable coding model to date, with roughly a 54% improvement in token efficiency on agentic tasks, which matters if you run long autonomous coding sessions. Claude Opus 5 is equally at home reviewing large diffs, explaining unfamiliar code, and reasoning across a big codebase without losing the thread.",
       },
       {
         q: "Which is better for writing and long documents?",
-        a: "Claude. It has a long-standing reputation for natural, controlled prose and handles long documents well thanks to its large context window. Sonnet 5 keeps that everyday polish and Fable 5 pushes further on nuance and instruction-following, so if you paste in a full report and ask for a faithful rewrite, Claude tends to hold the thread better.",
+        a: "Claude. It has a long-standing reputation for natural, controlled prose and handles long documents well thanks to its large context window. Sonnet 5 keeps that everyday polish and Fable 5.1 pushes further on nuance and instruction-following, so if you paste in a full report and ask for a faithful rewrite, Claude tends to hold the thread better.",
       },
       {
         q: "Which models power ChatGPT and Claude in 2026?",
-        a: "ChatGPT runs on OpenAI's GPT-5.6 family, released in July 2026: Sol (the flagship, with an \"ultra\" mode that delegates subtasks to smaller models), Terra (the balanced default), and Luna (tuned for speed). Claude is led by Claude Fable 5, Anthropic's top-tier flagship, with Claude Sonnet 5 — released June 2026 — as the fast default for Free and Pro users. The previous generation, Opus 4.8 and Haiku 4.5, is still available.",
+        a: "ChatGPT runs on OpenAI's GPT-5.6 family, released in July 2026: Sol (the flagship, with an \"ultra\" mode that delegates subtasks to smaller models), Terra (the balanced default), and Luna (tuned for speed). Claude is led by Claude Opus 5, which Anthropic recommends as the starting point for most workloads, with Claude Fable 5.1 above it for demanding reasoning and long-horizon agentic work, Claude Sonnet 5 — released June 2026 — as the fast default for Free and Pro users, and Claude Haiku 4.5 as the fastest tier. The previous generation, Opus 4.8 and earlier, is still available.",
       },
       {
         q: "How much do ChatGPT and Claude cost?",
-        a: "For consumers both charge around $20/month for their Pro/Plus tiers. The bigger differences are in API pricing: GPT-5.6 Sol runs $5/$30 per million input/output tokens and Luna $1/$6, while Claude Sonnet 5 launched at an introductory $2/$10 that rises to $3/$15 after August 31, 2026 — worth factoring in if you're planning a build around it.",
+        a: "For consumers both charge around $20/month for their Pro/Plus tiers. The bigger differences are in API pricing: GPT-5.6 Sol runs $5/$30 per million input/output tokens and Luna $1/$6, while Claude Sonnet 5 runs $2/$10 — worth factoring in if you're planning a build around it.",
       },
       {
         q: "Are the free tiers good enough?",
