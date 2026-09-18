@@ -454,7 +454,7 @@ export const postsBatch4: BlogPost[] = [
     excerpt:
       "The best AI tools for vibe coding in 2026: the editors, assistants, app builders, and deploy tools that matter — plus how to build a stack free or for $20.",
     date: "Jul 18, 2026",
-    updated: "Sep 17, 2026",
+    updated: "Sep 18, 2026",
     author: "David Kim",
     category: "Guide",
     readTime: "16 min read",
@@ -514,7 +514,7 @@ export const postsBatch4: BlogPost[] = [
       <h2>Layer 2: the assistant — your thinking partner</h2>
       <p>The editor writes the code; the assistant is where you figure out <em>what</em> to build, unstick a bug, and get a second opinion on a design. Most people who vibe code seriously keep one open in a browser tab all day.</p>
       <ul>
-        <li><strong><a href="/tool/claude">Claude</a></strong> — led by <strong>Claude Opus 5</strong>, Anthropic's recommended starting point for most workloads, with <strong>Claude Fable 5.1</strong> as the escalation tier above it and <strong>Claude Sonnet 5</strong> (June 2026) as the fast default for Free and Pro users. It's the one to reach for when the input is large: a sprawling module, a long spec, a full diff. Claude Code with its parallel "Agent Teams" is highly regarded for sustained development work. Around $20/mo for Pro; the free tier runs on Sonnet 5 and is genuinely strong.</li>
+        <li><strong><a href="/tool/claude">Claude</a></strong> — led by <strong>Claude Opus 5</strong>, Anthropic's recommended starting point for most workloads, with <strong>Claude Fable 5.1</strong> as the escalation tier above it and <strong>Claude Sonnet 5</strong> (June 2026) as the fast default for Free and Pro users. It's the one to reach for when the input is large: a sprawling module, a long spec, a full diff. Claude Code is the companion tool for sustained development work; its parallel "agent teams" mode — experimental and disabled by default until you set an environment variable — coordinates several Claude Code sessions on a single task. Around $20/mo for Pro; the free tier runs on Sonnet 5 and is genuinely strong.</li>
         <li><strong><a href="/tool/chatgpt">ChatGPT</a></strong> — the <strong>GPT-5.6</strong> family, released July 2026 in three variants: Sol (flagship, with an "ultra" mode that delegates subtasks to smaller models), Terra (balanced default), and Luna (tuned for speed). OpenAI calls Sol its best coding model yet, with roughly a 54% improvement in token efficiency on agentic tasks. Broadest ecosystem by far — custom GPTs, image generation, voice, integrations — plus ChatGPT Work for business use. Around $20/mo for Plus.</li>
         <li><strong><a href="/tool/perplexity">Perplexity</a></strong> — the research layer. When you need a current, cited answer (which library, which API, is this still true), it beats asking a general assistant and hoping. See <a href="/blog/chatgpt-vs-perplexity">ChatGPT vs Perplexity</a>.</li>
       </ul>

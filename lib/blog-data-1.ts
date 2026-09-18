@@ -1636,31 +1636,33 @@ export const postsBatch1: BlogPost[] = [
       },
     ]
   },
-  // 15. Claude Sonnet 5 and Claude Fable 5.1: The Agent Teams Era Continues
+  // 15. Claude Sonnet 5 and Claude Fable 5.1: Anthropic's Four-Tier Lineup
   {
     slug: "claude-opus-4-6-release",
-    title: "Claude Sonnet 5 and Claude Fable 5.1: The Agent Teams Era Continues",
-    excerpt: "Anthropic's Agent Teams era didn't stop with Opus 4.8. Claude Sonnet 5 (June 30) and flagship Claude Fable 5.1 push parallel agent coordination even further. Updated for September 2026.",
+    title: "Claude Sonnet 5 and Claude Fable 5.1: Anthropic's Four-Tier Lineup",
+    excerpt: "Anthropic's roster now runs four deep: Haiku 4.5, Sonnet 5 (June 30), Opus 5, and the Claude Fable 5.1 flagship. What each tier costs, what it's documented for, and where parallel agents actually live. Updated for September 2026.",
     date: "Jul 18, 2026",
-    updated: "Sep 17, 2026",
+    updated: "Sep 18, 2026",
     author: "David Kim",
     category: "News",
     readTime: "6 min read",
     image: "/images/blog/claude-opus-4-6.png",
     content: `
-      <h2>The Biggest Claude Releases Since Agent Teams Launched</h2>
-      <p>Six months ago, Anthropic's <strong>Claude Opus 4.8</strong> release fundamentally changed how we think about AI agents, introducing a 1-million-token context window and "Agent Teams" — the ability to coordinate multiple autonomous workers on a complex, multi-step task in parallel. That release wasn't a one-off. Anthropic has kept shipping on the same trajectory: <strong>Claude Sonnet 5</strong> landed June 30th at aggressive pricing ($2/$10 per million tokens), and two frontier tiers now sit above it — <strong>Claude Opus 5</strong> ($5/$25), documented for complex agentic coding and enterprise work and the tier Anthropic tells you to start with for most workloads, and <strong>Claude Fable 5.1</strong> ($10/$50), the escalation tier for demanding reasoning and long-horizon agentic work. Fable 5.1 inherits and extends the Agent Teams model, and Opus 4.8 and earlier are now a previous generation with a documented migration path to Opus 5.</p>
+      <h2>The Biggest Claude Releases of 2026 So Far</h2>
+      <p>Six months ago, Anthropic's <strong>Claude Opus 4.8</strong> release introduced a 1-million-token context window, and the same announcement brought <strong>Dynamic Workflows</strong> — a Claude Code feature, shipped as a research preview, in which Claude plans the work and then runs hundreds of parallel subagents in a single session, with Opus 4.8 letting those agents run for even longer. That release wasn't a one-off. Anthropic has kept shipping on the same trajectory: <strong>Claude Sonnet 5</strong> landed June 30th at aggressive pricing ($2/$10 per million tokens), and two frontier tiers now sit above it — <strong>Claude Opus 5</strong> ($5/$25), documented for complex agentic coding and enterprise work and the tier Anthropic tells you to start with for most workloads, and <strong>Claude Fable 5.1</strong> ($10/$50), the escalation tier for demanding reasoning and long-horizon agentic work. Opus 4.8 and earlier are now a previous generation with a documented migration path to Opus 5.</p>
 
-      <h3>Agent Teams, Now Available at Two Price Points</h3>
-      <p>The headline feature that made Opus 4.8 famous — spawning specialized sub-agents that work in parallel and coordinate through shared state — is no longer locked to a single expensive tier. Claude Sonnet 5 brings a lighter-weight version of Agent Teams to a much cheaper price point, while Claude Fable 5.1 pushes the ceiling on how many agents can be coordinated at once and how long they can run before needing a human check-in — it is the tier documented for long-horizon agentic work.</p>
-      <p>Here's how it plays out in practice: you ask <a href="/tool/claude">Claude</a> to "build a full-stack e-commerce dashboard." Instead of generating files one by one, it spins up specialized workers:</p>
+      <h3>Parallel Agents Live in Claude Code, Not in a Model Tier</h3>
+      <p>One thing the coverage of these releases keeps blurring is worth stating plainly: running several <a href="/tool/claude">Claude</a> agents in parallel is a feature of <strong>Claude Code</strong>, the coding tool, not a capability that a model tier owns or inherits. Two distinct features sit there. <strong>Dynamic Workflows</strong>, introduced alongside Opus 4.8 as a research preview, has Claude plan the work and then run hundreds of parallel subagents inside a single session. <strong>Agent teams</strong> is a separate feature, and Anthropic's own documentation calls it experimental and disabled by default — you turn it on by setting the <code>CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS</code> environment variable.</p>
+      <p>With agent teams switched on, one session acts as the team lead, coordinating work, assigning tasks, and synthesizing results, while teammates work independently — each one its own Claude Code session with its own context window, rather than an heir to the lead's conversation history. They coordinate through a shared task list (a file, guarded by file locks so two teammates don't grab the same work) and by messaging each other directly through per-agent mailboxes. That is what separates them from subagents: a subagent runs inside a single session and returns its result to the caller, with the main agent managing everything, whereas teammates claim work off the shared list themselves and talk to each other. Because every teammate is a separate instance, agent teams also cost more tokens.</p>
+      <p>Which model each teammate runs on is a choice you make, not something a tier grants you. The documented resolution order is: the model named in the spawn prompt, then the <code>model</code> field in a subagent definition, then <code>CLAUDE_CODE_SUBAGENT_MODEL</code>, then whatever the lead is currently running. Anthropic's own example prompt is explicit about it — spawn four teammates to refactor these modules in parallel, and use Sonnet for each teammate.</p>
+      <p>Here's how that plays out in practice. You're building a full-stack dashboard, the work genuinely splits along layers, so you spawn a team and let the lead hand out tasks:</p>
       <ul>
-        <li><strong>Frontend Agent:</strong> Builds React components, handles state management, implements responsive design</li>
-        <li><strong>Backend Agent:</strong> Designs API schemas, writes database migrations, implements authentication</li>
-        <li><strong>DevOps Agent:</strong> Creates Docker configs, sets up CI/CD pipelines, writes deployment scripts</li>
-        <li><strong>QA Agent:</strong> Generates test suites, writes integration tests, performs security audits</li>
+        <li><strong>Frontend teammate:</strong> Builds React components, handles state management, implements responsive design</li>
+        <li><strong>Backend teammate:</strong> Designs API schemas, writes database migrations, implements authentication</li>
+        <li><strong>DevOps teammate:</strong> Creates Docker configs, sets up CI/CD pipelines, writes deployment scripts</li>
+        <li><strong>QA teammate:</strong> Generates test suites, writes integration tests, performs security audits</li>
       </ul>
-      <p>These agents communicate through a shared context, resolve conflicts automatically, and the orchestrator model ensures consistency. What used to take a week now takes an afternoon — and with <a href="/blog/token-economics-2026">Sonnet 5's pricing</a>, teams can now run this workflow routinely rather than reserving it for special occasions.</p>
+      <p>Each of those runs in its own session, claims its tasks off the shared list, and messages the others directly; the lead synthesizes the result. Anthropic frames the choice as one of fit rather than of speed — parallel research or review, independent new modules, competing hypotheses for a bug, and cleanly separated layers are the documented good fits, while sequential work, several agents editing the same files, and heavily dependent tasks belong in a single session or with subagents. The known limits are documented too: you can't resume a session that has a team, task state lags, shutdown is delayed, you get one team per session, and teams can't nest. And you pay for the parallelism in tokens, which is where <a href="/blog/token-economics-2026">Sonnet 5's pricing</a> and the per-teammate model choice start to matter.</p>
 
       <h3>Sonnet 5, Opus 5 or Fable 5.1: Which One Do You Actually Need?</h3>
       <table>
@@ -1669,19 +1671,19 @@ export const postsBatch1: BlogPost[] = [
         </thead>
         <tbody>
           <tr><td>Claude Haiku 4.5</td><td>$1/$5</td><td>The fastest tier; high-volume, latency-sensitive work (200K context)</td></tr>
-          <tr><td>Claude Sonnet 5</td><td>$2/$10</td><td>Everyday Agent Teams workflows, most refactors</td></tr>
+          <tr><td>Claude Sonnet 5</td><td>$2/$10</td><td>Everyday agent workflows, most refactors</td></tr>
           <tr><td>Claude Opus 5</td><td>$5/$25</td><td>Anthropic's recommended starting point: complex agentic coding and enterprise work</td></tr>
           <tr><td>Claude Fable 5.1</td><td>$10/$50</td><td>Demanding reasoning and long-horizon agentic work; longest-running, highest-stakes agent coordination</td></tr>
           <tr><td>Opus 4.8 (previous gen)</td><td>Legacy pricing</td><td>Superseded; Anthropic's documented migration path is to Opus 5</td></tr>
         </tbody>
       </table>
-      <p>The sane default is to run Sonnet 5 for day-to-day Agent Teams work, move up to Opus 5 — Anthropic's own "if you're unsure, start here" pick — for the handful of tasks per week that are genuinely irreversible (a production database migration, an authentication rewrite, a pricing model change), and reserve Fable 5.1 for the cases where Opus 5 at higher effort still isn't enough. At that point the extra cost of the top tier is trivial compared to the cost of getting it wrong.</p>
+      <p>The sane default is to run Sonnet 5 for day-to-day agent work, move up to Opus 5 — Anthropic's own "if you're unsure, start here" pick — for the handful of tasks per week that are genuinely irreversible (a production database migration, an authentication rewrite, a pricing model change), and reserve Fable 5.1 for the cases where Opus 5 at higher effort still isn't enough. At that point the extra cost of the top tier is trivial compared to the cost of getting it wrong.</p>
 
       <h3>Context Window: Still a Differentiator</h3>
       <p>The million-token context window that debuted with Opus 4.8 remains a defining strength of the Claude lineup, and it carries forward into Sonnet 5, Opus 5 and Fable 5.1 alike. Dumping an entire monorepo — hundreds of thousands of lines of code, READMEs, API docs, and architecture decisions — into a single prompt still lets Claude reason about cross-module impacts in a way that shorter-context competitors struggle to match. A legacy Django app's authentication modernization, spanning dozens of affected files and a dozen microservices, remains the kind of task where this context advantage does real, measurable work.</p>
 
       <h3>What This Means for Developers</h3>
-      <p>If you're still writing boilerplate code, you're doing it wrong. Between GPT-5.6 Sol on one side and Claude Sonnet 5 and Fable 5.1 on the other, both major labs now ship genuine multi-agent orchestration at accessible price points. The developers who thrive in mid-2026 are those who master the art of delegation: writing precise specifications, setting clear constraints, and reviewing the output of <a href="/blog/autonomous-agents-devin">their AI teams</a> rather than every individual line.</p>
+      <p>If you're still writing boilerplate code, you're doing it wrong. Between GPT-5.6 Sol on one side and Claude Sonnet 5 and Fable 5.1 on the other, capable agentic models are now cheap enough to run routinely, and the orchestration around them — Sol's "ultra" delegation, Claude Code's parallel agents — is a layer you configure rather than a tier you buy. The developers who thrive in mid-2026 are those who master the art of delegation: writing precise specifications, setting clear constraints, and reviewing the output of <a href="/blog/autonomous-agents-devin">their AI teams</a> rather than every individual line.</p>
       <p>The barrier to building complex software keeps dropping. A solo founder with Claude Sonnet 5 or Fable 5.1 can out-ship teams many times their size. This isn't hype — it's the compounding effect of a trend that started with Opus 4.8 and hasn't slowed down since.</p>
 
       <h3>How This Compares to OpenAI's July Release</h3>
@@ -1690,15 +1692,15 @@ export const postsBatch1: BlogPost[] = [
     faq: [
       {
         q: "What is the difference between Claude Sonnet 5 and Claude Fable 5.1?",
-        a: "Sonnet 5 is the everyday tier at $2/$10 per million input/output tokens — it launched June 30, 2026 and brings a lighter-weight version of Agent Teams to a much cheaper price point. The Fable line's current release, Claude Fable 5.1, is the top tier at $10/$50, documented for demanding reasoning and long-horizon agentic work, and it raises the ceiling on how many agents can be coordinated at once and how long they can run before needing a human check-in. Between them sits Claude Opus 5 at $5/$25, which Anthropic recommends as the starting point for most workloads.",
+        a: "Sonnet 5 is the everyday tier at $2/$10 per million input/output tokens; it launched June 30, 2026 and is positioned as the best combination of speed and intelligence. The Fable line's current release, Claude Fable 5.1, is the top tier at $10/$50, documented for demanding reasoning and long-horizon agentic work. Between them sits Claude Opus 5 at $5/$25, which Anthropic recommends as the starting point for most workloads. All three carry a 1-million-token context window, so the decision is about reasoning depth and cost rather than about which parallel-agent features you get — those live in Claude Code, and you choose which model each agent runs on.",
       },
       {
         q: "What are Claude Agent Teams?",
-        a: "Agent Teams is the capability introduced with Claude Opus 4.8 that lets the model spawn specialized sub-agents which work in parallel and coordinate through shared state, with an orchestrator keeping them consistent. A single request such as building a dashboard can fan out into frontend, backend, DevOps, and QA workers rather than generating files one at a time. Both Sonnet 5 and Fable 5.1 inherit and extend the model.",
+        a: "Agent teams is a feature of Claude Code, Anthropic's coding tool — not a capability of any Claude model. It lets you coordinate multiple Claude Code instances working together: one session acts as the team lead, coordinating work, assigning tasks, and synthesizing results, while teammates work independently, each in its own context window, communicating directly with each other. Coordination runs through a shared task list, which is a file guarded by file locks, plus per-agent mailboxes for direct messages. That is what distinguishes it from subagents, which run inside a single session and return their results to the caller. Anthropic documents agent teams as experimental and disabled by default — you enable them by setting CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 — and lists known limits: you cannot resume a session that has a team, task state lags, shutdown is delayed, there is one team per session, and teams cannot nest. Which model each teammate runs on is your choice, set in the spawn prompt, in a subagent definition, through CLAUDE_CODE_SUBAGENT_MODEL, or inherited from the lead's current model. Dynamic Workflows, the research-preview feature introduced with the Opus 4.8 announcement, is a different thing: there, Claude plans the work and runs hundreds of parallel subagents in a single session.",
       },
       {
         q: "Which Claude model should I actually use day to day?",
-        a: "Anthropic's own guidance is to start with Claude Opus 5 if you are unsure, and that maps well to practice: run Sonnet 5 for everyday Agent Teams work and refactors, move up to Opus 5 for the handful of genuinely irreversible tasks each week — a production database migration, an authentication rewrite, a pricing change — and escalate to Claude Fable 5.1 when your evals on Opus 5 at higher effort still fall short. Opus 4.8 and earlier are a previous generation now, with a documented migration path to Opus 5.",
+        a: "Anthropic's own guidance is to start with Claude Opus 5 if you are unsure, and that maps well to practice: run Sonnet 5 for everyday agent work and refactors, move up to Opus 5 for the handful of genuinely irreversible tasks each week — a production database migration, an authentication rewrite, a pricing change — and escalate to Claude Fable 5.1 when your evals on Opus 5 at higher effort still fall short. Opus 4.8 and earlier are a previous generation now, with a documented migration path to Opus 5.",
       },
       {
         q: "Is Claude Sonnet 5 better than GPT-5.6?",
