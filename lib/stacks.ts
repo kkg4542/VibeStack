@@ -118,22 +118,22 @@ export const stacks: Stack[] = [
     {
         id: "power-pair",
         name: "The Power Pair Stack",
-        description: "GitHub Copilot and Gemini Code Assist run side by side in your IDE — Copilot's fast autocomplete paired with Gemini's long-context reasoning, both usable on their free tiers.",
-        longDescription: "GitHub Copilot and Gemini Code Assist make an unusual power pair: both offer genuinely useful free tiers, so running them side by side costs nothing extra beyond the setup time. Copilot's strength is line-by-line autocomplete — it excels at predicting the next few tokens inside a function you're already writing, and its inline suggestions feel instant in VS Code, Visual Studio, and JetBrains IDEs. Gemini Code Assist covers the gap Copilot leaves: a much larger context window that can reason across an entire file or several open files at once, which makes it the better choice when you need to explain a confusing bug, plan a refactor that touches multiple functions, or ask \"why does this fail\" instead of \"what comes next.\" In practice, developers running this power pair let Copilot handle the moment-to-moment typing and switch to Gemini Code Assist's chat panel whenever a task needs broader reasoning, rather than picking one assistant to do everything. Because Copilot's free tier meters monthly completions and chat requests while Gemini Code Assist's free tier meters daily requests per user, the two rarely run out at the same time — most solo developers and small teams stay within both free tiers for regular day-to-day coding.",
-        totalPrice: "$30+/mo",
+        description: "GitHub Copilot and Gemini Code Assist run side by side in your IDE — Copilot's fast autocomplete paired with Gemini's long-context reasoning. Copilot has a free tier to start on; Gemini Code Assist now requires a paid Standard or Enterprise seat.",
+        longDescription: "GitHub Copilot and Gemini Code Assist make an unusual power pair, though the pairing looks different than it used to: Copilot still has a genuinely useful free tier, but as of mid-2026 Google retired free individual access to the Gemini Code Assist IDE extension in favor of its Antigravity product line, so Gemini Code Assist now requires a paid Standard or Enterprise seat tied to a Google Cloud or Workspace account. Copilot's strength is line-by-line autocomplete — it excels at predicting the next few tokens inside a function you're already writing, and its inline suggestions feel instant in VS Code, Visual Studio, and JetBrains IDEs. Gemini Code Assist covers the gap Copilot leaves: a much larger context window that can reason across an entire file or several open files at once, which makes it the better choice when you need to explain a confusing bug, plan a refactor that touches multiple functions, or ask \"why does this fail\" instead of \"what comes next.\" In practice, developers running this power pair let Copilot handle the moment-to-moment typing and switch to Gemini Code Assist's chat panel whenever a task needs broader reasoning, rather than picking one assistant to do everything. Because Gemini Code Assist's paid seat is usually already covered by a team's existing Google Cloud or Workspace subscription, this pairing makes the most sense for developers on a company account rather than solo builders looking for a free setup.",
+        totalPrice: "$19+/mo",
         tags: ["Advanced", "Pro", "Reasoning", "Pair Programming"],
         tools: ["github-copilot", "gemini-code-assist"],
         idealFor: ["Professional developers", "Enterprise", "Complex logic", "Code reviews"],
         workflow: [
             "1. Install GitHub Copilot in your IDE and sign in with a GitHub account on its free tier",
-            "2. Add the Gemini Code Assist extension and connect it to a Google account",
+            "2. Add the Gemini Code Assist extension and connect it to a Google Cloud or Workspace account with a Standard or Enterprise seat",
             "3. Let Copilot autocomplete routine lines as you type; open Gemini Code Assist's chat when a task needs multi-file reasoning or an explanation",
             "4. Use Gemini Code Assist to plan a refactor or debug a hard failure, then let Copilot handle the mechanical edits it suggests"
         ],
         icon: "🤝",
         color: "text-blue-500",
         metaTitle: "Power Pair Stack: Copilot + Gemini Code Assist",
-        metaDescription: "Run GitHub Copilot and Gemini Code Assist together — Copilot's fast autocomplete plus Gemini's long-context reasoning, both usable on free tiers.",
+        metaDescription: "Run GitHub Copilot and Gemini Code Assist together — Copilot's fast autocomplete plus Gemini's long-context reasoning, backed by a paid Gemini Code Assist Standard or Enterprise seat.",
     },
     {
         id: "smart-assistant",

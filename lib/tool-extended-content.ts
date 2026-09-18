@@ -275,7 +275,7 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
             },
         ],
         pricingDetail:
-            "Claude offers Free ($0), Pro ($20/mo), Max 5x ($100/mo), Max 20x ($200/mo), Team (from $25/seat/mo), and Enterprise (custom). The critical thing to understand: the Max tiers are usage multipliers, not model upgrades — Max 5x and 20x give you the same models as Pro but with 5x and 20x the per-session capacity. Buy Max only if you are hitting Pro's session limits, not because you expect a smarter model. On the API side, the Opus 4.6 launch cut input/output costs by 67% (from $15/$75 to $5/$25 per million tokens), and the June 2026 launch of Sonnet 5 added a cheaper mid-tier option at an introductory $2/$10 per million tokens (rising to $3/$15 from September 2026). Claude Fable 5 now sits above Opus as Anthropic's flagship model, with Opus 4.8 and Haiku 4.5 continuing as prior-generation options.",
+            "Claude offers Free ($0), Pro ($20/mo), Max 5x ($100/mo), Max 20x ($200/mo), Team (from $25/seat/mo), and Enterprise (custom). The critical thing to understand: the Max tiers are usage multipliers, not model upgrades — Max 5x and 20x give you the same models as Pro but with 5x and 20x the per-session capacity. Buy Max only if you are hitting Pro's session limits, not because you expect a smarter model. On the API side, the Opus 4.6 launch cut input/output costs by 67% (from $15/$75 to $5/$25 per million tokens), and the June 2026 launch of Sonnet 5 added a cheaper mid-tier option at an introductory $2/$10 per million tokens (rising to $3/$15 from September 2026). Anthropic keeps several model families in market at once and re-tiers and renames them often, so read the current lineup and per-token rates off Anthropic's own pricing page rather than planning around a version number quoted here.",
         faq: [
             {
                 q: "What is the difference between the Pro and Max plans?",
@@ -1302,11 +1302,13 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
             <p>This is why the tool's value is so uneven across teams. If your work involves Cloud Run, BigQuery, IAM policies, and Terraform aimed at GCP, the assistant is operating with information no other tool has. If you are writing a React frontend that talks to an API, it is just another model in a sidebar.</p>
 
-            <h3>The free individual tier, and the Antigravity cutover</h3>
+            <h3>The free individual tier is gone</h3>
 
-            <p>The free tier for individuals was, for a long time, the most generous offer in serious AI coding assistance — up to 6,000 code-related requests and 240 chat requests per day, which is more headroom than most developers can consume. It made a capable assistant available to students, hobbyists, and anyone who could not justify a subscription.</p>
+            <p>For a long time the free tier for individuals was the most generous offer in serious AI coding assistance — up to 6,000 code-related requests and 240 chat requests per day, more headroom than most developers could consume. It made a capable assistant available to students, hobbyists, and anyone who could not justify a subscription. It no longer exists, and that changes who this product is for.</p>
 
-            <p>That offer is in transition. Google announced that the Gemini Code Assist IDE extensions and the Gemini CLI would stop serving the individual, Google AI Pro, and Google AI Ultra tiers as of June 18, 2026, directing those users to <strong>Antigravity</strong> and the Antigravity CLI. That date has now passed, so anyone evaluating the individual tier should verify its current state directly with Google rather than relying on any third-party summary, including this one. The paid Standard and Enterprise tiers aimed at Google Cloud organisations were not part of that announcement.</p>
+            <p>Google's own deprecation documentation is unambiguous: as of <strong>June 18, 2026</strong> the Gemini Code Assist IDE extensions stopped serving the "Gemini Code Assist for individuals", Google AI Pro, and Google AI Ultra tiers, and those users were directed to <strong>Antigravity</strong> instead. Google's overview documentation now describes Code Assist as available in two editions — Standard and Enterprise — and nothing else. The paid Standard and Enterprise tiers aimed at Google Cloud organisations were not affected by any of this.</p>
+
+            <p>One warning, because it catches people out. Google's own marketing site for Code Assist is lagging its documentation badly: it still advertises the product "for individuals at no cost, no credit card needed", and it still describes the underlying model as Gemini 2.5. Neither claim survives contact with the deprecation notice or the current model lineup. When a vendor's landing page and its deprecation docs disagree, the deprecation docs are the ones written by the team that turned the service off.</p>
 
             <h3>In the IDE: completions, chat, and the boring parts</h3>
 
@@ -1330,7 +1332,7 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
             <p>Skip it if you are not on Google Cloud. Almost the entire argument for the tool is the platform integration, and without that you are choosing a mid-pack assistant over more mature alternatives for no reason. Skip it if you want a state-of-the-art agentic editor that plans and executes multi-file changes with minimal supervision — that is where <a href="/tool/cursor">Cursor</a> has been iterating hardest. Skip it if your code lives in GitHub and your workflow is organised around pull requests, where Copilot's integration is simply closer to the work.</p>
 
-            <p>And be careful about building an individual workflow on the free tier right now. The announced transition to Antigravity means the individual-tier experience is in motion, and "free and generous" is a weak foundation if the product underneath you is changing shape. Organisations on the paid Cloud tiers are in a considerably more stable position.</p>
+            <p>And skip it if you are a solo developer who came here for the free tier. There is nothing left to adopt: the individual, Google AI Pro, and Google AI Ultra tiers stopped being served by the Code Assist extensions on June 18, 2026, and Antigravity is where Google sent those users. Standard and Enterprise are the only editions now, and both are priced and administered as Google Cloud purchases. Organisations already on the paid Cloud tiers are unaffected and in a considerably more stable position.</p>
         `,
         useCases: [
             {
@@ -1347,15 +1349,15 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
             },
         ],
         pricingDetail:
-            "Gemini Code Assist offers a Free tier for individuals (up to 6,000 code requests and 240 chat requests per day on Gemini models), Standard (~$19–22.8/user/mo), and Enterprise (~$45–54/user/mo) with full Google Cloud integration, plus 17% off annually. The critical thing to know before adopting it as an individual: Google announced that Gemini Code Assist IDE extensions and the Gemini CLI would stop serving the individual, Google AI Pro, and Google AI Ultra tiers as of June 18, 2026, directing those users to Antigravity and the Antigravity CLI. That date has passed, so confirm the individual tier's current state against Google's own documentation before planning around it. The paid Cloud-oriented tiers were not part of that announcement.",
+            "Gemini Code Assist is now sold in two editions: Standard (~$19–22.8/user/mo) and Enterprise (~$45–54/user/mo), both with full Google Cloud integration, plus 17% off annually. The free tier for individuals is gone. Per Google's own deprecation documentation, the Gemini Code Assist IDE extensions stopped serving the individual, Google AI Pro, and Google AI Ultra tiers as of June 18, 2026, and those users were directed to Antigravity; Google's overview documentation now lists Standard and Enterprise as the only editions. The old individual allowance — up to 6,000 code requests and 240 chat requests per day — is historical and should not be budgeted around, whatever Google's marketing pages still say. Treat the per-seat figures above as indicative rather than quoted, and confirm current rates on Google's own pricing page before committing.",
         faq: [
             {
-                q: "What is the status of the individual tier and Antigravity?",
-                a: "Google announced that the Gemini Code Assist IDE extensions and the Gemini CLI would stop serving the individual, Google AI Pro, and Google AI Ultra tiers as of June 18, 2026, and directed those users to Antigravity and the Antigravity CLI. That date has passed, so check Google's own documentation for the current state before planning around the individual tier. The paid Standard and Enterprise tiers for Google Cloud organisations were not part of that announcement.",
+                q: "Is there still a free individual tier?",
+                a: "No. Google's deprecation documentation states that the Gemini Code Assist IDE extensions stopped serving the individual, Google AI Pro, and Google AI Ultra tiers as of June 18, 2026, and directed those users to Antigravity. Google's overview documentation now describes Code Assist as available in two editions, Standard and Enterprise, both paid and both unaffected by the change. If you land on a page still advertising Code Assist for individuals at no cost with no credit card, that is stale vendor marketing rather than a plan you can sign up for.",
             },
             {
                 q: "Does it really know about my Google Cloud project?",
-                a: "On the paid Cloud tiers, yes — that awareness of your services, resources, and data is the product's central claim, and it is why questions about permissions, deployments, and queries against your own schema get better answers than a generic assistant can give. The Enterprise tier extends this further by grounding suggestions in your private repositories. On the free individual tier you are getting a capable general assistant, not this.",
+                a: "On the paid Cloud tiers, yes — that awareness of your services, resources, and data is the product's central claim, and it is why questions about permissions, deployments, and queries against your own schema get better answers than a generic assistant can give. The Enterprise tier extends this further by grounding suggestions in your private repositories. This used to be the line separating the paid editions from the free individual tier; with that tier retired, Standard and Enterprise are the only editions, and both are Cloud-oriented by design.",
             },
             {
                 q: "Is it worth using if we are not on Google Cloud?",
@@ -1363,7 +1365,7 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
             },
             {
                 q: "What happens to our code — is it used for training?",
-                a: "This differs by tier and is the wrong thing to take on trust from a review. The terms governing a free individual account are not the terms governing a paid Google Cloud deployment, and the available opt-out settings differ between them. Read the current data-use documentation for the specific tier you intend to buy, and if you are in a regulated industry, get it confirmed by your account team in writing before rollout.",
+                a: "This differs by edition and is the wrong thing to take on trust from a review, particularly since the tier structure itself changed when the individual tier was retired. Read the current data-use documentation for the specific edition you intend to buy — Standard and Enterprise have different terms and different opt-out settings — and if you are in a regulated industry, get it confirmed by your account team in writing before rollout.",
             },
         ],
     },
@@ -2478,6 +2480,12 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
 
             <p>What decides it is arithmetic. An agent like this is only worth having if the total cost of getting a change through is lower than doing it yourself, and the total cost is not the invoice.</p>
 
+            <h3>First: Devin the agent is not Devin Desktop the editor</h3>
+
+            <p>Worth settling before anything else, because the names collide and a lot of people arrive here looking for the other product. This page is about <strong>Devin</strong>, the autonomous agent. Cognition also ships <strong>Devin Desktop</strong>, which is an IDE — specifically, it is the editor Codeium built and shipped as <strong>Windsurf</strong>. Cognition acquired Windsurf from Codeium in July 2025 and relaunched it under the Devin name on June 2, 2026, describing it as the next generation of Windsurf; at launch Cognition said it remained compatible with Windsurf and VS Code extensions, keybindings, and LSP integrations. Both codeium.com and windsurf.com now redirect to devin.ai/desktop.</p>
+
+            <p>So if you came looking for Windsurf: the editor still exists, and it is Devin Desktop. It is a VS Code-derived IDE you sit in and drive, which is the opposite posture from the agent the rest of this page describes — one is a tool you use while you are present and steering, the other is a task you hand off and review later. Cognition selling both under one brand does not make them one product, and the evaluation questions are not the same. We have not verified Devin Desktop's pricing or feature set since the relaunch, and the old Windsurf tiers no longer apply, so read those off Cognition's own site. Our <a href="/blog/cursor-vs-windsurf">Cursor vs Windsurf</a> comparison describes the editor as it stood before the rebrand.</p>
+
             <h3>The invoice is the smaller half of the cost</h3>
 
             <p>Devin is billed by how much work the agent does, in units of agent compute, rather than by seat. That alone changes the economics compared with a subscription tool, because a task that goes badly costs more than one that goes well — an agent that thrashes for an hour bills for the hour. Cost tracks difficulty and ambiguity rather than value delivered.</p>
@@ -2535,6 +2543,10 @@ export const TOOL_EXTENDED_CONTENT: Record<string, ToolExtendedContent> = {
         pricingDetail:
             "Devin is billed by agent work rather than by seat, in units of agent compute that Cognition calls ACUs. Cognition describes one ACU as roughly fifteen minutes of active agent work, and it bundles the underlying costs of a session — the virtual machine, the model inference and the data transfer — into a single normalised unit. Cognition originally sold Devin only at a high flat monthly commitment and later replaced that entry point with a low-commitment, pay-as-you-go plan, which is what opened it to individual developers; higher tiers bundle a block of compute at a better effective rate, and enterprise terms are custom. No current rates are quoted here, because the plan structure and the per-unit price have both been revised since launch — read them on Cognition's own pricing page. The structural consequence is the part that does not change: cost scales with how long the agent works, not with the value of the result, so an ambiguous task that thrashes costs more than a clear one that succeeds. And the larger cost is off the invoice entirely. Budget the engineer's time to specify each task and to review what comes back, including the reviews of changes you end up discarding, because that total is what determines whether this is cheaper than doing the work yourself.",
         faq: [
+            {
+                q: "I was looking for Windsurf — is this the right page?",
+                a: "Half of it. Windsurf is now Devin Desktop: Cognition acquired it from Codeium in July 2025 and relaunched it under the Devin name on June 2, 2026, calling it the next generation of Windsurf and keeping compatibility with Windsurf and VS Code extensions, keybindings, and LSP integrations at launch. codeium.com and windsurf.com both redirect to devin.ai/desktop. But Devin Desktop is the IDE, and the rest of this page is about Devin the autonomous agent, which is a separate product you delegate work to rather than type in. For the editor's current plans and features go to Cognition's site — the old Windsurf tiers no longer apply.",
+            },
             {
                 q: "What does Devin actually cost?",
                 a: "More than the invoice, and the invoice is the part that varies least. You pay for agent compute by the unit, so a task that goes badly costs more than a task that goes well. Then add the engineer time to specify the task, the time to review the result, and the time spent reviewing results you throw away. That last item is the one that decides the economics, and it is invisible in any pricing comparison.",

@@ -149,12 +149,17 @@ const nextConfig: NextConfig = {
       // it a one-tool "stack", so it was dropped from lib/stacks.ts rather than
       // published as a list of one. /stack/[stackId] uses dynamicParams: false
       // and /stack/efficiency was in the sitemap, so it needs a redirect for the
-      // same reason the tool and compare URLs above do. The Power Pair Stack is
-      // the closest surviving equivalent: the same fast-autocomplete-plus-
-      // reasoning shape, and still usable on free tiers.
+      // same reason the tool and compare URLs above do.
+      //
+      // It points at /best/coding rather than another stack. What defined the
+      // Efficiency Stack was "fast and free", and no surviving stack carries
+      // that: Power Pair was the nearest shape, but Gemini Code Assist retired
+      // its free individual tier on 2026-06-18, and the Learner Stack is free
+      // but framed for beginners. /best/coding answers the actual question —
+      // which coding tools cost nothing — and names the ones that still do.
       {
         source: '/stack/efficiency',
-        destination: '/stack/power-pair',
+        destination: '/best/coding',
         permanent: true,
       },
     ];

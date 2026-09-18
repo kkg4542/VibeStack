@@ -15,14 +15,21 @@
 export const TOOL_CONTENT_REVISED_BY_SLUG: Record<string, string> = {
     // Rewritten out of the shared 48-page template: per-tool section structure,
     // use-case and FAQ counts, and a "when not to use this" section.
+    //
+    // 2026-09-17: four pages revised again for factual corrections —
+    // tabnine (free/individual tiers retired; org-only annual pricing),
+    // gemini-code-assist (individual tier shut down, Antigravity migration
+    // confirmed rather than announced), devin-ai (Devin Desktop / Windsurf
+    // lineage added for readers redirected from /tool/windsurf-ide), and
+    // claude (dropped a stale model version number).
     lovable: "2026-09-16",
     descript: "2026-09-16",
     runway: "2026-09-16",
     clickup: "2026-09-16",
-    "gemini-code-assist": "2026-09-16",
+    "gemini-code-assist": "2026-09-17",
     aider: "2026-09-16",
     "builder-io": "2026-09-16",
-    tabnine: "2026-09-16",
+    tabnine: "2026-09-17",
     "otter-ai": "2026-09-16",
     cursor: "2026-09-16",
     "github-copilot": "2026-09-16",
@@ -33,7 +40,7 @@ export const TOOL_CONTENT_REVISED_BY_SLUG: Record<string, string> = {
     ollama: "2026-09-16",
     grok: "2026-09-16",
     chatgpt: "2026-09-16",
-    claude: "2026-09-16",
+    claude: "2026-09-17",
     perplexity: "2026-09-16",
     midjourney: "2026-09-16",
     "notion-ai": "2026-09-16",
@@ -57,6 +64,6 @@ export const TOOL_CONTENT_REVISED_BY_SLUG: Record<string, string> = {
     replit: "2026-09-16",
     gamma: "2026-09-16",
     vercel: "2026-09-16",
-    "devin-ai": "2026-09-16",
+    "devin-ai": "2026-09-17",
     airtable: "2026-09-16",
 };

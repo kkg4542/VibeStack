@@ -29,7 +29,7 @@ interface CategoryCopy {
  * Date of the last hand-edit to the copy below. Drives sitemap lastmod for
  * /best/* — bump it whenever this file's content changes.
  */
-export const BEST_REVISED = "2026-08-28";
+export const BEST_REVISED = "2026-09-17";
 
 export const BEST_CATEGORIES: CategoryCopy[] = [
   {
@@ -42,15 +42,15 @@ export const BEST_CATEGORIES: CategoryCopy[] = [
     intro:
       "AI coding tools have gone from autocomplete to full agents that ship features. Here are the best AI coding tools of 2026 — ranked by how much they actually accelerate real development work.",
     body: [
-      "There is no single best AI coding tool — the right pick depends on how you work. For agentic, multi-file editing inside a real codebase, <a href=\"/tool/cursor\">Cursor</a> is the reference point. If you want AI inside the IDE you already use, <a href=\"/tool/github-copilot\">GitHub Copilot</a> and <a href=\"/tool/gemini-code-assist\">Gemini Code Assist</a> are the safe defaults. To go from a prompt to a working app, <a href=\"/tool/bolt-new\">Bolt.new</a>, <a href=\"/tool/v0-by-vercel\">v0</a>, and <a href=\"/tool/replit\">Replit</a> are purpose-built.",
+      "There is no single best AI coding tool — the right pick depends on how you work. For agentic, multi-file editing inside a real codebase, <a href=\"/tool/cursor\">Cursor</a> is the reference point. If you want AI inside the IDE you already use, <a href=\"/tool/github-copilot\">GitHub Copilot</a> is the safe default for an individual developer; <a href=\"/tool/gemini-code-assist\">Gemini Code Assist</a> is worth a look only if your organisation builds on Google Cloud, because Google retired its individual tier and now ships Code Assist in Standard and Enterprise editions only. To go from a prompt to a working app, <a href=\"/tool/bolt-new\">Bolt.new</a>, <a href=\"/tool/v0-by-vercel\">v0</a>, and <a href=\"/tool/replit\">Replit</a> are purpose-built.",
       "It helps to think in three modes. <strong>Autocomplete</strong> tools (Tabnine, Copilot's inline completions) finish your lines as you type — fast and low-friction. <strong>Agentic editors</strong> (Cursor, Copilot's agent mode) take a task and make multi-file changes for your review. <strong>App builders</strong> (Bolt.new, v0, Replit) scaffold whole projects from a description. Most professional developers end up pairing a fast autocomplete with one agentic editor; the app builders shine for prototypes and front-end work.",
-      "Cost and privacy decide it at the edges. <a href=\"/tool/aider\">Aider</a> is free and open source if you bring your own API key, and Tabnine plus local runners keep code on your own machine for privacy-sensitive teams. Almost every tool has a free tier worth trying before you commit to Pro — and for teams, the per-seat math matters more than the headline price. The comparison table and full breakdowns below cover each tool's strengths, pricing, and who it's for.",
+      "Cost and privacy pull in opposite directions, so treat them as separate questions. On cost, <a href=\"/tool/aider\">Aider</a> is free and open source if you bring your own API key, and GitHub Copilot's Free plan starts at $0 with no credit card. On privacy, local runners like <a href=\"/tool/ollama\">Ollama</a> keep code on your own machine at no cost, while Tabnine sells the same guarantee as governed, on-premises software — but Tabnine has no free tier and no individual plan any more, starting at $39/user/month on an annual subscription, so it is a procurement decision rather than something you try over lunch. For teams, the per-seat math matters more than the headline price. The comparison table and full breakdowns below cover each tool's strengths, pricing, and who it's for.",
     ],
     buyingGuide: [
       "Agentic vs. autocomplete: decide if you want a pair-programmer or a full task-runner.",
       "Codebase context: bigger context windows mean better multi-file edits.",
       "IDE fit: some live in VS Code, others are standalone editors.",
-      "Pricing: most have a free tier — try before committing to Pro.",
+      "Pricing: many have a free tier, but not all — the privacy-first and Cloud-vendor tools are increasingly org-only, annual contracts.",
     ],
     faqs: [
       {
@@ -63,7 +63,7 @@ export const BEST_CATEGORIES: CategoryCopy[] = [
       },
       {
         q: "What's the best free AI coding tool?",
-        a: "Aider is fully free and open source (you supply your own API key), and Cursor and GitHub Copilot both have usable free tiers. For privacy, Tabnine offers a free local mode, and Ollama runs models entirely on your own hardware. Start free and upgrade only when you hit real limits.",
+        a: "Aider is fully free and open source (you supply your own API key), and Cursor and GitHub Copilot both have usable free tiers — Copilot's Free plan is $0 with no credit card required. For privacy at no cost, Ollama runs models entirely on your own hardware. Two names that used to belong on this list no longer do: Tabnine has no free tier and no individual plan, and Google retired Gemini Code Assist's free individual tier. Start free and upgrade only when you hit real limits.",
       },
       {
         q: "Cursor vs GitHub Copilot — which is better?",
@@ -71,7 +71,7 @@ export const BEST_CATEGORIES: CategoryCopy[] = [
       },
       {
         q: "What's the best AI assistant for autocomplete?",
-        a: "GitHub Copilot's inline completions are the most widely integrated, and they are available inside almost every editor people actually use. Tabnine is the pick when privacy and on-prem deployment matter. Note that this corner of the market consolidates fast — several standalone autocomplete products have been absorbed into larger editors — so check that a tool is still independently maintained before standardizing a team on it.",
+        a: "GitHub Copilot's inline completions are the most widely integrated, they are available inside almost every editor people actually use, and you can try them on its $0 Free plan. Tabnine is the pick when privacy and on-prem deployment matter, but price it before you plan around it: there is no free or individual tier, and its published plans start at $39/user/month on an annual subscription, sold to organisations. Note that this corner of the market consolidates fast — several standalone autocomplete products have been absorbed into larger editors — so check that a tool is still independently maintained before standardizing a team on it.",
       },
       {
         q: "Are AI coding tools worth paying for?",

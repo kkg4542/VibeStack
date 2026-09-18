@@ -21,7 +21,7 @@ const newTools = [
   {
     slug: "devin-ai",
     title: "Devin",
-    description: "The world's first fully autonomous AI software engineer capable of taking Jira tickets to production.",
+    description: "Cognition's autonomous AI software engineer, now shipped alongside Devin Desktop — the IDE that was Windsurf before the 2026 rebrand.",
     category: "Assistance",
     pricing: "Paid",
     websiteUrl: "https://devin.ai",

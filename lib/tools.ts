@@ -18,7 +18,7 @@ export const tools: ToolData[] = [
   {
     slug: "devin-ai",
     title: "Devin",
-    description: "The world's first fully autonomous AI software engineer capable of taking Jira tickets to production.",
+    description: "Cognition's autonomous AI software engineer, now shipped alongside Devin Desktop — the IDE that was Windsurf before the 2026 rebrand.",
     category: "Assistance",
     pricing: "Paid",
     websiteUrl: "https://devin.ai",
@@ -48,7 +48,7 @@ export const tools: ToolData[] = [
     title: "GitHub Copilot",
     description: "GitHub's AI pair programmer with inline suggestions, chat, and agents inside your IDE.",
     category: "Coding",
-    pricing: "Paid",
+    pricing: "Freemium",
     websiteUrl: "https://github.com/features/copilot",
     color: "text-violet-400",
     bgGradient: "from-violet-500/20 to-violet-700/20",
@@ -60,7 +60,7 @@ export const tools: ToolData[] = [
   {
     slug: "claude",
     title: "Claude",
-    description: "Anthropic's frontier AI assistant, now led by Claude Fable 5 — best-in-class for long context, writing, and complex reasoning.",
+    description: "Anthropic's frontier AI assistant — best-in-class for long context, careful writing, and complex reasoning.",
     category: "Assistance",
     pricing: "Freemium",
     websiteUrl: "https://claude.ai",
@@ -74,7 +74,7 @@ export const tools: ToolData[] = [
   {
     slug: "chatgpt",
     title: "ChatGPT",
-    description: "OpenAI's flagship assistant, powered by GPT-5.6 — voice, vision, and a sprawling ecosystem of custom GPTs.",
+    description: "OpenAI's flagship assistant — voice, vision, and a sprawling ecosystem of custom GPTs.",
     category: "Assistance",
     pricing: "Freemium",
     websiteUrl: "https://chatgpt.com",
@@ -214,7 +214,7 @@ export const tools: ToolData[] = [
   {
     slug: "runway",
     title: "Runway",
-    description: "Generative video tools used in real film production — Gen-3 for text-to-video and motion brush.",
+    description: "Generative video tools used in real film production — text-to-video, motion brush, and video-to-video editing.",
     category: "Design",
     pricing: "Freemium",
     websiteUrl: "https://runway.com",
