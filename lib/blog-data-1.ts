@@ -377,7 +377,7 @@ export const postsBatch1: BlogPost[] = [
 
       <h3>Intelligence Arbitrage and the Model Router</h3>
       <p>There is also an arbitrage opportunity. You can route simple queries to cheaper, faster models (like locally-hosted <strong>Llama 5</strong> or GPT-5.6 Luna) and only route complex "System 2" reasoning tasks to expensive frontier models (GPT-5.6 Sol or Claude Sonnet 5). Building this "Model Router" infrastructure is the secret sauce of profitable AI companies today.</p>
-      <p>A minimal router needs three things: a cheap classifier model that scores task complexity in under 50ms, a fallback ladder (Luna → Terra → Sol, or Sonnet 5 → Opus 5 → Fable 5.1) that escalates only on low-confidence outputs, and a logging pipeline that tracks cost-per-resolved-task rather than cost-per-call. Google's Flash tiers are a common bottom rung on that ladder — our <a href="/blog/gemini-3-pro-deep-dive">Gemini 3 Pro deep dive</a> walks through when Flash is genuinely sufficient and when the flagship tier is worth the multiplier. Startups that skip the router and hardcode a single flagship model for every request are, in effect, running their COGS on autopilot — and in a market where token prices swing every quarter, that is a solvable, and expensive, mistake.</p>
+      <p>A minimal router needs three things: a cheap classifier model that scores task complexity in under 50ms, a fallback ladder (Luna → Terra → Sol, or Sonnet 5 → Opus 5 → Fable 5.1) that escalates only on low-confidence outputs, and a logging pipeline that tracks cost-per-resolved-task rather than cost-per-call. Google's Flash tiers are a common bottom rung on that ladder — our <a href="/blog/gemini-3-pro-deep-dive">Gemini 3 Pro deep dive</a> walks through when Flash is genuinely sufficient and when the Pro tier is worth the multiplier. Startups that skip the router and hardcode a single flagship model for every request are, in effect, running their COGS on autopilot — and in a market where token prices swing every quarter, that is a solvable, and expensive, mistake.</p>
 
       <h3>When Buying Hardware Beats Buying Tokens</h3>
       <p>Every router eventually needs a bottom rung that isn't an invoice. Self-hosted inference converts a variable opex line into a fixed capex one, and past a certain volume that conversion is simply the correct financial decision. The crossover depends on three inputs: monthly token volume, how routine the tasks are, and how much engineering time you will spend running infrastructure. High-volume, low-variance work — classification, embeddings, summarization, first-pass completion — amortizes hardware quickly. Forty hard architecture questions a month never will, and you would be trading frontier capability for nothing.</p>
@@ -515,38 +515,40 @@ export const postsBatch1: BlogPost[] = [
   // 4. Gemini 3 Pro deep dive (Expanded)
   {
     slug: "gemini-3-pro-deep-dive",
-    title: "Gemini 3 Pro Deep Dive: Google's Flagship in 2026",
-    excerpt: "A working deep dive on Gemini 3 Pro: what its long context and native multimodality actually change in day-to-day development, when the cheaper Flash tiers win, where Gemini 3.5 Pro stands, and how Google's flagship compares to GPT-5.6 and Claude.",
+    title: "Gemini 3 Pro Deep Dive: Google's Pro Tier in 2026",
+    excerpt: "A working deep dive on Google's Gemini Pro tier: what its long context and native multimodality actually change in day-to-day development, when the cheaper Flash tiers win, where Gemini 3 Pro sits now that Google's model list shows Gemini 3.1 Pro, why Gemini 3.5 Pro still hasn't shipped, and how the Pro tier compares to GPT-5.6 and Claude.",
     date: "Jul 18, 2026",
     updated: "Sep 18, 2026",
     author: "Sarah Jenkins",
     category: "Deep Dive",
-    readTime: "12 min read",
+    readTime: "14 min read",
     image: "/images/blog/gemini-3-pro.png",
     tags: ["Gemini", "Google", "AI Models"],
     content: `
-      <p><strong>Gemini 3 Pro</strong> is the flagship of Google's Gemini 3 family and, for most teams already building on Google Cloud, the default reasoning model they reach for. It's also the most misread model in the lineup, because the conversation around it keeps getting tangled up with the cheaper Flash tiers underneath it and the still-unreleased Gemini 3.5 Pro above it.</p>
-      <p>This is a working developer's deep dive. What Gemini 3 Pro is genuinely good at, what its long context and native multimodality actually change about the code you write, when the Flash tiers are the smarter call, where Google's flagship stands against <a href="/tool/chatgpt">ChatGPT</a>'s GPT-5.6 family and <a href="/tool/claude">Claude</a>, and what tends to break when you migrate an existing prompt stack across.</p>
+      <p><strong>Gemini 3 Pro</strong>, which launched in November 2025, is the model that defined Google's Pro tier — for most teams already building on Google Cloud, the reasoning model they reached for by default. The lineup has moved since: Google's current API model list shows <strong>Gemini 3.1 Pro</strong>, still marked Preview, as its Pro-tier entry alongside the older stable <strong>Gemini 2.5 Pro</strong>, and Gemini 3 Pro no longer appears on that list. The Pro tier is also the most misread part of the lineup, because the conversation around it keeps getting tangled up with the cheaper Flash tiers underneath it and the still-unreleased Gemini 3.5 Pro above it.</p>
+      <p>This is a working developer's deep dive. What the Gemini Pro tier is genuinely good at, what its long context and native multimodality actually change about the code you write, when the Flash tiers are the smarter call, where Google's Pro tier stands against <a href="/tool/chatgpt">ChatGPT</a>'s GPT-5.6 family and <a href="/tool/claude">Claude</a>, and what tends to break when you migrate an existing prompt stack across.</p>
 
-      <h2>The Gemini 3 Lineup, As It Actually Stands</h2>
-      <p>Start with the lineup, because a lot of published advice about Gemini is quietly out of date. There are three shipping tiers and one that isn't here yet:</p>
+      <h2>The Gemini Lineup, As It Actually Stands</h2>
+      <p>Start with the lineup, because a lot of published advice about Gemini is quietly out of date — including advice about which Pro model you should be naming in your config. Here is what Google's own API model documentation lists today, and what it doesn't:</p>
       <table>
         <thead>
           <tr><th>Model</th><th>Status</th><th>Role in the family</th></tr>
         </thead>
         <tbody>
-          <tr><td>Gemini 3 Pro</td><td>Generally available</td><td>The flagship reasoning tier — long context, hardest multimodal work</td></tr>
-          <tr><td>Gemini 3.8 Flash</td><td>Generally available</td><td>The workhorse — fast, cheap, still natively multimodal</td></tr>
+          <tr><td>Gemini 3.1 Pro</td><td>Listed, marked Preview</td><td>The Pro-tier entry on Google's current model list — long context, hardest multimodal work</td></tr>
+          <tr><td>Gemini 2.5 Pro</td><td>Listed, stable</td><td>The older Pro model Google still carries</td></tr>
+          <tr><td>Gemini 3 Pro</td><td>Not on Google's current model list</td><td>Launched November 2025 and defined the Pro tier; not on Google's deprecation page either</td></tr>
+          <tr><td>Gemini 3.8 Flash</td><td>Generally available</td><td>The workhorse — fast, cheap, still natively multimodal; Google calls it its most intelligent Flash model</td></tr>
           <tr><td>Gemini 3.1 Flash-Lite</td><td>Generally available</td><td>The cheapest tier — classification, routing, high-volume chat</td></tr>
           <tr><td>Gemini 3.5 Pro</td><td>Not shipped</td><td>Delayed; no confirmed release date from Google</td></tr>
         </tbody>
       </table>
-      <p>The practical consequence is that <strong>Gemini 3 Pro is Google's current top of the line</strong>, not a stepping stone to something that's about to replace it next week. If you have been holding off on committing to it while you wait for the next flagship, you have been waiting for several months already, and there's no public date to wait toward. We cover that situation in detail further down, but it shouldn't be the thing that stops you from evaluating what's shipping today.</p>
+      <p>Two practical consequences. First, <strong>the Pro model Google's API docs point new work at is Gemini 3.1 Pro</strong>, and it still carries a Preview label. If you pinned a Gemini 3 Pro model ID a year ago, check your provider console against Google's current list rather than assuming the name you wrote down then is still the one being advertised — Google's deprecation page doesn't mention Gemini 3 Pro, so this is a lineup that moved on, not a retirement notice, and access through the Gemini app or Vertex may well outlive the docs page. Second, none of that is a reason to keep waiting: if you have been holding off on the Pro tier until the <em>next</em> big Google reasoning model lands, you have been waiting for months with no public date to wait toward. We cover that situation in detail further down.</p>
 
-      <h2>What Gemini 3 Pro Is Actually For</h2>
+      <h2>What the Pro Tier Is Actually For</h2>
 
       <h3>Long context you can put real work into</h3>
-      <p>Gemini 3 Pro's headline capability is a million-token-class context window, and the honest version of what that buys you is more nuanced than "you can paste your whole repo in."</p>
+      <p>The Pro tier's headline capability is a million-token-class context window, and the honest version of what that buys you is more nuanced than "you can paste your whole repo in."</p>
       <p>What works reliably: pulling a specific fact out of a huge corpus. Modern long-context models are close to solved on retrieval-style tasks — ask "which config file sets the retry timeout, and to what value" across a few hundred thousand tokens of source and you'll get the right answer with the right citation. What degrades: multi-hop reasoning that has to hold dozens of scattered facts in play at once. Ask the model to trace a request through eleven services and reconcile inconsistencies between their retry policies, and quality falls off well before you exhaust the window.</p>
       <p>The rule of thumb that has held up for us: <em>use the big window as a staging area, not as a replacement for retrieval.</em> Loading 400K tokens of related code so the model doesn't miss a caller is a great use of the context window. Loading 400K tokens because you didn't want to build a retrieval step is how you end up with slow, expensive, mediocre answers. Cost and latency both scale with what you put in the window, so a request that dumps a whole monorepo into every turn of a conversation gets expensive faster than most teams expect. Prompt caching helps a lot when the large part of your context is stable across calls — a fixed codebase snapshot or a policy document — and it's worth structuring your prompts so the stable material comes first and the variable material comes last.</p>
 
@@ -581,20 +583,20 @@ export const postsBatch1: BlogPost[] = [
           <tr><td>Simple chat / classification / routing</td><td>Gemini 3.1 Flash-Lite</td><td>Cheapest tier, fastest response</td></tr>
           <tr><td>Bulk document summarization</td><td>Gemini 3.8 Flash</td><td>Low cost, high throughput, native multimodal input</td></tr>
           <tr><td>Straightforward video bug-repro debugging</td><td>Gemini 3.8 Flash</td><td>Native video understanding, no transcription step</td></tr>
-          <tr><td>Long-context reasoning over a whole subsystem</td><td>Gemini 3 Pro</td><td>Flagship reasoning plus the largest context window in the family</td></tr>
-          <tr><td>Ambiguous specs and irreversible changes</td><td>Gemini 3 Pro, GPT-5.6 Sol, or Claude Opus 5 (Fable 5.1 above it)</td><td>Lower per-step error rate is worth the price when mistakes are costly</td></tr>
+          <tr><td>Long-context reasoning over a whole subsystem</td><td>Gemini 3.1 Pro</td><td>The strongest reasoning in the Gemini family plus the largest context window</td></tr>
+          <tr><td>Ambiguous specs and irreversible changes</td><td>Gemini 3.1 Pro, GPT-5.6 Sol, or Claude Opus 5 (Fable 5.1 above it)</td><td>Lower per-step error rate is worth the price when mistakes are costly</td></tr>
         </tbody>
       </table>
       <p>The operational version of this table is simpler than the table itself: <strong>start every new task on Flash, and escalate only when your evals say Flash isn't good enough.</strong> Most teams do the opposite — they default to the flagship, never measure, and quietly pay several times more than they need to for tasks a cheap model handles perfectly. Our piece on <a href="/blog/token-economics-2026">token economics</a> goes deeper on how that spending compounds.</p>
 
       <h2>The Gemini 3.5 Pro Delay, and How to Plan Around It</h2>
       <p><strong>Gemini 3.5 Pro</strong> has slipped by several months and, as of this writing, has not shipped. The rumor mill has floated a 2M-token context window and a "Deep Think" reasoning mode, but neither is confirmed and Google has said nothing official about a new release date. Anyone telling you Gemini 3.5 Pro is generally available right now is working from stale information.</p>
-      <p>If your product roadmap assumed a 2M-token, deep-reasoning Gemini model would land this quarter, revisit that plan. Building around a competitor's unreleased model is, in practice, betting on a rumor. The pragmatic move is to design your architecture so the "big reasoning model" slot is pluggable — route your hardest tasks to whichever flagship is actually shipping today (Gemini 3 Pro, GPT-6 Astra, Claude Opus 5, or Claude Fable 5.1) and keep the Flash tier in the fast, cheap, multimodal lane where it already excels.</p>
+      <p>If your product roadmap assumed a 2M-token, deep-reasoning Gemini model would land this quarter, revisit that plan. Building around a competitor's unreleased model is, in practice, betting on a rumor. The pragmatic move is to design your architecture so the "big reasoning model" slot is pluggable — route your hardest tasks to whichever flagship is actually shipping today (Gemini 3.1 Pro, GPT-6 Astra, Claude Opus 5, or Claude Fable 5.1) and keep the Flash tier in the fast, cheap, multimodal lane where it already excels.</p>
       <p>Concretely, that means keeping your prompt templates, your evaluation harness, and your retrieval pipeline provider-agnostic, so swapping in Gemini 3.5 Pro later — if and when it ships — is a configuration change rather than a rewrite. Teams that hard-coded assumptions about a specific unreleased model's context window or reasoning mode are the ones with the most rework ahead of them.</p>
       <p>None of this is a knock on Google's research. Deep Think style extended reasoning is hard to ship reliably at flagship scale, and a delay is far better than a rushed, unreliable release. The lesson isn't "don't trust Google's roadmap." It's "don't build your current architecture around anyone's unconfirmed one," whichever lab it belongs to.</p>
 
       <h2>An Honest Comparison With GPT-5.6 and Claude</h2>
-      <p>Nobody should pick a model family on vibes, so here is where we think Gemini 3 Pro genuinely wins and genuinely loses against the other frontier options in mid-2026.</p>
+      <p>Nobody should pick a model family on vibes, so here is where we think Google's Pro tier genuinely wins and genuinely loses against the other frontier options in mid-2026.</p>
       <p><strong>Where Gemini wins.</strong> Multimodal breadth is the clearest advantage — native video and audio understanding in the same pass as text is something the competition still handles less gracefully. Long-context economics is the second: when your workload really does involve stuffing hundreds of thousands of tokens into every request, Google's context pricing and caching behavior tend to be kinder than the alternatives. And if your infrastructure already lives in Google Cloud, the integration story is genuinely hard to beat.</p>
       <p><strong>Where Gemini loses.</strong> The agentic coding ecosystem has largely standardized around OpenAI and Anthropic models. If your workflow runs through <a href="/tool/cursor">Cursor</a>, an autonomous coding agent, or any tool whose prompts and tool-calling scaffolding were tuned against GPT and Claude, you'll feel the difference — not because Gemini reasons worse, but because the surrounding software was built and evaluated against someone else's model. Our <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5.1 coding comparison</a> covers that territory, and <a href="/blog/gpt5-vs-claude5">GPT-5.6 vs Claude Sonnet 5</a> covers the general-purpose head-to-head.</p>
       <p><strong>Where it's a wash.</strong> Ordinary text generation, summarization, extraction, and classification. At the Flash tier especially, the frontier labs have converged hard on the common cases, and the differences you'll measure on your own evals will usually be smaller than the differences in price and latency. That's a good thing: it means the choice can be made on integration and cost rather than on a leaderboard.</p>
@@ -614,16 +616,16 @@ export const postsBatch1: BlogPost[] = [
       <p>The real strength of the Gemini line isn't any single model — it's where it lives. Pro, Flash, and Flash-Lite are all baked into Firebase, Google Cloud, and Android Studio. You can ask your IDE "refactor this Cloud Function to use the new v2 triggers" and it has full context of your GCP project state. That level of integration is hard to beat, and it's the main reason GCP-heavy teams standardize on Gemini even when a competitor edges it out on a particular benchmark. Compare that against the rest of the field in our roundup of the <a href="/best/coding">best AI coding tools</a>.</p>
 
       <h2>The Bottom Line</h2>
-      <p>Gemini 3 Pro is a serious flagship with two clear differentiators — native multimodality and long-context economics — sitting on top of a Flash tier that handles the majority of real workloads for a fraction of the cost. The right way to adopt it is bottom-up: default to Flash, measure, and escalate to Pro on the tasks where your evals prove it's needed.</p>
+      <p>Google's Pro tier has two clear differentiators — native multimodality and long-context economics — sitting on top of a Flash tier that handles the majority of real workloads for a fraction of the cost. The right way to adopt it is bottom-up: default to Flash, measure, and escalate to Pro on the tasks where your evals prove it's needed. Name the Pro model you actually mean in config, and re-check that name against Google's current model list before each release.</p>
       <p>And don't build your roadmap around Gemini 3.5 Pro. It isn't here, there's no confirmed date, and a pluggable model layer costs you far less than waiting does. We'll update this piece the moment Google confirms a release. In the meantime, if data residency or cost is what's pushing you toward Google in the first place, it's worth also reading our case for <a href="/blog/local-llm-llama4">running models on your own hardware</a> — for a surprising share of workloads, the best answer isn't any hosted flagship at all.</p>
     `,
     faq: [
       {
-        q: "Is Gemini 3 Pro available right now?",
-        a: "Yes. Gemini 3 Pro is generally available and is the flagship of Google's Gemini 3 family. The model that has not shipped is Gemini 3.5 Pro, which has been delayed with no confirmed release date. Gemini 3.8 Flash and Gemini 3.1 Flash-Lite are also generally available.",
+        q: "Which Gemini Pro model should I be using right now?",
+        a: "Google's current API model list shows Gemini 3.1 Pro, marked Preview, as its Pro-tier entry, with the older Gemini 2.5 Pro listed as stable. Gemini 3 Pro, which launched in November 2025, no longer appears on that list — but it is not on Google's deprecation page either, so check your own provider console rather than assuming it has gone away. The model that never shipped at all is Gemini 3.5 Pro, which has been delayed with no confirmed release date. Gemini 3.8 Flash and Gemini 3.1 Flash-Lite are also generally available.",
       },
       {
-        q: "Should I use Gemini 3 Pro or Gemini 3.8 Flash?",
+        q: "Should I use the Gemini Pro tier or Gemini 3.8 Flash?",
         a: "Start on Flash and escalate only when your evaluations show it isn't good enough. Flash is fast, cheap, and still natively multimodal, which covers the large majority of production workloads. Pro is worth the price when the spec is ambiguous, the task requires many dependent reasoning steps, or a wrong answer is expensive and hard for a human to verify quickly.",
       },
       {
@@ -631,7 +633,7 @@ export const postsBatch1: BlogPost[] = [
         a: "Very useful for retrieval-style questions across a large corpus, and less reliable for multi-hop reasoning that has to hold dozens of scattered facts in play at once. Treat the window as a staging area that keeps relevant material in view, not as a replacement for a retrieval step. Cost and latency both scale with what you load, so prompt caching matters when the bulk of your context is stable between calls.",
       },
       {
-        q: "How does Gemini 3 Pro compare to GPT-5.6 and Claude?",
+        q: "How does the Gemini Pro tier compare to GPT-5.6 and Claude?",
         a: "Gemini leads on native multimodal breadth, long-context economics, and Google Cloud integration. It trails on agentic coding, mostly because the surrounding tool ecosystem was built and tuned against OpenAI and Anthropic models rather than because of a reasoning gap. For ordinary text tasks the three families have largely converged, so price, latency, and integration should decide it.",
       },
       {
@@ -646,10 +648,10 @@ export const postsBatch1: BlogPost[] = [
     title: "Zero-Knowledge AI: The Future of Confidential Computation",
     excerpt: "How to use frontier models like GPT-5.6 and Claude Sonnet 5 on sensitive data without ever exposing it — and what real enterprise adoption in healthcare, finance, and defense actually looks like.",
     date: "Jul 18, 2026",
-    updated: "Aug 16, 2026",
+    updated: "Sep 18, 2026",
     author: "Alex Rivera",
     category: "Security",
-    readTime: "14 min read",
+    readTime: "11 min read",
     image: "/images/blog/zero-knowledge-ai.png",
     content: `
       <h2>The Privacy Bottleneck</h2>
@@ -713,7 +715,7 @@ export const postsBatch1: BlogPost[] = [
 
       <h3>The Enterprise Unlocked</h3>
       <p>This tech unlocks AI for healthcare, finance, and defense. 2026 is shaping up to be the year of the "Private AI Cloud." We are seeing infrastructure startups raising serious rounds specifically to build verifiable-inference tooling, and it's a reasonable bet that this becomes a standard checkbox in enterprise AI procurement within two years, the same way SOC 2 became table stakes for SaaS a decade ago.</p>
-      <p>For developers, this increasingly means reaching for an SDK option rather than building the cryptography yourself — something conceptually like <code>await client.chat.completions.create({ mode: 'zkp' })</code> sitting alongside your normal GPT-5.6, <a href="/blog/gemini-3-pro-deep-dive">Gemini 3 Pro</a>, or Claude Sonnet 5 calls. It will be slower and more expensive than a plain API call, but it will let you build AI features for the most privacy-sensitive customers in the world without asking them to trust you blindly.</p>
+      <p>For developers, this increasingly means reaching for an SDK option rather than building the cryptography yourself — something conceptually like <code>await client.chat.completions.create({ mode: 'zkp' })</code> sitting alongside your normal GPT-5.6, <a href="/blog/gemini-3-pro-deep-dive">Gemini 3.1 Pro</a>, or Claude Sonnet 5 calls. It will be slower and more expensive than a plain API call, but it will let you build AI features for the most privacy-sensitive customers in the world without asking them to trust you blindly.</p>
 
       <h3>A Realistic Adoption Timeline</h3>
       <p>Don't expect to flip a switch and go fully zero-knowledge tomorrow. The realistic path for most engineering teams looks like three stages. Stage one, happening now: adopt TEE-based confidential computing for anything touching regulated data, which most major cloud providers already support and which requires minimal application changes. Stage two, over the next 12-18 months: pilot ZK-ML verifiable inference on a single, narrow, high-value use case — a fraud model or a clinical triage assistant — where the compliance win justifies the performance cost. Stage three, further out: broader ZK-ML adoption as tooling matures and the performance tax shrinks, the same curve homomorphic encryption itself followed over the past decade before it became practical for real workloads.</p>
@@ -819,10 +821,10 @@ export const postsBatch1: BlogPost[] = [
     title: "Digital Sovereignty: Why Your Next AI Will Live on Your Mac",
     excerpt: "With the M5 chip, Llama 4, and now Meta's frontier Llama 5 release, running GPT-4-class models locally is a reality — from your Mac all the way down to the NPU in your phone. Updated for August 2026.",
     date: "Jul 18, 2026",
-    updated: "Sep 17, 2026",
+    updated: "Sep 18, 2026",
     author: "David Kim",
     category: "Tutorial",
-    readTime: "13 min read",
+    readTime: "15 min read",
     image: "/images/blog/local-llm-llama4.png",
     content: `
       <h2>The Edge Revolution Is Already Here</h2>
@@ -846,7 +848,7 @@ export const postsBatch1: BlogPost[] = [
       <ul>
         <li><strong>Frontier reasoning.</strong> If you need the absolute best one-shot reasoning on a hard problem — research-grade math, novel code architecture, complex legal analysis — Claude Fable 5.1 and GPT-5.6 Sol are still measurably ahead. The gap is shrinking quarter over quarter, but it is real.</li>
         <li><strong>Multimodal breadth.</strong> Native audio and video understanding, real-time voice, and image generation at production quality still live in cloud-hosted stacks. Local equivalents exist (Whisper for ASR, SDXL Turbo for images) but the integration and quality gap is significant.</li>
-        <li><strong>Massive context windows.</strong> A 1M-token context with reliable retrieval is something hosted providers have invested heavily in — <a href="/blog/gemini-3-pro-deep-dive">Gemini 3 Pro</a> in particular has made long-context work its signature capability. Local models nominally support large contexts but quality degrades sharply past ~32K tokens on consumer hardware.</li>
+        <li><strong>Massive context windows.</strong> A 1M-token context with reliable retrieval is something hosted providers have invested heavily in — <a href="/blog/gemini-3-pro-deep-dive">Google's Gemini Pro tier</a> in particular has made long-context work its signature capability. Local models nominally support large contexts but quality degrades sharply past ~32K tokens on consumer hardware.</li>
       </ul>
       <p>Laid out side by side, the trade is easy to reason about:</p>
       <table>
@@ -1243,7 +1245,7 @@ export const postsBatch1: BlogPost[] = [
     updated: "Aug 16, 2026",
     author: "David Kim",
     category: "Career",
-    readTime: "6 min read",
+    readTime: "4 min read",
     image: "/images/blog/sovereign-developer.png",
     content: `
       <h2>The 10x Engineer is now 100x</h2>
@@ -1552,7 +1554,7 @@ export const postsBatch1: BlogPost[] = [
     updated: "Aug 16, 2026",
     author: "Alex Rivera",
     category: "Process",
-    readTime: "12 min read",
+    readTime: "10 min read",
     image: "/images/blog/linear-method.png",
     content: `
       <h2>Optimizing for Momentum</h2>
