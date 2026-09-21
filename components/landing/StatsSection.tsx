@@ -1,7 +1,6 @@
 "use client";
 
-import { m, useInView } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import { m } from "framer-motion";
 import {
   Wrench,
   Layers,
@@ -71,43 +70,32 @@ function buildStats(toolCount: number, stackCount: number, guideCount: number) {
   ];
 }
 
-function AnimatedNumber({ 
-  value, 
-  suffix = "", 
-  isDecimal = false 
-}: { 
-  value: number; 
+/**
+ * Renders a stat figure. Deliberately not animated.
+ *
+ * This used to count up from 0 on scroll, which meant the server-rendered
+ * markup held a 0 — and that is the number crawlers read. Google's snippet
+ * for the homepage advertised "0+ AI Tools" to anyone who searched for the
+ * brand, on the site's single most important page.
+ *
+ * Keeping the count-up would mean putting the real figure in the SSR markup
+ * and rewinding it to 0 on the client, which either flashes the correct
+ * number away before animating it or needs viewport arithmetic on mount to
+ * decide. Neither is worth it for a decorative flourish, so the figure is
+ * simply the figure. The surrounding section keeps its entrance animation.
+ */
+function StatNumber({
+  value,
+  suffix = "",
+  isDecimal = false,
+}: {
+  value: number;
   suffix?: string;
   isDecimal?: boolean;
 }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  useEffect(() => {
-    if (!isInView) return;
-
-    const duration = 2000;
-    const steps = 60;
-    const increment = value / steps;
-    let current = 0;
-
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= value) {
-        setCount(value);
-        clearInterval(timer);
-      } else {
-        setCount(isDecimal ? parseFloat(current.toFixed(1)) : Math.floor(current));
-      }
-    }, duration / steps);
-
-    return () => clearInterval(timer);
-  }, [isInView, value, isDecimal]);
-
   return (
-    <span ref={ref}>
-      {isDecimal ? count.toFixed(1) : count}{suffix}
+    <span>
+      {isDecimal ? value.toFixed(1) : value}{suffix}
     </span>
   );
 }
@@ -176,7 +164,7 @@ export function StatsSection({
                     {/* Value */}
                     <div className="text-4xl md:text-5xl font-bold mb-2">
                       <span className={`text-transparent bg-clip-text bg-linear-to-r ${stat.color}`}>
-                        <AnimatedNumber
+                        <StatNumber
                           value={stat.value}
                           suffix={stat.suffix}
                         />
