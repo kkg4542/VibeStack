@@ -3,7 +3,7 @@
 import { Metadata } from "next";
 import { ToolsList } from "./ToolsList";
 import { m } from "framer-motion";
-import { Search, Sparkles, TrendingUp, Target, Zap, ShieldCheck, RefreshCw, Layers, ArrowRight } from "lucide-react";
+import { Search, TrendingUp, Target, Zap, ShieldCheck, RefreshCw, Layers, ArrowRight } from "lucide-react";
 import { VibeCard } from "@/components/ui/VibeCard";
 import { designSystem } from "@/lib/design-system";
 import { useEffect, useState } from "react";
@@ -96,7 +96,11 @@ export default function ToolsPage() {
     }, []);
 
     return (
-        <PageBackground {...BackgroundPresets.content}>
+        // The page header (badge, H1, intro) is server-rendered in
+        // app/tools/page.tsx and sits directly above this block, so it owns the
+        // offset under the fixed nav. Keep this padding small or the two halves
+        // of the hero drift apart.
+        <PageBackground {...BackgroundPresets.content} className="pt-8">
             <Container size="default">
                 <m.div
                     initial={designSystem.animations.fadeInUp.initial}
@@ -104,29 +108,10 @@ export default function ToolsPage() {
                     transition={designSystem.animations.fadeInUp.transition}
                     className="text-center mb-16"
                 >
-                    {/* Badge */}
-                    <m.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-link text-sm font-medium mb-6 backdrop-blur-sm"
-                    >
-                        <Sparkles className="w-4 h-4" />
-                        <span>{totalTools} tools, vetted for real work</span>
-                    </m.div>
-
-                    <h1 className={`${designSystem.typography.hero} mb-6 max-w-4xl mx-auto leading-tight`}>
-                        Skip the hype. Find the{" "}
-                        <span className="text-gradient-brand">
-                            tools that ship
-                        </span>{" "}
-                        your work faster.
-                    </h1>
-
-                    <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed">
-                        We test, tag, and track AI products by real workflow impact, not buzz. Compare tools by category, pricing, and outcomes to build a stack that actually saves time.
-                    </p>
-
+                    {/* The badge, H1 and lead paragraph live in
+                        app/tools/page.tsx. They are static copy, and keeping
+                        them here left the hub with no heading and no intro in
+                        the prerendered HTML. */}
                     {/* Quick Stats */}
                     <m.div
                         initial={designSystem.animations.fadeInUp.initial}

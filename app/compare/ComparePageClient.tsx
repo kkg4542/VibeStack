@@ -13,7 +13,6 @@ import { toast } from "sonner";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
-import { designSystem } from "@/lib/design-system";
 import { Container } from "@/components/primitives/Container";
 
 export default function ComparePageClient() {
@@ -65,20 +64,20 @@ export default function ComparePageClient() {
 
     if (isLoading) {
         return (
-            <main className="min-h-screen bg-background relative overflow-hidden pt-32 pb-20">
+            <div className="relative overflow-hidden pt-12 pb-16">
                 <Container size="xs" className="text-center">
                     <div className="inline-flex p-4 rounded-full bg-vibe-electric/10 mb-4">
                         <Scale className="h-8 w-8 text-vibe-link animate-pulse" />
                     </div>
                     <p className="text-muted-foreground">Loading comparison...</p>
                 </Container>
-            </main>
+            </div>
         );
     }
 
     if (selectedTools.length === 0) {
         return (
-            <PageBackground {...BackgroundPresets.content}>
+            <PageBackground {...BackgroundPresets.content} className="min-h-0 pt-12 pb-16">
                 <Container size="xs" className="text-center">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
@@ -88,9 +87,13 @@ export default function ComparePageClient() {
                         <div className="inline-flex p-6 bg-vibe-electric/10 rounded-full w-24 h-24 mx-auto mb-6 items-center justify-center border border-vibe-electric/20">
                             <Scale className="h-12 w-12 text-vibe-link" />
                         </div>
-                        <h1 className={`${designSystem.typography.hero} mb-4`}>Compare AI Tools</h1>
+                        <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-4">
+                            Build your own comparison
+                        </h2>
                         <p className="text-muted-foreground text-lg mb-8">
-                            Select up to 3 tools from our directory to compare them side-by-side and find the perfect fit for your workflow.
+                            Already narrowed it down? Pick up to 3 tools from the directory with
+                            the Compare button and they will line up here side-by-side — features,
+                            pricing, pros and cons in one view.
                         </p>
                         <Button asChild className="rounded-full shadow-lg shadow-vibe-electric/20 px-8 h-12">
                             <Link href="/tools">Browse Tools Directory</Link>
@@ -102,7 +105,7 @@ export default function ComparePageClient() {
     }
 
     return (
-        <PageBackground {...BackgroundPresets.content}>
+        <PageBackground {...BackgroundPresets.content} className="min-h-0 pt-12">
             <Container>
                 {/* Header */}
                 <motion.div
@@ -149,7 +152,7 @@ export default function ComparePageClient() {
                         <div className="p-2 rounded-lg bg-vibe-electric/10">
                             <Scale className="h-6 w-6 text-vibe-link" />
                         </div>
-                        <h1 className={designSystem.typography.hero}>Tool Comparison</h1>
+                        <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Your comparison</h2>
                     </div>
                     <p className="text-muted-foreground">
                         Comparing {selectedTools.length} tools side-by-side
