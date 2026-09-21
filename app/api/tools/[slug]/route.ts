@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { createErrorResponse } from "@/lib/api-utils";
+import { isRetiredTool } from "@/lib/tools-db";
 import { auth } from "@/auth";
 
 interface Props {
@@ -14,6 +15,18 @@ export async function GET(
 ) {
   try {
     const { slug } = await params;
+
+    // Retired tools are filtered at *read* time rather than deleted from the
+    // database (see RETIRED_TOOL_SLUGS in lib/tools-db.ts), so the row is still
+    // here and every read path has to exclude it itself. The row exists but the
+    // resource is unpublished, and the rest of the site already answers that
+    // way — getToolBySlug() returns null and /tool/[slug] is 301'd in
+    // next.config.ts — so the API answers "not found" rather than handing out a
+    // record that no listing contains. The admin write paths below are
+    // deliberately untouched, so the retirement stays reversible.
+    if (isRetiredTool(slug)) {
+      return createErrorResponse("Tool not found", 404);
+    }
 
     const tool = await prisma.tool.findUnique({
       where: { slug },

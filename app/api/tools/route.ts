@@ -6,7 +6,7 @@ import { auth } from "@/auth";
 
 import { validateBodySize } from "@/lib/body-size";
 import { unstable_cache, revalidateTag } from "next/cache";
-import { POPULARITY_ORDER } from "@/lib/tools-db";
+import { POPULARITY_ORDER, RETIRED_TOOL_SLUGS } from "@/lib/tools-db";
 
 function popularityRank(slug: string): number {
   const i = POPULARITY_ORDER.indexOf(slug);
@@ -16,9 +16,21 @@ function popularityRank(slug: string): number {
 // Cache function for getTools. We fetch all matching rows, sort by the curated
 // popularity order in-memory (the dataset is small), then paginate — so popular
 // tools surface first across every page.
+//
+// Retired tools are filtered at *read* time rather than deleted from the
+// database (see RETIRED_TOOL_SLUGS in lib/tools-db.ts), so the rows are still
+// there and every read path has to exclude them itself — this public list feeds
+// hooks/use-tools.ts, which backs /tools, /search, /compare, /build and the
+// command menu. The exclusion lives inside the query (not in the caller's
+// `where`) so no caller can pass a filter that puts them back, and `total` is
+// counted after it so the pagination stays consistent with the page contents.
+// The admin write paths below are deliberately untouched: admin must keep
+// seeing retired tools so the retirement stays reversible.
 const getCachedTools = unstable_cache(
   async (where: Record<string, unknown>, skip: number, limit: number | undefined) => {
-    const all = await prisma.tool.findMany({ where });
+    const all = await prisma.tool.findMany({
+      where: { ...where, slug: { notIn: [...RETIRED_TOOL_SLUGS] } },
+    });
     all.sort((a, b) => {
       const ra = popularityRank(a.slug);
       const rb = popularityRank(b.slug);

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { after } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { isRetiredTool } from "@/lib/tools-db";
 import { checkRateLimit, rateLimitConfigs } from "@/lib/redis";
 
 // This route computes a per-request redirect target and writes an analytics
@@ -22,6 +23,26 @@ function parseAbVariant(value: string | null): AbVariant | null {
 
 export async function GET(request: NextRequest, { params }: Params) {
   const { slug } = await params;
+
+  // Retired tools are filtered at *read* time rather than deleted from the
+  // database (see RETIRED_TOOL_SLUGS in lib/tools-db.ts), so the row — and its
+  // affiliateUrl — is still here and every read path has to exclude it itself.
+  // This one matters most: the vendor is gone or absorbed, so sending a reader
+  // out to it with our affiliate tag attached is both useless to them and a
+  // claim we no longer stand behind.
+  //
+  // Answer with an internal redirect rather than a 404 because this endpoint's
+  // whole job is to send a browser somewhere: every retired slug has a
+  // /tool/<slug> -> live-alternative 301 in next.config.ts (supermaven ->
+  // cursor, windsurf-ide -> devin-ai, openai-sora and galileo-ai ->
+  // /best/design), so the reader lands on the tool that replaced it. It stays a
+  // temporary 307, like the affiliate redirect below, so that removing a slug
+  // from RETIRED_TOOL_SLUGS takes effect immediately instead of being pinned in
+  // browser caches. Returned before the after() below is registered, so no
+  // AffiliateClick row is written for a destination we never sent anyone to.
+  if (isRetiredTool(slug)) {
+    return NextResponse.redirect(new URL(`/tool/${slug}`, request.nextUrl.origin), 307);
+  }
 
   // Use prisma directly rather than lib/tools-db.ts's getToolBySlug: the
   // ToolData shape it returns has no `id`, and AffiliateClick.toolId needs it.

@@ -28,7 +28,11 @@ const categories = [
     color: "from-vibe-electric to-vibe-cyan",
     bgColor: "bg-vibe-electric/10",
     iconColor: "text-vibe-link",
-    tools: ["Cursor", "GitHub Copilot", "Windsurf", "Bolt.new"],
+    // Names are display-only chips, but they still have to be products a
+    // reader can go and find. Windsurf sat here until Cognition folded it into
+    // Devin Desktop; it is retired from the directory, so the homepage should
+    // not be the one place still advertising it.
+    tools: ["Cursor", "GitHub Copilot", "Replit", "Bolt.new"],
   },
   {
     id: "design",
