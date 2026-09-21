@@ -1,4 +1,4 @@
-import { getVerifiedTestimonials, getFeaturedStacks } from "@/lib/data/stacks";
+import { getVerifiedTestimonials, getFeaturedStackRanking, resolveFeaturedStacks } from "@/lib/data/stacks";
 import { getTools } from "@/lib/tools-db";
 import { stacks } from "@/lib/stacks";
 import { blogPosts } from "@/lib/blog";
@@ -23,11 +23,19 @@ const ExitIntentPopup = dynamic(() => import("@/components/ui/ExitIntentPopup").
 
 export default async function Home() {
   // Fetch data on the server
-  const [testimonials, featuredStacks, allTools] = await Promise.all([
+  const [testimonials, featuredRanking, allTools] = await Promise.all([
     getVerifiedTestimonials(6),
-    getFeaturedStacks(6),
+    getFeaturedStackRanking(),
     getTools(),
   ]);
+
+  // The database only orders the featured stacks; the copy on each card comes
+  // from lib/stacks.ts, the same file /stack/[stackId] renders, and the tool
+  // names come from `allTools` — which excludes retired tools. That is what
+  // keeps the homepage from advertising a stack differently than its own page
+  // does, and what keeps it from linking a stack id that /stack/[stackId]
+  // (dynamicParams = false) would 404 on. See lib/data/stacks/core.ts.
+  const featuredStacks = resolveFeaturedStacks(featuredRanking, allTools, 6);
 
   // Real per-category tool counts (category id → count) for the category cards.
   const categoryIdByName: Record<string, string> = {

@@ -1,17 +1,19 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { prisma } from "@/lib/prisma";
 import { Wrench, Layers, FileText, Users } from "lucide-react";
+import { stacks } from "@/lib/stacks";
 
 async function getStats() {
-  const [toolsCount, stacksCount, blogCount] = await Promise.all([
+  const [toolsCount, blogCount] = await Promise.all([
     prisma.tool.count(),
-    prisma.stack.count(),
     prisma.blogPost.count(),
   ]);
 
   return {
     tools: toolsCount,
-    stacks: stacksCount,
+    // Counted from lib/stacks.ts, not prisma.stack.count(): stacks are
+    // code-managed, and the Stack table still holds rows that publish nowhere.
+    stacks: stacks.length,
     blogPosts: blogCount,
   };
 }

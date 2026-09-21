@@ -68,11 +68,12 @@ export default function ToolsPage() {
             tools: ["ChatGPT", "Midjourney", "Descript"]
         }
     ];
+    // Shape of /api/stacks/featured, which resolves every card out of
+    // lib/stacks.ts — so `id` is always a stack page that exists.
     const [featuredStacks, setFeaturedStacks] = useState<Array<{
         id: string;
-        idField: string;
         name: string;
-        description: string | null;
+        description: string;
         tools: { name: string; slug: string }[];
     }>>([]);
 
@@ -240,7 +241,7 @@ export default function ToolsPage() {
                                 whileHover={{ y: -4 }}
                                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                             >
-                                <Link href={"idField" in stack ? `/stack/${stack.idField}` : "#"} className="block h-full">
+                                <Link href={"summary" in stack ? "#" : `/stack/${stack.id}`} className="block h-full">
                                     <VibeCard
                                         className="h-full"
                                         tiltStrength={5}
@@ -254,7 +255,7 @@ export default function ToolsPage() {
                                                         {stack.name}
                                                     </h3>
                                                     <p className="text-sm text-muted-foreground line-clamp-2">
-                                                        {"summary" in stack ? stack.summary : (stack.description ?? "A curated stack for faster outcomes.")}
+                                                        {"summary" in stack ? stack.summary : stack.description}
                                                     </p>
                                                 </div>
                                                 <div className="p-2 rounded-full bg-vibe-electric/10 text-vibe-link">

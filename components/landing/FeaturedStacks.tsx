@@ -6,13 +6,18 @@ import { ArrowRight, Sparkles, Zap, Eye, Heart, Star } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { VibeCard } from "@/components/ui/VibeCard";
-import { StackWithMetrics } from "@/lib/data/stacks";
+import type { FeaturedStack } from "@/lib/data/stacks/types";
 import { designSystem } from "@/lib/design-system";
 import { Section } from "@/components/primitives/Section";
 import { Container } from "@/components/primitives/Container";
 
 interface FeaturedStacksProps {
-  stacks: StackWithMetrics[];
+  /**
+   * Already resolved by resolveFeaturedStacks(): the copy is lib/stacks.ts's
+   * and `stack.id` is guaranteed to be a route /stack/[stackId] prerendered,
+   * so the links below cannot 404.
+   */
+  stacks: FeaturedStack[];
 }
 
 export function FeaturedStacks({ stacks }: FeaturedStacksProps) {
@@ -58,7 +63,7 @@ export function FeaturedStacks({ stacks }: FeaturedStacksProps) {
                 ease: [0.16, 1, 0.3, 1]
               }}
             >
-              <Link href={`/stack/${stack.idField}`} className="group block h-full">
+              <Link href={`/stack/${stack.id}`} className="group block h-full">
                 <VibeCard
                   variant="glass"
                   hover="both"
@@ -133,9 +138,9 @@ export function FeaturedStacks({ stacks }: FeaturedStacksProps) {
                       ) : (
                         <div className="flex items-center justify-between pt-6 border-t border-foreground/10">
                           <div className="flex -space-x-2">
-                            {stack.tools.slice(0, 4).map((tool, i) => (
+                            {stack.tools.slice(0, 4).map((tool) => (
                               <div
-                                key={tool.id}
+                                key={tool.slug}
                                 className="w-8 h-8 rounded-full bg-foreground/10 border-2 border-background flex items-center justify-center text-xs"
                                 title={tool.name}
                               >
