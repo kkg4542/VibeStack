@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
     return (
-        <main className="pt-32 pb-20">
+        <div className="pt-32 pb-20">
             <Container size="small">
             <div className="flex flex-col gap-4 mb-12">
                 <h1 className={`${designSystem.typography.hero} text-foreground`}>
@@ -135,6 +135,6 @@ export default function TermsPage() {
                 </section>
             </div>
             </Container>
-        </main>
+        </div>
     )
 }

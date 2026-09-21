@@ -3,7 +3,7 @@ import { Container } from "@/components/primitives/Container";
 
 export default function BuildLoading() {
     return (
-        <main className="min-h-screen bg-background pt-32 pb-20">
+        <div className="min-h-screen bg-background pt-32 pb-20">
             <Container size="default">
                 <div className="max-w-4xl mx-auto space-y-8">
                     {/* Header Skeleton */}
@@ -41,6 +41,6 @@ export default function BuildLoading() {
                     </div>
                 </div>
             </Container>
-        </main>
+        </div>
     );
 }

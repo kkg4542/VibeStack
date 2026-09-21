@@ -110,11 +110,11 @@ export default function SearchPage() {
 
     if (!mounted) {
         return (
-            <main className="min-h-screen bg-background pt-32 pb-20">
+            <div className="min-h-screen bg-background pt-32 pb-20">
                 <Container size="small">
                     <p className="text-muted-foreground">Loading...</p>
                 </Container>
-            </main>
+            </div>
         );
     }
 

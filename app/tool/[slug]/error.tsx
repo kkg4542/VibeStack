@@ -18,7 +18,7 @@ export default function ToolError({
     }, [error]);
 
     return (
-        <main className="min-h-[80vh] flex items-center justify-center bg-background px-4">
+        <div className="min-h-[80vh] flex items-center justify-center bg-background px-4">
             <div className="max-w-md w-full text-center space-y-8">
                 <div className="mx-auto w-24 h-24 bg-red-500/10 rounded-full flex items-center justify-center">
                     <AlertCircle className="w-12 h-12 text-red-700/80 dark:text-red-500/80" />
@@ -50,6 +50,6 @@ export default function ToolError({
                     </Button>
                 </div>
             </div>
-        </main>
+        </div>
     );
 }

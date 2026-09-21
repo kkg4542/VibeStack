@@ -4,7 +4,7 @@ import { Container } from "@/components/primitives/Container";
 
 export default function ToolLoading() {
     return (
-        <main className="min-h-screen bg-background pt-32 pb-20">
+        <div className="min-h-screen bg-background pt-32 pb-20">
             {/* Header Skeleton */}
             <Section spacing="default" container={false} className="border-b border-border/50 bg-secondary/20">
                 <Container size="default">
@@ -45,6 +45,6 @@ export default function ToolLoading() {
                     </div>
                 </div>
             </Section>
-        </main>
+        </div>
     );
 }

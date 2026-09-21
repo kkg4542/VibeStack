@@ -183,13 +183,13 @@ export default function FavoritesPage() {
 
     if (!mounted || isLoading) {
         return (
-            <main className="min-h-screen bg-background pt-32 pb-20">
+            <div className="min-h-screen bg-background pt-32 pb-20">
                 <Container size="default">
                     <div className="flex items-center justify-center py-20">
                         <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
                     </div>
                 </Container>
-            </main>
+            </div>
         );
     }
 

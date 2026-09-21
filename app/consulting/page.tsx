@@ -44,7 +44,7 @@ export default function ConsultingPage() {
     ];
 
     return (
-        <main className="relative min-h-screen bg-background pt-24 pb-20 overflow-hidden">
+        <div className="relative min-h-screen bg-background pt-24 pb-20 overflow-hidden">
             {/* Ambient Background Glows */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 z-0 h-[60vh] w-full max-w-[1200px] bg-vibe-purple/10 dark:bg-vibe-purple/20 blur-[140px] rounded-full px-4" />
             <div className="absolute top-[20%] left-[10%] z-0 h-[30vh] w-[30vh] bg-vibe-purple/10 blur-[100px] rounded-full animate-pulse" />
@@ -191,6 +191,6 @@ export default function ConsultingPage() {
                 </Section>
 
             </div>
-        </main>
+        </div>
     );
 }

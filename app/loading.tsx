@@ -16,7 +16,7 @@ export default function Loading() {
       </div>
 
       {/* Main Content Skeleton */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero Section */}
         <div className="text-center mb-16 space-y-4">
           <VibeSkeleton variant="text" className="h-12 w-3/4 mx-auto" />
@@ -26,7 +26,7 @@ export default function Loading() {
 
         {/* Tools Grid */}
         <GridSkeleton count={6} columns={3} />
-      </main>
+      </div>
     </div>
   );
 }

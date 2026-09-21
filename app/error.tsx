@@ -20,7 +20,7 @@ export default function Error({
     }, [error]);
 
     return (
-        <main className="min-h-screen bg-background flex items-center justify-center px-4 py-20">
+        <div className="min-h-screen bg-background flex items-center justify-center px-4 py-20">
             <div className="max-w-md w-full text-center">
                 {/* Error Icon */}
                 <div className="mb-8 flex justify-center">
@@ -108,6 +108,6 @@ export default function Error({
                     </Link>
                 </div>
             </div>
-        </main>
+        </div>
     );
 }

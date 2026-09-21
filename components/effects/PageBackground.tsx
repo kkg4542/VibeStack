@@ -44,8 +44,14 @@ export function PageBackground({
   const hasGrid = variant === "grid" || variant === "hero";
   const hasGradientOrbs = variant === "gradient" || variant === "hero" || showOrbs;
 
+  // A <div>, not a <main>. app/layout.tsx already wraps every page in
+  // <main id="main-content">, and this component renders inside it on 25
+  // pages — so a <main> here nested one inside another, which is invalid and
+  // leaves assistive tech and reader modes picking between two candidates for
+  // the page's main content. Nothing selects this element by tag; the skip
+  // link targets #main-content on the layout.
   return (
-    <main
+    <div
       className={cn(
         "relative min-h-screen bg-background pt-24 pb-20 overflow-hidden",
         className
@@ -101,7 +107,7 @@ export function PageBackground({
 
       {/* Content */}
       <div className="relative z-10">{children}</div>
-    </main>
+    </div>
   );
 }
 
