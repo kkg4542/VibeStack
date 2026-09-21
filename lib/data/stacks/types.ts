@@ -58,33 +58,6 @@ export interface FeaturedStack {
   } | null;
 }
 
-export interface StackWithMetrics {
-  id: string;
-  idField: string;
-  name: string;
-  description: string | null;
-  longDescription: string | null;
-  totalPrice: string | null;
-  tags: string[];
-  idealFor: string[];
-  workflow: string[];
-  icon: string | null;
-  color: string | null;
-  tools: {
-    id: string;
-    name: string;
-    slug: string;
-    category: string;
-    pricing: string;
-  }[];
-  metrics: StackMetricsSummary | null;
-  curator: {
-    name: string;
-    image: string | null;
-    role: string;
-  } | null;
-}
-
 export interface VerifiedTestimonial {
   id: string;
   user: {

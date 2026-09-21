@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma";
-import { StackWithMetrics } from "./types";
 
 // Save/unsave a stack to user's collection
 export async function toggleSaveStack(userId: string, stackId: string) {
