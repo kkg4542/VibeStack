@@ -22,16 +22,23 @@ export const TOOL_CONTENT_REVISED_BY_SLUG: Record<string, string> = {
     // confirmed rather than announced), devin-ai (Devin Desktop / Windsurf
     // lineage added for readers redirected from /tool/windsurf-ide), and
     // claude (dropped a stale model version number).
+    //
+    // 2026-09-22: internal links added to the new /blog/discontinued-ai-tools-2026
+    // post — devin-ai (added the Cascade-replaced-by-Devin-Local detail and
+    // linked the post from the Windsurf lineage paragraph), cursor (added a
+    // sentence noting Supermaven's autocomplete was folded into Cursor's Tab,
+    // linked the post), gemini-code-assist (linked the post from the existing,
+    // already-accurate shutdown paragraph; no wording changed there).
     lovable: "2026-09-16",
     descript: "2026-09-16",
     runway: "2026-09-16",
     clickup: "2026-09-16",
-    "gemini-code-assist": "2026-09-17",
+    "gemini-code-assist": "2026-09-22",
     aider: "2026-09-16",
     "builder-io": "2026-09-16",
     tabnine: "2026-09-17",
     "otter-ai": "2026-09-16",
-    cursor: "2026-09-16",
+    cursor: "2026-09-22",
     "github-copilot": "2026-09-16",
     "v0-by-vercel": "2026-09-16",
     "bolt-new": "2026-09-16",
@@ -64,6 +71,6 @@ export const TOOL_CONTENT_REVISED_BY_SLUG: Record<string, string> = {
     replit: "2026-09-16",
     gamma: "2026-09-16",
     vercel: "2026-09-16",
-    "devin-ai": "2026-09-17",
+    "devin-ai": "2026-09-22",
     airtable: "2026-09-16",
 };
