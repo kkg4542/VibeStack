@@ -16,7 +16,9 @@ const CURATED_IDS = stacks.map((stack) => stack.id);
 /**
  * Stand-in for getTools(): slug + title is all the resolver reads. Built from
  * the curated stacks themselves rather than from lib/tools.ts, which is only
- * the offline fallback array and is missing a couple of slugs the database has.
+ * the offline fallback array — coupling this fixture to it would let a stack
+ * added here mask a gap in that array instead of exercising the resolver
+ * against a source guaranteed to cover every referenced slug.
  */
 const allTools = [...new Set(stacks.flatMap((stack) => stack.tools))].map((slug) => ({
   slug,
