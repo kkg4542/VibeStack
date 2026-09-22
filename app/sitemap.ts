@@ -4,8 +4,7 @@ import { blogPosts } from "@/lib/blog";
 import { stacks, STACKS_REVISED } from "@/lib/stacks";
 import { BEST_CATEGORIES, BEST_REVISED } from "@/lib/best-categories";
 import { comparePairs } from "@/lib/compare-content";
-import { hasExtendedContent, TOOL_EXTENDED_CONTENT_REVISED } from "@/lib/tool-extended-content";
-import { TOOL_CONTENT_REVISED_BY_SLUG } from "@/lib/tool-content-revised";
+import { toolLastRevised } from "@/lib/tool-revised";
 
 const CATEGORY_SLUGS = ["coding", "management", "productivity", "assistance", "design", "other"];
 
@@ -61,25 +60,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // A tool revised on its own carries its own date; the rest fall back to the
     // batch constant. Without the override a single-tool rewrite is invisible here,
     // because bumping the shared constant would claim all 48 pages changed.
-    const extendedRevised = new Date(TOOL_EXTENDED_CONTENT_REVISED);
-    const toolPages = tools.map((tool) => {
-        const dbUpdated = tool.updatedAt ? new Date(tool.updatedAt) : staticLastModified;
-        const override = TOOL_CONTENT_REVISED_BY_SLUG[tool.slug];
-        const editorialRevised = override
-            ? new Date(override)
-            : hasExtendedContent(tool.slug)
-              ? extendedRevised
-              : null;
-        const lastModified =
-            editorialRevised && editorialRevised > dbUpdated ? editorialRevised : dbUpdated;
-
-        return {
-            url: `${baseUrl}/tool/${tool.slug}`,
-            lastModified,
-            changeFrequency: "weekly" as const,
-            priority: 0.9,
-        };
-    });
+    const toolPages = tools.map((tool) => ({
+        url: `${baseUrl}/tool/${tool.slug}`,
+        lastModified: toolLastRevised(tool) ?? staticLastModified,
+        changeFrequency: "weekly" as const,
+        priority: 0.9,
+    }));
 
     // Stack pages
     const stackPages = stacks.map((stack) => ({

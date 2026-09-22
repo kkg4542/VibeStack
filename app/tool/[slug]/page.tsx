@@ -19,6 +19,7 @@ import { designSystem } from "@/lib/design-system";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { SimpleAccordionItem } from "@/components/ui/simple-accordion";
 import { getExtendedContent } from "@/lib/tool-extended-content";
+import { toolLastRevised } from "@/lib/tool-revised";
 import { fitTitle } from "@/lib/seo-title";
 import sanitizeHtml from "sanitize-html";
 
@@ -197,6 +198,20 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
     const ogImage = `${canonicalUrl}/opengraph-image`;
     const isFree = tool.pricing === "Free" || tool.pricing === "Freemium";
 
+    // Last substantive content change — the later of the editorial revision
+    // date and the DB row's updatedAt. See lib/tool-revised.ts for the exact
+    // semantics (it is "last touched", not "last fact-checked").
+    const lastRevised = toolLastRevised(tool);
+    const lastRevisedIso = lastRevised ? lastRevised.toISOString().slice(0, 10) : null;
+    const lastRevisedHuman = lastRevised
+        ? lastRevised.toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+              timeZone: "UTC",
+          })
+        : null;
+
     const softwareJsonLd = {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
@@ -208,6 +223,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
         url: canonicalUrl,
         image: ogImage,
         sameAs: [tool.websiteUrl],
+        ...(lastRevisedIso ? { dateModified: lastRevisedIso } : {}),
         offers: {
             "@type": "Offer",
             price: isFree ? "0" : undefined,
@@ -292,6 +308,15 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 
                 {/* Hero Section - Enhanced */}
                 <ToolHero tool={tool} />
+
+                {/* Last-revised date — plain server-rendered HTML (not inside a
+                    Motion* client subtree) so crawlers and AI surfaces that
+                    don't run client JS still see it. */}
+                {lastRevisedIso && lastRevisedHuman && (
+                    <p className="text-xs text-muted-foreground -mt-8 mb-8">
+                        Last updated <time dateTime={lastRevisedIso}>{lastRevisedHuman}</time>
+                    </p>
+                )}
 
                 {/* Content Grid */}
                 <div className="grid lg:grid-cols-3 gap-8">
