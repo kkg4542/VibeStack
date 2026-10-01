@@ -14,7 +14,7 @@ export const postsBatch4: BlogPost[] = [
     excerpt:
       "The exact stack that makes vibe coding work in 2026 — editor, app builder, assistant, review, and deployment — plus why each pick wins its layer, where the layers grind against each other, what to cut at each budget, and the mistakes that quietly cost you a weekend.",
     date: "Jul 18, 2026",
-    updated: "Sep 18, 2026",
+    updated: "Oct 1, 2026",
     author: "David Kim",
     category: "Guide",
     readTime: "12 min read",
@@ -41,8 +41,8 @@ export const postsBatch4: BlogPost[] = [
       <h2>3. The assistant — your thinking partner</h2>
       <p>Outside the editor you'll want a frontier assistant for planning, debugging, and writing. The 2026 landscape is richer than ever:</p>
       <ul>
-        <li><a href="/tool/claude">Claude</a> — led by <strong>Claude Opus 5</strong> (Anthropic's recommended starting point for most workloads), with <strong>Claude Fable 5.1</strong> as the escalation tier above it and <strong>Claude Sonnet 5</strong> as the fast default for Free and Pro users. Excellent at long-context reasoning and code review.</li>
-        <li><a href="/tool/chatgpt">ChatGPT</a> — now led by <strong>GPT-6 Astra</strong> (September 2026), which OpenAI calls "the world's most intelligent and aligned model" and describes as state of the art on software engineering, computer use, and browsing; the earlier <strong>GPT-5.6</strong> family (Sol, Terra, Luna) is still available. The broadest ecosystem of the three.</li>
+        <li><a href="/tool/claude">Claude</a> — led by <strong>Claude Opus 5.5</strong> (Anthropic's recommended starting point for most workloads), with <strong>Claude Fable 5.1</strong> as the escalation tier above it and <strong>Claude Sonnet 5.5</strong> as the fast tier. Excellent at long-context reasoning and code review.</li>
+        <li><a href="/tool/chatgpt">ChatGPT</a> — now led by <strong>GPT-6 Astra</strong> (September 2026), which OpenAI calls "the world's most intelligent and aligned model" and describes as state of the art on software engineering, computer use, and browsing; the cheaper <strong>GPT-6 Sol</strong>, <strong>GPT-6.1 Sol</strong> and <strong>GPT-6 Luna</strong> sit below it, and the earlier <strong>GPT-5.6</strong> family (Sol, Terra, Luna) is still available. The broadest ecosystem of the three.</li>
         <li><a href="/tool/perplexity">Perplexity</a> — for cited, verifiable research (see <a href="/blog/chatgpt-vs-perplexity">ChatGPT vs Perplexity</a>).</li>
       </ul>
       <p>Many vibe coders keep two open — one to plan, one to double-check. See <a href="/blog/chatgpt-vs-claude">ChatGPT vs Claude</a> to pick your primary. If you prefer open weights, Meta's <strong>Llama 5</strong> (a 600B-parameter open model with a 5M-token context, released April 2026) is a strong self-hostable option, and Google's <strong>Gemini 3.8 Flash</strong> is a capable, fast choice for agentic and coding work.</p>
@@ -116,7 +116,7 @@ export const postsBatch4: BlogPost[] = [
         <tbody>
           <tr><td>Editor</td><td>Cursor (3.11, Composer 2.5)</td><td>GitHub Copilot, Devin Desktop</td></tr>
           <tr><td>App builder</td><td>v0 by Vercel</td><td>Bolt.new, Lovable</td></tr>
-          <tr><td>Assistant</td><td>Claude (Sonnet 5 / Opus 5 / Fable 5.1)</td><td>ChatGPT (GPT-6 Astra), Gemini 3.8 Flash</td></tr>
+          <tr><td>Assistant</td><td>Claude (Sonnet 5.5 / Opus 5.5 / Fable 5.1)</td><td>ChatGPT (GPT-6 Astra), Gemini 3.8 Flash</td></tr>
           <tr><td>Research</td><td>Perplexity</td><td>ChatGPT deep research</td></tr>
           <tr><td>Design &amp; ship</td><td>Framer</td><td>Midjourney, ElevenLabs</td></tr>
           <tr><td>Review</td><td>CodeRabbit</td><td>Your own PR discipline</td></tr>
@@ -158,7 +158,7 @@ export const postsBatch4: BlogPost[] = [
     excerpt:
       "Vibe coding means building software by describing what you want and letting AI write it. Here's what the term really means, who it's for, the tools that power it, and how to start.",
     date: "Jul 18, 2026",
-    updated: "Sep 18, 2026",
+    updated: "Oct 1, 2026",
     author: "David Kim",
     category: "Guide",
     readTime: "7 min read",
@@ -171,7 +171,7 @@ export const postsBatch4: BlogPost[] = [
       <p>It captures a shift in how building feels. Instead of remembering exact syntax and writing every line, you work at the level of intent — "add a login page with Google auth," "make this responsive," "fix this bug" — and an AI editor or agent makes the change. You're coding by vibes: steering toward the result you can picture, and correcting course when the output drifts. The term went mainstream once AI editors got good enough that whole features could be built this way, not just autocompleted line by line.</p>
 
       <h2>Why it took off in 2026</h2>
-      <p>Two things had to be true for vibe coding to work: the models had to be smart enough to hold a real codebase in context, and the tools had to turn that intelligence into safe, reviewable edits. Both arrived. Frontier assistants like <a href="/tool/claude">Claude</a> (Sonnet 5, Opus 5 and the top-tier Fable 5.1) and <a href="/tool/chatgpt">ChatGPT</a> (GPT-6 Astra, with the GPT-5.6 family below it) reason across large projects, while AI editors like <a href="/tool/cursor">Cursor</a> run agents that edit multiple files, run commands, and verify the result. The gap between "I want this" and "it exists" has never been smaller.</p>
+      <p>Two things had to be true for vibe coding to work: the models had to be smart enough to hold a real codebase in context, and the tools had to turn that intelligence into safe, reviewable edits. Both arrived. Frontier assistants like <a href="/tool/claude">Claude</a> (Sonnet 5.5, Opus 5.5 and the top-tier Fable 5.1) and <a href="/tool/chatgpt">ChatGPT</a> (GPT-6 Astra, with the cheaper GPT-6 tiers below it) reason across large projects, while AI editors like <a href="/tool/cursor">Cursor</a> run agents that edit multiple files, run commands, and verify the result. The gap between "I want this" and "it exists" has never been smaller.</p>
 
       <h2>A concrete example</h2>
       <p>Say you want a simple habit tracker. Instead of scaffolding a project by hand, you open an AI editor and type: "Create a habit tracker with a list of habits, a daily checkbox for each, and a streak counter." The agent generates the components, state, and storage, and shows you a running app. You review it, then refine by conversation: "Make completed habits turn green," "Add a weekly view," "Store this in a database so it persists." Each request is a sentence; each result is real, working code you approve. That loop — describe, review, refine — <em>is</em> vibe coding.</p>
@@ -257,7 +257,7 @@ export const postsBatch4: BlogPost[] = [
     excerpt:
       "Both are AI-first code editors built for vibe coding. Here's how Cursor and Windsurf compare on agents, codebase context, models, UX, and price in mid-2026.",
     date: "Jul 18, 2026",
-    updated: "Sep 18, 2026",
+    updated: "Oct 1, 2026",
     author: "David Kim",
     category: "Comparison",
     readTime: "7 min read",
@@ -281,7 +281,7 @@ export const postsBatch4: BlogPost[] = [
       <p>Modern vibe coding leans on the agent running commands for you — installing packages, running tests, starting the dev server. Both editors let their agents execute terminal commands and read the output to self-correct, which is where a lot of the "it just did it" magic comes from. Cursor's agent is particularly comfortable chaining commands and reacting to failures; Windsurf's guided Flow keeps you looped in on what it's about to run. If you want the agent to move autonomously, either works — decide how much oversight you want and pick the one whose defaults match.</p>
 
       <h2>Models</h2>
-      <p>Both editors are model-flexible and expose a picker, so you can run frontier models from OpenAI, Anthropic, and xAI in either — OpenAI's <strong>GPT-6 Astra</strong> and older <strong>GPT-5.6</strong> generations, Anthropic's <strong>Claude Sonnet 5</strong>, <strong>Claude Opus 5</strong> and <strong>Claude Fable 5.1</strong>, and xAI's Grok line, now on <strong>Grok 4.6</strong>. Cursor added Grok 4.5 as a first-class option in its 3.11 release — fitting, since that model was co-trained on real Cursor usage data. Pickers change release to release (and the Windsurf side of this comparison is frozen in its pre-rebrand state), so check the current list in the app. On model choice the two were effectively even; what differs is how each editor orchestrates those models around your code.</p>
+      <p>Both editors are model-flexible and expose a picker, so you can run frontier models from OpenAI, Anthropic, and xAI in either — OpenAI's GPT models, Anthropic's Claude Sonnet, Opus and Fable tiers, and xAI's Grok line, now on <strong>Grok 4.7</strong>. Cursor added Grok 4.5 as a first-class option in its 3.11 release — fitting, since that model was co-trained on real Cursor usage data. Pickers change release to release (and the Windsurf side of this comparison is frozen in its pre-rebrand state), so check the current list in the app. On model choice the two were effectively even; what differs is how each editor orchestrates those models around your code.</p>
 
       <h2>UX &amp; learning curve</h2>
       <p>Because both are VS Code forks, migration is painless. Windsurf is often described as cleaner out of the box, with a calmer default UI; Cursor exposes more power (and more knobs), which power users love and newcomers sometimes find busy. Try each for an afternoon — the "right" one is the one whose flow clicks for you.</p>
@@ -349,7 +349,7 @@ export const postsBatch4: BlogPost[] = [
       },
       {
         q: "Do both editors support the newest models?",
-        a: "Both are model-flexible and expose a picker covering OpenAI's GPT-6 Astra and GPT-5.6 generations, Anthropic's Claude Sonnet 5, Claude Opus 5 and Claude Fable 5.1, and more — the exact list changes release to release, and the Windsurf side here is frozen in its pre-rebrand state. Cursor additionally added xAI's Grok as a first-class option in its 3.11 release; Grok 4.5 was co-trained on real Cursor usage data, and xAI has since shipped Grok 4.6. On model choice the two were effectively even; what differs is how each editor orchestrates those models around your code.",
+        a: "Both are model-flexible and expose a picker covering OpenAI's GPT models, Anthropic's Claude Sonnet, Opus and Fable tiers, and more — the exact list changes release to release, and the Windsurf side here is frozen in its pre-rebrand state. Cursor additionally added xAI's Grok as a first-class option in its 3.11 release; Grok 4.5 was co-trained on real Cursor usage data, and xAI has since shipped Grok 4.6 and Grok 4.7. On model choice the two were effectively even; what differs is how each editor orchestrates those models around your code.",
       },
     ],
   },
@@ -359,7 +359,7 @@ export const postsBatch4: BlogPost[] = [
     excerpt:
       "A step-by-step playbook for shipping a working app in a weekend with vibe coding — the exact AI tools for each stage, hour by hour, updated for 2026.",
     date: "Jul 18, 2026",
-    updated: "Sep 16, 2026",
+    updated: "Oct 1, 2026",
     author: "David Kim",
     category: "Guide",
     readTime: "6 min read",
@@ -383,7 +383,7 @@ export const postsBatch4: BlogPost[] = [
       <p>The builders who finish do a little prep. Make sure you have accounts (and free credits) ready for the tools you'll use, so you're not signing up mid-flow. Have a GitHub repo and a <a href="/tool/vercel">Vercel</a> account set up for deployment. And most importantly, come in with a <em>tiny</em> idea — something you could describe in one sentence. "A tool that does X for Y" beats "a platform for Z" every time. If you can't state the app in a breath, it's too big for a weekend.</p>
 
       <h2>Friday night — shape the idea</h2>
-      <p>Open <a href="/tool/claude">Claude</a> (Sonnet 5 is plenty for this) or <a href="/tool/chatgpt">ChatGPT</a> and talk through the idea: who it's for, the one core flow, and the simplest version worth shipping. Have it draft a feature list and a basic data model. Then do the most important thing of the whole weekend — <strong>cut scope</strong>. Pick <em>one</em> thing your app does well and delete everything else from the plan. The number one reason weekend builds fail isn't the code; it's trying to ship three features instead of one.</p>
+      <p>Open <a href="/tool/claude">Claude</a> (Sonnet 5.5 is plenty for this) or <a href="/tool/chatgpt">ChatGPT</a> and talk through the idea: who it's for, the one core flow, and the simplest version worth shipping. Have it draft a feature list and a basic data model. Then do the most important thing of the whole weekend — <strong>cut scope</strong>. Pick <em>one</em> thing your app does well and delete everything else from the plan. The number one reason weekend builds fail isn't the code; it's trying to ship three features instead of one.</p>
 
       <h2>Saturday morning — generate the UI</h2>
       <p>Use <a href="/tool/v0-by-vercel">v0</a> to generate the screens from a prompt, or <a href="/tool/bolt-new">Bolt.new</a> to spin up a full-stack starter with a live preview. You'll have something clickable within the first hour. Don't polish yet — you just want the skeleton of every screen your core flow touches, so you can feel whether the flow makes sense before you build the logic behind it. (Comparing the two? See <a href="/blog/ai-app-builders-bolt-v0-lovable">Bolt.new vs v0 vs Lovable</a>.)</p>
@@ -454,7 +454,7 @@ export const postsBatch4: BlogPost[] = [
     excerpt:
       "The best AI tools for vibe coding in 2026: the editors, assistants, app builders, and deploy tools that matter — plus how to build a stack free or for $20.",
     date: "Jul 18, 2026",
-    updated: "Sep 18, 2026",
+    updated: "Oct 1, 2026",
     author: "David Kim",
     category: "Guide",
     readTime: "17 min read",
@@ -514,7 +514,7 @@ export const postsBatch4: BlogPost[] = [
       <h2>Layer 2: the assistant — your thinking partner</h2>
       <p>The editor writes the code; the assistant is where you figure out <em>what</em> to build, unstick a bug, and get a second opinion on a design. Most people who vibe code seriously keep one open in a browser tab all day.</p>
       <ul>
-        <li><strong><a href="/tool/claude">Claude</a></strong> — led by <strong>Claude Opus 5</strong>, Anthropic's recommended starting point for most workloads, with <strong>Claude Fable 5.1</strong> as the escalation tier above it and <strong>Claude Sonnet 5</strong> (June 2026) as the fast default for Free and Pro users. It's the one to reach for when the input is large: a sprawling module, a long spec, a full diff. Claude Code is the companion tool for sustained development work; its parallel "agent teams" mode — experimental and disabled by default until you set an environment variable — coordinates several Claude Code sessions on a single task. Around $20/mo for Pro; the free tier runs on Sonnet 5 and is genuinely strong.</li>
+        <li><strong><a href="/tool/claude">Claude</a></strong> — led by <strong>Claude Opus 5.5</strong> (September 2026), Anthropic's recommended starting point for most workloads, with <strong>Claude Fable 5.1</strong> as the escalation tier above it and <strong>Claude Sonnet 5.5</strong> (September 2026) as the fast tier. It's the one to reach for when the input is large: a sprawling module, a long spec, a full diff. Claude Code is the companion tool for sustained development work; its parallel "agent teams" mode — experimental and disabled by default until you set an environment variable — coordinates several Claude Code sessions on a single task. Around $20/mo for Pro; the free tier is genuinely strong.</li>
         <li><strong><a href="/tool/chatgpt">ChatGPT</a></strong> — led by <strong>GPT-6 Astra</strong>, announced September 3, 2026, which OpenAI calls "the world's most intelligent and aligned model" and describes as state of the art on software engineering, computer use, and browsing. The earlier <strong>GPT-5.6</strong> family is still available — Sol (that generation's flagship, with an "ultra" mode that delegates subtasks to smaller models), Terra (balanced default), and Luna (tuned for speed); OpenAI has said Sol at maximum reasoning used 54% fewer output tokens than the next-highest-scoring model on the third-party Artificial Analysis Coding Agent Index, a comparison against a rival model on that index rather than against OpenAI's own earlier releases. Broadest ecosystem by far — custom GPTs, image generation, voice, integrations — plus ChatGPT Work for business use. Around $20/mo for Plus.</li>
         <li><strong><a href="/tool/perplexity">Perplexity</a></strong> — the research layer. When you need a current, cited answer (which library, which API, is this still true), it beats asking a general assistant and hoping. See <a href="/blog/chatgpt-vs-perplexity">ChatGPT vs Perplexity</a>.</li>
       </ul>
@@ -531,7 +531,7 @@ export const postsBatch4: BlogPost[] = [
       <p><strong>How to choose:</strong> v0 when you want polished UI to bring into an existing codebase, Bolt.new when you want a full-stack prototype in the browser, Lovable when you're not a developer and want a real deployed MVP, Replit when you want the whole environment — editor, host, database — in one tab. The most common pattern is prototype in a builder, then move the code into Cursor to finish the hard parts. Full comparison: <a href="/blog/ai-app-builders-bolt-v0-lovable">Bolt.new vs v0 vs Lovable</a>, and <a href="/blog/nocode-design-v0">v0 vs Builder.io</a> if your team needs generated UI to respect an existing design system.</p>
 
       <h2>Models worth knowing about</h2>
-      <p>Even if you access them through the tools above, it helps to know the model landscape. OpenAI's flagship is <strong>GPT-6 Astra</strong> at $10 / $50 per million input/output tokens, with the older <strong>GPT-5.6</strong> family below it — OpenAI's "54% fewer output tokens" claim for Sol was measured against the next-highest-scoring model on the third-party Artificial Analysis Coding Agent Index, not against OpenAI's own previous generation. Anthropic's <strong>Claude Opus 5</strong>, <strong>Fable 5.1</strong> and <strong>Sonnet 5</strong>, and xAI's <strong>Grok 4.6</strong> — which xAI says builds on Grok 4.5, the model co-trained on Cursor usage data, with a particular focus on long-running agents and more ambitious interactive and visual work — round out the frontier for building. Google's Pro tier is now <strong>Gemini 3.1 Pro</strong> — still marked Preview on Google's model list, where <strong>Gemini 3 Pro</strong> no longer appears — and <strong>Gemini 3.8 Flash</strong> is a fast, capable choice for agentic and coding work (see our <a href="/blog/gemini-3-pro-deep-dive">Gemini Pro deep dive</a> for which tier to pick), and if you want open weights, Meta's <strong>Llama 5</strong> (600B parameters, 5M-token context) is self-hostable. For a head-to-head on the two that matter most for building, see <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5.1</a>.</p>
+      <p>Even if you access them through the tools above, it helps to know the model landscape. OpenAI's flagship is <strong>GPT-6 Astra</strong> at $10 / $50 per million input/output tokens, with the cheaper <strong>GPT-6 Sol</strong>, <strong>GPT-6.1 Sol</strong> and <strong>GPT-6 Luna</strong> below it and the older <strong>GPT-5.6</strong> family still available — OpenAI's "54% fewer output tokens" claim for Sol was measured against the next-highest-scoring model on the third-party Artificial Analysis Coding Agent Index, not against OpenAI's own previous generation. Anthropic's <strong>Claude Opus 5.5</strong>, <strong>Fable 5.1</strong> and <strong>Sonnet 5.5</strong>, and xAI's <strong>Grok 4.7</strong> — the successor to Grok 4.6 and to Grok 4.5, the model co-trained on Cursor usage data — round out the frontier for building. Google's Pro tier is now <strong>Gemini 3.1 Pro</strong> — still marked Preview on Google's model list, where <strong>Gemini 3 Pro</strong> no longer appears — and <strong>Gemini 3.8 Flash</strong> is a fast, capable choice for agentic and coding work (see our <a href="/blog/gemini-3-pro-deep-dive">Gemini Pro deep dive</a> for which tier to pick), and if you want open weights, Meta's <strong>Llama 5</strong> (600B parameters, 5M-token context) is self-hostable. For a head-to-head on the two that matter most for building, see <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5.1</a>.</p>
 
       <h2>Layer 4: supporting tools — design, media, and voice</h2>
       <p>These are situational. Add them the day a project actually needs one, not before — but when you need them, the gap they fill is one an editor and an assistant can't cover.</p>
@@ -555,7 +555,7 @@ export const postsBatch4: BlogPost[] = [
       <p>You do not need to spend money to vibe code well. What you buy with a subscription is mostly the removal of limits that interrupt your flow — so upgrade when a cap starts costing you time, not before. Three realistic tiers:</p>
 
       <h3>Free ($0/month)</h3>
-      <p>A complete loop, genuinely. Use <strong>Cursor Hobby</strong> as your editor, or <strong>GitHub Copilot</strong>'s free tier if you would rather stay in the editor you already have. Add <strong>Claude</strong>'s free tier, which runs on Sonnet 5, or <strong>ChatGPT</strong>'s free tier for planning and debugging. Use <strong>v0 Free</strong> ($5 in monthly credits) or <strong>Bolt.new Free</strong> (1M tokens a month, no credit card) when you want to start from a running app. Ship on <strong>Vercel</strong>'s free tier, version with git. Total: nothing. This is enough to build and launch a real project — the constraint is agent quota, not capability.</p>
+      <p>A complete loop, genuinely. Use <strong>Cursor Hobby</strong> as your editor, or <strong>GitHub Copilot</strong>'s free tier if you would rather stay in the editor you already have. Add <strong>Claude</strong>'s free tier or <strong>ChatGPT</strong>'s free tier for planning and debugging. Use <strong>v0 Free</strong> ($5 in monthly credits) or <strong>Bolt.new Free</strong> (1M tokens a month, no credit card) when you want to start from a running app. Ship on <strong>Vercel</strong>'s free tier, version with git. Total: nothing. This is enough to build and launch a real project — the constraint is agent quota, not capability.</p>
 
       <h3>About $20/month</h3>
       <p>Buy exactly one upgrade: the layer you hit limits in first. For most people that's the editor — <strong>Cursor Pro</strong> ($20/mo, $16 annually) removes the interruptions that break flow during a long build session. If you spend more time planning and debugging in chat than in the agent, spend the $20 on <strong>Claude Pro</strong> or <strong>ChatGPT Plus</strong> instead and stay on the free editor tier. One paid tool, chosen honestly, beats three half-used ones.</p>
@@ -587,7 +587,7 @@ export const postsBatch4: BlogPost[] = [
         <tbody>
           <tr><td><a href="/tool/cursor">Cursor</a></td><td>Editor</td><td>Maximum agentic power, repo-wide edits</td><td>Yes (Hobby)</td><td>$20/mo Pro</td></tr>
           <tr><td><a href="/tool/github-copilot">GitHub Copilot</a></td><td>Editor</td><td>Staying in your current IDE; team controls</td><td>Yes</td><td>~$10&ndash;20/mo</td></tr>
-          <tr><td><a href="/tool/claude">Claude</a></td><td>Assistant</td><td>Writing, code review, long-context work</td><td>Yes (Sonnet 5)</td><td>~$20/mo Pro</td></tr>
+          <tr><td><a href="/tool/claude">Claude</a></td><td>Assistant</td><td>Writing, code review, long-context work</td><td>Yes</td><td>~$20/mo Pro</td></tr>
           <tr><td><a href="/tool/chatgpt">ChatGPT</a></td><td>Assistant</td><td>Ecosystem, multimodal, all-round convenience</td><td>Yes</td><td>~$20/mo Plus</td></tr>
           <tr><td><a href="/tool/v0-by-vercel">v0 by Vercel</a></td><td>App builder</td><td>Production-quality React + Tailwind UI</td><td>Yes ($5 credits)</td><td>$20/mo Premium</td></tr>
           <tr><td><a href="/tool/bolt-new">Bolt.new</a></td><td>App builder</td><td>Full-stack prototypes in the browser</td><td>Yes (1M tokens)</td><td>$25/mo Pro</td></tr>

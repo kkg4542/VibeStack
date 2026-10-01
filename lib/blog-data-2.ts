@@ -6,35 +6,38 @@ export const postsBatch2: BlogPost[] = [
     title: "GPT-5.6 vs Claude Fable 5.1: Best Coding AI",
     excerpt: "GPT-5.6 vs Claude Fable 5.1: how OpenAI and Anthropic's coding models differ on price, context, and agentic design — plus a repeatable way to test both on your own codebase.",
     date: "Jul 18, 2026",
-    updated: "Sep 18, 2026",
+    updated: "Oct 1, 2026",
     author: "Sarah Jenkins",
     category: "Comparison",
     readTime: "14 min read",
     image: "/images/blog/gpt-vs-claude-2026.png",
     tags: ["ChatGPT", "Claude", "Cursor", "AI Models"],
     content: `
-      <h2>The Short Answer in September 2026</h2>
-      <p>If you only want the recommendation: <a href="/tool/chatgpt">ChatGPT</a>'s <strong>GPT-5.6 Sol</strong> is the one to reach for when you want long autonomous runs at a predictable cost, and on the <a href="/tool/claude">Claude</a> side <strong>Opus 5</strong> — Anthropic's own recommended starting point for most workloads — is the one to reach for when the work spans a large existing codebase and the cost of a wrong edit is high, with <strong>Fable 5.1</strong> as the escalation tier above it for demanding reasoning and long-horizon agentic work.</p>
-      <p>One scoping note before the detail: OpenAI's <em>current</em> flagship is no longer a GPT-5.6 tier. <strong>GPT-6 Astra</strong> shipped September 3, 2026 at $10/$50 per million tokens, and OpenAI calls it "the world's most intelligent and aligned model" and state of the art on computer use, browsing, software engineering, cybersecurity, science, and professional work. This piece is about the GPT-5.6 tiers, which are the ones whose price and context profile line up against Claude's — and which most teams are actually routing coding work to on cost grounds. If you want OpenAI's top of the line, that is Astra.</p>
+      <h2>The Short Answer in October 2026</h2>
+      <p>If you only want the recommendation: <a href="/tool/chatgpt">ChatGPT</a>'s Sol tier is the one to reach for when you want long autonomous runs at a predictable cost — this piece covers <strong>GPT-5.6 Sol</strong> in detail, and <strong>GPT-6.1 Sol</strong> is the current release of that tier — and on the <a href="/tool/claude">Claude</a> side <strong>Opus 5.5</strong> — Anthropic's own recommended starting point for most workloads — is the one to reach for when the work spans a large existing codebase and the cost of a wrong edit is high, with <strong>Fable 5.1</strong> as the escalation tier above it for demanding reasoning and long-horizon agentic work.</p>
+      <p>One scoping note before the detail: OpenAI's <em>current</em> flagship is no longer a GPT-5.6 tier. <strong>GPT-6 Astra</strong> shipped September 3, 2026 at $10/$50 per million tokens, and OpenAI calls it "the world's most intelligent and aligned model" and state of the art on computer use, browsing, software engineering, cybersecurity, science, and professional work. Below Astra, OpenAI added the cheaper <strong>GPT-6 Sol</strong> and <strong>GPT-6 Luna</strong> on September 22, 2026 and <strong>GPT-6.1 Sol</strong> on September 29, so the July 2026 GPT-5.6 tiers this piece examines are now the previous generation. The design differences below still explain how the two labs approach coding, but if you are choosing an OpenAI model today, start from Astra or the GPT-6 tiers rather than from GPT-5.6.</p>
       <p>One thing to get out of the way first, because most "best coding AI" articles skip it: <strong>nobody's published head-to-head is a substitute for your own.</strong> Coding-model comparisons are unusually sensitive to the harness (which editor, which tool permissions, which retry policy), to the prompt style the author happens to use, and to the shape of the codebase. A number produced on someone else's repo, with someone else's prompt, in a run you cannot reproduce, is entertainment. So this piece does two things instead: it lays out the differences that are actually documented, and then it gives you a method to settle the question on your own code in an afternoon.</p>
 
       <h2>What Each Lab Has Actually Shipped</h2>
       <p>OpenAI shipped <strong>GPT-5.6</strong> on July 9, 2026 in three tiers: <strong>Sol</strong> (the top tier of that family, $5/$30 per million input/output tokens, with an "ultra" mode that delegates sub-tasks to smaller internal models), <strong>Terra</strong> ($2.50/$15), and <strong>Luna</strong> ($1/$6). OpenAI marketed Sol at launch as its "best coding model yet" and its "strongest cybersecurity model yet," and reports that Sol with max reasoning uses 54% fewer output tokens than the next-highest-scoring model on the Artificial Analysis Coding Agent Index — a vendor claim measured against a third-party leaderboard rather than against OpenAI's own previous model, but a structurally believable one given the delegation architecture underneath it. The launch was paired with <strong>ChatGPT Work</strong>, a dedicated enterprise workspace product.</p>
-      <p>Anthropic reshuffled its lineup over the same window, and the current roster runs four deep. <strong>Claude Sonnet 5</strong> landed June 30, 2026 and lists at $2/$10 per million tokens, positioned as "the best combination of speed and intelligence" and the default for Free and Pro users; <strong>Claude Haiku 4.5</strong> sits below it as the fastest tier. Two frontier tiers sit above them: <strong>Claude Opus 5</strong> ($5/$25), documented as the model "for complex agentic coding and enterprise work" and the one Anthropic tells you to start with if you're unsure, and <strong>Claude Fable 5.1</strong> ($10/$50), the escalation tier "for demanding reasoning and long-horizon agentic work." Anyone still on <strong>Opus 4.8</strong> or earlier is on a previous generation — Anthropic's documented migration path from there points at Opus 5. Sonnet 5, Opus 5 and Fable 5.1 all carry a 1-million-token context window. Running several Claude agents in parallel, meanwhile, belongs to the harness rather than to any model tier: <strong>agent teams</strong> is an experimental Claude Code feature, disabled by default until you set an environment variable, in which several independent Claude Code sessions coordinate through a shared task list and direct messages to each other — and you choose which model each teammate runs on.</p>
+      <p>Anthropic reshuffled its lineup over the same window and again in September, and the current roster runs four deep. <strong>Claude Sonnet 5.5</strong> landed September 28, 2026 and lists at $2/$10 per million tokens, positioned as "the best combination of speed and intelligence"; <strong>Claude Haiku 4.5</strong> sits below it as the fastest tier. Two frontier tiers sit above them: <strong>Claude Opus 5.5</strong> ($4/$20, September 22), documented as the model "for long-running agentic coding and knowledge work" and the one Anthropic tells you to start with if you're unsure, and <strong>Claude Fable 5.1</strong> ($10/$50), the escalation tier "for demanding reasoning and long-horizon agentic work." <strong>Claude Sonnet 5</strong> (June 30) and <strong>Claude Opus 5</strong> (July 24) are now a previous generation alongside <strong>Opus 4.8</strong> — still available, with Anthropic's documented migration path pointing at Opus 5.5 and Sonnet 5.5. Sonnet 5.5, Opus 5.5 and Fable 5.1 all carry a 1-million-token context window. Running several Claude agents in parallel, meanwhile, belongs to the harness rather than to any model tier: <strong>agent teams</strong> is an experimental Claude Code feature, disabled by default until you set an environment variable, in which several independent Claude Code sessions coordinate through a shared task list and direct messages to each other — and you choose which model each teammate runs on.</p>
       <table>
-        <tr><th>Model (September 2026)</th><th>Pricing (in/out per 1M tokens)</th><th>Positioning</th></tr>
+        <tr><th>Model (October 2026)</th><th>Pricing (in/out per 1M tokens)</th><th>Positioning</th></tr>
         <tr><td>GPT-6 Astra</td><td>$10 / $50</td><td>OpenAI's current flagship, released Sep 3, 2026: "the world's most intelligent and aligned model"</td></tr>
-        <tr><td>GPT-5.6 Sol</td><td>$5 / $30</td><td>GPT-5.6 flagship tier; "ultra" delegation mode; OpenAI claims 54% fewer output tokens than the next-highest-scoring model on the Artificial Analysis Coding Agent Index</td></tr>
-        <tr><td>GPT-5.6 Terra</td><td>$2.50 / $15</td><td>Balanced default tier</td></tr>
-        <tr><td>GPT-5.6 Luna</td><td>$1 / $6</td><td>High-volume, latency-sensitive work</td></tr>
+        <tr><td>GPT-6.1 Sol</td><td>See openai.com</td><td>Released Sep 29, 2026; an upgrade to GPT-6 Sol, OpenAI's cheaper tier for coding and agentic work</td></tr>
+        <tr><td>GPT-6 Luna</td><td>See openai.com</td><td>Released Sep 22, 2026; OpenAI's most efficient tier for focused, high-volume tasks</td></tr>
+        <tr><td>GPT-5.6 Sol</td><td>$5 / $30</td><td>Previous generation (July 2026); GPT-5.6 flagship tier; "ultra" delegation mode; OpenAI claims 54% fewer output tokens than the next-highest-scoring model on the Artificial Analysis Coding Agent Index</td></tr>
+        <tr><td>GPT-5.6 Terra</td><td>$2.50 / $15</td><td>Previous generation; balanced default tier</td></tr>
+        <tr><td>GPT-5.6 Luna</td><td>$1 / $6</td><td>Previous generation; high-volume, latency-sensitive work</td></tr>
         <tr><td>Claude Fable 5.1</td><td>$10 / $50</td><td>Escalation tier: "for demanding reasoning and long-horizon agentic work"; the slowest of Anthropic's four</td></tr>
-        <tr><td>Claude Opus 5</td><td>$5 / $25</td><td>Anthropic's recommended starting point: "for complex agentic coding and enterprise work"</td></tr>
-        <tr><td>Claude Sonnet 5</td><td>$2 / $10</td><td>"The best combination of speed and intelligence"; launched June 30, 2026</td></tr>
+        <tr><td>Claude Opus 5.5</td><td>$4 / $20</td><td>Anthropic's recommended starting point: "for long-running agentic coding and knowledge work"; released Sep 22, 2026</td></tr>
+        <tr><td>Claude Sonnet 5.5</td><td>$2 / $10</td><td>"The best combination of speed and intelligence"; released Sep 28, 2026</td></tr>
         <tr><td>Claude Haiku 4.5</td><td>$1 / $5</td><td>"The fastest model with near-frontier intelligence"; 200K context</td></tr>
+        <tr><td>Claude Opus 5 / Sonnet 5</td><td>$5 / $25 · $2 / $10</td><td>Previous generation (July / June 2026); still available</td></tr>
       </table>
       <p>Treat the GPT-5.6 rows as launch list prices. OpenAI announced reductions after launch — 80% off Luna and 20% off Terra on July 30, 2026, and a further 20%-plus cut to Sol's API and credit pricing on August 21, 2026 — while its own pricing page still shows the pre-reduction figures, so check openai.com for what you will actually be billed.</p>
 
-      <p>Note the tier mismatch that trips up most comparisons: Sol's natural counterparts are Claude Opus 5 and, a step above it, Fable 5.1; Terra's is Sonnet 5. Benchmarking a flagship against a mid-tier and declaring a winner tells you about pricing, not about capability.</p>
+      <p>Note the tier mismatch that trips up most comparisons: Sol's natural counterparts are Claude Opus 5.5 and, a step above it, Fable 5.1; Terra's is Sonnet 5.5. Benchmarking a flagship against a mid-tier and declaring a winner tells you about pricing, not about capability.</p>
 
       <h2>The Design Differences You'll Actually Feel</h2>
       <p>Set the scores aside and the two families differ in ways you can reason about from documentation alone. These are the differences that predict where each one will frustrate you.</p>
@@ -92,26 +95,26 @@ export const postsBatch2: BlogPost[] = [
       <h2>How to Route Work Between Them</h2>
       <p>The practical upshot of the current lineup is that you no longer have to pick one lab and live with it. Both families are selectable inside AI-first editors like <a href="/tool/cursor">Cursor</a>, so the decision is per-task rather than per-quarter:</p>
       <ul>
-        <li><strong>Scaffolding, boilerplate, and glue</strong> — the cheapest tier that clears your test suite. GPT-5.6 Luna and Claude Sonnet 5 both live here, and flagship pricing on this work is pure waste.</li>
-        <li><strong>Long autonomous runs</strong> — GPT-5.6 Sol, where the delegation architecture and the token-efficiency claim are aimed squarely at sessions that run for hours.</li>
-        <li><strong>Repo-wide refactors and large-diff review</strong> — Claude Opus 5, where holding the whole picture at once is the job; escalate to Claude Fable 5.1 when the reasoning is demanding enough, or the run long enough, that Opus 5 at higher effort still falls short.</li>
+        <li><strong>Scaffolding, boilerplate, and glue</strong> — the cheapest tier that clears your test suite. GPT-6 Luna and Claude Sonnet 5.5 both live here, and flagship pricing on this work is pure waste.</li>
+        <li><strong>Long autonomous runs</strong> — OpenAI's Sol tier. GPT-5.6 Sol's delegation architecture and token-efficiency claim were aimed squarely at sessions that run for hours; GPT-6.1 Sol is the current release of that tier.</li>
+        <li><strong>Repo-wide refactors and large-diff review</strong> — Claude Opus 5.5, where holding the whole picture at once is the job; escalate to Claude Fable 5.1 when the reasoning is demanding enough, or the run long enough, that Opus 5.5 at higher effort still falls short.</li>
         <li><strong>Anything irreversible</strong> — a production migration, an auth rewrite, a pricing change — flagship tier, human review, and the diff read line by line regardless of which model wrote it.</li>
       </ul>
       <p>If you're assembling the rest of that setup, our guide to the <a href="/blog/best-ai-tools-for-vibe-coding">best AI tools for vibe coding</a> covers the editor, assistant, and deploy layers around the model.</p>
 
       <h2>The Verdict</h2>
-      <p>Directionally, the split that has held through two generations of these models is still the right mental model: OpenAI's coding tier is the cost-efficient long-runner, and Anthropic's flagship is the deep-context engineering partner. On anything that touches a large existing codebase, Claude remains the first thing to try; on long, mechanical, autonomous work, GPT-5.6 Sol's economics are hard to argue with.</p>
+      <p>Directionally, the split that has held through two generations of these models is still the right mental model: OpenAI's coding tier is the cost-efficient long-runner, and Anthropic's flagship is the deep-context engineering partner. On anything that touches a large existing codebase, Claude remains the first thing to try; on long, mechanical, autonomous work, the economics of OpenAI's Sol tier are hard to argue with.</p>
       <p>But the genuinely durable advice is the workflow, not the winner: let a fast tier draft, let a careful tier review, and keep a small task set in your repo so that the next release cycle costs you an afternoon of re-testing rather than a quarter of assumptions. That habit survives every model launch; a leaderboard doesn't.</p>
       <p>Comparing the products rather than the raw models? See <a href="/blog/chatgpt-vs-claude">ChatGPT vs Claude</a> for the day-to-day assistant comparison, or browse the full ranking in our <a href="/best/coding">best AI coding tools</a> guide.</p>
     `,
     faq: [
       {
         q: "What is the best coding AI in 2026?",
-        a: "There isn't one winner for every job. GPT-5.6 Sol is the token-efficiency pick — OpenAI says it uses 54% fewer output tokens than the next-highest-scoring model on the third-party Artificial Analysis Coding Agent Index — so it's the cheaper choice for long autonomous runs, though OpenAI's current flagship is now GPT-6 Astra, released September 3, 2026 at $10/$50 per million tokens. Claude Opus 5 — Anthropic's recommended default for most workloads — is the stronger pick when the task spans a large existing codebase, because Claude's long-context handling still holds detail better across tens of thousands of lines, with Claude Fable 5.1 as the escalation above it for demanding reasoning and long-horizon agentic runs. The workflow most teams settle on is to draft with the fast model and review with the careful one.",
+        a: "There isn't one winner for every job. GPT-5.6 Sol is the token-efficiency pick — OpenAI says it uses 54% fewer output tokens than the next-highest-scoring model on the third-party Artificial Analysis Coding Agent Index — so it's the cheaper choice for long autonomous runs, though OpenAI's current flagship is now GPT-6 Astra, released September 3, 2026 at $10/$50 per million tokens, with the cheaper GPT-6 Sol, GPT-6.1 Sol and GPT-6 Luna below it. Claude Opus 5.5 — Anthropic's recommended default for most workloads — is the stronger pick when the task spans a large existing codebase, because Claude's long-context handling still holds detail better across tens of thousands of lines, with Claude Fable 5.1 as the escalation above it for demanding reasoning and long-horizon agentic runs. The workflow most teams settle on is to draft with the fast model and review with the careful one.",
       },
       {
         q: "Is GPT-5.6 better than Claude Fable 5.1?",
-        a: "Neither is better across the board, and the honest answer is that it depends on your codebase. On cost for long autonomous runs, OpenAI has the stronger case: it says Sol uses 54% fewer output tokens than the next-highest-scoring model on the third-party Artificial Analysis Coding Agent Index, and it called Sol its strongest cybersecurity model yet at launch. On work that spans a large existing repository, Claude's long-context lineage is the reason engineers keep reaching for it. Rather than trust either claim, run the same four tasks from your own backlog through both at matched tiers — Sol against Claude Opus 5, or against Claude Fable 5.1 if the work is demanding enough that you would escalate — and grade them against your test suite.",
+        a: "Neither is better across the board, and the honest answer is that it depends on your codebase. On cost for long autonomous runs, OpenAI has the stronger case: it says Sol uses 54% fewer output tokens than the next-highest-scoring model on the third-party Artificial Analysis Coding Agent Index, and it called Sol its strongest cybersecurity model yet at launch. On work that spans a large existing repository, Claude's long-context lineage is the reason engineers keep reaching for it. Rather than trust either claim, run the same four tasks from your own backlog through both at matched tiers — Sol against Claude Opus 5.5, or against Claude Fable 5.1 if the work is demanding enough that you would escalate — and grade them against your test suite.",
       },
       {
         q: "How does GPT-5.6 reasoning work?",
@@ -119,11 +122,11 @@ export const postsBatch2: BlogPost[] = [
       },
       {
         q: "GPT-5.6 vs Claude Sonnet 5 — which should I use?",
-        a: "Claude Sonnet 5 launched June 30, 2026 and lists at $2/$10 per million tokens, which puts it between GPT-5.6 Terra and Luna on price. It's Anthropic's mid-tier workhorse and the default for Claude Free and Pro users, so the fair comparison is against GPT-5.6 Terra rather than against Sol. For everyday coding the two are close — lean Sonnet 5 when you paste in long files, and Terra when you want OpenAI's wider tool ecosystem.",
+        a: "Claude Sonnet 5 launched June 30, 2026 and lists at $2/$10 per million tokens, which puts it between GPT-5.6 Terra and Luna on price. It was Anthropic's mid-tier workhorse, so the fair comparison is against GPT-5.6 Terra rather than against Sol; Claude Sonnet 5.5 succeeded it on September 28, 2026 at the same $2/$10. For everyday coding the two lineups are close — lean on Claude's Sonnet tier when you paste in long files, and on OpenAI when you want its wider tool ecosystem.",
       },
       {
         q: "What is Claude Fable 5.1?",
-        a: "Fable is Anthropic's \"Mythos-class\" top line, and the current release is Claude Fable 5.1 at $10/$50 per million input/output tokens — documented as the model for demanding reasoning and long-horizon agentic work. It sits above Claude Opus 5 ($5/$25), which is what Anthropic tells you to start with for most workloads, and above Sonnet 5 and Haiku 4.5. The documented pattern is to start on Opus 5 and move up to Fable 5.1 when your evals on Opus 5 at higher effort still fall short. Opus 4.8 and earlier are previous-generation, with a migration path to Opus 5. Fable 5.1 carries the same 1-million-token context window as Opus 5 and Sonnet 5, and its documented remit — demanding reasoning and long-horizon agentic work — is why people reach for it on large refactors, long specs, and multi-file reviews.",
+        a: "Fable is Anthropic's \"Mythos-class\" top line, and the current release is Claude Fable 5.1 at $10/$50 per million input/output tokens — documented as the model for demanding reasoning and long-horizon agentic work. It sits above Claude Opus 5.5 ($4/$20), which is what Anthropic tells you to start with for most workloads, and above Sonnet 5.5 and Haiku 4.5. The documented pattern is to start on Opus 5.5 and move up to Fable 5.1 when your evals on Opus 5.5 at higher effort still fall short. Opus 5, Opus 4.8 and earlier are previous-generation, with a migration path to Opus 5.5. Fable 5.1 carries the same 1-million-token context window as Opus 5.5 and Sonnet 5.5, and its documented remit — demanding reasoning and long-horizon agentic work — is why people reach for it on large refactors, long specs, and multi-file reviews.",
       },
       {
         q: "How do I test which coding model is better for my codebase?",
@@ -131,7 +134,7 @@ export const postsBatch2: BlogPost[] = [
       },
       {
         q: "Is there a Claude 3.8?",
-        a: "No. Anthropic's 3-series topped out at Claude 3.7 Sonnet, and the numbering then moved through 4, 4.5 and 4.8 before jumping to the 5 generation. If you're searching for Claude 3.8, what you almost certainly want is either Claude Sonnet 5 (the current fast default, free to use) or one of the two frontier tiers above it, Claude Opus 5 or Claude Fable 5.1.",
+        a: "No. Anthropic's 3-series topped out at Claude 3.7 Sonnet, and the numbering then moved through 4, 4.5 and 4.8 before jumping to the 5 generation. If you're searching for Claude 3.8, what you almost certainly want is either Claude Sonnet 5.5 (the current fast tier) or one of the two frontier tiers above it, Claude Opus 5.5 or Claude Fable 5.1.",
       },
     ],
   },
@@ -141,7 +144,7 @@ export const postsBatch2: BlogPost[] = [
     title: "Microsoft's Maia 200: The AI Chip That Changes Everything",
     excerpt: "Microsoft built its own inference accelerator to break Nvidia's pricing power. Here's the mechanism behind first-party AI silicon — and what actually has to be true before it lowers your bill.",
     date: "Jul 18, 2026",
-    updated: "Sep 18, 2026",
+    updated: "Oct 1, 2026",
     author: "Alex Rivera",
     category: "Hardware",
     readTime: "7 min read",
@@ -198,7 +201,7 @@ export const postsBatch2: BlogPost[] = [
       <p>Maia is Azure's chip. If you want its economics, you run in Microsoft's cloud — and that's the strategy, not an accident: better unit economics is a compelling reason to migrate infrastructure, and infrastructure rarely migrates back. For teams already on Azure and standardized on <a href="/tool/microsoft-365-copilot">Microsoft 365 Copilot</a>, that's straightforwardly good news. For everyone else it's a real trade between running costs and optionality, and the answer depends on how much of your bill is inference.</p>
 
       <h3>How This Fits the Broader Model Wars</h3>
-      <p>Custom silicon matters more now that the labs are also making their models cheaper to run. OpenAI's <strong>GPT-5.6 Sol</strong>, released in July 2026, shipped with a claim of 54% fewer output tokens than the next-highest-scoring model on the third-party Artificial Analysis Coding Agent Index — a software-side win. Stack that on hardware-side efficiency and the cost of serving frontier-quality AI can fall meaningfully inside one product cycle. Anthropic's <strong>Claude Opus 5</strong>, <strong>Claude Fable 5.1</strong> and <strong>Claude Sonnet 5</strong> compete on the same axis: capability per dollar. We compare those families in <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5.1</a>, and cover the wider silicon race in <a href="/blog/agentic-hardware-m5-blackwell">hardware for the agentic era</a>.</p>
+      <p>Custom silicon matters more now that the labs are also making their models cheaper to run. OpenAI's <strong>GPT-5.6 Sol</strong>, released in July 2026, shipped with a claim of 54% fewer output tokens than the next-highest-scoring model on the third-party Artificial Analysis Coding Agent Index — a software-side win. Stack that on hardware-side efficiency and the cost of serving frontier-quality AI can fall meaningfully inside one product cycle. Anthropic's <strong>Claude Opus 5.5</strong>, <strong>Claude Fable 5.1</strong> and <strong>Claude Sonnet 5.5</strong> compete on the same axis: capability per dollar. We compare those families in <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5.1</a>, and cover the wider silicon race in <a href="/blog/agentic-hardware-m5-blackwell">hardware for the agentic era</a>.</p>
 
       <h3>The Bottom Line</h3>
       <p>Maia 200 is less a benchmark story than a statement about where value in AI infrastructure is being captured. The clouds have decided the chip layer is theirs to own, and they're optimizing it toward the same goal the labs are chasing from the other end: cost per useful token. Whether that reaches you depends on pass-through pricing and how much of your workload can actually move — a spreadsheet question, worth answering before it becomes an architecture question.</p>
@@ -228,7 +231,7 @@ export const postsBatch2: BlogPost[] = [
     title: "The Open Source LLM Revolution: DeepSeek-V3.2, Llama 4, and the Llama 5 Leap",
     excerpt: "Open-weight models are good enough for most production work — but self-hosting is not free, and \"open\" is not the same as open source. Where open weights win, what running them actually costs, and the license traps to read before you ship.",
     date: "Jul 18, 2026",
-    updated: "Sep 18, 2026",
+    updated: "Oct 1, 2026",
     author: "Sarah Jenkins",
     category: "Open Source",
     readTime: "11 min read",
@@ -309,7 +312,7 @@ export const postsBatch2: BlogPost[] = [
       </table>
 
       <h2>The Architecture Most Teams Actually Land On</h2>
-      <p>Almost nobody who thinks this through ends up all-open or all-closed. The stable configuration is a router: a cheap self-hosted open-weight model takes the high-volume, easily-evaluated majority of requests, and a frontier hosted model — <strong>GPT-6 Astra</strong> or a cheaper GPT-5.6 tier from <a href="/tool/chatgpt">ChatGPT</a>, or <strong>Claude Opus 5</strong> (with <strong>Claude Fable 5.1</strong> above it) from <a href="/tool/claude">Claude</a> — takes the minority needing real judgment. Three things make it work:</p>
+      <p>Almost nobody who thinks this through ends up all-open or all-closed. The stable configuration is a router: a cheap self-hosted open-weight model takes the high-volume, easily-evaluated majority of requests, and a frontier hosted model — <strong>GPT-6 Astra</strong> or a cheaper GPT-6 tier from <a href="/tool/chatgpt">ChatGPT</a>, or <strong>Claude Opus 5.5</strong> (with <strong>Claude Fable 5.1</strong> above it) from <a href="/tool/claude">Claude</a> — takes the minority needing real judgment. Three things make it work:</p>
       <ul>
         <li><strong>Route on task type, not user tier.</strong> Routing by customer plan is tempting and produces inconsistent quality for the same feature.</li>
         <li><strong>Build the evaluation set before the router.</strong> You cannot decide which requests are safe for the open model without scored examples per task type. This is the step teams skip and then regret.</li>
@@ -352,7 +355,7 @@ export const postsBatch2: BlogPost[] = [
     title: "The Rise of AI Agent Marketplaces: The New App Store",
     excerpt: "Why 'Agent-as-a-Service' is becoming the dominant business model, which categories of agent actually get paid, and how pricing models split by category.",
     date: "Jul 18, 2026",
-    updated: "Sep 17, 2026",
+    updated: "Oct 1, 2026",
     author: "Alex Rivera",
     category: "Business",
     readTime: "6 min read",
@@ -410,7 +413,7 @@ export const postsBatch2: BlogPost[] = [
       <p>The constraint underneath is the same either way: gross margin is your price minus your token bill, and long autonomous runs consume tokens whether they succeed or not. Model that before launch, not after — we work through it in <a href="/blog/token-economics-2026">the token economics of AI products</a>.</p>
 
       <h3>Six Months Later: The Marketplace Has Only Grown</h3>
-      <p>By July 2026, the platform catalogs have been joined by agent surfaces inside developer tools themselves. <strong>Cursor 3.11</strong>, released July 10, 2026, added searchable agent transcripts and a dedicated side chat specifically so teams can audit and reuse the exact runs that solved a problem — turning a team's own history into a private agent catalog. <a href="/tool/cursor">Cursor</a>'s agents can run on <strong>Grok 4.5</strong>, xAI's coding-and-agent-specialized model trained in part on real Cursor usage data and priced at $2/$6 per million tokens (it isn't offered in the EU). Underneath, <strong>GPT-5.6 Sol</strong> plus its cheaper Terra and Luna tiers give builders a price point for every budget, while <strong>Claude Opus 5</strong> and <strong>Claude Sonnet 5</strong> are common defaults for agents holding a long-running plan, with <strong>Claude Fable 5.1</strong> as the escalation tier above them. Once several run at once, the hard problem stops being the model and becomes supervision — the subject of <a href="/blog/ui-for-multi-agent-systems">designing interfaces for agent collectives</a> and <a href="/blog/autonomous-agents-swarm-intelligence">how agent swarms divide work</a>.</p>
+      <p>By July 2026, the platform catalogs have been joined by agent surfaces inside developer tools themselves. <strong>Cursor 3.11</strong>, released July 10, 2026, added searchable agent transcripts and a dedicated side chat specifically so teams can audit and reuse the exact runs that solved a problem — turning a team's own history into a private agent catalog. <a href="/tool/cursor">Cursor</a>'s agents can run on <strong>Grok 4.5</strong>, xAI's coding-and-agent-specialized model trained in part on real Cursor usage data and priced at $2/$6 per million tokens (it isn't offered in the EU). Underneath, OpenAI's <strong>GPT-6 Astra</strong>, its cheaper <strong>GPT-6 Sol</strong> and <strong>GPT-6 Luna</strong> tiers, and the older GPT-5.6 family give builders a price point for every budget, while Anthropic documents <strong>Claude Opus 5.5</strong> for long-running agentic work and <strong>Claude Sonnet 5.5</strong> as its faster tier for agents holding a long-running plan, with <strong>Claude Fable 5.1</strong> as the escalation tier above them. Once several run at once, the hard problem stops being the model and becomes supervision — the subject of <a href="/blog/ui-for-multi-agent-systems">designing interfaces for agent collectives</a> and <a href="/blog/autonomous-agents-swarm-intelligence">how agent swarms divide work</a>.</p>
 
       <h3>The Developer Opportunity</h3>
       <p>This is a real distribution opening, comparable in shape to the early app stores — one developer can assemble a specialized agent on an existing model tier and reach customers through a catalog they didn't have to build. The outcome distribution looks like app stores too: a long tail earning very little, and a few category leaders doing well.</p>
@@ -580,7 +583,7 @@ export const postsBatch2: BlogPost[] = [
     title: "The Reasoning Leap: How System-2 Thinking Took Over AI",
     excerpt: "Beyond next-token prediction: reasoning models that think, verify, and check their own logic have become the single strongest bridge toward AGI — and by mid-2026, nearly every frontier lab has one.",
     date: "Jul 18, 2026",
-    updated: "Sep 18, 2026",
+    updated: "Oct 1, 2026",
     author: "VibeStack AI",
     category: "Deep Dive",
     readTime: "6 min read",
@@ -593,18 +596,18 @@ export const postsBatch2: BlogPost[] = [
       <h3>Chain of Verification, Not Just Chain of Thought</h3>
       <p>Modern reasoning models don't blurt out an answer to a proof, a legal question, or a multi-step coding problem. Internally, they ask themselves follow-up questions, draft an answer, then re-test their own logic for holes — sometimes running this verification loop thousands of times before returning a final response. Under the hood, this blends reinforcement learning with search techniques descended from Monte Carlo tree search, letting the model deductively converge on an answer it has actual confidence in, rather than the most statistically likely-sounding one.</p>
 
-      <h3>The State of Reasoning Models in September 2026</h3>
-      <p>What used to be a research curiosity is now table stakes for every frontier lab. As of September 2026, the reasoning landscape looks like this:</p>
+      <h3>The State of Reasoning Models in October 2026</h3>
+      <p>What used to be a research curiosity is now table stakes for every frontier lab. As of October 2026, the reasoning landscape looks like this:</p>
       <table>
         <tr><th>Model</th><th>Lab</th><th>Reasoning Strength</th></tr>
         <tr><td>GPT-6 Astra</td><td>OpenAI</td><td>OpenAI's current flagship (September 3, 2026, $10/$50), described by OpenAI as "the world's most intelligent and aligned model" and state of the art on computer use, browsing, software engineering, cybersecurity, science, and professional work</td></tr>
-        <tr><td>GPT-5.6 Sol</td><td>OpenAI</td><td>The GPT-5.6 flagship tier, with an "ultra" mode that delegates sub-steps to smaller models mid-reasoning</td></tr>
-        <tr><td>GPT-5.6 Terra / Luna</td><td>OpenAI</td><td>Cheaper tiers that trade some depth of verification for speed and cost</td></tr>
+        <tr><td>GPT-6.1 Sol / GPT-6 Luna</td><td>OpenAI</td><td>Cheaper tiers below Astra (September 22 and 29, 2026) that trade some depth of verification for speed and cost</td></tr>
+        <tr><td>GPT-5.6 Sol</td><td>OpenAI</td><td>Previous generation (July 2026); the GPT-5.6 flagship tier, with an "ultra" mode that delegates sub-steps to smaller models mid-reasoning</td></tr>
         <tr><td>Claude Fable 5.1</td><td>Anthropic</td><td>Mythos-class escalation tier ($10/$50), documented for demanding reasoning and long-horizon agentic work; the slowest and priciest of Anthropic's four current models</td></tr>
-        <tr><td>Claude Opus 5</td><td>Anthropic</td><td>Anthropic's recommended starting point for most workloads ($5/$25), aimed at complex agentic coding and enterprise work; supersedes Opus 4.8</td></tr>
-        <tr><td>Claude Sonnet 5</td><td>Anthropic</td><td>Mid-tier reasoning workhorse launched June 30, 2026 ($2/$10)</td></tr>
+        <tr><td>Claude Opus 5.5</td><td>Anthropic</td><td>Anthropic's recommended starting point for most workloads ($4/$20, September 22, 2026), aimed at long-running agentic coding and knowledge work; supersedes Opus 5</td></tr>
+        <tr><td>Claude Sonnet 5.5</td><td>Anthropic</td><td>Mid-tier reasoning workhorse launched September 28, 2026 ($2/$10); supersedes Sonnet 5</td></tr>
         <tr><td>Gemini 3.8 Flash</td><td>Google</td><td>Fast reasoning tier, now generally available (Gemini 3.5 Pro has not shipped yet — it remains delayed, with rumors of a 2M-token context and a "Deep Think" mode)</td></tr>
-        <tr><td>Grok 4.6</td><td>xAI</td><td>xAI's current model (August 12, 2026), described as building on Grok 4.5 with a particular focus on long-running agents and more ambitious interactive and visual work</td></tr>
+        <tr><td>Grok 4.7</td><td>xAI</td><td>xAI's current model (September 2026), which it describes as its frontier model for coding, agentic tasks, and knowledge work; it follows Grok 4.6 (August 12, 2026)</td></tr>
       </table>
       <p>The pattern across every one of these releases is the same: labs are no longer competing purely on how fluent a model sounds. They're competing on how reliably it can catch its own mistakes before a user ever sees them.</p>
 
@@ -615,7 +618,7 @@ export const postsBatch2: BlogPost[] = [
       <p>Reasoning models are pushing AI past language generation and into something closer to a genuine logic engine. As these models start optimizing code, proposing new drug-candidate structures, and deriving novel equations in physics research, they stop being an assistant to human thought and start entering the territory of independent discovery. That's the reason "reasoning models" — not raw parameter count, not multimodal breadth — is the metric researchers now treat as the closest proxy for progress toward AGI.</p>
 
       <h3>What This Means for Builders</h3>
-      <p>If you're building on top of these models, the practical implication is simple: match the reasoning tier to the task. Use a flagship reasoning model — <a href="/tool/chatgpt">ChatGPT</a>'s GPT-6 Astra or <a href="/tool/claude">Claude</a> Opus 5, escalating to Claude Fable 5.1 when the reasoning is genuinely demanding or the run genuinely long — for anything with real stakes: a legal contract, a production incident, a multi-file refactor. Use a cheaper tier (GPT-5.6 Sol, Terra or Luna, Sonnet 5, Haiku 4.5, Gemini 3.8 Flash) for the majority of requests that don't need deep verification. The cost difference between tiers is large enough now that picking the wrong one, in either direction, is a real line item on your bill — our <a href="/blog/gpt-5-3-codex-vs-claude-4-6">head-to-head on those two flagships</a> covers where each one earns its price, and <a href="/blog/token-economics-2026">token economics</a> covers how to model the bill itself.</p>
+      <p>If you're building on top of these models, the practical implication is simple: match the reasoning tier to the task. Use a flagship reasoning model — <a href="/tool/chatgpt">ChatGPT</a>'s GPT-6 Astra or <a href="/tool/claude">Claude</a> Opus 5.5, escalating to Claude Fable 5.1 when the reasoning is genuinely demanding or the run genuinely long — for anything with real stakes: a legal contract, a production incident, a multi-file refactor. Use a cheaper tier (GPT-6 Sol or Luna, Sonnet 5.5, Haiku 4.5, Gemini 3.8 Flash) for the majority of requests that don't need deep verification. The cost difference between tiers is large enough now that picking the wrong one, in either direction, is a real line item on your bill — our <a href="/blog/gpt-5-3-codex-vs-claude-4-6">head-to-head on those two flagships</a> covers where each one earns its price, and <a href="/blog/token-economics-2026">token economics</a> covers how to model the bill itself.</p>
       <p>One prompting consequence worth noting: the elaborate step-by-step scaffolding people wrote for earlier models is now often counterproductive, because the model already runs its own verification loop and your instructions can cut across it. State the goal and the constraints, supply the context, and let it plan — a shift we unpack in <a href="/blog/future-prompting">the future of prompting</a>.</p>
 
       <h3>The Caveat Everyone Skips</h3>
@@ -636,7 +639,7 @@ export const postsBatch2: BlogPost[] = [
       },
       {
         q: "When is it worth paying for a flagship reasoning model?",
-        a: "When the cost of being wrong exceeds the price difference between tiers — production incidents, contract review, multi-file refactors, anything a human will act on without checking. For the large majority of everyday requests, a cheaper tier such as GPT-5.6 Terra or Luna, Claude Sonnet 5, or Gemini 3.8 Flash returns the same answer for a fraction of the cost. The expensive mistake is routing everything to a flagship out of caution and discovering the bill at the end of the month.",
+        a: "When the cost of being wrong exceeds the price difference between tiers — production incidents, contract review, multi-file refactors, anything a human will act on without checking. For the large majority of everyday requests, a cheaper tier such as GPT-6 Luna, Claude Sonnet 5.5, or Gemini 3.8 Flash returns the same answer for a fraction of the cost. The expensive mistake is routing everything to a flagship out of caution and discovering the bill at the end of the month.",
       },
     ],
   },
@@ -709,7 +712,7 @@ export const postsBatch2: BlogPost[] = [
     title: "GPT-5.5 Vision Arrives: A New Bar for AI That Sees the World",
     excerpt: "GPT-5.5 Vision could map a room's 3D layout from a single photo. We revisit the launch that redefined AI vision — and where GPT-5.6 takes it next.",
     date: "Jul 18, 2026",
-    updated: "Sep 18, 2026",
+    updated: "Oct 1, 2026",
     author: "David Kim",
     category: "News",
     readTime: "5 min read",
@@ -745,7 +748,7 @@ export const postsBatch2: BlogPost[] = [
       <p>GPT-5.5 Vision's launch put real pressure on every other multimodal lab. Anthropic's newer models have closed much of the spatial-reasoning gap this article describes, particularly on document- and diagram-heavy tasks that come up constantly in enterprise workflows. Google's story is more mixed: its <a href="/blog/gemini-3-pro-deep-dive">Pro tier</a> has moved on — Google's current API model list shows <strong>Gemini 3.1 Pro</strong>, still marked Preview, where <strong>Gemini 3 Pro</strong> used to sit — and <strong>Gemini 3.8 Flash</strong> is generally available and competent at everyday multimodal tasks, but the more ambitious <strong>Gemini 3.5 Pro</strong> — rumored to bring a 2-million-token context window and a dedicated "Deep Think" reasoning mode — has been delayed for months and still hasn't shipped as of this writing. That gap left GPT-5.6 Sol with a longer-than-expected run as the default choice for teams that specifically needed best-in-class visual and spatial reasoning through the middle of the year.</p>
 
       <h3>Practical Advice If You're Choosing Today</h3>
-      <p>Start from OpenAI's current flagship: <strong>GPT-6 Astra</strong> shipped September 3, 2026 at $10/$50 per million tokens, and OpenAI describes it as state of the art on computer use, browsing, software engineering, cybersecurity, science, and professional work. For pure visual-debugging workflows — screenshots in, patched code out — GPT-5.6 Sol was the safest default through mid-2026 and is still the cheaper OpenAI tier for the job. For document-heavy enterprise use cases where a screenshot is really a scanned contract or a technical diagram, it's worth benchmarking Claude against Sol on your own data before committing, since the gap between them has narrowed considerably since GPT-5.5 Vision first shipped. Our full <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5.1</a> comparison covers how the two behave on code rather than images.</p>
+      <p>Start from OpenAI's current flagship: <strong>GPT-6 Astra</strong> shipped September 3, 2026 at $10/$50 per million tokens, and OpenAI describes it as state of the art on computer use, browsing, software engineering, cybersecurity, science, and professional work. For pure visual-debugging workflows — screenshots in, patched code out — GPT-5.6 Sol was the safest default through mid-2026; OpenAI's cheaper tiers below Astra are now GPT-6 Sol, GPT-6.1 Sol and GPT-6 Luna, so test those against your own screenshots before you settle. For document-heavy enterprise use cases where a screenshot is really a scanned contract or a technical diagram, it's worth benchmarking Claude against Sol on your own data before committing, since the gap between them has narrowed considerably since GPT-5.5 Vision first shipped. Our full <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5.1</a> comparison covers how the two behave on code rather than images.</p>
       <p>One workflow note: for design-to-code specifically, a general vision model is usually the wrong tool now. Purpose-built generators that read a <a href="/tool/figma">Figma</a> file rather than a flattened screenshot — <a href="/tool/v0-by-vercel">v0</a> being the obvious one — keep the layer structure, naming, and tokens that a screenshot throws away. Use vision models for diagnosing what's on screen, and design-aware tools for producing what should be.</p>
     `,
     faq: [
@@ -759,11 +762,11 @@ export const postsBatch2: BlogPost[] = [
       },
       {
         q: "Should I upgrade from GPT-5.5 Vision to GPT-5.6?",
-        a: "For visual workflows, yes — GPT-5.6 shipped July 9, 2026 in three tiers (Sol at $5/$30 per million tokens, Terra at $2.50/$15, Luna at $1/$6), and the upgrade to Sol is largely a drop-in swap. The gain shows up specifically on the messy, cluttered, real-world screenshots that were the original release's weak spot, which means fewer cases where a human has to step in and interpret the image themselves.",
+        a: "For visual workflows, yes — GPT-5.6 shipped July 9, 2026 in three tiers (Sol at $5/$30 per million tokens, Terra at $2.50/$15, Luna at $1/$6), and the upgrade to Sol was largely a drop-in swap. OpenAI has since shipped GPT-6 Astra and the cheaper GPT-6 tiers, so if you are upgrading now, test those as well. The gain shows up specifically on the messy, cluttered, real-world screenshots that were the original release's weak spot, which means fewer cases where a human has to step in and interpret the image themselves.",
       },
       {
         q: "Which model is best for vision and document tasks in 2026?",
-        a: "For screenshot-in, code-out debugging, OpenAI's current flagship is GPT-6 Astra (September 3, 2026, $10/$50 per million tokens), with GPT-5.6 Sol as the cheaper tier that carried this workflow through mid-2026. For document-heavy work — scanned contracts, technical diagrams, dense tables — Claude has closed most of the gap and is worth benchmarking on your own documents before you commit. Google's Gemini 3.8 Flash is competent and cheap for everyday multimodal tasks, but the more ambitious Gemini 3.5 Pro still hasn't shipped as of this writing.",
+        a: "For screenshot-in, code-out debugging, OpenAI's current flagship is GPT-6 Astra (September 3, 2026, $10/$50 per million tokens), with GPT-5.6 Sol as the cheaper tier that carried this workflow through mid-2026 and GPT-6 Sol, GPT-6.1 Sol and GPT-6 Luna as the cheaper tiers now. For document-heavy work — scanned contracts, technical diagrams, dense tables — Claude has closed most of the gap and is worth benchmarking on your own documents before you commit. Google's Gemini 3.8 Flash is competent and cheap for everyday multimodal tasks, but the more ambitious Gemini 3.5 Pro still hasn't shipped as of this writing.",
       },
     ],
   },
@@ -943,7 +946,7 @@ export const postsBatch2: BlogPost[] = [
     title: "Cursor 1.0 Ships: The End of Pure Typing — and What Came After",
     excerpt: "Cursor didn't just bolt AI onto an editor — it changed what an IDE is for. Here's what actually shifted from 1.0 to 3.11, the limits nobody puts on the landing page, and how to restructure a workflow around it.",
     date: "Jul 18, 2026",
-    updated: "Sep 18, 2026",
+    updated: "Oct 1, 2026",
     author: "David Kim",
     category: "Developer",
     readTime: "11 min read",
@@ -981,7 +984,7 @@ export const postsBatch2: BlogPost[] = [
       </table>
 
       <h3>Update: Cursor Today, Version 3.11</h3>
-      <p>Cursor has moved a long way past 1.0 since this piece was first written. <strong>Cursor 3.11</strong>, released July 10, 2026, added a dedicated side chat for holding a secondary conversation without derailing the main editing session, a searchable archive of past agent transcripts so teams can audit exactly what an agent did and why, and a public iOS beta that lets developers review and approve agent work from their phone. Under the hood, Cursor's agents now run on <strong>Grok 4.5</strong>, xAI's coding-and-agent-focused model released July 8, 2026 and co-trained on real-world Cursor usage data — priced at $2/$6 per million tokens and, notably, not available to users in the EU. xAI has since shipped <strong>Grok 4.6</strong> (August 12, 2026), which it describes as building on Grok 4.5 with a particular focus on long-running agents and more ambitious interactive and visual work.</p>
+      <p>Cursor has moved a long way past 1.0 since this piece was first written. <strong>Cursor 3.11</strong>, released July 10, 2026, added a dedicated side chat for holding a secondary conversation without derailing the main editing session, a searchable archive of past agent transcripts so teams can audit exactly what an agent did and why, and a public iOS beta that lets developers review and approve agent work from their phone. That release also put Cursor's agents on <strong>Grok 4.5</strong>, xAI's coding-and-agent-focused model released July 8, 2026 and co-trained on real-world Cursor usage data — priced at $2/$6 per million tokens and, notably, not available to users in the EU. xAI has since shipped <strong>Grok 4.6</strong> (August 12, 2026), which it describes as building on Grok 4.5 with a particular focus on long-running agents and more ambitious interactive and visual work, and <strong>Grok 4.7</strong> followed in September.</p>
       <table>
         <tr><th>Version</th><th>Release</th><th>Headline Feature</th></tr>
         <tr><td>Cursor 1.0</td><td>Early 2026</td><td>Shadow Workspace, multi-file agentic edits</td></tr>
@@ -1020,7 +1023,7 @@ export const postsBatch2: BlogPost[] = [
       </ul>
 
       <h3>The Competitive Pressure Behind the Pace of Updates</h3>
-      <p>Cursor isn't shipping this fast in a vacuum. Every major coding assistant is racing on the same two axes: how much of a task an agent completes unsupervised, and how cheaply. Moving its agents onto Grok 4.5 is a bet on specialization — a model co-trained on real Cursor usage should be better calibrated to IDE-embedded agent patterns than a general-purpose one. Whether that edge survives as GPT-5.6 and Claude's Opus 5 and Fable 5.1 tiers keep improving at general coding is the open question.</p>
+      <p>Cursor isn't shipping this fast in a vacuum. Every major coding assistant is racing on the same two axes: how much of a task an agent completes unsupervised, and how cheaply. Moving its agents onto Grok 4.5 is a bet on specialization — a model co-trained on real Cursor usage should be better calibrated to IDE-embedded agent patterns than a general-purpose one. Whether that edge survives as OpenAI's and Anthropic's frontier tiers keep improving at general coding is the open question.</p>
 
       <h3>Does This Mean Traditional Editors Are Finished?</h3>
       <p>No. VS Code, JetBrains, and Neovim remain better at what a text editor is for: navigating a symbol graph, conditional-breakpoint debugging, profiling, and a decade of accumulated plugin ergonomics. What they aren't built around is the review-and-approve loop. That's the real dividing line — not "AI versus no AI," since every major editor has AI now, but whether the interface treats an agent's output as the primary artifact. <a href="/blog/cursor-vs-vscode">Cursor vs VS Code</a> argues the migration out in detail, <a href="/tool/devin-ai">Devin Desktop</a> — the editor Codeium launched as Windsurf, relaunched under Cognition in June 2026 — is the closest competitor on the same premise, and <a href="/best/coding">best AI coding tools</a> covers the rest of the field.</p>
@@ -1039,7 +1042,7 @@ export const postsBatch2: BlogPost[] = [
       },
       {
         q: "What's new in Cursor 3.11?",
-        a: "The July 10, 2026 release added a dedicated side chat for a secondary conversation that doesn't derail your main editing session, a searchable archive of past agent transcripts so teams can audit exactly what an agent did, and a public iOS beta for reviewing and approving agent work from a phone. Underneath, Cursor's agents run on xAI's Grok 4.5, which was co-trained on real Cursor usage data and priced at $2/$6 per million tokens. Grok 4.5 is not available to users in the EU.",
+        a: "The July 10, 2026 release added a dedicated side chat for a secondary conversation that doesn't derail your main editing session, a searchable archive of past agent transcripts so teams can audit exactly what an agent did, and a public iOS beta for reviewing and approving agent work from a phone. That release ran Cursor's agents on xAI's Grok 4.5, which was co-trained on real Cursor usage data and priced at $2/$6 per million tokens. Grok 4.5 is not available to users in the EU.",
       },
       {
         q: "Can I let Cursor's agent run unsupervised?",
