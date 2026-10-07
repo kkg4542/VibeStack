@@ -8,7 +8,11 @@ import { Badge } from "@/components/ui/badge";
 import { ReadingProgress } from "@/components/blog/ReadingProgress";
 import { StackPromoCard } from "@/components/blog/StackPromoCard";
 import { BlogRelatedLinks } from "@/components/seo/BlogRelatedLinks";
+import { BlogInlineCallout } from "@/components/blog/BlogInlineCallout";
+import { BlogBodyLinkTracker, BLOG_BODY_ID } from "@/components/analytics/BlogBodyLinkTracker";
 import { getTools } from "@/lib/tools-db";
+import { getInlineCallout } from "@/lib/blog-related";
+import { splitHtmlAtBlock } from "@/lib/blog-html-split";
 import sanitizeHtml from "sanitize-html";
 import { toISODate } from "@/lib/format-date";
 import { designSystem } from "@/lib/design-system";
@@ -97,6 +101,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         disallowedTagsMode: 'discard',
     });
 
+    // One contextual link a third of the way down, for readers who leave before
+    // the "Related" list at the bottom. Needs both something worth linking to
+    // and a safe place in the markup to put it; without either the article
+    // renders exactly as before.
+    const callout = getInlineCallout(post, tools);
+    const split = callout ? splitHtmlAtBlock(sanitizedContent) : null;
+    const proseClassName =
+        "prose dark:prose-invert prose-zinc prose-indigo mx-auto prose-lg prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary/80";
+
     return (
         <div className="min-h-screen bg-background pt-32 pb-20">
             <ReadingProgress />
@@ -148,10 +161,18 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         />
                     </div>
 
-                    <div
-                        className="prose dark:prose-invert prose-zinc prose-indigo mx-auto prose-lg prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary/80"
-                        dangerouslySetInnerHTML={{ __html: sanitizedContent }}
-                    />
+                    <div id={BLOG_BODY_ID}>
+                        {callout && split ? (
+                            <>
+                                <div className={proseClassName} dangerouslySetInnerHTML={{ __html: split[0] }} />
+                                <BlogInlineCallout postSlug={post.slug} callout={callout} />
+                                <div className={proseClassName} dangerouslySetInnerHTML={{ __html: split[1] }} />
+                            </>
+                        ) : (
+                            <div className={proseClassName} dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
+                        )}
+                    </div>
+                    <BlogBodyLinkTracker postSlug={post.slug} />
 
                     {post.faq && post.faq.length > 0 && (
                         <section

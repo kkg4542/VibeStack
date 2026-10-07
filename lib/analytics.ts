@@ -20,7 +20,12 @@ export type AnalyticsEvent =
   | "search_query"
   | "filter_use"
   | "stack_finder_step"
-  | "stack_recommended";
+  | "stack_recommended"
+  | "blog_internal_click";
+
+/** inline = the callout, related = the list under the article, body = a link the author wrote in the text. */
+export type BlogLinkPlacement = "inline" | "related" | "body";
+export type BlogLinkTarget = "tool" | "guide" | "compare" | "stack" | "blog" | "other";
 
 interface EventParams {
   tool_visit: { tool_slug: string; tool_name: string };
@@ -34,6 +39,12 @@ interface EventParams {
   filter_use: { filter_type: string; filter_value: string };
   stack_finder_step: { step_id: string; option_id: string };
   stack_recommended: { stack_name: string; total_price: string };
+  blog_internal_click: {
+    post_slug: string;
+    placement: BlogLinkPlacement;
+    target_type: BlogLinkTarget;
+    target_path: string;
+  };
 }
 
 export function trackEvent<T extends AnalyticsEvent>(
@@ -101,4 +112,37 @@ export function trackStackFinderStep(stepId: string, optionId: string): void {
 
 export function trackStackRecommended(stackName: string, totalPrice: string): void {
   trackEvent("stack_recommended", { stack_name: stackName, total_price: totalPrice });
+}
+
+/**
+ * What kind of page a same-site href points at, or null for anything that is
+ * not a plain internal path (external URLs, #anchors, mailto:, protocol-relative).
+ */
+export function classifyBlogLinkTarget(href: string | null): BlogLinkTarget | null {
+  if (!href || !href.startsWith("/") || href.startsWith("//")) return null;
+  if (href.startsWith("/tool/")) return "tool";
+  if (href.startsWith("/best/") || href.startsWith("/categories/")) return "guide";
+  if (href.startsWith("/compare/")) return "compare";
+  if (href.startsWith("/stack/")) return "stack";
+  if (href.startsWith("/blog/")) return "blog";
+  return "other";
+}
+
+/**
+ * GA4's enhanced measurement only reports outbound clicks, so a click from a
+ * blog post to another VibeStack page is invisible without this. `placement`
+ * is what lets the inline callout be compared with the bottom "Related" list.
+ */
+export function trackBlogInternalClick(
+  postSlug: string,
+  placement: BlogLinkPlacement,
+  targetType: BlogLinkTarget,
+  targetPath: string
+): void {
+  trackEvent("blog_internal_click", {
+    post_slug: postSlug,
+    placement,
+    target_type: targetType,
+    target_path: targetPath,
+  });
 }

@@ -154,6 +154,7 @@ export const postsBatch4: BlogPost[] = [
   },
   {
     slug: "what-is-vibe-coding",
+    callout: { kind: "guide", slug: "coding" },
     title: "What Is Vibe Coding? A Beginner's Guide (2026)",
     excerpt:
       "Vibe coding means building software by describing what you want and letting AI write it. Here's what the term really means, who it's for, the tools that power it, and how to start.",

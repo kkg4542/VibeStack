@@ -225,6 +225,7 @@ export const postsBatch2: BlogPost[] = [
   // 19. Open Source LLM Breakthroughs
   {
     slug: "open-source-llm-2026-breakthrough",
+    callout: { kind: "tool", slug: "ollama" },
     title: "The Open Source LLM Revolution: DeepSeek-V3.2, Llama 4, and the Llama 5 Leap",
     excerpt: "Open-weight models are good enough for most production work — but self-hosting is not free, and \"open\" is not the same as open source. Where open weights win, what running them actually costs, and the license traps to read before you ship.",
     date: "Jul 18, 2026",
@@ -441,6 +442,7 @@ export const postsBatch2: BlogPost[] = [
   // 21. Sora Video Generation
   {
     slug: "sora-video-generation-revolution",
+    callout: { kind: "tool", slug: "runway" },
     title: "Making Imagination Real: How Sora Sparked the Video-Generation Revolution",
     excerpt: "Watch a text prompt turn into a 60-second, cinema-grade video clip. Here's how OpenAI's Sora rewrote the rules of entertainment production — and what's changed since launch.",
     date: "Jul 18, 2026",
@@ -643,6 +645,7 @@ export const postsBatch2: BlogPost[] = [
   // 24. Autonomous Agent Swarms
   {
     slug: "autonomous-agents-swarm-intelligence",
+    callout: { kind: "tool", slug: "devin-ai" },
     title: "Swarm Intelligence: Inside the Rise of Autonomous AI Agent Collectives",
     excerpt: "One AI agent isn't enough anymore. Developer, designer, and QA roles are being split across communicating agents that hand work back and forth on their own — welcome to the world of agent swarms.",
     date: "Jul 18, 2026",
@@ -834,6 +837,7 @@ export const postsBatch2: BlogPost[] = [
   // 28. Multi-Agent UI
   {
     slug: "ui-for-multi-agent-systems",
+    callout: { kind: "tool", slug: "cursor" },
     title: "Swarm UI: A New Interface Paradigm for Talking to Agent Collectives",
     excerpt: "Supervising a team of AI agents is an interface design problem, not a model problem. The five hard parts — observability, intervention, trust calibration, failure representation, and approval flows — and how to design each one.",
     date: "Jul 18, 2026",
