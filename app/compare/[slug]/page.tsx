@@ -230,14 +230,14 @@ export default async function ComparisonSlugPage({ params }: Props) {
                     className="mb-12 text-center"
                 >
                     <Badge variant="outline" className="mb-4 bg-muted/50">{tool1.category} Showdown · Updated for 2026</Badge>
-                    <h1 className={`${designSystem.typography.hero} mb-6`}>
-                        <span className={`bg-clip-text text-transparent bg-linear-to-r ${tool1.bgGradient || 'from-foreground to-foreground'}`}>
-                            {tool1.title}
-                        </span>
+                    {/* Plain foreground, like /best and the blog. The tools' own brand gradients
+                        (bgGradient) are tuned for filled tiles, and used as text fill they turn
+                        dark-on-dark in dark mode, so the names were hard to read. The brand
+                        colours still show on the tool cards below. */}
+                    <h1 className={`${designSystem.typography.hero} mb-6 text-foreground`}>
+                        {tool1.title}
                         <span className="text-muted-foreground mx-4 font-light">vs</span>
-                        <span className={`bg-clip-text text-transparent bg-linear-to-r ${tool2.bgGradient || 'from-foreground to-foreground'}`}>
-                            {tool2.title}
-                        </span>
+                        {tool2.title}
                     </h1>
                     <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                         Features, pricing, pros & cons — and a clear verdict on which {tool1.category.toLowerCase()} tool fits your workflow.
