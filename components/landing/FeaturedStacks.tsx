@@ -1,15 +1,11 @@
-"use client";
-
 import Link from "next/link";
-import { m } from "framer-motion";
-import { ArrowRight, Sparkles, Zap, Eye, Heart, Star } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { VibeCard } from "@/components/ui/VibeCard";
+import { ArrowRight } from "lucide-react";
 import type { FeaturedStack } from "@/lib/data/stacks/types";
-import { designSystem } from "@/lib/design-system";
-import { Section } from "@/components/primitives/Section";
 import { Container } from "@/components/primitives/Container";
+import { cn } from "@/lib/utils";
+
+// Static so the delay utilities exist in the stylesheet.
+const revealDelays = ["reveal-delay-1", "reveal-delay-2", "reveal-delay-3"];
 
 interface FeaturedStacksProps {
   /**
@@ -20,154 +16,63 @@ interface FeaturedStacksProps {
   stacks: FeaturedStack[];
 }
 
+/**
+ * "Popular stacks" as a full-width ledger: one display-size heading, then one
+ * full-bleed row per stack. Rows are told apart by a step in tone (card /
+ * ground, alternating), never by lines. Hover or focus turns the whole row
+ * into an orange field with dark text.
+ *
+ * Server component: plain links in the initial HTML.
+ */
 export function FeaturedStacks({ stacks }: FeaturedStacksProps) {
   return (
-    <Section spacing="large" container={false} className="relative overflow-hidden">
-      {/* Background Decorations */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1200px] h-[600px] bg-vibe-electric/5 blur-[120px] rounded-full -z-10" />
-
+    <section className="bg-background pb-24 pt-24 text-foreground md:pb-36 md:pt-36">
       <Container>
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <m.div
-            initial={designSystem.animations.fadeInUp.initial}
-            whileInView={designSystem.animations.fadeInUp.animate}
-            viewport={{ once: true }}
-            transition={designSystem.animations.fadeInUp.transition}
-          >
-            <Badge variant="outline" className="mb-4 border-vibe-electric/20 bg-vibe-electric/5 text-vibe-link">
-              <Sparkles className="mr-2 h-3 w-3" />
-              Curated Workflows
-            </Badge>
-            <h2 className={`${designSystem.typography.section} mb-6`}>
-              Popular{" "}
-              <span className="text-gradient-brand">
-                AI Stacks
-              </span>
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Don&apos;t start from scratch. Use the same tools as the world&apos;s best builders.
-            </p>
-          </m.div>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {stacks.map((stack, index) => (
-            <m.div
-              key={stack.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{
-                duration: 0.5,
-                delay: index * 0.1,
-                ease: [0.16, 1, 0.3, 1]
-              }}
-            >
-              <Link href={`/stack/${stack.id}`} className="group block h-full">
-                <VibeCard
-                  variant="glass"
-                  hover="both"
-                  spotlight
-                  className="h-full p-6"
-                >
-                  <div className="h-full flex flex-col">
-                    {/* Icon & Title */}
-                    <div className="flex items-start justify-between mb-6">
-                      <div className="flex items-center gap-4">
-                        <div className="text-4xl group-hover:scale-110 transition-transform duration-300">
-                          {stack.icon || "🚀"}
-                        </div>
-                        <div>
-                          <h3 className="text-xl font-bold text-foreground group-hover:text-vibe-link transition-colors">
-                            {stack.name}
-                          </h3>
-                          <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
-                            <span>{stack.tools.length} Tools</span>
-                            <span>•</span>
-                            <span>{stack.totalPrice || "Free"}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-muted-foreground mb-6 line-clamp-2">
-                      {stack.description}
-                    </p>
-
-                    {/* Metrics */}
-                    {stack.metrics && (
-                      <div className="flex items-center gap-4 mb-4 text-xs text-muted-foreground">
-                        <span className="flex items-center gap-1">
-                          <Eye className="w-3 h-3" />
-                          {stack.metrics.views.toLocaleString()}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Heart className="w-3 h-3" />
-                          {stack.metrics.saves}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Star className="w-3 h-3" />
-                          {stack.metrics.avgRating.toFixed(1)}
-                        </span>
-                      </div>
-                    )}
-
-                    {/* Tools Preview */}
-                    <div className="mt-auto">
-                      <div className="flex flex-wrap gap-2 mb-6">
-                        {stack.tags.slice(0, 3).map((tag: string) => (
-                          <Badge key={tag} variant="secondary" className="text-xs bg-secondary/50">
-                            {tag}
-                          </Badge>
-                        ))}
-                      </div>
-
-                      {/* Curator Info (Authority) */}
-                      {stack.curator ? (
-                        <div className="flex items-center gap-3 pt-6 border-t border-foreground/10">
-                          <div className="w-8 h-8 rounded-full bg-linear-to-br from-vibe-electric to-vibe-neon flex items-center justify-center text-xs font-bold text-vibe-deep">
-                            {stack.curator.name.charAt(0)}
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-xs font-medium truncate">Curated by {stack.curator.name}</p>
-                            <p className="text-[10px] text-muted-foreground truncate">{stack.curator.role}</p>
-                          </div>
-                          <ArrowRight className="h-4 w-4 text-muted-foreground/50 group-hover:text-vibe-link transition-colors" />
-                        </div>
-                      ) : (
-                        <div className="flex items-center justify-between pt-6 border-t border-foreground/10">
-                          <div className="flex -space-x-2">
-                            {stack.tools.slice(0, 4).map((tool) => (
-                              <div
-                                key={tool.slug}
-                                className="w-8 h-8 rounded-full bg-foreground/10 border-2 border-background flex items-center justify-center text-xs"
-                                title={tool.name}
-                              >
-                                {tool.name.charAt(0)}
-                              </div>
-                            ))}
-                          </div>
-                          <ArrowRight className="h-4 w-4 text-muted-foreground/50 group-hover:text-vibe-link transition-colors" />
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </VibeCard>
-              </Link>
-            </m.div>
-          ))}
-        </div>
-
-        <div className="mt-16 text-center">
+        <div className="reveal mb-10 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-4 md:mb-14">
+          <h2 className="font-display text-[clamp(48px,7vw,112px)] text-foreground">
+            Popular stacks
+          </h2>
           <Link
             href="/build"
-            className={buttonVariants({ variant: "outline", size: "lg" }) + " rounded-full px-8 border-vibe-electric/30 hover:border-vibe-electric hover:bg-vibe-electric/10"}
+            className="group inline-flex items-center gap-1.5 text-[18px] font-semibold text-vibe-link underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-vibe-link"
           >
-            Find My Perfect Stack <Zap className="ml-2 h-4 w-4" />
+            Build your own
+            <ArrowRight
+              aria-hidden="true"
+              className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+            />
           </Link>
         </div>
       </Container>
-    </Section>
+
+      <ul className="flex flex-col">
+        {stacks.map((stack, index) => (
+          <li key={stack.id} className={cn("reveal", revealDelays[index % revealDelays.length])}>
+            <Link
+              href={`/stack/${stack.id}`}
+              className={cn(
+                "group block hover:bg-vibe-electric focus-visible:bg-vibe-electric focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-vibe-deep",
+                index % 2 === 0 ? "bg-card" : "bg-background"
+              )}
+            >
+              <Container className="grid gap-x-8 gap-y-3 py-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_11.5rem] md:items-baseline md:py-8 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)_16rem]">
+                {/* Phones: name and price share the first line; md+: grid cells. */}
+                <span className="flex items-baseline justify-between gap-4 md:contents">
+                  <span className="font-display min-w-0 text-[clamp(32px,4.2vw,64px)] text-foreground group-hover:text-vibe-deep group-focus-visible:text-vibe-deep">
+                    {stack.name}
+                  </span>
+                  <span className="font-display shrink-0 text-right text-[clamp(32px,4.2vw,64px)] tabular-nums text-vibe-link group-hover:text-vibe-deep group-focus-visible:text-vibe-deep md:order-3 md:justify-self-end">
+                    {stack.totalPrice || "Free"}
+                  </span>
+                </span>
+                <span className="text-[18px] leading-normal text-foreground group-hover:text-vibe-deep group-focus-visible:text-vibe-deep md:order-2">
+                  {stack.tools.map((tool) => tool.name).join(" + ")}
+                </span>
+              </Container>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }

@@ -1,29 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { m } from "framer-motion";
-import {
-  Mail,
-  Sparkles,
-  Zap,
-  Bell,
-  ArrowRight,
-  CheckCircle2
-} from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { designSystem } from "@/lib/design-system";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { trackNewsletterSubscribe } from "@/lib/analytics";
 import { useCsrfFetch } from "@/hooks/useCsrfFetch";
-import { Section } from "@/components/primitives/Section";
 import { Container } from "@/components/primitives/Container";
-
-const benefits = [
-  { icon: Sparkles, text: "Weekly AI tool discoveries" },
-  { icon: Zap, text: "New stack recommendations" },
-  { icon: Bell, text: "Exclusive deals & updates" },
-];
 
 export function NewsletterSection() {
   const { csrfFetch } = useCsrfFetch();
@@ -66,118 +47,69 @@ export function NewsletterSection() {
   };
 
   return (
-    <Section spacing="large" container={false} className="relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-linear-to-b from-background via-vibe-electric/5 to-background" />
+    <section
+      aria-labelledby="newsletter-heading"
+      className="bg-foreground font-sans text-background"
+    >
+      <Container className="grid gap-10 py-20 md:py-28 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-16">
+        <div>
+          <h2
+            id="newsletter-heading"
+            className="font-display mb-6 text-[clamp(40px,5.5vw,84px)] font-extrabold uppercase leading-[0.88] tracking-[-0.005em]"
+          >
+            <span className="block">Weekly AI</span>
+            <span className="block">tool updates</span>
+          </h2>
+          <p className="max-w-[44ch] text-[18px] leading-normal">
+            New AI tools and stack recommendations, straight to your inbox.
+          </p>
+        </div>
 
-      {/* Decorative elements */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-linear-to-r from-vibe-electric/10 via-vibe-cyan/10 to-vibe-neon/10 blur-[120px] rounded-full -z-10" />
-
-      <Container className="relative z-10">
-        <m.div
-          initial={designSystem.animations.fadeInUp.initial}
-          whileInView={designSystem.animations.fadeInUp.animate}
-          viewport={{ once: true }}
-          transition={designSystem.animations.fadeInUp.transition}
-          className="max-w-4xl mx-auto"
-        >
-          <div className="relative p-8 md:p-12 rounded-3xl border border-border bg-card shadow-sm overflow-hidden">
-            {/* Glow effect */}
-            <div className="absolute inset-0 bg-linear-to-br from-vibe-electric/5 via-transparent to-vibe-neon/5" />
-
-            <div className="relative z-10">
-              {/* Header */}
-              <div className="text-center mb-8">
-                <Badge
-                  variant="outline"
-                  className="mb-4 border-vibe-electric/20 bg-vibe-electric/5 text-vibe-link"
-                >
-                  <Mail className="mr-2 h-3 w-3" />
-                  Stay Updated
-                </Badge>
-                <h2 className={`${designSystem.typography.section} mb-4`}>
-                  Get the Latest{" "}
-                  <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-600 to-blue-600">
-                    AI Insights
-                  </span>
-                </h2>
-                <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-                  Weekly updates on new AI tools, stack recommendations, and
-                  exclusive deals — straight to your inbox.
-                </p>
-              </div>
-
-              {/* Benefits */}
-              <div className="flex flex-wrap justify-center gap-4 mb-8">
-                {benefits.map((benefit, index) => {
-                  const Icon = benefit.icon;
-                  return (
-                    <m.div
-                      key={benefit.text}
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
-                      className="flex items-center gap-2 px-4 py-2 rounded-full bg-background/50 border border-border/50"
-                    >
-                      <Icon className="w-4 h-4 text-vibe-link" />
-                      <span className="text-sm text-muted-foreground">{benefit.text}</span>
-                    </m.div>
-                  );
-                })}
-              </div>
-
-              {/* Form */}
-              <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <div className="relative flex-1">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                    <Input
-                      type="email"
-                      placeholder="Enter your email"
-                      aria-label="Email address"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="pl-10 h-12 bg-background/50 border-border/50 focus:border-vibe-electric"
-                      required
-                    />
-                  </div>
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting || isSuccess}
-                    className="h-12 px-6 bg-linear-to-r from-vibe-electric to-vibe-cyan text-vibe-deep hover:shadow-lg hover:shadow-vibe-electric/30 transition-all duration-300"
-                  >
-                    {isSuccess ? (
-                      <>
-                        <CheckCircle2 className="mr-2 h-4 w-4" />
-                        Subscribed!
-                      </>
-                    ) : isSubmitting ? (
-                      <>
-                        <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                        Subscribing...
-                      </>
-                    ) : (
-                      <>
-                        Subscribe
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </>
-                    )}
-                  </Button>
-                </div>
-                {errorMessage && (
-                  <p className="text-xs text-red-700 dark:text-red-500 text-center mt-3" role="alert">
-                    {errorMessage}
-                  </p>
-                )}
-                <p className="text-xs text-muted-foreground text-center mt-3">
-                  No spam, ever. Unsubscribe anytime.
-                </p>
-              </form>
-            </div>
+        <form onSubmit={handleSubmit}>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              aria-label="Email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="h-14 w-full min-w-0 flex-1 bg-background px-4 text-[18px] text-foreground placeholder:text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-background"
+              required
+            />
+            <button
+              type="submit"
+              disabled={isSubmitting || isSuccess}
+              className="inline-flex h-14 shrink-0 items-center justify-center bg-vibe-electric px-6 text-[16px] font-semibold text-vibe-deep transition-transform duration-150 active:translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-background disabled:pointer-events-none motion-reduce:transition-none motion-reduce:active:translate-y-0"
+            >
+              {isSuccess ? (
+                <>
+                  <CheckCircle2 className="mr-2 h-4 w-4" aria-hidden="true" />
+                  Subscribed!
+                </>
+              ) : isSubmitting ? (
+                <>
+                  <span
+                    aria-hidden="true"
+                    className="mr-2 inline-block h-4 w-4 animate-spin rounded-full border-2 border-vibe-deep border-t-transparent motion-reduce:animate-none"
+                  />
+                  Subscribing...
+                </>
+              ) : (
+                <>
+                  Subscribe
+                  <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+                </>
+              )}
+            </button>
           </div>
-        </m.div>
+          {errorMessage && (
+            <p className="mt-3 text-[16px] font-semibold" role="alert">
+              {errorMessage}
+            </p>
+          )}
+          <p className="mt-3 text-[16px]">No spam, ever. Unsubscribe anytime.</p>
+        </form>
       </Container>
-    </Section>
+    </section>
   );
 }

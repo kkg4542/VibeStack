@@ -1,13 +1,11 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { Sparkles } from "lucide-react";
 import ToolsPageClient from "./ToolsPageClient";
 import { SiteDirectory } from "@/components/seo/SiteDirectory";
 import { Container } from "@/components/primitives/Container";
 import { getTools } from "@/lib/tools-db";
 import { comparePairs } from "@/lib/compare-content";
 import { BEST_CATEGORIES } from "@/lib/best-categories";
-import { designSystem } from "@/lib/design-system";
 import { ToolData } from "@/lib/tool-types";
 
 const SITE_URL = "https://usevibestack.com";
@@ -100,25 +98,22 @@ export default async function ToolsPage() {
                 wrappers, so it is visible with or without JavaScript. */}
             <section className="relative pt-24">
                 <Container size="default">
-                    <div className="text-center">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-link text-sm font-medium mb-6 backdrop-blur-sm">
-                            <Sparkles className="w-4 h-4" />
-                            <span>{tools.length} tools, vetted for real work</span>
-                        </div>
+                    <div>
+                        <p className="mb-6 text-[16px] font-semibold text-vibe-link">
+                            {tools.length} tools, vetted for real work
+                        </p>
 
-                        <h1 className={`${designSystem.typography.hero} mb-6 max-w-4xl mx-auto leading-tight`}>
-                            The AI{" "}
-                            <span className="text-gradient-brand">tools directory</span>{" "}
-                            for people who ship
+                        <h1 className="mb-8 max-w-5xl font-display text-[clamp(36px,6vw,96px)] text-balance text-foreground">
+                            The AI tools directory for people who ship
                         </h1>
 
-                        <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-6 leading-relaxed">
+                        <p className="mb-6 max-w-3xl text-[18px] leading-normal text-foreground sm:text-[20px]">
                             Skip the hype. We test, tag, and track AI products by real workflow
                             impact, not buzz — so you can compare by category, pricing, and
                             outcome and build a stack that actually saves time.
                         </p>
 
-                        <div className="text-base text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed space-y-4 text-left sm:text-center">
+                        <div className="mb-10 max-w-3xl space-y-4 text-[16px] leading-normal text-muted-foreground">
                             <p>
                                 {tools.length} tools are listed across {categories.length}{" "}
                                 categories. Each one has its own page covering what it does, the
@@ -131,7 +126,7 @@ export default async function ToolsPage() {
                                 Use the search and filters below to narrow by category or pricing,
                                 open a tool page for the full breakdown, then put two of them next
                                 to each other in one of the{" "}
-                                <Link href="/compare" className="text-vibe-link hover:underline">
+                                <Link href="/compare" className="font-semibold text-vibe-link underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link">
                                     {comparisonCount} head-to-head comparisons
                                 </Link>
                                 . If you would rather start from a shortlist, the{" "}
@@ -140,16 +135,16 @@ export default async function ToolsPage() {
                             </p>
                         </div>
 
-                        <p className="text-sm font-medium text-foreground mb-3">Browse by category</p>
-                        <ul className="flex flex-wrap justify-center gap-2 mb-4">
+                        <p className="mb-3 text-[16px] font-semibold text-foreground">Browse by category</p>
+                        <ul className="mb-4 flex flex-wrap gap-1">
                             {categories.map((c) => (
                                 <li key={c.slug}>
                                     <Link
                                         href={`/categories/${c.slug}`}
-                                        className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card px-4 py-2 text-sm text-muted-foreground hover:border-vibe-electric/40 hover:text-foreground transition-colors"
+                                        className="group inline-flex items-baseline gap-2 rounded-none bg-card px-4 py-2.5 text-[16px] font-semibold text-foreground transition-colors duration-150 hover:bg-vibe-electric hover:text-vibe-deep focus-visible:bg-vibe-electric focus-visible:text-vibe-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link motion-reduce:transition-none"
                                     >
                                         {c.category}
-                                        <span className="text-xs text-muted-foreground/70">{c.count}</span>
+                                        <span className="text-[14px] tabular-nums text-muted-foreground group-hover:text-vibe-deep group-focus-visible:text-vibe-deep">{c.count}</span>
                                     </Link>
                                 </li>
                             ))}

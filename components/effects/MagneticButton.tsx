@@ -198,7 +198,6 @@ export function MagneticShineButton({
 }) {
     const ref = useRef<HTMLButtonElement>(null);
     const [position, setPosition] = useState({ x: 0, y: 0 });
-    const [shinePosition, setShinePosition] = useState({ x: 0, y: 0 });
 
     const handleMouse = (e: React.MouseEvent<HTMLButtonElement>) => {
         if (!ref.current) return;
@@ -209,10 +208,6 @@ export function MagneticShineButton({
         const y = (clientY - top - height / 2) * 0.2;
 
         setPosition({ x, y });
-        setShinePosition({
-            x: ((clientX - left) / width) * 100,
-            y: ((clientY - top) / height) * 100,
-        });
     };
 
     const handleMouseLeave = () => {
@@ -228,9 +223,6 @@ export function MagneticShineButton({
             animate={{ x: position.x, y: position.y }}
             transition={{ type: "spring", stiffness: 350, damping: 15, mass: 0.5 }}
             className={`relative overflow-hidden ${className}`}
-            style={{
-                background: `radial-gradient(circle at ${shinePosition.x}% ${shinePosition.y}%, rgba(255,255,255,0.3) 0%, transparent 50%)`,
-            }}
         >
             <span className="relative z-10">{children}</span>
         </m.button>

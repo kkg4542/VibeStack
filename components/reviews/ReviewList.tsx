@@ -42,13 +42,13 @@ export function ReviewList({ toolSlug }: { toolSlug: string }) {
     }, [loadReviews]);
 
     if (isLoading) {
-        return <div className="text-center py-8 text-muted-foreground">Loading reviews...</div>;
+        return <div className="py-8 text-center text-base text-muted-foreground">Loading reviews...</div>;
     }
 
     if (reviews.length === 0) {
         return (
-            <div className="text-center py-12 bg-secondary/30 rounded-xl border border-border/30">
-                <p className="text-muted-foreground">No reviews yet. Be the first to share your experience!</p>
+            <div className="bg-card px-6 py-12 text-center">
+                <p className="text-base text-muted-foreground">No reviews yet. Be the first to share your experience!</p>
             </div>
         );
     }

@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 import { trackAffiliateClick } from "@/lib/analytics";
-import { useState } from "react";
 
 /**
  * Deliberately without "noreferrer". The href is same-origin (/go/[slug]), and
@@ -23,6 +22,38 @@ interface AffiliateLinkProps {
   variant?: "default" | "link";
   className?: string;
   abTestVariant?: "A" | "B" | "C";
+  /**
+   * Exact button text. When given it wins over the A/B copy, so a list of
+   * links can all read the same. Only the default (button) variant uses it.
+   */
+  label?: string;
+  /**
+   * The tool's pricing tier. When given and not Free/Freemium, the "Try Free"
+   * copy is never shown for this tool.
+   */
+  pricing?: string;
+}
+
+const AB_VARIANTS = ["A", "B", "C"] as const;
+type AbVariant = (typeof AB_VARIANTS)[number];
+
+const AB_COPY: Record<AbVariant, string> = {
+  A: "Visit Website",
+  B: "Try Free",
+  C: "Get Started",
+};
+
+/**
+ * Deterministic variant per tool. Hashing the slug (instead of Math.random +
+ * localStorage) means server and client always agree, so there is no hydration
+ * mismatch, and a given tool shows the same copy to every visitor.
+ */
+function variantForSlug(slug: string): AbVariant {
+  let hash = 0;
+  for (let i = 0; i < slug.length; i++) {
+    hash = (hash * 31 + slug.charCodeAt(i)) >>> 0;
+  }
+  return AB_VARIANTS[hash % AB_VARIANTS.length];
 }
 
 export function AffiliateLink({
@@ -32,33 +63,15 @@ export function AffiliateLink({
   children,
   variant: buttonVariant = "default",
   className,
-  abTestVariant
+  abTestVariant,
+  label,
+  pricing,
 }: AffiliateLinkProps) {
-  // Initialize state with lazy function to avoid setState in useEffect
-  const [abVariant, setAbVariant] = useState<"A" | "B" | "C">(() => {
-    if (abTestVariant) {
-      return abTestVariant;
-    }
-
-    // Check localStorage for saved variant
-    if (typeof window !== 'undefined') {
-      const savedVariant = localStorage.getItem(`ab_variant_${toolSlug}`);
-      if (savedVariant && ["A", "B", "C"].includes(savedVariant)) {
-        return savedVariant as "A" | "B" | "C";
-      }
-    }
-
-    // Randomly assign if not found
-    const variants: ("A" | "B" | "C")[] = ["A", "B", "C"];
-    const randomVariant = variants[Math.floor(Math.random() * variants.length)];
-
-    // Save to localStorage for consistency
-    if (typeof window !== 'undefined') {
-      localStorage.setItem(`ab_variant_${toolSlug}`, randomVariant);
-    }
-
-    return randomVariant;
-  });
+  let abVariant: AbVariant = abTestVariant ?? variantForSlug(toolSlug);
+  // "Try Free" must never be attached to a paid tool.
+  if (abVariant === "B" && pricing && pricing !== "Free" && pricing !== "Freemium") {
+    abVariant = "A";
+  }
 
   const fullUrl = `${url}${url.includes("?") ? "&" : "?"}ref=vibestack&utm_source=vibestack`;
   // Every outbound affiliate click routes through the server redirect so
@@ -72,19 +85,7 @@ export function AffiliateLink({
     trackAffiliateClick(toolSlug, toolName, fullUrl);
   };
 
-  // Get button text based on A/B variant
-  const getButtonText = () => {
-    switch (abVariant) {
-      case "A":
-        return "Visit Website";
-      case "B":
-        return "Try Free";
-      case "C":
-        return "Get Started";
-      default:
-        return children;
-    }
-  };
+  const buttonText = label ?? AB_COPY[abVariant];
 
   if (buttonVariant === "link") {
     return (
@@ -103,7 +104,7 @@ export function AffiliateLink({
   return (
     <Button
       size="lg"
-      className={`rounded-full shadow-lg shadow-vibe-electric/20 ${className || ""}`}
+      className={`rounded-none bg-vibe-electric text-vibe-deep hover:bg-vibe-electric/90 ${className || ""}`}
       asChild
     >
       <a
@@ -112,7 +113,7 @@ export function AffiliateLink({
         rel={AFFILIATE_REL}
         onClick={handleClick}
       >
-        {getButtonText()}
+        {buttonText}
         <ExternalLink className="ml-2 h-4 w-4" />
       </a>
     </Button>

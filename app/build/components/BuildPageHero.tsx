@@ -1,70 +1,60 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
-import { designSystem } from "@/lib/design-system";
+import { cn } from "@/lib/utils";
 
 interface BuildPageHeroProps {
   onStartQuiz: () => void;
 }
 
+const focusRing = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link";
+const squareButton = cn(
+  "inline-flex h-14 items-center justify-center gap-2 rounded-none px-8 text-[18px] font-semibold transition-colors",
+  focusRing
+);
+
+/**
+ * Direction B: display-face title, flat square buttons, no badge pill, no
+ * gradient text. Plain markup, so it is visible in the SSR HTML (no framer
+ * opacity:0 entry state).
+ */
 export function BuildPageHero({ onStartQuiz }: BuildPageHeroProps) {
-  const fadeInUp = designSystem.animations.fadeInUp;
-
   return (
-    <motion.div
-      initial={fadeInUp.initial}
-      animate={fadeInUp.animate}
-      transition={fadeInUp.transition}
-      className="text-center py-16 md:py-24"
-    >
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.1 }}
-        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-link text-sm font-medium mb-6"
-      >
-        <Sparkles className="w-4 h-4" />
-        <span>AI Stack Finder</span>
-      </motion.div>
+    <div className="py-16 md:py-24">
+      <p className="mb-6 text-[16px] font-semibold text-vibe-link">AI Stack Finder</p>
 
-      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
-        Find Your{" "}
-        <span className="text-gradient-brand">
-          Vibe Stack
-        </span>
+      <h1 className="font-display mb-6 max-w-4xl text-[clamp(40px,6vw,96px)] leading-[0.88] text-balance text-foreground">
+        Find Your Vibe Stack
       </h1>
 
-      <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+      <p className="mb-10 max-w-2xl text-[20px] leading-normal text-muted-foreground">
         Answer a few questions and get a personalized AI tool stack curated for your workflow,
         experience level, and budget.
       </p>
 
-      <div className="flex flex-wrap justify-center gap-4">
-        <Button size="lg" onClick={onStartQuiz} className="rounded-full h-14 px-8 text-lg">
-          Start Quiz <ArrowRight className="ml-2 h-5 w-5" />
-        </Button>
-        <Button variant="outline" size="lg" asChild className="rounded-full h-14 px-8 text-lg">
-          <Link href="/tools">Browse All Tools</Link>
-        </Button>
+      <div className="flex flex-wrap gap-4">
+        <button
+          type="button"
+          onClick={onStartQuiz}
+          className={cn(squareButton, "group bg-vibe-electric text-vibe-deep hover:bg-[#e8401a]")}
+        >
+          Start Quiz
+          <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0" />
+        </button>
+        <Link href="/tools" className={cn(squareButton, "bg-secondary text-foreground hover:bg-muted")}>
+          Browse All Tools
+        </Link>
       </div>
 
-      <div className="flex justify-center gap-8 mt-12 text-sm text-muted-foreground">
-        <div className="flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 text-emerald-700 dark:text-emerald-500" />
-          <span>Takes 2 minutes</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 text-emerald-700 dark:text-emerald-500" />
-          <span>100% Free</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 text-emerald-700 dark:text-emerald-500" />
-          <span>Personalized Results</span>
-        </div>
-      </div>
-    </motion.div>
+      <ul className="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-[16px] text-muted-foreground">
+        {["Takes 2 minutes", "100% Free", "Personalized Results"].map((item) => (
+          <li key={item} className="flex items-center gap-2">
+            <Check className="h-4 w-4 text-vibe-link" aria-hidden="true" />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

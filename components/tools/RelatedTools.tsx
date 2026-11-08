@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { ToolData } from "@/lib/tool-types";
 import { getToolIcon } from "@/components/icons/tool-icons";
 
@@ -12,6 +10,11 @@ interface Props {
     title?: string;
 }
 
+/**
+ * Alternatives grid. Flat surface cards (bg-card) with the icon on a square
+ * one tone step down, in text-foreground; per-tool colour data is not used.
+ * Hover or focus turns the whole card into an orange field with dark text.
+ */
 export function RelatedTools({ currentSlug, category, pricing, tools, title = "Related Tools" }: Props) {
     // Smart algorithm: prioritize same category, then similar pricing
     const relatedTools = tools
@@ -33,35 +36,33 @@ export function RelatedTools({ currentSlug, category, pricing, tools, title = "R
 
     return (
         <section className="mt-24">
-            <h2 className="text-2xl font-bold mb-6">{title}</h2>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            <h2 className="mb-8 font-display text-[clamp(32px,4vw,56px)] uppercase leading-[0.9] tracking-[-0.005em] text-foreground text-balance">
+                {title}
+            </h2>
+            <div className="grid grid-cols-1 gap-1 md:grid-cols-3">
                 {relatedTools.map((tool) => (
                     <Link
                         key={tool.slug}
                         href={`/tool/${tool.slug}`}
-                        className="block relative group"
+                        className="group flex h-full flex-col gap-4 bg-card p-6 text-foreground transition-colors duration-150 hover:bg-vibe-electric focus-visible:bg-vibe-electric focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-vibe-deep motion-reduce:transition-none"
                     >
-                        <Card className="h-full relative overflow-hidden border-border/20 bg-secondary/30 transition-all duration-300 hover:border-border/40 hover:bg-secondary/50">
-                            <div className={`absolute inset-0 bg-linear-to-br ${tool.bgGradient} opacity-0 transition-opacity duration-500 group-hover:opacity-100`} />
-
-                            <CardHeader>
-                                <div className="mb-2 flex items-center justify-between">
-                                    <div className={`rounded-lg bg-secondary/80 p-2 ring-1 ring-border/30 ${tool.color || "text-foreground"}`}>
-                                        {(() => {
-                                            const Icon = getToolIcon(tool.slug);
-                                            return <Icon className="h-5 w-5" />;
-                                        })()}
-                                    </div>
-                                    <Badge variant="secondary" className="bg-secondary/60 text-xs font-normal text-muted-foreground">
-                                        {tool.category}
-                                    </Badge>
-                                </div>
-                                <CardTitle className="text-lg font-medium text-foreground">{tool.title}</CardTitle>
-                                <CardDescription className="text-muted-foreground line-clamp-2">
-                                    {tool.description}
-                                </CardDescription>
-                            </CardHeader>
-                        </Card>
+                        <div className="flex items-center justify-between gap-3">
+                            <div className="flex h-11 w-11 shrink-0 items-center justify-center bg-background text-foreground">
+                                {(() => {
+                                    const Icon = getToolIcon(tool.slug);
+                                    return <Icon aria-hidden="true" className="h-5 w-5" />;
+                                })()}
+                            </div>
+                            <span className="truncate text-[14px] text-muted-foreground group-hover:text-vibe-deep group-focus-visible:text-vibe-deep">
+                                {tool.category}
+                            </span>
+                        </div>
+                        <h3 className="text-[18px] font-semibold leading-tight group-hover:text-vibe-deep group-focus-visible:text-vibe-deep">
+                            {tool.title}
+                        </h3>
+                        <p className="line-clamp-2 text-base text-muted-foreground group-hover:text-vibe-deep group-focus-visible:text-vibe-deep">
+                            {tool.description}
+                        </p>
                     </Link>
                 ))}
             </div>

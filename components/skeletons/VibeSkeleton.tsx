@@ -14,13 +14,15 @@ export function VibeSkeleton({
   variant = "default",
   width,
   height,
+  // Kept for API compatibility. Direction B skeletons are static flat blocks
+  // (no shimmer sweep), so this flag no longer changes the output.
   animate = true,
 }: VibeSkeletonProps) {
   const variantClasses = {
-    default: "rounded-lg",
-    card: "rounded-xl",
-    circle: "rounded-full",
-    text: "rounded-md",
+    default: "rounded-none",
+    card: "rounded-none",
+    circle: "rounded-none",
+    text: "rounded-none",
     avatar: "rounded-full",
   };
 
@@ -32,17 +34,13 @@ export function VibeSkeleton({
   return (
     <div
       className={cn(
-        "bg-muted/50 relative overflow-hidden",
+        "bg-secondary relative overflow-hidden",
         variantClasses[variant],
-        animate && "skeleton-shimmer",
         className
       )}
       style={style}
-    >
-      {animate && (
-        <div className="absolute inset-0 -translate-x-full animate-shimmer bg-linear-to-r from-transparent via-white/10 to-transparent" />
-      )}
-    </div>
+      aria-hidden="true"
+    />
   );
 }
 
@@ -66,7 +64,7 @@ export function SkeletonGroup({ children, className, gap = 4 }: SkeletonGroupPro
 // Pre-built skeleton patterns
 export function ToolCardSkeleton() {
   return (
-    <div className="h-full rounded-xl border border-border/50 bg-card p-6 space-y-4">
+    <div className="h-full p-6 space-y-4">
       <div className="flex items-start justify-between">
         <VibeSkeleton variant="card" className="h-12 w-12" />
         <VibeSkeleton variant="circle" className="h-5 w-5" />
@@ -84,7 +82,7 @@ export function ToolCardSkeleton() {
 
 export function StackCardSkeleton() {
   return (
-    <div className="h-full rounded-xl border border-border/50 bg-card overflow-hidden">
+    <div className="h-full overflow-hidden">
       <VibeSkeleton variant="default" className="h-40 w-full" />
       <div className="p-6 space-y-4">
         <SkeletonGroup gap={2}>
@@ -98,9 +96,9 @@ export function StackCardSkeleton() {
         </div>
         <div className="flex items-center justify-between pt-2">
           <div className="flex -space-x-2">
-            <VibeSkeleton variant="avatar" className="h-8 w-8 border-2 border-background" />
-            <VibeSkeleton variant="avatar" className="h-8 w-8 border-2 border-background" />
-            <VibeSkeleton variant="avatar" className="h-8 w-8 border-2 border-background" />
+            <VibeSkeleton variant="avatar" className="h-8 w-8 ring-2 ring-background" />
+            <VibeSkeleton variant="avatar" className="h-8 w-8 ring-2 ring-background" />
+            <VibeSkeleton variant="avatar" className="h-8 w-8 ring-2 ring-background" />
           </div>
           <VibeSkeleton variant="text" className="h-4 w-20" />
         </div>
@@ -111,7 +109,7 @@ export function StackCardSkeleton() {
 
 export function CategoryCardSkeleton() {
   return (
-    <div className="h-full rounded-xl border border-border/50 bg-card shadow-sm p-6 space-y-4">
+    <div className="h-full p-6 space-y-4">
       <div className="flex items-start justify-between">
         <VibeSkeleton variant="card" className="h-12 w-12" />
         <VibeSkeleton variant="circle" className="h-6 w-16" />
@@ -158,7 +156,7 @@ export function GridSkeleton({
 
 export function PageSkeleton() {
   return (
-    <div className="min-h-screen bg-background pt-32 pb-20">
+    <div className="min-h-svh bg-background pt-32 pb-20">
       <Container size="default" className="space-y-12">
         {/* Header Skeleton */}
         <div className="space-y-4 max-w-2xl">

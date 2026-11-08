@@ -7,19 +7,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { signIn, useSession } from "next-auth/react";
 import { 
-    Sparkles, 
-    Heart, 
     Star, 
     Bookmark, 
     MessageSquare, 
     ArrowRight,
     Shield,
     Zap,
-    CheckCircle2,
-    Lock
 } from "lucide-react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 
 const benefits = [
@@ -80,20 +76,19 @@ export default function SignInPage() {
             <div className="w-full max-w-5xl">
                 <div className="grid lg:grid-cols-2 gap-8 items-center">
                     {/* Left Side - Benefits */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -20 }}
+                    <m.div
+                        initial={{ opacity: 1, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6 }}
                         className="hidden lg:block"
                     >
                         <div className="mb-8">
-                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-link text-sm font-medium mb-6">
-                                <Sparkles className="w-4 h-4" />
-                                <span>Join the Community</span>
-                            </div>
-                            <h1 className="text-4xl font-bold mb-4 text-balance">
+                            <p className="text-base font-semibold text-vibe-link mb-4">
+                                Join the community
+                            </p>
+                            <h1 className="font-display uppercase text-[clamp(40px,3.6vw,52px)] leading-[0.88] tracking-[-0.005em] mb-5 text-balance">
                                 Unlock the Full{" "}
-                                <span className="text-gradient-brand">
+                                <span className="text-vibe-link">
                                     VibeStack
                                 </span>{" "}
                                 Experience
@@ -107,54 +102,50 @@ export default function SignInPage() {
                             {benefits.map((benefit, index) => {
                                 const Icon = benefit.icon;
                                 return (
-                                    <motion.div
+                                    <m.div
                                         key={benefit.title}
-                                        initial={{ opacity: 0, y: 20 }}
+                                        initial={{ opacity: 1, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
                                     >
-                                        <Card className="border-border/50 bg-card/50 backdrop-blur-sm hover:border-vibe-electric/30 transition-colors group">
+                                        <Card className="rounded-none bg-card py-0 gap-0">
                                             <CardContent className="p-4 flex items-start gap-4">
-                                                <div className="p-3 rounded-xl bg-vibe-electric/10 text-vibe-link group-hover:scale-110 transition-transform">
-                                                    <Icon className="h-5 w-5" />
-                                                </div>
+                                                <Icon className="h-5 w-5 mt-0.5 shrink-0 text-vibe-link" aria-hidden="true" />
                                                 <div>
                                                     <h3 className="font-semibold mb-1">{benefit.title}</h3>
-                                                    <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                                                    <p className="text-base text-muted-foreground">{benefit.description}</p>
                                                 </div>
                                             </CardContent>
                                         </Card>
-                                    </motion.div>
+                                    </m.div>
                                 );
                             })}
                         </div>
 
                         {/* Value line */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                        <m.div
+                            initial={{ opacity: 1, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.4, delay: 0.6 }}
-                            className="mt-8 flex items-center gap-2 text-sm text-muted-foreground"
+                            className="mt-8 flex items-center gap-2 text-base text-muted-foreground"
                         >
                             <Star className="h-4 w-4 text-vibe-link" />
                             Save your favorite tools and build your own AI stack — free.
-                        </motion.div>
-                    </motion.div>
+                        </m.div>
+                    </m.div>
 
                     {/* Right Side - Sign In Form */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
+                    <m.div
+                        initial={{ opacity: 1, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
                     >
-                        <Card className="border-border/50 bg-card/50 backdrop-blur-xl shadow-2xl">
+                        <Card className="relative overflow-hidden rounded-none bg-card py-0 gap-0">
+                            <div className="h-1.5 bg-vibe-electric" aria-hidden="true" />
                             <CardContent className="p-8">
                                 {/* Logo & Title */}
                                 <div className="text-center mb-8">
-                                    <div className="inline-flex p-3 rounded-2xl bg-linear-to-br from-vibe-electric to-vibe-purple mb-4 shadow-lg shadow-vibe-electric/20">
-                                        <Sparkles className="h-8 w-8 text-white" />
-                                    </div>
-                                    <h2 className="text-2xl font-bold mb-2">Welcome Back</h2>
+                                    <h2 className="font-display uppercase text-[clamp(32px,4vw,48px)] leading-[0.88] tracking-[-0.005em] mb-3">Welcome Back</h2>
                                     <p className="text-muted-foreground">
                                         Sign in to access your favorites and personalized recommendations
                                     </p>
@@ -162,15 +153,16 @@ export default function SignInPage() {
 
                                 {/* Error Message */}
                                 {error && (
-                                    <motion.div 
-                                        initial={{ opacity: 0, y: -10 }}
+                                    <m.div 
+                                        initial={{ opacity: 1, y: -10 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-700 dark:text-red-400 text-sm"
+                                        role="alert"
+                                        className="mb-6 p-4 rounded-none bg-secondary text-destructive text-base"
                                     >
                                         {error === "OAuthAccountNotLinked"
                                             ? "This email is already associated with another account. Please sign in with the original provider."
                                             : "An error occurred during sign in. Please try again."}
-                                    </motion.div>
+                                    </m.div>
                                 )}
 
                                 {/* Social Login Buttons */}
@@ -179,10 +171,10 @@ export default function SignInPage() {
                                         variant="outline"
                                         onClick={() => handleSocialLogin("google")}
                                         disabled={isLoading !== null}
-                                        className="w-full h-12 rounded-xl relative overflow-hidden transition-all hover:bg-foreground/5 hover:border-foreground/20 group"
+                                        className="w-full h-12 rounded-none relative overflow-hidden text-base transition-colors"
                                     >
                                         {isLoading === "google" ? (
-                                            <div className="animate-spin h-5 w-5 border-2 border-current border-t-transparent rounded-full" />
+                                            <div className="animate-spin motion-reduce:animate-none h-4 w-4 bg-current" role="status" aria-label="Signing in" />
                                         ) : (
                                             <>
                                                 <svg className="mr-3 h-5 w-5" viewBox="0 0 24 24">
@@ -212,10 +204,10 @@ export default function SignInPage() {
                                         variant="outline"
                                         onClick={() => handleSocialLogin("github")}
                                         disabled={isLoading !== null}
-                                        className="w-full h-12 rounded-xl relative overflow-hidden transition-all hover:bg-foreground/5 hover:border-foreground/20"
+                                        className="w-full h-12 rounded-none relative overflow-hidden text-base transition-colors"
                                     >
                                         {isLoading === "github" ? (
-                                            <div className="animate-spin h-5 w-5 border-2 border-current border-t-transparent rounded-full" />
+                                            <div className="animate-spin motion-reduce:animate-none h-4 w-4 bg-current" role="status" aria-label="Signing in" />
                                         ) : (
                                             <>
                                                 <svg className="mr-3 h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -230,10 +222,10 @@ export default function SignInPage() {
                                         variant="outline"
                                         onClick={() => handleSocialLogin("discord")}
                                         disabled={isLoading !== null}
-                                        className="w-full h-12 rounded-xl relative overflow-hidden transition-all hover:bg-foreground/5 hover:border-foreground/20"
+                                        className="w-full h-12 rounded-none relative overflow-hidden text-base transition-colors"
                                     >
                                         {isLoading === "discord" ? (
-                                            <div className="animate-spin h-5 w-5 border-2 border-current border-t-transparent rounded-full" />
+                                            <div className="animate-spin motion-reduce:animate-none h-4 w-4 bg-current" role="status" aria-label="Signing in" />
                                         ) : (
                                             <>
                                                 <svg className="mr-3 h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -246,27 +238,20 @@ export default function SignInPage() {
                                 </div>
 
                                 {/* Divider */}
-                                <div className="relative my-6">
-                                    <div className="absolute inset-0 flex items-center">
-                                        <div className="w-full border-t border-border" />
-                                    </div>
-                                    <div className="relative flex justify-center text-xs uppercase">
-                                        <span className="bg-card px-2 text-muted-foreground">Or</span>
-                                    </div>
-                                </div>
+                                <p className="my-5 text-center text-[13px] text-muted-foreground">or</p>
 
                                 {/* Guest Mode */}
                                 <Button
                                     variant="ghost"
                                     onClick={handleGuestMode}
-                                    className="w-full h-12 rounded-xl"
+                                    className="w-full h-12 rounded-none text-base"
                                 >
                                     Continue as Guest
                                     <ArrowRight className="ml-2 h-4 w-4" />
                                 </Button>
 
                                 {/* Terms */}
-                                <p className="mt-6 text-center text-xs text-muted-foreground">
+                                <p className="mt-6 text-center text-[13px] text-muted-foreground">
                                     By clicking continue, you agree to our{" "}
                                     <Link href="/terms" className="underline hover:text-foreground">Terms of Service</Link>
                                     {" "}and{" "}
@@ -274,7 +259,7 @@ export default function SignInPage() {
                                 </p>
 
                                 {/* Security Badge */}
-                                <div className="mt-6 flex items-center justify-center gap-2 text-xs text-muted-foreground">
+                                <div className="mt-6 flex items-center justify-center gap-2 text-[13px] text-muted-foreground">
                                     <Shield className="h-4 w-4" />
                                     <span>Secured with industry-standard encryption</span>
                                 </div>
@@ -287,7 +272,7 @@ export default function SignInPage() {
                                 {benefits.slice(0, 4).map((benefit) => {
                                     const Icon = benefit.icon;
                                     return (
-                                        <div key={benefit.title} className="flex items-center gap-2 text-sm">
+                                        <div key={benefit.title} className="flex items-center gap-2 text-base">
                                             <Icon className="h-4 w-4 text-vibe-link" />
                                             <span className="text-muted-foreground">{benefit.title}</span>
                                         </div>
@@ -295,7 +280,7 @@ export default function SignInPage() {
                                 })}
                             </div>
                         </div>
-                    </motion.div>
+                    </m.div>
                 </div>
             </div>
         </PageBackground>

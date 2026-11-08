@@ -1,22 +1,38 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { m } from "framer-motion";
-import { ArrowRight, TrendingUp, Star, ExternalLink, Sparkles } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { VibeCard } from "@/components/ui/VibeCard";
-import { designSystem } from "@/lib/design-system";
+import { ArrowRight } from "lucide-react";
 import { ToolData } from "@/lib/tool-types";
-import { ToolIconRenderer } from "@/components/tools/ToolIconRenderer";
 import { Section } from "@/components/primitives/Section";
 import { Container } from "@/components/primitives/Container";
+import { cn } from "@/lib/utils";
 
 interface PopularToolsProps {
   tools: ToolData[];
 }
 
+/** First sentence of a description, so the detail line stays one thought. */
+function firstSentence(text: string) {
+  const trimmed = text.trim();
+  const match = trimmed.match(/^.+?[.!?](?=\s|$)/);
+  return match ? match[0] : trimmed;
+}
+
+/**
+ * "Names as one paragraph": the heading words and the eight tool names run
+ * together as one poster paragraph in the display face, every name a real
+ * link to /tool/{slug}, separated by orange commas.
+ *
+ * Under it, the detail line (category, pricing, one sentence) of the hovered
+ * or focused tool; the first tool's by default, so the server HTML is
+ * complete. All eight detail blocks are in the HTML, stacked in one grid
+ * cell: the cell takes the height of the tallest, so nothing jumps when the
+ * selection changes, and only the selected block is visible.
+ */
 export function PopularTools({ tools }: PopularToolsProps) {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   const popularTools = tools
     .filter((tool: ToolData) => tool.isFeatured || tool.review)
     .slice(0, 8);
@@ -24,120 +40,82 @@ export function PopularTools({ tools }: PopularToolsProps) {
   if (popularTools.length === 0) {
     return null;
   }
-  return (
-    <Section spacing="large" container={false} className="relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-linear-to-b from-background via-vibe-electric/5 to-background" />
 
-      <Container className="relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <m.div
-            initial={designSystem.animations.fadeInUp.initial}
-            whileInView={designSystem.animations.fadeInUp.animate}
-            viewport={{ once: true }}
-            transition={designSystem.animations.fadeInUp.transition}
-          >
-            <Badge
-              variant="outline"
-              className="mb-4 border-vibe-electric/20 bg-vibe-electric/5 text-vibe-link"
-            >
-              <TrendingUp className="mr-2 h-3 w-3" />
-              Trending Now
-            </Badge>
-            <h2 className={`${designSystem.typography.section} mb-6`}>
-              Popular{" "}
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-vibe-electric to-vibe-purple">
-                AI Tools
-              </span>
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Discover the most loved AI tools by our community of builders and creators.
-            </p>
-          </m.div>
+  const active = Math.min(activeIndex, popularTools.length - 1);
+
+  return (
+    <Section
+      spacing="none"
+      container={false}
+      className="py-16 font-sans md:py-20 lg:py-24"
+    >
+      <Container>
+        <div
+          className="reveal font-display text-[clamp(2rem,9vw,3.25rem)] font-extrabold uppercase leading-[1.2] tracking-[-0.005em] md:text-[clamp(2.5rem,5.6vw,5.25rem)] md:leading-[1.05]"
+        >
+          <h2 id="popular-tools-heading" className="inline text-foreground">
+            Popular tools
+          </h2>
+          <span aria-hidden="true" className="text-vibe-link">
+            :
+          </span>{" "}
+          <ul className="inline">
+            {popularTools.map((tool: ToolData, index: number) => {
+              const isActive = index === active;
+              return (
+                <li key={tool.slug} className="inline">
+                  <Link
+                    href={`/tool/${tool.slug}`}
+                    aria-describedby={`popular-tool-detail-${tool.slug}`}
+                    onMouseEnter={() => setActiveIndex(index)}
+                    onFocus={() => setActiveIndex(index)}
+                    className={cn(
+                      "box-decoration-clone py-1 text-foreground decoration-vibe-electric decoration-[0.09em] underline-offset-[0.12em] transition-colors duration-150 motion-reduce:transition-none",
+                      "hover:text-foreground hover:underline focus-visible:text-foreground focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link",
+                      isActive ? "md:text-foreground md:underline" : "md:text-muted-foreground"
+                    )}
+                  >
+                    {tool.title}
+                  </Link>
+                  {index < popularTools.length - 1 ? (
+                    <span aria-hidden="true" className="text-vibe-link">
+                      ,
+                    </span>
+                  ) : null}{" "}
+                </li>
+              );
+            })}
+          </ul>
         </div>
 
-        {/* Tools Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Detail line: every block is in the HTML; they share one grid cell. */}
+        <div className="mt-8 grid max-w-[64ch] md:mt-10">
           {popularTools.map((tool: ToolData, index: number) => (
-            <m.div
+            <div
               key={tool.slug}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{
-                duration: 0.5,
-                delay: index * 0.1,
-                ease: [0.16, 1, 0.3, 1]
-              }}
+              id={`popular-tool-detail-${tool.slug}`}
+              className={cn("[grid-area:1/1]", index === active ? "visible" : "invisible")}
             >
-              <Link href={`/tool/${tool.slug}`} className="group block h-full">
-                <VibeCard
-                  variant="glass"
-                  hover="both"
-                  spotlight
-                  className="h-full p-6"
-                >
-                  <div className="h-full flex flex-col">
-                    {/* Icon & Title */}
-                    <div className="flex items-start gap-3 mb-4">
-                      <div className={`p-2.5 rounded-xl ${tool.bgGradient}`}>
-                        <ToolIconRenderer
-                          slug={tool.slug}
-                          className={`w-6 h-6 ${tool.color}`}
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-bold text-foreground group-hover:text-vibe-link transition-colors truncate">
-                          {tool.title}
-                        </h3>
-                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                          <span>{tool.category}</span>
-                          <span>•</span>
-                          <span>{tool.pricing}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-sm text-muted-foreground mb-4 line-clamp-2 flex-1">
-                      {tool.description}
-                    </p>
-
-                    {/* Rating & CTA */}
-                    <div className="flex items-center justify-between pt-3 border-t border-border/50">
-                      {tool.review ? (
-                        <div className="flex items-center gap-1">
-                          <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-                          <span className="text-sm font-medium">{tool.review.rating}</span>
-                          <span className="text-xs text-muted-foreground">/5</span>
-                        </div>
-                      ) : (
-                        <div className="flex items-center gap-1">
-                          <Sparkles className="w-3.5 h-3.5 text-vibe-link" />
-                          <span className="text-xs text-muted-foreground">Featured</span>
-                        </div>
-                      )}
-
-                      <div className="flex items-center text-xs text-vibe-link group-hover:text-vibe-link transition-colors">
-                        <span>Details</span>
-                        <ExternalLink className="ml-1 w-3 h-3" />
-                      </div>
-                    </div>
-                  </div>
-                </VibeCard>
-              </Link>
-            </m.div>
+              <p className="text-[16px] font-semibold text-foreground">
+                {tool.category} &middot; {tool.pricing}
+              </p>
+              <p className="mt-1 line-clamp-2 text-[18px] leading-normal text-muted-foreground">
+                {firstSentence(tool.description)}
+              </p>
+            </div>
           ))}
         </div>
 
-        <div className="mt-16 text-center">
-          <Button variant="outline" size="lg" className="group rounded-full px-8" asChild>
-            <Link href="/tools">
-              View All Tools
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </Button>
-        </div>
+        <Link
+          href="/tools"
+          className="group mt-8 inline-flex min-h-11 items-center gap-2 text-[16px] font-semibold text-vibe-link underline decoration-2 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-vibe-link"
+        >
+          View all tools
+          <ArrowRight
+            aria-hidden="true"
+            className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+          />
+        </Link>
       </Container>
     </Section>
   );

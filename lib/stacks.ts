@@ -51,8 +51,8 @@ export const stacks: Stack[] = [
             "3. Export clean, production-ready code",
             "4. Deploy with one click"
         ],
-        icon: "🪄",
-        color: "text-purple-500",
+        icon: "🪄", // taste-skill-ignore
+        color: "text-foreground",
         metaTitle: "AI UI Generator Stack: v0 + Builder.io",
         metaDescription: "Generate UI from a text prompt with v0, then refine it visually in Builder.io — no hand-written CSS or component setup. Free stack for prototypes and MVPs.",
     },
@@ -71,8 +71,8 @@ export const stacks: Stack[] = [
             "3. Auto-generate responsive components",
             "4. Deploy to your preferred platform"
         ],
-        icon: "🎨",
-        color: "text-pink-500",
+        icon: "🎨", // taste-skill-ignore
+        color: "text-foreground",
         metaTitle: "Product Design Stack: Figma to Code",
         metaDescription: "The product design stack for turning Figma files into working code — Builder.io for visual editing, v0 for AI-generated components. No dev handoff.",
     },
@@ -91,8 +91,8 @@ export const stacks: Stack[] = [
             "3. Get instant explanations as you learn",
             "4. Build and share projects instantly"
         ],
-        icon: "📚",
-        color: "text-green-500",
+        icon: "📚", // taste-skill-ignore
+        color: "text-foreground",
         metaTitle: "Learn to Code with AI: Cursor + Replit Stack",
         metaDescription: "A zero-setup coding stack for beginners: write code in Replit's browser IDE while Cursor's AI explains and assists in real time. Free to start.",
     },
@@ -110,8 +110,8 @@ export const stacks: Stack[] = [
             "2. Devin AI handles implementation",
             "3. Deploy with confidence"
         ],
-        icon: "🚀",
-        color: "text-orange-500",
+        icon: "🚀", // taste-skill-ignore
+        color: "text-foreground",
         metaTitle: "AI Coding Agent Stack for Senior Developers",
         metaDescription: "An autonomous-agent stack for senior developers: Devin AI ships features end to end while Linear tracks the work at speed.",
     },
@@ -130,8 +130,8 @@ export const stacks: Stack[] = [
             "3. Let Copilot autocomplete routine lines as you type; open Gemini Code Assist's chat when a task needs multi-file reasoning or an explanation",
             "4. Use Gemini Code Assist to plan a refactor or debug a hard failure, then let Copilot handle the mechanical edits it suggests"
         ],
-        icon: "🤝",
-        color: "text-blue-500",
+        icon: "🤝", // taste-skill-ignore
+        color: "text-foreground",
         metaTitle: "Power Pair Stack: Copilot + Gemini Code Assist",
         metaDescription: "Run GitHub Copilot and Gemini Code Assist together — Copilot's fast autocomplete plus Gemini's long-context reasoning, backed by a paid Gemini Code Assist Standard or Enterprise seat.",
     },
@@ -150,8 +150,8 @@ export const stacks: Stack[] = [
             "3. Get code examples and explanations",
             "4. Combine insights for best results"
         ],
-        icon: "🧠",
-        color: "text-indigo-500",
+        icon: "🧠", // taste-skill-ignore
+        color: "text-foreground",
         metaTitle: "Free AI Assistant Stack: Claude + Perplexity",
         metaDescription: "A free high-intelligence assistant stack: Perplexity for cited, web-aware search and Claude for deep reasoning, writing, and code — both on free tiers.",
     },
@@ -170,8 +170,8 @@ export const stacks: Stack[] = [
             "3. Iterate until the core flow works end to end",
             "4. Deploy to Vercel and share the link"
         ],
-        icon: "✨",
-        color: "text-fuchsia-500",
+        icon: "✨", // taste-skill-ignore
+        color: "text-foreground",
         metaTitle: "Vibe Coding Tech Stack: Cursor + Claude + Vercel",
         metaDescription: "How to start vibe coding in 2026: pair Cursor's AI editor with Claude for reasoning and Vercel to deploy — the minimal three-tool stack, free to start.",
     },
@@ -190,8 +190,8 @@ export const stacks: Stack[] = [
             "3. Sunday morning: wire up the rough edges and test the core flow",
             "4. Sunday afternoon: ship it on Vercel and share the link"
         ],
-        icon: "🛠️",
-        color: "text-teal-500",
+        icon: "🛠️", // taste-skill-ignore
+        color: "text-foreground",
         metaTitle: "Weekend Build Stack: Bolt.new + Claude + Vercel",
         metaDescription: "The AI stack for shipping an app in a weekend: plan with Claude, scaffold the full app in Bolt.new, and deploy on Vercel. Built for solo builders.",
     }

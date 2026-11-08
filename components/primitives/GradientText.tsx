@@ -8,12 +8,17 @@ interface GradientTextProps {
   animate?: boolean;
 }
 
-const gradientVariants = {
-  vibe: "from-vibe-electric via-vibe-purple to-vibe-pink",
-  neon: "from-vibe-purple to-vibe-pink",
-  cyan: "from-cyan-600 to-blue-600",
-  purple: "from-vibe-purple to-vibe-electric",
-  sunset: "from-orange-400 via-pink-500 to-purple-600",
+// Direction B has no gradient text. The name, props and variants are kept so
+// call sites compile, but every variant renders solid accent-as-text
+// (--color-vibe-link: #ff4a1f on dark, #b93a16 on light). `animate` is
+// accepted and ignored; `customColors` is still appended for callers that
+// pass a text colour class.
+const textVariants = {
+  vibe: "text-vibe-link",
+  neon: "text-vibe-link",
+  cyan: "text-vibe-link",
+  purple: "text-vibe-link",
+  sunset: "text-vibe-link",
   custom: "",
 };
 
@@ -22,18 +27,9 @@ export function GradientText({
   className,
   variant = "vibe",
   customColors,
-  animate = false,
 }: GradientTextProps) {
   return (
-    <span
-      className={cn(
-        "bg-clip-text text-transparent bg-linear-to-r",
-        gradientVariants[variant],
-        customColors,
-        animate && "bg-[length:300%_100%] animate-gradient-shift",
-        className
-      )}
-    >
+    <span className={cn(textVariants[variant], customColors, className)}>
       {children}
     </span>
   );

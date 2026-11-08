@@ -65,8 +65,8 @@ export function ReviewForm({ toolSlug }: { toolSlug: string }) {
     };
 
     return (
-        <div className="p-6 rounded-xl bg-secondary border border-border/30 backdrop-blur-sm">
-            <h3 className="text-lg font-semibold mb-4">Write a Review</h3>
+        <div className="bg-card p-6">
+            <h3 className="mb-4 text-[20px] font-semibold text-foreground">Write a Review</h3>
 
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="flex gap-1" role="radiogroup" aria-label="Rating">
@@ -74,7 +74,7 @@ export function ReviewForm({ toolSlug }: { toolSlug: string }) {
                         <button
                             key={star}
                             type="button"
-                            className="focus:outline-none transition-transform hover:scale-110"
+                            className="p-0.5 transition-transform hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link motion-reduce:transition-none motion-reduce:hover:scale-100"
                             onMouseEnter={() => setHoveredRating(star)}
                             onMouseLeave={() => setHoveredRating(0)}
                             onClick={() => setRating(star)}
@@ -84,13 +84,13 @@ export function ReviewForm({ toolSlug }: { toolSlug: string }) {
                         >
                             <Star
                                 className={`w-6 h-6 ${star <= (hoveredRating || rating)
-                                    ? "fill-yellow-700 text-yellow-700 dark:fill-yellow-500 dark:text-yellow-500"
+                                    ? "fill-current text-vibe-link"
                                     : "text-muted-foreground/40"
                                     }`}
                             />
                         </button>
                     ))}
-                    <span className="ml-2 text-sm text-muted-foreground self-center" aria-live="polite">
+                    <span className="ml-2 self-center text-[15px] text-muted-foreground" aria-live="polite">
                         {rating > 0 ? `${rating} stars` : "Select rating"}
                     </span>
                 </div>
@@ -98,14 +98,14 @@ export function ReviewForm({ toolSlug }: { toolSlug: string }) {
                 <Textarea
                     placeholder="Share your experience with this tool..."
                     aria-label="Review"
-                    className="min-h-[100px] bg-secondary/50 border-border/30 focus:border-vibe-electric"
+                    className="min-h-[100px] rounded-none bg-background text-base focus-visible:border-vibe-link"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                     required
                 />
 
                 <div className="flex justify-end">
-                    <Button type="submit" disabled={isSubmitting || rating === 0}>
+                    <Button type="submit" disabled={isSubmitting || rating === 0} className="h-11 rounded-none px-6 text-[16px] font-semibold">
                         {isSubmitting ? (
                             <>
                                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

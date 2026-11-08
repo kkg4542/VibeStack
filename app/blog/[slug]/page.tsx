@@ -4,15 +4,37 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { ReadingProgress } from "@/components/blog/ReadingProgress";
 import { StackPromoCard } from "@/components/blog/StackPromoCard";
 import { BlogRelatedLinks } from "@/components/seo/BlogRelatedLinks";
 import { getTools } from "@/lib/tools-db";
 import sanitizeHtml from "sanitize-html";
 import { toISODate } from "@/lib/format-date";
-import { designSystem } from "@/lib/design-system";
 import { Container } from "@/components/primitives/Container";
+
+/**
+ * Article prose, direction B. Colours come from theme tokens through the
+ * typography plugin's own variables, so light and dark both work. Body copy is
+ * 18px with 1.65 leading; code blocks and callouts are flat surface fields.
+ */
+const PROSE_CLASSES = [
+    "prose prose-lg mx-auto max-w-none text-[18px] leading-[1.65]",
+    "[--tw-prose-body:var(--color-foreground)] [--tw-prose-headings:var(--color-foreground)]",
+    "[--tw-prose-lead:var(--color-muted-foreground)] [--tw-prose-links:var(--color-vibe-link)]",
+    "[--tw-prose-bold:var(--color-foreground)] [--tw-prose-counters:var(--color-muted-foreground)]",
+    "[--tw-prose-bullets:var(--color-muted-foreground)] [--tw-prose-hr:var(--color-border)]",
+    "[--tw-prose-quotes:var(--color-foreground)] [--tw-prose-quote-borders:var(--color-vibe-electric)]",
+    "[--tw-prose-captions:var(--color-muted-foreground)] [--tw-prose-code:var(--color-foreground)]",
+    "[--tw-prose-pre-code:var(--color-foreground)] [--tw-prose-pre-bg:var(--color-card)]",
+    "[--tw-prose-th-borders:var(--color-border)] [--tw-prose-td-borders:var(--color-border)]",
+    "prose-p:leading-[1.65] prose-li:leading-[1.65]",
+    "prose-headings:font-semibold prose-headings:tracking-tight prose-h2:text-[28px] prose-h2:leading-tight prose-h3:text-[22px] prose-h3:leading-snug",
+    "prose-a:font-semibold prose-a:underline-offset-4 hover:prose-a:decoration-2",
+    "prose-pre:rounded-none prose-pre:bg-card prose-pre:text-[15px] prose-pre:leading-[1.6]",
+    "prose-code:before:content-none prose-code:after:content-none prose-code:font-normal",
+    "prose-blockquote:border-l-4 prose-blockquote:bg-card prose-blockquote:px-6 prose-blockquote:py-1 prose-blockquote:font-normal prose-blockquote:not-italic",
+    "prose-img:rounded-none prose-table:text-[16px]",
+].join(" ");
 
 interface Props {
     params: { slug: string };
@@ -98,47 +120,46 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     });
 
     return (
-        <div className="min-h-screen bg-background pt-32 pb-20">
+        <div className="min-h-svh bg-background pt-32 pb-20">
             <ReadingProgress />
             <Container size="prose">
                 <Link
                     href="/blog"
-                    className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
+                    className="mb-10 inline-flex items-center text-[16px] text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-vibe-link"
                 >
                     <ArrowLeft className="mr-2 h-4 w-4" />
                     Back to Blog
                 </Link>
 
                 <article>
-                    <header className="mb-12 text-center">
-                        <div className="flex items-center justify-center gap-2 mb-6">
-                            <Badge variant="outline" className="text-primary border-primary/20 bg-primary/10">
+                    <header className="mb-12">
+                        <div className="mb-6 flex flex-wrap items-center gap-3 text-[15px]">
+                            <span className="bg-secondary px-2.5 py-1 font-semibold text-foreground">
                                 {post.category}
-                            </Badge>
-                            <span className="text-muted-foreground">•</span>
-                            <span className="text-sm text-muted-foreground flex items-center">
-                                <Clock className="mr-1 h-3.5 w-3.5" />
+                            </span>
+                            <span className="flex items-center text-muted-foreground">
+                                <Clock aria-hidden="true" className="mr-1.5 h-4 w-4" />
                                 {post.readTime}
                             </span>
                         </div>
 
-                        <h1 className={`${designSystem.typography.hero} mb-6 leading-tight text-foreground`}>
+                        <h1 className="mb-8 font-display text-balance text-[clamp(32px,5vw,64px)] uppercase leading-[0.9] tracking-[-0.005em] text-foreground">
                             {post.title}
                         </h1>
 
-                        <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
+                        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[15px] text-muted-foreground">
                             <div className="flex items-center gap-2">
-                                <User className="h-4 w-4" />
+                                <User aria-hidden="true" className="h-4 w-4" />
                                 {post.author}
                             </div>
                             <div className="flex items-center gap-2">
-                                <Calendar className="h-4 w-4" />
+                                <Calendar aria-hidden="true" className="h-4 w-4" />
                                 {post.date}
                             </div>
                         </div>
                     </header>
 
-                    <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-secondary/30 mb-12 border border-border shadow-sm">
+                    <div className="relative mb-12 aspect-video w-full overflow-hidden bg-secondary">
                         <Image
                             src={post.image}
                             alt={post.title}
@@ -149,14 +170,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     </div>
 
                     <div
-                        className="prose dark:prose-invert prose-zinc prose-indigo mx-auto prose-lg prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary/80"
+                        className={PROSE_CLASSES}
                         dangerouslySetInnerHTML={{ __html: sanitizedContent }}
                     />
 
                     {post.faq && post.faq.length > 0 && (
                         <section
                             aria-labelledby="faq-heading"
-                            className="prose dark:prose-invert prose-zinc prose-indigo mx-auto prose-lg prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary/80 mt-12 border-t border-border/60 pt-10"
+                            className={`${PROSE_CLASSES} mt-16 bg-card p-6 sm:p-10 prose-h2:mt-0`}
                         >
                             <h2 id="faq-heading">Frequently asked questions</h2>
                             {post.faq.map((item) => (

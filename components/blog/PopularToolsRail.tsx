@@ -75,48 +75,48 @@ export function PopularToolsRail() {
     return (
         <section
             aria-labelledby="popular-tools-heading"
-            className="bg-card/50 rounded-3xl border border-border/40 p-6 sm:p-8 backdrop-blur-sm"
+            className="bg-card p-6 sm:p-10"
         >
-            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-8">
+            <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                    <h2 id="popular-tools-heading" className="text-2xl font-bold text-foreground mb-2">
+                    <h2 id="popular-tools-heading" className="mb-3 font-display text-balance text-[clamp(32px,4vw,56px)] uppercase leading-[0.9] tracking-[-0.005em] text-foreground">
                         Explore the AI Tool Directory
                     </h2>
-                    <p className="text-sm text-muted-foreground max-w-2xl">
-                        Every workflow we write about here also has a hands-on breakdown in the directory —
+                    <p className="max-w-[60ch] text-[16px] leading-normal text-muted-foreground">
+                        Every workflow we write about here also has a hands-on breakdown in the directory:
                         pricing, pros, cons, and how each tool stacks up against the competition.
                     </p>
                 </div>
                 <Link
                     href="/tools"
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-vibe-link hover:text-vibe-link/80 transition-colors shrink-0"
+                    className="group inline-flex shrink-0 items-center gap-1.5 text-[16px] font-semibold text-vibe-link underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-vibe-link"
                 >
                     Browse all tools
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0" />
                 </Link>
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
                 {TOOL_GROUPS.map((group) => (
                     <div key={group.title}>
                         <Link
                             href={group.categoryHref}
-                            className="inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-vibe-link transition-colors mb-3"
+                            className="mb-4 inline-flex items-center gap-2 text-[17px] font-semibold text-foreground transition-colors hover:text-vibe-link focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link"
                         >
-                            <group.icon className="w-4 h-4 text-vibe-link" aria-hidden="true" />
+                            <group.icon className="h-4 w-4 text-vibe-link" aria-hidden="true" />
                             {group.title}
                         </Link>
-                        <ul className="space-y-2.5">
+                        <ul className="space-y-3">
                             {group.tools.map((tool) => (
                                 <li key={tool.slug}>
                                     <Link
                                         href={`/tool/${tool.slug}`}
-                                        className="group block text-sm text-muted-foreground hover:text-foreground transition-colors"
+                                        className="group block text-[15px] leading-snug text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link"
                                     >
-                                        <span className="font-medium text-foreground/90 group-hover:text-vibe-link transition-colors">
+                                        <span className="font-semibold text-foreground transition-colors group-hover:text-vibe-link">
                                             {tool.label}
                                         </span>
-                                        {" — "}
+                                        {": "}
                                         {tool.blurb}
                                     </Link>
                                 </li>
@@ -126,14 +126,14 @@ export function PopularToolsRail() {
                 ))}
             </div>
 
-            <div className="mt-8 pt-6 border-t border-border/30">
-                <span className="text-xs text-muted-foreground block mb-3">Head-to-head comparisons</span>
+            <div className="mt-10">
+                <span className="mb-3 block text-[15px] font-semibold text-foreground">Head-to-head comparisons</span>
                 <div className="flex flex-wrap gap-2">
                     {COMPARE_LINKS.map((link) => (
                         <Link
                             key={link.href}
                             href={link.href}
-                            className="inline-flex items-center px-3 py-1.5 rounded-full text-xs bg-secondary/30 text-muted-foreground hover:bg-secondary/60 hover:text-foreground transition-colors"
+                            className="inline-flex items-center bg-background px-3 py-2 text-[14px] text-foreground transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link"
                         >
                             {link.label}
                         </Link>

@@ -35,7 +35,7 @@ export default async function AdminBlogPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b bg-muted/50">
+              <tr /* taste-skill-ignore: real table row */ className="border-b bg-muted/50">
                 <th className="px-4 py-3 text-left text-sm font-medium">Title</th>
                 <th className="px-4 py-3 text-left text-sm font-medium">Category</th>
                 <th className="px-4 py-3 text-left text-sm font-medium">Author</th>
@@ -45,7 +45,7 @@ export default async function AdminBlogPage() {
             </thead>
             <tbody>
               {posts.map((post) => (
-                <tr key={post.id} className="border-b">
+                <tr key={post.id} /* taste-skill-ignore: real table row */ className="border-b">
                   <td className="px-4 py-3 font-medium max-w-xs truncate">
                     {post.title}
                   </td>

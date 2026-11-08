@@ -102,13 +102,13 @@ export default async function AdminDashboardPage() {
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-sm">Database</span>
-                <span className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium bg-green-100 text-green-700">
+                <span className="inline-flex items-center bg-secondary px-2 py-1 text-[13px] font-semibold text-success">
                   Connected
                 </span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-sm">API</span>
-                <span className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium bg-green-100 text-green-700">
+                <span className="inline-flex items-center bg-secondary px-2 py-1 text-[13px] font-semibold text-success">
                   Operational
                 </span>
               </div>

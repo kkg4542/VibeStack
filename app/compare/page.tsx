@@ -6,7 +6,6 @@ import { CompareDirectory } from "@/components/seo/CompareDirectory";
 import { Container } from "@/components/primitives/Container";
 import { getTools } from "@/lib/tools-db";
 import { comparePairs } from "@/lib/compare-content";
-import { designSystem } from "@/lib/design-system";
 
 const SITE_URL = "https://usevibestack.com";
 
@@ -157,21 +156,19 @@ export default async function ComparePage() {
                 in the prerendered response and visible without JavaScript. */}
             <section className="relative pt-24">
                 <Container size="default">
-                    <div className="max-w-3xl">
-                        <h1 className={`${designSystem.typography.hero} mb-6 leading-tight`}>
-                            Compare{" "}
-                            <span className="text-gradient-brand">AI tools</span>{" "}
-                            side by side
+                    <div className="max-w-4xl">
+                        <h1 className="mb-8 font-display text-[clamp(40px,6vw,96px)] text-balance text-foreground">
+                            Compare AI tools side by side
                         </h1>
-                        <p className="text-lg sm:text-xl text-muted-foreground mb-5 leading-relaxed">
+                        <p className="mb-5 text-[18px] leading-normal text-foreground sm:text-[20px]">
                             Every comparison here puts two tools from the same category next to
                             each other: what they do, what they cost, what they are bad at, and a
                             plain verdict on which one fits which kind of work.
                         </p>
                         {comparisons.length > 0 && (
-                            <p className="text-base text-muted-foreground leading-relaxed">
+                            <p className="max-w-3xl text-[16px] leading-normal text-muted-foreground">
                                 There are {comparisons.length} published comparisons, drawn from the{" "}
-                                <Link href="/tools" className="text-vibe-link hover:underline">
+                                <Link href="/tools" className="font-semibold text-vibe-link underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link">
                                     {tools.length} tools in the directory
                                 </Link>
                                 {categorySentence ? <> — {categorySentence}</> : null}. Pairings are
@@ -192,21 +189,21 @@ export default async function ComparePage() {
             </Suspense>
 
             <Container size="default">
-                <section className="border-t border-border/60 pt-12">
-                    <h2 className="text-2xl font-semibold text-foreground mb-2">
+                <section className="pt-16">
+                    <h2 className="mb-4 font-display text-[clamp(32px,4vw,56px)] text-foreground">
                         What every comparison covers
                     </h2>
-                    <p className="text-sm text-muted-foreground mb-8 max-w-3xl">
+                    <p className="mb-8 max-w-3xl text-[16px] leading-normal text-muted-foreground">
                         The pages follow the same structure, so you can skim two of them and know
                         you are looking at the same things in the same order.
                     </p>
-                    <dl className="grid gap-x-10 gap-y-6 sm:grid-cols-2">
+                    <dl className="grid gap-1 sm:grid-cols-2">
                         {COMPARISON_SECTIONS.map((section) => (
-                            <div key={section.title}>
-                                <dt className="text-sm font-semibold text-foreground mb-1">
+                            <div key={section.title} className="bg-card p-5">
+                                <dt className="mb-1 text-[16px] font-semibold text-foreground">
                                     {section.title}
                                 </dt>
-                                <dd className="text-sm text-muted-foreground leading-relaxed">
+                                <dd className="text-[16px] leading-normal text-muted-foreground">
                                     {section.body}
                                 </dd>
                             </div>
@@ -215,10 +212,10 @@ export default async function ComparePage() {
                 </section>
 
                 <section className="mt-16">
-                    <h2 className="text-2xl font-semibold text-foreground mb-4">
+                    <h2 className="mb-6 font-display text-[clamp(32px,4vw,56px)] text-foreground">
                         How to read one of these
                     </h2>
-                    <div className="space-y-4 text-sm text-muted-foreground leading-relaxed max-w-3xl">
+                    <div className="max-w-3xl space-y-4 text-[16px] leading-normal text-muted-foreground">
                         <p>
                             Start at the verdict. It names the situation each tool is the right
                             answer for, which is usually enough to rule one of them out in a
@@ -244,14 +241,14 @@ export default async function ComparePage() {
 
                 {faqs.length > 0 && (
                     <section className="mt-16">
-                        <h2 className="text-2xl font-semibold text-foreground mb-6">
+                        <h2 className="mb-8 font-display text-[clamp(32px,4vw,56px)] text-foreground">
                             Questions about these comparisons
                         </h2>
-                        <div className="grid gap-6 sm:grid-cols-2 max-w-5xl">
+                        <div className="grid max-w-5xl gap-1 sm:grid-cols-2">
                             {faqs.map((f) => (
-                                <div key={f.q} className="rounded-2xl border border-border/50 bg-card p-5">
-                                    <h3 className="font-semibold text-foreground mb-2">{f.q}</h3>
-                                    <p className="text-sm text-muted-foreground leading-relaxed">{f.a}</p>
+                                <div key={f.q} className="bg-card p-6">
+                                    <h3 className="mb-2 text-[18px] font-semibold text-foreground">{f.q}</h3>
+                                    <p className="text-[16px] leading-normal text-muted-foreground">{f.a}</p>
                                 </div>
                             ))}
                         </div>

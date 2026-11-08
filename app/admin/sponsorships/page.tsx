@@ -25,7 +25,7 @@ export default async function AdminSponsorshipsPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b bg-muted/50">
+              <tr /* taste-skill-ignore: real table row */ className="border-b bg-muted/50">
                 <th className="px-4 py-3 text-left text-sm font-medium">Placement</th>
                 <th className="px-4 py-3 text-left text-sm font-medium">Sponsor</th>
                 <th className="px-4 py-3 text-left text-sm font-medium">Tool</th>
@@ -35,7 +35,7 @@ export default async function AdminSponsorshipsPage() {
             </thead>
             <tbody>
               {sponsorships.map((s) => (
-                <tr key={s.id} className="border-b">
+                <tr key={s.id} /* taste-skill-ignore: real table row */ className="border-b">
                   <td className="px-4 py-3 font-medium">{s.placement}</td>
                   <td className="px-4 py-3">
                     <div className="font-medium">{s.sponsorName || "-"}</div>

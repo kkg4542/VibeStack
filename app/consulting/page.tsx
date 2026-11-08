@@ -1,12 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, Check, Rocket, Shield, Terminal, Zap, Mail, Loader2 } from "lucide-react";
+import { ArrowRight, Rocket, Shield, Terminal, Zap, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { motion } from "framer-motion";
-import { designSystem } from "@/lib/design-system";
 import { ServicesGrid } from "./components/ServicesGrid";
 import { PricingSection } from "./components/PricingSection";
 import { Section } from "@/components/primitives/Section";
@@ -21,176 +18,143 @@ export default function ConsultingPage() {
     async function handleCheckout(_placement: string) {
         window.location.href = "/sponsor";
     }
-    // (Testimonials section removed — no fabricated client quotes.)
+    // (Testimonials section removed: no fabricated client quotes.)
     const services = [
         {
             title: "AI Workflow Audit",
             description: "We analyze your current development process and identify bottlenecks where AI agents can accelerate output by 10x.",
-            icon: <Terminal className="h-6 w-6 text-vibe-purple" />,
+            icon: <Terminal className="h-6 w-6 text-vibe-link" />,
             features: ["Codebase Analysis", "Agent Integration Plan", "ROI Estmation"],
         },
         {
             title: "Custom Agent Build",
             description: "Need a specialized agent for your internal data? We build secure, private RAG pipelines tailored to your business logic.",
-            icon: <Zap className="h-6 w-6 text-vibe-purple" />,
+            icon: <Zap className="h-6 w-6 text-vibe-link" />,
             features: ["Private LLM Setup", "Custom vector DB", "Slack/Discord Integration"],
         },
         {
             title: "Vibe Coding Training",
             description: "Train your engineering team to move from 'writing code' to 'orchestrating agents'. The shift requires a new mindset.",
-            icon: <Rocket className="h-6 w-6 text-vibe-pink" />,
+            icon: <Rocket className="h-6 w-6 text-vibe-link" />,
             features: ["Prompt Architecture", "Cursor Mastery", "Review Workflows"],
         },
     ];
 
+    const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link";
+
     return (
-        <div className="relative min-h-screen bg-background pt-24 pb-20 overflow-hidden">
-            {/* Ambient Background Glows */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 z-0 h-[60vh] w-full max-w-[1200px] bg-vibe-purple/10 dark:bg-vibe-purple/20 blur-[140px] rounded-full px-4" />
-            <div className="absolute top-[20%] left-[10%] z-0 h-[30vh] w-[30vh] bg-vibe-purple/10 blur-[100px] rounded-full animate-pulse" />
-            <div className="absolute top-[40%] right-[10%] z-0 h-[30vh] w-[30vh] bg-blue-500/10 blur-[100px] rounded-full animate-pulse" style={{ animationDelay: "2s" }} />
+        <div className="relative min-h-svh bg-background pt-24 pb-20">
+            {/* Hero */}
+            <Section spacing="none" containerSize="default" className="pt-16 pb-24">
+                <p className="mb-6 text-[16px] font-semibold text-vibe-link">
+                    Now Accepting Partners for Q1 2026
+                </p>
 
-            {/* Background pattern overlay */}
-            <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-size-[40px_40px] mask-[radial-gradient(ellipse_80%_80%_at_50%_0%,#000_70%,transparent_100%)]"></div>
-            <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-background to-transparent" />
+                <h1 className="font-display text-balance text-[clamp(32px,6vw,96px)] uppercase leading-[0.88] tracking-[-0.005em] text-foreground">
+                    Promote Your AI Tool to Thousands of Developers
+                </h1>
 
-            <div className="relative z-10">
-                {/* Hero */}
-                <Section spacing="none" containerSize="default" className="pt-20 pb-32 text-center">
-                    <motion.div
-                        initial={designSystem.animations.fadeInUp.initial}
-                        animate={designSystem.animations.fadeInUp.animate}
-                        transition={designSystem.animations.fadeInUp.transition}
+                <p className="mt-8 max-w-[60ch] text-[19px] leading-normal text-muted-foreground">
+                    VibeStack is the fastest-growing community for AI productivity.
+                    Showcase your product where the builders are.
+                </p>
+
+                <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center">
+                    <Button
+                        size="lg"
+                        className="h-12 rounded-none px-8 text-[16px] font-semibold"
+                        onClick={() => handleCheckout('featuredSpotlight')}
+                        disabled={loading}
                     >
-                        <div className="mx-auto mb-6 flex max-w-fit items-center rounded-full border border-vibe-electric/30 bg-vibe-electric/10 px-4 py-2 text-sm font-medium text-vibe-link backdrop-blur-md">
-                            <span className="mr-2 flex h-2 w-2 relative">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-vibe-electric opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-vibe-electric"></span>
-                            </span>
-                            Now Accepting Partners for Q1 2026
+                        {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                        Book a Sponsorship
+                        <ArrowRight aria-hidden="true" className="ml-2 h-4 w-4" />
+                    </Button>
+                    <Button variant="secondary" size="lg" className="h-12 rounded-none px-8 text-[16px] font-semibold hover:bg-accent" asChild>
+                        <Link href="/tools">
+                            View Our Reach
+                        </Link>
+                    </Button>
+                    <p className="text-[15px] text-muted-foreground">
+                        Or <a href="mailto:hello@usevibestack.com" className={`font-semibold text-vibe-link underline underline-offset-4 ${focus}`}>contact us</a> for custom packages
+                    </p>
+                </div>
+            </Section>
+
+            <ServicesGrid />
+
+            {/* Why advertise: the inverse field */}
+            <Section spacing="large" container={false} className="bg-foreground text-background">
+                <Container size="default">
+                    <h2 className="mb-12 font-display text-balance text-[clamp(32px,4vw,56px)] uppercase leading-[0.9] tracking-[-0.005em]">
+                        Why Advertise with Us?
+                    </h2>
+                    <div className="grid gap-10 md:grid-cols-3">
+                        <div>
+                            <Shield aria-hidden="true" className="mb-4 h-7 w-7 text-vibe-electric" />
+                            <h3 className="text-[22px] font-semibold">High Intent</h3>
+                            <p className="mt-2 text-[16px] leading-normal text-background/80">Our users are actively looking for tools to adopt, not just browsing.</p>
                         </div>
+                        <div>
+                            <Rocket aria-hidden="true" className="mb-4 h-7 w-7 text-vibe-electric" />
+                            <h3 className="text-[22px] font-semibold">Developer Focused</h3>
+                            <p className="mt-2 text-[16px] leading-normal text-background/80">Reach software engineers, founders, and CTOs making purchasing decisions.</p>
+                        </div>
+                        <div>
+                            <Terminal aria-hidden="true" className="mb-4 h-7 w-7 text-vibe-electric" />
+                            <h3 className="text-[22px] font-semibold">Native Feel</h3>
+                            <p className="mt-2 text-[16px] leading-normal text-background/80">Ads are integrated directly into the UI, maintaining our premium aesthetic.</p>
+                        </div>
+                    </div>
+                </Container>
+            </Section>
 
-                        <h1 className={`mx-auto max-w-4xl text-foreground leading-tight ${designSystem.typography.hero}`}>
-                            Promote Your AI Tool to{" "}
-                            <span className="text-gradient-brand">
-                                Thousands of Developers
-                            </span>
-                        </h1>
+            <PricingSection handleCheckout={handleCheckout} loading={loading} />
 
-                        <p className="mx-auto mt-8 max-w-2xl text-lg text-muted-foreground sm:text-xl">
-                            VibeStack is the fastest-growing community for AI productivity.
-                            Showcase your product where the builders are.
+            {/* Sponsor copy guidelines */}
+            <Section spacing="none" containerSize="default" className="pb-16">
+                <div className="max-w-3xl bg-card p-8">
+                    <h3 className="mb-3 text-[22px] font-semibold text-foreground">Sponsor Copy Guidelines</h3>
+                    <p className="mb-4 text-[16px] text-muted-foreground">Keep it clear and honest. We review copy to maintain user trust.</p>
+                    <ul className="list-disc space-y-2 pl-5 text-[16px] text-foreground">
+                        <li>Length: 60–120 characters (one-line summary)</li>
+                        <li>Required: product name + one-sentence value</li>
+                        <li>Avoid: exaggerated claims and guarantees</li>
+                    </ul>
+                </div>
+            </Section>
+
+            {/* Final CTA: the accent field */}
+            <Section spacing="default" containerSize="default">
+                <div className="bg-vibe-electric p-8 text-vibe-deep sm:p-12 lg:p-16">
+                    <div className="max-w-3xl">
+                        <h2 className="mb-4 font-display text-balance text-[clamp(32px,4vw,56px)] uppercase leading-[0.9] tracking-[-0.005em]">
+                            Ready to Get Started?
+                        </h2>
+                        <p className="mb-8 text-[18px] leading-normal">
+                            Let&apos;s discuss how we can help you reach thousands of developers actively searching for tools like yours.
                         </p>
-
-                        <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+                        <div className="flex flex-col gap-4 sm:flex-row">
                             <Button
                                 size="lg"
-                                className="rounded-full shadow-lg shadow-vibe-electric/20 px-8 text-base h-12"
+                                className="h-12 rounded-none bg-vibe-deep px-8 text-[16px] font-semibold text-[#eff0f1] hover:bg-vibe-deep/90 focus-visible:outline-vibe-deep"
                                 onClick={() => handleCheckout('featuredSpotlight')}
                                 disabled={loading}
                             >
                                 {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                                Book a Sponsorship
-                                <ArrowRight className="ml-2 h-4 w-4" />
+                                Get Started Now
+                                <ArrowRight aria-hidden="true" className="ml-2 h-4 w-4" />
                             </Button>
-                            <Button variant="outline" size="lg" className="rounded-full px-8 text-base h-12" asChild>
-                                <Link href="/tools">
-                                    View Our Reach
-                                </Link>
-                            </Button>
-                            <p className="text-sm text-muted-foreground mt-2">
-                                Or <a href="mailto:hello@usevibestack.com" className="underline">contact us</a> for custom packages
-                            </p>
+                            <Link
+                                href="mailto:hello@usevibestack.com?subject=Partnership%20Inquiry"
+                                className="inline-flex h-12 items-center justify-center px-8 text-[16px] font-semibold text-vibe-deep underline underline-offset-4 hover:decoration-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-deep"
+                            >
+                                Or Contact Us
+                            </Link>
                         </div>
-                    </motion.div>
-                </Section>
-
-                <ServicesGrid />
-
-                {/* Social Proof / Trust */}
-                <Section spacing="large" container={false} className="border-t border-border/40 bg-secondary/5">
-                    <Container size="default" className="text-center">
-                        <h2 className="mb-12 text-3xl font-bold">Why Advertise with Us?</h2>
-                        <div className="grid gap-8 md:grid-cols-3">
-                            <div className="p-6">
-                                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/10">
-                                    <Shield className="h-6 w-6 text-emerald-700 dark:text-emerald-500" />
-                                </div>
-                                <h3 className="text-xl font-semibold">High Intent</h3>
-                                <p className="mt-2 text-muted-foreground">Our users are actively looking for tools to adopt, not just browsing.</p>
-                            </div>
-                            <div className="p-6">
-                                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-500/10">
-                                    <Rocket className="h-6 w-6 text-blue-700 dark:text-blue-500" />
-                                </div>
-                                <h3 className="text-xl font-semibold">Developer Focused</h3>
-                                <p className="mt-2 text-muted-foreground">Reach software engineers, founders, and CTOs making purchasing decisions.</p>
-                            </div>
-                            <div className="p-6">
-                                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-amber-500/10">
-                                    <Terminal className="h-6 w-6 text-amber-700 dark:text-amber-500" />
-                                </div>
-                                <h3 className="text-xl font-semibold">Native Feel</h3>
-                                <p className="mt-2 text-muted-foreground">Ads are integrated directly into the UI, maintaining our premium aesthetic.</p>
-                            </div>
-                        </div>
-                    </Container>
-                </Section>
-
-                <PricingSection handleCheckout={handleCheckout} loading={loading} />
-
-                {/* Sponsor Copy Guidelines */}
-                <Section spacing="none" containerSize="default" className="pb-16">
-                    <div className="mx-auto max-w-3xl rounded-2xl border border-border/50 bg-card p-8">
-                        <h3 className="text-xl font-semibold text-foreground mb-3">Sponsor Copy Guidelines</h3>
-                        <p className="text-muted-foreground mb-4">Keep it clear and honest. We review copy to maintain user trust.</p>
-                        <ul className="space-y-2 text-sm text-foreground/80">
-                            <li>Length: 60–120 characters (one-line summary)</li>
-                            <li>Required: product name + one-sentence value</li>
-                            <li>Avoid: exaggerated claims and guarantees</li>
-                        </ul>
                     </div>
-                </Section>
-
-
-                {/* Final CTA */}
-                <Section spacing="default" containerSize="default">
-                    <motion.div
-                        initial={designSystem.animations.fadeInUp.initial}
-                        whileInView={designSystem.animations.fadeInUp.animate}
-                        viewport={{ once: true }}
-                        transition={designSystem.animations.fadeInUp.transition}
-                        className="relative overflow-hidden rounded-3xl border border-vibe-electric/20 bg-linear-to-br from-vibe-electric/10 via-vibe-purple/5 to-vibe-pink/10 p-12 lg:p-16 text-center backdrop-blur-sm"
-                    >
-                        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-size-[20px_20px]" />
-                        <div className="relative z-10 max-w-3xl mx-auto">
-                            <Mail className="w-16 h-16 mx-auto mb-6 text-vibe-link" />
-                            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Ready to Get Started?</h2>
-                            <p className="text-lg text-muted-foreground mb-8">
-                                Let&apos;s discuss how we can help you reach thousands of developers actively searching for tools like yours.
-                            </p>
-                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                                <Button
-                                    size="lg"
-                                    className="rounded-full shadow-lg shadow-vibe-electric/20 px-8"
-                                    onClick={() => handleCheckout('featuredSpotlight')}
-                                    disabled={loading}
-                                >
-                                    {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                                    Get Started Now
-                                    <ArrowRight className="ml-2 h-4 w-4" />
-                                </Button>
-                                <Button variant="outline" size="lg" className="rounded-full px-8" asChild>
-                                    <Link href="mailto:hello@usevibestack.com?subject=Partnership%20Inquiry">
-                                        Or Contact Us
-                                    </Link>
-                                </Button>
-                            </div>
-                        </div>
-                    </motion.div>
-                </Section>
-
-            </div>
+                </div>
+            </Section>
         </div>
     );
 }

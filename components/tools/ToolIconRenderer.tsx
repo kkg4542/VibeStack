@@ -1,8 +1,6 @@
 "use client";
 
-import { getToolIcon } from "@/components/icons/tool-icons";
 import { toolIconMap } from "@/components/icons/tool-icons";
-import { Github } from "lucide-react";
 
 interface ToolIconRendererProps {
   slug: string;
@@ -10,7 +8,8 @@ interface ToolIconRendererProps {
 }
 
 export function ToolIconRenderer({ slug, className }: ToolIconRendererProps) {
-  // Direct conditional rendering instead of creating component during render
-  const IconComponent = toolIconMap[slug] || Github;
+  // The map always resolves: a real brand icon, or a lettered mark of the
+  // tool's initials. There is no borrowed-logo fallback any more.
+  const IconComponent = toolIconMap[slug];
   return <IconComponent className={className} />;
 }

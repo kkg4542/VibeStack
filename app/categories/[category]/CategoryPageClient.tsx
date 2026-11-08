@@ -1,12 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { designSystem } from "@/lib/design-system";
 import { getToolIcon } from "@/components/icons/tool-icons";
 import Link from "next/link";
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { CompareButton } from "@/components/tools/CompareButton";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import {
@@ -16,9 +11,7 @@ import {
     MessageSquare,
     Palette,
     Box,
-    ArrowLeft,
-    TrendingUp,
-    Sparkles
+    ArrowLeft
 } from "lucide-react";
 import type { ToolData } from "@/lib/tool-types";
 import { Container } from "@/components/primitives/Container";
@@ -30,43 +23,36 @@ interface CategoryPageClientProps {
 
 const categoryInfo: Record<string, {
     icon: typeof Code2;
-    gradient: string;
     description: string;
     features: string[];
 }> = {
     Coding: {
         icon: Code2,
-        gradient: "from-blue-500 via-vibe-electric to-purple-500",
         description: "AI-powered coding assistants and development tools that help you write better code faster.",
         features: ["Code completion", "Bug detection", "Code review", "Documentation generation"]
     },
     Management: {
         icon: FolderKanban,
-        gradient: "from-emerald-500 via-teal-500 to-cyan-500",
         description: "Project management and team collaboration tools enhanced with AI capabilities.",
         features: ["Task automation", "Team coordination", "Progress tracking", "Smart scheduling"]
     },
     Productivity: {
         icon: Zap,
-        gradient: "from-amber-500 via-orange-500 to-red-500",
         description: "Boost your workflow with AI writing assistants, note-taking, and automation tools.",
         features: ["Writing assistance", "Note organization", "Workflow automation", "Time management"]
     },
     Assistance: {
         icon: MessageSquare,
-        gradient: "from-violet-500 via-purple-500 to-pink-500",
         description: "AI assistants and chatbots for research, writing, and everyday tasks.",
         features: ["Natural conversations", "Research assistance", "Content creation", "Q&A support"]
     },
     Design: {
         icon: Palette,
-        gradient: "from-pink-500 via-rose-500 to-red-500",
         description: "Create stunning visuals with AI-powered design, image generation, and creative tools.",
         features: ["Image generation", "UI/UX design", "Video editing", "Brand creation"]
     },
     Other: {
         icon: Box,
-        gradient: "from-slate-500 via-zinc-500 to-neutral-500",
         description: "Specialized AI tools for unique use cases and specific industry needs.",
         features: ["Niche solutions", "Industry-specific", "Custom workflows", "Specialized AI"]
     }
@@ -82,202 +68,129 @@ export function CategoryPageClient({ category, tools: categoryTools }: CategoryP
         <PageBackground {...BackgroundPresets.content}>
             <Container size="default">
                 {/* Back Button */}
-                <motion.div
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={designSystem.animations.fadeInUp.transition}
-                    className="mb-6"
-                >
-                    <Button variant="ghost" asChild className="pl-0">
-                        <Link href="/tools" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
-                            <ArrowLeft className="w-4 h-4" />
-                            Back to All Tools
-                        </Link>
-                    </Button>
-                </motion.div>
+                <div className="mb-8">
+                    <Link
+                        href="/tools"
+                        className="inline-flex items-center gap-2 text-[16px] font-semibold text-muted-foreground transition-colors duration-150 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link motion-reduce:transition-none"
+                    >
+                        <ArrowLeft aria-hidden="true" className="h-4 w-4" />
+                        Back to All Tools
+                    </Link>
+                </div>
 
                 {/* Hero Section */}
-                <motion.div
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={designSystem.animations.fadeInUp.transition}
-                    className="text-center mb-16"
-                >
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-link text-sm font-medium mb-6"
-                    >
-                        <Sparkles className="w-4 h-4" />
+                <div className="mb-16">
+                    <p className="mb-6 flex items-center gap-2 text-[16px] font-semibold text-vibe-link">
+                        <Icon aria-hidden="true" className="h-5 w-5" />
                         <span>{categoryTools.length} Tools Available</span>
-                    </motion.div>
+                    </p>
 
-                    <div className="flex items-center justify-center gap-4 mb-6">
-                        <div className={`p-4 rounded-2xl bg-linear-to-br ${info.gradient} shadow-lg`}>
-                            <Icon className="w-10 h-10 text-white" />
-                        </div>
-                        <h1 className={`${designSystem.typography.hero} leading-tight`}>
-                            <span className={`bg-linear-to-r ${info.gradient} bg-clip-text text-transparent`}>
-                                {category}
-                            </span>
-                            <span className="text-foreground"> AI Tools</span>
-                        </h1>
-                    </div>
+                    <h1 className="mb-8 font-display text-[clamp(40px,6vw,96px)] text-balance text-foreground">
+                        {category} AI Tools
+                    </h1>
 
-                    <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-8">
+                    <p className="mb-10 max-w-2xl text-[18px] leading-normal text-muted-foreground sm:text-[20px]">
                         {info.description}
                     </p>
 
                     {/* Stats */}
-                    <motion.div
-                        initial={designSystem.animations.fadeInUp.initial}
-                        animate={designSystem.animations.fadeInUp.animate}
-                        transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.3 }}
-                        className="flex flex-wrap justify-center gap-8"
-                    >
-                        <div className="flex items-center gap-2 text-sm">
-                            <div className="p-2 rounded-lg bg-blue-500/10">
-                                <TrendingUp className="w-4 h-4 text-blue-700 dark:text-blue-500" />
-                            </div>
-                            <div className="text-left">
-                                <div className="font-bold text-foreground">{categoryTools.length}</div>
-                                <div className="text-muted-foreground text-xs">Tools</div>
-                            </div>
+                    <dl className="grid max-w-xl grid-cols-2 gap-1">
+                        <div className="flex flex-col-reverse bg-card px-4 py-4 sm:px-6">
+                            <dt className="mt-2 text-[16px] text-muted-foreground">Tools</dt>
+                            <dd className="font-display text-[clamp(32px,4vw,56px)] tabular-nums text-foreground">{categoryTools.length}</dd>
                         </div>
-                        <div className="flex items-center gap-2 text-sm">
-                            <div className="p-2 rounded-lg bg-emerald-500/10">
-                                <Zap className="w-4 h-4 text-emerald-700 dark:text-emerald-500" />
-                            </div>
-                            <div className="text-left">
-                                <div className="font-bold text-foreground">{freeCount}</div>
-                                <div className="text-muted-foreground text-xs">Free Options</div>
-                            </div>
+                        <div className="flex flex-col-reverse bg-card px-4 py-4 sm:px-6">
+                            <dt className="mt-2 text-[16px] text-muted-foreground">Free Options</dt>
+                            <dd className="font-display text-[clamp(32px,4vw,56px)] tabular-nums text-foreground">{freeCount}</dd>
                         </div>
-                    </motion.div>
-                </motion.div>
+                    </dl>
+                </div>
 
                 {/* Key Features */}
-                <motion.div
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.4 }}
-                    className="mb-12"
-                >
-                    <div className="flex flex-wrap justify-center gap-3">
-                        {info.features.map((feature, index) => (
-                            <motion.div
+                <div className="mb-12">
+                    <ul className="flex flex-wrap gap-1">
+                        {info.features.map((feature) => (
+                            <li
                                 key={feature}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
+                                className="bg-secondary px-4 py-2 text-[16px] text-foreground"
                             >
-                                <Badge
-                                    variant="secondary"
-                                    className="px-4 py-2 text-sm bg-secondary/50 border border-border/40"
-                                >
-                                    {feature}
-                                </Badge>
-                            </motion.div>
+                                {feature}
+                            </li>
                         ))}
-                    </div>
-                </motion.div>
+                    </ul>
+                </div>
 
                 {/* Tools Grid */}
-                <motion.div
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.5 }}
-                >
-                    <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-2xl font-bold">Available Tools</h2>
-                        <Badge variant="outline">{categoryTools.length} tools</Badge>
+                <div>
+                    <div className="mb-8 flex flex-wrap items-baseline justify-between gap-4">
+                        <h2 className="font-display text-[clamp(32px,4vw,56px)] text-foreground">Available Tools</h2>
+                        <span className="text-[16px] font-semibold tabular-nums text-muted-foreground">{categoryTools.length} tools</span>
                     </div>
 
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                        {categoryTools.map((tool, index) => (
-                            <motion.div
-                                key={tool.slug}
-                                initial={designSystem.animations.fadeInUp.initial}
-                                animate={designSystem.animations.fadeInUp.animate}
-                                transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.6 + index * 0.05 }}
-                            >
+                    <div className="grid grid-cols-1 gap-1 md:grid-cols-2 lg:grid-cols-3">
+                        {categoryTools.map((tool) => (
+                            <div key={tool.slug}>
+                                {/* tool.color / tool.bgGradient are per-item colour data; in direction B they no longer render. */}
                                 <Link
                                     href={`/tool/${tool.slug}`}
-                                    className="block relative group h-full"
+                                    className="group relative block h-full bg-card text-card-foreground transition-colors duration-150 hover:bg-secondary focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-vibe-link motion-reduce:transition-none"
                                 >
-                                    <Card className="h-full relative overflow-hidden border-border/40 bg-card transition-all duration-300 hover:border-border/80 hover:bg-card/80 hover:shadow-2xl">
-                                        <div className={`absolute inset-0 bg-linear-to-br ${tool.bgGradient || "from-transparent to-transparent"} opacity-0 transition-opacity duration-500 group-hover:opacity-10`} />
-
-                                        <CardHeader className="relative h-full flex flex-col pt-8">
-                                            <div className="mb-4 flex items-center justify-between gap-4">
-                                                <div className={`rounded-lg bg-secondary/80 p-3 ring-1 ring-border shadow-lg ${tool.color || "text-foreground"}`}>
-                                                    {(() => {
-                                                        const ToolIcon = getToolIcon(tool.slug);
-                                                        return <ToolIcon className="h-6 w-6" />;
-                                                    })()}
-                                                </div>
-                                                <Badge variant="secondary" className="bg-secondary/50 text-xs font-normal text-muted-foreground backdrop-blur-sm">
-                                                    {tool.category}
-                                                </Badge>
+                                    <div className="relative flex h-full flex-col p-6">
+                                        <div className="mb-4 flex items-center justify-between gap-4">
+                                            <div className="flex h-12 w-12 items-center justify-center bg-secondary text-foreground group-hover:bg-background">
+                                                {(() => {
+                                                    const ToolIcon = getToolIcon(tool.slug);
+                                                    return <ToolIcon className="h-6 w-6" />;
+                                                })()}
                                             </div>
-                                            <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
-                                                {tool.title}
-                                            </CardTitle>
-                                            <CardDescription className="text-muted-foreground/90 line-clamp-2 mt-2 leading-relaxed">
-                                                {tool.description}
-                                            </CardDescription>
+                                            <span className="text-[14px] text-muted-foreground">
+                                                {tool.category}
+                                            </span>
+                                        </div>
+                                        <h3 className="text-[20px] font-semibold text-foreground group-hover:text-vibe-link">
+                                            {tool.title}
+                                        </h3>
+                                        <p className="mt-2 line-clamp-2 text-[16px] leading-normal text-muted-foreground">
+                                            {tool.description}
+                                        </p>
 
-                                            <div className="mt-auto pt-6 flex justify-between items-center">
-                                                <Badge variant="outline" className="text-xs">
-                                                    {tool.pricing}
-                                                </Badge>
-                                                <CompareButton toolSlug={tool.slug} toolTitle={tool.title} />
-                                            </div>
-                                        </CardHeader>
-                                    </Card>
+                                        <div className="mt-auto flex items-center justify-between pt-6">
+                                            <span className="text-[14px] font-semibold text-foreground">
+                                                {tool.pricing}
+                                            </span>
+                                            <CompareButton toolSlug={tool.slug} toolTitle={tool.title} />
+                                        </div>
+                                    </div>
                                 </Link>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
-                </motion.div>
+                </div>
 
                 {/* Related Categories */}
-                <motion.div
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.7 }}
-                    className="mt-16 text-center"
-                >
-                    <Card className="border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-vibe-purple/5">
-                        <CardHeader className="p-8">
-                            <h3 className="text-xl font-bold mb-2">Explore Other Categories</h3>
-                            <p className="text-muted-foreground mb-6">
-                                Discover more AI tools across different categories
-                            </p>
-                            <div className="flex flex-wrap justify-center gap-3">
-                                {Object.entries(categoryInfo)
-                                    .filter(([cat]) => cat !== category)
-                                    .map(([cat, catInfo]) => {
-                                        const CatIcon = catInfo.icon;
-                                        return (
-                                            <Button
-                                                key={cat}
-                                                variant="outline"
-                                                asChild
-                                                className="rounded-full"
-                                            >
-                                                <Link href={`/categories/${cat.toLowerCase()}`} className="flex items-center gap-2">
-                                                    <CatIcon className="w-4 h-4" />
-                                                    {cat}
-                                                </Link>
-                                            </Button>
-                                        );
-                                    })}
-                            </div>
-                        </CardHeader>
-                    </Card>
-                </motion.div>
+                <div className="mt-16 bg-foreground p-8 text-background md:p-12">
+                    <h3 className="mb-2 text-[24px] font-semibold">Explore Other Categories</h3>
+                    <p className="mb-6 text-[16px] text-background/80">
+                        Discover more AI tools across different categories
+                    </p>
+                    <div className="flex flex-wrap gap-1">
+                        {Object.entries(categoryInfo)
+                            .filter(([cat]) => cat !== category)
+                            .map(([cat, catInfo]) => {
+                                const CatIcon = catInfo.icon;
+                                return (
+                                    <Link
+                                        key={cat}
+                                        href={`/categories/${cat.toLowerCase()}`}
+                                        className="inline-flex items-center gap-2 bg-background px-4 py-2.5 text-[16px] font-semibold text-foreground transition-colors duration-150 hover:bg-vibe-electric hover:text-vibe-deep focus-visible:bg-vibe-electric focus-visible:text-vibe-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-electric motion-reduce:transition-none"
+                                    >
+                                        <CatIcon aria-hidden="true" className="h-4 w-4" />
+                                        {cat}
+                                    </Link>
+                                );
+                            })}
+                    </div>
+                </div>
             </Container>
         </PageBackground>
     );

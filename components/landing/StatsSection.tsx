@@ -1,15 +1,9 @@
-"use client";
-
-import { m } from "framer-motion";
 import {
   Wrench,
   Layers,
   Star,
   FileText,
-  TrendingUp,
-  Zap
 } from "lucide-react";
-import { designSystem } from "@/lib/design-system";
 import { Section } from "@/components/primitives/Section";
 import { Container } from "@/components/primitives/Container";
 
@@ -41,7 +35,6 @@ function buildStats(toolCount: number, stackCount: number, guideCount: number) {
       suffix: "+",
       label: "AI Tools",
       description: "Hand-picked & reviewed",
-      color: "from-cyan-600 to-blue-600",
     },
     {
       icon: Layers,
@@ -49,7 +42,6 @@ function buildStats(toolCount: number, stackCount: number, guideCount: number) {
       suffix: "",
       label: "Curated Stacks",
       description: "Ready-to-use workflows",
-      color: "from-purple-600 to-pink-600",
     },
     {
       icon: FileText,
@@ -57,7 +49,6 @@ function buildStats(toolCount: number, stackCount: number, guideCount: number) {
       suffix: "+",
       label: "Guides",
       description: "Comparisons & reviews",
-      color: "from-emerald-400 to-emerald-600",
     },
     {
       icon: Star,
@@ -65,7 +56,6 @@ function buildStats(toolCount: number, stackCount: number, guideCount: number) {
       suffix: "%",
       label: "Free",
       description: "No account needed",
-      color: "from-amber-400 to-orange-500",
     },
   ];
 }
@@ -82,7 +72,7 @@ function buildStats(toolCount: number, stackCount: number, guideCount: number) {
  * and rewinding it to 0 on the client, which either flashes the correct
  * number away before animating it or needs viewport arithmetic on mount to
  * decide. Neither is worth it for a decorative flourish, so the figure is
- * simply the figure. The surrounding section keeps its entrance animation.
+ * simply the figure. The section has no entrance animation beyond the CSS `.reveal`.
  */
 function StatNumber({
   value,
@@ -100,6 +90,12 @@ function StatNumber({
   );
 }
 
+/**
+ * Legacy section (not on the home page). Direction B: one flat card cell per
+ * stat, figure in the display face, plain icons. No gradient text, glow,
+ * glass, grid pattern or pill. Plain markup, so the figures are in the SSR
+ * HTML at full opacity.
+ */
 export function StatsSection({
   toolCount = 45,
   stackCount = 7,
@@ -107,100 +103,42 @@ export function StatsSection({
 }: StatsSectionProps = {}) {
   const stats = buildStats(toolCount, stackCount, guideCount);
   return (
-    <Section spacing="large" container={false} className="relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-linear-to-b from-background via-vibe-purple/5 to-background" />
-
-      {/* Decorative grid */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-30" />
-
-      <Container className="relative z-10">
+    <Section spacing="large" container={false} className="bg-background">
+      <Container>
         {/* Header */}
-        <m.div
-          initial={designSystem.animations.fadeInUp.initial}
-          whileInView={designSystem.animations.fadeInUp.animate}
-          viewport={{ once: true }}
-          transition={designSystem.animations.fadeInUp.transition}
-          className="text-center max-w-3xl mx-auto mb-16"
-        >
-          <h2 className={`${designSystem.typography.section} mb-6`}>
-            Everything you need to{" "}
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-vibe-electric via-vibe-cyan to-vibe-neon">
-              build with AI
-            </span>
+        <div className="mb-12 max-w-3xl">
+          <h2 className="font-display mb-6 text-[clamp(32px,4vw,56px)] leading-[0.88] text-balance text-foreground">
+            Everything you need to build with AI
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Hand-picked tools, ready-to-use stacks, and honest comparison guides — free to browse.
+          <p className="text-[18px] text-muted-foreground">
+            Hand-picked tools, ready-to-use stacks, and honest comparison guides, free to browse.
           </p>
-        </m.div>
+        </div>
 
         {/* Stats Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {stats.map((stat, index) => {
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {stats.map((stat) => {
             const Icon = stat.icon;
             return (
-              <m.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ 
-                  duration: 0.5, 
-                  delay: index * 0.1, 
-                  ease: [0.16, 1, 0.3, 1] 
-                }}
-                className="group"
-              >
-                <div className="relative p-8 rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm text-center hover:border-vibe-electric/30 transition-all duration-300 hover:shadow-lg hover:shadow-vibe-electric/5">
-                  {/* Glow effect */}
-                  <div className={`absolute inset-0 rounded-2xl bg-linear-to-br ${stat.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
-                  
-                  <div className="relative z-10">
-                    {/* Icon */}
-                    <div className={`inline-flex p-3 rounded-xl bg-linear-to-br ${stat.color} bg-opacity-10 mb-4`}>
-                      <Icon className="w-6 h-6 text-white" />
-                    </div>
-
-                    {/* Value */}
-                    <div className="text-4xl md:text-5xl font-bold mb-2">
-                      <span className={`text-transparent bg-clip-text bg-linear-to-r ${stat.color}`}>
-                        <StatNumber
-                          value={stat.value}
-                          suffix={stat.suffix}
-                        />
-                      </span>
-                    </div>
-
-                    {/* Label */}
-                    <h3 className="font-semibold text-foreground mb-1">
-                      {stat.label}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      {stat.description}
-                    </p>
-                  </div>
+              <div key={stat.label} className="reveal bg-card p-8">
+                <Icon className="mb-6 h-6 w-6 text-foreground" aria-hidden="true" />
+                <div className="font-display mb-3 text-[clamp(48px,5vw,72px)] leading-[0.88] tabular-nums text-vibe-link">
+                  <StatNumber value={stat.value} suffix={stat.suffix} />
                 </div>
-              </m.div>
+                <h3 className="mb-1 text-[18px] font-semibold text-foreground">
+                  {stat.label}
+                </h3>
+                <p className="text-[16px] text-muted-foreground">
+                  {stat.description}
+                </p>
+              </div>
             );
           })}
         </div>
 
-        {/* Bottom CTA */}
-        <m.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-16 text-center"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20">
-            <TrendingUp className="w-4 h-4 text-vibe-link" />
-            <span className="text-sm text-vibe-link">
-              Growing daily with new tools and stacks
-            </span>
-            <Zap className="w-4 h-4 text-vibe-link" />
-          </div>
-        </m.div>
+        <p className="mt-12 text-[16px] text-muted-foreground">
+          Growing daily with new tools and stacks
+        </p>
       </Container>
     </Section>
   );

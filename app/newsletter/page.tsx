@@ -1,8 +1,6 @@
 "use client";
 
-import { m } from "framer-motion";
 import { 
-    Mail, 
     Calendar, 
     ArrowRight, 
     Sparkles,
@@ -10,8 +8,6 @@ import {
     CheckCircle2,
     Clock
 } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
@@ -19,9 +15,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
 import { useCsrfFetch } from "@/hooks/useCsrfFetch";
-import { designSystem } from "@/lib/design-system";
 
-// Newsletter archive — populated with real issues once we start sending.
+// Newsletter archive: populated with real issues once we start sending.
 // (No fabricated back-issues.)
 interface NewsletterIssue {
     id: string;
@@ -41,63 +36,46 @@ const stats = [
     { label: "Unsubscribe", value: "1-click", icon: Zap }
 ];
 
-const fadeInUp = designSystem.animations.fadeInUp;
+const FOCUS = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link";
 
-function NewsletterCard({ issue, index }: { issue: typeof newsletterArchive[0]; index: number }) {
+function NewsletterCard({ issue }: { issue: typeof newsletterArchive[0]; index: number }) {
     return (
-        <m.div
-            initial={fadeInUp.initial}
-            whileInView={fadeInUp.animate}
-            viewport={{ once: true }}
-            transition={{ ...fadeInUp.transition, delay: index * 0.1 }}
-        >
-            <Card className={`${designSystem.cards.interactive} ${issue.featured ? designSystem.cards.highlighted : ''}`}>
-                <CardContent className="p-6">
-                    <div className="flex items-start justify-between mb-4">
-                        <div>
-                            <p className="text-sm text-muted-foreground mb-1">{issue.date}</p>
-                            <h3 className="font-bold text-lg mb-2 group-hover:text-vibe-link transition-colors">
-                                {issue.title}
-                            </h3>
-                        </div>
-                        {issue.featured && (
-                            <Badge className="bg-vibe-electric/10 text-vibe-link border-vibe-electric/20">
-                                <Sparkles className="w-3 h-3 mr-1" />
-                                Latest
-                            </Badge>
-                        )}
-                    </div>
-                    
-                    <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
-                        {issue.description}
-                    </p>
-                    
-                    <div className="flex flex-wrap gap-2 mb-4">
-                        {issue.highlights.map((highlight) => (
-                            <span 
-                                key={highlight}
-                                className="text-xs px-2 py-1 rounded-full bg-background border border-border/50"
-                            >
-                                {highlight}
-                            </span>
-                        ))}
-                    </div>
-                    
-                    <div className="flex items-center justify-between text-sm">
-                        <span className="flex items-center gap-1 text-muted-foreground">
-                            <Clock className="w-4 h-4" />
-                            {issue.readTime}
-                        </span>
-                        <Link 
-                            href={`/newsletter/${issue.id}`}
-                            className="flex items-center gap-1 text-vibe-link hover:text-vibe-link transition-colors"
-                        >
-                            Read <ArrowRight className="w-4 h-4" />
-                        </Link>
-                    </div>
-                </CardContent>
-            </Card>
-        </m.div>
+        <div className={`h-full p-6 ${issue.featured ? "bg-foreground text-background" : "bg-card text-foreground"}`}>
+            <div className="mb-4 flex items-start justify-between gap-4">
+                <div>
+                    <p className={`mb-1 text-[14px] ${issue.featured ? "text-background/75" : "text-muted-foreground"}`}>{issue.date}</p>
+                    <h3 className="mb-2 text-[20px] font-semibold leading-snug">
+                        {issue.title}
+                    </h3>
+                </div>
+                {issue.featured && (
+                    <span className="shrink-0 bg-vibe-electric px-2.5 py-1 text-[14px] font-semibold text-vibe-deep">
+                        Latest
+                    </span>
+                )}
+            </div>
+
+            <p className={`mb-4 line-clamp-2 text-[16px] ${issue.featured ? "text-background/80" : "text-muted-foreground"}`}>
+                {issue.description}
+            </p>
+
+            <p className={`mb-5 text-[14px] ${issue.featured ? "text-background/75" : "text-muted-foreground"}`}>
+                {issue.highlights.join(", ")}
+            </p>
+
+            <div className="flex items-center justify-between text-[15px]">
+                <span className={`flex items-center gap-1.5 ${issue.featured ? "text-background/75" : "text-muted-foreground"}`}>
+                    <Clock aria-hidden="true" className="h-4 w-4" />
+                    {issue.readTime}
+                </span>
+                <Link
+                    href={`/newsletter/${issue.id}`}
+                    className={`flex items-center gap-1 font-semibold underline-offset-4 hover:underline ${issue.featured ? "text-vibe-electric" : "text-vibe-link"} ${FOCUS}`}
+                >
+                    Read <ArrowRight aria-hidden="true" className="h-4 w-4" />
+                </Link>
+            </div>
+        </div>
     );
 }
 
@@ -134,49 +112,23 @@ export default function NewsletterPage() {
 
     return (
         <PageBackground {...BackgroundPresets.content}>
-            <div className={`container ${designSystem.spacing.container} mx-auto px-4 py-16 md:py-24`}>
-                {/* Hero */}
-                <m.div
-                    initial={fadeInUp.initial}
-                    animate={fadeInUp.animate}
-                    transition={fadeInUp.transition}
-                    className="text-center mb-16"
-                >
-                    <m.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${designSystem.badges.primary} text-sm font-medium mb-6`}
-                    >
-                        <Mail className="w-4 h-4" />
-                        <span>Weekly Newsletter</span>
-                    </m.div>
+            <div className="container mx-auto max-w-6xl px-4 py-16 md:py-24">
+                {/* Hero: plain SSR markup, no entrance animation, visible without JS */}
+                <header className="mb-24">
+                    <p className="mb-5 text-[16px] font-semibold text-vibe-link">Weekly Newsletter</p>
 
-                    <h1 className={`${designSystem.typography.hero} mb-6 max-w-4xl mx-auto`}>
-                        The VibeStack{" "}
-                        <span className="text-gradient-brand">
-                            Newsletter
-                        </span>
+                    <h1 className="mb-6 max-w-[14ch] font-display text-balance text-[clamp(40px,6vw,96px)] uppercase leading-[0.88] tracking-[-0.005em] text-foreground">
+                        The VibeStack Newsletter
                     </h1>
 
-                    <m.p
-                        initial={fadeInUp.initial}
-                        animate={fadeInUp.animate}
-                        transition={{ ...fadeInUp.transition, delay: 0.2 }}
-                        className={`${designSystem.typography.subtitle} max-w-3xl mx-auto mb-8`}
-                    >
+                    <p className="mb-10 max-w-[60ch] text-[19px] leading-normal text-muted-foreground">
                         Get the latest AI tools, reviews, and productivity tips delivered to your inbox every Monday. 
                         No spam, just value.
-                    </m.p>
+                    </p>
 
-                    {/* Subscribe Form */}
-                    <m.div
-                        initial={fadeInUp.initial}
-                        animate={fadeInUp.animate}
-                        transition={{ ...fadeInUp.transition, delay: 0.3 }}
-                        className="max-w-md mx-auto mb-12"
-                    >
-                        <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
+                    {/* Subscribe form */}
+                    <div className="mb-16 max-w-xl">
+                        <form onSubmit={handleSubscribe} className="flex flex-col gap-3 sm:flex-row">
                             <Input
                                 type="email"
                                 placeholder="Enter your email"
@@ -184,64 +136,46 @@ export default function NewsletterPage() {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
-                                className="flex-1 bg-card/50 border-border/40 h-12"
+                                className="h-12 flex-1 border-0 bg-card"
                             />
                             <Button
                                 type="submit"
                                 disabled={isSubmitting}
                                 size="xl"
                                 variant="gradient"
+                                className="h-12 rounded-none px-8 text-[16px]"
                             >
                                 {isSubmitting ? "Subscribing..." : "Subscribe"}
                             </Button>
                         </form>
-                        <p className="text-xs text-muted-foreground mt-3">
+                        <p className="mt-3 text-[14px] text-muted-foreground">
                             No spam. Unsubscribe anytime.
                         </p>
-                    </m.div>
-
-                    {/* Stats */}
-                    <m.div
-                        initial={fadeInUp.initial}
-                        animate={fadeInUp.animate}
-                        transition={{ ...fadeInUp.transition, delay: 0.4 }}
-                        className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto"
-                    >
-                        {stats.map((stat, index) => {
-                            const Icon = stat.icon;
-                            return (
-                                <m.div 
-                                    key={stat.label}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.5 + index * 0.1 }}
-                                    className="text-center"
-                                >
-                                    <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-vibe-electric/10 mb-2">
-                                        <Icon className="w-5 h-5 text-vibe-link" />
-                                    </div>
-                                    <div className="text-2xl font-bold text-foreground">{stat.value}</div>
-                                    <div className="text-xs text-muted-foreground">{stat.label}</div>
-                                </m.div>
-                            );
-                        })}
-                    </m.div>
-                </m.div>
-
-                {/* What to Expect */}
-                <m.div
-                    initial={fadeInUp.initial}
-                    whileInView={fadeInUp.animate}
-                    viewport={{ once: true }}
-                    transition={{ ...fadeInUp.transition, delay: 0.2 }}
-                    className="mb-20"
-                >
-                    <div className="text-center mb-8">
-                        <h2 className="text-2xl font-bold mb-2">What to Expect</h2>
-                        <p className="text-muted-foreground">Every issue includes</p>
                     </div>
 
-                    <div className="grid md:grid-cols-3 gap-6">
+                    {/* Stats */}
+                    <dl className="grid max-w-3xl grid-cols-2 gap-3 md:grid-cols-4">
+                        {stats.map((stat) => {
+                            const Icon = stat.icon;
+                            return (
+                                <div key={stat.label} className="bg-card p-5">
+                                    <Icon aria-hidden="true" className="mb-3 h-5 w-5 text-vibe-link" />
+                                    <dd className="font-display text-[36px] uppercase leading-none text-foreground">{stat.value}</dd>
+                                    <dt className="mt-1 text-[14px] text-muted-foreground">{stat.label}</dt>
+                                </div>
+                            );
+                        })}
+                    </dl>
+                </header>
+
+                {/* What to expect */}
+                <section className="mb-20">
+                    <div className="mb-10">
+                        <h2 className="mb-3 font-display text-balance text-[clamp(32px,4vw,56px)] uppercase leading-[0.9] tracking-[-0.005em] text-foreground">What to Expect</h2>
+                        <p className="text-[18px] text-muted-foreground">Every issue includes</p>
+                    </div>
+
+                    <div className="grid gap-3 md:grid-cols-3 md:gap-6">
                         {[
                             {
                                 icon: Sparkles,
@@ -258,45 +192,33 @@ export default function NewsletterPage() {
                                 title: "Curated Picks",
                                 description: "Hand-selected tools that actually deliver on their promises"
                             }
-                        ].map((item, index) => {
+                        ].map((item) => {
                             const Icon = item.icon;
                             return (
-                                <m.div
-                                    key={item.title}
-                                    initial={fadeInUp.initial}
-                                    whileInView={fadeInUp.animate}
-                                    viewport={{ once: true }}
-                                    transition={{ ...fadeInUp.transition, delay: index * 0.1 }}
-                                >
-                                    <Card className="text-center h-full">
-                                        <CardContent className="p-6">
-                                            <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-vibe-electric/10 mb-4">
-                                                <Icon className="w-6 h-6 text-vibe-link" />
-                                            </div>
-                                            <h3 className="font-bold text-lg mb-2">{item.title}</h3>
-                                            <p className="text-muted-foreground text-sm">{item.description}</p>
-                                        </CardContent>
-                                    </Card>
-                                </m.div>
+                                <div key={item.title} className="h-full bg-card p-6 sm:p-8">
+                                    <Icon aria-hidden="true" className="mb-5 h-7 w-7 text-vibe-link" />
+                                    <h3 className="mb-2 text-[20px] font-semibold">{item.title}</h3>
+                                    <p className="text-[16px] leading-normal text-muted-foreground">{item.description}</p>
+                                </div>
                             );
                         })}
                     </div>
-                </m.div>
+                </section>
 
-                {/* Archive — shown once we have real issues to display */}
+                {/* Archive: shown once we have real issues to display */}
                 {newsletterArchive.length > 0 && (
-                    <div>
-                        <div className="text-center mb-8">
-                            <h2 className="text-2xl font-bold mb-2">Newsletter Archive</h2>
-                            <p className="text-muted-foreground">Browse previous issues</p>
+                    <section>
+                        <div className="mb-10">
+                            <h2 className="mb-3 font-display text-balance text-[clamp(32px,4vw,56px)] uppercase leading-[0.9] tracking-[-0.005em] text-foreground">Newsletter Archive</h2>
+                            <p className="text-[18px] text-muted-foreground">Browse previous issues</p>
                         </div>
 
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="grid gap-3 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
                             {newsletterArchive.map((issue, index) => (
                                 <NewsletterCard key={issue.id} issue={issue} index={index} />
                             ))}
                         </div>
-                    </div>
+                    </section>
                 )}
             </div>
         </PageBackground>

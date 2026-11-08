@@ -1,36 +1,34 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { designSystem } from "@/lib/design-system";
 
 interface CTASectionProps {
   onStartQuiz: () => void;
 }
 
+/**
+ * Direction B: the closing call to action is an inverse field (ink ground,
+ * graphite text) with one orange button. No gradient, no glow.
+ */
 export function CTASection({ onStartQuiz }: CTASectionProps) {
-  const fadeInUp = designSystem.animations.fadeInUp;
-
   return (
-    <motion.div
-      initial={fadeInUp.initial}
-      animate={fadeInUp.animate}
-      transition={{ ...fadeInUp.transition, delay: 0.9 }}
-      className="text-center pb-16"
-    >
-      <Card className="border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-vibe-purple/5">
-        <CardContent className="p-12">
-          <h2 className="text-3xl font-bold mb-4">Ready to find your stack?</h2>
-          <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-            Take our 2-minute quiz and discover the perfect combination of AI tools for your workflow.
-          </p>
-          <Button size="lg" onClick={onStartQuiz} className="rounded-full h-14 px-8 text-lg">
-            Start Quiz <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
-        </CardContent>
-      </Card>
-    </motion.div>
+    <div className="pb-16">
+      <div className="bg-foreground p-8 text-background md:p-12">
+        <h2 className="font-display mb-4 text-[clamp(32px,4vw,56px)] leading-[0.88] text-balance">
+          Ready to find your stack?
+        </h2>
+        <p className="mb-8 max-w-xl text-[18px] leading-normal opacity-80">
+          Take our 2-minute quiz and discover the perfect combination of AI tools for your workflow.
+        </p>
+        <button
+          type="button"
+          onClick={onStartQuiz}
+          className="group inline-flex h-14 items-center justify-center gap-2 rounded-none bg-vibe-electric px-8 text-[18px] font-semibold text-vibe-deep transition-colors hover:bg-[#e8401a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-electric"
+        >
+          Start Quiz
+          <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0" />
+        </button>
+      </div>
+    </div>
   );
 }

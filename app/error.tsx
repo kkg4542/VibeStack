@@ -21,33 +21,28 @@ export default function Error({
 
     return (
         <div className="min-h-screen bg-background flex items-center justify-center px-4 py-20">
-            <div className="max-w-md w-full text-center">
+            <div className="max-w-xl w-full text-center bg-card px-6 py-12 sm:px-10">
                 {/* Error Icon */}
                 <div className="mb-8 flex justify-center">
-                    <div className="relative">
-                        <div className="absolute inset-0 bg-red-500/20 blur-3xl rounded-full"></div>
-                        <div className="relative p-6 rounded-2xl bg-red-500/10 border border-red-500/20">
-                            <AlertTriangle className="h-12 w-12 text-red-700 dark:text-red-500" />
-                        </div>
-                    </div>
+                    <AlertTriangle className="h-12 w-12 text-vibe-link" aria-hidden="true" />
                 </div>
 
-                <h1 className="text-2xl font-bold mb-4 text-foreground text-balance">
+                <h1 className="font-display uppercase leading-[0.9] text-[clamp(40px,6vw,72px)] mb-6 text-foreground text-balance">
                     Something Went Wrong
                 </h1>
 
-                <p className="text-muted-foreground mb-2">
+                <p className="text-base text-muted-foreground mb-2">
                     We apologize for the inconvenience.
                 </p>
 
                 {process.env.NODE_ENV === "development" && error.message && (
-                    <p className="text-sm text-muted-foreground/70 mb-8 font-mono bg-muted/50 p-3 rounded-lg">
+                    <p className="text-[15px] text-foreground mb-8 font-mono bg-secondary p-3 rounded-none text-left break-all" /* taste-skill-ignore */>
                         {error.message}
                     </p>
                 )}
 
                 {process.env.NODE_ENV !== "development" && (
-                    <p className="text-sm text-muted-foreground/70 mb-8">
+                    <p className="text-base text-muted-foreground mb-8">
                         An unexpected error occurred. Please try again or contact support if the problem persists.
                     </p>
                 )}
@@ -55,14 +50,15 @@ export default function Error({
                 <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
                     <Button
                         onClick={reset}
-                        variant="default"
-                        className="rounded-full"
+                        variant="gradient"
+                        size="lg"
+                        className="rounded-none"
                     >
                         <RefreshCw className="mr-2 h-4 w-4" />
                         Try Again
                     </Button>
 
-                    <Button asChild variant="outline" className="rounded-full">
+                    <Button asChild variant="secondary" size="lg" className="rounded-none">
                         <Link href="/">
                             <Home className="mr-2 h-4 w-4" />
                             Go Home
@@ -72,13 +68,13 @@ export default function Error({
 
                 {/* Debug Info */}
                 {process.env.NODE_ENV === "development" && error.digest && (
-                    <div className="mt-8 pt-8 border-t border-border">
+                    <div className="mt-10">
                         <details className="text-left">
-                            <summary className="text-sm text-muted-foreground cursor-pointer hover:text-foreground flex items-center gap-2">
+                            <summary className="text-base text-muted-foreground cursor-pointer hover:text-foreground flex items-center gap-2">
                                 <Bug className="h-4 w-4" />
                                 Debug Information
                             </summary>
-                            <div className="mt-4 space-y-2 text-xs font-mono text-muted-foreground/80">
+                            <div className="mt-4 space-y-2 text-[13px] font-mono text-foreground bg-secondary p-3" /* taste-skill-ignore */>
                                 <p>
                                     <span className="font-semibold">Digest:</span> {error.digest}
                                 </p>
@@ -96,13 +92,13 @@ export default function Error({
                     </div>
                 )}
 
-                <div className="mt-8 pt-8 border-t border-border">
-                    <p className="text-sm text-muted-foreground mb-4">
+                <div className="mt-10">
+                    <p className="text-base text-muted-foreground mb-4">
                         Still having trouble?
                     </p>
                     <Link
                         href="mailto:hello@usevibestack.com"
-                        className="text-sm text-vibe-link hover:text-vibe-link transition-colors"
+                        className="text-base font-semibold text-vibe-link underline-offset-4 hover:underline"
                     >
                         Contact Support
                     </Link>

@@ -1,14 +1,12 @@
 import { getVerifiedTestimonials, getFeaturedStackRanking, resolveFeaturedStacks } from "@/lib/data/stacks";
 import { getTools } from "@/lib/tools-db";
 import { stacks } from "@/lib/stacks";
-import { blogPosts } from "@/lib/blog";
 import { VibeHero } from "@/components/landing/VibeHero";
+import type { StackPick } from "@/components/landing/StackPicker";
 import { ToolCategories } from "@/components/landing/ToolCategories";
 import { PopularTools } from "@/components/landing/PopularTools";
 import { FeaturedStacks } from "@/components/landing/FeaturedStacks";
 import { FeaturedGuides } from "@/components/landing/FeaturedGuides";
-import { StatsSection } from "@/components/landing/StatsSection";
-import { HowItWorks } from "@/components/landing/HowItWorks";
 import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 
@@ -36,6 +34,26 @@ export default async function Home() {
   // does, and what keeps it from linking a stack id that /stack/[stackId]
   // (dynamicParams = false) would 404 on. See lib/data/stacks/core.ts.
   const featuredStacks = resolveFeaturedStacks(featuredRanking, allTools, 6);
+
+  // Hero stack picker: the same resolved stacks (retired tools already dropped),
+  // plus the goal label (`idealFor[0]`) and setup steps (`workflow`) from
+  // lib/stacks.ts, which FeaturedStack does not carry. Stacks left with no live
+  // tools are skipped so the picker never shows an empty "A + B" line.
+  const stackPicks: StackPick[] = featuredStacks
+    .flatMap((featured) => {
+      const source = stacks.find((stack) => stack.id === featured.id);
+      if (!source || featured.tools.length === 0) return [];
+      return [{
+        id: featured.id,
+        name: featured.name,
+        goal: source.idealFor[0] ?? featured.name,
+        tools: featured.tools.map((tool) => tool.name),
+        toolSlugs: featured.tools.map((tool) => tool.slug),
+        price: featured.totalPrice,
+        steps: source.workflow.slice(0, 4).map((step) => step.replace(/^\s*\d+\.\s*/, "")),
+      }];
+    })
+    .slice(0, 6);
 
   // Real per-category tool counts (category id → count) for the category cards.
   const categoryIdByName: Record<string, string> = {
@@ -66,14 +84,14 @@ export default async function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-svh bg-background text-foreground">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       
       {/* Hero Section */}
-      <VibeHero />
+      <VibeHero stacks={stackPicks} />
       
       {/* Tool Categories - Browse by category */}
       <ToolCategories counts={categoryCounts} />
@@ -87,16 +105,6 @@ export default async function Home() {
       {/* Guides & comparisons — server-rendered links into the blog pillar */}
       <FeaturedGuides />
 
-      {/* Stats - Trust indicators (live counts so they never go stale) */}
-      <StatsSection
-        toolCount={allTools.length}
-        stackCount={stacks.length}
-        guideCount={blogPosts.length}
-      />
-      
-      {/* How It Works */}
-      <HowItWorks />
-      
       {/* Testimonials — only render when we have real, verified ones */}
       {testimonials.length > 0 && <Testimonials testimonials={testimonials} />}
       

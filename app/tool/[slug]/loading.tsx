@@ -4,19 +4,19 @@ import { Container } from "@/components/primitives/Container";
 
 export default function ToolLoading() {
     return (
-        <div className="min-h-screen bg-background pt-32 pb-20">
+        <div className="min-h-dvh bg-background pt-32 pb-20">
             {/* Header Skeleton */}
-            <Section spacing="default" container={false} className="border-b border-border/50 bg-secondary/20">
+            <Section spacing="default" container={false} className="bg-card">
                 <Container size="default">
                     <div className="flex flex-col md:flex-row gap-8 items-start">
-                        <Skeleton className="w-[120px] h-[120px] rounded-2xl shrink-0" />
+                        <Skeleton className="w-[120px] h-[120px] shrink-0 bg-background" />
                         <div className="flex-1 space-y-4">
-                            <Skeleton className="h-10 w-3/4 max-w-sm" />
-                            <Skeleton className="h-6 w-full max-w-2xl" />
+                            <Skeleton className="h-10 w-3/4 max-w-sm bg-background" />
+                            <Skeleton className="h-6 w-full max-w-2xl bg-background" />
                             <div className="flex gap-4">
-                                <Skeleton className="h-6 w-24" />
-                                <Skeleton className="h-6 w-24" />
-                                <Skeleton className="h-6 w-24" />
+                                <Skeleton className="h-6 w-24 bg-background" />
+                                <Skeleton className="h-6 w-24 bg-background" />
+                                <Skeleton className="h-6 w-24 bg-background" />
                             </div>
                         </div>
                     </div>
@@ -40,8 +40,8 @@ export default function ToolLoading() {
                         </div>
                     </div>
                     <div className="space-y-6">
-                        <Skeleton className="h-[300px] w-full rounded-xl" />
-                        <Skeleton className="h-[200px] w-full rounded-xl" />
+                        <Skeleton className="h-[300px] w-full" />
+                        <Skeleton className="h-[200px] w-full" />
                     </div>
                 </div>
             </Section>

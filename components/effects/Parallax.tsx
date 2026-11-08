@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
+import { m, useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
 
 interface ParallaxProps {
     children: React.ReactNode;
@@ -28,7 +28,7 @@ export function Parallax({
 
     return (
         <div ref={ref} className={`relative overflow-hidden ${className}`}>
-            <motion.div style={{ y: smoothY }}>{children}</motion.div>
+            <m.div style={{ y: smoothY }}>{children}</m.div>
         </div>
     );
 }
@@ -53,12 +53,12 @@ export function ParallaxBackground({
 
     return (
         <div ref={ref} className={`relative ${className}`}>
-            <motion.div
+            <m.div
                 className="absolute inset-0 -z-10"
                 style={{ y }}
             >
                 {children}
-            </motion.div>
+            </m.div>
         </div>
     );
 }
@@ -78,11 +78,11 @@ export function ParallaxScale({
     });
 
     const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
-    const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
+    // Scale only: content stays fully opaque (no opacity:0 start).
 
     return (
         <div ref={ref} className={`relative ${className}`}>
-            <motion.div style={{ scale, opacity }}>{children}</motion.div>
+            <m.div style={{ scale }}>{children}</m.div>
         </div>
     );
 }
@@ -135,7 +135,7 @@ function ParallaxLayer({
     const y = useTransform(progress, [0, 1], [0, layer.speed * 200]);
 
     return (
-        <motion.div
+        <m.div
             className="absolute inset-0"
             style={{
                 y,
@@ -143,7 +143,7 @@ function ParallaxLayer({
             }}
         >
             {layer.children}
-        </motion.div>
+        </m.div>
     );
 }
 
@@ -200,9 +200,9 @@ function ParallaxWord({
 
     return (
         <span className={className}>
-            <motion.span className="inline-block" style={{ y }}>
+            <m.span className="inline-block" style={{ y }}>
                 {word}
-            </motion.span>
+            </m.span>
         </span>
     );
 }
@@ -225,9 +225,9 @@ export function HorizontalParallax({
 
     return (
         <div ref={ref} className={`relative overflow-hidden ${className}`}>
-            <motion.div style={{ x }} className="flex gap-4">
+            <m.div style={{ x }} className="flex gap-4">
                 {children}
-            </motion.div>
+            </m.div>
         </div>
     );
 }

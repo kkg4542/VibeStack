@@ -38,24 +38,23 @@ export function Navbar() {
 
     return (
         <LazyMotionProvider>
-            <header className="fixed top-0 z-50 w-full border-b border-border/50 backdrop-blur-obsidian">
+            <header className="fixed top-0 z-50 w-full bg-card">
                 <Container className="flex h-16 items-center justify-between">
                     {/* Logo area */}
-                    <div className="flex items-center gap-2">
+                    <div className="flex min-w-0 items-center gap-2">
                         <Link id="navbar-logo" href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80" aria-label="VibeStack Home">
-                            <span className="text-2xl font-black tracking-tighter bg-linear-to-r from-vibe-electric via-vibe-purple to-vibe-pink bg-clip-text text-transparent italic">
+                            <span className="font-display text-3xl text-foreground">
                                 VibeStack
                             </span>
                         </Link>
 
                         {/* Desktop Navigation */}
-                        <nav className="hidden items-center gap-6 md:flex ml-8">
+                        <nav className="hidden items-center gap-4 md:flex ml-6 lg:ml-8 lg:gap-6">
                             <Link
                                 id="nav-link-build"
                                 href="/build"
                                 aria-current={pathname === '/build' ? 'page' : undefined}
-                                className={`text-sm font-medium transition-colors hover:text-foreground ${pathname === '/build' ? 'text-foreground' : 'text-muted-foreground'
-                                    }`}
+                                className="inline-flex h-8 items-center rounded-md bg-vibe-electric px-3 text-sm font-semibold text-vibe-deep transition-colors hover:bg-vibe-electric/90 motion-reduce:transition-none"
                             >
                                 Find Stack
                             </Link>
@@ -90,7 +89,7 @@ export function Navbar() {
                                 id="nav-link-faq"
                                 href="/faq"
                                 aria-current={pathname === '/faq' ? 'page' : undefined}
-                                className={`text-sm font-medium transition-colors hover:text-foreground ${pathname === '/faq' ? 'text-foreground' : 'text-muted-foreground'
+                                className={`hidden lg:inline text-sm font-medium transition-colors hover:text-foreground ${pathname === '/faq' ? 'text-foreground' : 'text-muted-foreground'
                                     }`}
                             >
                                 FAQ
@@ -98,15 +97,16 @@ export function Navbar() {
                         </nav>
                     </div>
 
-                    {/* Right Actions */}
-                    <div className="flex items-center gap-2">
+                    {/* Right Actions — shrink-0 so it never gets pushed past the
+                        container padding; at md (768–1023px) FAQ and the
+                        favorites icon move out (both stay in the footer) and
+                        gaps tighten so Sign In keeps the full 24px edge inset. */}
+                    <div className="flex shrink-0 items-center gap-1 lg:gap-2">
                         <CommandMenu />
-
-                        <div className="hidden h-4 w-px bg-border md:block"></div>
 
                         <ThemeToggle />
 
-                        <div className="hidden md:block">
+                        <div className="hidden lg:block">
                             <TooltipProvider>
                                 <Tooltip>
                                     <TooltipTrigger asChild>

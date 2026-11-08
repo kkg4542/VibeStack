@@ -16,30 +16,31 @@ interface ReviewItemProps {
 
 export function ReviewItem({ review }: ReviewItemProps) {
     return (
-        <div className="p-6 rounded-xl bg-secondary/30 border border-border/30 backdrop-blur-sm">
-            <div className="flex items-start justify-between mb-4">
+        <div className="bg-card p-6">
+            <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
                 <div className="flex items-center gap-3">
                     <Avatar>
                         <AvatarImage src={review.user.image || ""} />
                         <AvatarFallback>{review.user.name?.charAt(0) || "U"}</AvatarFallback>
                     </Avatar>
                     <div>
-                        <p className="font-medium text-sm">{review.user.name || "Anonymous"}</p>
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-base font-semibold text-foreground">{review.user.name || "Anonymous"}</p>
+                        <p className="text-[14px] text-muted-foreground">
                             {new Date(review.createdAt).toLocaleDateString()}
                         </p>
                     </div>
                 </div>
-                <div className="flex text-yellow-700 dark:text-yellow-500" role="img" aria-label={`${review.rating} out of 5 stars`}>
+                <div className="flex text-vibe-link" role="img" aria-label={`${review.rating} out of 5 stars`}>
                     {[...Array(5)].map((_, i) => (
                         <Star
                             key={i}
-                            className={`w-4 h-4 ${i < review.rating ? "fill-current" : "text-muted-foreground/30"}`}
+                            aria-hidden="true"
+                            className={`h-4 w-4 ${i < review.rating ? "fill-current" : "text-muted-foreground/40"}`}
                         />
                     ))}
                 </div>
             </div>
-            <p className="text-foreground/80 leading-relaxed text-sm">
+            <p className="text-base leading-normal text-foreground">
                 {review.content}
             </p>
         </div>

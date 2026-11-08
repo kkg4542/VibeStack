@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import {
     HelpCircle,
     Search,
@@ -10,11 +10,9 @@ import {
     Mail,
     Sparkles
 } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
-import { designSystem } from "@/lib/design-system";
 import Link from "next/link";
 import { Container } from "@/components/primitives/Container";
 
@@ -101,31 +99,35 @@ const faqCategories = [
     }
 ];
 
+const FOCUS = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link";
+
 function FAQItem({ question, answer }: { question: string; answer: string }) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <Card className="border-border/50 overflow-hidden">
+        <div className="overflow-hidden bg-card">
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-full p-6 flex items-center justify-between text-left hover:bg-secondary/30 transition-colors"
+                aria-expanded={isOpen}
+                className={`flex w-full items-center justify-between p-6 text-left transition-colors hover:bg-accent ${FOCUS}`}
             >
-                <span className="font-semibold text-foreground pr-4">{question}</span>
+                <span className="pr-4 text-[17px] font-semibold text-foreground">{question}</span>
                 <ChevronDown
-                    className={`h-5 w-5 text-muted-foreground flex-shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+                    aria-hidden="true"
+                    className={`h-5 w-5 shrink-0 text-muted-foreground transition-transform duration-200 motion-reduce:transition-none ${isOpen ? 'rotate-180' : ''}`}
                 />
             </button>
-            <motion.div
+            <m.div
                 initial={false}
                 animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
                 transition={{ duration: 0.2 }}
                 className="overflow-hidden"
             >
-                <CardContent className="pt-0 pb-6 px-6">
-                    <p className="text-muted-foreground leading-relaxed">{answer}</p>
-                </CardContent>
-            </motion.div>
-        </Card>
+                <div className="px-6 pb-6">
+                    <p className="text-[16px] leading-relaxed text-muted-foreground">{answer}</p>
+                </div>
+            </m.div>
+        </div>
     );
 }
 
@@ -144,115 +146,77 @@ export default function FAQPage() {
     return (
         <PageBackground {...BackgroundPresets.content}>
             <Container size="small">
-                {/* Hero Section */}
-                <motion.div
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={designSystem.animations.fadeInUp.transition}
-                    className="text-center mb-12"
-                >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-link text-sm font-medium mb-6">
-                        <HelpCircle className="w-4 h-4" />
-                        <span>FAQ</span>
-                    </div>
+                {/* Hero */}
+                <header className="mb-16 pt-8">
+                    <p className="mb-5 text-[16px] font-semibold text-vibe-link">FAQ</p>
 
-                    <h1 className={`${designSystem.typography.hero} mb-6`}>
-                        Frequently Asked{" "}
-                        <span className="text-gradient-brand">
-                            Questions
-                        </span>
+                    <h1 className="mb-6 max-w-[14ch] font-display text-balance text-[clamp(40px,6vw,96px)] uppercase leading-[0.88] tracking-[-0.005em] text-foreground">
+                        Frequently Asked Questions
                     </h1>
 
-                    <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-8">
+                    <p className="mb-10 max-w-[60ch] text-[18px] leading-normal text-muted-foreground">
                         Everything you need to know about VibeStack. Can&apos;t find what you&apos;re looking for? Reach out to us directly.
                     </p>
 
                     {/* Search */}
-                    <div className="max-w-xl mx-auto relative">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                    <div className="relative max-w-xl">
+                        <Search aria-hidden="true" className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
                         <Input
                             type="text"
                             placeholder="Search questions..."
                             aria-label="Search questions"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-12 pr-4 py-4 rounded-2xl bg-card/50 border border-border/40 backdrop-blur-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all"
+                            className="h-14 w-full border-0 bg-card pl-12 pr-4 text-foreground placeholder:text-muted-foreground"
                         />
                     </div>
-                </motion.div>
+                </header>
 
-                {/* FAQ Categories */}
-                <div className="space-y-12">
-                    {filteredCategories.map((category, categoryIndex) => {
+                {/* FAQ categories */}
+                <div className="space-y-16">
+                    {filteredCategories.map((category) => {
                         const Icon = category.icon;
                         return (
-                            <motion.div
-                                key={category.title}
-                                initial={designSystem.animations.fadeInUp.initial}
-                                animate={designSystem.animations.fadeInUp.animate}
-                                transition={{ ...designSystem.animations.fadeInUp.transition, delay: categoryIndex * 0.1 }}
-                            >
-                                <div className="flex items-center gap-3 mb-6">
-                                    <div className="p-2 rounded-lg bg-vibe-electric/10">
-                                        <Icon className="w-5 h-5 text-vibe-link" />
-                                    </div>
-                                    <h2 className="text-xl font-bold">{category.title}</h2>
+                            <section key={category.title}>
+                                <div className="mb-6 flex items-center gap-3">
+                                    <Icon aria-hidden="true" className="h-6 w-6 text-vibe-link" />
+                                    <h2 className="text-[24px] font-semibold">{category.title}</h2>
                                 </div>
 
-                                <div className="space-y-4">
-                                    {category.questions.map((q, qIndex) => (
-                                        <motion.div
-                                            key={q.question}
-                                            initial={designSystem.animations.fadeInUp.initial}
-                                            animate={designSystem.animations.fadeInUp.animate}
-                                            transition={{ ...designSystem.animations.fadeInUp.transition, delay: qIndex * 0.05 }}
-                                        >
-                                            <FAQItem question={q.question} answer={q.answer} />
-                                        </motion.div>
+                                <div className="space-y-2">
+                                    {category.questions.map((q) => (
+                                        <FAQItem key={q.question} question={q.question} answer={q.answer} />
                                     ))}
                                 </div>
-                            </motion.div>
+                            </section>
                         );
                     })}
                 </div>
 
                 {filteredCategories.length === 0 && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="text-center py-16"
-                    >
-                        <HelpCircle className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                        <p className="text-muted-foreground">No questions found matching your search.</p>
+                    <div className="bg-card px-6 py-16 text-center">
+                        <HelpCircle aria-hidden="true" className="mx-auto mb-4 h-10 w-10 text-muted-foreground" />
+                        <p className="text-[17px] text-muted-foreground">No questions found matching your search.</p>
                         <Button
-                            variant="outline"
-                            className="mt-4"
+                            variant="secondary"
+                            className="mt-6 h-11 rounded-none px-6 text-[16px]"
                             onClick={() => setSearchQuery("")}
                         >
                             Clear Search
                         </Button>
-                    </motion.div>
+                    </div>
                 )}
 
                 {/* Contact CTA */}
-                <motion.div
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.5 }}
-                    className="mt-16 text-center"
-                >
-                    <Card className="border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-vibe-purple/5">
-                        <CardContent className="p-8">
-                            <h3 className="text-xl font-bold mb-2">Still have questions?</h3>
-                            <p className="text-muted-foreground mb-6">
-                                Can&apos;t find the answer you&apos;re looking for? Please reach out to our team.
-                            </p>
-                            <Button asChild className="rounded-full">
-                                <Link href="/about">Contact Us</Link>
-                            </Button>
-                        </CardContent>
-                    </Card>
-                </motion.div>
+                <div className="mt-20 bg-foreground p-8 text-background sm:p-10">
+                    <h3 className="mb-2 font-display text-[clamp(32px,4vw,48px)] uppercase leading-[0.9] tracking-[-0.005em]">Still have questions?</h3>
+                    <p className="mb-6 text-[17px] leading-normal">
+                        Can&apos;t find the answer you&apos;re looking for? Please reach out to our team.
+                    </p>
+                    <Button asChild className="h-12 rounded-none px-7 text-[16px] font-semibold">
+                        <Link href="/about">Contact Us</Link>
+                    </Button>
+                </div>
             </Container>
         </PageBackground>
     );

@@ -93,40 +93,39 @@ export function ExitIntentPopup({ toolSlug, toolName }: ExitIntentPopupProps) {
         <>
           {/* Backdrop */}
           <m.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={false}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
+            className="fixed inset-0 bg-black/60 z-50"
             onClick={handleClose}
           />
 
           {/* Popup */}
           <m.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 1, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 16 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
             className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-md px-4"
           >
-            <Card className="relative overflow-hidden border-vibe-electric/20">
+            <Card className="relative overflow-hidden rounded-none shadow-lg"> {/* taste-skill-ignore (real overlay) */}
               {/* Close button */}
               <button
                 onClick={handleClose}
-                className="absolute top-4 right-4 p-2 rounded-full hover:bg-muted transition-colors z-10"
+                aria-label="Close"
+                className="absolute top-4 right-4 p-2 rounded-none hover:bg-accent transition-colors z-10 focus-visible:outline-2 focus-visible:outline-ring"
               >
                 <X className="w-5 h-5 text-muted-foreground" />
               </button>
 
-              {/* Decorative gradient */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-vibe-electric via-vibe-purple to-vibe-pink" />
+              {/* Signature orange bar */}
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-vibe-electric" />
 
               <CardContent className="p-8">
                 {!isSubmitted ? (
                   <>
                     <div className="text-center mb-6">
-                      <div className="w-16 h-16 rounded-full bg-vibe-electric/10 flex items-center justify-center mx-auto mb-4">
-                        <Gift className="w-8 h-8 text-vibe-link" />
-                      </div>
-                      <h3 className="text-2xl font-bold mb-2">
+                      <Gift className="w-8 h-8 text-vibe-link mx-auto mb-4" aria-hidden="true" />
+                      <h3 className="font-display uppercase text-4xl leading-[0.88] tracking-[-0.005em] mb-3">
                         Wait! Don&apos;t Miss Out
                       </h3>
                       <p className="text-muted-foreground">
@@ -153,29 +152,27 @@ export function ExitIntentPopup({ toolSlug, toolName }: ExitIntentPopupProps) {
                       </div>
                       <Button
                         type="submit"
-                        className="w-full h-12 rounded-full"
+                        className="w-full h-12 rounded-none"
                         size="lg"
                       >
                         <Download className="w-4 h-4 mr-2" />
                         {toolName ? "Get Discount Alerts" : "Get Free Guide"}
                       </Button>
-                      <p className="text-xs text-center text-muted-foreground">
+                      <p className="text-[13px] text-center text-muted-foreground">
                         No spam. Unsubscribe anytime.
                       </p>
                     </form>
                   </>
                 ) : (
                   <div className="text-center py-4">
-                    <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
-                      <svg className="w-8 h-8 text-emerald-700 dark:text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">You&apos;re In!</h3>
+                    <svg className="w-8 h-8 text-vibe-link mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <h3 className="font-display uppercase text-4xl leading-[0.88] tracking-[-0.005em] mb-3">You&apos;re In!</h3>
                     <p className="text-muted-foreground mb-4">
                       Check your inbox for the confirmation email.
                     </p>
-                    <Button onClick={handleClose} variant="outline" className="rounded-full">
+                    <Button onClick={handleClose} variant="outline" className="rounded-none">
                       Continue Browsing
                     </Button>
                   </div>

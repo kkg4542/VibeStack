@@ -1,138 +1,122 @@
-import { MotionDiv, MotionSection, MotionLi, MotionSpan, MotionP, MotionH1, MotionH2, MotionH3 } from "@/components/ui/motion-wrapper";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Star, ShieldCheck, Sparkles, Target, Zap, TrendingUp, Heart, Scale } from "lucide-react";
+import { Star, ShieldCheck, Sparkles, Heart, Scale } from "lucide-react";
 import { ToolIconRenderer } from "@/components/tools/ToolIconRenderer";
 import { AffiliateLink } from "@/components/ui/AffiliateLink";
 import { SocialShare } from "@/components/ui/SocialShare";
-import { designSystem } from "@/lib/design-system";
 import Link from "next/link";
 
+/**
+ * Tool page hero: one flat surface field (bg-card) with no lines, glow or
+ * gradient. The tool icon sits on a flat square one tone step down
+ * (bg-background; bg-secondary is the same tone as bg-card in both themes and
+ * would disappear here) in text-foreground, never in the tool's own colour.
+ *
+ * Server component, no entrance animation: everything is in the SSR HTML at
+ * full opacity.
+ *
+ * 375px: the text column is `w-full self-stretch min-w-0` so long titles and
+ * descriptions wrap instead of widening the flex row, and every action row
+ * wraps.
+ */
 export function ToolHero({ tool }: { tool: any }) {
+  const stats = [
+    { label: "Category", value: tool.category },
+    { label: "Pricing", value: tool.pricing },
+    { label: "Features", value: tool.features?.length || 0 },
+  ];
+
   return (
-                <MotionDiv
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={{ ...designSystem.animations.fadeInUp.transition, duration: 0.8 }}
-                    className="mb-16"
-                >
-                    <div className="bg-linear-to-br from-vibe-electric/5 via-vibe-purple/5 to-vibe-pink/5 rounded-3xl p-8 md:p-12 border border-vibe-electric/10 relative overflow-hidden">
-                        {/* Decorative Elements */}
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-vibe-electric/10 blur-[100px] rounded-full" />
-                        <div className="absolute bottom-0 left-0 w-48 h-48 bg-vibe-purple/10 blur-[80px] rounded-full" />
+    <section className="mb-16 bg-card px-5 py-8 text-foreground sm:px-8 md:px-12 md:py-12">
+      <div className="flex flex-col items-start gap-8 lg:flex-row lg:gap-12">
+        {/* Icon & rating */}
+        <div className="flex shrink-0 items-center gap-5 lg:flex-col lg:items-start">
+          <div className="flex h-24 w-24 items-center justify-center bg-background text-foreground md:h-28 md:w-28">
+            <ToolIconRenderer slug={tool.slug} className="h-12 w-12 text-foreground md:h-14 md:w-14" />
+          </div>
+          {tool.review && (
+            <p className="flex items-baseline gap-1.5">
+              <Star aria-hidden="true" className="h-5 w-5 self-center fill-current text-vibe-link" />
+              <span className="font-display text-[40px] leading-[0.88] tabular-nums">{tool.review.rating}</span>
+              <span className="text-[15px] text-muted-foreground">/ 5</span>
+            </p>
+          )}
+        </div>
 
-                        <div className="relative z-10 flex flex-col lg:flex-row gap-8 items-start">
-                            {/* Icon & Rating */}
-                            <MotionDiv
-                                className="shrink-0"
-                                initial={{ scale: 0.8, opacity: 0 }}
-                                animate={{ scale: 1, opacity: 1 }}
-                                transition={{ duration: 0.5, delay: 0.2 }}
-                            >
-                                <div className={`p-6 rounded-3xl bg-linear-to-br ${tool.bgGradient} border border-border/20 shadow-2xl shadow-vibe-electric/10`}>
-                                    <ToolIconRenderer slug={tool.slug} className="h-16 w-16 text-foreground" />
-                                </div>
-                                {tool.review && (
-                                    <div className="mt-4 flex items-center justify-center gap-1 bg-yellow-500/10 rounded-full px-3 py-1">
-                                        <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                                        <span className="text-sm font-bold text-yellow-700 dark:text-yellow-400">{tool.review.rating}</span>
-                                    </div>
-                                )}
-                            </MotionDiv>
+        <div className="w-full min-w-0 flex-1 self-stretch">
+          {/* Tags: flat squares and plain text, no tinted pills */}
+          <div className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-[15px]">
+            <span className="bg-background px-3 py-1.5 font-semibold text-foreground">{tool.category}</span>
+            <span className="bg-vibe-electric px-3 py-1.5 font-semibold text-vibe-deep">{tool.pricing}</span>
+            <span className="inline-flex items-center gap-1.5 text-muted-foreground">
+              <ShieldCheck aria-hidden="true" className="h-4 w-4 text-foreground" />
+              Vetted
+            </span>
+            {tool.isFeatured && (
+              <span className="inline-flex items-center gap-1.5 text-muted-foreground">
+                <Sparkles aria-hidden="true" className="h-4 w-4 text-foreground" />
+                Featured
+              </span>
+            )}
+          </div>
 
-                            <div className="flex-1 min-w-0">
-                                {/* Badges */}
-                                <div className="flex flex-wrap items-center gap-3 mb-4">
-                                    <Badge variant="outline" className="text-muted-foreground border-border/30 bg-muted backdrop-blur-sm">
-                                        {tool.category}
-                                    </Badge>
-                                    <Badge className="bg-vibe-electric/10 text-vibe-link hover:bg-vibe-electric/20 border-vibe-electric/20">
-                                        {tool.pricing}
-                                    </Badge>
-                                    <Badge className="bg-emerald-500/10 text-emerald-800 dark:text-emerald-400 border-emerald-500/20">
-                                        <ShieldCheck className="h-3 w-3 mr-1" />
-                                        Vetted
-                                    </Badge>
-                                    {tool.isFeatured && (
-                                        <Badge className="bg-amber-500/10 text-amber-800 dark:text-amber-400 border-amber-500/20">
-                                            <Sparkles className="h-3 w-3 mr-1" />
-                                            Featured
-                                        </Badge>
-                                    )}
-                                </div>
+          {/* Title */}
+          <h1 className="mb-6 font-display text-[clamp(40px,6vw,96px)] uppercase leading-[0.88] tracking-[-0.005em] text-foreground text-balance wrap-break-word">
+            {tool.title}
+          </h1>
 
-                                {/* Title */}
-                                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 bg-linear-to-r from-foreground to-foreground/70 bg-clip-text text-transparent text-balance">
-                                    {tool.title}
-                                </h1>
+          {/* Description */}
+          <p className="mb-8 max-w-3xl text-[18px] leading-normal text-muted-foreground md:text-[20px]">
+            {tool.description}
+          </p>
 
-                                {/* Description */}
-                                <p className="text-xl text-muted-foreground mb-8 max-w-3xl leading-relaxed">
-                                    {tool.description}
-                                </p>
+          {/* Quick stats: three flat cells one tone step down */}
+          <dl className="mb-8 grid max-w-3xl grid-cols-1 gap-1 sm:grid-cols-3">
+            {stats.map((stat) => (
+              <div key={stat.label} className="flex min-w-0 flex-col-reverse gap-1 bg-background px-4 py-3">
+                <dt className="text-[14px] text-muted-foreground">{stat.label}</dt>
+                <dd className="truncate text-[18px] font-semibold text-foreground">{stat.value}</dd>
+              </div>
+            ))}
+          </dl>
 
-                                {/* Quick Stats */}
-                                <div className="flex flex-wrap gap-6 mb-8">
-                                    <div className="flex items-center gap-2 text-sm">
-                                        <div className="p-2 rounded-lg bg-emerald-500/10">
-                                            <Target className="h-4 w-4 text-emerald-700 dark:text-emerald-500" />
-                                        </div>
-                                        <div>
-                                            <div className="font-bold text-foreground">{tool.category}</div>
-                                            <div className="text-muted-foreground text-xs">Category</div>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center gap-2 text-sm">
-                                        <div className="p-2 rounded-lg bg-blue-500/10">
-                                            <Zap className="h-4 w-4 text-blue-700 dark:text-blue-500" />
-                                        </div>
-                                        <div>
-                                            <div className="font-bold text-foreground">{tool.pricing}</div>
-                                            <div className="text-muted-foreground text-xs">Pricing</div>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center gap-2 text-sm">
-                                        <div className="p-2 rounded-lg bg-violet-500/10">
-                                            <TrendingUp className="h-4 w-4 text-violet-700 dark:text-violet-500" />
-                                        </div>
-                                        <div>
-                                            <div className="font-bold text-foreground">{tool.features?.length || 0}</div>
-                                            <div className="text-muted-foreground text-xs">Features</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Action Buttons */}
-                                <div className="flex flex-col sm:flex-row gap-4">
-                                    <AffiliateLink
-                                        url={tool.affiliateUrl || tool.websiteUrl}
-                                        toolSlug={tool.slug}
-                                        toolName={tool.title}
-                                        className="h-12 px-8 rounded-full"
-                                    >
-                                        Visit Website
-                                    </AffiliateLink>
-                                    <div className="flex gap-3">
-                                        <SocialShare
-                                            toolSlug={tool.slug}
-                                            toolName={tool.title}
-                                            url={`https://usevibestack.com/tool/${tool.slug}`}
-                                        />
-                                        <Button variant="outline" className="h-12 px-6 rounded-full border-border/60 hover:bg-accent/50">
-                                            <Heart className="h-4 w-4 mr-2" />
-                                            Save
-                                        </Button>
-                                        <Button variant="outline" className="h-12 px-6 rounded-full border-border/60 hover:bg-accent/50" asChild>
-                                            <Link href={`/compare?tools=${tool.slug}`}>
-                                                <Scale className="h-4 w-4 mr-2" />
-                                                Compare
-                                            </Link>
-                                        </Button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </MotionDiv>
+          {/* Action buttons */}
+          <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+            <AffiliateLink
+              url={tool.affiliateUrl || tool.websiteUrl}
+              toolSlug={tool.slug}
+              toolName={tool.title}
+              pricing={tool.pricing}
+              className="h-12 rounded-none px-8 text-[16px] font-semibold"
+            >
+              Visit Website
+            </AffiliateLink>
+            <div className="flex flex-wrap gap-3">
+              <SocialShare
+                toolSlug={tool.slug}
+                toolName={tool.title}
+                url={`https://usevibestack.com/tool/${tool.slug}`}
+              />
+              <Button
+                variant="secondary"
+                className="h-12 rounded-none bg-background px-6 text-[16px] text-foreground hover:bg-accent"
+              >
+                <Heart aria-hidden="true" className="mr-2 h-4 w-4" />
+                Save
+              </Button>
+              <Button
+                variant="secondary"
+                className="h-12 rounded-none bg-background px-6 text-[16px] text-foreground hover:bg-accent"
+                asChild
+              >
+                <Link href={`/compare?tools=${tool.slug}`}>
+                  <Scale aria-hidden="true" className="mr-2 h-4 w-4" />
+                  Compare
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

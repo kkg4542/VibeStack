@@ -1,28 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import {
-    Upload,
     CheckCircle2,
     XCircle,
     AlertCircle,
     Sparkles,
     ArrowRight,
-    Clock,
-    Star,
-    Zap,
-    Shield,
-    FileCheck,
-    MessageSquare,
     Mail,
-    ExternalLink,
-    Check,
-    TrendingUp,
-    Award
+    Check
 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -31,9 +18,12 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useCsrfFetch } from "@/hooks/useCsrfFetch";
 import { Section } from "@/components/primitives/Section";
-import { designSystem } from "@/lib/design-system";
 
 import { pricingPlans, criteria } from "./data";
+
+const FOCUS = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link";
+const H2 = "font-display text-balance text-[clamp(32px,4vw,56px)] uppercase leading-[0.9] tracking-[-0.005em] text-foreground";
+const SELECT = `h-11 w-full rounded-none border border-input bg-background px-3 text-[16px] ${FOCUS}`;
 
 export default function SubmitToolPage() {
     const searchParams = useSearchParams();
@@ -97,26 +87,22 @@ export default function SubmitToolPage() {
         return (
             <PageBackground {...BackgroundPresets.content}>
                 <Section spacing="large" containerSize="xs">
-                    <Card className="text-center">
-                        <CardContent className="p-12">
-                            <div className="w-20 h-20 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-6">
-                                <CheckCircle2 className="w-10 h-10 text-emerald-700 dark:text-emerald-500" />
-                            </div>
-                            <h2 className="text-3xl font-bold mb-4">Submission Received!</h2>
-                            <p className="text-muted-foreground mb-8">
-                                Thank you for submitting your tool. We&apos;ve sent a confirmation email{submittedEmail ? ` to ${submittedEmail}` : ""}.
-                                {selectedPlan !== "free" && " Your payment has been received."}
-                            </p>
-                            <div className="flex justify-center gap-4">
-                                <Button asChild variant="outline">
-                                    <Link href="/tools">Browse Tools</Link>
-                                </Button>
-                                <Button asChild>
-                                    <Link href="/">Back to Home</Link>
-                                </Button>
-                            </div>
-                        </CardContent>
-                    </Card>
+                    <div className="bg-card p-8 sm:p-12">
+                        <CheckCircle2 aria-hidden="true" className="mb-6 h-12 w-12 text-vibe-link" />
+                        <h2 className={`${H2} mb-4`}>Submission Received!</h2>
+                        <p className="mb-8 text-[17px] leading-normal text-muted-foreground">
+                            Thank you for submitting your tool. We&apos;ve sent a confirmation email{submittedEmail ? ` to ${submittedEmail}` : ""}.
+                            {selectedPlan !== "free" && " Your payment has been received."}
+                        </p>
+                        <div className="flex flex-wrap gap-3">
+                            <Button asChild variant="secondary" className="h-11 rounded-none bg-background px-6 text-[16px] font-semibold hover:bg-accent">
+                                <Link href="/tools">Browse Tools</Link>
+                            </Button>
+                            <Button asChild className="h-11 rounded-none px-6 text-[16px] font-semibold">
+                                <Link href="/">Back to Home</Link>
+                            </Button>
+                        </div>
+                    </div>
                 </Section>
             </PageBackground>
         );
@@ -125,341 +111,273 @@ export default function SubmitToolPage() {
     return (
         <PageBackground {...BackgroundPresets.content}>
             <Section spacing="small" containerSize="default">
-                {/* Hero Section */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="text-center mb-16"
-                >
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-link text-sm font-medium mb-6"
-                    >
-                        <Upload className="w-4 h-4" />
-                        <span>For Tool Creators</span>
-                    </motion.div>
+                {/* Hero */}
+                <header className="mb-20">
+                    <p className="mb-5 text-[16px] font-semibold text-vibe-link">For Tool Creators</p>
 
-                    <h1 className={`${designSystem.typography.hero} mb-6`}>
-                        Submit Your{" "}
-                        <span className="text-gradient-brand">
-                            AI Tool
-                        </span>
+                    <h1 className="mb-6 font-display text-balance text-[clamp(40px,6vw,96px)] uppercase leading-[0.88] tracking-[-0.005em] text-foreground">
+                        Submit Your AI Tool
                     </h1>
 
-                    <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                    <p className="max-w-[60ch] text-[19px] leading-normal text-muted-foreground">
                         Get your AI tool discovered by thousands of developers. Choose the submission tier that fits your needs.
                     </p>
-                </motion.div>
+                </header>
 
-                {/* Pricing Plans */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className="mb-16"
-                >
-                    <div className="text-center mb-8">
-                        <h2 className="text-2xl font-bold mb-2">Choose Your Submission Tier</h2>
-                        <p className="text-muted-foreground">Select the option that best fits your promotion needs</p>
+                {/* Pricing plans */}
+                <section className="mb-20">
+                    <div className="mb-10">
+                        <h2 className={`${H2} mb-3`}>Choose Your Submission Tier</h2>
+                        <p className="text-[18px] text-muted-foreground">Select the option that best fits your promotion needs</p>
                     </div>
 
-                    <div className="grid md:grid-cols-3 gap-6">
-                        {pricingPlans.map((plan, index) => (
-                            <motion.div
-                                key={plan.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
-                            >
-                                <Card
-                                    className={`h-full cursor-pointer transition-all ${selectedPlan === plan.id
-                                        ? "border-vibe-electric ring-2 ring-vibe-electric/20"
-                                        : "border-border/50 hover:border-vibe-electric/30"
+                    <div className="grid gap-3 md:grid-cols-3 md:gap-6">
+                        {pricingPlans.map((plan) => {
+                            const selected = selectedPlan === plan.id;
+                            return (
+                                <div
+                                    key={plan.id}
+                                    className={`relative flex h-full cursor-pointer flex-col p-6 transition-colors duration-150 sm:p-8 ${selected
+                                        ? "bg-foreground text-background"
+                                        : "bg-card text-foreground hover:bg-accent"
                                         }`}
                                     onClick={() => setSelectedPlan(plan.id)}
                                 >
                                     {plan.popular && (
-                                        <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                                        <Badge className="bg-vibe-electric text-vibe-deep">
-                                            <TrendingUp className="w-3 h-3 mr-1" />
+                                        <span className="absolute right-0 top-0 bg-vibe-electric px-3 py-1.5 text-[14px] font-semibold text-vibe-deep">
                                             Most Popular
-                                        </Badge>
-                                        </div>
+                                        </span>
                                     )}
-                                    <CardHeader className="pb-4">
-                                        <CardTitle className="text-xl">{plan.name}</CardTitle>
-                                        <div className="flex items-baseline gap-1">
-                                            <span className="text-4xl font-bold">{plan.price}</span>
-                                            {plan.id !== "free" && <span className="text-muted-foreground">one-time</span>}
+                                    <div className="mb-6">
+                                        <h3 className="mb-3 text-[20px] font-semibold">{plan.name}</h3>
+                                        <div className="flex items-baseline gap-2">
+                                            <span className="font-display text-[56px] uppercase leading-none">{plan.price}</span>
+                                            {plan.id !== "free" && <span className={selected ? "text-background/75" : "text-muted-foreground"}>one-time</span>}
                                         </div>
-                                        <CardDescription>{plan.description}</CardDescription>
-                                    </CardHeader>
-                                    <CardContent className="pt-0 flex-1 flex flex-col">
-                                        <ul className="space-y-3 mb-6 flex-1">
-                                            {plan.features.map((feature) => (
-                                                <li key={feature} className="flex items-start gap-2">
-                                                    <Check className="w-4 h-4 text-emerald-700 dark:text-emerald-500 mt-0.5 shrink-0" />
-                                                    <span className="text-sm">{feature}</span>
-                                                </li>
-                                            ))}
-                                            {plan.notIncluded.map((item) => (
-                                                <li key={item} className="flex items-start gap-2 text-muted-foreground">
-                                                    <XCircle className="w-4 h-4 mt-0.5 shrink-0" />
-                                                    <span className="text-sm line-through">{item}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                        <Button
-                                            className="w-full mt-auto"
-                                            variant={selectedPlan === plan.id ? "default" : "outline"}
-                                            onClick={() => setSelectedPlan(plan.id)}
-                                        >
-                                            {selectedPlan === plan.id ? (
-                                                <>
-                                                    <Check className="w-4 h-4 mr-2" />
-                                                    Selected
-                                                </>
-                                            ) : (
-                                                plan.cta
-                                            )}
-                                        </Button>
-                                    </CardContent>
-                                </Card>
-                            </motion.div>
-                        ))}
-                    </div>
-                </motion.div>
-
-                {/* Submission Form */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                    className="max-w-2xl mx-auto"
-                >
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Tool Information</CardTitle>
-                            <CardDescription>
-                                Tell us about your AI tool. Selected tier: <strong className="text-vibe-link">
-                                    {pricingPlans.find(p => p.id === selectedPlan)?.name}
-                                </strong>
-                            </CardDescription>
-                            <div className="mt-4 p-3 bg-blue-500/10 rounded-md border border-blue-500/20 text-sm text-blue-700 dark:text-blue-400 flex items-start gap-2">
-                                <Sparkles className="w-4 h-4 mt-0.5 shrink-0" />
-                                <div>
-                                    Want to get approved faster? Check our
-                                    <Link href="/guidelines" target="_blank" rel="noopener noreferrer" className="font-semibold underline ml-1 hover:text-blue-700 dark:hover:text-blue-300">
-                                        Content Quality Guidelines
-                                    </Link> before submitting.
-                                </div>
-                            </div>
-                        </CardHeader>
-                        <CardContent>
-                            <form onSubmit={handleSubmit} className="space-y-6">
-                                <div className="space-y-2">
-                                    <label htmlFor="tool-name" className="text-sm font-medium">Tool Name *</label>
-                                    <Input
-                                        id="tool-name"
-                                        required
-                                        placeholder="e.g., AI Code Assistant"
-                                        value={formData.toolName}
-                                        onChange={(e) => setFormData({ ...formData, toolName: e.target.value })}
-                                    />
-                                    <p className="text-xs text-muted-foreground">
-                                        Official product name only. No slogans or SEO keywords.
-                                    </p>
-                                </div>
-
-                                <div className="space-y-2">
-                                    <label htmlFor="tool-description" className="text-sm font-medium">Description *</label>
-                                    <Textarea
-                                        id="tool-description"
-                                        required
-                                        placeholder="Briefly describe what your tool does and how it helps developers..."
-                                        rows={4}
-                                        value={formData.description}
-                                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                                    />
-                                    <p className="text-xs text-muted-foreground">
-                                        Focus on features and value. Avoid subjective terms like &quot;best&quot;.
-                                    </p>
-                                </div>
-
-                                <div className="space-y-2">
-                                    <label htmlFor="tool-website-url" className="text-sm font-medium">Website URL *</label>
-                                    <Input
-                                        id="tool-website-url"
-                                        required
-                                        type="url"
-                                        placeholder="https://yourtool.com"
-                                        value={formData.websiteUrl}
-                                        onChange={(e) => setFormData({ ...formData, websiteUrl: e.target.value })}
-                                    />
-                                    <p className="text-xs text-muted-foreground">
-                                        Direct link to the homepage. No tracking parameters.
-                                    </p>
-                                </div>
-
-                                <div className="grid md:grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium">Category *</label>
-                                        <select
-                                            required
-                                            className="w-full h-10 px-3 rounded-md border border-input bg-background"
-                                            value={formData.category}
-                                            onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                                        >
-                                            <option value="">Select category</option>
-                                            <option value="Coding">Coding</option>
-                                            <option value="Design">Design</option>
-                                            <option value="Productivity">Productivity</option>
-                                            <option value="Management">Management</option>
-                                            <option value="Assistance">Assistance</option>
-                                            <option value="Other">Other</option>
-                                        </select>
+                                        <p className={`mt-3 text-[16px] ${selected ? "text-background/80" : "text-muted-foreground"}`}>{plan.description}</p>
                                     </div>
-
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium">Pricing Model *</label>
-                                        <select
-                                            required
-                                            className="w-full h-10 px-3 rounded-md border border-input bg-background"
-                                            value={formData.pricing}
-                                            onChange={(e) => setFormData({ ...formData, pricing: e.target.value })}
-                                        >
-                                            <option value="">Select pricing</option>
-                                            <option value="Free">Free</option>
-                                            <option value="Freemium">Freemium</option>
-                                            <option value="Paid">Paid</option>
-                                            <option value="Enterprise">Enterprise</option>
-                                        </select>
-                                    </div>
+                                    <ul className="mb-8 flex-1 space-y-3">
+                                        {plan.features.map((feature) => (
+                                            <li key={feature} className="flex items-start gap-2">
+                                                <Check aria-hidden="true" className={`mt-1 h-4 w-4 shrink-0 ${selected ? "text-vibe-electric" : "text-vibe-link"}`} />
+                                                <span className="text-[16px]">{feature}</span>
+                                            </li>
+                                        ))}
+                                        {plan.notIncluded.map((item) => (
+                                            <li key={item} className={`flex items-start gap-2 ${selected ? "text-background/60" : "text-muted-foreground"}`}>
+                                                <XCircle aria-hidden="true" className="mt-1 h-4 w-4 shrink-0" />
+                                                <span className="text-[16px] line-through">{item}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <Button
+                                        className={`mt-auto h-11 w-full rounded-none text-[16px] font-semibold ${selected ? "" : "bg-background hover:bg-background/80"}`}
+                                        variant={selected ? "default" : "secondary"}
+                                        onClick={() => setSelectedPlan(plan.id)}
+                                    >
+                                        {selected ? (
+                                            <>
+                                                <Check aria-hidden="true" className="mr-2 h-4 w-4" />
+                                                Selected
+                                            </>
+                                        ) : (
+                                            plan.cta
+                                        )}
+                                    </Button>
                                 </div>
-
-                                <div className="space-y-2">
-                                    <label htmlFor="tool-email" className="text-sm font-medium">Your Email *</label>
-                                    <Input
-                                        id="tool-email"
-                                        required
-                                        type="email"
-                                        placeholder="you@example.com"
-                                        value={formData.email}
-                                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                    />
-                                    <p className="text-xs text-muted-foreground">
-                                        We&apos;ll send updates about your submission to this email.
-                                    </p>
-                                </div>
-
-                                <Button
-                                    type="submit"
-                                    size="lg"
-                                    className="w-full rounded-full"
-                                    disabled={isSubmitting}
-                                >
-                                    {isSubmitting ? (
-                                        "Submitting..."
-                                    ) : (
-                                        <>
-                                            Submit Tool
-                                            <ArrowRight className="w-4 h-4 ml-2" />
-                                        </>
-                                    )}
-                                </Button>
-
-                                <p className="text-xs text-center text-muted-foreground">
-                                    By submitting, you agree to our{" "}
-                                    <Link href="/terms" className="underline">Terms</Link> and{" "}
-                                    <Link href="/privacy" className="underline">Privacy Policy</Link>.
-                                </p>
-                            </form>
-                        </CardContent>
-                    </Card>
-                </motion.div>
-
-                {/* Criteria Section */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.5 }}
-                    className="mt-16 mb-16"
-                >
-                    <div className="text-center mb-8">
-                        <h2 className="text-2xl font-bold mb-2">Submission Criteria</h2>
-                        <p className="text-muted-foreground">What we look for in every submission</p>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {criteria.map((item, index) => {
-                            const Icon = item.icon;
-                            return (
-                                <motion.div
-                                    key={item.title}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
-                                >
-                                    <Card className="h-full border-border/50">
-                                        <CardContent className="p-6">
-                                            <div className="flex items-start gap-4">
-                                            <div className="p-3 rounded-xl bg-vibe-electric/10">
-                                                <Icon className="w-6 h-6 text-vibe-link" />
-                                            </div>
-                                                <div className="flex-1">
-                                                    <div className="flex items-center gap-2 mb-1">
-                                                        <h3 className="font-bold">{item.title}</h3>
-                                                        {item.required && (
-                                                            <Badge variant="secondary" className="text-xs">Required</Badge>
-                                                        )}
-                                                    </div>
-                                                    <p className="text-sm text-muted-foreground">{item.description}</p>
-                                                </div>
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-                                </motion.div>
                             );
                         })}
                     </div>
-                </motion.div>
+                </section>
 
-                {/* FAQ Link */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.7 }}
-                >
-                    <Card className="border-border/50">
-                        <CardContent className="p-6">
-                            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                                <div className="flex items-center gap-4">
-                                    <div className="p-3 rounded-xl bg-amber-500/10">
-                                        <AlertCircle className="w-6 h-6 text-amber-700 dark:text-amber-500" />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-bold">Have more questions?</h3>
-                                        <p className="text-sm text-muted-foreground">Check our FAQ or contact us directly</p>
-                                    </div>
-                                </div>
-                                <div className="flex gap-3">
-                                    <Button variant="outline" asChild>
-                                        <Link href="/faq">View FAQ</Link>
-                                    </Button>
-                                    <Button asChild>
-                                        <Link href="/about" className="flex items-center gap-2">
-                                            <Mail className="w-4 h-4" />
-                                            Contact Us
-                                        </Link>
-                                    </Button>
-                                </div>
+                {/* Submission form */}
+                <section className="max-w-2xl bg-card p-6 sm:p-10">
+                    <h2 className="mb-2 text-[26px] font-semibold">Tool Information</h2>
+                    <p className="text-[16px] text-muted-foreground">
+                        Tell us about your AI tool. Selected tier: <strong className="text-vibe-link">
+                            {pricingPlans.find(p => p.id === selectedPlan)?.name}
+                        </strong>
+                    </p>
+                    <div className="mb-8 mt-5 flex items-start gap-2 bg-background p-4 text-[15px] text-foreground">
+                        <Sparkles aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-vibe-link" />
+                        <div>
+                            Want to get approved faster? Check our
+                            <Link href="/guidelines" target="_blank" rel="noopener noreferrer" className="ml-1 font-semibold text-vibe-link underline underline-offset-4">
+                                Content Quality Guidelines
+                            </Link> before submitting.
+                        </div>
+                    </div>
+
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        <div className="space-y-2">
+                            <label htmlFor="tool-name" className="text-[15px] font-semibold">Tool Name *</label>
+                            <Input
+                                id="tool-name"
+                                required
+                                placeholder="e.g., AI Code Assistant"
+                                value={formData.toolName}
+                                onChange={(e) => setFormData({ ...formData, toolName: e.target.value })}
+                                className="bg-background"
+                            />
+                            <p className="text-[14px] text-muted-foreground">
+                                Official product name only. No slogans or SEO keywords.
+                            </p>
+                        </div>
+
+                        <div className="space-y-2">
+                            <label htmlFor="tool-description" className="text-[15px] font-semibold">Description *</label>
+                            <Textarea
+                                id="tool-description"
+                                required
+                                placeholder="Briefly describe what your tool does and how it helps developers..."
+                                rows={4}
+                                value={formData.description}
+                                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                            />
+                            <p className="text-[14px] text-muted-foreground">
+                                Focus on features and value. Avoid subjective terms like &quot;best&quot;.
+                            </p>
+                        </div>
+
+                        <div className="space-y-2">
+                            <label htmlFor="tool-website-url" className="text-[15px] font-semibold">Website URL *</label>
+                            <Input
+                                id="tool-website-url"
+                                required
+                                type="url"
+                                placeholder="https://yourtool.com"
+                                value={formData.websiteUrl}
+                                onChange={(e) => setFormData({ ...formData, websiteUrl: e.target.value })}
+                                className="bg-background"
+                            />
+                            <p className="text-[14px] text-muted-foreground">
+                                Direct link to the homepage. No tracking parameters.
+                            </p>
+                        </div>
+
+                        <div className="grid gap-4 md:grid-cols-2">
+                            <div className="space-y-2">
+                                <label className="text-[15px] font-semibold">Category *</label>
+                                <select
+                                    required
+                                    className={SELECT}
+                                    value={formData.category}
+                                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                                >
+                                    <option value="">Select category</option>
+                                    <option value="Coding">Coding</option>
+                                    <option value="Design">Design</option>
+                                    <option value="Productivity">Productivity</option>
+                                    <option value="Management">Management</option>
+                                    <option value="Assistance">Assistance</option>
+                                    <option value="Other">Other</option>
+                                </select>
                             </div>
-                        </CardContent>
-                    </Card>
-                </motion.div>
+
+                            <div className="space-y-2">
+                                <label className="text-[15px] font-semibold">Pricing Model *</label>
+                                <select
+                                    required
+                                    className={SELECT}
+                                    value={formData.pricing}
+                                    onChange={(e) => setFormData({ ...formData, pricing: e.target.value })}
+                                >
+                                    <option value="">Select pricing</option>
+                                    <option value="Free">Free</option>
+                                    <option value="Freemium">Freemium</option>
+                                    <option value="Paid">Paid</option>
+                                    <option value="Enterprise">Enterprise</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            <label htmlFor="tool-email" className="text-[15px] font-semibold">Your Email *</label>
+                            <Input
+                                id="tool-email"
+                                required
+                                type="email"
+                                placeholder="you@example.com"
+                                value={formData.email}
+                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                className="bg-background"
+                            />
+                            <p className="text-[14px] text-muted-foreground">
+                                We&apos;ll send updates about your submission to this email.
+                            </p>
+                        </div>
+
+                        <Button
+                            type="submit"
+                            size="lg"
+                            className="h-12 w-full rounded-none text-[16px] font-semibold"
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? (
+                                "Submitting..."
+                            ) : (
+                                <>
+                                    Submit Tool
+                                    <ArrowRight aria-hidden="true" className="ml-2 h-4 w-4" />
+                                </>
+                            )}
+                        </Button>
+
+                        <p className="text-[14px] text-muted-foreground">
+                            By submitting, you agree to our{" "}
+                            <Link href="/terms" className="underline underline-offset-4">Terms</Link> and{" "}
+                            <Link href="/privacy" className="underline underline-offset-4">Privacy Policy</Link>.
+                        </p>
+                    </form>
+                </section>
+
+                {/* Criteria */}
+                <section className="my-20">
+                    <div className="mb-10">
+                        <h2 className={`${H2} mb-3`}>Submission Criteria</h2>
+                        <p className="text-[18px] text-muted-foreground">What we look for in every submission</p>
+                    </div>
+
+                    <div className="grid gap-3 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
+                        {criteria.map((item) => {
+                            const Icon = item.icon;
+                            return (
+                                <div key={item.title} className="h-full bg-card p-6">
+                                    <Icon aria-hidden="true" className="mb-4 h-6 w-6 text-vibe-link" />
+                                    <div className="mb-1 flex flex-wrap items-center gap-2">
+                                        <h3 className="text-[18px] font-semibold">{item.title}</h3>
+                                        {item.required && (
+                                            <span className="bg-background px-2 py-0.5 text-[13px] font-semibold text-muted-foreground">Required</span>
+                                        )}
+                                    </div>
+                                    <p className="text-[16px] leading-normal text-muted-foreground">{item.description}</p>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </section>
+
+                {/* FAQ link */}
+                <div className="flex flex-col justify-between gap-6 bg-card p-6 sm:p-8 md:flex-row md:items-center">
+                    <div className="flex items-start gap-4">
+                        <AlertCircle aria-hidden="true" className="mt-1 h-6 w-6 shrink-0 text-vibe-link" />
+                        <div>
+                            <h3 className="text-[20px] font-semibold">Have more questions?</h3>
+                            <p className="text-[16px] text-muted-foreground">Check our FAQ or contact us directly</p>
+                        </div>
+                    </div>
+                    <div className="flex flex-wrap gap-3">
+                        <Button variant="secondary" asChild className="h-11 rounded-none bg-background px-6 text-[16px] font-semibold hover:bg-accent">
+                            <Link href="/faq">View FAQ</Link>
+                        </Button>
+                        <Button asChild className="h-11 rounded-none px-6 text-[16px] font-semibold">
+                            <Link href="/about" className="flex items-center gap-2">
+                                <Mail aria-hidden="true" className="h-4 w-4" />
+                                Contact Us
+                            </Link>
+                        </Button>
+                    </div>
+                </div>
             </Section>
         </PageBackground>
     );

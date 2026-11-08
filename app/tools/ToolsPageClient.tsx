@@ -2,10 +2,7 @@
 
 import { Metadata } from "next";
 import { ToolsList } from "./ToolsList";
-import { m } from "framer-motion";
-import { Search, TrendingUp, Target, Zap, ShieldCheck, RefreshCw, Layers, ArrowRight } from "lucide-react";
-import { VibeCard } from "@/components/ui/VibeCard";
-import { designSystem } from "@/lib/design-system";
+import { ShieldCheck, RefreshCw, Layers, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 const PageBackground = dynamic(() => import("@/components/effects/PageBackground").then(mod => mod.PageBackground), { ssr: false });
@@ -102,95 +99,60 @@ export default function ToolsPage() {
         // of the hero drift apart.
         <PageBackground {...BackgroundPresets.content} className="pt-8">
             <Container size="default">
-                <m.div
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={designSystem.animations.fadeInUp.transition}
-                    className="text-center mb-16"
-                >
+                <div className="mb-16">
                     {/* The badge, H1 and lead paragraph live in
                         app/tools/page.tsx. They are static copy, and keeping
                         them here left the hub with no heading and no intro in
                         the prerendered HTML. */}
                     {/* Quick Stats */}
-                    <m.div
-                        initial={designSystem.animations.fadeInUp.initial}
-                        animate={designSystem.animations.fadeInUp.animate}
-                        transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.3 }}
-                        className="flex flex-wrap justify-center gap-8 mb-12"
-                    >
-                        <div className="flex items-center gap-2 text-sm">
-                            <div className="p-2 rounded-lg bg-emerald-500/10">
-                                <TrendingUp className="w-4 h-4 text-emerald-700 dark:text-emerald-500" />
-                            </div>
-                            <div className="text-left">
-                                <div className="font-bold text-foreground">{totalTools}+</div>
-                                <div className="text-muted-foreground text-xs">Tools Listed</div>
-                            </div>
+                    <dl className="mb-12 grid grid-cols-3 gap-1">
+                        <div className="flex flex-col-reverse bg-card px-4 py-4 sm:px-6">
+                            <dt className="mt-2 text-[14px] text-muted-foreground sm:text-[16px]">Tools listed</dt>
+                            <dd className="font-display text-[clamp(32px,4vw,56px)] tabular-nums text-foreground">{totalTools}+</dd>
                         </div>
-                        <div className="flex items-center gap-2 text-sm">
-                            <div className="p-2 rounded-lg bg-blue-500/10">
-                                <Target className="w-4 h-4 text-blue-700 dark:text-blue-500" />
-                            </div>
-                            <div className="text-left">
-                                <div className="font-bold text-foreground">{categoriesCount}</div>
-                                <div className="text-muted-foreground text-xs">Categories</div>
-                            </div>
+                        <div className="flex flex-col-reverse bg-card px-4 py-4 sm:px-6">
+                            <dt className="mt-2 text-[14px] text-muted-foreground sm:text-[16px]">Categories</dt>
+                            <dd className="font-display text-[clamp(32px,4vw,56px)] tabular-nums text-foreground">{categoriesCount}</dd>
                         </div>
-                        <div className="flex items-center gap-2 text-sm">
-                            <div className="p-2 rounded-lg bg-violet-500/10">
-                                <Zap className="w-4 h-4 text-violet-700 dark:text-violet-500" />
-                            </div>
-                            <div className="text-left">
-                                <div className="font-bold text-foreground">{freeToolsCount}</div>
-                                <div className="text-muted-foreground text-xs">Free Options</div>
-                            </div>
+                        <div className="flex flex-col-reverse bg-card px-4 py-4 sm:px-6">
+                            <dt className="mt-2 text-[14px] text-muted-foreground sm:text-[16px]">Free options</dt>
+                            <dd className="font-display text-[clamp(32px,4vw,56px)] tabular-nums text-foreground">{freeToolsCount}</dd>
                         </div>
-                    </m.div>
+                    </dl>
 
                     {/* Trust Signals */}
-                    <m.div
-                        initial={designSystem.animations.fadeInUp.initial}
-                        animate={designSystem.animations.fadeInUp.animate}
-                        transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.35 }}
-                        className="grid gap-6 md:grid-cols-3 text-left max-w-5xl mx-auto mb-12"
-                    >
-                        <div className="rounded-2xl border border-border/40 bg-card backdrop-blur-sm p-6">
-                            <div className="flex items-center gap-2 mb-3 text-sm text-foreground/80">
-                                <ShieldCheck className="w-4 h-4 text-emerald-700 dark:text-emerald-500" />
+                    <div className="mb-12 grid gap-1 md:grid-cols-3">
+                        <div className="bg-secondary p-6">
+                            <div className="mb-3 flex items-center gap-2 text-[16px] font-semibold text-foreground">
+                                <ShieldCheck aria-hidden="true" className="h-5 w-5" />
                                 Real-use validation
                             </div>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-[16px] leading-normal text-muted-foreground">
                                 We prioritize tools with clear workflows, stable UX, and measurable time-savings.
                             </p>
                         </div>
-                        <div className="rounded-2xl border border-border/40 bg-card backdrop-blur-sm p-6">
-                            <div className="flex items-center gap-2 mb-3 text-sm text-foreground/80">
-                                <RefreshCw className="w-4 h-4 text-blue-700 dark:text-blue-500" />
+                        <div className="bg-secondary p-6">
+                            <div className="mb-3 flex items-center gap-2 text-[16px] font-semibold text-foreground">
+                                <RefreshCw aria-hidden="true" className="h-5 w-5" />
                                 Monthly rechecks
                             </div>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-[16px] leading-normal text-muted-foreground">
                                 Pricing, policies, and features are reviewed on a monthly cadence.
                             </p>
                         </div>
-                        <div className="rounded-2xl border border-border/40 bg-card backdrop-blur-sm p-6">
-                            <div className="flex items-center gap-2 mb-3 text-sm text-foreground/80">
-                                <Layers className="w-4 h-4 text-violet-700 dark:text-violet-500" />
+                        <div className="bg-secondary p-6">
+                            <div className="mb-3 flex items-center gap-2 text-[16px] font-semibold text-foreground">
+                                <Layers aria-hidden="true" className="h-5 w-5" />
                                 Stack compatibility
                             </div>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-[16px] leading-normal text-muted-foreground">
                                 We evaluate how tools work together, not just in isolation.
                             </p>
                         </div>
-                    </m.div>
+                    </div>
 
                     {/* Search Bar */}
-                    <m.div
-                        initial={designSystem.animations.fadeInUp.initial}
-                        animate={designSystem.animations.fadeInUp.animate}
-                        transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.4 }}
-                        className="max-w-2xl mx-auto relative"
-                    >
+                    <div className="relative max-w-2xl">
                         <div className="relative">
                             <SearchInput
                                 variant="hero"
@@ -201,85 +163,70 @@ export default function ToolsPage() {
                                     setPage(1); // Reset to first page on search
                                 }}
                                 aria-label="Search AI tools"
+                                className="h-14 rounded-none border-0 bg-card py-0 text-[18px] focus:ring-0 focus:border-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link"
                             />
                         </div>
-                        <p className="text-xs text-muted-foreground mt-3">
+                        <p className="mt-3 text-[14px] text-muted-foreground">
                             Try searching &quot;coding&quot;, &quot;free&quot;, or &quot;design&quot;
                         </p>
-                    </m.div>
-                </m.div>
+                    </div>
+                </div>
 
                 {/* Starter Stacks */}
                 <section className="mb-16">
-                    <div className="flex items-end justify-between gap-6 mb-6">
-                        <div>
-                            <h2 className="text-2xl font-semibold text-foreground">Starter Stacks</h2>
-                            <p className="text-sm text-muted-foreground">
-                                Proven combinations you can adopt immediately.
-                            </p>
-                        </div>
+                    <div className="mb-8">
+                        <h2 className="font-display text-[clamp(32px,4vw,56px)] text-foreground">Starter stacks</h2>
+                        <p className="mt-3 text-[16px] text-muted-foreground">
+                            Proven combinations you can adopt immediately.
+                        </p>
                     </div>
-                    <div className="grid gap-6 md:grid-cols-2">
+                    <div className="grid gap-1 md:grid-cols-2">
                         {(featuredStacks.length > 0 ? featuredStacks : starterStackFallbacks).map((stack) => (
-                            <m.div
-                                key={stack.name}
-                                whileHover={{ y: -4 }}
-                                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                            >
-                                <Link href={"summary" in stack ? "#" : `/stack/${stack.id}`} className="block h-full">
-                                    <VibeCard
-                                        className="h-full"
-                                        tiltStrength={5}
-                                        glowOnHover={true}
-                                        depth={10}
-                                    >
-                                        <div className="p-6 flex flex-col h-full">
-                                            <div className="flex items-start justify-between mb-4">
-                                                <div>
-                                                    <h3 className="text-lg font-semibold text-foreground mb-1 group-hover:text-vibe-link transition-colors">
-                                                        {stack.name}
-                                                    </h3>
-                                                    <p className="text-sm text-muted-foreground line-clamp-2">
-                                                        {"summary" in stack ? stack.summary : stack.description}
-                                                    </p>
-                                                </div>
-                                                <div className="p-2 rounded-full bg-vibe-electric/10 text-vibe-link">
-                                                    <Layers className="w-5 h-5" />
-                                                </div>
-                                            </div>
+                            <div key={stack.name}>
+                                <Link
+                                    href={"summary" in stack ? "#" : `/stack/${stack.id}`}
+                                    className="group block h-full bg-card text-foreground transition-colors duration-150 hover:bg-vibe-electric hover:text-vibe-deep focus-visible:bg-vibe-electric focus-visible:text-vibe-deep focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-vibe-deep motion-reduce:transition-none"
+                                >
+                                    <div className="flex h-full flex-col p-6">
+                                        <div className="mb-6">
+                                            <h3 className="mb-1 text-[20px] font-semibold">
+                                                {stack.name}
+                                            </h3>
+                                            <p className="line-clamp-2 text-[16px] leading-normal text-muted-foreground group-hover:text-vibe-deep group-focus-visible:text-vibe-deep">
+                                                {"summary" in stack ? stack.summary : stack.description}
+                                            </p>
+                                        </div>
 
-                                            <div className="mt-auto">
-                                                <div className="flex items-center justify-between pt-4 border-t border-border/40">
-                                                    <div className="flex -space-x-3">
-                                                        {stack.tools.slice(0, 4).map((tool, i) => {
-                                                            const name = typeof tool === "string" ? tool : tool.name;
-                                                            return (
-                                                                <div
-                                                                    key={i}
-                                                                    className="w-8 h-8 rounded-full bg-background border-2 border-border flex items-center justify-center text-[10px] font-bold text-muted-foreground shadow-xs ring-2 ring-background z-10"
-                                                                    title={name}
-                                                                    style={{ zIndex: 10 - i }}
-                                                                >
-                                                                    {name.charAt(0)}
-                                                                </div>
-                                                            );
-                                                        })}
-                                                        {stack.tools.length > 4 && (
-                                                            <div className="w-8 h-8 rounded-full bg-background border-2 border-border flex items-center justify-center text-[10px] font-medium text-muted-foreground shadow-xs ring-2 ring-background z-0 pl-1">
-                                                                +{stack.tools.length - 4}
+                                        <div className="mt-auto">
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex gap-1">
+                                                    {stack.tools.slice(0, 4).map((tool, i) => {
+                                                        const name = typeof tool === "string" ? tool : tool.name;
+                                                        return (
+                                                            <div
+                                                                key={i}
+                                                                className="flex h-8 w-8 items-center justify-center bg-secondary text-[13px] font-semibold text-foreground"
+                                                                title={name}
+                                                            >
+                                                                {name.charAt(0)}
                                                             </div>
-                                                        )}
-                                                    </div>
-                                                    <div className="flex items-center gap-1 text-xs text-vibe-link font-medium">
-                                                        View Stack
-                                                        <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
-                                                    </div>
+                                                        );
+                                                    })}
+                                                    {stack.tools.length > 4 && (
+                                                        <div className="flex h-8 w-8 items-center justify-center bg-secondary text-[13px] font-semibold text-foreground">
+                                                            +{stack.tools.length - 4}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <div className="flex items-center gap-1 text-[16px] font-semibold text-vibe-link group-hover:text-vibe-deep group-focus-visible:text-vibe-deep">
+                                                    View Stack
+                                                    <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0" />
                                                 </div>
                                             </div>
                                         </div>
-                                    </VibeCard>
+                                    </div>
                                 </Link>
-                            </m.div>
+                            </div>
                         ))}
                     </div>
                 </section>

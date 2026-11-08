@@ -8,6 +8,11 @@ export const size = {
 };
 export const contentType = 'image/png';
 
+/** Keep the excerpt to what fits under the title in the card. */
+function clip(text: string, max: number) {
+  return text.length > max ? `${text.slice(0, max - 1).trimEnd()}…` : text;
+}
+
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const post = blogPosts.find((p) => p.slug === slug);
@@ -17,85 +22,93 @@ export default async function Image({ params }: { params: Promise<{ slug: string
     return new Response('Not Found', { status: 404 });
   }
 
+  const titleSize = post.title.length > 60 ? 56 : post.title.length > 36 ? 68 : 84;
+
+  // Direction B: graphite ground, one solid orange bar, flat type. No
+  // gradients, no tinted pills.
   return new ImageResponse(
     (
       <div
         style={{
-          background: 'linear-gradient(to bottom right, #09090b, #312e81)',
+          background: '#18191b',
           width: '100%',
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
-          padding: '80px',
-          color: 'white',
+          color: '#eff0f1',
           fontFamily: 'sans-serif',
         }}
       >
-        <div style={{ display: 'flex', marginBottom: '40px' }}>
-          <div
-            style={{
-              padding: '8px 24px',
-              background: 'rgba(99, 102, 241, 0.2)',
-              color: '#818cf8',
-              borderRadius: '9999px',
-              fontSize: 24,
-              fontWeight: 600,
-              border: '1px solid rgba(99, 102, 241, 0.3)',
-            }}
-          >
-            {post.category}
-          </div>
-        </div>
-
+        <div style={{ display: 'flex', width: '100%', height: 8, background: '#ff4a1f' }} />
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center',
             flex: 1,
-            gap: '32px',
+            padding: '64px 80px 72px',
           }}
         >
-          <h1
-            style={{
-              fontSize: 72,
-              fontWeight: 800,
-              lineHeight: 1.2,
-              letterSpacing: '-0.02em',
-              background: 'linear-gradient(to right, #ffffff, #a1a1aa)',
-              backgroundClip: 'text',
-              color: 'transparent',
-              margin: 0,
-            }}
-          >
-            {post.title}
-          </h1>
-          <p
-            style={{
-              fontSize: 32,
-              color: '#a1a1aa',
-              lineHeight: 1.4,
-              maxWidth: '90%',
-              margin: 0,
-            }}
-          >
-            {post.excerpt}
-          </p>
-        </div>
-
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginTop: 'auto',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-             <span style={{ fontSize: 24, color: '#a1a1aa' }}>By {post.author}</span>
+          <div style={{ display: 'flex', marginBottom: '36px' }}>
+            <div
+              style={{
+                padding: '8px 20px',
+                background: '#222427',
+                color: '#eff0f1',
+                fontSize: 24,
+                fontWeight: 600,
+              }}
+            >
+              {post.category}
+            </div>
           </div>
-          <div style={{ fontSize: 32, fontWeight: 700, fontStyle: 'italic', color: '#c084fc' }}>
-            VibeStack
+
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              flex: 1,
+              gap: '28px',
+            }}
+          >
+            <h1
+              style={{
+                fontSize: titleSize,
+                fontWeight: 800,
+                lineHeight: 0.95,
+                letterSpacing: '-0.01em',
+                textTransform: 'uppercase',
+                color: '#eff0f1',
+                margin: 0,
+              }}
+            >
+              {post.title}
+            </h1>
+            <p
+              style={{
+                fontSize: 30,
+                color: '#9c9ea3',
+                lineHeight: 1.4,
+                maxWidth: '90%',
+                margin: 0,
+              }}
+            >
+              {clip(post.excerpt, 140)}
+            </p>
+          </div>
+
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginTop: 'auto',
+            }}
+          >
+            <span style={{ fontSize: 26, color: '#9c9ea3' }}>By {post.author}</span>
+            <div style={{ fontSize: 34, fontWeight: 800, textTransform: 'uppercase', color: '#ff4a1f' }}>
+              VibeStack
+            </div>
           </div>
         </div>
       </div>

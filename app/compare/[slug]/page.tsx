@@ -7,12 +7,8 @@ import { comparePairs, getCompareEditorial } from '@/lib/compare-content';
 import { stacks } from '@/lib/stacks';
 import { BEST_CATEGORIES } from '@/lib/best-categories';
 import { PageBackground, BackgroundPresets } from '@/components/effects/PageBackground';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { ToolIconRenderer } from '@/components/tools/ToolIconRenderer';
-import { MotionDiv } from "@/components/ui/motion-wrapper";
-import { designSystem } from '@/lib/design-system';
 import { Section } from '@/components/primitives/Section';
 import { fitTitle } from '@/lib/seo-title';
 
@@ -197,312 +193,249 @@ export default async function ComparisonSlugPage({ params }: Props) {
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
 
             <Section spacing="small" containerSize="large">
-                {/* Breadcrumb + actions */}
-                <MotionDiv
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={designSystem.animations.fadeInUp.transition}
-                    className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8"
-                >
-                    <nav className="flex items-center gap-1 text-sm text-muted-foreground">
-                        <Link href="/" className="hover:text-foreground">Home</Link>
-                        <ChevronRight className="h-3.5 w-3.5" />
-                        <Link href="/compare" className="hover:text-foreground">Compare</Link>
-                        <ChevronRight className="h-3.5 w-3.5" />
+                {/* Breadcrumb + actions. Plain server HTML: no entrance animation,
+                    so everything is visible without JavaScript. */}
+                <div className="mb-10 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
+                    <nav className="flex flex-wrap items-center gap-1 text-[14px] text-muted-foreground">
+                        <Link href="/" className="hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link">Home</Link>
+                        <ChevronRight aria-hidden="true" className="h-3.5 w-3.5" />
+                        <Link href="/compare" className="hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link">Compare</Link>
+                        <ChevronRight aria-hidden="true" className="h-3.5 w-3.5" />
                         <span className="text-foreground">{tool1.title} vs {tool2.title}</span>
                     </nav>
 
                     <div className="flex items-center gap-3">
-                        <Button variant="outline" className="rounded-full" asChild>
+                        <Button variant="secondary" className="rounded-none" asChild>
                             <Link href={`/compare?tools=${tool1.slug},${tool2.slug}`}>
-                                <Scale className="h-4 w-4 mr-2" />
+                                <Scale aria-hidden="true" className="mr-2 h-4 w-4" />
                                 Interactive Compare
                             </Link>
                         </Button>
                     </div>
-                </MotionDiv>
+                </div>
 
                 {/* Title Section */}
-                <MotionDiv
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.1 }}
-                    className="mb-12 text-center"
-                >
-                    <Badge variant="outline" className="mb-4 bg-muted/50">{tool1.category} Showdown · Updated for 2026</Badge>
-                    <h1 className={`${designSystem.typography.hero} mb-6`}>
-                        <span className={`bg-clip-text text-transparent bg-linear-to-r ${tool1.bgGradient || 'from-foreground to-foreground'}`}>
-                            {tool1.title}
-                        </span>
-                        <span className="text-muted-foreground mx-4 font-light">vs</span>
-                        <span className={`bg-clip-text text-transparent bg-linear-to-r ${tool2.bgGradient || 'from-foreground to-foreground'}`}>
-                            {tool2.title}
-                        </span>
+                <div className="mb-16 max-w-5xl">
+                    <p className="mb-6 text-[16px] font-semibold text-vibe-link">{tool1.category} Showdown · Updated for 2026</p>
+                    {/* tool.bgGradient is per-item colour data; in direction B it no longer renders. */}
+                    <h1 className="mb-8 font-display text-[clamp(36px,5.5vw,88px)] text-balance text-foreground">
+                        <span>{tool1.title}</span>{" "}
+                        <span className="text-muted-foreground">vs</span>{" "}
+                        <span>{tool2.title}</span>
                     </h1>
-                    <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                    <p className="max-w-2xl text-[18px] leading-normal text-muted-foreground sm:text-[20px]">
                         Features, pricing, pros & cons — and a clear verdict on which {tool1.category.toLowerCase()} tool fits your workflow.
                     </p>
-                </MotionDiv>
+                </div>
 
                 {/* Overview */}
-                <MotionDiv
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.15 }}
-                    className="max-w-3xl mx-auto mb-16"
-                >
-                    <h2 className="text-2xl font-bold mb-4">Overview</h2>
-                    <div className="space-y-4 text-muted-foreground leading-relaxed">
+                <div className="mb-16 max-w-3xl">
+                    <h2 className="mb-6 font-display text-[clamp(32px,4vw,56px)] text-foreground">Overview</h2>
+                    <div className="space-y-4 text-[16px] leading-normal text-muted-foreground">
                         {intro.map((para, i) => (
                             <p key={i}>{para}</p>
                         ))}
                     </div>
-                </MotionDiv>
+                </div>
 
                 {/* Comparison Cards (Side by Side) */}
-                <div className="grid md:grid-cols-2 gap-8 mb-16 max-w-5xl mx-auto">
+                <div className="mb-16 grid max-w-5xl gap-1 md:grid-cols-2">
                     {selectedTools.map((tool, index) => (
-                        <MotionDiv
-                            key={tool.slug}
-                            initial={{ opacity: 0, x: index === 0 ? -20 : 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
-                            className="relative"
-                        >
-                            <div className="absolute inset-0 bg-linear-to-br from-vibe-electric/5 to-transparent rounded-3xl blur-xl" />
-                            <Card className="h-full border-border/50 bg-card/50 backdrop-blur-md shadow-xl hover:shadow-2xl transition-all duration-300">
-                                <CardContent className="p-8">
-                                    <div className="flex items-center gap-4 mb-6">
-                                        <div className={`p-4 rounded-2xl bg-linear-to-br ${tool.bgGradient || "from-slate-500 to-slate-800"} shadow-lg`}>
-                                            <ToolIconRenderer slug={tool.slug} className="h-10 w-10 text-white" />
-                                        </div>
-                                        <div>
-                                            <h2 className="text-2xl font-bold">{tool.title}</h2>
-                                            <Badge variant="secondary" className="mt-1">{tool.pricing}</Badge>
-                                        </div>
-                                    </div>
+                        <div key={tool.slug} className="h-full bg-card p-8">
+                            <div className="mb-6 flex items-center gap-4">
+                                <div className="flex h-16 w-16 shrink-0 items-center justify-center bg-secondary text-foreground">
+                                    <ToolIconRenderer slug={tool.slug} className="h-10 w-10" />
+                                </div>
+                                <div>
+                                    <h2 className="text-[24px] font-semibold">{tool.title}</h2>
+                                    <p className="mt-1 text-[16px] text-muted-foreground">{tool.pricing}</p>
+                                </div>
+                            </div>
 
-                                    <p className="text-muted-foreground mb-6 min-h-[50px]">
-                                        {tool.description}
-                                    </p>
+                            <p className="mb-6 min-h-[50px] text-[16px] leading-normal text-muted-foreground">
+                                {tool.description}
+                            </p>
 
-                                    <Button className="w-full h-12 rounded-full text-lg mb-8" variant={index === 0 ? "default" : "outline"} asChild>
-                                        <Link href={`/tool/${tool.slug}`}>
-                                            View Full Review
-                                        </Link>
-                                    </Button>
+                            <Button
+                                className={`mb-8 h-12 w-full rounded-none text-[16px] font-semibold shadow-none ${index === 0 ? "bg-vibe-electric text-vibe-deep hover:bg-vibe-electric/90" : ""}`}
+                                variant={index === 0 ? "default" : "secondary"}
+                                asChild
+                            >
+                                <Link href={`/tool/${tool.slug}`}>
+                                    View Full Review
+                                </Link>
+                            </Button>
 
-                                    <div className="space-y-6">
-                                        <div>
-                                            <h3 className="font-semibold mb-3 flex items-center gap-2">
-                                                <Check className="h-4 w-4 text-emerald-700 dark:text-emerald-500" /> Key Features
-                                            </h3>
-                                            <ul className="space-y-2 text-sm text-muted-foreground">
-                                                {tool.features?.slice(0, 5).map(f => (
-                                                    <li key={f} className="flex items-start gap-2">
-                                                        <span className="w-1.5 h-1.5 rounded-full bg-border mt-1.5 shrink-0" />
-                                                        {f}
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        </MotionDiv>
+                            <div className="space-y-6">
+                                <div>
+                                    <h3 className="mb-3 flex items-center gap-2 text-[16px] font-semibold">
+                                        <Check aria-hidden="true" className="h-4 w-4" /> Key Features
+                                    </h3>
+                                    <ul className="space-y-2 text-[16px] text-muted-foreground">
+                                        {tool.features?.slice(0, 5).map(f => (
+                                            <li key={f} className="flex items-start gap-2">
+                                                <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 bg-muted-foreground" />
+                                                {f}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     ))}
                 </div>
 
                 {/* Feature Comparison Table */}
-                <MotionDiv
-                    initial={designSystem.animations.fadeInUp.initial}
-                    whileInView={designSystem.animations.fadeInUp.animate}
-                    viewport={{ once: true }}
-                    className="max-w-4xl mx-auto"
-                >
-                    <Card className="overflow-hidden border-border/50 bg-card/80 backdrop-blur">
-                        <div className="p-6 md:p-8">
-                            <h2 className="text-2xl font-bold mb-6 text-center">Feature Breakdown</h2>
-                            <div className="overflow-x-auto">
-                                <table className="w-full">
-                                    <thead>
-                                        <tr className="border-b border-border">
-                                            <th className="py-4 text-left w-1/3">Feature</th>
-                                            <th className="py-4 text-center w-1/3 text-lg font-semibold">{tool1.title}</th>
-                                            <th className="py-4 text-center w-1/3 text-lg font-semibold">{tool2.title}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-border/40">
-                                        <tr>
-                                            <td className="py-4 font-medium text-muted-foreground">Pricing Model</td>
-                                            <td className="py-4 text-center">
-                                                <Badge variant="secondary" className="text-base px-3 py-1">{tool1.pricing}</Badge>
-                                            </td>
-                                            <td className="py-4 text-center">
-                                                <Badge variant="secondary" className="text-base px-3 py-1">{tool2.pricing}</Badge>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td className="py-4 font-medium text-muted-foreground align-top pt-6">Standout Features</td>
-                                            <td className="py-4 px-4 align-top text-sm text-muted-foreground">
-                                                {(tool1.features ?? []).slice(0, 3).join(" · ") || "—"}
-                                            </td>
-                                            <td className="py-4 px-4 align-top text-sm text-muted-foreground">
-                                                {(tool2.features ?? []).slice(0, 3).join(" · ") || "—"}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td className="py-4 font-medium text-muted-foreground align-top pt-6">Pros</td>
-                                            <td className="py-4 px-4 align-top">
-                                                <ul className="space-y-2 text-sm text-emerald-700 dark:text-emerald-400">
-                                                    {tool1.pros?.map(p => <li key={p}>+ {p}</li>)}
-                                                </ul>
-                                            </td>
-                                            <td className="py-4 px-4 align-top">
-                                                <ul className="space-y-2 text-sm text-emerald-700 dark:text-emerald-400">
-                                                    {tool2.pros?.map(p => <li key={p}>+ {p}</li>)}
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td className="py-4 font-medium text-muted-foreground align-top pt-6">Cons</td>
-                                            <td className="py-4 px-4 align-top">
-                                                <ul className="space-y-2 text-sm text-rose-700 dark:text-rose-400">
-                                                    {tool1.cons?.map(c => <li key={c}>- {c}</li>)}
-                                                </ul>
-                                            </td>
-                                            <td className="py-4 px-4 align-top">
-                                                <ul className="space-y-2 text-sm text-rose-700 dark:text-rose-400">
-                                                    {tool2.cons?.map(c => <li key={c}>- {c}</li>)}
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </Card>
-                </MotionDiv>
+                <div className="max-w-4xl">
+                    <h2 className="mb-8 font-display text-[clamp(32px,4vw,56px)] text-foreground">Feature Breakdown</h2>
+                    <div className="overflow-x-auto">
+                        <table className="w-full border-separate border-spacing-y-1 text-[16px]">
+                            <thead>
+                                <tr className="bg-secondary">
+                                    <th scope="col" className="w-1/3 px-4 py-4 text-left font-semibold">Feature</th>
+                                    <th scope="col" className="w-1/3 px-4 py-4 text-left text-[18px] font-semibold">{tool1.title}</th>
+                                    <th scope="col" className="w-1/3 px-4 py-4 text-left text-[18px] font-semibold">{tool2.title}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="bg-card">
+                                    <th scope="row" className="px-4 py-4 text-left font-semibold text-muted-foreground">Pricing Model</th>
+                                    <td className="px-4 py-4 font-semibold">{tool1.pricing}</td>
+                                    <td className="px-4 py-4 font-semibold">{tool2.pricing}</td>
+                                </tr>
+                                <tr className="bg-card">
+                                    <th scope="row" className="px-4 py-4 text-left align-top font-semibold text-muted-foreground">Standout Features</th>
+                                    <td className="px-4 py-4 align-top text-muted-foreground">
+                                        {(tool1.features ?? []).slice(0, 3).join(" · ") || "—"}
+                                    </td>
+                                    <td className="px-4 py-4 align-top text-muted-foreground">
+                                        {(tool2.features ?? []).slice(0, 3).join(" · ") || "—"}
+                                    </td>
+                                </tr>
+                                <tr className="bg-card">
+                                    <th scope="row" className="px-4 py-4 text-left align-top font-semibold text-muted-foreground">Pros</th>
+                                    <td className="px-4 py-4 align-top">
+                                        <ul className="space-y-2 text-foreground">
+                                            {tool1.pros?.map(p => <li key={p}>+ {p}</li>)}
+                                        </ul>
+                                    </td>
+                                    <td className="px-4 py-4 align-top">
+                                        <ul className="space-y-2 text-foreground">
+                                            {tool2.pros?.map(p => <li key={p}>+ {p}</li>)}
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr className="bg-card">
+                                    <th scope="row" className="px-4 py-4 text-left align-top font-semibold text-muted-foreground">Cons</th>
+                                    <td className="px-4 py-4 align-top">
+                                        <ul className="space-y-2 text-muted-foreground">
+                                            {tool1.cons?.map(c => <li key={c}>- {c}</li>)}
+                                        </ul>
+                                    </td>
+                                    <td className="px-4 py-4 align-top">
+                                        <ul className="space-y-2 text-muted-foreground">
+                                            {tool2.cons?.map(c => <li key={c}>- {c}</li>)}
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
                 {/* Choose X / Choose Y */}
-                <MotionDiv
-                    initial={designSystem.animations.fadeInUp.initial}
-                    whileInView={designSystem.animations.fadeInUp.animate}
-                    viewport={{ once: true }}
-                    className="max-w-4xl mx-auto mt-16"
-                >
-                    <h2 className="text-2xl font-bold mb-8 text-center">Which one is right for you?</h2>
-                    <div className="grid md:grid-cols-2 gap-6">
+                <div className="mt-20 max-w-4xl">
+                    <h2 className="mb-8 font-display text-[clamp(32px,4vw,56px)] text-foreground">Which one is right for you?</h2>
+                    <div className="grid gap-1 md:grid-cols-2">
                         {selectedTools.map((tool) => (
-                            <Card key={tool.slug} className="border-border/50 bg-card/60">
-                                <CardContent className="p-6">
-                                    <h3 className="font-semibold text-lg mb-4">
-                                        Choose <span className="text-vibe-link">{tool.title}</span> if…
-                                    </h3>
-                                    <ul className="space-y-3">
-                                        {(tool.pros ?? []).slice(0, 4).map((p) => (
-                                            <li key={p} className="flex items-start gap-2 text-sm text-muted-foreground">
-                                                <Check className="h-4 w-4 text-emerald-700 dark:text-emerald-500 mt-0.5 shrink-0" />
-                                                <span>{p} matters to your workflow</span>
-                                            </li>
-                                        ))}
-                                        {(tool.cons ?? []).slice(0, 1).map((c) => (
-                                            <li key={c} className="flex items-start gap-2 text-sm text-muted-foreground">
-                                                <X className="h-4 w-4 text-rose-700 dark:text-rose-400 mt-0.5 shrink-0" />
-                                                <span>…and you can live with: {lcFirst(c)}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </CardContent>
-                            </Card>
-                        ))}
-                    </div>
-                </MotionDiv>
-
-                {/* Verdict */}
-                <MotionDiv
-                    initial={designSystem.animations.fadeInUp.initial}
-                    whileInView={designSystem.animations.fadeInUp.animate}
-                    viewport={{ once: true }}
-                    className="max-w-3xl mx-auto mt-16"
-                >
-                    <Card className="border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-vibe-purple/5">
-                        <CardContent className="p-8">
-                            <h2 className="text-2xl font-bold mb-4">Our verdict</h2>
-                            <p className="text-muted-foreground leading-relaxed">{verdict}</p>
-                        </CardContent>
-                    </Card>
-                </MotionDiv>
-
-                {/* FAQ Section */}
-                <MotionDiv
-                    initial={designSystem.animations.fadeInUp.initial}
-                    whileInView={designSystem.animations.fadeInUp.animate}
-                    viewport={{ once: true }}
-                    className="max-w-3xl mx-auto mt-20"
-                >
-                    <h2 className="text-2xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
-                    <div className="space-y-6 text-left">
-                        {faqs.map((f) => (
-                            <div key={f.q} className="p-6 rounded-2xl bg-muted/30 border border-border/50">
-                                <h3 className="font-semibold text-lg mb-2">{f.q}</h3>
-                                <p className="text-muted-foreground">{f.a}</p>
+                            <div key={tool.slug} className="bg-card p-6">
+                                <h3 className="mb-4 text-[20px] font-semibold">
+                                    Choose <span className="text-vibe-link">{tool.title}</span> if…
+                                </h3>
+                                <ul className="space-y-3">
+                                    {(tool.pros ?? []).slice(0, 4).map((p) => (
+                                        <li key={p} className="flex items-start gap-2 text-[16px] text-muted-foreground">
+                                            <Check aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 text-foreground" />
+                                            <span>{p} matters to your workflow</span>
+                                        </li>
+                                    ))}
+                                    {(tool.cons ?? []).slice(0, 1).map((c) => (
+                                        <li key={c} className="flex items-start gap-2 text-[16px] text-muted-foreground">
+                                            <X aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 text-foreground" />
+                                            <span>…and you can live with: {lcFirst(c)}</span>
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
                         ))}
                     </div>
-                </MotionDiv>
+                </div>
+
+                {/* Verdict: the one inverse field on the page. */}
+                <div className="mt-20 max-w-4xl bg-foreground p-8 text-background md:p-12">
+                    <h2 className="mb-4 font-display text-[clamp(32px,4vw,56px)]">Our verdict</h2>
+                    <p className="text-[18px] leading-normal">{verdict}</p>
+                </div>
+
+                {/* FAQ Section */}
+                <div className="mt-20 max-w-3xl">
+                    <h2 className="mb-8 font-display text-[clamp(32px,4vw,56px)] text-foreground">Frequently Asked Questions</h2>
+                    <div className="space-y-1 text-left">
+                        {faqs.map((f) => (
+                            <div key={f.q} className="bg-card p-6">
+                                <h3 className="mb-2 text-[18px] font-semibold">{f.q}</h3>
+                                <p className="text-[16px] leading-normal text-muted-foreground">{f.a}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
 
                 {/* Related comparisons */}
                 {related.length > 0 && (
-                    <MotionDiv
-                        initial={designSystem.animations.fadeInUp.initial}
-                        whileInView={designSystem.animations.fadeInUp.animate}
-                        viewport={{ once: true }}
-                        className="max-w-4xl mx-auto mt-20"
-                    >
-                        <h2 className="text-lg font-bold mb-4">Related comparisons</h2>
-                        <div className="flex flex-wrap gap-2">
+                    <div className="mt-20 max-w-4xl">
+                        <h2 className="mb-4 text-[20px] font-semibold">Related comparisons</h2>
+                        <div className="flex flex-wrap gap-1">
                             {related.map((r) => (
                                 <Link
                                     key={r.slug}
                                     href={`/compare/${r.slug}`}
-                                    className="inline-flex items-center gap-1 rounded-full border border-border bg-card px-4 py-2 text-sm hover:border-vibe-electric/50 transition-colors"
+                                    className="inline-flex items-center gap-1.5 bg-card px-4 py-2.5 text-[16px] font-semibold text-foreground transition-colors duration-150 hover:bg-vibe-electric hover:text-vibe-deep focus-visible:bg-vibe-electric focus-visible:text-vibe-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link motion-reduce:transition-none"
                                 >
                                     {r.label}
-                                    <ArrowRight className="h-3.5 w-3.5" />
+                                    <ArrowRight aria-hidden="true" className="h-4 w-4" />
                                 </Link>
                             ))}
                         </div>
-                    </MotionDiv>
+                    </div>
                 )}
 
                 {/* Category hub + curated stacks — static server-rendered links */}
-                <nav aria-label="Keep exploring" className="max-w-4xl mx-auto mt-16">
-                    <h2 className="text-lg font-bold mb-4">Keep exploring</h2>
-                    <div className="flex flex-wrap gap-2">
+                <nav aria-label="Keep exploring" className="mt-16 max-w-4xl">
+                    <h2 className="mb-4 text-[20px] font-semibold">Keep exploring</h2>
+                    <div className="flex flex-wrap gap-1">
                         {bestCategory && (
                             <Link
                                 href={`/best/${bestCategory.slug}`}
-                                className="inline-flex items-center gap-1 rounded-full border border-border bg-card px-4 py-2 text-sm hover:border-vibe-electric/50 transition-colors"
+                                className="inline-flex items-center gap-1.5 bg-card px-4 py-2.5 text-[16px] font-semibold text-foreground transition-colors duration-150 hover:bg-vibe-electric hover:text-vibe-deep focus-visible:bg-vibe-electric focus-visible:text-vibe-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link motion-reduce:transition-none"
                             >
                                 Best {tool1.category.toLowerCase()} tools
-                                <ArrowRight className="h-3.5 w-3.5" />
+                                <ArrowRight aria-hidden="true" className="h-4 w-4" />
                             </Link>
                         )}
                         {relatedStacks.map((s) => (
                             <Link
                                 key={s.id}
                                 href={`/stack/${s.id}`}
-                                className="inline-flex items-center gap-1 rounded-full border border-border bg-card px-4 py-2 text-sm hover:border-vibe-electric/50 transition-colors"
+                                className="inline-flex items-center gap-1.5 bg-card px-4 py-2.5 text-[16px] font-semibold text-foreground transition-colors duration-150 hover:bg-vibe-electric hover:text-vibe-deep focus-visible:bg-vibe-electric focus-visible:text-vibe-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link motion-reduce:transition-none"
                             >
                                 {s.name}
-                                <ArrowRight className="h-3.5 w-3.5" />
+                                <ArrowRight aria-hidden="true" className="h-4 w-4" />
                             </Link>
                         ))}
                     </div>
                     <div className="mt-6">
-                        <Link href="/tools" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors group">
-                            <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+                        <Link href="/tools" className="group inline-flex items-center text-[16px] font-semibold text-muted-foreground transition-colors duration-150 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link motion-reduce:transition-none">
+                            <ArrowLeft aria-hidden="true" className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0" />
                             Browse the full tool directory
                         </Link>
                     </div>

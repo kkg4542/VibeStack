@@ -6,12 +6,9 @@ import { ToolData } from "@/lib/tool-types";
 import { useAllTools } from "@/hooks/use-tools";
 import { getToolIcon } from "@/components/icons/tool-icons";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Check, X, Scale, Share2, Sparkles, Star, ExternalLink, Trash2 } from "lucide-react";
+import { ArrowLeft, Check, Minus, Plus, Scale, Share2, Star, ExternalLink, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
-import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { Container } from "@/components/primitives/Container";
 
@@ -64,12 +61,12 @@ export default function ComparePageClient() {
 
     if (isLoading) {
         return (
-            <div className="relative overflow-hidden pt-12 pb-16">
-                <Container size="xs" className="text-center">
-                    <div className="inline-flex p-4 rounded-full bg-vibe-electric/10 mb-4">
-                        <Scale className="h-8 w-8 text-vibe-link animate-pulse" />
-                    </div>
-                    <p className="text-muted-foreground">Loading comparison...</p>
+            <div className="relative overflow-hidden pb-16 pt-12">
+                <Container size="xs">
+                    <p className="flex items-center gap-3 text-[16px] text-muted-foreground">
+                        <Scale aria-hidden="true" className="h-6 w-6 text-foreground" />
+                        Loading comparison...
+                    </p>
                 </Container>
             </div>
         );
@@ -77,28 +74,21 @@ export default function ComparePageClient() {
 
     if (selectedTools.length === 0) {
         return (
-            <PageBackground {...BackgroundPresets.content} className="min-h-0 pt-12 pb-16">
-                <Container size="xs" className="text-center">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        <div className="inline-flex p-6 bg-vibe-electric/10 rounded-full w-24 h-24 mx-auto mb-6 items-center justify-center border border-vibe-electric/20">
-                            <Scale className="h-12 w-12 text-vibe-link" />
-                        </div>
-                        <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-4">
+            <PageBackground {...BackgroundPresets.content} className="min-h-0 pb-16 pt-12">
+                <Container size="default">
+                    <div className="bg-card p-8 md:p-12">
+                        <h2 className="mb-4 font-display text-[clamp(32px,4vw,56px)] text-foreground">
                             Build your own comparison
                         </h2>
-                        <p className="text-muted-foreground text-lg mb-8">
+                        <p className="mb-8 max-w-2xl text-[18px] leading-normal text-muted-foreground">
                             Already narrowed it down? Pick up to 3 tools from the directory with
                             the Compare button and they will line up here side-by-side — features,
                             pricing, pros and cons in one view.
                         </p>
-                        <Button asChild className="rounded-full shadow-lg shadow-vibe-electric/20 px-8 h-12">
+                        <Button asChild className="h-12 rounded-none bg-vibe-electric px-8 text-[16px] font-semibold text-vibe-deep shadow-none hover:bg-vibe-electric/90">
                             <Link href="/tools">Browse Tools Directory</Link>
                         </Button>
-                    </motion.div>
+                    </div>
                 </Container>
             </PageBackground>
         );
@@ -108,186 +98,159 @@ export default function ComparePageClient() {
         <PageBackground {...BackgroundPresets.content} className="min-h-0 pt-12">
             <Container>
                 {/* Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8"
-                >
+                <div className="mb-8 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
                     <div className="flex items-center gap-4">
-                        <Link href="/tools" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors group">
-                            <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+                        <Link href="/tools" className="group inline-flex items-center text-[16px] font-semibold text-muted-foreground transition-colors duration-150 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link motion-reduce:transition-none">
+                            <ArrowLeft aria-hidden="true" className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0" />
                             Back to Directory
                         </Link>
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-1">
                         {selectedTools.length < 3 && (
-                            <Button variant="outline" className="rounded-full" asChild>
+                            <Button variant="secondary" className="rounded-none" asChild>
                                 <Link href="/tools">
-                                    <Sparkles className="h-4 w-4 mr-2" />
+                                    <Plus aria-hidden="true" className="mr-2 h-4 w-4" />
                                     Add More
                                 </Link>
                             </Button>
                         )}
                         <Button
-                            variant="outline"
+                            variant="secondary"
                             onClick={shareComparison}
-                            className="rounded-full"
+                            className="rounded-none"
                         >
-                            <Share2 className="h-4 w-4 mr-2" />
+                            <Share2 aria-hidden="true" className="mr-2 h-4 w-4" />
                             Share
                         </Button>
                     </div>
-                </motion.div>
+                </div>
 
                 {/* Title */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                    className="mb-12"
-                >
-                    <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 rounded-lg bg-vibe-electric/10">
-                            <Scale className="h-6 w-6 text-vibe-link" />
-                        </div>
-                        <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Your comparison</h2>
-                    </div>
-                    <p className="text-muted-foreground">
+                <div className="mb-12">
+                    <h2 className="mb-3 font-display text-[clamp(32px,4vw,56px)] text-foreground">Your comparison</h2>
+                    <p className="text-[16px] text-muted-foreground">
                         Comparing {selectedTools.length} tools side-by-side
                     </p>
-                </motion.div>
+                </div>
 
                 {/* Comparison Cards */}
-                <div className="grid gap-6 lg:grid-cols-3">
-                    {selectedTools.map((tool, index) => (
-                        <motion.div
-                            key={tool.slug}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-                        >
-                            <Card className="h-full border-border/50 bg-card backdrop-blur-sm hover:border-vibe-electric/30 transition-colors">
-                                <CardContent className="p-6">
-                                    {/* Header */}
-                                    <div className="flex items-start justify-between mb-6">
-                                        <div className="flex items-center gap-4">
-                                            <div className={`p-3 rounded-2xl bg-linear-to-br ${tool.bgGradient || "from-slate-500/60 to-slate-800/60"}`}>
-                                                {(() => {
-                                                    const Icon = getToolIcon(tool.slug);
-                                                    return <Icon className="h-8 w-8 text-white" />;
-                                                })()}
-                                            </div>
-                                            <div>
-                                                <h2 className="text-xl font-bold">{tool.title}</h2>
-                                                <Badge variant="secondary" className="mt-1">
-                                                    {tool.category}
-                                                </Badge>
-                                            </div>
-                                        </div>
-                                        <button
-                                            onClick={() => removeTool(tool.slug)}
-                                            className="p-2 rounded-full bg-rose-500/10 text-rose-700 dark:text-rose-500 hover:bg-rose-500/20 transition-colors"
-                                        >
-                                            <Trash2 className="h-4 w-4" />
-                                        </button>
+                <div className="grid gap-1 lg:grid-cols-3">
+                    {selectedTools.map((tool) => (
+                        <div key={tool.slug} className="h-full bg-card p-6">
+                            {/* Header */}
+                            <div className="mb-6 flex items-start justify-between">
+                                <div className="flex items-center gap-4">
+                                    {/* tool.bgGradient is per-item colour data; it no longer renders. */}
+                                    <div className="flex h-14 w-14 items-center justify-center bg-secondary text-foreground">
+                                        {(() => {
+                                            const Icon = getToolIcon(tool.slug);
+                                            return <Icon className="h-8 w-8" />;
+                                        })()}
                                     </div>
-
-                                    {/* Rating */}
-                                    {tool.review && (
-                                        <div className="flex items-center gap-2 mb-6 p-3 bg-yellow-500/5 rounded-xl border border-yellow-500/10">
-                                            <div className="flex gap-0.5">
-                                                {[...Array(5)].map((_, i) => (
-                                                    <Star key={i} className={`h-4 w-4 ${i < Math.floor(tool.review!.rating) ? 'text-yellow-400 fill-yellow-400' : 'text-zinc-600'}`} />
-                                                ))}
-                                            </div>
-                                            <span className="font-bold">{tool.review.rating}</span>
-                                            <span className="text-muted-foreground text-sm">/ 5.0</span>
-                                        </div>
-                                    )}
-
-                                    {/* Pricing */}
-                                    <div className="mb-6">
-                                        <h3 className="text-sm font-medium text-muted-foreground mb-2">Pricing</h3>
-                                        <Badge className="bg-vibe-electric/10 text-vibe-link border-vibe-electric/20 text-sm py-1 px-3">
-                                            {tool.pricing}
-                                        </Badge>
+                                    <div>
+                                        <h2 className="text-[20px] font-semibold">{tool.title}</h2>
+                                        <p className="mt-1 text-[14px] text-muted-foreground">
+                                            {tool.category}
+                                        </p>
                                     </div>
+                                </div>
+                                <button
+                                    onClick={() => removeTool(tool.slug)}
+                                    aria-label={`Remove ${tool.title} from comparison`}
+                                    className="bg-secondary p-2 text-foreground transition-colors duration-150 hover:bg-vibe-electric hover:text-vibe-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link motion-reduce:transition-none"
+                                >
+                                    <Trash2 aria-hidden="true" className="h-4 w-4" />
+                                </button>
+                            </div>
 
-                                    {/* Features */}
-                                    <div className="mb-6">
-                                        <h3 className="text-sm font-medium text-muted-foreground mb-3">Key Features</h3>
-                                        <ul className="space-y-2">
-                                            {tool.features?.slice(0, 4).map((feature) => (
-                                                <li key={feature} className="flex items-start gap-2 text-sm">
-                                                    <Check className="h-4 w-4 text-emerald-700 dark:text-emerald-500 shrink-0 mt-0.5" />
-                                                    <span className="text-muted-foreground">{feature}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
+                            {/* Rating */}
+                            {tool.review && (
+                                <div className="mb-6 flex items-center gap-2 bg-secondary p-3">
+                                    <div className="flex gap-0.5">
+                                        {[...Array(5)].map((_, i) => (
+                                            <Star key={i} aria-hidden="true" className={`h-4 w-4 ${i < Math.floor(tool.review!.rating) ? 'fill-current text-vibe-link' : 'text-muted-foreground'}`} />
+                                        ))}
                                     </div>
+                                    <span className="font-semibold">{tool.review.rating}</span>
+                                    <span className="text-[14px] text-muted-foreground">/ 5.0</span>
+                                </div>
+                            )}
 
-                                    {/* Pros */}
-                                    <div className="mb-6">
-                                        <h3 className="text-sm font-medium text-emerald-700 dark:text-emerald-400 mb-3">Pros</h3>
-                                        <ul className="space-y-2">
-                                            {tool.pros?.slice(0, 3).map((pro) => (
-                                                <li key={pro} className="flex items-start gap-2 text-sm text-emerald-700 dark:text-emerald-400/80">
-                                                    <div className="h-1.5 w-1.5 rounded-full bg-emerald-400 mt-1.5 shrink-0" />
-                                                    {pro}
-                                                </li>
-                                            )) || <p className="text-sm text-muted-foreground">No pros listed</p>}
-                                        </ul>
-                                    </div>
+                            {/* Pricing */}
+                            <div className="mb-6">
+                                <h3 className="mb-2 text-[14px] font-semibold text-muted-foreground">Pricing</h3>
+                                <p className="text-[16px] font-semibold text-foreground">
+                                    {tool.pricing}
+                                </p>
+                            </div>
 
-                                    {/* Cons */}
-                                    <div className="mb-6">
-                                        <h3 className="text-sm font-medium text-rose-700 dark:text-rose-400 mb-3">Cons</h3>
-                                        <ul className="space-y-2">
-                                            {tool.cons?.slice(0, 3).map((con) => (
-                                                <li key={con} className="flex items-start gap-2 text-sm text-rose-700 dark:text-rose-400/80">
-                                                    <div className="h-1.5 w-1.5 rounded-full bg-rose-400 mt-1.5 shrink-0" />
-                                                    {con}
-                                                </li>
-                                            )) || <p className="text-sm text-muted-foreground">No cons listed</p>}
-                                        </ul>
-                                    </div>
+                            {/* Features */}
+                            <div className="mb-6">
+                                <h3 className="mb-3 text-[14px] font-semibold text-muted-foreground">Key Features</h3>
+                                <ul className="space-y-2">
+                                    {tool.features?.slice(0, 4).map((feature) => (
+                                        <li key={feature} className="flex items-start gap-2 text-[16px]">
+                                            <Check aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 text-foreground" />
+                                            <span className="text-muted-foreground">{feature}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
 
-                                    {/* CTA */}
-                                    <Button className="w-full rounded-full" variant="outline" asChild>
-                                        <Link href={`/tool/${tool.slug}`}>
-                                            View Details
-                                            <ExternalLink className="ml-2 h-4 w-4" />
-                                        </Link>
-                                    </Button>
-                                </CardContent>
-                            </Card>
-                        </motion.div>
+                            {/* Pros */}
+                            <div className="mb-6">
+                                <h3 className="mb-3 text-[14px] font-semibold text-foreground">Pros</h3>
+                                <ul className="space-y-2">
+                                    {tool.pros?.slice(0, 3).map((pro) => (
+                                        <li key={pro} className="flex items-start gap-2 text-[16px] text-muted-foreground">
+                                            <Plus aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 text-foreground" />
+                                            {pro}
+                                        </li>
+                                    )) || <p className="text-[16px] text-muted-foreground">No pros listed</p>}
+                                </ul>
+                            </div>
+
+                            {/* Cons */}
+                            <div className="mb-6">
+                                <h3 className="mb-3 text-[14px] font-semibold text-foreground">Cons</h3>
+                                <ul className="space-y-2">
+                                    {tool.cons?.slice(0, 3).map((con) => (
+                                        <li key={con} className="flex items-start gap-2 text-[16px] text-muted-foreground">
+                                            <Minus aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 text-foreground" />
+                                            {con}
+                                        </li>
+                                    )) || <p className="text-[16px] text-muted-foreground">No cons listed</p>}
+                                </ul>
+                            </div>
+
+                            {/* CTA */}
+                            <Button className="w-full rounded-none" variant="secondary" asChild>
+                                <Link href={`/tool/${tool.slug}`}>
+                                    View Details
+                                    <ExternalLink aria-hidden="true" className="ml-2 h-4 w-4" />
+                                </Link>
+                            </Button>
+                        </div>
                     ))}
                 </div>
 
                 {/* Comparison Table */}
                 {selectedTools.length > 1 && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.5 }}
-                        className="mt-12"
-                    >
-                        <h2 className="text-2xl font-bold mb-6">Feature Comparison</h2>
+                    <div className="mt-12">
+                        <h2 className="mb-6 font-display text-[clamp(32px,4vw,56px)] text-foreground">Feature Comparison</h2>
                         <div className="overflow-x-auto">
-                            <table className="w-full border-collapse">
+                            <table className="w-full border-separate border-spacing-y-1 text-[16px]">
                                 <thead>
-                                    <tr className="border-b border-border/50">
-                                        <th className="py-4 px-4 text-left font-medium text-muted-foreground">Feature</th>
+                                    <tr className="bg-secondary">
+                                        <th scope="col" className="px-4 py-4 text-left font-semibold text-muted-foreground">Feature</th>
                                         {selectedTools.map(tool => (
-                                            <th key={tool.slug} className="py-4 px-4 text-left font-semibold">
+                                            <th key={tool.slug} scope="col" className="px-4 py-4 text-left font-semibold">
                                                 <div className="flex items-center gap-2">
-                                                    <div className={`p-1.5 rounded-lg bg-linear-to-br ${tool.bgGradient || "from-slate-500/60 to-slate-800/60"}`}>
+                                                    <div className="flex h-7 w-7 items-center justify-center bg-background text-foreground">
                                                         {(() => {
                                                             const Icon = getToolIcon(tool.slug);
-                                                            return <Icon className="h-4 w-4 text-white" />;
+                                                            return <Icon className="h-4 w-4" />;
                                                         })()}
                                                     </div>
                                                     {tool.title}
@@ -296,34 +259,34 @@ export default function ComparePageClient() {
                                         ))}
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-border/30">
+                                <tbody>
                                     {/* Category Row */}
-                                    <tr>
-                                        <td className="py-4 px-4 text-muted-foreground">Category</td>
+                                    <tr className="bg-card">
+                                        <th scope="row" className="px-4 py-4 text-left font-normal text-muted-foreground">Category</th>
                                         {selectedTools.map(tool => (
-                                            <td key={tool.slug} className="py-4 px-4">
-                                                <Badge variant="secondary">{tool.category}</Badge>
+                                            <td key={tool.slug} className="px-4 py-4">
+                                                {tool.category}
                                             </td>
                                         ))}
                                     </tr>
                                     {/* Pricing Row */}
-                                    <tr>
-                                        <td className="py-4 px-4 text-muted-foreground">Pricing</td>
+                                    <tr className="bg-card">
+                                        <th scope="row" className="px-4 py-4 text-left font-normal text-muted-foreground">Pricing</th>
                                         {selectedTools.map(tool => (
-                                            <td key={tool.slug} className="py-4 px-4">
-                                                <span className="font-medium">{tool.pricing}</span>
+                                            <td key={tool.slug} className="px-4 py-4">
+                                                <span className="font-semibold">{tool.pricing}</span>
                                             </td>
                                         ))}
                                     </tr>
                                     {/* Rating Row */}
-                                    <tr>
-                                        <td className="py-4 px-4 text-muted-foreground">Rating</td>
+                                    <tr className="bg-card">
+                                        <th scope="row" className="px-4 py-4 text-left font-normal text-muted-foreground">Rating</th>
                                         {selectedTools.map(tool => (
-                                            <td key={tool.slug} className="py-4 px-4">
+                                            <td key={tool.slug} className="px-4 py-4">
                                                 {tool.review ? (
                                                     <div className="flex items-center gap-1">
-                                                        <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                                                        <span className="font-medium">{tool.review.rating}</span>
+                                                        <Star aria-hidden="true" className="h-4 w-4 fill-current text-vibe-link" />
+                                                        <span className="font-semibold">{tool.review.rating}</span>
                                                     </div>
                                                 ) : (
                                                     <span className="text-muted-foreground">N/A</span>
@@ -332,19 +295,19 @@ export default function ComparePageClient() {
                                         ))}
                                     </tr>
                                     {/* Features Count */}
-                                    <tr>
-                                        <td className="py-4 px-4 text-muted-foreground">Features</td>
+                                    <tr className="bg-card">
+                                        <th scope="row" className="px-4 py-4 text-left font-normal text-muted-foreground">Features</th>
                                         {selectedTools.map(tool => (
-                                            <td key={tool.slug} className="py-4 px-4">
-                                                <span className="font-medium">{tool.features?.length || 0}</span>
-                                                <span className="text-muted-foreground text-sm ml-1">listed</span>
+                                            <td key={tool.slug} className="px-4 py-4">
+                                                <span className="font-semibold">{tool.features?.length || 0}</span>
+                                                <span className="ml-1 text-[14px] text-muted-foreground">listed</span>
                                             </td>
                                         ))}
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                    </motion.div>
+                    </div>
                 )}
             </Container>
         </PageBackground>

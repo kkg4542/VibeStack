@@ -1,105 +1,62 @@
 import { Check, Rocket, Terminal, Zap } from "lucide-react";
-import { MotionDiv, MotionSection, MotionLi, MotionSpan, MotionP, MotionH1, MotionH2, MotionH3 } from "@/components/ui/motion-wrapper";
-import { designSystem } from "@/lib/design-system";
 import { Section } from "@/components/primitives/Section";
 
+const SERVICES = [
+    {
+        title: "Featured Spotlight",
+        icon: Rocket,
+        description: "Top-of-home placement with a Featured badge and priority visibility for new visitors.",
+        features: ["Top of homepage placement", "\"Featured\" badge on listing", "Monthly performance report"],
+    },
+    {
+        title: "Sidebar Ads",
+        icon: Zap,
+        description: "Category-targeted sidebar placement for high-intent visitors exploring tools.",
+        features: ["Category page sidebar placement", "Monthly impressions estimate (initial range)", "Click and conversion summary"],
+    },
+    {
+        title: "Newsletter Sponsor",
+        icon: Terminal,
+        description: "Exclusive sponsor slot in our monthly newsletter sent to our newsletter subscribers. Send date confirmed 5 days in advance.",
+        features: [
+            "One sponsor per monthly newsletter",
+            "Featured in our weekly newsletter",
+            "60-120 character ad copy (we review for clarity)",
+            "Click and conversion tracking included",
+        ],
+    },
+];
+
 export function ServicesGrid() {
-  return (
-                <Section spacing="default" containerSize="default">
-                    <div className="mb-16 text-center">
-                        <h2 className="text-3xl font-bold text-foreground">Advertising Solutions</h2>
-                        <p className="mt-4 text-muted-foreground">High-impact placements to drive growth.</p>
-                    </div>
+    return (
+        <Section spacing="default" containerSize="default">
+            <div className="mb-12">
+                <h2 className="font-display text-balance text-[clamp(32px,4vw,56px)] uppercase leading-[0.9] tracking-[-0.005em] text-foreground">
+                    Advertising Solutions
+                </h2>
+                <p className="mt-4 text-[18px] text-muted-foreground">High-impact placements to drive growth.</p>
+            </div>
 
-                    <div className="grid gap-8 md:grid-cols-3">
-                        <MotionDiv
-                            initial={designSystem.animations.fadeInUp.initial}
-                            whileInView={designSystem.animations.fadeInUp.animate}
-                            viewport={{ once: true }}
-                            transition={designSystem.animations.fadeInUp.transition}
-                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card p-8 transition-all hover:-translate-y-1 hover:border-vibe-electric/30 hover:shadow-2xl hover:shadow-vibe-electric/10"
-                        >
-                            <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/50 ring-1 ring-border group-hover:bg-vibe-electric/10 group-hover:ring-vibe-electric/30 transition-colors">
-                                <Rocket className="h-6 w-6 text-vibe-pink" />
-                            </div>
-                            <h3 className="mb-3 text-2xl font-semibold text-foreground">Featured Spotlight</h3>
-                            <p className="mb-6 text-muted-foreground">Top-of-home placement with a Featured badge and priority visibility for new visitors.</p>
+            <div className="grid gap-3 md:grid-cols-3 md:gap-6">
+                {SERVICES.map((service) => {
+                    const Icon = service.icon;
+                    return (
+                        <div key={service.title} className="bg-card p-8">
+                            <Icon aria-hidden="true" className="mb-6 h-7 w-7 text-vibe-link" />
+                            <h3 className="mb-3 text-[24px] font-semibold text-foreground">{service.title}</h3>
+                            <p className="mb-6 text-[16px] leading-normal text-muted-foreground">{service.description}</p>
                             <ul className="space-y-3">
-                                <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-vibe-link" />
-                                    Top of homepage placement
-                                </li>
-                                <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-vibe-link" />
-                                    &quot;Featured&quot; badge on listing
-                                </li>
-                                <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-vibe-link" />
-                                    Monthly performance report
-                                </li>
+                                {service.features.map((feature) => (
+                                    <li key={feature} className="flex items-start text-[15px] text-foreground">
+                                        <Check aria-hidden="true" className="mr-3 mt-0.5 h-4 w-4 shrink-0 text-vibe-link" />
+                                        {feature}
+                                    </li>
+                                ))}
                             </ul>
-                        </MotionDiv>
-
-                        <MotionDiv
-                            initial={designSystem.animations.fadeInUp.initial}
-                            whileInView={designSystem.animations.fadeInUp.animate}
-                            viewport={{ once: true }}
-                            transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.1 }}
-                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card p-8 transition-all hover:-translate-y-1 hover:border-vibe-electric/30 hover:shadow-2xl hover:shadow-vibe-electric/10"
-                        >
-                            <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/50 ring-1 ring-border group-hover:bg-vibe-electric/10 group-hover:ring-vibe-electric/30 transition-colors">
-                                <Zap className="h-6 w-6 text-vibe-purple" />
-                            </div>
-                            <h3 className="mb-3 text-2xl font-semibold text-foreground">Sidebar Ads</h3>
-                            <p className="mb-6 text-muted-foreground">Category-targeted sidebar placement for high-intent visitors exploring tools.</p>
-                            <ul className="space-y-3">
-                                <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-vibe-link" />
-                                    Category page sidebar placement
-                                </li>
-                                <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-vibe-link" />
-                                    Monthly impressions estimate (initial range)
-                                </li>
-                                <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-vibe-link" />
-                                    Click and conversion summary
-                                </li>
-                            </ul>
-                        </MotionDiv>
-
-                        <MotionDiv
-                            initial={designSystem.animations.fadeInUp.initial}
-                            whileInView={designSystem.animations.fadeInUp.animate}
-                            viewport={{ once: true }}
-                            transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.2 }}
-                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card p-8 transition-all hover:-translate-y-1 hover:border-vibe-electric/30 hover:shadow-2xl hover:shadow-vibe-electric/10"
-                        >
-                            <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/50 ring-1 ring-border group-hover:bg-vibe-electric/10 group-hover:ring-vibe-electric/30 transition-colors">
-                                <Terminal className="h-6 w-6 text-vibe-purple" />
-                            </div>
-                            <h3 className="mb-3 text-2xl font-semibold text-foreground">Newsletter Sponsor</h3>
-                            <p className="mb-6 text-muted-foreground">Exclusive sponsor slot in our monthly newsletter sent to our newsletter subscribers. Send date confirmed 5 days in advance.</p>
-                            <ul className="space-y-3">
-                                <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-vibe-link" />
-                                    One sponsor per monthly newsletter
-                                </li>
-                                <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-vibe-link" />
-                                    Featured in our weekly newsletter
-                                </li>
-                                <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-vibe-link" />
-                                    60-120 character ad copy (we review for clarity)
-                                </li>
-                                <li className="flex items-center text-sm text-foreground/80">
-                                    <Check className="mr-3 h-4 w-4 text-vibe-link" />
-                                    Click and conversion tracking included
-                                </li>
-                            </ul>
-                        </MotionDiv>
-                    </div>
-                </Section>
-  );
+                        </div>
+                    );
+                })}
+            </div>
+        </Section>
+    );
 }

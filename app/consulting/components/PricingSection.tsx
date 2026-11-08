@@ -1,8 +1,5 @@
 import { Check, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { MotionDiv, MotionSection, MotionLi, MotionSpan, MotionP, MotionH1, MotionH2, MotionH3 } from "@/components/ui/motion-wrapper";
-import { designSystem } from "@/lib/design-system";
 import { Section } from "@/components/primitives/Section";
 
 interface PricingSectionProps {
@@ -10,153 +7,103 @@ interface PricingSectionProps {
     loading: boolean;
 }
 
+const PLANS = [
+    {
+        title: "Sidebar Ads",
+        placement: "sidebarAd",
+        highlighted: false,
+        features: [
+            "Category page sidebar placement",
+            "Estimated 3–8k monthly impressions",
+            "Click and conversion summary",
+            "One copy or image update included",
+        ],
+    },
+    {
+        title: "Featured Spotlight",
+        placement: "featuredSpotlight",
+        highlighted: true,
+        features: [
+            "Home hero placement",
+            "Priority visibility for new visitors",
+            "\"Featured\" badge on listing",
+            "Monthly performance report",
+        ],
+    },
+    {
+        title: "Newsletter Sponsor",
+        placement: "newsletter",
+        highlighted: false,
+        features: [
+            "Featured in our weekly newsletter",
+            "One exclusive slot per month (first week preferred)",
+            "Copy approval 3 days before send",
+            "Full click analytics within 48 hours",
+        ],
+    },
+];
+
+/**
+ * Direction B: three flat tone fields. The highlighted plan is the inverse
+ * field (ink ground) with the one orange action; the others are surfaces.
+ */
 export function PricingSection({ handleCheckout, loading }: PricingSectionProps) {
-  return (
-                <Section spacing="large" containerSize="default">
-                    <div className="mb-16 text-center">
-                        <h2 className="text-3xl font-bold text-foreground mb-4">Transparent Pricing</h2>
-                        <p className="text-muted-foreground max-w-2xl mx-auto">Simple, straightforward rates with no hidden fees. All packages include detailed analytics and performance tracking.</p>
+    return (
+        <Section spacing="large" containerSize="default">
+            <div className="mb-12">
+                <h2 className="mb-4 font-display text-balance text-[clamp(32px,4vw,56px)] uppercase leading-[0.9] tracking-[-0.005em] text-foreground">
+                    Transparent Pricing
+                </h2>
+                <p className="max-w-[60ch] text-[18px] leading-normal text-muted-foreground">
+                    Simple, straightforward rates with no hidden fees. All packages include detailed analytics and performance tracking.
+                </p>
+            </div>
+
+            <div className="grid max-w-5xl gap-3 md:grid-cols-3 md:gap-6">
+                {PLANS.map((plan) => (
+                    <div
+                        key={plan.title}
+                        className={`relative flex flex-col p-8 ${plan.highlighted ? "bg-foreground text-background" : "bg-card text-foreground"}`}
+                    >
+                        {plan.highlighted && (
+                            <span className="absolute right-0 top-0 bg-vibe-electric px-3 py-1.5 text-[14px] font-semibold text-vibe-deep">
+                                Most Popular
+                            </span>
+                        )}
+                        <div className="mb-6">
+                            <h3 className="mb-3 text-[20px] font-semibold">{plan.title}</h3>
+                            <div className="flex items-baseline gap-2">
+                                <span className="font-display text-[48px] uppercase leading-none">Custom</span>
+                                <span className={plan.highlighted ? "text-background/75" : "text-muted-foreground"}>pricing</span>
+                            </div>
+                        </div>
+                        <ul className="mb-8 space-y-3">
+                            {plan.features.map((feature) => (
+                                <li key={feature} className="flex items-start gap-2 text-[15px]">
+                                    <Check
+                                        aria-hidden="true"
+                                        className={`mt-0.5 h-4 w-4 shrink-0 ${plan.highlighted ? "text-vibe-electric" : "text-vibe-link"}`}
+                                    />
+                                    <span>{feature}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <Button
+                            variant={plan.highlighted ? "default" : "secondary"}
+                            className={`mt-auto h-11 w-full rounded-none text-[16px] font-semibold ${plan.highlighted ? "" : "bg-background hover:bg-accent"}`}
+                            onClick={() => handleCheckout(plan.placement)}
+                            disabled={loading}
+                        >
+                            {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                            Get Started
+                        </Button>
                     </div>
+                ))}
+            </div>
 
-                    <div className="grid gap-8 md:grid-cols-3 max-w-5xl mx-auto">
-                        {/* Starter */}
-                        <MotionDiv
-                            initial={designSystem.animations.fadeInUp.initial}
-                            whileInView={designSystem.animations.fadeInUp.animate}
-                            viewport={{ once: true }}
-                            transition={designSystem.animations.fadeInUp.transition}
-                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card p-8 transition-all hover:-translate-y-1 hover:border-vibe-electric/30 hover:shadow-2xl hover:shadow-vibe-electric/10"
-                        >
-                            <div className="mb-6">
-                                <h3 className="text-xl font-semibold mb-2">Sidebar Ads</h3>
-                                <div className="flex items-baseline gap-2">
-                                    <span className="text-4xl font-bold text-foreground">Custom</span>
-                                    <span className="text-muted-foreground">pricing</span>
-                                </div>
-                            </div>
-                            <ul className="space-y-3 mb-8">
-                                <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
-                                    <span>Category page sidebar placement</span>
-                                </li>
-                                <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
-                                    <span>Estimated 3–8k monthly impressions</span>
-                                </li>
-                                <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
-                                    <span>Click and conversion summary</span>
-                                </li>
-                                <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
-                                    <span>One copy or image update included</span>
-                                </li>
-                            </ul>
-                            <Button
-                                variant="outline"
-                                className="w-full rounded-full"
-                                onClick={() => handleCheckout('sidebarAd')}
-                                disabled={loading}
-                            >
-                                {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                                Get Started
-                            </Button>
-                        </MotionDiv>
-
-                        {/* Professional - Highlighted */}
-                        <MotionDiv
-                            initial={designSystem.animations.fadeInUp.initial}
-                            whileInView={designSystem.animations.fadeInUp.animate}
-                            viewport={{ once: true }}
-                            transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.1 }}
-                            className="group relative overflow-hidden rounded-3xl border-2 border-vibe-electric/50 bg-linear-to-b from-vibe-electric/10 to-card/50 p-8 shadow-xl shadow-vibe-electric/20 transition-all hover:-translate-y-2 hover:shadow-2xl hover:shadow-vibe-electric/30"
-                        >
-                            <div className="absolute top-4 right-4">
-                                <Badge className="bg-vibe-electric text-vibe-deep border-vibe-electric">Most Popular</Badge>
-                            </div>
-                            <div className="mb-6">
-                                <h3 className="text-xl font-semibold mb-2">Featured Spotlight</h3>
-                                <div className="flex items-baseline gap-2">
-                                    <span className="text-4xl font-bold text-foreground">Custom</span>
-                                    <span className="text-muted-foreground">pricing</span>
-                                </div>
-                            </div>
-                            <ul className="space-y-3 mb-8">
-                                <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
-                                    <span>Home hero placement</span>
-                                </li>
-                                <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
-                                    <span>Priority visibility for new visitors</span>
-                                </li>
-                                <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
-                                    <span>&quot;Featured&quot; badge on listing</span>
-                                </li>
-                                <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
-                                    <span>Monthly performance report</span>
-                                </li>
-                            </ul>
-                            <Button
-                                className="w-full rounded-full shadow-lg"
-                                onClick={() => handleCheckout('featuredSpotlight')}
-                                disabled={loading}
-                            >
-                                {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                                Get Started
-                            </Button>
-                        </MotionDiv>
-
-                        {/* Enterprise */}
-                        <MotionDiv
-                            initial={designSystem.animations.fadeInUp.initial}
-                            whileInView={designSystem.animations.fadeInUp.animate}
-                            viewport={{ once: true }}
-                            transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.2 }}
-                            className="group relative overflow-hidden rounded-3xl border border-border/50 bg-card p-8 transition-all hover:-translate-y-1 hover:border-vibe-electric/30 hover:shadow-2xl hover:shadow-vibe-electric/10"
-                        >
-                            <div className="mb-6">
-                                <h3 className="text-xl font-semibold mb-2">Newsletter Sponsor</h3>
-                                <div className="flex items-baseline gap-2">
-                                    <span className="text-4xl font-bold text-foreground">Custom</span>
-                                    <span className="text-muted-foreground">pricing</span>
-                                </div>
-                            </div>
-                            <ul className="space-y-3 mb-8">
-                                <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
-                                    <span>Featured in our weekly newsletter</span>
-                                </li>
-                                <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
-                                    <span>One exclusive slot per month (first week preferred)</span>
-                                </li>
-                                <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
-                                    <span>Copy approval 3 days before send</span>
-                                </li>
-                                <li className="flex items-start gap-2 text-sm text-foreground/80">
-                                    <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
-                                    <span>Full click analytics within 48 hours</span>
-                                </li>
-                            </ul>
-                            <Button
-                                variant="outline"
-                                className="w-full rounded-full"
-                                onClick={() => handleCheckout('newsletter')}
-                                disabled={loading}
-                            >
-                                {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                                Get Started
-                            </Button>
-                        </MotionDiv>
-                    </div>
-
-                    <p className="text-center text-sm text-muted-foreground mt-8">
-                        All prices in USD. Custom packages available for annual commitments.
-                    </p>
-                </Section>
-  );
+            <p className="mt-8 text-[15px] text-muted-foreground">
+                All prices in USD. Custom packages available for annual commitments.
+            </p>
+        </Section>
+    );
 }

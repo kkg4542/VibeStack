@@ -94,10 +94,10 @@ export default function WebhookDashboard() {
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">Processed</CardTitle>
-                        <CheckCircle2 className="h-4 w-4 text-green-700 dark:text-green-500" />
+                        <CheckCircle2 className="h-4 w-4 text-success" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold text-green-700 dark:text-green-400">{stats.summary.processed}</div>
+                        <div className="text-2xl font-bold text-success">{stats.summary.processed}</div>
                     </CardContent>
                 </Card>
 
@@ -117,9 +117,9 @@ export default function WebhookDashboard() {
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">{successPercentage}%</div>
-                        <div className={`w-full bg-secondary rounded-full h-2 mt-2`}>
+                        <div className="mt-2 h-2 w-full bg-secondary">
                             <div
-                                className={`h-2 rounded-full ${successPercentage >= 95 ? 'bg-green-500' : successPercentage >= 80 ? 'bg-yellow-500' : 'bg-red-500'}`}
+                                className={`h-2 ${successPercentage >= 95 ? 'bg-success' : successPercentage >= 80 ? 'bg-warning' : 'bg-red-500'}`}
                                 style={{ width: `${successPercentage}%` }}
                             />
                         </div>
@@ -140,9 +140,9 @@ export default function WebhookDashboard() {
                                 <div className="flex-1">
                                     <p className="font-medium text-sm">{type}</p>
                                     <div className="flex items-center gap-2 mt-1">
-                                        <div className="w-full bg-secondary rounded-full h-2 max-w-xs">
+                                        <div className="h-2 w-full max-w-xs bg-secondary">
                                             <div
-                                                className="bg-primary h-2 rounded-full"
+                                                className="h-2 bg-primary"
                                                 style={{ width: `${(data.count / stats.summary.total) * 100}%` }}
                                             />
                                         </div>
@@ -170,19 +170,19 @@ export default function WebhookDashboard() {
                     <CardContent>
                         <div className="space-y-4">
                             {stats.recentFailures.map((failure) => (
-                                <div key={failure.eventId} className="border rounded-lg p-4 space-y-2">
+                                <div key={failure.eventId} className="bg-secondary p-4 space-y-2">
                                     <div className="flex items-center justify-between">
                                         <Badge variant="outline">{failure.type}</Badge>
                                         <span className="text-xs text-muted-foreground">
                                             {new Date(failure.createdAt).toLocaleString()}
                                         </span>
                                     </div>
-                                    <p className="text-sm font-mono text-muted-foreground">
+                                    <p /* taste-skill-ignore: literal event id */ className="text-sm font-mono text-muted-foreground">
                                         ID: {failure.eventId}
                                     </p>
                                     {failure.error && (
                                         <Alert variant="destructive" className="mt-2">
-                                            <AlertDescription className="text-xs font-mono">
+                                            <AlertDescription /* taste-skill-ignore: raw error payload */ className="text-[13px] font-mono">
                                                 {failure.error}
                                             </AlertDescription>
                                         </Alert>

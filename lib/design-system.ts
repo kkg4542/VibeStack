@@ -1,9 +1,11 @@
 export const designSystem = {
 
     animations: {
-        // Standard fade-in-up for entering elements
+        // Standard rise-in for entering elements. Starts fully opaque so
+        // content is visible in the SSR HTML and with JS off; only the
+        // translate animates.
         fadeInUp: {
-            initial: { opacity: 0, y: 20 },
+            initial: { opacity: 1, y: 20 },
             animate: { opacity: 1, y: 0 },
             exit: { opacity: 0, y: 20 },
             transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }
@@ -30,16 +32,16 @@ export const designSystem = {
 
     // VibeStack Signature Animations
     vibeAnimations: {
-        // Text reveal with scramble effect
+        // Text reveal: translate only (no blur, never an opacity:0 start)
         textReveal: {
-            initial: { opacity: 0, filter: 'blur(10px)', y: 20 },
-            animate: { opacity: 1, filter: 'blur(0px)', y: 0 },
+            initial: { opacity: 1, y: 20 },
+            animate: { opacity: 1, y: 0 },
             transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
         },
 
         // 3D Card tilt entrance
         card3D: {
-            initial: { opacity: 0, rotateX: 15, y: 50 },
+            initial: { opacity: 1, rotateX: 15, y: 50 },
             animate: { opacity: 1, rotateX: 0, y: 0 },
             transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
         },
@@ -47,10 +49,11 @@ export const designSystem = {
         // Glow pulse animation
         glowPulse: {
             animate: {
+                // Direction B: no glow. A constant solid 1px orange ring.
                 boxShadow: [
-                    '0 0 20px rgba(0, 217, 255, 0.3)',
-                    '0 0 40px rgba(0, 217, 255, 0.5)',
-                    '0 0 20px rgba(0, 217, 255, 0.3)'
+                    '0 0 0 1px #ff4a1f',
+                    '0 0 0 1px #ff4a1f',
+                    '0 0 0 1px #ff4a1f'
                 ],
                 transition: { duration: 2, repeat: Infinity, ease: 'easeInOut' }
             }
@@ -66,7 +69,7 @@ export const designSystem = {
 
         // Scale up with bounce
         scaleBounce: {
-            initial: { scale: 0.8, opacity: 0 },
+            initial: { scale: 0.96, opacity: 1 },
             animate: { scale: 1, opacity: 1 },
             transition: { type: 'spring', stiffness: 400, damping: 17 }
         },
@@ -74,17 +77,17 @@ export const designSystem = {
         // Slide in from various directions
         slideIn: {
             left: {
-                initial: { x: -50, opacity: 0 },
+                initial: { x: -50, opacity: 1 },
                 animate: { x: 0, opacity: 1 },
                 transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
             },
             right: {
-                initial: { x: 50, opacity: 0 },
+                initial: { x: 50, opacity: 1 },
                 animate: { x: 0, opacity: 1 },
                 transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
             },
             up: {
-                initial: { y: 50, opacity: 0 },
+                initial: { y: 50, opacity: 1 },
                 animate: { y: 0, opacity: 1 },
                 transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
             }
@@ -105,13 +108,13 @@ export const designSystem = {
         card: {
             rest: { 
                 y: 0, 
-                boxShadow: '0 0 0 rgba(0, 217, 255, 0)',
-                borderColor: 'rgba(255, 255, 255, 0.1)'
+                boxShadow: 'none',
+                borderColor: '#33353a'
             },
             hover: { 
                 y: -4, 
-                boxShadow: '0 20px 40px rgba(0, 217, 255, 0.15)',
-                borderColor: 'rgba(0, 217, 255, 0.3)'
+                boxShadow: 'none',
+                borderColor: '#ff4a1f'
             },
             transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] }
         },
@@ -142,16 +145,18 @@ export const designSystem = {
     },
 
     // VibeStack Brand Colors
+    // Direction B: graphite + one safety-orange accent. Legacy keys are kept
+    // and mapped onto the new palette so nothing renders neon.
     colors: {
-        electric: '#00d9ff',
-        neon: '#ff00ff',
-        deep: '#030308', // Deepened for Obsidian effect
-        obsidian: '#05050A', // New obsidian tint
-        cyan: '#00f0ff',
-        purple: '#b829dd',
-        pink: '#ff006e',
-        glow: 'rgba(0, 217, 255, 0.15)',
-        slate: '#0F172A',
+        electric: '#ff4a1f', // the one accent
+        neon: '#ff4a1f',
+        deep: '#18191b', // ground / text on orange
+        obsidian: '#222427', // surface
+        cyan: '#ff4a1f',
+        purple: '#ff7a4d',
+        pink: '#ff4a1f',
+        glow: 'rgba(255, 74, 31, 0.1)',
+        slate: '#9c9ea3', // muted
     },
 
     // VibeStack Easing & Motion Physics
@@ -203,45 +208,46 @@ export const designSystem = {
     },
 
     // Standardized gradient classes
+    // Direction B has no gradients. Keys kept; each is one flat class.
     gradients: {
-        // Primary brand gradient (vibe-electric to vibe-pink for brand consistency)
-        primary: 'from-vibe-electric via-vibe-purple to-vibe-pink',
-        // Secondary gradient for text
-        text: 'from-vibe-electric via-vibe-purple to-vibe-pink',
-        // Background gradient
-        background: 'from-vibe-electric/10 via-vibe-purple/5 to-vibe-pink/5',
-        // Card highlight gradient
-        card: 'from-vibe-electric/5 via-vibe-purple/5 to-vibe-pink/5',
+        // Accent fill (pair with text-vibe-deep)
+        primary: 'bg-vibe-electric',
+        // Accent as text (#ff4a1f dark / #b93a16 light)
+        text: 'text-vibe-link',
+        // Section background
+        background: 'bg-background',
+        // Card surface
+        card: 'bg-card',
     },
 
     // Typography hierarchy
     typography: {
-        hero: 'text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-balance',
-        section: 'text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-balance',
-        cardTitle: 'text-xl font-bold',
+        hero: 'text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-[-0.005em] leading-[0.9] text-balance',
+        section: 'text-3xl md:text-4xl lg:text-5xl font-display uppercase tracking-[-0.005em] leading-[0.9] text-balance',
+        cardTitle: 'text-xl font-extrabold tracking-[-0.02em] leading-tight',
         subtitle: 'text-lg text-muted-foreground leading-relaxed',
         body: 'text-base text-muted-foreground',
     },
 
     // Badge styles
     badges: {
-        primary: 'bg-vibe-electric/10 border-vibe-electric/20 text-vibe-electric',
-        secondary: 'bg-vibe-purple/10 border-vibe-purple/20 text-vibe-purple',
-        accent: 'bg-vibe-neon/10 border-vibe-neon/20 text-vibe-neon',
+        primary: 'bg-secondary text-vibe-link',
+        secondary: 'bg-secondary text-foreground',
+        accent: 'bg-vibe-electric text-vibe-deep',
     },
 
     // Card variants
     cards: {
-        default: 'border-border/50 hover:border-vibe-electric/30 transition-all duration-300',
-        highlighted: 'border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-vibe-cyan/5',
-        interactive: 'border-border/50 hover:border-vibe-electric/30 hover:shadow-lg hover:shadow-vibe-electric/5 transition-all duration-300',
+        default: 'bg-card border-border transition-colors duration-200',
+        highlighted: 'border-vibe-electric',
+        interactive: 'bg-card border-border hover:bg-accent transition-colors duration-200',
     },
 
     // Background presets
     backgrounds: {
-        grid: 'bg-grid-pattern opacity-30',
-        gradientOrbs: 'bg-linear-to-b from-background via-vibe-electric/5 to-background',
-        glass: 'bg-card/50 backdrop-blur-sm',
+        grid: 'bg-background',
+        gradientOrbs: 'bg-background',
+        glass: 'bg-card',
     }
 };
 
@@ -268,10 +274,11 @@ export const createTiltTransform = (x: number, y: number, strength: number = 10)
 // Helper function for glow animation config
 export const glowAnimation = {
     animate: {
+        // Direction B: no glow. A constant solid 1px orange ring.
         boxShadow: [
-            '0 0 20px rgba(0, 217, 255, 0.3)',
-            '0 0 40px rgba(0, 217, 255, 0.5)',
-            '0 0 20px rgba(0, 217, 255, 0.3)'
+            '0 0 0 1px #ff4a1f',
+            '0 0 0 1px #ff4a1f',
+            '0 0 0 1px #ff4a1f'
         ]
     },
     transition: { duration: 2, repeat: Infinity, ease: 'easeInOut' }

@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight, Check, X, Star, ChevronRight } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { AffiliateLink } from "@/components/ui/AffiliateLink";
 import { ToolIconRenderer } from "@/components/tools/ToolIconRenderer";
@@ -13,7 +12,6 @@ import { getTools } from "@/lib/tools-db";
 import { BEST_CATEGORIES, getBestCategoryBySlug } from "@/lib/best-categories";
 import { ToolData } from "@/lib/tool-types";
 import { Section } from "@/components/primitives/Section";
-import { designSystem } from "@/lib/design-system";
 
 export function generateStaticParams() {
   return BEST_CATEGORIES.map((c) => ({ category: c.slug }));
@@ -116,33 +114,33 @@ export default async function BestCategoryPage({
 
       <Section spacing="default" containerSize="small">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-1 text-sm text-muted-foreground mb-8">
-          <Link href="/" className="hover:text-foreground">Home</Link>
-          <ChevronRight className="h-3.5 w-3.5" />
-          <Link href="/tools" className="hover:text-foreground">Tools</Link>
-          <ChevronRight className="h-3.5 w-3.5" />
+        <nav className="mb-10 flex flex-wrap items-center gap-1 text-[14px] text-muted-foreground">
+          <Link href="/" className="hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link">Home</Link>
+          <ChevronRight aria-hidden="true" className="h-3.5 w-3.5" />
+          <Link href="/tools" className="hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link">Tools</Link>
+          <ChevronRight aria-hidden="true" className="h-3.5 w-3.5" />
           <span className="text-foreground">{copy.heading}</span>
         </nav>
 
         {/* Hero */}
-        <header className="mb-12">
-          <Badge variant="outline" className="mb-4 border-vibe-electric/30 bg-vibe-electric/10 text-vibe-link">
+        <header className="mb-16">
+          <p className="mb-6 text-[16px] font-semibold text-vibe-link">
             Updated for 2026
-          </Badge>
-          <h1 className={`${designSystem.typography.hero} mb-5`}>
+          </p>
+          <h1 className="mb-8 font-display text-[clamp(32px,6vw,88px)] text-balance text-foreground">
             {copy.heading}{" "}
-            <span className="text-muted-foreground font-normal">— Ranked</span>
+            <span className="text-muted-foreground">— Ranked</span>
           </h1>
-          <p className="text-lg text-muted-foreground leading-relaxed">{copy.intro}</p>
+          <p className="text-[18px] leading-normal text-muted-foreground sm:text-[20px]">{copy.intro}</p>
         </header>
 
         {/* Buying guide */}
-        <section className="mb-12 rounded-2xl border border-border bg-card p-6">
-          <h2 className="text-lg font-bold mb-4">How we picked</h2>
+        <section className="mb-16 bg-card p-6 md:p-8">
+          <h2 className="mb-4 text-[20px] font-semibold">How we picked</h2>
           <ul className="space-y-2.5">
             {copy.buyingGuide.map((g) => (
-              <li key={g} className="flex items-start gap-2 text-sm text-muted-foreground">
-                <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
+              <li key={g} className="flex items-start gap-2 text-[16px] leading-normal text-muted-foreground">
+                <Check aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 text-foreground" />
                 <span>{g}</span>
               </li>
             ))}
@@ -151,24 +149,24 @@ export default async function BestCategoryPage({
 
         {/* At-a-glance comparison table */}
         {ranked.length > 0 ? (
-          <section className="mb-12">
-            <h2 className="text-lg font-bold mb-4">At a glance</h2>
-            <div className="overflow-x-auto rounded-2xl border border-border">
-              <table className="w-full text-left text-sm">
+          <section className="mb-16">
+            <h2 className="mb-6 font-display text-[clamp(32px,4vw,56px)] text-foreground">At a glance</h2>
+            <div className="overflow-x-auto">
+              <table className="w-full border-separate border-spacing-y-1 text-left text-[16px]">
                 <thead>
-                  <tr className="border-b border-border bg-secondary/40 text-xs uppercase tracking-wide text-muted-foreground">
-                    <th className="px-4 py-3 font-semibold">#</th>
-                    <th className="px-4 py-3 font-semibold">Tool</th>
-                    <th className="px-4 py-3 font-semibold">Pricing</th>
-                    <th className="px-4 py-3 font-semibold hidden sm:table-cell">Standout features</th>
+                  <tr className="bg-secondary text-[14px] text-muted-foreground">
+                    <th scope="col" className="px-4 py-3 font-semibold">#</th>
+                    <th scope="col" className="px-4 py-3 font-semibold">Tool</th>
+                    <th scope="col" className="px-4 py-3 font-semibold">Pricing</th>
+                    <th scope="col" className="hidden px-4 py-3 font-semibold sm:table-cell">Standout features</th>
                   </tr>
                 </thead>
                 <tbody>
                   {ranked.map((tool, i) => (
-                    <tr key={tool.slug} className="border-b border-border/50 last:border-0">
-                      <td className="px-4 py-3 font-bold text-vibe-link">{i + 1}</td>
+                    <tr key={tool.slug} className="bg-card">
+                      <td className="px-4 py-3 font-semibold tabular-nums text-vibe-link">{i + 1}</td>
                       <td className="px-4 py-3">
-                        <Link href={`/tool/${tool.slug}`} className="font-semibold hover:text-vibe-link transition-colors">
+                        <Link href={`/tool/${tool.slug}`} className="font-semibold transition-colors hover:text-vibe-link focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link">
                           {tool.title}
                         </Link>
                       </td>
@@ -186,45 +184,48 @@ export default async function BestCategoryPage({
 
         {/* Ranked list */}
         {ranked.length === 0 ? (
-          <p className="text-muted-foreground mb-12">
+          <p className="mb-16 text-[16px] text-muted-foreground">
             We&apos;re still curating tools for this category.{" "}
-            <Link href="/tools" className="text-vibe-link hover:underline">Browse all tools</Link>.
+            <Link href="/tools" className="font-semibold text-vibe-link underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link">Browse all tools</Link>.
           </p>
         ) : (
-          <div className="space-y-6 mb-16">
+          <div className="mb-16 space-y-1">
             {ranked.map((tool, i) => (
               <article
                 key={tool.slug}
-                className="rounded-2xl border border-border bg-card p-6 md:p-8"
+                className="bg-card p-6 md:p-8"
               >
                 <div className="flex items-start gap-4 mb-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-secondary/50 border border-border/40 text-2xl font-bold text-vibe-link">
+                  <div className="min-w-12 shrink-0 font-display text-[clamp(40px,5vw,64px)] tabular-nums text-vibe-link">
                     {i + 1}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <ToolIconRenderer slug={tool.slug} className={`h-5 w-5 ${tool.color || ""}`} />
-                      <h2 className="text-xl font-bold">
-                        <Link href={`/tool/${tool.slug}`} className="hover:text-vibe-link transition-colors">
+                    <div className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1">
+                      {/* tool.color is per-item colour data; it no longer renders. */}
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-secondary text-foreground">
+                        <ToolIconRenderer slug={tool.slug} className="h-5 w-5" />
+                      </span>
+                      <h2 className="text-[24px] font-semibold">
+                        <Link href={`/tool/${tool.slug}`} className="transition-colors hover:text-vibe-link focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link">
                           {tool.title}
                         </Link>
                       </h2>
-                      <Badge variant="secondary" className="ml-auto shrink-0">{tool.pricing}</Badge>
+                      <span className="ml-auto shrink-0 bg-secondary px-3 py-1 text-[14px] font-semibold text-foreground">{tool.pricing}</span>
                     </div>
-                    <p className="text-sm text-muted-foreground">{tool.description}</p>
+                    <p className="text-[16px] leading-normal text-muted-foreground">{tool.description}</p>
                   </div>
                 </div>
 
                 {/* Pros / cons */}
                 {(tool.pros?.length || tool.cons?.length) ? (
-                  <div className="grid sm:grid-cols-2 gap-4 mb-5">
+                  <div className="mb-6 grid gap-1 sm:grid-cols-2">
                     {tool.pros?.length ? (
-                      <div>
-                        <div className="text-xs font-semibold uppercase tracking-wide text-emerald-700 dark:text-emerald-500 mb-2">Pros</div>
+                      <div className="bg-secondary p-4">
+                        <h3 className="mb-2 text-[16px] font-semibold text-foreground">Pros</h3>
                         <ul className="space-y-1.5">
                           {tool.pros.slice(0, 3).map((p) => (
-                            <li key={p} className="flex items-start gap-2 text-sm">
-                              <Check className="h-4 w-4 text-emerald-700 dark:text-emerald-500 mt-0.5 shrink-0" />
+                            <li key={p} className="flex items-start gap-2 text-[16px]">
+                              <Check aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 text-foreground" />
                               <span>{p}</span>
                             </li>
                           ))}
@@ -232,12 +233,12 @@ export default async function BestCategoryPage({
                       </div>
                     ) : null}
                     {tool.cons?.length ? (
-                      <div>
-                        <div className="text-xs font-semibold uppercase tracking-wide text-rose-700 dark:text-rose-400 mb-2">Cons</div>
+                      <div className="bg-secondary p-4">
+                        <h3 className="mb-2 text-[16px] font-semibold text-foreground">Cons</h3>
                         <ul className="space-y-1.5">
                           {tool.cons.slice(0, 3).map((c) => (
-                            <li key={c} className="flex items-start gap-2 text-sm">
-                              <X className="h-4 w-4 text-rose-700 dark:text-rose-400 mt-0.5 shrink-0" />
+                            <li key={c} className="flex items-start gap-2 text-[16px]">
+                              <X aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 text-muted-foreground" />
                               <span>{c}</span>
                             </li>
                           ))}
@@ -252,14 +253,15 @@ export default async function BestCategoryPage({
                     url={tool.affiliateUrl || tool.websiteUrl}
                     toolSlug={tool.slug}
                     toolName={tool.title}
+                    label={`Visit ${tool.title}`}
                     className="h-10 px-5"
                   >
                     Visit {tool.title}
                   </AffiliateLink>
-                  <Button asChild variant="ghost" size="sm">
+                  <Button asChild variant="ghost" size="sm" className="h-10 rounded-none px-4 text-[16px] font-semibold">
                     <Link href={`/tool/${tool.slug}`}>
                       Read full review
-                      <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+                      <ArrowRight aria-hidden="true" className="ml-1.5 h-4 w-4" />
                     </Link>
                   </Button>
                 </div>
@@ -271,8 +273,8 @@ export default async function BestCategoryPage({
         {/* Long-form editorial body */}
         {copy.body?.length ? (
           <section className="mb-16">
-            <h2 className="text-2xl font-bold mb-6">How to choose</h2>
-            <div className="space-y-4 text-muted-foreground leading-relaxed [&_a]:text-vibe-link [&_a]:hover:underline [&_strong]:text-foreground">
+            <h2 className="mb-6 font-display text-[clamp(32px,4vw,56px)] text-foreground">How to choose</h2>
+            <div className="space-y-4 text-[16px] leading-normal text-muted-foreground [&_a]:font-semibold [&_a]:text-vibe-link [&_a]:hover:underline [&_strong]:text-foreground">
               {copy.body.map((para, i) => (
                 <p key={i} dangerouslySetInnerHTML={{ __html: para }} />
               ))}
@@ -282,8 +284,8 @@ export default async function BestCategoryPage({
 
         {/* FAQ */}
         <section className="mb-16">
-          <h2 className="text-2xl font-bold mb-6">Frequently asked questions</h2>
-          <div className="space-y-3">
+          <h2 className="mb-6 font-display text-[clamp(32px,4vw,56px)] text-foreground">Frequently asked questions</h2>
+          <div className="space-y-1">
             {copy.faqs.map((f) => (
               <SimpleAccordionItem key={f.q} title={f.q}>
                 {f.a}
@@ -294,16 +296,16 @@ export default async function BestCategoryPage({
 
         {/* Cross-links to other category pages */}
         <section className="mb-16">
-          <h2 className="text-lg font-bold mb-4">More best-of guides</h2>
-          <div className="flex flex-wrap gap-2">
+          <h2 className="mb-4 text-[20px] font-semibold">More best-of guides</h2>
+          <div className="flex flex-wrap gap-1">
             {BEST_CATEGORIES.filter((c) => c.slug !== copy.slug).map((c) => (
               <Link
                 key={c.slug}
                 href={`/best/${c.slug}`}
-                className="inline-flex items-center gap-1 rounded-full border border-border bg-card px-4 py-2 text-sm hover:border-vibe-electric/50 transition-colors"
+                className="inline-flex items-center gap-1.5 bg-card px-4 py-2.5 text-[16px] font-semibold text-foreground transition-colors duration-150 hover:bg-vibe-electric hover:text-vibe-deep focus-visible:bg-vibe-electric focus-visible:text-vibe-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link motion-reduce:transition-none"
               >
                 {c.heading}
-                <ArrowRight className="h-3.5 w-3.5" />
+                <ArrowRight aria-hidden="true" className="h-4 w-4" />
               </Link>
             ))}
           </div>

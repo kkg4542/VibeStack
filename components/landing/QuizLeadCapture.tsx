@@ -1,10 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, CheckCircle2, ArrowRight, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Mail, CheckCircle2, ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
 import { trackNewsletterSubscribe } from "@/lib/analytics";
 import { useCsrfFetch } from "@/hooks/useCsrfFetch";
 
@@ -71,86 +69,79 @@ export function QuizLeadCapture({
     }
   };
 
+  // Direction B: an inverse field (ink ground, graphite text) inside the
+  // result card, one orange submit with dark text, square input. No gradient,
+  // no tinted icon tiles, no emoji. Form logic above is unchanged.
   if (isSuccess) {
     return (
-      <Card className="mb-8 border-emerald-500/30 bg-emerald-500/5">
-        <CardContent className="p-6 flex items-center gap-4">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-emerald-500/20">
-            <CheckCircle2 className="h-6 w-6 text-emerald-700 dark:text-emerald-500" />
-          </div>
-          <div>
-            <h3 className="font-bold text-lg mb-1">Check your inbox 🚀</h3>
-            <p className="text-sm text-muted-foreground">
-              We sent <span className="font-medium">{stackName}</span> to your
-              email — plus you&apos;ll get our weekly AI tool drops.
-            </p>
-          </div>
-        </CardContent>
-      </Card>
+      <div className="mb-8 flex items-start gap-4 bg-background p-6" role="status">
+        <CheckCircle2 className="mt-1 h-6 w-6 shrink-0 text-vibe-link" aria-hidden="true" />
+        <div>
+          <h3 className="mb-1 text-[18px] font-semibold text-foreground">Check your inbox</h3>
+          <p className="text-[16px] text-muted-foreground">
+            We sent <span className="font-semibold text-foreground">{stackName}</span> to your
+            email, plus you&apos;ll get our weekly AI tool drops.
+          </p>
+        </div>
+      </div>
     );
   }
 
   return (
-    <Card className="mb-8 border-vibe-electric/30 bg-linear-to-br from-vibe-electric/5 via-transparent to-vibe-purple/5">
-      <CardContent className="p-6 md:p-8">
-        <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
-          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-vibe-electric/10 border border-vibe-electric/20">
-            <Sparkles className="h-7 w-7 text-vibe-link" />
-          </div>
-
-          <div className="flex-1">
-            <h3 className="text-xl md:text-2xl font-bold mb-1">
-              Save your stack + get the setup guide
-            </h3>
-            <p className="text-sm text-muted-foreground mb-4 md:mb-0">
-              We&apos;ll email you <span className="font-medium">{stackName}</span>
-              {" "}with setup links, pricing tips, and weekly new-tool drops. No spam.
-            </p>
-          </div>
-
-          <form
-            onSubmit={handleSubmit}
-            className="flex w-full md:w-auto md:min-w-[360px] flex-col sm:flex-row gap-2"
-          >
-            <div className="relative flex-1">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="email"
-                placeholder="you@company.com"
-                aria-label="Email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={isSubmitting}
-                required
-                className="pl-9 h-11"
-              />
-            </div>
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="h-11 px-6 bg-linear-to-r from-vibe-electric to-vibe-cyan"
-            >
-              {isSubmitting ? (
-                <>
-                  <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                  Sending
-                </>
-              ) : (
-                <>
-                  Send it
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </>
-              )}
-            </Button>
-          </form>
+    <div className="mb-8 bg-foreground p-6 text-background md:p-8">
+      <div className="flex flex-col items-start gap-6 md:flex-row md:items-center">
+        <div className="flex-1">
+          <h3 className="mb-1 text-[clamp(20px,2.4vw,24px)] font-semibold leading-tight">
+            Save your stack + get the setup guide
+          </h3>
+          <p className="mb-4 text-[16px] opacity-80 md:mb-0">
+            We&apos;ll email you <span className="font-semibold">{stackName}</span>
+            {" "}with setup links, pricing tips, and weekly new-tool drops. No spam.
+          </p>
         </div>
 
-        {errorMessage && (
-          <p className="text-xs text-red-700 dark:text-red-500 mt-3" role="alert">
-            {errorMessage}
-          </p>
-        )}
-      </CardContent>
-    </Card>
+        <form
+          onSubmit={handleSubmit}
+          className="flex w-full flex-col gap-2 sm:flex-row md:w-auto md:min-w-[360px]"
+        >
+          <div className="relative flex-1">
+            <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
+            <Input
+              type="email"
+              placeholder="you@company.com"
+              aria-label="Email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={isSubmitting}
+              required
+              className="h-12 rounded-none border-0 bg-background pl-9 text-[16px] text-foreground focus-visible:ring-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-electric"
+            />
+          </div>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-none bg-vibe-electric px-6 text-[16px] font-semibold text-vibe-deep transition-colors hover:bg-[#e8401a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-electric disabled:opacity-60"
+          >
+            {isSubmitting ? (
+              <>
+                <span className="h-4 w-4 animate-spin rounded-full border-2 border-vibe-deep border-t-transparent motion-reduce:animate-none" aria-hidden="true" />
+                Sending
+              </>
+            ) : (
+              <>
+                Send it
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </>
+            )}
+          </button>
+        </form>
+      </div>
+
+      {errorMessage && (
+        <p className="mt-3 text-[14px] font-semibold text-background" role="alert">
+          {errorMessage}
+        </p>
+      )}
+    </div>
   );
 }

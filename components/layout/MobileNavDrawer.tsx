@@ -4,24 +4,14 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
 import {
     X,
     History,
     TrendingUp,
-    Sparkles,
     ChevronRight,
-    Home,
-    Wrench,
-    Layers,
-    Newspaper,
-    Zap,
-    Heart
 } from "lucide-react";
 import { SearchInput } from "@/components/ui/search-input";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useAllTools } from "@/hooks/use-tools";
 import { getToolIcon } from "@/components/icons/tool-icons";
@@ -33,18 +23,18 @@ interface MobileNavDrawerProps {
 }
 
 const categories = [
-    { id: "coding", label: "Coding", icon: "💻", count: 12 },
-    { id: "design", label: "Design", icon: "🎨", count: 8 },
-    { id: "productivity", label: "Productivity", icon: "⚡", count: 15 },
-    { id: "management", label: "Management", icon: "📊", count: 6 },
+    { id: "coding", label: "Coding", count: 12 },
+    { id: "design", label: "Design", count: 8 },
+    { id: "productivity", label: "Productivity", count: 15 },
+    { id: "management", label: "Management", count: 6 },
 ];
 
 const quickLinks = [
-    { href: "/", label: "Home", icon: Home, color: "from-blue-500 to-cyan-500" },
-    { href: "/build", label: "Find Stack", icon: Layers, color: "from-violet-500 to-pink-500" },
-    { href: "/tools", label: "AI Tools", icon: Wrench, color: "from-vibe-electric to-vibe-purple" },
-    { href: "/blog", label: "Blog", icon: Newspaper, color: "from-emerald-500 to-teal-500" },
-    { href: "/favorites", label: "Favorites", icon: Heart, color: "from-rose-500 to-pink-500" },
+    { href: "/", label: "Home" },
+    { href: "/build", label: "Find Stack" },
+    { href: "/tools", label: "AI Tools" },
+    { href: "/blog", label: "Blog" },
+    { href: "/favorites", label: "Favorites" },
 ];
 
 export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
@@ -110,40 +100,37 @@ export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
             {isOpen && (
                 <>
                     {/* Backdrop */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
+                    <m.div
+                        initial={false}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+                        transition={{ duration: 0.2 }}
+                        className="fixed inset-0 bg-black/60 z-50"
                         onClick={onClose}
                     />
 
                     {/* Drawer */}
-                    <motion.div
+                    <m.div
                         initial={{ x: "100%" }}
                         animate={{ x: 0 }}
                         exit={{ x: "100%" }}
-                        transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                        className="fixed right-0 top-0 bottom-0 w-full max-w-md bg-background z-50 overflow-hidden"
+                        transition={{ type: "tween", duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                        className="fixed right-0 top-0 bottom-0 w-full max-w-md bg-background text-foreground z-50 overflow-hidden"
                         onTouchStart={handleTouchStart}
                         onTouchMove={handleTouchMove}
                     >
+                        {/* Signature orange bar */}
+                        <div className="h-1.5 bg-vibe-electric" aria-hidden="true" />
+
                         {/* Header */}
-                        <div className="flex items-center justify-between p-4 border-b border-border/50 bg-background/95 backdrop-blur-xl sticky top-0 z-10">
-                            <div className="flex items-center gap-2">
-                                <div className="p-2 rounded-lg bg-linear-to-br from-blue-500 to-cyan-500">
-                                    <Sparkles className="h-4 w-4 text-white" />
-                                </div>
-                                <span className="text-lg font-black tracking-tighter bg-linear-to-r from-vibe-electric via-vibe-purple to-vibe-pink bg-clip-text text-transparent italic">
-                                    VibeStack
-                                </span>
-                            </div>
+                        <div className="flex items-center justify-between px-4 py-3 bg-background sticky top-0 z-10">
+                            <span className="font-display text-2xl uppercase leading-none tracking-[-0.005em]">
+                                VibeStack
+                            </span>
                             <Button
                                 variant="ghost"
                                 size="icon"
                                 onClick={onClose}
-                                className="rounded-full"
+                                className="rounded-none"
                                 aria-label="Close navigation menu"
                             >
                                 <X className="h-5 w-5" />
@@ -153,7 +140,7 @@ export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
                         {/* Content */}
                         <div className="overflow-y-auto h-full pb-24">
                             {/* Search */}
-                            <div className="p-4">
+                            <div className="px-4 pb-4">
                                 <form onSubmit={handleSearch}>
                                     <SearchInput
                                         variant="mobile"
@@ -165,65 +152,48 @@ export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
                             </div>
 
                             {/* Quick Links */}
-                            <div className="px-4 mb-6">
-                                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
-                                    Quick Links
-                                </h3>
-                                <div className="grid grid-cols-2 gap-2">
+                            <nav aria-label="Quick links" className="mb-8">
+                                <ul>
                                     {quickLinks.map((link) => {
-                                        const Icon = link.icon;
-                                        const isActive = pathname === link.href || pathname?.startsWith(`${link.href}/`);
+                                        const isActive = pathname === link.href || (link.href !== "/" && pathname?.startsWith(`${link.href}/`));
                                         return (
-                                            <Link
-                                                key={link.href}
-                                                href={link.href}
-                                                onClick={() => handleLinkClick(link.href)}
-                                            >
-                                                <Card className={`border-0 transition-all duration-200 ${isActive
-                                                    ? 'bg-vibe-electric/10 border-vibe-electric/30'
-                                                    : 'bg-secondary/30 hover:bg-secondary/50'
-                                                    }`}>
-                                                    <CardContent className="p-3 flex items-center gap-3">
-                                                        <div className={`p-2 rounded-lg bg-linear-to-br ${link.color}`}>
-                                                            <Icon className="h-4 w-4 text-white" />
-                                                        </div>
-                                                        <span className={`text-sm font-medium ${isActive ? 'text-vibe-link' : ''}`}>
-                                                            {link.label}
-                                                        </span>
-                                                    </CardContent>
-                                                </Card>
-                                            </Link>
+                                            <li key={link.href}>
+                                                <Link
+                                                    href={link.href}
+                                                    onClick={() => handleLinkClick(link.href)}
+                                                    aria-current={isActive ? "page" : undefined}
+                                                    className={`flex items-center justify-between px-4 py-2 font-display text-5xl uppercase leading-[0.88] tracking-[-0.005em] transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring ${isActive
+                                                        ? "bg-vibe-electric text-vibe-deep"
+                                                        : "text-foreground hover:bg-secondary"
+                                                        }`}
+                                                >
+                                                    {link.label}
+                                                    <ChevronRight className="h-6 w-6 shrink-0" aria-hidden="true" />
+                                                </Link>
+                                            </li>
                                         );
                                     })}
-                                </div>
-                            </div>
+                                </ul>
+                            </nav>
 
                             {/* Categories */}
-                            <div className="px-4 mb-6">
-                                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
-                                    Browse by Category
+                            <div className="px-4 mb-8">
+                                <h3 className="text-base font-semibold text-muted-foreground mb-3">
+                                    Browse by category
                                 </h3>
-                                <div className="space-y-2">
+                                <div className="space-y-1">
                                     {categories.map((category) => (
                                         <Link
                                             key={category.id}
                                             href={`/tools?category=${category.id}`}
                                             onClick={() => handleLinkClick(`/tools?category=${category.id}`)}
+                                            className="flex items-center justify-between bg-card px-3 py-3 text-base font-semibold transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
                                         >
-                                            <Card className="border-0 bg-secondary/30 hover:bg-secondary/50 transition-colors">
-                                                <CardContent className="p-3 flex items-center justify-between">
-                                                    <div className="flex items-center gap-3">
-                                                        <span className="text-2xl">{category.icon}</span>
-                                                        <span className="font-medium">{category.label}</span>
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        <Badge variant="secondary" className="text-xs">
-                                                            {category.count}
-                                                        </Badge>
-                                                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
-                                                    </div>
-                                                </CardContent>
-                                            </Card>
+                                            <span>{category.label}</span>
+                                            <span className="flex items-center gap-2 text-muted-foreground">
+                                                <span className="text-[13px] tabular-nums">{category.count}</span>
+                                                <ChevronRight className="h-4 w-4" aria-hidden="true" />
+                                            </span>
                                         </Link>
                                     ))}
                                 </div>
@@ -231,14 +201,14 @@ export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
 
                             {/* Recent Tools */}
                             {recentToolDetails.length > 0 && (
-                                <div className="px-4 mb-6">
+                                <div className="px-4 mb-8">
                                     <div className="flex items-center gap-2 mb-3">
-                                        <History className="h-4 w-4 text-muted-foreground" />
-                                        <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                                            Recently Viewed
+                                        <History className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+                                        <h3 className="text-base font-semibold text-muted-foreground">
+                                            Recently viewed
                                         </h3>
                                     </div>
-                                    <div className="space-y-2">
+                                    <div className="space-y-1">
                                         {recentToolDetails.map((toolItem) => {
                                             const Icon = getToolIcon(toolItem!.slug);
                                             return (
@@ -246,18 +216,15 @@ export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
                                                     key={toolItem!.slug}
                                                     href={`/tool/${toolItem!.slug}`}
                                                     onClick={() => handleLinkClick(`/tool/${toolItem!.slug}`)}
+                                                    className="flex items-center gap-3 bg-card p-3 transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
                                                 >
-                                                    <Card className="border-0 bg-secondary/30 hover:bg-secondary/50 transition-colors">
-                                                        <CardContent className="p-3 flex items-center gap-3">
-                                                            <div className={`p-2 rounded-lg bg-linear-to-br ${toolItem!.bgGradient || "from-slate-500/60 to-slate-800/60"}`}>
-                                                                <Icon className="h-4 w-4 text-white" />
-                                                            </div>
-                                                            <div className="flex-1 min-w-0">
-                                                                <p className="font-medium truncate">{toolItem!.title}</p>
-                                                                <p className="text-xs text-muted-foreground">{toolItem!.category}</p>
-                                                            </div>
-                                                        </CardContent>
-                                                    </Card>
+                                                    <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-secondary text-foreground">
+                                                        <Icon className="h-4 w-4" aria-hidden="true" />
+                                                    </span>
+                                                    <span className="flex-1 min-w-0">
+                                                        <span className="block font-semibold truncate">{toolItem!.title}</span>
+                                                        <span className="block text-[13px] text-muted-foreground">{toolItem!.category}</span>
+                                                    </span>
                                                 </Link>
                                             );
                                         })}
@@ -268,9 +235,9 @@ export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
                             {/* Trending */}
                             <div className="px-4">
                                 <div className="flex items-center gap-2 mb-3">
-                                    <TrendingUp className="h-4 w-4 text-muted-foreground" />
-                                    <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                                        Trending Now
+                                    <TrendingUp className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+                                    <h3 className="text-base font-semibold text-muted-foreground">
+                                        Trending now
                                     </h3>
                                 </div>
                                 <div className="flex flex-wrap gap-2">
@@ -279,24 +246,15 @@ export function MobileNavDrawer({ isOpen, onClose }: MobileNavDrawerProps) {
                                             key={tag}
                                             href={`/search?q=${encodeURIComponent(tag)}`}
                                             onClick={() => handleLinkClick(`/search?q=${encodeURIComponent(tag)}`)}
+                                            className="bg-secondary px-3 py-1.5 text-sm font-semibold transition-colors hover:bg-vibe-electric hover:text-vibe-deep focus-visible:outline-2 focus-visible:outline-ring"
                                         >
-                                            <Badge
-                                                variant="secondary"
-                                                className="cursor-pointer hover:bg-vibe-electric/10 hover:text-vibe-link transition-colors"
-                                            >
-                                                {tag}
-                                            </Badge>
+                                            {tag}
                                         </Link>
                                     ))}
                                 </div>
                             </div>
                         </div>
-
-                        {/* Swipe Indicator */}
-                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-linear-to-b from-transparent via-border/50 to-transparent">
-                            <div className="absolute top-1/2 -translate-y-1/2 left-0 w-1 h-16 bg-vibe-electric/30 rounded-full" />
-                        </div>
-                    </motion.div>
+                    </m.div>
                 </>
             )}
         </AnimatePresence>

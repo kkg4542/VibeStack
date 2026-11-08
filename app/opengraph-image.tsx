@@ -10,6 +10,8 @@ export const size = {
 
 export const contentType = 'image/png';
 
+// Direction B: graphite ground, one solid orange bar, big bold uppercase
+// type. No gradients, no glow, no tinted pills.
 export default async function Image() {
     return new ImageResponse(
         (
@@ -19,69 +21,65 @@ export default async function Image() {
                     width: '100%',
                     display: 'flex',
                     flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backgroundColor: '#09090b', // zinc-950
-                    backgroundImage: 'linear-gradient(to bottom right, #18181b 25%, #09090b 75%)',
+                    backgroundColor: '#18191b',
+                    color: '#eff0f1',
+                    fontFamily: 'sans-serif',
                 }}
             >
+                <div style={{ display: 'flex', width: '100%', height: 8, background: '#ff4a1f' }} />
                 <div
                     style={{
                         display: 'flex',
-                        alignItems: 'center',
+                        flexDirection: 'column',
                         justifyContent: 'center',
-                        marginBottom: 40,
+                        flex: 1,
+                        padding: '72px 80px 80px',
                     }}
                 >
-                    {/* Logo Icon Mockup */}
                     <div
                         style={{
-                            width: 80,
-                            height: 80,
-                            borderRadius: 20,
-                            background: 'rgba(99, 102, 241, 0.2)', // indigo-500/20
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            marginRight: 24,
-                            border: '1px solid rgba(255, 255, 255, 0.1)',
-                        }}
-                    >
-                        <svg
-                            width="48"
-                            height="48"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="#818cf8" // indigo-400
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        >
-                            <path d="M12 21v-6M8 9h8a2 2 0 0 1 2 2v6H6v-6a2 2 0 0 1 2-2Z" />
-                            <path d="M12 3L6 9h12l-6-6Z" />
-                        </svg>
-                    </div>
-                    <div
-                        style={{
-                            fontSize: 64,
-                            fontWeight: 700,
-                            color: 'white',
+                            fontSize: 168,
+                            fontWeight: 800,
+                            lineHeight: 0.9,
                             letterSpacing: '-0.02em',
+                            textTransform: 'uppercase',
+                            color: '#eff0f1',
                         }}
                     >
                         VibeStack
                     </div>
+                    <div
+                        style={{
+                            display: 'flex',
+                            marginTop: 36,
+                        }}
+                    >
+                        <div
+                            style={{
+                                display: 'flex',
+                                padding: '12px 24px',
+                                background: '#ff4a1f',
+                                color: '#18191b',
+                                fontSize: 40,
+                                fontWeight: 800,
+                                textTransform: 'uppercase',
+                            }}
+                        >
+                            AI Productivity Lab
+                        </div>
+                    </div>
                 </div>
                 <div
                     style={{
-                        fontSize: 32,
-                        background: 'linear-gradient(to right, #818cf8, #c084fc)', // indigo-400 to purple-500
-                        backgroundClip: 'text',
-                        color: 'transparent',
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                        padding: '0 80px 64px',
+                        fontSize: 30,
                         fontWeight: 600,
+                        color: '#9c9ea3',
                     }}
                 >
-                    AI Productivity Lab
+                    usevibestack.com
                 </div>
             </div>
         ),

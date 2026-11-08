@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Big_Shoulders, Public_Sans, JetBrains_Mono } from "next/font/google"; // taste-skill-ignore: code font for font-mono on real code
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -13,18 +13,26 @@ import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
 import { ScrollProgress } from "@/components/effects/ScrollProgress";
 import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
-import { GrainOverlay } from "@/components/effects/GrainOverlay";
 import { CustomCursor } from "@/components/effects/CustomCursor";
 
-const inter = Inter({
-  variable: "--font-sans",
+const publicSans = Public_Sans({
+  variable: "--font-public-sans",
+  weight: ["400", "600"],
   subsets: ["latin"],
   display: "swap",
   preload: true,
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-mono",
+const bigShoulders = Big_Shoulders({
+  variable: "--font-big-shoulders",
+  weight: ["800"],
+  subsets: ["latin"],
+  display: "swap",
+  preload: true,
+});
+
+const jetbrainsMono = JetBrains_Mono({ // taste-skill-ignore: code font
+  variable: "--font-jetbrains",
   subsets: ["latin"],
   display: "swap",
   preload: false,
@@ -34,8 +42,8 @@ export const viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
+    { media: "(prefers-color-scheme: light)", color: "#f4f4f2" },
+    { media: "(prefers-color-scheme: dark)", color: "#18191b" },
   ],
 };
 
@@ -94,12 +102,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${publicSans.variable} ${bigShoulders.variable} ${jetbrainsMono.variable}`} /* taste-skill-ignore: code font variable */
+      suppressHydrationWarning
+    >
       <head>
         <GoogleAnalytics />
       </head>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground selection:bg-vibe-electric/30 selection:text-primary`}
+        className={`antialiased bg-background text-foreground selection:bg-vibe-electric/30 selection:text-foreground`}
         suppressHydrationWarning
       >
         <a
@@ -113,7 +125,6 @@ export default function RootLayout({
             <SessionProvider>
               <QueryProvider>
                 <ScrollProgress />
-                <GrainOverlay />
                 <CustomCursor />
                 <Navbar />
                 <main id="main-content">

@@ -37,7 +37,7 @@ function RetryBanner({ retry, type }: { retry?: string; type?: string }) {
     return (
       <div
         role="status"
-        className="rounded-md border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-700 dark:text-emerald-400"
+        className="bg-card px-4 py-3 text-[15px] text-success"
       >
         <span className="font-medium">Replayed {label}.</span> The handler ran and
         the event is recorded as processed.
@@ -49,7 +49,7 @@ function RetryBanner({ retry, type }: { retry?: string; type?: string }) {
     return (
       <div
         role="status"
-        className="rounded-md border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-sm text-amber-700 dark:text-amber-400"
+        className="bg-card px-4 py-3 text-[15px] text-warning"
       >
         <span className="font-medium">Nothing changed.</span> There is no handler
         for {label}, so the replay applied nothing. The event is recorded as
@@ -96,7 +96,7 @@ export default async function AdminWebhooksPage({
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b bg-muted/50">
+              <tr /* taste-skill-ignore: real table row */ className="border-b bg-muted/50">
                 <th className="px-4 py-3 text-left text-sm font-medium">Provider</th>
                 <th className="px-4 py-3 text-left text-sm font-medium">Type</th>
                 <th className="px-4 py-3 text-left text-sm font-medium">Status</th>
@@ -107,7 +107,7 @@ export default async function AdminWebhooksPage({
             <tbody>
               {events.map((event) => (
                 <Fragment key={event.id}>
-                  <tr className="border-b">
+                  <tr /* taste-skill-ignore: real table row */ className="border-b">
                     <td className="px-4 py-3">{event.provider}</td>
                     <td className="px-4 py-3 font-medium">{event.type}</td>
                     <td className="px-4 py-3">
@@ -115,14 +115,14 @@ export default async function AdminWebhooksPage({
                         variant="secondary"
                         className={
                           event.status === "processed"
-                            ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400"
+                            ? "rounded-none bg-secondary font-semibold text-success"
                             : event.status === "failed"
-                              ? "bg-rose-500/10 text-rose-700 dark:text-rose-400"
+                              ? "rounded-none bg-secondary font-semibold text-rose-700 dark:text-rose-400"
                               : // "skipped" means no case matched the type, so nothing
                                 // was applied. It is not a failure and not a success,
                                 // and it gets its own colour so it reads as neither.
                                 event.status === "skipped"
-                                ? "bg-amber-500/10 text-amber-700 dark:text-amber-400"
+                                ? "rounded-none bg-secondary font-semibold text-warning"
                                 : "bg-muted text-muted-foreground"
                         }
                       >
@@ -148,13 +148,13 @@ export default async function AdminWebhooksPage({
                     // means it wasn't retried since). This is an admin-only page, so
                     // showing the raw message — which may include internal detail —
                     // is fine.
-                    <tr className="border-b bg-muted/20">
+                    <tr /* taste-skill-ignore: real table row */ className="border-b bg-muted/20">
                       <td className="px-4 py-2" colSpan={5}>
                         <details className="text-xs">
                           <summary className="cursor-pointer text-muted-foreground hover:text-foreground">
                             Error
                           </summary>
-                          <pre className="mt-2 max-h-48 overflow-y-auto whitespace-pre-wrap break-words font-mono text-muted-foreground/80">
+                          <pre /* taste-skill-ignore: raw error payload */ className="mt-2 max-h-48 overflow-y-auto whitespace-pre-wrap break-words font-mono text-muted-foreground/80">
                             {event.error}
                           </pre>
                         </details>

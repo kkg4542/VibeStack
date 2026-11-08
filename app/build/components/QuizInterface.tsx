@@ -2,22 +2,17 @@
 
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import { trackStackFinderStep, trackStackRecommended } from "@/lib/analytics";
 import {
   ArrowRight, Code2, Paintbrush, Brain, ArrowLeft, CheckCircle2, DollarSign,
-  GraduationCap, Zap, Share2, Sparkles, TrendingUp, Target, RotateCcw,
-  Users, Layers, BookOpen, Star, Lightbulb, Monitor, FileCode, TestTube,
-  MessageSquare, Heart, Trophy, ExternalLink, Copy, Check
+  GraduationCap, Zap, Share2, RotateCcw, Users, Layers, BookOpen, Star,
+  Lightbulb, Monitor, FileCode, Check
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useAllTools } from "@/hooks/use-tools";
 import { getToolIcon } from "@/components/icons/tool-icons";
 import { cn } from "@/lib/utils";
-import { designSystem } from "@/lib/design-system";
 import type { Tool } from "@prisma/client";
 import { QuizLeadCapture } from "@/components/landing/QuizLeadCapture";
 import { Container } from "@/components/primitives/Container";
@@ -44,11 +39,11 @@ export const STEPS = [
     question: "What is your primary goal?",
     description: "Choose what you want to accomplish with AI tools",
     options: [
-      { id: "ui", label: "Design UI / Frontend", icon: Paintbrush, description: "Crafting interfaces", color: "from-pink-500 to-rose-500" },
-      { id: "logic", label: "Write Code / Logic", icon: Code2, description: "Backend & Systems", color: "from-blue-500 to-vibe-cyan" },
-      { id: "fullstack", label: "Full-Stack Development", icon: Layers, description: "End-to-end", color: "from-vibe-purple to-vibe-electric" },
-      { id: "partner", label: "AI Pair Programming", icon: Brain, description: "Collaborative coding", color: "from-violet-500 to-vibe-purple" },
-      { id: "research", label: "Research & Writing", icon: BookOpen, description: "Content creation", color: "from-emerald-500 to-teal-500" },
+      { id: "ui", label: "Design UI / Frontend", icon: Paintbrush, description: "Crafting interfaces", color: "bg-secondary" },
+      { id: "logic", label: "Write Code / Logic", icon: Code2, description: "Backend & Systems", color: "bg-secondary" },
+      { id: "fullstack", label: "Full-Stack Development", icon: Layers, description: "End-to-end", color: "bg-secondary" },
+      { id: "partner", label: "AI Pair Programming", icon: Brain, description: "Collaborative coding", color: "bg-secondary" },
+      { id: "research", label: "Research & Writing", icon: BookOpen, description: "Content creation", color: "bg-secondary" },
     ],
   },
   {
@@ -56,9 +51,9 @@ export const STEPS = [
     question: "What's your experience level?",
     description: "This helps us recommend the right complexity",
     options: [
-      { id: "beginner", label: "Beginner / No-Code", icon: GraduationCap, description: "Just getting started", color: "from-emerald-500 to-teal-500" },
-      { id: "intermediate", label: "Intermediate", icon: Code2, description: "Some experience", color: "from-amber-500 to-orange-500" },
-      { id: "pro", label: "Pro / Senior Dev", icon: Zap, description: "Expert level", color: "from-vibe-purple to-blue-500" },
+      { id: "beginner", label: "Beginner / No-Code", icon: GraduationCap, description: "Just getting started", color: "bg-secondary" },
+      { id: "intermediate", label: "Intermediate", icon: Code2, description: "Some experience", color: "bg-secondary" },
+      { id: "pro", label: "Pro / Senior Dev", icon: Zap, description: "Expert level", color: "bg-secondary" },
     ],
   },
   {
@@ -66,10 +61,10 @@ export const STEPS = [
     question: "What's your primary code editor?",
     description: "We'll recommend tools that integrate well",
     options: [
-      { id: "vscode", label: "VS Code", icon: Monitor, description: "Most popular", color: "from-blue-500 to-vibe-cyan" },
-      { id: "jetbrains", label: "JetBrains", icon: FileCode, description: "IDEs like IntelliJ", color: "from-vibe-purple to-vibe-electric" },
-      { id: "vim", label: "Vim / Neovim", icon: Code2, description: "Terminal-based", color: "from-green-500 to-emerald-500" },
-      { id: "other", label: "Other / Cloud", icon: Monitor, description: "Replit, Codespaces", color: "from-slate-500 to-zinc-500" },
+      { id: "vscode", label: "VS Code", icon: Monitor, description: "Most popular", color: "bg-secondary" },
+      { id: "jetbrains", label: "JetBrains", icon: FileCode, description: "IDEs like IntelliJ", color: "bg-secondary" },
+      { id: "vim", label: "Vim / Neovim", icon: Code2, description: "Terminal-based", color: "bg-secondary" },
+      { id: "other", label: "Other / Cloud", icon: Monitor, description: "Replit, Codespaces", color: "bg-secondary" },
     ],
   },
   {
@@ -77,9 +72,9 @@ export const STEPS = [
     question: "What's your team size?",
     description: "Collaboration needs vary by team size",
     options: [
-      { id: "solo", label: "Solo / Freelance", icon: Users, description: "Just me", color: "from-violet-500 to-vibe-purple" },
-      { id: "small", label: "Small Team (2-10)", icon: Users, description: "Startup vibes", color: "from-amber-500 to-orange-500" },
-      { id: "large", label: "Large Team (10+)", icon: Users, description: "Enterprise", color: "from-blue-500 to-vibe-purple" },
+      { id: "solo", label: "Solo / Freelance", icon: Users, description: "Just me", color: "bg-secondary" },
+      { id: "small", label: "Small Team (2-10)", icon: Users, description: "Startup vibes", color: "bg-secondary" },
+      { id: "large", label: "Large Team (10+)", icon: Users, description: "Enterprise", color: "bg-secondary" },
     ],
   },
   {
@@ -87,9 +82,9 @@ export const STEPS = [
     question: "What is your budget?",
     description: "We have great options for every price point",
     options: [
-      { id: "free", label: "Free Tier Only", icon: DollarSign, description: "$0 / month", color: "from-emerald-500 to-teal-500" },
-      { id: "budget", label: "Budget Friendly", icon: DollarSign, description: "Under $20/mo", color: "from-amber-500 to-orange-500" },
-      { id: "paid", label: "Premium", icon: Zap, description: "Best performance", color: "from-vibe-purple to-vibe-electric" },
+      { id: "free", label: "Free Tier Only", icon: DollarSign, description: "$0 / month", color: "bg-secondary" },
+      { id: "budget", label: "Budget Friendly", icon: DollarSign, description: "Under $20/mo", color: "bg-secondary" },
+      { id: "paid", label: "Premium", icon: Zap, description: "Best performance", color: "bg-secondary" },
     ],
   },
   {
@@ -97,10 +92,10 @@ export const STEPS = [
     question: "What matters most to you?",
     description: "Prioritize what you value in AI tools",
     options: [
-      { id: "speed", label: "Speed & Efficiency", icon: Zap, description: "Ship faster", color: "from-amber-500 to-orange-500" },
-      { id: "quality", label: "Code Quality", icon: CheckCircle2, description: "Fewer bugs", color: "from-emerald-500 to-teal-500" },
-      { id: "learning", label: "Learning", icon: GraduationCap, description: "Improve skills", color: "from-blue-500 to-vibe-cyan" },
-      { id: "autonomy", label: "AI Autonomy", icon: Brain, description: "Let AI work", color: "from-violet-500 to-vibe-purple" },
+      { id: "speed", label: "Speed & Efficiency", icon: Zap, description: "Ship faster", color: "bg-secondary" },
+      { id: "quality", label: "Code Quality", icon: CheckCircle2, description: "Fewer bugs", color: "bg-secondary" },
+      { id: "learning", label: "Learning", icon: GraduationCap, description: "Improve skills", color: "bg-secondary" },
+      { id: "autonomy", label: "AI Autonomy", icon: Brain, description: "Let AI work", color: "bg-secondary" },
     ],
   },
 ];
@@ -240,9 +235,18 @@ interface QuizInterfaceProps {
   onRestart: () => void;
 }
 
+// Direction B: flat tone steps, square corners, one orange accent with dark
+// text. Motion is transform-only (never an opacity:0 entry state) and drops
+// to nothing under prefers-reduced-motion.
+const focusRing = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link";
+const squareButton = cn(
+  "inline-flex h-12 items-center justify-center gap-2 rounded-none px-6 text-[16px] font-semibold transition-colors",
+  focusRing
+);
+
 export function QuizInterface({ onRestart }: QuizInterfaceProps) {
   const { tools } = useAllTools();
-  const fadeInUp = designSystem.animations.fadeInUp;
+  const reduceMotion = useReducedMotion();
   const [stepIndex, setStepIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [isAnimating, setIsAnimating] = useState(false);
@@ -285,98 +289,101 @@ export function QuizInterface({ onRestart }: QuizInterfaceProps) {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const slide = reduceMotion ? 0 : 24;
+
   return (
     <Container size="md">
       {/* Header */}
-      <motion.div
-        initial={fadeInUp.initial}
-        animate={fadeInUp.animate}
-        transition={fadeInUp.transition}
-        className="text-center mb-12"
-      >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-link text-sm font-medium mb-6 backdrop-blur-sm"
-        >
-          <Sparkles className="w-4 h-4" />
-          <span>AI Stack Finder</span>
-        </motion.div>
+      <div className="mb-12">
+        <p className="mb-6 text-[16px] font-semibold text-vibe-link">AI Stack Finder</p>
 
-        <h1 className={`${designSystem.typography.hero} mb-4`}>
-          Find Your{" "}
-          <span className="text-gradient-brand">
-            Vibe Stack
-          </span>
+        <h1 className="font-display mb-8 text-[clamp(40px,6vw,96px)] leading-[0.88] text-balance text-foreground">
+          Find Your Vibe Stack
         </h1>
 
         {!isFinished && (
-          <div className="max-w-md mx-auto">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm text-muted-foreground">Question {stepIndex + 1} of {STEPS.length}</span>
-              <span className="text-sm text-muted-foreground">{Math.round(progress)}%</span>
+          <div className="max-w-md">
+            <div className="mb-2 flex items-center justify-between">
+              <span className="text-[14px] text-muted-foreground">Question {stepIndex + 1} of {STEPS.length}</span>
+              <span className="text-[14px] tabular-nums text-muted-foreground">{Math.round(progress)}%</span>
             </div>
-            <Progress value={progress} className="h-2" />
+            <Progress value={progress} className="h-2 bg-card [&>div]:bg-vibe-electric" />
           </div>
         )}
-      </motion.div>
+      </div>
 
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" initial={false}>
         {!isFinished ? (
-          <motion.div
+          <m.div
             key="question"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.4 }}
-            className="w-full max-w-3xl mx-auto"
+            initial={{ x: slide }}
+            animate={{ x: 0 }}
+            exit={{ x: -slide }}
+            transition={{ duration: reduceMotion ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="mx-auto w-full max-w-3xl"
           >
-            <Card className="p-8 md:p-12">
-              <div className="text-center mb-8">
-                <h2 className="text-2xl md:text-3xl font-bold mb-2">
+            <div className="bg-card p-8 md:p-12">
+              <div className="mb-8">
+                <h2 className="mb-2 text-[clamp(24px,3vw,32px)] font-semibold leading-tight text-foreground">
                   {currentStep.question}
                 </h2>
-                <p className="text-muted-foreground">
+                <p className="text-[16px] text-muted-foreground">
                   {currentStep.description}
                 </p>
               </div>
 
               <div className={cn(
-                "grid grid-cols-1 gap-4",
+                "grid grid-cols-1 gap-3",
                 currentStep.options.length <= 2 ? "md:grid-cols-2" : "md:grid-cols-2 lg:grid-cols-3"
               )}>
-                {currentStep.options.map((option, index) => {
+                {currentStep.options.map((option) => {
                   const Icon = option.icon;
+                  const isSelected = answers[currentStep.id] === option.id;
                   return (
-                    <motion.button
+                    <button
+                      type="button"
                       key={option.id}
-                      initial={fadeInUp.initial}
-                      animate={fadeInUp.animate}
-                      transition={{ ...fadeInUp.transition, delay: index * 0.1 }}
                       onClick={() => handleOptionClick(option.id)}
                       disabled={isAnimating}
-                      className="group relative flex flex-col items-center text-center p-6 rounded-2xl border border-border bg-background hover:bg-accent hover:border-vibe-electric/50 transition-all duration-300"
+                      aria-pressed={isSelected}
+                      className={cn(
+                        "group relative flex flex-col items-start rounded-none p-6 text-left transition-colors disabled:cursor-default",
+                        focusRing,
+                        isSelected
+                          ? "bg-vibe-electric text-vibe-deep"
+                          : "bg-background text-foreground hover:bg-secondary"
+                      )}
                     >
-                      <div className={`p-4 rounded-2xl bg-linear-to-br ${option.color} mb-4 group-hover:scale-110 transition-transform`}>
-                        <Icon className="h-8 w-8 text-white" />
+                      <div
+                        className={cn(
+                          "mb-4 p-3",
+                          isSelected ? "bg-transparent text-vibe-deep" : cn(option.color, "text-foreground group-hover:bg-background")
+                        )}
+                      >
+                        <Icon className="h-7 w-7" />
                       </div>
-                      <h3 className="text-lg font-semibold mb-1">{option.label}</h3>
-                      <p className="text-sm text-muted-foreground">{option.description}</p>
-                    </motion.button>
+                      <h3 className="mb-1 text-[18px] font-semibold">{option.label}</h3>
+                      <p className={cn("text-[16px]", isSelected ? "text-vibe-deep" : "text-muted-foreground")}>
+                        {option.description}
+                      </p>
+                    </button>
                   );
                 })}
               </div>
 
               {stepIndex > 0 && (
-                <div className="mt-8 flex justify-center">
-                  <Button variant="ghost" onClick={handleBack}>
-                    <ArrowLeft className="mr-2 h-4 w-4" /> Back
-                  </Button>
+                <div className="mt-8">
+                  <button
+                    type="button"
+                    onClick={handleBack}
+                    className={cn(squareButton, "bg-transparent px-0 text-muted-foreground hover:text-foreground")}
+                  >
+                    <ArrowLeft className="h-4 w-4" /> Back
+                  </button>
                 </div>
               )}
-            </Card>
-          </motion.div>
+            </div>
+          </m.div>
         ) : (
           <StackRecommendationResult
             stack={getRecommendedStack}
@@ -406,91 +413,80 @@ function StackRecommendationResult({
   copied,
   getToolDetails
 }: StackRecommendationResultProps) {
-  const fadeInUp = designSystem.animations.fadeInUp;
+  const reduceMotion = useReducedMotion();
 
   return (
-    <motion.div
+    <m.div
       key="results"
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.6 }}
+      initial={{ y: reduceMotion ? 0 : 24 }}
+      animate={{ y: 0 }}
+      transition={{ duration: reduceMotion ? 0 : 0.4, ease: [0.16, 1, 0.3, 1] }}
       className="w-full"
     >
       {/* Stack Reveal */}
-      <div className="bg-linear-to-b from-vibe-electric/10 via-vibe-purple/5 to-vibe-pink/5 border border-vibe-electric/20 rounded-3xl p-8 md:p-12 mb-8">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 text-vibe-link text-sm font-medium mb-4">
-            <Trophy className="w-4 h-4" />
-            <span>Recommended Stack</span>
-          </div>
+      <div className="mb-8 bg-card p-8 md:p-12">
+        <div className="mb-10">
+          <p className="mb-4 text-[16px] font-semibold text-vibe-link">Recommended Stack</p>
 
-          <motion.h2
-            initial={fadeInUp.initial}
-            animate={fadeInUp.animate}
-            transition={{ ...fadeInUp.transition, delay: 0.2 }}
-            className="text-4xl md:text-5xl font-bold mb-4"
-          >
+          <h2 className="font-display mb-4 text-[clamp(32px,4vw,56px)] leading-[0.88] text-balance text-foreground">
             {stack.name}
-          </motion.h2>
+          </h2>
 
-          <motion.p
-            initial={fadeInUp.initial}
-            animate={fadeInUp.animate}
-            transition={{ ...fadeInUp.transition, delay: 0.3 }}
-            className="text-xl text-muted-foreground max-w-2xl mx-auto mb-6"
-          >
+          <p className="mb-6 max-w-2xl text-[20px] leading-normal text-muted-foreground">
             {stack.description}
-          </motion.p>
+          </p>
 
-          <div className="flex items-center justify-center gap-6 mb-8">
+          <div className="mb-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-[16px]">
             <div className="flex items-center gap-2">
-              <div className="flex">
+              <div className="flex" aria-hidden="true">
                 {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}
-                    className={`w-5 h-5 ${i < Math.floor(stack.rating) ? 'text-amber-500 fill-amber-500' : 'text-muted'}`}
+                    className={cn(
+                      "h-5 w-5",
+                      i < Math.floor(stack.rating) ? "fill-current text-vibe-link" : "text-muted-foreground"
+                    )}
                   />
                 ))}
               </div>
-              <span className="font-medium">{stack.rating}</span>
+              <span className="font-semibold text-foreground">{stack.rating}</span>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
-              <Users className="w-5 h-5" />
+              <Users className="h-5 w-5" aria-hidden="true" />
               {stack.usersCount.toLocaleString()} users
             </div>
-            <Badge variant="secondary" className="text-lg px-4 py-1">
+            <span className="bg-secondary px-4 py-1 text-[18px] font-semibold tabular-nums text-foreground">
               {stack.totalPrice}
-            </Badge>
+            </span>
           </div>
 
           {stack.stackId && (
             <Link
               href={`/stack/${stack.stackId}`}
-              className="inline-flex items-center gap-1 text-sm font-medium text-vibe-link hover:underline"
+              className={cn(
+                "group inline-flex items-center gap-1.5 text-[16px] font-semibold text-vibe-link underline-offset-4 hover:underline",
+                focusRing
+              )}
             >
               View the full {stack.name} write-up
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0" />
             </Link>
           )}
         </div>
 
         {/* Why This Stack */}
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Lightbulb className="w-5 h-5 text-vibe-link" />
-              Why This Stack?
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p>{stack.whyThisStack}</p>
-            <div className="flex flex-wrap gap-2">
-              {stack.bestFor.map((item) => (
-                <Badge key={item} variant="secondary">{item}</Badge>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <div className="mb-8 bg-background p-6">
+          <h3 className="mb-4 flex items-center gap-2 text-[18px] font-semibold text-foreground">
+            <Lightbulb className="h-5 w-5 text-vibe-link" aria-hidden="true" />
+            Why This Stack?
+          </h3>
+          <p className="mb-4 text-[16px] text-foreground">{stack.whyThisStack}</p>
+          <ul className="flex flex-wrap gap-2">
+            {stack.bestFor.map((item) => (
+              <li key={item} className="bg-secondary px-3 py-1 text-[14px] text-foreground">{item}</li>
+            ))}
+          </ul>
+        </div>
 
         {/* Lead capture — fires right after the user sees the "why" */}
         <QuizLeadCapture
@@ -500,56 +496,46 @@ function StackRecommendationResult({
         />
 
         {/* Tools Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          {stack.tools.map((slug, index) => {
+        <div className="mb-8 grid grid-cols-1 gap-3 md:grid-cols-3">
+          {stack.tools.map((slug) => {
             const tool = getToolDetails(slug);
             if (!tool) return null;
+            const Icon = getToolIcon(tool.slug);
             return (
-              <motion.div
+              <Link
                 key={tool.slug}
-                initial={fadeInUp.initial}
-                animate={fadeInUp.animate}
-                transition={{ ...fadeInUp.transition, delay: 0.5 + index * 0.1 }}
+                href={`/tool/${tool.slug}`}
+                className={cn("group block h-full bg-background p-6 transition-colors hover:bg-secondary", focusRing)}
               >
-                <Link href={`/tool/${tool.slug}`} className="group block h-full">
-                  <Card className="h-full hover:border-vibe-electric/50 transition-all">
-                    <CardContent className="p-6">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className={`p-3 rounded-xl ${tool.bgGradient || "bg-secondary/50"}`}>
-                          {(() => {
-                            const Icon = getToolIcon(tool.slug);
-                            return <Icon className={`w-6 h-6 ${tool.color || "text-foreground"}`} />;
-                          })()}
-                        </div>
-                        <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-vibe-link transition-colors" />
-                      </div>
-                      <h3 className="font-bold mb-1">{tool.title}</h3>
-                      <p className="text-xs text-muted-foreground uppercase mb-2">{tool.category}</p>
-                      <p className="text-sm text-muted-foreground line-clamp-2">{tool.description}</p>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </motion.div>
+                <div className="mb-4 flex items-start justify-between">
+                  <div className="bg-secondary p-3 text-foreground group-hover:bg-background">
+                    <Icon className="h-6 w-6" />
+                  </div>
+                  <ArrowRight className="h-5 w-5 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-vibe-link motion-reduce:transition-none motion-reduce:group-hover:translate-x-0" />
+                </div>
+                <h3 className="mb-1 text-[18px] font-semibold text-foreground">{tool.title}</h3>
+                <p className="mb-2 text-[14px] text-muted-foreground">{tool.category}</p>
+                <p className="line-clamp-2 text-[16px] text-muted-foreground">{tool.description}</p>
+              </Link>
             );
           })}
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-wrap justify-center gap-4">
-          <Button variant="outline" onClick={onRestart}>
-            <RotateCcw className="mr-2 h-4 w-4" /> Start Over
-          </Button>
-          <Button variant="outline" onClick={onShare}>
-            {copied ? <Check className="mr-2 h-4 w-4" /> : <Share2 className="mr-2 h-4 w-4" />}
+        <div className="flex flex-wrap gap-3">
+          <button type="button" onClick={onRestart} className={cn(squareButton, "bg-secondary text-foreground hover:bg-muted")}>
+            <RotateCcw className="h-4 w-4" /> Start Over
+          </button>
+          <button type="button" onClick={onShare} className={cn(squareButton, "bg-secondary text-foreground hover:bg-muted")}>
+            {copied ? <Check className="h-4 w-4" /> : <Share2 className="h-4 w-4" />}
             {copied ? "Copied!" : "Share Stack"}
-          </Button>
-          <Button className="rounded-full" asChild>
-            <Link href="/tools">
-              Browse All Tools <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
+          </button>
+          <Link href="/tools" className={cn(squareButton, "group bg-vibe-electric text-vibe-deep hover:bg-[#e8401a]")}>
+            Browse All Tools
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0" />
+          </Link>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

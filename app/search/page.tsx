@@ -2,18 +2,14 @@
 
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
-import { Search, X, Clock, TrendingUp, Sparkles, ArrowRight, Filter } from "lucide-react";
+import { Search, X, Clock, TrendingUp, ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
 import { ToolData } from "@/lib/tool-types";
 import { useAllTools } from "@/hooks/use-tools";
 import { getToolIcon } from "@/components/icons/tool-icons";
 import { stacks, Stack } from "@/lib/stacks";
 import { trackSearchQuery } from "@/lib/analytics";
-import { motion } from "framer-motion";
-import { designSystem } from "@/lib/design-system";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { Container } from "@/components/primitives/Container";
 
@@ -103,16 +99,16 @@ export default function SearchPage() {
         const parts = text.split(new RegExp(`(${query})`, 'gi'));
         return parts.map((part, i) =>
             part.toLowerCase() === query.toLowerCase()
-                ? <mark key={i} className="bg-vibe-electric/20 text-vibe-link rounded px-1">{part}</mark>
+                ? <mark key={i} className="bg-vibe-electric px-0.5 text-vibe-deep">{part}</mark>
                 : part
         );
     };
 
     if (!mounted) {
         return (
-            <div className="min-h-screen bg-background pt-32 pb-20">
+            <div className="min-h-svh bg-background pb-20 pt-32">
                 <Container size="small">
-                    <p className="text-muted-foreground">Loading...</p>
+                    <p className="text-[16px] text-muted-foreground">Loading...</p>
                 </Container>
             </div>
         );
@@ -126,33 +122,22 @@ export default function SearchPage() {
         <PageBackground {...BackgroundPresets.content}>
             <Container size="small">
                 {/* Search Header */}
-                <motion.div
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={designSystem.animations.fadeInUp.transition}
-                    className="text-center mb-12"
-                >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-link text-sm font-medium mb-6 backdrop-blur-sm">
-                        <Sparkles className="w-4 h-4" />
-                        <span>Smart Search</span>
-                    </div>
+                <div className="mb-16">
+                    <p className="mb-6 text-[16px] font-semibold text-vibe-link">Smart Search</p>
 
-                    <h1 className={`${designSystem.typography.hero} mb-4`}>
-                        Find Your Perfect{" "}
-                        <span className="text-gradient-brand">
-                            AI Tool
-                        </span>
+                    <h1 className="mb-6 font-display text-[clamp(40px,6vw,96px)] text-balance text-foreground">
+                        Find Your Perfect AI Tool
                     </h1>
 
-                    <p className="text-muted-foreground text-lg mb-8">
+                    <p className="mb-8 text-[18px] text-muted-foreground sm:text-[20px]">
                         Search across {tools.length}+ tools and stacks
                     </p>
 
                     {/* Search Input */}
-                    <div className="relative max-w-2xl mx-auto">
-                        <div className="relative bg-card backdrop-blur-sm rounded-2xl border border-border/40 shadow-lg">
+                    <div className="relative">
+                        <div className="relative bg-card focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-vibe-link">
                             <div className="flex items-center px-4 py-2">
-                                <Search className="w-5 h-5 text-muted-foreground mr-3" />
+                                <Search aria-hidden="true" className="mr-3 h-5 w-5 text-muted-foreground" />
                                 <Input
                                     type="text"
                                     placeholder="Search tools, stacks, or features..."
@@ -160,99 +145,80 @@ export default function SearchPage() {
                                     value={query}
                                     onChange={(e) => setQuery(e.target.value)}
                                     onKeyDown={(e) => e.key === 'Enter' && handleSearch(query)}
-                                    className="flex-1 border-0 bg-transparent text-lg focus-visible:ring-0 focus-visible:ring-offset-0"
+                                    className="h-12 flex-1 rounded-none border-0 bg-transparent text-[18px] shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 dark:bg-transparent"
                                     autoFocus
                                 />
                                 {query && (
                                     <button
                                         onClick={() => setQuery('')}
-                                        className="p-2 text-muted-foreground hover:text-foreground"
+                                        aria-label="Clear search"
+                                        className="p-2 text-muted-foreground hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link"
                                     >
-                                        <X className="w-5 h-5" />
+                                        <X aria-hidden="true" className="h-5 w-5" />
                                     </button>
                                 )}
                             </div>
                         </div>
 
                         {/* Quick Filters */}
-                        <div className="flex flex-wrap justify-center gap-2 mt-4">
+                        <div className="mt-4 flex flex-wrap gap-1">
                             {quickFilters.map(filter => (
                                 <Button
                                     key={filter.value}
-                                    variant="outline"
+                                    variant="secondary"
                                     size="sm"
                                     onClick={() => handleSearch(filter.value)}
-                                    className="rounded-full text-xs border-border/50 hover:border-vibe-electric/50 hover:bg-vibe-electric/5"
+                                    className="h-10 rounded-none bg-card px-4 text-[16px] font-semibold text-foreground hover:bg-vibe-electric hover:text-vibe-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link"
                                 >
                                     {filter.label}
                                 </Button>
                             ))}
                         </div>
                     </div>
-                </motion.div>
+                </div>
 
                 {/* Results */}
                 {hasResults && (
-                    <motion.div
-                        initial={designSystem.animations.fadeInUp.initial}
-                        animate={designSystem.animations.fadeInUp.animate}
-                        transition={designSystem.animations.fadeInUp.transition}
-                        className="space-y-8"
-                    >
+                    <div className="space-y-12">
                         {/* Tools Results */}
                         {searchTools.length > 0 && (
                             <div>
-                                <div className="flex items-center gap-2 mb-4">
-                                    <div className="p-1.5 rounded-lg bg-vibe-electric/10">
-                                        <Sparkles className="w-4 h-4 text-vibe-link" />
-                                    </div>
-                                    <h2 className="text-xl font-semibold">
+                                <div className="mb-4 flex items-baseline gap-3">
+                                    <h2 className="font-display text-[clamp(32px,4vw,56px)] text-foreground">
                                         Tools
                                     </h2>
-                                    <Badge variant="secondary">{searchTools.length}</Badge>
+                                    <span className="text-[16px] font-semibold tabular-nums text-muted-foreground">{searchTools.length}</span>
                                 </div>
-                                <div className="space-y-3">
-                                    {searchTools.map((tool: ToolData, index: number) => (
-                                        <motion.div
-                                            key={tool.slug}
-                                            initial={designSystem.animations.fadeInUp.initial}
-                                            animate={designSystem.animations.fadeInUp.animate}
-                                            transition={{ ...designSystem.animations.fadeInUp.transition, delay: index * 0.05 }}
-                                        >
-                                            <Link href={`/tool/${tool.slug}`}>
-                                                <Card className="hover:bg-accent/50 transition-colors cursor-pointer border-border/50 group">
-                                                    <CardContent className="p-4">
-                                                        <div className="flex items-start gap-4">
-                                                            <div className={`p-3 rounded-xl bg-linear-to-br ${tool.bgGradient || "from-slate-500/60 to-slate-800/60"} shrink-0`}>
-                                                                {(() => {
-                                                                    const Icon = getToolIcon(tool.slug);
-                                                                    return <Icon className="h-6 w-6 text-white" />;
-                                                                })()}
-                                                            </div>
-                                                            <div className="flex-1 min-w-0">
-                                                                <div className="flex items-center gap-2 mb-1">
-                                                                    <h3 className="text-lg font-semibold group-hover:text-vibe-link transition-colors">
-                                                                        {highlightMatch(tool.title)}
-                                                                    </h3>
-                                                                    <Badge variant="outline" className="text-xs shrink-0">
-                                                                        {tool.pricing}
-                                                                    </Badge>
-                                                                </div>
-                                                                <p className="text-sm text-muted-foreground line-clamp-2">
-                                                                    {highlightMatch(tool.description)}
-                                                                </p>
-                                                                <div className="flex items-center gap-2 mt-2">
-                                                                    <Badge variant="secondary" className="text-xs">
-                                                                        {tool.category}
-                                                                    </Badge>
-                                                                </div>
-                                                            </div>
-                                                            <ArrowRight className="h-5 w-5 text-muted-foreground/30 group-hover:text-vibe-link transition-colors shrink-0 self-center" />
-                                                        </div>
-                                                    </CardContent>
-                                                </Card>
+                                <div className="space-y-1">
+                                    {searchTools.map((tool: ToolData) => (
+                                        <div key={tool.slug}>
+                                            <Link href={`/tool/${tool.slug}`} className="group flex items-start gap-4 bg-card p-4 text-foreground transition-colors duration-150 hover:bg-secondary focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-vibe-link motion-reduce:transition-none">
+                                                {/* tool.bgGradient is per-item colour data; it no longer renders. */}
+                                                <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-secondary text-foreground group-hover:bg-background">
+                                                    {(() => {
+                                                        const Icon = getToolIcon(tool.slug);
+                                                        return <Icon className="h-6 w-6" />;
+                                                    })()}
+                                                </div>
+                                                <div className="min-w-0 flex-1">
+                                                    <div className="mb-1 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                                                        <h3 className="text-[18px] font-semibold transition-colors group-hover:text-vibe-link">
+                                                            {highlightMatch(tool.title)}
+                                                        </h3>
+                                                        <span className="shrink-0 text-[14px] font-semibold text-foreground">
+                                                            {tool.pricing}
+                                                        </span>
+                                                    </div>
+                                                    <p className="line-clamp-2 text-[16px] leading-normal text-muted-foreground">
+                                                        {highlightMatch(tool.description)}
+                                                    </p>
+                                                    <p className="mt-2 text-[14px] text-muted-foreground">
+                                                        {tool.category}
+                                                    </p>
+                                                </div>
+                                                <ArrowRight aria-hidden="true" className="h-5 w-5 shrink-0 self-center text-muted-foreground transition-transform duration-150 group-hover:translate-x-1 group-hover:text-vibe-link motion-reduce:transition-none motion-reduce:group-hover:translate-x-0" />
                                             </Link>
-                                        </motion.div>
+                                        </div>
                                     ))}
                                 </div>
                             </div>
@@ -261,123 +227,92 @@ export default function SearchPage() {
                         {/* Stacks Results */}
                         {searchStacks.length > 0 && (
                             <div>
-                                <div className="flex items-center gap-2 mb-4">
-                                    <div className="p-1.5 rounded-lg bg-violet-500/10">
-                                        <Sparkles className="w-4 h-4 text-violet-700 dark:text-violet-500" />
-                                    </div>
-                                    <h2 className="text-xl font-semibold">
+                                <div className="mb-4 flex items-baseline gap-3">
+                                    <h2 className="font-display text-[clamp(32px,4vw,56px)] text-foreground">
                                         Stacks
                                     </h2>
-                                    <Badge variant="secondary">{searchStacks.length}</Badge>
+                                    <span className="text-[16px] font-semibold tabular-nums text-muted-foreground">{searchStacks.length}</span>
                                 </div>
-                                <div className="space-y-3">
-                                    {searchStacks.map((stack: Stack, index) => (
-                                        <motion.div
-                                            key={stack.id}
-                                            initial={designSystem.animations.fadeInUp.initial}
-                                            animate={designSystem.animations.fadeInUp.animate}
-                                            transition={{ ...designSystem.animations.fadeInUp.transition, delay: index * 0.05 }}
-                                        >
-                                            <Link href={`/stack/${stack.id}`}>
-                                                <Card className="hover:bg-accent/50 transition-colors cursor-pointer border-border/50 group">
-                                                    <CardContent className="p-4">
-                                                        <div className="flex items-start gap-4">
-                                                            <div className="shrink-0 w-12 h-12 rounded-xl bg-linear-to-br from-vibe-electric/20 to-vibe-purple/20 flex items-center justify-center text-2xl">
-                                                                {stack.icon}
-                                                            </div>
-                                                            <div className="flex-1 min-w-0">
-                                                                <div className="flex items-center gap-2 mb-1">
-                                                                    <h3 className="text-lg font-semibold group-hover:text-violet-700 dark:group-hover:text-violet-500 transition-colors">
-                                                                        {highlightMatch(stack.name)}
-                                                                    </h3>
-                                                                    <Badge variant="secondary" className="text-xs shrink-0">
-                                                                        {stack.totalPrice}
-                                                                    </Badge>
-                                                                </div>
-                                                                <p className="text-sm text-muted-foreground line-clamp-2">
-                                                                    {highlightMatch(stack.description)}
-                                                                </p>
-                                                                <div className="flex items-center gap-2 mt-2">
-                                                                    {stack.tags.slice(0, 3).map(tag => (
-                                                                        <Badge key={tag} variant="outline" className="text-xs">
-                                                                            {tag}
-                                                                        </Badge>
-                                                                    ))}
-                                                                </div>
-                                                            </div>
-                                                            <ArrowRight className="h-5 w-5 text-muted-foreground/30 group-hover:text-violet-700 dark:group-hover:text-violet-500 transition-colors shrink-0 self-center" />
-                                                        </div>
-                                                    </CardContent>
-                                                </Card>
+                                <div className="space-y-1">
+                                    {searchStacks.map((stack: Stack) => (
+                                        <div key={stack.id}>
+                                            <Link href={`/stack/${stack.id}`} className="group flex items-start gap-4 bg-card p-4 text-foreground transition-colors duration-150 hover:bg-secondary focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-vibe-link motion-reduce:transition-none">
+                                                {/* stack.icon is an emoji; direction B shows the initial instead. */}
+                                                <div aria-hidden="true" className="flex h-12 w-12 shrink-0 items-center justify-center bg-secondary font-display text-[28px] text-foreground group-hover:bg-background">
+                                                    {stack.name.charAt(0)}
+                                                </div>
+                                                <div className="min-w-0 flex-1">
+                                                    <div className="mb-1 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                                                        <h3 className="text-[18px] font-semibold transition-colors group-hover:text-vibe-link">
+                                                            {highlightMatch(stack.name)}
+                                                        </h3>
+                                                        <span className="shrink-0 text-[14px] font-semibold text-foreground">
+                                                            {stack.totalPrice}
+                                                        </span>
+                                                    </div>
+                                                    <p className="line-clamp-2 text-[16px] leading-normal text-muted-foreground">
+                                                        {highlightMatch(stack.description)}
+                                                    </p>
+                                                    <p className="mt-2 text-[14px] text-muted-foreground">
+                                                        {stack.tags.slice(0, 3).join(", ")}
+                                                    </p>
+                                                </div>
+                                                <ArrowRight aria-hidden="true" className="h-5 w-5 shrink-0 self-center text-muted-foreground transition-transform duration-150 group-hover:translate-x-1 group-hover:text-vibe-link motion-reduce:transition-none motion-reduce:group-hover:translate-x-0" />
                                             </Link>
-                                        </motion.div>
+                                        </div>
                                     ))}
                                 </div>
                             </div>
                         )}
-                    </motion.div>
+                    </div>
                 )}
 
                 {/* Empty State */}
                 {showEmpty && (
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="text-center py-12 bg-card/30 rounded-3xl border border-border/30"
-                    >
-                        <div className="inline-flex p-4 rounded-full bg-muted/50 mb-4">
-                            <Search className="h-8 w-8 text-muted-foreground" />
-                        </div>
-                        <h3 className="text-xl font-semibold mb-2">No results found</h3>
-                        <p className="text-muted-foreground mb-6">
+                    <div className="bg-card p-8 md:p-12">
+                        <h3 className="mb-2 text-[24px] font-semibold">No results found</h3>
+                        <p className="mb-6 text-[16px] text-muted-foreground">
                             Try different keywords or browse our tools
                         </p>
-                        <div className="flex gap-3 justify-center">
-                            <Button asChild variant="default" className="rounded-full">
+                        <div className="flex flex-wrap gap-1">
+                            <Button asChild variant="default" className="h-11 rounded-none bg-vibe-electric px-6 text-[16px] font-semibold text-vibe-deep hover:bg-vibe-electric/90">
                                 <Link href="/tools">Browse Tools</Link>
                             </Button>
-                            <Button asChild variant="outline" className="rounded-full">
+                            <Button asChild variant="secondary" className="h-11 rounded-none px-6 text-[16px] font-semibold">
                                 <Link href="/build">Find Stack</Link>
                             </Button>
                         </div>
-                    </motion.div>
+                    </div>
                 )}
 
                 {/* Suggestions */}
                 {showSuggestions && (
-                    <motion.div
-                        initial={designSystem.animations.fadeInUp.initial}
-                        animate={designSystem.animations.fadeInUp.animate}
-                        transition={designSystem.animations.fadeInUp.transition}
-                        className="space-y-8"
-                    >
+                    <div className="space-y-12">
                         {/* Recent Searches */}
                         {recentSearches.length > 0 && (
                             <div>
-                                <div className="flex items-center justify-between mb-4">
-                                    <div className="flex items-center gap-2">
-                                        <div className="p-1.5 rounded-lg bg-secondary">
-                                            <Clock className="h-4 w-4 text-muted-foreground" />
-                                        </div>
-                                        <h2 className="text-lg font-semibold">Recent Searches</h2>
-                                    </div>
+                                <div className="mb-4 flex items-center justify-between">
+                                    <h2 className="flex items-center gap-2 text-[20px] font-semibold">
+                                        <Clock aria-hidden="true" className="h-5 w-5 text-muted-foreground" />
+                                        Recent Searches
+                                    </h2>
                                     <Button
                                         variant="ghost"
                                         size="sm"
                                         onClick={clearRecentSearches}
-                                        className="text-muted-foreground hover:text-foreground"
+                                        className="rounded-none text-[16px] text-muted-foreground hover:text-foreground"
                                     >
                                         Clear
                                     </Button>
                                 </div>
-                                <div className="flex flex-wrap gap-2">
+                                <div className="flex flex-wrap gap-1">
                                     {recentSearches.map((search, index) => (
                                         <Button
                                             key={index}
-                                            variant="outline"
+                                            variant="secondary"
                                             size="sm"
                                             onClick={() => handleSearch(search)}
-                                            className="rounded-full border-border/50 hover:border-vibe-electric/50"
+                                            className="h-10 rounded-none bg-card px-4 text-[16px] font-semibold text-foreground hover:bg-vibe-electric hover:text-vibe-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link"
                                         >
                                             {search}
                                         </Button>
@@ -388,27 +323,25 @@ export default function SearchPage() {
 
                         {/* Trending Searches */}
                         <div>
-                            <div className="flex items-center gap-2 mb-4">
-                                <div className="p-1.5 rounded-lg bg-vibe-electric/10">
-                                    <TrendingUp className="h-4 w-4 text-vibe-link" />
-                                </div>
-                                <h2 className="text-lg font-semibold">Trending Searches</h2>
-                            </div>
-                            <div className="flex flex-wrap gap-2">
+                            <h2 className="mb-4 flex items-center gap-2 text-[20px] font-semibold">
+                                <TrendingUp aria-hidden="true" className="h-5 w-5 text-vibe-link" />
+                                Trending Searches
+                            </h2>
+                            <div className="flex flex-wrap gap-1">
                                 {trendingSearches.map((search, index) => (
                                     <Button
                                         key={index}
-                                        variant="outline"
+                                        variant="secondary"
                                         size="sm"
                                         onClick={() => handleSearch(search)}
-                                        className="rounded-full border-border/50 hover:border-vibe-electric/50 hover:bg-vibe-electric/5"
+                                        className="h-10 rounded-none bg-card px-4 text-[16px] font-semibold text-foreground hover:bg-vibe-electric hover:text-vibe-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link"
                                     >
                                         {search}
                                     </Button>
                                 ))}
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
                 )}
             </Container>
         </PageBackground>

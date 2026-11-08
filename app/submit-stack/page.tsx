@@ -1,19 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Send, CheckCircle2, AlertCircle, Sparkles, Plus, X } from "lucide-react";
+import { Send, CheckCircle2, Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { useAllTools } from "@/hooks/use-tools";
 import { getToolIcon } from "@/components/icons/tool-icons";
 import { ToolData } from "@/lib/tool-types";
-import { designSystem } from "@/lib/design-system";
 import { Container } from "@/components/primitives/Container";
 
 export default function SubmitStackPage() {
@@ -57,30 +53,26 @@ export default function SubmitStackPage() {
         setSelectedTools(selectedTools.filter(t => t !== slug));
     };
 
+    const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link";
+
     if (isSuccess) {
         return (
             <PageBackground {...BackgroundPresets.gradient}>
-                <Container size="xs" className="pt-32 text-center">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="bg-card backdrop-blur-xl border border-green-500/20 rounded-3xl p-12 shadow-2xl"
-                    >
-                        <div className="inline-flex p-4 rounded-full bg-green-500/10 mb-6">
-                            <CheckCircle2 className="h-12 w-12 text-green-700 dark:text-green-500" />
-                        </div>
-                        <h1 className={`${designSystem.typography.hero} mb-4`}>Submission Received!</h1>
-                        <p className="text-muted-foreground text-lg mb-8">
+                <Container size="xs" className="pt-32">
+                    <div className="bg-card p-8 sm:p-12">
+                        <CheckCircle2 aria-hidden="true" className="mb-6 h-12 w-12 text-vibe-link" />
+                        <h1 className="mb-4 font-display text-balance text-[clamp(40px,6vw,72px)] uppercase leading-[0.88] tracking-[-0.005em] text-foreground">Submission Received!</h1>
+                        <p className="mb-8 text-[18px] leading-normal text-muted-foreground">
                             Thanks for sharing your stack. Our editors will review it and notify you once it&apos;s live on VibeStack.
                         </p>
                         <Button
                             onClick={() => setIsSuccess(false)}
-                            variant="outline"
-                            className="rounded-full"
+                            variant="secondary"
+                            className="h-11 rounded-none bg-background px-6 text-[16px] font-semibold hover:bg-accent"
                         >
                             Submit Another Stack
                         </Button>
-                    </motion.div>
+                    </div>
                 </Container>
             </PageBackground>
         );
@@ -89,148 +81,142 @@ export default function SubmitStackPage() {
     return (
         <PageBackground {...BackgroundPresets.content}>
             <Container size="xs" className="pt-32 pb-20">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mb-8 text-center"
-                >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-link text-sm font-medium mb-6">
-                        <Sparkles className="w-4 h-4" />
-                        <span>Community Contributions</span>
-                    </div>
-                    <h1 className={`${designSystem.typography.hero} mb-4`}>Submit Your Stack</h1>
-                    <p className="text-muted-foreground text-lg">
+                <header className="mb-12">
+                    <p className="mb-5 text-[16px] font-semibold text-vibe-link">Community Contributions</p>
+                    <h1 className="mb-5 font-display text-balance text-[clamp(40px,6vw,88px)] uppercase leading-[0.88] tracking-[-0.005em] text-foreground">Submit Your Stack</h1>
+                    <p className="text-[18px] leading-normal text-muted-foreground">
                         Share your workflow with thousands of other developers.
                     </p>
-                </motion.div>
+                </header>
 
-                <Card className="p-8 bg-card backdrop-blur-sm border-border/50">
+                <div className="bg-card p-6 sm:p-8">
                     <form onSubmit={handleSubmit} className="space-y-8">
 
-                        {/* Stack Name */}
+                        {/* Stack name */}
                         <div className="space-y-2">
-                            <Label htmlFor="name">Stack Name</Label>
+                            <Label htmlFor="name" className="text-[15px] font-semibold">Stack Name</Label>
                             <Input
                                 id="name"
                                 placeholder="e.g., The Ultimate React Polish Stack"
                                 value={stackName}
                                 onChange={(e) => setStackName(e.target.value)}
                                 required
-                                className="bg-muted"
+                                className="bg-background"
                             />
                         </div>
 
                         {/* Description */}
                         <div className="space-y-2">
-                            <Label htmlFor="description">Why does this stack work?</Label>
+                            <Label htmlFor="description" className="text-[15px] font-semibold">Why does this stack work?</Label>
                             <Textarea
                                 id="description"
                                 placeholder="Describe your workflow and why you chose these tools..."
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
                                 required
-                                className="min-h-[120px] bg-muted"
+                                className="min-h-[120px] bg-background"
                             />
                         </div>
 
-                        {/* Tools Selector */}
+                        {/* Tools selector */}
                         <div className="space-y-4">
-                            <Label>Tools Used (Max 5)</Label>
+                            <Label className="text-[15px] font-semibold">Tools Used (Max 5)</Label>
 
-                            {/* Selected Tools Tags */}
-                            <div className="flex flex-wrap gap-2 mb-2">
+                            {/* Selected tools */}
+                            <div className="mb-2 flex flex-wrap gap-2">
                                 {selectedTools.map(slug => {
                                     const tool = allTools.find((t: ToolData) => t.slug === slug);
                                     if (!tool) return null;
                                     return (
-                                        <Badge key={slug} variant="secondary" className="pl-2 pr-1 py-1 gap-1 text-sm bg-vibe-electric/10 hover:bg-vibe-electric/20 border-vibe-electric/20 text-primary">
+                                        <span key={slug} className="inline-flex items-center gap-1 bg-vibe-electric py-1 pl-3 pr-1 text-[15px] font-semibold text-vibe-deep">
                                             {tool.title}
                                             <button
                                                 type="button"
                                                 onClick={() => removeTool(slug)}
-                                                className="hover:bg-vibe-electric/20 rounded-full p-0.5"
+                                                aria-label={`Remove ${tool.title}`}
+                                                className="p-1 hover:bg-vibe-deep/10 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-vibe-deep"
                                             >
-                                                <X className="h-3 w-3" />
+                                                <X aria-hidden="true" className="h-3.5 w-3.5" />
                                             </button>
-                                        </Badge>
+                                        </span>
                                     );
                                 })}
                             </div>
 
-                            {/* Search Input */}
+                            {/* Search input */}
                             <div className="relative">
                                 <Input
                                     placeholder="Search for tools to add..."
                                     aria-label="Search for tools to add"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="bg-muted"
+                                    className="bg-background"
                                     disabled={selectedTools.length >= 5}
                                 />
 
                                 {searchQuery && (
-                                    <div className="absolute z-10 w-full mt-2 bg-popover/90 backdrop-blur-xl border border-border rounded-xl shadow-xl overflow-hidden">
+                                    <div className="absolute z-10 mt-1 w-full overflow-hidden bg-popover shadow-xl" data-ui> {/* taste-skill-ignore: real dropdown overlay */}
                                         {filteredTools.length > 0 ? (
                                             filteredTools.map((tool: ToolData) => (
                                                 <button
                                                     key={tool.slug}
                                                     type="button"
                                                     onClick={() => addTool(tool.slug)}
-                                                    className="w-full flex items-center gap-3 p-3 hover:bg-accent/50 text-left transition-colors"
+                                                    className={`flex w-full items-center gap-3 p-3 text-left transition-colors hover:bg-accent ${focus}`}
                                                 >
-                                                    <div className={`p-1.5 rounded bg-linear-to-br ${tool.bgGradient || "from-slate-500/60 to-slate-800/60"}`}>
+                                                    <div className="bg-secondary p-1.5">
                                                         {(() => {
                                                             const Icon = getToolIcon(tool.slug);
-                                                            return <Icon className={`h-4 w-4 ${tool.color || "text-foreground"}`} />;
+                                                            return <Icon aria-hidden="true" className="h-4 w-4 text-foreground" />;
                                                         })()}
                                                     </div>
-                                                    <span className="font-medium">{tool.title}</span>
-                                                    <Plus className="ml-auto h-4 w-4 text-muted-foreground" />
+                                                    <span className="text-[16px] font-semibold">{tool.title}</span>
+                                                    <Plus aria-hidden="true" className="ml-auto h-4 w-4 text-muted-foreground" />
                                                 </button>
                                             ))
                                         ) : (
-                                            <div className="p-4 text-center text-sm text-muted-foreground">
+                                            <div className="p-4 text-center text-[15px] text-muted-foreground">
                                                 No tools found.
                                             </div>
                                         )}
                                     </div>
                                 )}
                             </div>
-                            <p className="text-xs text-muted-foreground">
+                            <p className="text-[14px] text-muted-foreground">
                                 Can&apos;t find a tool? Mention it in the description.
                             </p>
                         </div>
 
                         {/* Email */}
                         <div className="space-y-2">
-                            <Label htmlFor="email">Your Email (Optional)</Label>
+                            <Label htmlFor="email" className="text-[15px] font-semibold">Your Email (Optional)</Label>
                             <Input
                                 id="email"
                                 type="email"
                                 placeholder="To notify you when it's published"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="bg-muted"
+                                className="bg-background"
                             />
                         </div>
 
                         <Button
                             type="submit"
                             size="lg"
-                            className="w-full h-12 rounded-full font-semibold shadow-lg shadow-vibe-electric/20"
+                            className="h-12 w-full rounded-none text-[16px] font-semibold"
                             disabled={isSubmitting || !stackName || !description || selectedTools.length === 0}
                         >
                             {isSubmitting ? (
                                 "Submitting..."
                             ) : (
                                 <>
-                                    Submit for Review <Send className="ml-2 h-4 w-4" />
+                                    Submit for Review <Send aria-hidden="true" className="ml-2 h-4 w-4" />
                                 </>
                             )}
                         </Button>
 
                     </form>
-                </Card>
+                </div>
             </Container>
         </PageBackground>
     );

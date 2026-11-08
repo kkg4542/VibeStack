@@ -2,17 +2,13 @@
 
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
-import { Heart, Trash2, ArrowLeft, Search, Loader2, Grid3X3, List, Filter, X, Sparkles } from "lucide-react";
+import { Heart, Trash2, Search, Loader2, Grid3X3, List, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { useAllTools } from "@/hooks/use-tools";
 import { getToolIcon } from "@/components/icons/tool-icons";
 import { stacks } from "@/lib/stacks";
 import { useSession } from "next-auth/react";
-import { motion } from "framer-motion";
-import { designSystem } from "@/lib/design-system";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { FavoriteWithTool } from "@/lib/schemas";
 import type { Tool } from "@prisma/client";
@@ -183,10 +179,10 @@ export default function FavoritesPage() {
 
     if (!mounted || isLoading) {
         return (
-            <div className="min-h-screen bg-background pt-32 pb-20">
+            <div className="min-h-svh bg-background pb-20 pt-32">
                 <Container size="default">
                     <div className="flex items-center justify-center py-20">
-                        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                        <Loader2 aria-hidden="true" className="h-8 w-8 animate-spin text-muted-foreground motion-reduce:animate-none" />
                     </div>
                 </Container>
             </div>
@@ -200,21 +196,11 @@ export default function FavoritesPage() {
         <PageBackground {...BackgroundPresets.content}>
             <Container size="default">
                 {/* Header */}
-                <motion.div
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={designSystem.animations.fadeInUp.transition}
-                    className="mb-8"
-                >
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="mb-10">
+                    <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
                         <div>
-                            <div className="flex items-center gap-3 mb-2">
-                                <div className="p-2 rounded-lg bg-rose-500/10">
-                                    <Heart className="h-6 w-6 text-rose-500 fill-rose-500" />
-                                </div>
-                                <h1 className={designSystem.typography.hero}>My Favorites</h1>
-                            </div>
-                            <p className="text-muted-foreground">
+                            <h1 className="mb-4 font-display text-[clamp(40px,6vw,96px)] text-foreground">My Favorites</h1>
+                            <p className="text-[16px] text-muted-foreground">
                                 {favorites.length} {favorites.length === 1 ? 'item' : 'items'} saved
                                 {session?.user && " (synced to your account)"}
                             </p>
@@ -222,60 +208,60 @@ export default function FavoritesPage() {
 
                         <div className="flex items-center gap-3">
                             {/* View Mode Toggle */}
-                            <div className="flex items-center bg-card rounded-lg border border-border/50 p-1">
+                            <div className="flex items-center gap-1">
                                 <button
                                     onClick={() => setViewMode('grid')}
-                                    className={`p-2 rounded-md transition-colors ${viewMode === 'grid' ? 'bg-vibe-electric text-vibe-deep' : 'text-muted-foreground hover:text-foreground'}`}
+                                    aria-label="Grid view"
+                                    aria-pressed={viewMode === 'grid'}
+                                    className={`p-2.5 transition-colors duration-150 motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link ${viewMode === 'grid' ? 'bg-vibe-electric text-vibe-deep' : 'bg-card text-foreground hover:bg-secondary'}`}
                                 >
-                                    <Grid3X3 className="h-4 w-4" />
+                                    <Grid3X3 aria-hidden="true" className="h-4 w-4" />
                                 </button>
                                 <button
                                     onClick={() => setViewMode('list')}
-                                    className={`p-2 rounded-md transition-colors ${viewMode === 'list' ? 'bg-vibe-electric text-vibe-deep' : 'text-muted-foreground hover:text-foreground'}`}
+                                    aria-label="List view"
+                                    aria-pressed={viewMode === 'list'}
+                                    className={`p-2.5 transition-colors duration-150 motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link ${viewMode === 'list' ? 'bg-vibe-electric text-vibe-deep' : 'bg-card text-foreground hover:bg-secondary'}`}
                                 >
-                                    <List className="h-4 w-4" />
+                                    <List aria-hidden="true" className="h-4 w-4" />
                                 </button>
                             </div>
 
                             {favorites.length > 0 && (
                                 <Button
-                                    variant="outline"
+                                    variant="secondary"
                                     size="sm"
                                     onClick={clearAll}
-                                    className="text-red-700 dark:text-red-500 hover:text-red-700 hover:bg-red-500/10 rounded-full"
+                                    className="h-9 rounded-none text-[14px] font-semibold"
                                 >
-                                    <Trash2 className="h-4 w-4 mr-2" />
+                                    <Trash2 aria-hidden="true" className="mr-2 h-4 w-4" />
                                     Clear All
                                 </Button>
                             )}
                         </div>
                     </div>
-                </motion.div>
+                </div>
 
                 {/* Filters Bar */}
-                <motion.div
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.1 }}
-                    className="flex flex-col sm:flex-row gap-4 mb-8"
-                >
+                <div className="mb-10 flex flex-col gap-1 sm:flex-row">
                     {/* Search */}
                     <div className="relative flex-1">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Search aria-hidden="true" className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                         <Input
                             type="text"
                             placeholder="Search favorites..."
                             aria-label="Search favorites"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-10 rounded-full bg-background border-border/50"
+                            className="h-11 rounded-none border-0 bg-card pl-10 text-[16px] shadow-none focus-visible:ring-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link dark:bg-card"
                         />
                         {searchQuery && (
                             <button
                                 onClick={() => setSearchQuery('')}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                                aria-label="Clear search"
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link"
                             >
-                                <X className="h-4 w-4" />
+                                <X aria-hidden="true" className="h-4 w-4" />
                             </button>
                         )}
                     </div>
@@ -284,7 +270,8 @@ export default function FavoritesPage() {
                     <select
                         value={selectedCategory}
                         onChange={(e) => setSelectedCategory(e.target.value)}
-                        className="px-4 py-2 rounded-full bg-secondary border border-border/50 text-sm"
+                        aria-label="Filter by category"
+                        className="h-11 rounded-none bg-card px-4 text-[16px] text-foreground hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link"
                     >
                         <option value="all">All Categories</option>
                         {categories.filter(c => c !== 'all').map(cat => (
@@ -296,195 +283,160 @@ export default function FavoritesPage() {
                     <select
                         value={sortBy}
                         onChange={(e) => setSortBy(e.target.value as SortOption)}
-                        className="px-4 py-2 rounded-full bg-secondary border border-border/50 text-sm"
+                        aria-label="Sort favorites"
+                        className="h-11 rounded-none bg-card px-4 text-[16px] text-foreground hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link"
                     >
                         <option value="newest">Newest First</option>
                         <option value="oldest">Oldest First</option>
                         <option value="name">Name A-Z</option>
                     </select>
-                </motion.div>
+                </div>
 
                 {/* Empty State */}
                 {favorites.length === 0 && (
-                    <motion.div
-                        initial={designSystem.animations.fadeInUp.initial}
-                        animate={designSystem.animations.fadeInUp.animate}
-                        transition={designSystem.animations.fadeInUp.transition}
-                        className="text-center py-16 bg-card/30 rounded-3xl border border-border/30"
-                    >
-                        <div className="inline-flex p-6 rounded-full bg-muted/50 mb-6">
-                            <Heart className="h-12 w-12 text-muted-foreground" />
-                        </div>
-                        <h2 className="text-2xl font-semibold mb-3">No favorites yet</h2>
-                        <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+                    <div className="bg-card p-8 md:p-12">
+                        <Heart aria-hidden="true" className="mb-6 h-10 w-10 text-foreground" />
+                        <h2 className="mb-3 font-display text-[clamp(32px,4vw,56px)] text-foreground">No favorites yet</h2>
+                        <p className="mb-8 max-w-md text-[16px] leading-normal text-muted-foreground">
                             Start saving your favorite tools and stacks to easily access them later.
                             {session?.user
                                 ? " Your favorites will be synced across all your devices."
                                 : " Sign in to sync your favorites across devices."
                             }
                         </p>
-                        <div className="flex gap-3 justify-center">
-                            <Button asChild className="rounded-full shadow-lg shadow-vibe-electric/20">
+                        <div className="flex flex-wrap gap-1">
+                            <Button asChild className="h-11 rounded-none bg-vibe-electric px-6 text-[16px] font-semibold text-vibe-deep shadow-none hover:bg-vibe-electric/90">
                                 <Link href="/tools">Browse Tools</Link>
                             </Button>
-                            <Button asChild variant="outline" className="rounded-full">
+                            <Button asChild variant="secondary" className="h-11 rounded-none px-6 text-[16px] font-semibold">
                                 <Link href="/build">Find Stack</Link>
                             </Button>
                         </div>
-                    </motion.div>
+                    </div>
                 )}
 
                 {/* Favorites Content */}
                 {favorites.length > 0 && (
-                    <div className="space-y-8">
+                    <div className="space-y-12">
                         {/* Tools Section */}
                         {favoriteTools.length > 0 && (
-                            <motion.section
-                                initial={designSystem.animations.fadeInUp.initial}
-                                animate={designSystem.animations.fadeInUp.animate}
-                                transition={designSystem.animations.fadeInUp.transition}
-                            >
-                                <div className="flex items-center gap-3 mb-4">
-                                    <Sparkles className="w-5 h-5 text-vibe-link" />
-                                    <h2 className="text-xl font-semibold">Tools ({favoriteTools.length})</h2>
-                                </div>
+                            <section>
+                                <h2 className="mb-6 font-display text-[clamp(32px,4vw,56px)] text-foreground">Tools ({favoriteTools.length})</h2>
 
                                 <div className={viewMode === 'grid'
-                                    ? "grid md:grid-cols-2 lg:grid-cols-3 gap-4"
-                                    : "space-y-3"
+                                    ? "grid gap-1 md:grid-cols-2 lg:grid-cols-3"
+                                    : "space-y-1"
                                 }>
-                                    {favoriteTools.map((item, index) => {
+                                    {favoriteTools.map((item) => {
                                         const tool = tools.find((t: Tool) => t.slug === item.id);
                                         if (!tool) return null;
 
                                         return (
-                                            <motion.div
+                                            <div
                                                 key={item.id}
-                                                initial={designSystem.animations.fadeInUp.initial}
-                                                animate={designSystem.animations.fadeInUp.animate}
-                                                transition={{ ...designSystem.animations.fadeInUp.transition, delay: index * 0.05 }}
+                                                className={`group bg-card text-card-foreground transition-colors duration-150 hover:bg-secondary motion-reduce:transition-none ${viewMode === 'list' ? 'flex items-center p-4' : 'p-4'}`}
                                             >
-                                                <Card className={`group border-border/50 hover:border-vibe-electric/50 hover:bg-accent/50 transition-all duration-300 ${viewMode === 'list' ? 'flex items-center p-4' : ''
-                                                    }`}>
-                                                    <CardContent className={viewMode === 'list' ? 'p-0 flex-1' : 'p-4'}>
-                                                        <div className={`flex items-start gap-3 ${viewMode === 'list' ? '' : 'mb-3'}`}>
-                                                            <Link href={`/tool/${tool.slug}`} className="flex items-center gap-3 flex-1">
-                                                                <div className={`p-2.5 rounded-lg bg-linear-to-br ${tool.bgGradient || "from-slate-500/60 to-slate-800/60"} shrink-0`}>
-                                                                    {(() => {
-                                                                        const Icon = getToolIcon(tool.slug);
-                                                                        return <Icon className="h-5 w-5 text-white" />;
-                                                                    })()}
-                                                                </div>
-                                                                <div className="min-w-0">
-                                                                    <h3 className="font-semibold group-hover:text-vibe-link transition-colors truncate">
-                                                                        {tool.title}
-                                                                    </h3>
-                                                                    <p className="text-xs text-muted-foreground">{tool.category}</p>
-                                                                </div>
-                                                            </Link>
-                                                            <div className="flex items-center gap-2">
-                                                                <Badge variant="secondary" className="text-xs shrink-0">
-                                                                    {tool.pricing}
-                                                                </Badge>
-                                                                <Button
-                                                                    variant="ghost"
-                                                                    size="sm"
-                                                                    onClick={() => removeFavorite(item.id, 'tool')}
-                                                                    className="text-muted-foreground hover:text-red-700 dark:hover:text-red-500 shrink-0"
-                                                                >
-                                                                    <Trash2 className="h-4 w-4" />
-                                                                </Button>
+                                                <div className={viewMode === 'list' ? 'flex-1' : ''}>
+                                                    <div className="flex items-start gap-3">
+                                                        <Link href={`/tool/${tool.slug}`} className="flex flex-1 items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link">
+                                                            {/* tool.bgGradient is per-item colour data; it no longer renders. */}
+                                                            <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-secondary text-foreground group-hover:bg-background">
+                                                                {(() => {
+                                                                    const Icon = getToolIcon(tool.slug);
+                                                                    return <Icon className="h-5 w-5" />;
+                                                                })()}
                                                             </div>
+                                                            <div className="min-w-0">
+                                                                <h3 className="truncate text-[16px] font-semibold transition-colors group-hover:text-vibe-link">
+                                                                    {tool.title}
+                                                                </h3>
+                                                                <p className="text-[14px] text-muted-foreground">{tool.category}</p>
+                                                            </div>
+                                                        </Link>
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="shrink-0 text-[14px] font-semibold text-foreground">
+                                                                {tool.pricing}
+                                                            </span>
+                                                            <Button
+                                                                variant="ghost"
+                                                                size="sm"
+                                                                onClick={() => removeFavorite(item.id, 'tool')}
+                                                                aria-label={`Remove ${tool.title} from favorites`}
+                                                                className="shrink-0 rounded-none text-muted-foreground hover:bg-vibe-electric hover:text-vibe-deep"
+                                                            >
+                                                                <Trash2 aria-hidden="true" className="h-4 w-4" />
+                                                            </Button>
                                                         </div>
-                                                    </CardContent>
-                                                </Card>
-                                            </motion.div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         );
                                     })}
                                 </div>
-                            </motion.section>
+                            </section>
                         )}
 
                         {/* Stacks Section */}
                         {favoriteStacks.length > 0 && (
-                            <motion.section
-                                initial={designSystem.animations.fadeInUp.initial}
-                                animate={designSystem.animations.fadeInUp.animate}
-                                transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.1 }}
-                            >
-                                <div className="flex items-center gap-3 mb-4">
-                                    <Sparkles className="w-5 h-5 text-violet-700 dark:text-violet-500" />
-                                    <h2 className="text-xl font-semibold">Stacks ({favoriteStacks.length})</h2>
-                                </div>
+                            <section>
+                                <h2 className="mb-6 font-display text-[clamp(32px,4vw,56px)] text-foreground">Stacks ({favoriteStacks.length})</h2>
 
-                                <div className="grid md:grid-cols-2 gap-4">
-                                    {favoriteStacks.map((item, index) => {
+                                <div className="grid gap-1 md:grid-cols-2">
+                                    {favoriteStacks.map((item) => {
                                         const stack = stacks.find(s => s.id === item.id);
                                         if (!stack) return null;
 
                                         return (
-                                            <motion.div
-                                                key={item.id}
-                                                initial={designSystem.animations.fadeInUp.initial}
-                                                animate={designSystem.animations.fadeInUp.animate}
-                                                transition={{ ...designSystem.animations.fadeInUp.transition, delay: index * 0.05 }}
-                                            >
-                                                <Card className="group border-border/50 hover:border-violet-500/50 hover:bg-accent/50 transition-all duration-300">
-                                                    <CardContent className="p-4">
-                                                        <div className="flex items-start justify-between">
-                                                            <Link href={`/stack/${stack.id}`} className="flex items-center gap-3 flex-1">
-                                                                <div className="shrink-0 w-12 h-12 rounded-xl bg-linear-to-br from-vibe-electric/20 to-vibe-purple/20 flex items-center justify-center text-2xl">
-                                                                    {stack.icon}
-                                                                </div>
-                                                                <div className="min-w-0">
-                                                                    <h3 className="font-semibold group-hover:text-violet-700 dark:group-hover:text-violet-500 transition-colors truncate">
-                                                                        {stack.name}
-                                                                    </h3>
-                                                                    <Badge variant="outline" className="text-xs mt-1">
-                                                                        {stack.totalPrice}
-                                                                    </Badge>
-                                                                </div>
-                                                            </Link>
-                                                            <Button
-                                                                variant="ghost"
-                                                                size="sm"
-                                                                onClick={() => removeFavorite(item.id, 'stack')}
-                                                                className="text-muted-foreground hover:text-red-700 dark:hover:text-red-500 shrink-0"
-                                                            >
-                                                                <Trash2 className="h-4 w-4" />
-                                                            </Button>
+                                            <div key={item.id} className="group bg-card p-4 text-card-foreground transition-colors duration-150 hover:bg-secondary motion-reduce:transition-none">
+                                                <div className="flex items-start justify-between">
+                                                    <Link href={`/stack/${stack.id}`} className="flex flex-1 items-center gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link">
+                                                        {/* stack.icon is an emoji; direction B shows the initial instead. */}
+                                                        <div aria-hidden="true" className="flex h-12 w-12 shrink-0 items-center justify-center bg-secondary font-display text-[28px] text-foreground group-hover:bg-background">
+                                                            {stack.name.charAt(0)}
                                                         </div>
-                                                        <p className="text-sm text-muted-foreground mt-3 line-clamp-2">
-                                                            {stack.description}
-                                                        </p>
-                                                    </CardContent>
-                                                </Card>
-                                            </motion.div>
+                                                        <div className="min-w-0">
+                                                            <h3 className="truncate text-[16px] font-semibold transition-colors group-hover:text-vibe-link">
+                                                                {stack.name}
+                                                            </h3>
+                                                            <p className="mt-1 text-[14px] font-semibold text-muted-foreground">
+                                                                {stack.totalPrice}
+                                                            </p>
+                                                        </div>
+                                                    </Link>
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="sm"
+                                                        onClick={() => removeFavorite(item.id, 'stack')}
+                                                        aria-label={`Remove ${stack.name} from favorites`}
+                                                        className="shrink-0 rounded-none text-muted-foreground hover:bg-vibe-electric hover:text-vibe-deep"
+                                                    >
+                                                        <Trash2 aria-hidden="true" className="h-4 w-4" />
+                                                    </Button>
+                                                </div>
+                                                <p className="mt-3 line-clamp-2 text-[16px] leading-normal text-muted-foreground">
+                                                    {stack.description}
+                                                </p>
+                                            </div>
                                         );
                                     })}
                                 </div>
-                            </motion.section>
+                            </section>
                         )}
 
                         {/* No Results */}
                         {favorites.length > 0 && filteredFavorites.length === 0 && (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                className="text-center py-12 bg-card/30 rounded-3xl border border-border/30"
-                            >
-                                <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                                <h3 className="text-xl font-semibold mb-2">No matches found</h3>
-                                <p className="text-muted-foreground mb-4">
+                            <div className="bg-card p-8 md:p-12">
+                                <h3 className="mb-2 text-[24px] font-semibold">No matches found</h3>
+                                <p className="mb-6 text-[16px] text-muted-foreground">
                                     Try adjusting your search or filters
                                 </p>
-                                <Button variant="outline" onClick={() => {
+                                <Button variant="secondary" onClick={() => {
                                     setSearchQuery('');
                                     setSelectedCategory('all');
-                                }} className="rounded-full">
+                                }} className="h-11 rounded-none px-6 text-[16px] font-semibold">
                                     Clear Filters
                                 </Button>
-                            </motion.div>
+                            </div>
                         )}
                     </div>
                 )}

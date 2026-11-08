@@ -1,82 +1,59 @@
-"use client";
-
-import { m } from "framer-motion";
 import { Search, GitCompare, Zap } from "lucide-react";
 import { Section } from "@/components/primitives/Section";
-import { designSystem } from "@/lib/design-system";
 
 const steps = [
     {
         icon: Search,
         title: "Explore",
         description: "Browse hand-curated AI tools across every category",
-        color: "text-blue-700 dark:text-blue-500"
     },
     {
         icon: GitCompare,
         title: "Compare",
         description: "Compare features, pricing, and reviews side-by-side",
-        color: "text-purple-700 dark:text-purple-500"
     },
     {
         icon: Zap,
         title: "Build",
         description: "Start building with your perfect AI stack",
-        color: "text-vibe-link"
     }
 ];
 
+/**
+ * Legacy section (not on the home page). Direction B: three flat card cells
+ * on the ground, step number in the display face, plain icons, no gradients,
+ * no connector lines. Plain markup, no opacity:0 entry state.
+ */
 export function HowItWorks() {
     return (
-        <Section spacing="default" className="border-y border-border/40">
-            <m.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="text-center mb-16"
-            >
-                <h2 className={`${designSystem.typography.section} text-foreground mb-4`}>
+        <Section spacing="default" className="bg-background">
+            <div className="mb-12">
+                <h2 className="font-display mb-4 text-[clamp(32px,4vw,56px)] leading-[0.88] text-balance text-foreground">
                     Get started in 3 simple steps
                 </h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                <p className="max-w-2xl text-[18px] text-muted-foreground">
                     Find and integrate the best AI tools into your workflow
                 </p>
-            </m.div>
+            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <ol className="grid grid-cols-1 gap-4 md:grid-cols-3">
                 {steps.map((step, index) => (
-                    <m.div
-                        key={step.title}
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: index * 0.2 }}
-                        className="text-center relative"
-                    >
-                        {/* Connector line */}
-                        {index < steps.length - 1 && (
-                            <div className="hidden md:block absolute top-16 left-1/2 w-full h-0.5 bg-linear-to-r from-primary/50 to-transparent" />
-                        )}
-
-                        <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-linear-to-br from-primary/20 to-vibe-purple/20 ${step.color} mb-6 relative z-10 shadow-lg`}>
-                            <step.icon className="w-8 h-8" />
+                    <li key={step.title} className="reveal bg-card p-8">
+                        <div className="mb-6 flex items-baseline justify-between">
+                            <span className="font-display text-[56px] leading-[0.88] tabular-nums text-vibe-link">
+                                {index + 1}
+                            </span>
+                            <step.icon className="h-7 w-7 text-foreground" aria-hidden="true" />
                         </div>
-
-                        <div className="text-sm font-semibold text-primary mb-2">
-                            Step {index + 1}
-                        </div>
-
-                        <h3 className="text-2xl font-bold text-foreground mb-3">
+                        <h3 className="mb-3 text-[22px] font-semibold text-foreground">
                             {step.title}
                         </h3>
-
-                        <p className="text-muted-foreground leading-relaxed">
+                        <p className="text-[16px] leading-relaxed text-muted-foreground">
                             {step.description}
                         </p>
-                    </m.div>
+                    </li>
                 ))}
-            </div>
+            </ol>
         </Section>
     );
 }

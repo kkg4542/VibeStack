@@ -19,21 +19,19 @@ export default function CommunityStacksError({
     return (
         <div className="min-h-[80vh] flex items-center justify-center bg-background px-4">
             <div className="max-w-md w-full text-center space-y-8">
-                <div className="mx-auto w-24 h-24 bg-yellow-500/10 rounded-full flex items-center justify-center">
-                    <ServerCrash className="w-12 h-12 text-yellow-700/80 dark:text-yellow-500/80" />
-                </div>
+                <ServerCrash aria-hidden="true" className="mx-auto h-14 w-14 text-vibe-link" />
                 <div className="space-y-3">
-                    <h2 className="text-3xl font-bold tracking-tight text-foreground">Community Stacks Unavailable</h2>
-                    <p className="text-muted-foreground">
+                    <h2 className="font-display text-balance text-[clamp(32px,4vw,48px)] uppercase leading-[0.9] tracking-[-0.005em] text-foreground">Community Stacks Unavailable</h2>
+                    <p className="text-[17px] text-muted-foreground">
                         We&apos;re having trouble loading the community stacks database right now.
                     </p>
                 </div>
                 <div className="flex justify-center gap-4 pt-4">
-                    <Button onClick={() => reset()} variant="default" className="rounded-full">
-                        <RefreshCcw className="mr-2 h-4 w-4" />
+                    <Button onClick={() => reset()} variant="default" className="h-11 rounded-none px-6 text-[16px] font-semibold">
+                        <RefreshCcw aria-hidden="true" className="mr-2 h-4 w-4" />
                         Reload Stacks
                     </Button>
-                    <Button asChild variant="outline" className="rounded-full">
+                    <Button asChild variant="secondary" className="h-11 rounded-none px-6 text-[16px] font-semibold hover:bg-accent">
                         <Link href="/">
                             Return Home
                         </Link>

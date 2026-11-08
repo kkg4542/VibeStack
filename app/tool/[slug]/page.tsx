@@ -1,21 +1,15 @@
 import { notFound } from "next/navigation";
 import { getToolBySlug, getTools, getToolsStrict } from "@/lib/tools-db";
 import { ToolData } from "@/lib/tool-types";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Check, ArrowLeft, Star, Heart, Scale, Sparkles, TrendingUp, Target, Zap, ShieldCheck } from "lucide-react";
+import { Check, ArrowLeft, Star, Plus, Minus } from "lucide-react";
 import Link from "next/link";
 import { RelatedTools } from "@/components/tools/RelatedTools";
 import { Metadata } from "next";
-import { SocialShare } from "@/components/ui/SocialShare";
 import { AffiliateLink } from "@/components/ui/AffiliateLink";
 import { SidebarAd } from "@/components/tools/SidebarAd";
 import { ReviewList } from "@/components/reviews/ReviewList";
 import { ReviewForm } from "@/components/reviews/ReviewForm";
 import { ExitIntentPopup } from "@/components/ui/ExitIntentPopup";
-import { ToolIconRenderer } from "@/components/tools/ToolIconRenderer";
-import { MotionDiv, MotionSection, MotionLi, MotionSpan, MotionP, MotionH1, MotionH2, MotionH3 } from "@/components/ui/motion-wrapper";
-import { designSystem } from "@/lib/design-system";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { SimpleAccordionItem } from "@/components/ui/simple-accordion";
 import { getExtendedContent } from "@/lib/tool-extended-content";
@@ -274,6 +268,13 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
         ],
     };
 
+    // Direction B: flat tone-step fields, square corners, no lines/shadows.
+    // Section titles in the display face; card titles stay Public Sans.
+    const sectionField = "reveal bg-card p-6 md:p-10";
+    const sectionTitle =
+        "font-display text-[clamp(32px,4vw,56px)] uppercase leading-[0.9] tracking-[-0.005em] text-foreground text-balance";
+    const cardTitle = "text-[20px] font-semibold leading-tight text-foreground";
+
     return (
         <PageBackground {...BackgroundPresets.content}>
             <script
@@ -292,82 +293,59 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
             )}
             <Container size="default">
                 {/* Back Link */}
-                <MotionDiv
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={designSystem.animations.fadeInUp.transition}
+                <Link
+                    href="/tools"
+                    className="group mb-8 inline-flex items-center text-[16px] text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-vibe-link"
                 >
-                    <Link
-                        href="/tools"
-                        className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors group"
-                    >
-                        <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-                        Back to Tools
-                    </Link>
-                </MotionDiv>
+                    <ArrowLeft
+                        aria-hidden="true"
+                        className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+                    />
+                    Back to Tools
+                </Link>
 
-                {/* Hero Section - Enhanced */}
+                {/* Hero */}
                 <ToolHero tool={tool} />
 
-                {/* Last-revised date — plain server-rendered HTML (not inside a
-                    Motion* client subtree) so crawlers and AI surfaces that
-                    don't run client JS still see it. */}
+                {/* Last-revised date — plain server-rendered HTML so crawlers
+                    and AI surfaces that don't run client JS still see it. */}
                 {lastRevisedIso && lastRevisedHuman && (
-                    <p className="text-xs text-muted-foreground -mt-8 mb-8">
+                    <p className="-mt-12 mb-12 text-[14px] text-muted-foreground">
                         Last updated <time dateTime={lastRevisedIso}>{lastRevisedHuman}</time>
                     </p>
                 )}
 
                 {/* Content Grid */}
-                <div className="grid lg:grid-cols-3 gap-8">
-                    <div className="lg:col-span-2 space-y-8">
+                <div className="grid gap-8 lg:grid-cols-3">
+                    <div className="space-y-8 lg:col-span-2">
                         {/* Key Features - Desktop */}
                         <div className="hidden md:block">
-                            <MotionSection
-                                initial={designSystem.animations.fadeInUp.initial}
-                                whileInView={designSystem.animations.fadeInUp.animate}
-                                viewport={{ once: true }}
-                                transition={designSystem.animations.fadeInUp.transition}
-                                className="bg-card backdrop-blur-sm rounded-3xl p-8 border border-border/50 shadow-lg"
-                            >
-                                <div className="flex items-center gap-3 mb-6">
-                                    <div className="p-2 rounded-lg bg-vibe-electric/10">
-                                        <Sparkles className="h-5 w-5 text-vibe-link" />
-                                    </div>
-                                    <h2 className="text-2xl font-semibold text-foreground">Key Features</h2>
-                                </div>
-                                <ul className="space-y-4">
-                                    {tool.features?.map((feature, index) => (
-                                        <MotionLi
+                            <section className={sectionField}>
+                                <h2 className={`${sectionTitle} mb-8`}>Key Features</h2>
+                                <ul className="grid gap-1">
+                                    {tool.features?.map((feature) => (
+                                        <li
                                             key={feature}
-                                            initial={{ opacity: 0, x: -20 }}
-                                            whileInView={{ opacity: 1, x: 0 }}
-                                            viewport={{ once: true }}
-                                            transition={{ duration: 0.4, delay: index * 0.1 }}
-                                            className="flex items-start gap-4 p-4 rounded-2xl bg-secondary/30 hover:bg-secondary/50 transition-colors"
+                                            className="flex items-start gap-4 bg-background px-5 py-4"
                                         >
-                                            <div className="p-1.5 rounded-full bg-vibe-electric/20 shrink-0 mt-0.5">
-                                                <Check className="h-4 w-4 text-vibe-link" />
-                                            </div>
-                                            <span className="text-lg text-foreground">{feature}</span>
-                                        </MotionLi>
+                                            <Check aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-vibe-link" />
+                                            <span className="text-[18px] text-foreground">{feature}</span>
+                                        </li>
                                     )) || <p className="text-muted-foreground">No features listed.</p>}
                                 </ul>
-                            </MotionSection>
+                            </section>
                         </div>
 
                         {/* Key Features - Mobile Accordion */}
                         <div className="md:hidden">
-                            <SimpleAccordionItem title="Key Features" icon={<Sparkles className="h-4 w-4" />} defaultOpen={true}>
-                                <ul className="space-y-4">
+                            <SimpleAccordionItem title="Key Features" defaultOpen={true}>
+                                <ul className="grid gap-1">
                                     {tool.features?.map((feature) => (
                                         <li
                                             key={feature}
-                                            className="flex items-start gap-3 p-3 rounded-xl bg-secondary/30"
+                                            className="flex items-start gap-3 bg-background p-3"
                                         >
-                                            <div className="p-1 rounded-full bg-vibe-electric/20 shrink-0 mt-0.5">
-                                                <Check className="h-3 w-3 text-vibe-link" />
-                                            </div>
+                                            <Check aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 text-vibe-link" />
                                             <span className="text-base text-foreground">{feature}</span>
                                         </li>
                                     )) || <p className="text-muted-foreground">No features listed.</p>}
@@ -376,99 +354,64 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                         </div>
 
                         {/* Pros & Cons Section - Desktop */}
-                        <div className="hidden md:grid sm:grid-cols-2 gap-6">
-                            <MotionSection
-                                initial={designSystem.animations.fadeInUp.initial}
-                                whileInView={designSystem.animations.fadeInUp.animate}
-                                viewport={{ once: true }}
-                                transition={designSystem.animations.fadeInUp.transition}
-                                className="bg-emerald-500/5 rounded-3xl p-8 border border-emerald-500/20 hover:border-emerald-500/30 transition-colors"
-                            >
-                                <div className="flex items-center gap-3 mb-6">
-                                    <div className="p-2 rounded-lg bg-emerald-500/20">
-                                        <Check className="h-5 w-5 text-emerald-700 dark:text-emerald-500" />
-                                    </div>
-                                    <h3 className="text-xl font-semibold text-emerald-700 dark:text-emerald-400">Pros</h3>
-                                </div>
+                        <div className="hidden gap-1 sm:grid-cols-2 md:grid">
+                            <section className="reveal bg-card p-8">
+                                <h3 className={`${cardTitle} mb-6 text-[24px]`}>Pros</h3>
                                 <ul className="space-y-3">
                                     {tool.pros?.map((pro) => (
-                                        <li key={pro} className="flex items-start gap-3 text-foreground/80">
-                                            <div className="mt-1.5 h-2 w-2 rounded-full bg-emerald-400 shrink-0" />
+                                        <li key={pro} className="flex items-start gap-3 text-base text-foreground">
+                                            <Plus aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 text-vibe-link" />
                                             {pro}
                                         </li>
-                                    )) || <p className="text-sm text-muted-foreground">Information pending.</p>}
+                                    )) || <p className="text-base text-muted-foreground">Information pending.</p>}
                                 </ul>
-                            </MotionSection>
-                            <MotionSection
-                                initial={designSystem.animations.fadeInUp.initial}
-                                whileInView={designSystem.animations.fadeInUp.animate}
-                                viewport={{ once: true }}
-                                transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.1 }}
-                                className="bg-rose-500/5 rounded-3xl p-8 border border-rose-500/20 hover:border-rose-500/30 transition-colors"
-                            >
-                                <div className="flex items-center gap-3 mb-6">
-                                    <div className="p-2 rounded-lg bg-rose-500/20">
-                                        <ExternalLink className="h-5 w-5 text-rose-700 dark:text-rose-500 rotate-45" />
-                                    </div>
-                                    <h3 className="text-xl font-semibold text-rose-700 dark:text-rose-400">Cons</h3>
-                                </div>
+                            </section>
+                            <section className="reveal reveal-delay-1 bg-card p-8">
+                                <h3 className={`${cardTitle} mb-6 text-[24px]`}>Cons</h3>
                                 <ul className="space-y-3">
                                     {tool.cons?.map((con) => (
-                                        <li key={con} className="flex items-start gap-3 text-foreground/80">
-                                            <div className="mt-1.5 h-2 w-2 rounded-full bg-rose-400 shrink-0" />
+                                        <li key={con} className="flex items-start gap-3 text-base text-foreground">
+                                            <Minus aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 text-muted-foreground" />
                                             {con}
                                         </li>
-                                    )) || <p className="text-sm text-muted-foreground">Information pending.</p>}
+                                    )) || <p className="text-base text-muted-foreground">Information pending.</p>}
                                 </ul>
-                            </MotionSection>
+                            </section>
                         </div>
 
                         {/* Pros & Cons - Mobile Accordion */}
-                        <div className="md:hidden space-y-4">
-                            <SimpleAccordionItem title="Pros" icon={<Check className="h-4 w-4" />} defaultOpen={false}>
+                        <div className="space-y-4 md:hidden">
+                            <SimpleAccordionItem title="Pros" defaultOpen={false}>
                                 <ul className="space-y-3">
                                     {tool.pros?.map((pro) => (
-                                        <li key={pro} className="flex items-start gap-3 text-foreground/80">
-                                            <div className="mt-1.5 h-2 w-2 rounded-full bg-emerald-400 shrink-0" />
+                                        <li key={pro} className="flex items-start gap-3 text-base text-foreground">
+                                            <Plus aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 text-vibe-link" />
                                             {pro}
                                         </li>
-                                    )) || <p className="text-sm text-muted-foreground">Information pending.</p>}
+                                    )) || <p className="text-base text-muted-foreground">Information pending.</p>}
                                 </ul>
                             </SimpleAccordionItem>
 
-                            <SimpleAccordionItem title="Cons" icon={<ExternalLink className="h-4 w-4" />} defaultOpen={false}>
+                            <SimpleAccordionItem title="Cons" defaultOpen={false}>
                                 <ul className="space-y-3">
                                     {tool.cons?.map((con) => (
-                                        <li key={con} className="flex items-start gap-3 text-foreground/80">
-                                            <div className="mt-1.5 h-2 w-2 rounded-full bg-rose-400 shrink-0" />
+                                        <li key={con} className="flex items-start gap-3 text-base text-foreground">
+                                            <Minus aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 text-muted-foreground" />
                                             {con}
                                         </li>
-                                    )) || <p className="text-sm text-muted-foreground">Information pending.</p>}
+                                    )) || <p className="text-base text-muted-foreground">Information pending.</p>}
                                 </ul>
                             </SimpleAccordionItem>
                         </div>
 
                         {/* Extended Editorial Content (per-slug long-form) */}
                         {extended && (
-                            <MotionSection
-                                initial={designSystem.animations.fadeInUp.initial}
-                                whileInView={designSystem.animations.fadeInUp.animate}
-                                viewport={{ once: true }}
-                                transition={designSystem.animations.fadeInUp.transition}
-                                className="bg-card backdrop-blur-sm rounded-3xl p-8 border border-border/50 shadow-lg space-y-10"
-                            >
+                            <section className={`${sectionField} space-y-12`}>
                                 {extendedOverviewHtml && (
                                     <div>
-                                        <div className="flex items-center gap-3 mb-6">
-                                            <div className="p-2 rounded-lg bg-vibe-electric/10">
-                                                <Sparkles className="h-5 w-5 text-vibe-link" />
-                                            </div>
-                                            <h2 className="text-2xl font-semibold text-foreground">
-                                                In-Depth Overview
-                                            </h2>
-                                        </div>
+                                        <h2 className={`${sectionTitle} mb-6`}>In-Depth Overview</h2>
                                         <div
-                                            className="prose dark:prose-invert prose-zinc max-w-none prose-a:text-primary"
+                                            className="prose prose-zinc max-w-none dark:prose-invert prose-a:text-vibe-link"
                                             dangerouslySetInnerHTML={{ __html: extendedOverviewHtml }}
                                         />
                                     </div>
@@ -476,22 +419,14 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 
                                 {extended.useCases && extended.useCases.length > 0 && (
                                     <div>
-                                        <div className="flex items-center gap-3 mb-6">
-                                            <div className="p-2 rounded-lg bg-vibe-electric/10">
-                                                <Target className="h-5 w-5 text-vibe-link" />
-                                            </div>
-                                            <h2 className="text-2xl font-semibold text-foreground">Use Cases</h2>
-                                        </div>
-                                        <div className="grid sm:grid-cols-2 gap-4">
+                                        <h2 className={`${sectionTitle} mb-6`}>Use Cases</h2>
+                                        <div className="grid gap-1 sm:grid-cols-2">
                                             {extended.useCases.map((uc) => (
-                                                <div
-                                                    key={uc.title}
-                                                    className="p-5 rounded-2xl bg-secondary/30 border border-border/50"
-                                                >
-                                                    <h3 className="font-semibold text-foreground mb-2">
+                                                <div key={uc.title} className="bg-background p-5">
+                                                    <h3 className="mb-2 text-[18px] font-semibold text-foreground">
                                                         {uc.title}
                                                     </h3>
-                                                    <p className="text-sm text-muted-foreground leading-relaxed">
+                                                    <p className="text-base leading-normal text-muted-foreground">
                                                         {uc.body}
                                                     </p>
                                                 </div>
@@ -502,15 +437,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 
                                 {extended.pricingDetail && (
                                     <div>
-                                        <div className="flex items-center gap-3 mb-4">
-                                            <div className="p-2 rounded-lg bg-vibe-electric/10">
-                                                <Zap className="h-5 w-5 text-vibe-link" />
-                                            </div>
-                                            <h2 className="text-2xl font-semibold text-foreground">
-                                                Pricing Detail
-                                            </h2>
-                                        </div>
-                                        <p className="text-muted-foreground leading-relaxed">
+                                        <h2 className={`${sectionTitle} mb-4`}>Pricing Detail</h2>
+                                        <p className="text-base leading-normal text-muted-foreground md:text-[18px]">
                                             {extended.pricingDetail}
                                         </p>
                                     </div>
@@ -518,24 +446,14 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 
                                 {extended.faq && extended.faq.length > 0 && (
                                     <div>
-                                        <div className="flex items-center gap-3 mb-6">
-                                            <div className="p-2 rounded-lg bg-vibe-electric/10">
-                                                <ShieldCheck className="h-5 w-5 text-vibe-link" />
-                                            </div>
-                                            <h2 className="text-2xl font-semibold text-foreground">
-                                                Frequently Asked Questions
-                                            </h2>
-                                        </div>
-                                        <div className="space-y-4">
+                                        <h2 className={`${sectionTitle} mb-6`}>Frequently Asked Questions</h2>
+                                        <div className="grid gap-1">
                                             {extended.faq.map((item) => (
-                                                <div
-                                                    key={item.q}
-                                                    className="p-5 rounded-2xl bg-secondary/30 border border-border/50"
-                                                >
-                                                    <h3 className="font-semibold text-foreground mb-2">
+                                                <div key={item.q} className="bg-background p-5">
+                                                    <h3 className="mb-2 text-[18px] font-semibold text-foreground">
                                                         {item.q}
                                                     </h3>
-                                                    <p className="text-muted-foreground leading-relaxed">
+                                                    <p className="text-base leading-normal text-muted-foreground">
                                                         {item.a}
                                                     </p>
                                                 </div>
@@ -543,69 +461,54 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                                         </div>
                                     </div>
                                 )}
-                            </MotionSection>
+                            </section>
                         )}
 
-                        {/* In-depth Review - Enhanced */}
-                        <MotionSection
-                            initial={designSystem.animations.fadeInUp.initial}
-                            whileInView={designSystem.animations.fadeInUp.animate}
-                            viewport={{ once: true }}
-                            transition={designSystem.animations.fadeInUp.transition}
-                            className="bg-linear-to-br from-vibe-electric/5 to-vibe-purple/5 rounded-3xl p-8 border border-vibe-electric/10"
-                        >
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="p-2 rounded-lg bg-vibe-electric/10">
-                                    <Star className="h-5 w-5 text-vibe-link" />
-                                </div>
-                                <h2 className="text-2xl font-semibold">Expert Review</h2>
-                            </div>
+                        {/* In-depth Review */}
+                        <section className={sectionField}>
+                            <h2 className={`${sectionTitle} mb-6`}>Expert Review</h2>
                             {tool.review ? (
                                 <div className="space-y-6">
-                                    <div className="flex items-center gap-4 p-4 bg-muted rounded-2xl border border-border/50">
-                                        <div className="flex gap-1">
+                                    <div className="flex flex-wrap items-center gap-4 bg-background p-4">
+                                        <div
+                                            className="flex gap-1"
+                                            role="img"
+                                            aria-label={`${tool.review.rating} out of 5 stars`}
+                                        >
                                             {[...Array(5)].map((_, i) => (
-                                                <Star key={i} className={`h-6 w-6 ${i < Math.floor(tool.review!.rating) ? 'text-yellow-400 fill-yellow-400' : 'text-zinc-600'}`} />
+                                                <Star
+                                                    key={i}
+                                                    aria-hidden="true"
+                                                    className={`h-6 w-6 ${i < Math.floor(tool.review!.rating) ? "fill-current text-vibe-link" : "text-muted-foreground/40"}`}
+                                                />
                                             ))}
                                         </div>
                                         <div className="flex items-baseline gap-2">
-                                            <span className="text-3xl font-bold text-foreground">{tool.review.rating}</span>
-                                            <span className="text-muted-foreground">/ 5.0</span>
+                                            <span className="font-display text-[48px] leading-[0.88] tabular-nums text-foreground">
+                                                {tool.review.rating}
+                                            </span>
+                                            <span className="text-base text-muted-foreground">/ 5.0</span>
                                         </div>
                                     </div>
-                                    <div className="prose dark:prose-invert prose-zinc max-w-none">
-                                        <p className="text-lg text-muted-foreground leading-relaxed">
+                                    <div className="prose prose-zinc max-w-none dark:prose-invert">
+                                        <p className="text-[18px] leading-normal text-muted-foreground">
                                             {tool.review.content}
                                         </p>
                                     </div>
                                 </div>
                             ) : (
-                                <p className="text-muted-foreground italic">Full review coming soon.</p>
+                                <p className="text-base text-muted-foreground">Full review coming soon.</p>
                             )}
-                        </MotionSection>
+                        </section>
 
                         {/* User Reviews */}
-                        <MotionSection
-                            initial={designSystem.animations.fadeInUp.initial}
-                            whileInView={designSystem.animations.fadeInUp.animate}
-                            viewport={{ once: true }}
-                            transition={designSystem.animations.fadeInUp.transition}
-                            className="mt-12"
-                        >
-                            <div className="flex items-center justify-between mb-8">
-                                <div className="flex items-center gap-3">
-                                    <div className="p-2 rounded-lg bg-violet-500/10">
-                                        <TrendingUp className="h-5 w-5 text-violet-700 dark:text-violet-500" />
-                                    </div>
-                                    <h2 className="text-2xl font-semibold">User Reviews</h2>
-                                </div>
-                            </div>
-
+                        <section className="reveal mt-12">
+                            <h2 className={`${sectionTitle} mb-8`}>User Reviews</h2>
                             <div className="grid gap-8">
                                 <ReviewForm toolSlug={tool.slug} />
                                 <ReviewList toolSlug={tool.slug} />
                             </div>
-                        </MotionSection>
+                        </section>
 
                         {/* Crawlable links into the site's best-ranking cluster (/compare/*) */}
                         <ToolCompareLinks
@@ -624,8 +527,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                         />
                     </div>
 
-                    {/* Sidebar Ad Section - Enhanced */}
-                    <aside className="lg:col-span-1 space-y-6">
+                    {/* Sidebar */}
+                    <aside className="space-y-6 lg:col-span-1">
                         {/* Promoting a Featured Tool */}
                         {(() => {
                             const relatedAd = allTools.find(t =>
@@ -640,47 +543,36 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                         })()}
 
                         {/* Tool Details Card */}
-                        <MotionDiv
-                            initial={designSystem.animations.fadeInUp.initial}
-                            whileInView={designSystem.animations.fadeInUp.animate}
-                            viewport={{ once: true }}
-                            transition={designSystem.animations.fadeInUp.transition}
-                            className="bg-card backdrop-blur-sm rounded-3xl p-6 border border-border/50 shadow-lg sticky top-24"
-                        >
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="p-2 rounded-lg bg-vibe-electric/10">
-                                    <Target className="h-5 w-5 text-vibe-link" />
+                        <div className="sticky top-24 bg-card p-6">
+                            <h3 className={`${cardTitle} mb-5`}>Tool Details</h3>
+                            <dl className="grid gap-1 text-base">
+                                <div className="flex items-center justify-between gap-4 bg-background px-4 py-3">
+                                    <dt className="text-muted-foreground">Pricing</dt>
+                                    <dd className="font-semibold text-foreground">{tool.pricing}</dd>
                                 </div>
-                                <h3 className="font-semibold text-foreground">Tool Details</h3>
-                            </div>
-                            <div className="space-y-4 text-sm">
-                                <div className="flex justify-between items-center py-3 border-b border-border/50">
-                                    <span className="text-muted-foreground">Pricing</span>
-                                    <Badge variant="secondary" className="bg-primary/10 text-primary">
-                                        {tool.pricing}
-                                    </Badge>
+                                <div className="flex items-center justify-between gap-4 bg-background px-4 py-3">
+                                    <dt className="text-muted-foreground">Category</dt>
+                                    <dd className="font-semibold text-foreground">{tool.category}</dd>
                                 </div>
-                                <div className="flex justify-between items-center py-3 border-b border-border/50">
-                                    <span className="text-muted-foreground">Category</span>
-                                    <span className="font-medium text-foreground">{tool.category}</span>
+                                <div className="flex items-center justify-between gap-4 bg-background px-4 py-3">
+                                    <dt className="text-muted-foreground">Features</dt>
+                                    <dd className="font-semibold tabular-nums text-foreground">{tool.features?.length || 0}</dd>
                                 </div>
-                                <div className="flex justify-between items-center py-3 border-b border-border/50">
-                                    <span className="text-muted-foreground">Features</span>
-                                    <span className="font-medium text-foreground">{tool.features?.length || 0}</span>
+                                <div className="bg-background px-4 py-3">
+                                    <dt className="mb-1 text-muted-foreground">Website</dt>
+                                    <dd>
+                                        <AffiliateLink
+                                            url={tool.affiliateUrl || tool.websiteUrl}
+                                            toolSlug={tool.slug}
+                                            toolName={tool.title}
+                                            variant="link"
+                                        >
+                                            {tool.websiteUrl.replace('https://', '')}
+                                        </AffiliateLink>
+                                    </dd>
                                 </div>
-                                <div className="pt-2">
-                                    <span className="text-muted-foreground block mb-2">Website</span>
-                                    <AffiliateLink
-                                        url={tool.affiliateUrl || tool.websiteUrl}
-                                        toolSlug={tool.slug}
-                                        toolName={tool.title}
-                                        variant="link"
-                                    >
-                                        {tool.websiteUrl.replace('https://', '')}
-                                    </AffiliateLink>
-                                </div>
-                            </div>
-                        </MotionDiv>
+                            </dl>
+                        </div>
                     </aside>
                 </div>
             </Container>

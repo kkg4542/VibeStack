@@ -15,13 +15,13 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-background pt-14">
+    <div className="min-h-svh bg-background pt-14">
       <div className="flex">
         {/* Sidebar */}
-        <aside className="fixed left-0 top-14 w-64 h-[calc(100vh-3.5rem)] border-r border-border/40 bg-background/60 backdrop-blur-xl overflow-y-auto z-40">
+        <aside className="fixed left-0 top-14 z-40 h-[calc(100svh-3.5rem)] w-64 overflow-y-auto bg-card">
           <div className="p-6">
-            <h1 className="text-xl font-bold tracking-tight text-gradient-brand">Vibe Admin</h1>
-            <p className="text-xs text-muted-foreground mt-1 font-medium uppercase tracking-wider">Productivity Lab</p>
+            <h1 className="font-display text-[32px] uppercase leading-[0.9] tracking-[-0.005em] text-foreground">Vibe Admin</h1>
+            <p className="mt-1 text-[14px] text-muted-foreground">Productivity Lab</p>
           </div>
           <AdminNav />
         </aside>

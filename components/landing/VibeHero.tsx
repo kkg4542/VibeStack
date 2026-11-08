@@ -1,304 +1,89 @@
-"use client";
-
-import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { m, AnimatePresence, useReducedMotion } from "framer-motion";
-import { ArrowRight, Sparkles, Terminal, Play } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
-import { MagneticWrapper } from "@/components/effects/MagneticButton";
-import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
-import { designSystem } from "@/lib/design-system";
+import { ArrowRight } from "lucide-react";
+import { Container } from "@/components/primitives/Container";
+import { StackPicker, type StackPick } from "@/components/landing/StackPicker";
 
-const headlines = [
-  { text: "Find Your AI Stack in", highlight: "60 Seconds" },
-];
+interface VibeHeroProps {
+  /** Curated stacks resolved on the server (app/page.tsx). Up to six. */
+  stacks: StackPick[];
+}
 
-const scrambleChars = "!@#$%^&*()_+-=[]{}|;:,.<>?";
+/**
+ * Layout for "the sentence is the layout". Kept next to the markup it styles
+ * (only this hero uses it); `.progress-fill` lives in app/globals.css.
+ *
+ * Grid: the headline spans the full width; under it the supporting sentence
+ * and button, the goal list and the result block sit in three columns at lg,
+ * list + result side by side at md, and one column on phones.
+ *
+ * The frame (.vh-frame) is an inline-block in the headline, one cap height
+ * tall (0.72em, an estimate for Big Shoulders) and 1.75em wide, sitting on the
+ * baseline (overflow:hidden makes its bottom edge its baseline). Its bars drop
+ * in with a 130ms stagger whenever the stack changes, then bob very slightly.
+ * Motion is transform/opacity only, opacity never below .35, and off under
+ * prefers-reduced-motion (the bars then simply sit in place).
+ */
+const HERO_CSS = `
+.vh-grid{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "intro" "list" "result";row-gap:2rem}
+.vh-head{grid-area:head}.vh-intro{grid-area:intro}.vh-list{grid-area:list}.vh-result{grid-area:result}
+@media (min-width:768px){
+  .vh-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"head head" "intro intro" "list result";column-gap:2rem;row-gap:2.5rem}
+}
+@media (min-width:1024px){
+  .vh-grid{grid-template-columns:minmax(0,.85fr) minmax(0,1fr) minmax(0,1.15fr);grid-template-areas:"head head head" "intro list result";column-gap:3rem}
+}
+.vh-frame{position:relative;display:inline-block;vertical-align:baseline;width:1.75em;height:.72em;overflow:hidden;background:#222427}
+.vh-bars{position:absolute;inset:.07em;display:flex;flex-direction:column-reverse;gap:.045em}
+.vh-bar-bob{display:block;flex:none;height:.105em;animation:vh-bob 2.8s ease-in-out infinite alternate;animation-delay:calc(var(--i) * -.45s)}
+.vh-bar{display:block;height:100%;animation:vh-drop .6s cubic-bezier(.34,1.45,.64,1) both;animation-delay:calc(var(--i) * 130ms)}
+@keyframes vh-drop{from{transform:translateY(-.9em);opacity:.35}to{transform:none;opacity:1}}
+@keyframes vh-bob{from{transform:translateY(0)}to{transform:translateY(-.018em)}}
+@media (prefers-reduced-motion:reduce){.vh-bar,.vh-bar-bob{animation:none}}
+`;
 
-export function VibeHero() {
-  const currentIndex = 0;
-  const [displayText, setDisplayText] = useState(headlines[0].highlight);
-  const [isScrambling, setIsScrambling] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
-  const shouldReduceMotion = useReducedMotion();
-  const elegantEase = designSystem.animations.elegantEase;
-  const springStiff = designSystem.motion.spring.stiff;
-  const springLoose = designSystem.motion.spring.loose;
-
-  // Text scramble effect
-  const scrambleText = useCallback((targetText: string) => {
-    if (shouldReduceMotion) {
-      setDisplayText(targetText);
-      return;
-    }
-
-    setIsScrambling(true);
-    let iteration = 0;
-    const maxIterations = targetText.length * 3;
-
-    const interval = setInterval(() => {
-      setDisplayText(
-        targetText
-          .split("")
-          .map((char, index) => {
-            if (char === " ") return " ";
-            if (index < iteration / 3) {
-              return targetText[index];
-            }
-            return scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
-          })
-          .join("")
-      );
-
-      iteration++;
-
-      if (iteration >= maxIterations) {
-        clearInterval(interval);
-        setDisplayText(targetText);
-        setIsScrambling(false);
-      }
-    }, 30);
-
-    return () => clearInterval(interval);
-  }, [shouldReduceMotion]);
-
-  // Initial mount scramble
-  useEffect(() => {
-    setIsMounted(true);
-    const timer = setTimeout(() => {
-      scrambleText(headlines[0].highlight);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [scrambleText]);
-
-  // Headlines no longer rotate — single fixed value prop for clarity.
-  // Initial scramble effect on mount is preserved above.
-
-  const currentHeadline = headlines[currentIndex];
+/**
+ * Homepage hero, "the sentence is the layout": a solid orange bar along the
+ * top, the sentence "Pick a goal. / Get [frame] the stack." as the h1 at
+ * poster scale (the frame shows the selected stack as bars), then one
+ * supporting sentence and the button, the goal list, and the selected stack
+ * as real text.
+ *
+ * Server component: everything here, including the picker's default
+ * selection, is in the server HTML. The hero is always a dark surface.
+ */
+export function VibeHero({ stacks }: VibeHeroProps) {
+  const intro = (
+    <>
+      <p className="max-w-[44ch] text-[17px] leading-normal text-[#b0b2b6] md:text-[18px]">
+        Hand-picked AI tools grouped into stacks, with real prices and the order to set them up.
+        Free to browse.
+      </p>
+      <Link
+        id="hero-cta-build"
+        href="/build"
+        className="group mt-6 inline-flex h-12 items-center gap-2 bg-vibe-electric px-6 text-[16px] font-semibold text-vibe-deep transition-transform duration-150 active:translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#eff0f1] motion-reduce:transition-none motion-reduce:active:translate-y-0"
+      >
+        Find my stack
+        <ArrowRight
+          aria-hidden="true"
+          className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+        />
+      </Link>
+    </>
+  );
 
   return (
-    <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-background pt-20">
-      {/* Animated Mesh Gradient Background */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Grid pattern */}
-        <div className="absolute inset-0 bg-grid-pattern opacity-50" />
+    <section
+      aria-labelledby="hero-heading"
+      className="relative isolate overflow-hidden bg-vibe-deep pt-16 font-sans text-[#eff0f1]"
+    >
+      <style>{HERO_CSS}</style>
+      {/* The signature: one solid orange bar across the top, right under the fixed nav. */}
+      <div aria-hidden="true" className="h-[7px] bg-vibe-electric" />
 
-        {/* Animated gradient orbs with noise texture */}
-        <m.div
-          className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-noise"
-          style={{
-            background: "radial-gradient(circle, rgba(0, 217, 255, 0.15) 0%, transparent 70%)",
-            filter: "blur(40px)",
-          }}
-          animate={shouldReduceMotion ? {} : {
-            x: [0, 40, 0],
-            y: [0, -40, 0],
-            scale: [1, 1.15, 1],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <m.div
-          className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] rounded-full bg-noise"
-          style={{
-            background: "radial-gradient(circle, rgba(255, 0, 255, 0.1) 0%, transparent 70%)",
-            filter: "blur(60px)",
-          }}
-          animate={shouldReduceMotion ? {} : {
-            x: [0, -60, 0],
-            y: [0, 60, 0],
-            scale: [1, 1.25, 1],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2,
-          }}
-        />
-        <m.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full"
-          style={{
-            background: "radial-gradient(circle, rgba(184, 41, 221, 0.08) 0%, transparent 70%)",
-          }}
-          animate={shouldReduceMotion ? {} : {
-            scale: [1, 1.1, 1],
-            rotate: [0, 180, 360],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 flex flex-col items-center gap-8 px-4 text-center max-w-5xl mx-auto">
-        {/* Animated Badge */}
-        <m.div
-          initial={{ opacity: 0, y: 20, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.6, ease: elegantEase }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-foreground/5 border border-foreground/10 backdrop-blur-md"
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-vibe-electric opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-vibe-electric" />
-          </span>
-          <span className="text-sm text-foreground/70 font-medium font-sans">Built with Vibe Coding</span>
-        </m.div>
-
-        {/* Rotating Headline with Scramble Effect */}
-        <div className="space-y-4">
-          <m.div
-            key={`text-${currentIndex}`}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.05 }}
-            transition={springStiff}
-            className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-foreground/90 uppercase"
-          >
-            {currentHeadline.text}
-          </m.div>
-
-          <div className="h-28 md:h-36 flex items-center justify-center overflow-visible">
-            <h1
-              className="text-6xl md:text-8xl lg:text-[120px] font-black tracking-tighter text-transparent bg-clip-text bg-linear-to-r from-vibe-electric via-vibe-purple to-vibe-pink pb-4 leading-none"
-              aria-live="polite"
-              aria-atomic="true"
-            >
-              {displayText}
-            </h1>
-          </div>
-        </div>
-
-        {/* Subtitle */}
-        <m.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: elegantEase }}
-          className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed"
-        >
-          Answer 5 questions. Get a hand-curated stack of AI tools
-          <br className="hidden md:block" />
-          matched to your role, budget, and workflow — free.
-        </m.p>
-
-        {/* Terminal-style Command Input */}
-        <m.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3, ease: elegantEase }}
-          className="w-full max-w-2xl mt-4"
-        >
-          <div className="relative group">
-            {/* Glow effect */}
-            <div className="absolute -inset-1 bg-linear-to-r from-vibe-electric via-vibe-cyan to-vibe-neon rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-1000" />
-
-            {/* Terminal window */}
-            <div className="relative terminal-window">
-              {/* Terminal header */}
-              <div className="terminal-header">
-                <div className="terminal-dot red" />
-                <div className="terminal-dot yellow" />
-                <div className="terminal-dot green" />
-                <span className="ml-2 text-xs text-white/60 font-mono">vibestack — zsh</span>
-              </div>
-
-              {/* Terminal body */}
-              <div className="terminal-body text-left">
-                <div className="flex items-center gap-2">
-                  <span className="text-vibe-electric">$</span>
-                  <span className="text-white/70">vibestack</span>
-                  <span className="text-white ml-1">init</span>
-                  <span className="w-2 h-5 bg-vibe-electric/50 ml-1 cursor-blink" />
-                </div>
-                <m.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1, duration: 0.5 }}
-                  className="mt-2 text-sm text-white/60"
-                >
-                  → Initializing your perfect AI stack...
-                </m.div>
-              </div>
-            </div>
-          </div>
-        </m.div>
-
-        {/* CTA Buttons */}
-        <m.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4, ease: elegantEase }}
-          className="flex flex-col sm:flex-row gap-4 mt-8"
-        >
-          <MagneticWrapper strength={0.15}>
-            <Link
-              id="hero-cta-build"
-              href="/build"
-              className={buttonVariants({ variant: "gradient", size: "lg" }) +
-                " h-14 px-10 text-base rounded-full " +
-                "transition-all duration-300 group"
-              }
-            >
-              <Sparkles className="mr-2 h-4 w-4" />
-              Find My Stack
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </MagneticWrapper>
-
-          <MagneticWrapper strength={0.15}>
-            <Link
-              id="hero-cta-tools"
-              href="/tools"
-              className={buttonVariants({ variant: "outline", size: "lg" }) +
-                " h-14 px-10 text-base font-semibold rounded-full " +
-                "border-foreground/20 bg-foreground/5 backdrop-blur-md " +
-                "hover:bg-foreground/10 hover:border-foreground/30 " +
-                "transition-all duration-300"
-              }
-            >
-              <Play className="mr-2 h-4 w-4" />
-              Explore Tools
-            </Link>
-          </MagneticWrapper>
-        </m.div>
-
-        {/* Social Proof */}
-        <m.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="flex items-center gap-4 mt-8 text-sm text-muted-foreground"
-        >
-          <span>Hand-picked AI tools · Updated weekly · Free to browse</span>
-        </m.div>
-      </div>
-
-      {/* Scroll indicator */}
-      <m.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <m.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          className="w-6 h-10 rounded-full border-2 border-foreground/20 flex items-start justify-center p-2"
-        >
-          <m.div
-            animate={{ opacity: [1, 0.3, 1] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className="w-1 h-2 bg-foreground/40 rounded-full"
-          />
-        </m.div>
-      </m.div>
+      <Container className="pb-12 pt-8 md:pt-10">
+        <StackPicker stacks={stacks}>{intro}</StackPicker>
+      </Container>
     </section>
   );
 }

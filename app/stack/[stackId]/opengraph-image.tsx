@@ -17,102 +17,92 @@ export default async function Image({ params }: { params: Promise<{ stackId: str
     return new Response('Not Found', { status: 404 });
   }
 
+  // Direction B: graphite ground, one solid orange bar, flat type. No
+  // gradients, no emoji, no tinted pills.
   return new ImageResponse(
     (
       <div
         style={{
-          background: 'linear-gradient(to bottom right, #09090b, #18181b)',
+          background: '#18191b',
           width: '100%',
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
-          padding: '80px',
-          color: 'white',
+          color: '#eff0f1',
           fontFamily: 'sans-serif',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '40px' }}>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: 96,
-              height: 96,
-              fontSize: 56,
-              borderRadius: '9999px',
-              background: 'rgba(56, 189, 248, 0.1)',
-              border: '1px solid rgba(56, 189, 248, 0.2)',
-            }}
-          >
-            {stack.icon}
-          </div>
-          <div
-            style={{
-              padding: '8px 24px',
-              background: 'rgba(56, 189, 248, 0.1)',
-              color: '#38bdf8',
-              borderRadius: '9999px',
-              fontSize: 24,
-              fontWeight: 600,
-              border: '1px solid rgba(56, 189, 248, 0.2)',
-            }}
-          >
-            Curated Stack
-          </div>
-        </div>
-
+        <div style={{ display: 'flex', width: '100%', height: 8, background: '#ff4a1f' }} />
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center',
             flex: 1,
-            gap: '24px',
+            padding: '72px 80px 80px',
           }}
         >
-          <h1
-            style={{
-              fontSize: 76,
-              fontWeight: 800,
-              lineHeight: 1.1,
-              letterSpacing: '-0.02em',
-              background: 'linear-gradient(to right, #ffffff, #a1a1aa)',
-              backgroundClip: 'text',
-              color: 'transparent',
-              margin: 0,
-            }}
-          >
-            {stack.name}
-          </h1>
-          <p
-            style={{
-              fontSize: 34,
-              color: '#a1a1aa',
-              lineHeight: 1.4,
-              maxWidth: '90%',
-              margin: 0,
-            }}
-          >
-            {stack.description}
-          </p>
-        </div>
+          <div style={{ display: 'flex', marginBottom: '40px' }}>
+            <div
+              style={{
+                padding: '8px 20px',
+                background: '#222427',
+                color: '#eff0f1',
+                fontSize: 24,
+                fontWeight: 600,
+              }}
+            >
+              Curated Stack
+            </div>
+          </div>
 
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginTop: 'auto',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <span style={{ fontSize: 32, fontWeight: 'bold', color: '#fcd34d' }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              flex: 1,
+              gap: '24px',
+            }}
+          >
+            <h1
+              style={{
+                fontSize: 84,
+                fontWeight: 800,
+                lineHeight: 0.95,
+                textTransform: 'uppercase',
+                color: '#eff0f1',
+                margin: 0,
+              }}
+            >
+              {stack.name}
+            </h1>
+            <p
+              style={{
+                fontSize: 34,
+                color: '#9c9ea3',
+                lineHeight: 1.4,
+                maxWidth: '90%',
+                margin: 0,
+              }}
+            >
+              {stack.description}
+            </p>
+          </div>
+
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginTop: 'auto',
+            }}
+          >
+            <span style={{ fontSize: 36, fontWeight: 800, color: '#ff4a1f' }}>
               {stack.totalPrice}
             </span>
-          </div>
-          <div style={{ fontSize: 32, fontWeight: 700, fontStyle: 'italic', color: '#818cf8' }}>
-            usevibestack.com
+            <div style={{ fontSize: 32, fontWeight: 600, color: '#eff0f1' }}>
+              usevibestack.com
+            </div>
           </div>
         </div>
       </div>

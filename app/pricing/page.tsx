@@ -2,10 +2,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight, Check, Megaphone, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { Section } from "@/components/primitives/Section";
-import { designSystem } from "@/lib/design-system";
 
 export const metadata: Metadata = {
   title: "Pricing — Submit, Sponsor, or Hire Us",
@@ -63,7 +61,7 @@ const TRACKS: Track[] = [
     badge: "For Sponsors",
     title: "Sponsor VibeStack",
     subtitle:
-      "Get persistent placement in front of our audience — sidebar ads or homepage spotlight.",
+      "Get persistent placement in front of our audience: sidebar ads or homepage spotlight.",
     plans: [
       {
         name: "Standard Sponsor",
@@ -93,25 +91,19 @@ const TRACKS: Track[] = [
   },
 ];
 
+const H2 = "font-display text-balance text-[clamp(32px,4vw,56px)] uppercase leading-[0.9] tracking-[-0.005em] text-foreground";
+
 export default function PricingPage() {
   return (
     <PageBackground {...BackgroundPresets.content}>
       <Section spacing="default" containerSize="default">
         {/* Header */}
-        <div className="text-center mb-16">
-          <Badge
-            variant="outline"
-            className="mb-4 border-vibe-electric/30 bg-vibe-electric/10 text-vibe-link"
-          >
-            Pricing
-          </Badge>
-          <h1 className={`${designSystem.typography.hero} mb-4`}>
-            Three ways to{" "}
-            <span className="text-gradient-brand">
-              work with us
-            </span>
+        <div className="mb-20">
+          <p className="mb-5 text-[16px] font-semibold text-vibe-link">Pricing</p>
+          <h1 className="mb-6 max-w-[14ch] font-display text-balance text-[clamp(40px,6vw,96px)] uppercase leading-[0.88] tracking-[-0.005em] text-foreground">
+            Three ways to work with us
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="max-w-[60ch] text-[18px] leading-normal text-muted-foreground">
             Submit your tool, sponsor the directory, or hire us to build your AI
             workflow. Same team, different commitments.
           </p>
@@ -124,63 +116,61 @@ export default function PricingPage() {
             return (
               <section key={track.id} id={track.id}>
                 {/* Track header */}
-                <div className="flex flex-col items-center text-center mb-10">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-vibe-electric/10 border border-vibe-electric/20 mb-4">
-                    <Icon className="h-7 w-7 text-vibe-link" />
-                  </div>
-                  <Badge variant="secondary" className="mb-3">
+                <div className="mb-10">
+                  <p className="mb-3 flex items-center gap-2 text-[16px] font-semibold text-muted-foreground">
+                    <Icon aria-hidden="true" className="h-5 w-5 text-vibe-link" />
                     {track.badge}
-                  </Badge>
-                  <h2 className={`${designSystem.typography.section} mb-3`}>
+                  </p>
+                  <h2 className={`${H2} mb-3`}>
                     {track.title}
                   </h2>
-                  <p className="text-muted-foreground max-w-xl">
+                  <p className="max-w-[60ch] text-[17px] leading-normal text-muted-foreground">
                     {track.subtitle}
                   </p>
                 </div>
 
                 {/* Plans */}
                 <div
-                  className={`grid gap-6 ${
+                  className={`grid gap-3 md:gap-6 ${
                     track.plans.length === 1
-                      ? "max-w-md mx-auto"
+                      ? "max-w-md"
                       : track.plans.length === 2
-                      ? "md:grid-cols-2 max-w-4xl mx-auto"
+                      ? "max-w-4xl md:grid-cols-2"
                       : "md:grid-cols-3"
                   }`}
                 >
                   {track.plans.map((plan) => (
                     <div
                       key={plan.name}
-                      className={`relative flex flex-col rounded-2xl border p-6 ${
+                      className={`relative flex flex-col p-6 sm:p-8 ${
                         plan.highlight
-                          ? "border-vibe-electric/50 bg-vibe-electric/5 ring-1 ring-vibe-electric/30"
-                          : "border-border bg-card"
+                          ? "bg-foreground text-background"
+                          : "bg-card text-foreground"
                       }`}
                     >
-                      <div className="mb-4">
-                        <div className="text-sm font-semibold text-muted-foreground mb-2">
+                      <div className="mb-6">
+                        <div className={`mb-3 text-[16px] font-semibold ${plan.highlight ? "text-background/75" : "text-muted-foreground"}`}>
                           {plan.name}
                         </div>
                         <div className="flex items-baseline gap-1">
-                          <span className="text-4xl font-bold">
+                          <span className="font-display text-[56px] uppercase leading-none">
                             {plan.price}
                           </span>
                           {plan.period && (
-                            <span className="text-sm text-muted-foreground">
+                            <span className={`text-[15px] ${plan.highlight ? "text-background/75" : "text-muted-foreground"}`}>
                               {plan.period}
                             </span>
                           )}
                         </div>
-                        <p className="text-sm text-muted-foreground mt-3 min-h-[40px]">
+                        <p className={`mt-3 min-h-[40px] text-[16px] ${plan.highlight ? "text-background/80" : "text-muted-foreground"}`}>
                           {plan.description}
                         </p>
                       </div>
 
-                      <ul className="flex-1 space-y-2.5 mb-6">
+                      <ul className="mb-8 flex-1 space-y-2.5">
                         {plan.features.map((f) => (
-                          <li key={f} className="flex items-start gap-2 text-sm">
-                            <Check className="h-4 w-4 text-vibe-link mt-0.5 shrink-0" />
+                          <li key={f} className="flex items-start gap-2 text-[16px]">
+                            <Check aria-hidden="true" className={`mt-1 h-4 w-4 shrink-0 ${plan.highlight ? "text-vibe-electric" : "text-vibe-link"}`} />
                             <span>{f}</span>
                           </li>
                         ))}
@@ -188,12 +178,12 @@ export default function PricingPage() {
 
                       <Button
                         asChild
-                        variant={plan.highlight ? "default" : "outline"}
-                        className="w-full"
+                        variant={plan.highlight ? "default" : "secondary"}
+                        className={`h-11 w-full rounded-none text-[16px] font-semibold ${plan.highlight ? "" : "bg-background hover:bg-accent"}`}
                       >
                         <Link href={plan.cta.href}>
                           {plan.cta.label}
-                          <ArrowRight className="ml-2 h-4 w-4" />
+                          <ArrowRight aria-hidden="true" className="ml-2 h-4 w-4" />
                         </Link>
                       </Button>
                     </div>
@@ -204,21 +194,22 @@ export default function PricingPage() {
           })}
         </div>
 
-        {/* Footer CTA */}
-        <div className="mt-24 text-center">
-          <h2 className={`${designSystem.typography.section} mb-3`}>
+        {/* Footer CTA: the accent field */}
+        <div className="mt-24 bg-vibe-electric p-8 text-vibe-deep sm:p-12">
+          <h2 className="mb-3 font-display text-balance text-[clamp(32px,4vw,56px)] uppercase leading-[0.9] tracking-[-0.005em]">
             Not sure which fits?
           </h2>
-          <p className="text-muted-foreground mb-6">
-            Drop us a line — we&apos;ll point you to the right one (or build
+          <p className="mb-8 max-w-[60ch] text-[18px] leading-normal">
+            Drop us a line. We&apos;ll point you to the right one (or build
             something custom).
           </p>
-          <Button asChild size="lg">
-            <Link href="mailto:hello@usevibestack.com">
-              hello@usevibestack.com
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
+          <Link
+            href="mailto:hello@usevibestack.com"
+            className="group inline-flex h-12 items-center gap-2 bg-vibe-deep px-7 text-[16px] font-semibold text-[#eff0f1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-deep"
+          >
+            hello@usevibestack.com
+            <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-150 group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0" />
+          </Link>
         </div>
       </Section>
     </PageBackground>

@@ -2,103 +2,44 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { ToolData } from "@/lib/tool-types";
-import { m, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
-import { SponsorshipModal } from "@/components/monetization/SponsorshipModal";
 import { useAllTools } from "@/hooks/use-tools";
 import { ToolIconRenderer } from "@/components/tools/ToolIconRenderer";
 import { Section } from "@/components/primitives/Section";
-import { designSystem } from "@/lib/design-system";
+import { cn } from "@/lib/utils";
 
+const focusRing = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link";
+
+/**
+ * Legacy section (not on the home page; still reachable through
+ * components/ui/LazyLoad.tsx). Direction B: flat card cells, icon on a flat
+ * `bg-secondary` square (tool.color / tool.bgGradient no longer render), no
+ * 3D tilt, glass, glow or shadows. Hover is one tone step.
+ */
 function BentoCard({ tool, index }: { tool: ToolData, index: number }) {
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-
-    const mouseXSpring = useSpring(x);
-    const mouseYSpring = useSpring(y);
-
-    const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
-    const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const width = rect.width;
-        const height = rect.height;
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
-        const xPct = mouseX / width - 0.5;
-        const yPct = mouseY / height - 0.5;
-        x.set(xPct);
-        y.set(yPct);
-    };
-
-    const handleMouseLeave = () => {
-        x.set(0);
-        y.set(0);
-    };
-
     return (
-        <m.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            className={`block relative group ${index === 0 || index === 3 ? "md:col-span-2" : "md:col-span-1"}`}
-            style={{ perspective: "1000px" }}
-        >
+        <div className={cn("reveal", index === 0 || index === 3 ? "md:col-span-2" : "md:col-span-1")}>
             <Link
                 id={`featured-tool-${tool.slug}`}
                 href={`/tool/${tool.slug}`}
-                className="block h-full"
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
+                className={cn("group flex h-full flex-col bg-card p-6 pt-8 transition-colors hover:bg-secondary", focusRing)}
             >
-                <m.div
-                    style={{
-                        rotateX,
-                        rotateY,
-                        transformStyle: "preserve-3d",
-                    }}
-                    className="h-full motion-reduce:transform-none"
-                >
-                    <Card className="h-full relative overflow-hidden border-border/40 bg-card/40 transition-all duration-500 hover:border-border/80 hover:bg-card/60 hover:shadow-2xl hover:shadow-primary/10 backdrop-blur-md">
-                        <div className={`absolute inset-0 bg-linear-to-br ${tool.bgGradient || "from-transparent to-transparent"} opacity-0 transition-opacity duration-700 group-hover:opacity-[0.15]`} />
-
-                        <CardHeader className="relative z-10 h-full flex flex-col pt-8" style={{ transformStyle: "preserve-3d" }}>
-                            <div className="mb-4 flex items-center justify-between gap-4" style={{ transform: "translateZ(30px)", transformStyle: "preserve-3d" }}>
-                                <m.div
-                                    whileHover={{
-                                        z: 50,
-                                        scale: 1.2,
-                                        translateY: -8,
-                                    }}
-                                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                                    className={`rounded-lg bg-secondary/80 p-3 ring-1 ring-border shadow-lg ${tool.color || "text-foreground"} group-hover:shadow-primary/20`}
-                                    style={{
-                                        transformStyle: "preserve-3d",
-                                        transform: "translateZ(60px)",
-                                    }}
-                                >
-                                    <ToolIconRenderer slug={tool.slug} className="h-6 w-6" />
-                                </m.div>
-                                <Badge variant="secondary" className="bg-secondary/50 text-[10px] uppercase tracking-wider font-semibold text-muted-foreground backdrop-blur-sm" style={{ transform: "translateZ(20px)" }}>
-                                    {tool.category}
-                                </Badge>
-                            </div>
-                            <CardTitle className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300" style={{ transform: "translateZ(40px)" }}>
-                                {tool.title}
-                            </CardTitle>
-                            <CardDescription className="text-muted-foreground/80 leading-relaxed mt-2" style={{ transform: "translateZ(30px)" }}>
-                                {tool.description}
-                            </CardDescription>
-                        </CardHeader>
-                    </Card>
-                </m.div>
+                <div className="mb-4 flex items-center justify-between gap-4">
+                    <div className="bg-secondary p-3 text-foreground group-hover:bg-background">
+                        <ToolIconRenderer slug={tool.slug} className="h-6 w-6" />
+                    </div>
+                    <span className="text-[14px] text-muted-foreground">
+                        {tool.category}
+                    </span>
+                </div>
+                <h3 className="text-[20px] font-semibold text-foreground group-hover:text-vibe-link">
+                    {tool.title}
+                </h3>
+                <p className="mt-2 text-[16px] leading-relaxed text-muted-foreground">
+                    {tool.description}
+                </p>
             </Link>
-        </m.div>
+        </div>
     );
 }
 
@@ -117,63 +58,51 @@ export function BentoGrid() {
     const categories = ["All", "Coding", "Assistance", "Productivity", "Design", "Management"];
 
     return (
-        <LazyMotionProvider>
-            <Section spacing="default">
-                <m.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5 }}
-                    className="mb-16 text-center"
-                >
-                    <h2 className={`mb-6 ${designSystem.typography.section} text-foreground`}>
-                        Essential Tools
-                    </h2>
-                    <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-                        Hand-picked AI tools that integrate seamlessly into your workflow.
-                    </p>
+        <Section spacing="default">
+            <div className="mb-12">
+                <h2 className="font-display mb-6 text-[clamp(32px,4vw,56px)] leading-[0.88] text-balance text-foreground">
+                    Essential Tools
+                </h2>
+                <p className="mb-8 max-w-2xl text-[18px] text-muted-foreground">
+                    Hand-picked AI tools that integrate seamlessly into your workflow.
+                </p>
 
-                    {/* Category Filter (Issue 12) */}
-                    <div className="flex flex-wrap justify-center gap-2">
-                        {categories.map((cat) => (
-                            <button
-                                key={cat}
-                                onClick={() => setCategory(cat)}
-                                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${category === cat
-                                    ? "bg-primary text-primary-foreground shadow-md"
-                                    : "bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground"
-                                    }`}
-                            >
-                                {cat}
-                            </button>
-                        ))}
-                    </div>
-                </m.div>
-
-                <m.div
-                    layout
-                    className="grid grid-cols-1 gap-6 md:grid-cols-3"
-                >
-                    {!isLoading && featuredTools.map((tool: ToolData, index: number) => (
-                        <BentoCard key={tool.slug} tool={tool} index={index} />
+                {/* Category Filter (Issue 12) */}
+                <div className="flex flex-wrap gap-2">
+                    {categories.map((cat) => (
+                        <button
+                            type="button"
+                            key={cat}
+                            onClick={() => setCategory(cat)}
+                            aria-pressed={category === cat}
+                            className={cn(
+                                "rounded-none px-4 py-2 text-[16px] font-semibold transition-colors",
+                                focusRing,
+                                category === cat
+                                    ? "bg-vibe-electric text-vibe-deep"
+                                    : "bg-card text-foreground hover:bg-secondary"
+                            )}
+                        >
+                            {cat}
+                        </button>
                     ))}
-                </m.div>
+                </div>
+            </div>
 
-                <m.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
-                    className="mt-12 text-center"
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                {!isLoading && featuredTools.map((tool: ToolData, index: number) => (
+                    <BentoCard key={tool.slug} tool={tool} index={index} />
+                ))}
+            </div>
+
+            <div className="mt-12">
+                <Link
+                    href="/tools"
+                    className={cn("inline-flex items-center gap-2 text-[18px] font-semibold text-vibe-link underline-offset-4 hover:underline", focusRing)}
                 >
-                    <Link
-                        href="/tools"
-                        className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors font-medium"
-                    >
-                        View all {tools.length}+ tools →
-                    </Link>
-                </m.div>
-            </Section>
-        </LazyMotionProvider>
+                    View all {tools.length}+ tools →
+                </Link>
+            </div>
+        </Section>
     );
 }

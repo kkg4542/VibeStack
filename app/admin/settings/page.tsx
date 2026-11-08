@@ -59,7 +59,7 @@ export default function AdminSettingsPage() {
                 <p className="font-medium">Connection Status</p>
                 <p className="text-sm text-muted-foreground">Supabase PostgreSQL</p>
               </div>
-              <Badge className="bg-green-100 text-green-700">Connected</Badge>
+              <Badge className="rounded-none bg-secondary text-[13px] font-semibold text-success">Connected</Badge>
             </div>
           </CardContent>
         </Card>

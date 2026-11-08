@@ -79,7 +79,7 @@ export function OptimizedImage({
       className={cn(
         "relative overflow-hidden",
         fill ? "absolute inset-0" : "",
-        isLoading && placeholder === "blur" ? "animate-pulse" : "",
+        isLoading && placeholder === "blur" ? "bg-secondary" : "",
         containerClassName
       )}
       style={!fill ? { width, height } : undefined}
@@ -97,8 +97,7 @@ export function OptimizedImage({
         placeholder={placeholder}
         blurDataURL={blurDataURL || defaultBlurDataURL}
         className={cn(
-          "transition-all duration-500",
-          isLoading ? "scale-110 blur-lg" : "scale-100 blur-0",
+          "transition-opacity duration-300",
           objectFit === "cover" && "object-cover",
           objectFit === "contain" && "object-contain",
           objectFit === "fill" && "object-fill",
@@ -163,7 +162,7 @@ export function AvatarImage({
     return (
       <div
         className={cn(
-          "bg-linear-to-br from-vibe-electric to-vibe-purple flex items-center justify-center text-vibe-deep font-bold rounded-full",
+          "bg-secondary flex items-center justify-center text-foreground font-semibold rounded-full",
           className
         )}
         style={{ width: size, height: size }}

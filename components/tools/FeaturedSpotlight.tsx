@@ -1,9 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ToolData } from "@/lib/tool-types";
 import { ToolIconRenderer } from "@/components/tools/ToolIconRenderer";
@@ -15,54 +13,53 @@ interface FeaturedSpotlightProps {
     tool: ToolData;
 }
 
+/**
+ * Featured tool band: one flat surface field, the icon on a square one tone
+ * step down, display-face title, orange primary action with dark text.
+ * No entrance animation (content is visible at full opacity on first paint).
+ */
 export function FeaturedSpotlight({ tool }: FeaturedSpotlightProps) {
     const { data } = useActiveSponsorship(SponsorshipPlacements.featuredSpotlight);
     const sponsoredTool = data?.sponsorship?.tool;
     const activeTool = sponsoredTool || tool;
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="group relative overflow-hidden rounded-3xl border border-primary/20 bg-primary/5 p-8 mb-16"
-        >
-            {/* Ambient background effects */}
-            <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-primary/10 blur-3xl transition-all duration-500 group-hover:bg-primary/20" />
-
-            <div className="relative flex flex-col md:flex-row items-center gap-8">
-                <div className={`flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl bg-secondary/50 border border-border/30 ${activeTool.color || "text-foreground"} shadow-2xl shadow-primary/20 transition-transform duration-500 group-hover:scale-110`}>
+        <div className="mb-16 bg-card p-6 md:p-10">
+            <div className="flex flex-col items-center gap-8 md:flex-row">
+                <div className="flex h-24 w-24 shrink-0 items-center justify-center bg-background text-foreground">
                     <ToolIconRenderer slug={activeTool.slug} className="h-12 w-12" />
                 </div>
 
-                <div className="flex-1 text-center md:text-left">
-                    <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 mb-4">
-                        <Badge className="bg-primary text-primary-foreground border-none px-3 py-1 flex items-center gap-1.5 shadow-lg shadow-primary/20">
-                            <Sparkles className="h-3 w-3" />
-                            Featured Tool
-                        </Badge>
+                <div className="min-w-0 flex-1 text-center md:text-left">
+                    <div className="mb-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[14px] md:justify-start">
+                        <span className="bg-vibe-electric px-3 py-1 font-semibold text-vibe-deep">
+                            Featured tool
+                        </span>
                         {sponsoredTool && (
-                            <Badge variant="outline" className="text-emerald-700 dark:text-emerald-500 border-emerald-500/30 bg-emerald-500/10">
-                                Current Sponsor
-                            </Badge>
+                            <span className="text-muted-foreground">Current sponsor</span>
                         )}
-                        <Badge variant="outline" className="text-muted-foreground border-primary/20 dark:border-foreground/10 uppercase tracking-widest text-[10px] font-bold">
-                            Partner Spotlight
-                        </Badge>
+                        <span className="text-muted-foreground">Partner spotlight</span>
                     </div>
 
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gradient-brand italic">
+                    <h2 className="mb-4 font-display text-[clamp(32px,4vw,56px)] uppercase leading-[0.9] tracking-[-0.005em] text-foreground text-balance">
                         {activeTool.title}
                     </h2>
 
-                    <p className="text-lg text-muted-foreground mb-6 max-w-2xl">
+                    <p className="mb-6 max-w-2xl text-[18px] leading-normal text-muted-foreground">
                         {activeTool.adCopy || activeTool.description}
                     </p>
 
-                    <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
-                        <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl px-8 py-6 h-auto text-lg font-semibold shadow-xl shadow-primary/20 transition-all hover:scale-105 active:scale-95">
+                    <div className="flex flex-wrap items-center justify-center gap-4 md:justify-start">
+                        <Button
+                            asChild
+                            className="group h-12 rounded-none bg-vibe-electric px-8 text-[16px] font-semibold text-vibe-deep transition-transform duration-150 hover:bg-vibe-electric/90 active:translate-y-px motion-reduce:transition-none motion-reduce:active:translate-y-0"
+                        >
                             <Link href={`/tool/${activeTool.slug}`}>
                                 Try it now
-                                <ArrowRight className="ml-2 h-5 w-5" />
+                                <ArrowRight
+                                    aria-hidden="true"
+                                    className="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+                                />
                             </Link>
                         </Button>
                         <AffiliateLink
@@ -76,6 +73,6 @@ export function FeaturedSpotlight({ tool }: FeaturedSpotlightProps) {
                     </div>
                 </div>
             </div>
-        </motion.div>
+        </div>
     );
 }

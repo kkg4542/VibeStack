@@ -9,9 +9,11 @@ interface SocialShareProps {
   toolSlug: string;
   toolName: string;
   url: string;
+  /** Heading above the buttons. */
+  label?: string;
 }
 
-export function SocialShare({ toolSlug, toolName, url }: SocialShareProps) {
+export function SocialShare({ toolSlug, toolName, url, label = "Share this tool" }: SocialShareProps) {
   const [copied, setCopied] = useState(false);
 
   const shareText = `Check out ${toolName} - an amazing AI tool for developers!`;
@@ -44,49 +46,52 @@ export function SocialShare({ toolSlug, toolName, url }: SocialShareProps) {
     <div className="space-y-4">
       <div className="flex items-center gap-2">
         <Share2 className="h-4 w-4 text-muted-foreground" />
-        <span className="text-sm font-medium text-foreground">Share this tool</span>
+        <span className="text-sm font-medium text-foreground">{label}</span>
       </div>
 
       <div className="flex flex-wrap gap-2">
         <Button
-          variant="outline"
+          variant="secondary"
           size="sm"
-          className="gap-2 border-[#1DA1F2]/30 hover:bg-[#1DA1F2]/10 hover:text-[#1DA1F2]"
+          className="gap-2 rounded-none"
           onClick={() => handleShare("twitter")}
+          aria-label={`Tweet about ${toolName}`}
         >
           <Twitter className="h-4 w-4" />
           Tweet
         </Button>
 
         <Button
-          variant="outline"
+          variant="secondary"
           size="sm"
-          className="gap-2 border-[#0A66C2]/30 hover:bg-[#0A66C2]/10 hover:text-[#0A66C2]"
+          className="gap-2 rounded-none"
           onClick={() => handleShare("linkedin")}
+          aria-label={`Share ${toolName} on LinkedIn`}
         >
           <Linkedin className="h-4 w-4" />
           Share
         </Button>
 
         <Button
-          variant="outline"
+          variant="secondary"
           size="sm"
-          className="gap-2 border-[#1877F2]/30 hover:bg-[#1877F2]/10 hover:text-[#1877F2]"
+          className="gap-2 rounded-none"
           onClick={() => handleShare("facebook")}
+          aria-label={`Share ${toolName} on Facebook`}
         >
           <Facebook className="h-4 w-4" />
           Share
         </Button>
 
         <Button
-          variant="outline"
+          variant="secondary"
           size="sm"
-          className="gap-2"
+          className="gap-2 rounded-none"
           onClick={handleCopyLink}
         >
           {copied ? (
             <>
-              <Check className="h-4 w-4 text-green-700 dark:text-green-500" />
+              <Check className="h-4 w-4 text-vibe-link" />
               Copied!
             </>
           ) : (

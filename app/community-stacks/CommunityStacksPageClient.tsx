@@ -2,13 +2,9 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { m, LazyMotion, domAnimation } from 'framer-motion';
 import { Plus, Users, TrendingUp, Clock, Eye, Heart, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { VibeCard } from '@/components/ui/VibeCard';
 import { PageBackground, BackgroundPresets } from '@/components/effects/PageBackground';
-import { designSystem } from '@/lib/design-system';
 import { CommunityStacksFilter } from '@/components/community/CommunityStacksFilter';
 import { CommunityStackFilters, CommunityStackWithDetails } from '@/lib/data/community-stacks';
 import { Container } from '@/components/primitives/Container';
@@ -27,227 +23,172 @@ export function CommunityStacksPageClient({ stacks, totalCount, filters }: Commu
         { label: 'Updated', value: 'Just Now', icon: Clock },
     ];
 
+    const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link";
+
     return (
-        <LazyMotion features={domAnimation}>
-            <PageBackground {...BackgroundPresets.content}>
-                <Container className="pt-24 pb-20">
-                    {/* Header Section */}
-                    <div className="max-w-4xl mx-auto text-center mb-12">
-                        <m.div
-                            initial={designSystem.animations.fadeInUp.initial}
-                            animate={designSystem.animations.fadeInUp.animate}
-                            transition={designSystem.animations.fadeInUp.transition}
-                        >
-                            <Badge
-                                variant="outline"
-                                className="mb-4 border-vibe-electric/30 bg-vibe-electric/5 text-vibe-link"
+        <PageBackground {...BackgroundPresets.content}>
+            <Container className="pt-24 pb-20">
+                {/* Header */}
+                <div className="mb-16">
+                    <p className="mb-5 text-[16px] font-semibold text-vibe-link">Community Curated</p>
+                    <h1 className="mb-6 font-display text-balance text-[clamp(40px,6vw,96px)] uppercase leading-[0.88] tracking-[-0.005em] text-foreground">
+                        Community Stacks
+                    </h1>
+                    <p className="max-w-[60ch] text-[18px] leading-normal text-muted-foreground">
+                        Discover AI tool workflows curated by developers like you.
+                        Share your stack and help others build better workflows.
+                    </p>
+
+                    {/* Stats */}
+                    <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
+                        {stats.map((stat) => (
+                            <div
+                                key={stat.label}
+                                className="flex items-center gap-2 text-[16px] text-muted-foreground"
                             >
-                                <Users className="mr-2 h-3 w-3" />
-                                Community Curated
-                            </Badge>
-                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                                Community{' '}
-                                <span className="text-gradient-brand">
-                                    Stacks
-                                </span>
-                            </h1>
-                            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-                                Discover AI tool workflows curated by developers like you.
-                                Share your stack and help others build better workflows.
-                            </p>
-                        </m.div>
-
-                        {/* Stats */}
-                        <m.div
-                            className="flex flex-wrap justify-center gap-6 mt-8"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2, duration: 0.5 }}
-                        >
-                            {stats.map((stat, index) => (
-                                <div
-                                    key={stat.label}
-                                    className="flex items-center gap-2 text-sm text-muted-foreground"
-                                >
-                                    <stat.icon className="w-4 h-4 text-vibe-link" />
-                                    <span className="font-medium text-foreground">{stat.value}</span>
-                                    <span>{stat.label}</span>
-                                </div>
-                            ))}
-                        </m.div>
-
-                        {/* CTA Button */}
-                        <m.div
-                            className="mt-8"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.3, duration: 0.5 }}
-                        >
-                            <Button
-                                size="lg"
-                                className="rounded-full px-8 shadow-lg shadow-vibe-electric/20"
-                                asChild
-                            >
-                                <Link href="/submit-stack">
-                                    <Plus className="mr-2 h-4 w-4" />
-                                    Share Your Stack
-                                </Link>
-                            </Button>
-                        </m.div>
-                    </div>
-
-                    {/* Filters */}
-                    <CommunityStacksFilter initialFilters={filters} />
-
-                    {/* Results Count */}
-                    <div className="mb-6 text-sm text-muted-foreground">
-                        Showing {stacks.length} of {totalCount} community stacks
-                    </div>
-
-                    {/* Community Stacks Grid */}
-                    {stacks.length > 0 ? (
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                            {stacks.map((stack, index) => (
-                                <m.div
-                                    key={stack.id}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{
-                                        duration: 0.5,
-                                        delay: index * 0.1,
-                                        ease: [0.16, 1, 0.3, 1]
-                                    }}
-                                >
-                                    <Link
-                                        href={`/community-stack/${stack.id}`}
-                                        className="group block h-full"
-                                    >
-                                        <VibeCard
-                                            className="h-full"
-                                            tiltStrength={8}
-                                            glowOnHover={true}
-                                            depth={20}
-                                        >
-                                            <div className="h-full flex flex-col p-6 sm:p-8">
-                                                {/* Stack Name & Featured Badge */}
-                                                <div className="flex items-start justify-between mb-4">
-                                                    <div>
-                                                        <h3 className="text-xl font-bold text-foreground group-hover:text-vibe-link transition-colors line-clamp-2">
-                                                            {stack.name}
-                                                        </h3>
-                                                        <p className="text-xs text-muted-foreground mt-1">
-                                                            Created {new Date(stack.createdAt).toLocaleDateString()}
-                                                        </p>
-                                                    </div>
-                                                    {stack.isFeatured && (
-                                                        <Badge
-                                                            variant="secondary"
-                                                            className="bg-vibe-electric/10 text-vibe-link border-vibe-electric/20 shrink-0"
-                                                        >
-                                                            Featured
-                                                        </Badge>
-                                                    )}
-                                                </div>
-
-                                                {/* Description */}
-                                                {stack.description && (
-                                                    <p className="text-muted-foreground mb-4 line-clamp-2 text-sm">
-                                                        {stack.description}
-                                                    </p>
-                                                )}
-
-                                                {/* Metrics */}
-                                                <div className="flex items-center gap-4 mb-4 text-xs text-muted-foreground">
-                                                    <span className="flex items-center gap-1">
-                                                        <Eye className="w-3 h-3" />
-                                                        {stack.viewCount.toLocaleString()}
-                                                    </span>
-                                                    <span className="flex items-center gap-1">
-                                                        <Heart className="w-3 h-3" />
-                                                        {stack.likeCount}
-                                                    </span>
-                                                    <span className="flex items-center gap-1">
-                                                        <ArrowRight className="w-3 h-3" />
-                                                        {stack.saveCount} saves
-                                                    </span>
-                                                </div>
-
-                                                {/* Curator Info */}
-                                                <div className="mt-auto pt-4 border-t border-border">
-                                                    <div className="flex items-center gap-3">
-                                                        {stack.curator.image ? (
-                                                            <Image
-                                                                src={stack.curator.image}
-                                                                alt={stack.curator.name || 'Anonymous'}
-                                                                width={32}
-                                                                height={32}
-                                                                className="w-8 h-8 rounded-full object-cover"
-                                                            />
-                                                        ) : (
-                                                            <div className="w-8 h-8 rounded-full bg-linear-to-br from-vibe-electric via-vibe-purple to-vibe-pink flex items-center justify-center text-xs font-bold text-vibe-deep">
-                                                                {stack.curator.name?.charAt(0) || '?'}
-                                                            </div>
-                                                        )}
-                                                        <div className="flex-1 min-w-0">
-                                                            <p className="text-sm font-medium truncate">
-                                                                {stack.curator.name || 'Anonymous'}
-                                                            </p>
-                                                            <p className="text-xs text-muted-foreground">
-                                                                Community Curator
-                                                            </p>
-                                                        </div>
-                                                        <ArrowRight className="h-4 w-4 text-muted-foreground/50 group-hover:text-vibe-link transition-colors" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </VibeCard>
-                                    </Link>
-                                </m.div>
-                            ))}
-                        </div>
-                    ) : (
-                        <m.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="text-center py-20"
-                        >
-                            <div className="inline-flex p-4 rounded-full bg-vibe-electric/10 mb-6">
-                                <Users className="h-12 w-12 text-vibe-link" />
+                                <stat.icon aria-hidden="true" className="h-4 w-4 text-vibe-link" />
+                                <span className="font-semibold text-foreground">{stat.value}</span>
+                                <span>{stat.label}</span>
                             </div>
-                            <h2 className="text-2xl font-bold mb-2">No stacks found</h2>
-                            <p className="text-muted-foreground mb-6">
-                                {filters.search
-                                    ? `No stacks match your search for "${filters.search}"`
-                                    : "Be the first to share a stack with the community!"
-                                }
-                            </p>
-                            <Button
-                                size="lg"
-                                className="rounded-full px-8"
-                                asChild
-                            >
-                                <Link href="/submit-stack">
-                                    <Plus className="mr-2 h-4 w-4" />
-                                    Share Your Stack
-                                </Link>
-                            </Button>
-                        </m.div>
-                    )}
+                        ))}
+                    </div>
 
-                    {/* Load More Button (if there are more results) */}
-                    {stacks.length < totalCount && (
-                        <div className="mt-12 text-center">
-                            <Button
-                                variant="outline"
-                                size="lg"
-                                className="rounded-full px-8 border-vibe-electric/30 hover:border-vibe-electric hover:bg-vibe-electric/10"
+                    {/* CTA */}
+                    <div className="mt-10">
+                        <Button
+                            size="lg"
+                            className="h-12 rounded-none px-8 text-[16px] font-semibold"
+                            asChild
+                        >
+                            <Link href="/submit-stack">
+                                <Plus aria-hidden="true" className="mr-2 h-4 w-4" />
+                                Share Your Stack
+                            </Link>
+                        </Button>
+                    </div>
+                </div>
+
+                {/* Filters */}
+                <CommunityStacksFilter initialFilters={filters} />
+
+                {/* Results count */}
+                <div className="mb-6 text-[15px] text-muted-foreground">
+                    Showing {stacks.length} of {totalCount} community stacks
+                </div>
+
+                {/* Community stacks grid */}
+                {stacks.length > 0 ? (
+                    <div className="grid gap-3 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
+                        {stacks.map((stack) => (
+                            <Link
+                                key={stack.id}
+                                href={`/community-stack/${stack.id}`}
+                                className={`group flex h-full flex-col bg-card p-6 transition-colors duration-150 hover:bg-accent sm:p-8 ${focus}`}
                             >
-                                Load More Stacks
-                            </Button>
-                        </div>
-                    )}
-                </Container>
-            </PageBackground>
-        </LazyMotion>
+                                {/* Name and featured tag */}
+                                <div className="mb-4 flex items-start justify-between gap-3">
+                                    <div>
+                                        <h3 className="line-clamp-2 text-[20px] font-semibold text-foreground decoration-vibe-electric decoration-2 underline-offset-4 group-hover:underline">
+                                            {stack.name}
+                                        </h3>
+                                        <p className="mt-1 text-[14px] text-muted-foreground">
+                                            Created {new Date(stack.createdAt).toLocaleDateString()}
+                                        </p>
+                                    </div>
+                                    {stack.isFeatured && (
+                                        <span className="shrink-0 bg-vibe-electric px-2.5 py-1 text-[14px] font-semibold text-vibe-deep">
+                                            Featured
+                                        </span>
+                                    )}
+                                </div>
+
+                                {/* Description */}
+                                {stack.description && (
+                                    <p className="mb-4 line-clamp-2 text-[16px] leading-normal text-muted-foreground">
+                                        {stack.description}
+                                    </p>
+                                )}
+
+                                {/* Metrics */}
+                                <div className="mb-6 flex items-center gap-4 text-[14px] text-muted-foreground">
+                                    <span className="flex items-center gap-1.5">
+                                        <Eye aria-hidden="true" className="h-3.5 w-3.5" />
+                                        {stack.viewCount.toLocaleString()}
+                                    </span>
+                                    <span className="flex items-center gap-1.5">
+                                        <Heart aria-hidden="true" className="h-3.5 w-3.5" />
+                                        {stack.likeCount}
+                                    </span>
+                                    <span className="flex items-center gap-1.5">
+                                        <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
+                                        {stack.saveCount} saves
+                                    </span>
+                                </div>
+
+                                {/* Curator */}
+                                <div className="mt-auto flex items-center gap-3">
+                                    {stack.curator.image ? (
+                                        <Image
+                                            src={stack.curator.image}
+                                            alt={stack.curator.name || 'Anonymous'}
+                                            width={32}
+                                            height={32}
+                                            className="h-8 w-8 rounded-full object-cover"
+                                        />
+                                    ) : (
+                                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary text-[14px] font-semibold text-foreground">
+                                            {stack.curator.name?.charAt(0) || '?'}
+                                        </div>
+                                    )}
+                                    <div className="min-w-0 flex-1">
+                                        <p className="truncate text-[15px] font-semibold">
+                                            {stack.curator.name || 'Anonymous'}
+                                        </p>
+                                        <p className="text-[14px] text-muted-foreground">
+                                            Community Curator
+                                        </p>
+                                    </div>
+                                    <ArrowRight aria-hidden="true" className="h-4 w-4 text-muted-foreground transition-[color,transform] duration-150 group-hover:translate-x-1 group-hover:text-vibe-link motion-reduce:transition-none motion-reduce:group-hover:translate-x-0" />
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="bg-card px-6 py-20 text-center">
+                        <Users aria-hidden="true" className="mx-auto mb-6 h-12 w-12 text-vibe-link" />
+                        <h2 className="mb-2 text-[26px] font-semibold">No stacks found</h2>
+                        <p className="mb-6 text-[17px] text-muted-foreground">
+                            {filters.search
+                                ? `No stacks match your search for "${filters.search}"`
+                                : "Be the first to share a stack with the community!"
+                            }
+                        </p>
+                        <Button
+                            size="lg"
+                            className="h-12 rounded-none px-8 text-[16px] font-semibold"
+                            asChild
+                        >
+                            <Link href="/submit-stack">
+                                <Plus aria-hidden="true" className="mr-2 h-4 w-4" />
+                                Share Your Stack
+                            </Link>
+                        </Button>
+                    </div>
+                )}
+
+                {/* Load more (if there are more results) */}
+                {stacks.length < totalCount && (
+                    <div className="mt-12 text-center">
+                        <Button
+                            variant="secondary"
+                            size="lg"
+                            className="h-12 rounded-none px-8 text-[16px] font-semibold hover:bg-accent"
+                        >
+                            Load More Stacks
+                        </Button>
+                    </div>
+                )}
+            </Container>
+        </PageBackground>
     );
 }

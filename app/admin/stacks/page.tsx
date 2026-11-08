@@ -87,7 +87,7 @@ export default async function AdminStacksPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b bg-muted/50">
+              <tr /* taste-skill-ignore: real table row */ className="border-b bg-muted/50">
                 <th className="px-4 py-3 text-left text-sm font-medium">Name</th>
                 <th className="px-4 py-3 text-left text-sm font-medium">ID</th>
                 <th className="px-4 py-3 text-left text-sm font-medium">Tools</th>
@@ -101,13 +101,13 @@ export default async function AdminStacksPage() {
               {stacks.map((stack) => {
                 const metrics = metricsById.get(stack.id) ?? null;
                 return (
-                  <tr key={stack.id} className="border-b">
+                  <tr key={stack.id} /* taste-skill-ignore: real table row */ className="border-b">
                     <td className="px-4 py-3 font-medium">
                       <Link href={`/stack/${stack.id}`} className="hover:underline">
                         {stack.name}
                       </Link>
                     </td>
-                    <td className="px-4 py-3 font-mono text-xs text-muted-foreground">
+                    <td /* taste-skill-ignore: literal id */ className="px-4 py-3 font-mono text-[13px] text-muted-foreground">
                       {stack.id}
                     </td>
                     <td className="px-4 py-3">
@@ -149,7 +149,7 @@ export default async function AdminStacksPage() {
           <ul className="flex flex-wrap gap-2">
             {orphanRows.map((row) => (
               <li key={row.idField}>
-                <Badge variant="secondary" className="font-mono text-xs">
+                <Badge /* taste-skill-ignore: literal id */ variant="secondary" className="rounded-none font-mono text-[13px]">
                   {row.idField}
                   {row.stackMetrics ? ` · ${row.stackMetrics.views.toLocaleString()} views` : ""}
                 </Badge>

@@ -71,9 +71,9 @@ export function CustomCursor() {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[9999] hidden md:block">
-      {/* Outer Glow / Ring */}
+      {/* Outer ring: solid orange, no glow */}
       <m.div
-        className="absolute w-10 h-10 rounded-full border border-vibe-electric/30 bg-vibe-electric/5 backdrop-blur-[2px]"
+        className="absolute w-10 h-10 rounded-full border-2 border-[#ff4a1f]"
         style={{
           x: sprX,
           y: sprY,
@@ -83,13 +83,12 @@ export function CustomCursor() {
         animate={{
           scale: isClicking ? 0.8 : isPointer ? 1.5 : 1,
           opacity: isVisible ? 1 : 0,
-          borderColor: isPointer ? "rgba(0, 217, 255, 0.6)" : "rgba(0, 217, 255, 0.3)",
-        }}
+                  }}
       />
       
       {/* Inner Dot */}
       <m.div
-        className="absolute w-1.5 h-1.5 rounded-full bg-vibe-electric shadow-[0_0_10px_rgba(0,217,255,0.8)]"
+        className="absolute w-1.5 h-1.5 rounded-full bg-[#ff4a1f]"
         style={{
           x: sprX,
           y: sprY,

@@ -51,9 +51,9 @@ export function LazyRoute({ children, fallback }: LazyRouteProps) {
 // Page loading fallback with progress
 function PageLoadingFallback() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center gap-4">
-      <div className="w-16 h-16 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
-      <p className="text-muted-foreground animate-pulse">Loading...</p>
+    <div className="min-h-svh flex flex-col items-center justify-center gap-4">
+      <div className="w-10 h-10 bg-vibe-electric animate-spin motion-reduce:animate-none" aria-hidden="true" />
+      <p className="text-muted-foreground">Loading...</p>
     </div>
   );
 }

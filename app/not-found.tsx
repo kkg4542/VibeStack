@@ -2,30 +2,21 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import {
     Search,
     Home,
     ArrowLeft,
     Sparkles,
-    Compass,
-    Lightbulb,
-    Wrench,
-    BookOpen,
-    Zap
+    Wrench
 } from "lucide-react";
 import { SearchInput } from "@/components/ui/search-input";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
 import { useAllTools } from "@/hooks/use-tools";
 import { blogPosts } from "@/lib/blog";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { getToolIcon } from "@/components/icons/tool-icons";
 import type { Tool } from "@prisma/client";
-import { designSystem } from "@/lib/design-system";
 import { Container } from "@/components/primitives/Container";
 
 export default function NotFound() {
@@ -44,105 +35,34 @@ export default function NotFound() {
     const featuredTools = tools.slice(0, 3);
     const latestPosts = blogPosts.slice(0, 2);
 
+    const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link";
+    const btn = "h-12 rounded-none px-6 text-[16px] font-semibold";
+
     return (
         <PageBackground {...BackgroundPresets.content}>
             <Container size="md">
-                {/* 404 Hero Section */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="text-center mb-16"
-                >
-                    {/* Animated 404 */}
-                    <div className="relative mb-8">
-                        <motion.div
-                            initial={{ scale: 0.8, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
-                            className="text-[12rem] md:text-[16rem] font-bold leading-none tracking-tighter"
-                        >
-                            <span className="text-gradient-brand">
-                                404
-                            </span>
-                        </motion.div>
-
-                        {/* Floating Elements */}
-                        <motion.div
-                            animate={{
-                                y: [0, -10, 0],
-                                rotate: [0, 5, -5, 0]
-                            }}
-                            transition={{
-                                duration: 4,
-                                repeat: Infinity,
-                                ease: "easeInOut"
-                            }}
-                            className="absolute top-1/4 left-1/4 text-6xl"
-                        >
-                            🔍
-                        </motion.div>
-
-                        <motion.div
-                            animate={{
-                                y: [0, 10, 0],
-                                rotate: [0, -5, 5, 0]
-                            }}
-                            transition={{
-                                duration: 3.5,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                                delay: 0.5
-                            }}
-                            className="absolute top-1/3 right-1/4 text-5xl"
-                        >
-                            ❓
-                        </motion.div>
-
-                        <motion.div
-                            animate={{
-                                scale: [1, 1.1, 1],
-                                opacity: [0.5, 1, 0.5]
-                            }}
-                            transition={{
-                                duration: 2,
-                                repeat: Infinity,
-                                ease: "easeInOut"
-                            }}
-                            className="absolute bottom-1/4 left-1/2 -translate-x-1/2 text-4xl"
-                        >
-                            ✨
-                        </motion.div>
-                    </div>
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.4 }}
+                {/* 404 hero */}
+                <div className="mb-20 pt-8">
+                    <p
+                        aria-hidden="true"
+                        className="mb-4 font-display text-[clamp(160px,30vw,320px)] leading-[0.8] tracking-[-0.01em] text-vibe-link"
                     >
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-link text-sm font-medium mb-6">
-                            <Compass className="w-4 h-4" />
-                            <span>Lost in the Stack?</span>
-                        </div>
+                        404
+                    </p>
 
-                        <h1 className={`${designSystem.typography.hero} mb-4 text-foreground`}>
-                            Page Not Found
-                        </h1>
+                    <p className="mb-4 text-[16px] font-semibold text-muted-foreground">Lost in the Stack?</p>
 
-                        <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-                            Oops! Looks like this page wandered off into the digital void.
-                            But don&apos;t worry—we&apos;ve got plenty of other great content for you!
-                        </p>
-                    </motion.div>
+                    <h1 className="mb-6 font-display text-balance text-[clamp(40px,6vw,96px)] uppercase leading-[0.88] tracking-[-0.005em] text-foreground">
+                        Page Not Found
+                    </h1>
 
-                    {/* Search Box */}
-                    <motion.form
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.6 }}
-                        onSubmit={handleSearch}
-                        className="max-w-xl mx-auto mb-8"
-                    >
+                    <p className="mb-10 max-w-[60ch] text-[18px] leading-normal text-muted-foreground">
+                        Oops! Looks like this page wandered off into the digital void.
+                        But don&apos;t worry, we&apos;ve got plenty of other great content for you!
+                    </p>
+
+                    {/* Search */}
+                    <form onSubmit={handleSearch} className="mb-8 max-w-xl">
                         <div className="relative">
                             <SearchInput
                                 variant="hero"
@@ -153,168 +73,119 @@ export default function NotFound() {
                             >
                                 <Button
                                     type="submit"
-                                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full"
+                                    className="absolute right-2 top-1/2 h-10 -translate-y-1/2 rounded-none px-5 font-semibold"
                                 >
                                     Search
                                 </Button>
                             </SearchInput>
                         </div>
-                    </motion.form>
+                    </form>
 
-                    {/* Quick Links */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.7 }}
-                        className="flex flex-wrap justify-center gap-3"
-                    >
-                        <Button asChild variant="default" className="rounded-full h-12 px-6 shadow-lg shadow-vibe-electric/20">
+                    {/* Quick links */}
+                    <div className="flex flex-wrap gap-3">
+                        <Button asChild variant="default" className={btn}>
                             <Link href="/">
-                                <Home className="mr-2 h-4 w-4" />
+                                <Home aria-hidden="true" className="mr-2 h-4 w-4" />
                                 Go Home
                             </Link>
                         </Button>
 
-                        <Button asChild variant="outline" className="rounded-full h-12 px-6 border-border/60">
+                        <Button asChild variant="secondary" className={`${btn} hover:bg-accent`}>
                             <Link href="/tools">
-                                <Wrench className="mr-2 h-4 w-4" />
+                                <Wrench aria-hidden="true" className="mr-2 h-4 w-4" />
                                 Browse Tools
                             </Link>
                         </Button>
 
-                        <Button asChild variant="outline" className="rounded-full h-12 px-6 border-border/60">
+                        <Button asChild variant="secondary" className={`${btn} hover:bg-accent`}>
                             <Link href="/build">
-                                <Sparkles className="mr-2 h-4 w-4" />
+                                <Sparkles aria-hidden="true" className="mr-2 h-4 w-4" />
                                 AI Stack Finder
                             </Link>
                         </Button>
-                    </motion.div>
-                </motion.div>
+                    </div>
+                </div>
 
-                {/* Recommended Content */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.8 }}
-                    className="grid md:grid-cols-2 gap-8"
-                >
-                    {/* Popular Tools */}
+                {/* Recommended content */}
+                <div className="grid gap-10 md:grid-cols-2 md:gap-6">
+                    {/* Popular tools */}
                     <div>
-                        <div className="flex items-center gap-3 mb-6">
-                            <div className="p-2 rounded-lg bg-vibe-electric/10">
-                                <Zap className="h-5 w-5 text-vibe-link" />
-                            </div>
-                            <h2 className="text-xl font-semibold">Popular Tools</h2>
-                        </div>
-                        <div className="space-y-3">
-                            {featuredTools.map((tool: Tool, index: number) => (
-                                <motion.div
+                        <h2 className="mb-6 text-[24px] font-semibold">Popular Tools</h2>
+                        <div className="space-y-2">
+                            {featuredTools.map((tool: Tool) => (
+                                <Link
                                     key={tool.slug}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.4, delay: 0.9 + index * 0.1 }}
+                                    href={`/tool/${tool.slug}`}
+                                    className={`group flex items-center gap-4 bg-card p-4 transition-colors duration-150 hover:bg-accent ${focus}`}
                                 >
-                                    <Link href={`/tool/${tool.slug}`}>
-                                        <Card className="border-border/50 hover:border-vibe-electric/50 hover:bg-accent/50 transition-all duration-300 group cursor-pointer">
-                                            <CardContent className="p-4 flex items-center gap-4">
-                                                <div className={`p-2.5 rounded-lg bg-linear-to-br ${tool.bgGradient || "from-slate-500/60 to-slate-800/60"}`}>
-                                                    {(() => {
-                                                        const Icon = getToolIcon(tool.slug);
-                                                        return <Icon className="h-5 w-5 text-white" />;
-                                                    })()}
-                                                </div>
-                                                <div className="flex-1">
-                                                    <h3 className="font-semibold group-hover:text-vibe-link transition-colors">
-                                                        {tool.title}
-                                                    </h3>
-                                                    <p className="text-sm text-muted-foreground line-clamp-1">
-                                                        {tool.description}
-                                                    </p>
-                                                </div>
-                                                <Badge variant="secondary" className="shrink-0">
-                                                    {tool.category}
-                                                </Badge>
-                                            </CardContent>
-                                        </Card>
-                                    </Link>
-                                </motion.div>
+                                    <div className="bg-secondary p-2.5">
+                                        {(() => {
+                                            const Icon = getToolIcon(tool.slug);
+                                            return <Icon aria-hidden="true" className="h-5 w-5 text-foreground" />;
+                                        })()}
+                                    </div>
+                                    <div className="min-w-0 flex-1">
+                                        <h3 className="text-[17px] font-semibold decoration-vibe-electric decoration-2 underline-offset-4 group-hover:underline">
+                                            {tool.title}
+                                        </h3>
+                                        <p className="line-clamp-1 text-[15px] text-muted-foreground">
+                                            {tool.description}
+                                        </p>
+                                    </div>
+                                    <span className="shrink-0 text-[14px] text-muted-foreground">
+                                        {tool.category}
+                                    </span>
+                                </Link>
                             ))}
                         </div>
                     </div>
 
-                    {/* Latest Articles */}
+                    {/* Latest articles */}
                     <div>
-                        <div className="flex items-center gap-3 mb-6">
-                            <div className="p-2 rounded-lg bg-violet-500/10">
-                                <BookOpen className="h-5 w-5 text-violet-700 dark:text-violet-500" />
-                            </div>
-                            <h2 className="text-xl font-semibold">Latest Articles</h2>
-                        </div>
-                        <div className="space-y-3">
-                            {latestPosts.map((post, index) => (
-                                <motion.div
+                        <h2 className="mb-6 text-[24px] font-semibold">Latest Articles</h2>
+                        <div className="space-y-2">
+                            {latestPosts.map((post) => (
+                                <Link
                                     key={post.slug}
-                                    initial={{ opacity: 0, x: 20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.4, delay: 0.9 + index * 0.1 }}
+                                    href={`/blog/${post.slug}`}
+                                    className={`group block bg-card p-4 transition-colors duration-150 hover:bg-accent ${focus}`}
                                 >
-                                    <Link href={`/blog/${post.slug}`}>
-                                        <Card className="border-border/50 hover:border-violet-500/50 hover:bg-accent/50 transition-all duration-300 group cursor-pointer">
-                                            <CardContent className="p-4">
-                                                <div className="flex items-start justify-between gap-4">
-                                                    <div className="flex-1">
-                                                        <Badge variant="secondary" className="mb-2">
-                                                            {post.category}
-                                                        </Badge>
-                                                        <h3 className="font-semibold group-hover:text-violet-700 dark:group-hover:text-violet-500 transition-colors line-clamp-2">
-                                                            {post.title}
-                                                        </h3>
-                                                        <p className="text-sm text-muted-foreground mt-1">
-                                                            {post.date}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </CardContent>
-                                        </Card>
-                                    </Link>
-                                </motion.div>
+                                    <p className="mb-1 text-[14px] font-semibold text-vibe-link">
+                                        {post.category}
+                                    </p>
+                                    <h3 className="line-clamp-2 text-[17px] font-semibold decoration-vibe-electric decoration-2 underline-offset-4 group-hover:underline">
+                                        {post.title}
+                                    </h3>
+                                    <p className="mt-1 text-[14px] text-muted-foreground">
+                                        {post.date}
+                                    </p>
+                                </Link>
                             ))}
                         </div>
                     </div>
-                </motion.div>
+                </div>
 
-                {/* Helpful Links */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 1.1 }}
-                    className="mt-16 pt-8 border-t border-border/50"
-                >
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                        <div className="flex items-center gap-3">
-                            <div className="p-2 rounded-full bg-amber-500/10">
-                                <Lightbulb className="h-5 w-5 text-amber-700 dark:text-amber-500" />
-                            </div>
-                            <p className="text-muted-foreground">
-                                Can&apos;t find what you&apos;re looking for?
-                            </p>
-                        </div>
-                        <div className="flex gap-3">
-                            <Button variant="outline" className="rounded-full" asChild>
-                                <Link href="/search">
-                                    <Search className="mr-2 h-4 w-4" />
-                                    Advanced Search
-                                </Link>
-                            </Button>
-                            <Button variant="ghost" className="rounded-full text-vibe-link hover:text-primary" asChild>
-                                <Link href="/about">
-                                    Contact Support
-                                    <ArrowLeft className="ml-2 h-4 w-4 rotate-180" />
-                                </Link>
-                            </Button>
-                        </div>
+                {/* Helpful links */}
+                <div className="mt-16 flex flex-col justify-between gap-4 bg-card p-6 md:flex-row md:items-center">
+                    <p className="text-[17px] text-foreground">
+                        Can&apos;t find what you&apos;re looking for?
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                        <Button variant="secondary" className="h-11 rounded-none bg-background px-5 text-[16px] font-semibold hover:bg-accent" asChild>
+                            <Link href="/search">
+                                <Search aria-hidden="true" className="mr-2 h-4 w-4" />
+                                Advanced Search
+                            </Link>
+                        </Button>
+                        <Link
+                            href="/about"
+                            className={`inline-flex h-11 items-center px-3 text-[16px] font-semibold text-vibe-link underline-offset-4 hover:underline ${focus}`}
+                        >
+                            Contact Support
+                            <ArrowLeft aria-hidden="true" className="ml-2 h-4 w-4 rotate-180" />
+                        </Link>
                     </div>
-                </motion.div>
+                </div>
             </Container>
         </PageBackground>
     );

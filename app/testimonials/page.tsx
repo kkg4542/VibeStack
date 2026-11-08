@@ -1,11 +1,9 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { Heart } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { getVerifiedTestimonials } from "@/lib/data/stacks";
 import { TestimonialsGrid } from "@/components/testimonials/TestimonialsGrid";
 import { Container } from "@/components/primitives/Container";
-import { designSystem } from "@/lib/design-system";
 
 export const metadata: Metadata = {
     title: "Testimonials",
@@ -18,50 +16,33 @@ export default async function TestimonialsPage() {
     const testimonials = await getVerifiedTestimonials(100);
 
     return (
-        <div className="min-h-screen bg-background pt-24 pb-16">
-            {/* Background decoration */}
-            <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
-                <div className="absolute top-[10%] right-[10%] w-[500px] h-[500px] bg-vibe-purple/10 rounded-full blur-[120px]" />
-                <div className="absolute bottom-[10%] left-[10%] w-[600px] h-[600px] bg-vibe-electric/5 rounded-full blur-[100px]" />
-            </div>
-
+        <div className="min-h-svh bg-background pt-24 pb-16">
             <Container size="default">
                 {/* Header */}
-                <div className="text-center mb-20 max-w-3xl mx-auto">
-                    <div>
-                        <Badge
-                            variant="outline"
-                            className="mb-4 border-vibe-electric/30 bg-vibe-electric/5 text-vibe-link"
-                        >
-                            <Heart className="mr-2 h-3 w-3" />
-                            Community Love
-                        </Badge>
-                        <h1 className={`${designSystem.typography.hero} mb-6`}>
-                            Loved by{" "}
-                            <span className="text-gradient-brand">
-                                Developers
-                            </span>
-                        </h1>
-                        <p className="text-xl text-muted-foreground">
-                            See how developers use VibeStack to find tools and build their AI stack faster.
-                        </p>
-                    </div>
+                <div className="mb-20 max-w-3xl pt-8">
+                    <p className="mb-5 text-[16px] font-semibold text-vibe-link">Community Love</p>
+                    <h1 className="mb-6 font-display text-balance text-[clamp(40px,6vw,96px)] uppercase leading-[0.88] tracking-[-0.005em] text-foreground">
+                        Loved by Developers
+                    </h1>
+                    <p className="max-w-[60ch] text-[19px] leading-normal text-muted-foreground">
+                        See how developers use VibeStack to find tools and build their AI stack faster.
+                    </p>
                 </div>
 
-                {/* Testimonials Grid (or empty state) */}
+                {/* Testimonials grid (or empty state) */}
                 {testimonials.length > 0 ? (
                     <TestimonialsGrid testimonials={testimonials} />
                 ) : (
-                    <div className="text-center max-w-xl mx-auto py-12">
-                        <p className="text-lg text-muted-foreground mb-6">
+                    <div className="max-w-xl bg-card p-8">
+                        <p className="mb-6 text-[18px] leading-normal text-foreground">
                             We&apos;re collecting stories from real users. Used VibeStack to
                             build your stack? We&apos;d love to feature you.
                         </p>
                         <Link
                             href="mailto:hello@usevibestack.com?subject=My%20VibeStack%20story"
-                            className="inline-flex items-center gap-2 rounded-full border border-vibe-electric/30 bg-vibe-electric/5 px-5 py-2.5 text-sm font-medium text-vibe-link hover:bg-vibe-electric/10 transition-colors"
+                            className="inline-flex h-12 items-center gap-2 bg-vibe-electric px-6 text-[16px] font-semibold text-vibe-deep transition-colors hover:bg-vibe-electric/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link"
                         >
-                            <Heart className="h-4 w-4" />
+                            <Heart aria-hidden="true" className="h-4 w-4" />
                             Share your story
                         </Link>
                     </div>

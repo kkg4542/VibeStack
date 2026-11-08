@@ -32,7 +32,7 @@ export default async function AdminSubmissionsPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b bg-muted/50">
+              <tr /* taste-skill-ignore: real table row */ className="border-b bg-muted/50">
                 <th className="px-4 py-3 text-left text-sm font-medium">Tool</th>
                 <th className="px-4 py-3 text-left text-sm font-medium">Tier</th>
                 <th className="px-4 py-3 text-left text-sm font-medium">Status</th>
@@ -45,7 +45,7 @@ export default async function AdminSubmissionsPage() {
               {submissions.map((submission) => {
                 const tool = toolByWebsite.get(submission.websiteUrl);
                 return (
-                  <tr key={submission.id} className="border-b">
+                  <tr key={submission.id} /* taste-skill-ignore: real table row */ className="border-b">
                     <td className="px-4 py-3">
                       <div className="font-medium">{submission.toolName}</div>
                       <div className="text-xs text-muted-foreground">
@@ -68,14 +68,14 @@ export default async function AdminSubmissionsPage() {
                         variant="secondary"
                         className={
                           submission.status === "approved"
-                            ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400"
+                            ? "rounded-none bg-secondary font-semibold text-success"
                             : submission.status === "rejected"
-                              ? "bg-rose-500/10 text-rose-700 dark:text-rose-400"
+                              ? "rounded-none bg-secondary font-semibold text-rose-700 dark:text-rose-400"
                               : submission.status === "paid"
-                                ? "bg-amber-500/10 text-amber-700 dark:text-amber-400"
+                                ? "rounded-none bg-secondary font-semibold text-warning"
                                 : submission.status === "refunded"
-                                  ? "bg-slate-500/10 text-slate-600"
-                                : "bg-muted text-muted-foreground"
+                                  ? "rounded-none bg-secondary text-muted-foreground"
+                                : "rounded-none bg-muted text-muted-foreground"
                         }
                       >
                         {submission.status}

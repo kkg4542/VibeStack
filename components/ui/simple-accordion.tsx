@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -23,7 +23,7 @@ interface AccordionItemProps {
 
 export function AccordionItem({ children, className }: AccordionItemProps) {
     return (
-        <div className={cn("border border-border/50 rounded-xl overflow-hidden", className)}>
+        <div className={cn("rounded-none bg-card overflow-hidden", className)}>
             {children}
         </div>
     );
@@ -45,14 +45,14 @@ export function SimpleAccordionItem({ title, children, defaultOpen = false, icon
     const [isOpen, setIsOpen] = React.useState(defaultOpen);
 
     return (
-        <div className="border border-border/50 rounded-2xl bg-card/50 backdrop-blur-sm overflow-hidden mb-4">
+        <div className="rounded-none bg-card overflow-hidden mb-4">
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center justify-between w-full p-4 text-left font-medium transition-colors hover:bg-muted/50"
+                className="flex items-center justify-between w-full p-4 text-left font-medium transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring"
             >
                 <div className="flex items-center gap-3">
                     {icon && (
-                        <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                        <div className="text-vibe-link">
                             {icon}
                         </div>
                     )}
@@ -65,7 +65,7 @@ export function SimpleAccordionItem({ title, children, defaultOpen = false, icon
                     )}
                 />
             </button>
-            <motion.div
+            <m.div
                 initial={false}
                 animate={{ height: isOpen ? "auto" : 0 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
@@ -74,7 +74,7 @@ export function SimpleAccordionItem({ title, children, defaultOpen = false, icon
                 <div className="p-4 pt-0 text-muted-foreground">
                     {children}
                 </div>
-            </motion.div>
+            </m.div>
         </div>
     );
 }

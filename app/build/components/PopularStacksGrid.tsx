@@ -1,10 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
 import { Star, Users, Zap, Layers, Brain, GraduationCap, Paintbrush, Wand2 } from "lucide-react";
-import { designSystem } from "@/lib/design-system";
+import { cn } from "@/lib/utils";
 
 // Ids/names/descriptions/tools/price below mirror the curated stacks in
 // lib/stacks.ts — they used to be a separate, made-up list (ids like
@@ -20,7 +18,7 @@ export const POPULAR_STACKS = [
     price: "$40+/mo",
     users: 2847,
     rating: 4.9,
-    color: "from-vibe-purple to-vibe-electric",
+    color: "bg-secondary",
     icon: Zap
   },
   {
@@ -31,7 +29,7 @@ export const POPULAR_STACKS = [
     price: "$19+/mo",
     users: 1923,
     rating: 4.7,
-    color: "from-vibe-pink to-rose-500",
+    color: "bg-secondary",
     icon: Paintbrush
   },
   {
@@ -42,7 +40,7 @@ export const POPULAR_STACKS = [
     price: "$0/mo",
     users: 4532,
     rating: 4.8,
-    color: "from-emerald-500 to-teal-500",
+    color: "bg-secondary",
     icon: GraduationCap
   },
   {
@@ -53,7 +51,7 @@ export const POPULAR_STACKS = [
     price: "$30+/mo",
     users: 2678,
     rating: 4.8,
-    color: "from-blue-500 to-vibe-cyan",
+    color: "bg-secondary",
     icon: Layers
   },
   {
@@ -64,7 +62,7 @@ export const POPULAR_STACKS = [
     price: "$0/mo",
     users: 1845,
     rating: 4.7,
-    color: "from-violet-500 to-vibe-purple",
+    color: "bg-secondary",
     icon: Brain
   },
   {
@@ -75,7 +73,7 @@ export const POPULAR_STACKS = [
     price: "$0/mo",
     users: 5124,
     rating: 4.9,
-    color: "from-purple-500 to-fuchsia-500",
+    color: "bg-secondary",
     icon: Wand2
   }
 ];
@@ -96,66 +94,55 @@ interface PopularStackCardProps {
   stack: PopularStack;
 }
 
+// Direction B: flat card cells, icon on a flat `bg-secondary` square (the
+// per-stack `color` is now that neutral token), hover = one tone step. Plain
+// markup, so the grid is in the SSR HTML (no framer opacity:0 entry state).
 function PopularStackCard({ stack }: PopularStackCardProps) {
   const Icon = stack.icon;
   return (
-    <Link href={`/stack/${stack.id}`} className="block group">
-      <motion.div whileHover={{ y: -5 }}>
-        <Card className="h-full border-border/50 hover:border-vibe-electric/50 transition-all duration-300 hover:shadow-xl hover:shadow-vibe-electric/10 overflow-hidden">
-          <div className={`h-2 bg-linear-to-r ${stack.color}`} />
-          <CardContent className="p-6">
-            <div className="flex items-start justify-between mb-4">
-              <div className={`p-3 rounded-xl bg-linear-to-br ${stack.color}`}>
-                <Icon className="w-6 h-6 text-white" />
-              </div>
-              <div className="flex items-center gap-1 text-sm">
-                <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
-                <span className="font-medium">{stack.rating}</span>
-              </div>
-            </div>
-            <h3 className="font-bold text-lg mb-2 group-hover:text-vibe-link transition-colors">{stack.name}</h3>
-            <p className="text-sm text-muted-foreground mb-4">{stack.description}</p>
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-muted-foreground">{stack.price}</span>
-              <span className="flex items-center gap-1 text-muted-foreground">
-                <Users className="w-4 h-4" />
-                {stack.users.toLocaleString()}
-              </span>
-            </div>
-          </CardContent>
-        </Card>
-      </motion.div>
+    <Link
+      href={`/stack/${stack.id}`}
+      className="group block h-full bg-card p-6 transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link"
+    >
+      <div className="mb-4 flex items-start justify-between">
+        <div className={cn("p-3 text-foreground group-hover:bg-background", stack.color)}>
+          <Icon className="h-6 w-6" />
+        </div>
+        <div className="flex items-center gap-1 text-[14px] text-foreground">
+          <Star className="h-4 w-4 fill-current text-vibe-link" aria-hidden="true" />
+          <span className="font-semibold">{stack.rating}</span>
+        </div>
+      </div>
+      <h3 className="mb-2 text-[18px] font-semibold text-foreground group-hover:text-vibe-link">{stack.name}</h3>
+      <p className="mb-4 text-[16px] text-muted-foreground">{stack.description}</p>
+      <div className="flex items-center justify-between text-[14px] text-muted-foreground">
+        <span className="font-semibold text-foreground">{stack.price}</span>
+        <span className="flex items-center gap-1">
+          <Users className="h-4 w-4" aria-hidden="true" />
+          {stack.users.toLocaleString()}
+        </span>
+      </div>
     </Link>
   );
 }
 
 export function PopularStacksGrid() {
-  const fadeInUp = designSystem.animations.fadeInUp;
-
   return (
-    <motion.div
-      initial={fadeInUp.initial}
-      animate={fadeInUp.animate}
-      transition={{ ...fadeInUp.transition, delay: 0.3 }}
-      className="mb-24"
-    >
-      <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold mb-4">Popular Stacks</h2>
-        <p className="text-muted-foreground">Editor&apos;s picks — hand-curated workflows</p>
+    <section className="mb-24">
+      <div className="mb-10">
+        <h2 className="font-display mb-4 text-[clamp(32px,4vw,56px)] leading-[0.88] text-balance text-foreground">
+          Popular Stacks
+        </h2>
+        <p className="text-[18px] text-muted-foreground">Editor&apos;s picks, hand-curated workflows</p>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {POPULAR_STACKS.map((stack, index) => (
-          <motion.div
-            key={stack.id}
-            initial={fadeInUp.initial}
-            animate={fadeInUp.animate}
-            transition={{ ...fadeInUp.transition, delay: 0.4 + index * 0.1 }}
-          >
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {POPULAR_STACKS.map((stack) => (
+          <div key={stack.id} className="reveal">
             <PopularStackCard stack={stack} />
-          </motion.div>
+          </div>
         ))}
       </div>
-    </motion.div>
+    </section>
   );
 }

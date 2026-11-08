@@ -1,13 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
-    Sparkles,
-    Target,
     Zap,
     Heart,
     Rocket,
@@ -19,13 +15,10 @@ import {
     Lightbulb,
     Code2,
     Palette,
-    Clock,
     ShieldCheck,
     RefreshCw,
     Layers
 } from "lucide-react";
-import { motion } from "framer-motion";
-import { designSystem } from "@/lib/design-system";
 import { useState } from "react";
 import { toast } from "sonner";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
@@ -69,27 +62,23 @@ const timeline = [
 const values = [
     {
         title: "Design First",
-        description: "Tools should be beautiful and intuitive. We believe great design is not just about looks—it's about how it works.",
-        icon: Palette,
-        color: "from-pink-500 to-rose-500"
+        description: "Tools should be beautiful and intuitive. We believe great design is not just about looks, it's about how it works.",
+        icon: Palette
     },
     {
         title: "Developer Centric",
         description: "We focus on tools that output code or help manage code. Everything we recommend is tested by real developers.",
-        icon: Code2,
-        color: "from-blue-500 to-cyan-500"
+        icon: Code2
     },
     {
         title: "Speed & Efficiency",
         description: "If it slows you down, it's not a productivity tool. We prioritize tools that enhance your workflow.",
-        icon: Zap,
-        color: "from-amber-500 to-orange-500"
+        icon: Zap
     },
     {
         title: "Community Driven",
         description: "Built by developers, for developers. Our recommendations come from real-world usage and community feedback.",
-        icon: Heart,
-        color: "from-red-500 to-pink-500"
+        icon: Heart
     }
 ];
 
@@ -113,345 +102,232 @@ export default function AboutPage() {
         setIsSubmitting(false);
     };
 
+    const h2 = "font-display text-balance text-[clamp(32px,4vw,56px)] uppercase leading-[0.9] tracking-[-0.005em] text-foreground";
+    const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link";
+
     return (
         <PageBackground {...BackgroundPresets.content}>
             <Container size="default">
-                {/* Hero Section */}
-                <motion.div
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={designSystem.animations.fadeInUp.transition}
-                    className="text-center mb-20"
-                >
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-vibe-electric/10 border border-vibe-electric/20 text-vibe-link text-sm font-medium mb-6"
-                    >
-                        <Sparkles className="w-4 h-4" />
-                        <span>About Us</span>
-                    </motion.div>
+                {/* Hero */}
+                <header className="mb-24 pt-8">
+                    <p className="mb-5 text-[16px] font-semibold text-vibe-link">About Us</p>
 
-                    <h1 className={`${designSystem.typography.hero} mb-6`}>
-                        Building the Future of{" "}
-                        <span className="text-gradient-brand">
-                            AI Productivity
-                        </span>
+                    <h1 className="mb-8 font-display text-balance text-[clamp(32px,6vw,96px)] uppercase leading-[0.88] tracking-[-0.005em] text-foreground">
+                        Building the Future of AI Productivity
                     </h1>
 
-                    <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                    <p className="max-w-[60ch] text-[19px] leading-normal text-muted-foreground">
                         We curate the best AI tools for developers, helping you navigate the rapidly evolving landscape
                         of AI-powered productivity software.
                     </p>
-                </motion.div>
+                </header>
 
-                {/* Mission & Vision Cards */}
-                <motion.div
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.1 }}
-                    className="grid md:grid-cols-2 gap-6 mb-20"
-                >
-                    <Card className="border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-vibe-purple/5">
-                        <CardContent className="p-8">
-                            <div className="flex items-center gap-3 mb-4">
-                                <div className="p-3 rounded-xl bg-vibe-electric/10">
-                                    <Target className="h-6 w-6 text-vibe-link" />
-                                </div>
-                                <h2 className="text-2xl font-bold">Our Mission</h2>
-                            </div>
-                            <p className="text-muted-foreground text-lg leading-relaxed">
-                                To help developers discover and adopt AI tools that genuinely improve their workflow.
-                                We cut through the hype to find tools that deliver real value.
-                            </p>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="border-violet-500/20 bg-linear-to-br from-violet-500/5 to-pink-500/5">
-                        <CardContent className="p-8">
-                            <div className="flex items-center gap-3 mb-4">
-                                <div className="p-3 rounded-xl bg-violet-500/10">
-                                    <Rocket className="h-6 w-6 text-violet-700 dark:text-violet-500" />
-                                </div>
-                                <h2 className="text-2xl font-bold">Our Vision</h2>
-                            </div>
-                            <p className="text-muted-foreground text-lg leading-relaxed">
-                                A world where every developer has access to the best AI tools, enabling them to build
-                                better software faster and more efficiently than ever before.
-                            </p>
-                        </CardContent>
-                    </Card>
-                </motion.div>
-
-                {/* Core Values */}
-                <motion.div
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.2 }}
-                    className="mb-20"
-                >
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold mb-4">Our Core Values</h2>
-                        <p className="text-muted-foreground">The principles that guide everything we do</p>
+                {/* Mission and vision */}
+                <div className="mb-24 grid gap-3 md:grid-cols-2 md:gap-6">
+                    <div className="bg-foreground p-8 text-background sm:p-10">
+                        <h2 className="mb-4 font-display text-[clamp(32px,3.6vw,48px)] uppercase leading-[0.9] tracking-[-0.005em]">Our Mission</h2>
+                        <p className="text-[18px] leading-normal">
+                            To help developers discover and adopt AI tools that genuinely improve their workflow.
+                            We cut through the hype to find tools that deliver real value.
+                        </p>
                     </div>
 
-                    <div className="grid sm:grid-cols-2 gap-6">
-                        {values.map((value, index) => {
+                    <div className="bg-card p-8 sm:p-10">
+                        <h2 className="mb-4 font-display text-[clamp(32px,3.6vw,48px)] uppercase leading-[0.9] tracking-[-0.005em]">Our Vision</h2>
+                        <p className="text-[18px] leading-normal text-muted-foreground">
+                            A world where every developer has access to the best AI tools, enabling them to build
+                            better software faster and more efficiently than ever before.
+                        </p>
+                    </div>
+                </div>
+
+                {/* Core values */}
+                <section className="mb-24">
+                    <div className="mb-10">
+                        <h2 className={`${h2} mb-4`}>Our Core Values</h2>
+                        <p className="text-[18px] text-muted-foreground">The principles that guide everything we do</p>
+                    </div>
+
+                    <div className="grid gap-3 sm:grid-cols-2 sm:gap-6">
+                        {values.map((value) => {
                             const Icon = value.icon;
                             return (
-                                <motion.div
-                                    key={value.title}
-                                    initial={designSystem.animations.fadeInUp.initial}
-                                    animate={designSystem.animations.fadeInUp.animate}
-                                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.3 + index * 0.1 }}
-                                >
-                                    <Card className="h-full border-border/50 hover:border-vibe-electric/30 transition-colors group">
-                                        <CardContent className="p-6">
-                                            <div className={`p-3 rounded-xl bg-linear-to-br ${value.color} w-fit mb-4 group-hover:scale-110 transition-transform`}>
-                                                <Icon className="h-6 w-6 text-white" />
-                                            </div>
-                                            <h3 className="text-xl font-semibold mb-2">{value.title}</h3>
-                                            <p className="text-muted-foreground">{value.description}</p>
-                                        </CardContent>
-                                    </Card>
-                                </motion.div>
+                                <div key={value.title} className="h-full bg-card p-6 sm:p-8">
+                                    <Icon aria-hidden="true" className="mb-5 h-7 w-7 text-vibe-link" />
+                                    <h3 className="mb-2 text-[20px] font-semibold">{value.title}</h3>
+                                    <p className="text-[16px] leading-normal text-muted-foreground">{value.description}</p>
+                                </div>
                             );
                         })}
                     </div>
-                </motion.div>
+                </section>
 
-                {/* Verification Process */}
-                <motion.div
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.3 }}
-                    className="mb-20"
-                >
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold mb-4">How We Vet Tools</h2>
-                        <p className="text-muted-foreground">Our recommendations are backed by real-use validation and ongoing checks.</p>
+                {/* Verification process */}
+                <section className="mb-24">
+                    <div className="mb-10">
+                        <h2 className={`${h2} mb-4`}>How We Vet Tools</h2>
+                        <p className="text-[18px] text-muted-foreground">Our recommendations are backed by real-use validation and ongoing checks.</p>
                     </div>
 
-                    <div className="grid md:grid-cols-3 gap-6">
-                        <Card className="border-border/50 bg-secondary/20 hover:bg-secondary/40 transition-colors">
-                            <CardContent className="p-6">
-                                <div className="p-3 rounded-xl bg-emerald-500/10 w-fit mb-4">
-                                    <ShieldCheck className="h-6 w-6 text-emerald-700 dark:text-emerald-500" />
-                                </div>
-                                <h3 className="text-xl font-semibold mb-2">Real-use Validation</h3>
-                                <p className="text-muted-foreground">
-                                    We prioritize tools with clear workflows, stable UX, and measurable time savings.
-                                </p>
-                            </CardContent>
-                        </Card>
+                    <div className="grid gap-3 md:grid-cols-3 md:gap-6">
+                        <div className="bg-card p-6">
+                            <ShieldCheck aria-hidden="true" className="mb-5 h-7 w-7 text-vibe-link" />
+                            <h3 className="mb-2 text-[20px] font-semibold">Real-use Validation</h3>
+                            <p className="text-[16px] leading-normal text-muted-foreground">
+                                We prioritize tools with clear workflows, stable UX, and measurable time savings.
+                            </p>
+                        </div>
 
-                        <Card className="border-border/50 bg-secondary/20 hover:bg-secondary/40 transition-colors">
-                            <CardContent className="p-6">
-                                <div className="p-3 rounded-xl bg-blue-500/10 w-fit mb-4">
-                                    <RefreshCw className="h-6 w-6 text-blue-700 dark:text-blue-500" />
-                                </div>
-                                <h3 className="text-xl font-semibold mb-2">Monthly Rechecks</h3>
-                                <p className="text-muted-foreground">
-                                    Pricing, policies, and feature changes are reviewed on a monthly cadence.
-                                </p>
-                            </CardContent>
-                        </Card>
+                        <div className="bg-card p-6">
+                            <RefreshCw aria-hidden="true" className="mb-5 h-7 w-7 text-vibe-link" />
+                            <h3 className="mb-2 text-[20px] font-semibold">Monthly Rechecks</h3>
+                            <p className="text-[16px] leading-normal text-muted-foreground">
+                                Pricing, policies, and feature changes are reviewed on a monthly cadence.
+                            </p>
+                        </div>
 
-                        <Card className="border-border/50 bg-secondary/20 hover:bg-secondary/40 transition-colors">
-                            <CardContent className="p-6">
-                                <div className="p-3 rounded-xl bg-violet-500/10 w-fit mb-4">
-                                    <Layers className="h-6 w-6 text-violet-700 dark:text-violet-500" />
-                                </div>
-                                <h3 className="text-xl font-semibold mb-2">Stack Compatibility</h3>
-                                <p className="text-muted-foreground">
-                                    We evaluate how tools work together, not just in isolation.
-                                </p>
-                            </CardContent>
-                        </Card>
+                        <div className="bg-card p-6">
+                            <Layers aria-hidden="true" className="mb-5 h-7 w-7 text-vibe-link" />
+                            <h3 className="mb-2 text-[20px] font-semibold">Stack Compatibility</h3>
+                            <p className="text-[16px] leading-normal text-muted-foreground">
+                                We evaluate how tools work together, not just in isolation.
+                            </p>
+                        </div>
                     </div>
-                </motion.div>
+                </section>
 
                 {/* Timeline */}
-                <motion.div
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.4 }}
-                    className="mb-20"
-                >
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold mb-4">Our Journey</h2>
-                        <p className="text-muted-foreground">How VibeStack has evolved over time</p>
+                <section className="mb-24">
+                    <div className="mb-10">
+                        <h2 className={`${h2} mb-4`}>Our Journey</h2>
+                        <p className="text-[18px] text-muted-foreground">How VibeStack has evolved over time</p>
                     </div>
 
-                    <div className="relative">
-                        {/* Timeline Line */}
-                        <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-border md:-translate-x-px" />
-
-                        <div className="space-y-8">
-                            {timeline.map((item, index) => {
-                                const Icon = item.icon;
-                                const isLeft = index % 2 === 0;
-
-                                return (
-                                    <motion.div
-                                        key={item.title}
-                                        initial={designSystem.animations.fadeInUp.initial}
-                                        animate={designSystem.animations.fadeInUp.animate}
-                                        transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.5 + index * 0.1 }}
-                                        className={`relative flex items-center gap-4 md:gap-8 ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'
-                                            }`}
-                                    >
-                                        {/* Timeline Dot */}
-                                        <div className="absolute left-4 md:left-1/2 w-8 h-8 bg-vibe-electric rounded-full border-4 border-background md:-translate-x-1/2 z-10 flex items-center justify-center">
-                                            <Icon className="h-4 w-4 text-white" />
-                                        </div>
-
-                                        {/* Content */}
-                                        <div className={`ml-12 md:ml-0 md:w-[calc(50%-2rem)] ${isLeft ? 'md:text-right md:pr-8' : 'md:pl-8'
-                                            }`}>
-                                            <Badge variant="secondary" className="mb-2">
-                                                {item.year}
-                                            </Badge>
-                                            <h3 className="text-lg font-semibold mb-1">{item.title}</h3>
-                                            <p className="text-sm text-muted-foreground">{item.description}</p>
-                                        </div>
-                                    </motion.div>
-                                );
-                            })}
-                        </div>
-                    </div>
-                </motion.div>
-
-                {/* Team Section */}
-                <motion.div
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.6 }}
-                    className="mb-20"
-                >
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold mb-4">Meet the Team</h2>
-                        <p className="text-muted-foreground">The people behind VibeStack</p>
-                    </div>
-
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-3xl mx-auto">
-                        {team.map((member, index) => (
-                            <motion.div
-                                key={member.name}
-                                initial={designSystem.animations.fadeInUp.initial}
-                                animate={designSystem.animations.fadeInUp.animate}
-                                transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.7 + index * 0.1 }}
-                            >
-                                <Card className="text-center border-border/50 hover:border-vibe-electric/30 transition-colors">
-                                    <CardContent className="p-6">
-                                        <div className="w-20 h-20 rounded-full bg-linear-to-br from-vibe-electric to-vibe-purple mx-auto mb-4 flex items-center justify-center text-2xl font-bold text-vibe-deep">
-                                            {member.avatar}
-                                        </div>
-                                        <h3 className="text-lg font-semibold mb-1">{member.name}</h3>
-                                        <p className="text-sm text-vibe-link mb-3">{member.role}</p>
-                                        <p className="text-sm text-muted-foreground mb-4">{member.bio}</p>
-                                        <div className="flex justify-center gap-2">
-                                            <a href={member.social.twitter} className="p-2 rounded-full bg-secondary/50 hover:bg-secondary transition-colors">
-                                                <Twitter className="h-4 w-4" />
-                                            </a>
-                                            <a href={member.social.github} className="p-2 rounded-full bg-secondary/50 hover:bg-secondary transition-colors">
-                                                <Github className="h-4 w-4" />
-                                            </a>
-                                            <a href={member.social.linkedin} className="p-2 rounded-full bg-secondary/50 hover:bg-secondary transition-colors">
-                                                <Linkedin className="h-4 w-4" />
-                                            </a>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            </motion.div>
-                        ))}
-                    </div>
-                </motion.div>
-
-
-                {/* Contact Section */}
-                <motion.div
-                    initial={designSystem.animations.fadeInUp.initial}
-                    animate={designSystem.animations.fadeInUp.animate}
-                    transition={{ ...designSystem.animations.fadeInUp.transition, delay: 0.9 }}
-                >
-                    <div className="max-w-2xl mx-auto">
-                        <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold mb-4">Get in Touch</h2>
-                            <p className="text-muted-foreground">Have a question or suggestion? We&apos;d love to hear from you.</p>
-                        </div>
-
-                        <Card className="border-vibe-electric/20 bg-linear-to-br from-vibe-electric/5 to-vibe-purple/5">
-                            <CardContent className="p-8">
-                                <form onSubmit={handleSubmit} className="space-y-6">
-                                    <div className="grid sm:grid-cols-2 gap-4">
-                                        <div>
-                                            <label htmlFor="contact-name" className="text-sm font-medium mb-2 block">Name</label>
-                                            <Input
-                                                id="contact-name"
-                                                placeholder="Your name"
-                                                value={formData.name}
-                                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                                required
-                                                className="bg-muted"
-                                            />
-                                        </div>
-                                        <div>
-                                            <label htmlFor="contact-email" className="text-sm font-medium mb-2 block">Email</label>
-                                            <Input
-                                                id="contact-email"
-                                                type="email"
-                                                placeholder="your@email.com"
-                                                value={formData.email}
-                                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                                required
-                                                className="bg-muted"
-                                            />
-                                        </div>
+                    <ol className="grid gap-3 md:grid-cols-3 md:gap-6">
+                        {timeline.map((item) => {
+                            const Icon = item.icon;
+                            return (
+                                <li key={item.title} className="flex flex-col bg-card p-6">
+                                    <div className="mb-6 flex items-center justify-between">
+                                        <span className="font-display text-[56px] leading-none text-vibe-link">{item.year}</span>
+                                        <Icon aria-hidden="true" className="h-6 w-6 text-muted-foreground" />
                                     </div>
-                                    <div>
-                                        <label htmlFor="contact-message" className="text-sm font-medium mb-2 block">Message</label>
-                                        <Textarea
-                                            id="contact-message"
-                                            placeholder="Tell us what's on your mind..."
-                                            value={formData.message}
-                                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                            required
-                                            rows={5}
-                                            className="bg-muted"
-                                        />
-                                    </div>
-                                    <Button
-                                        type="submit"
-                                        className="w-full rounded-full h-12 shadow-lg shadow-vibe-electric/20"
-                                        disabled={isSubmitting}
-                                    >
-                                        {isSubmitting ? (
-                                            "Sending..."
-                                        ) : (
-                                            <>
-                                                <Send className="mr-2 h-4 w-4" />
-                                                Send Message
-                                            </>
-                                        )}
-                                    </Button>
-                                </form>
+                                    <h3 className="mb-1 text-[20px] font-semibold">{item.title}</h3>
+                                    <p className="text-[16px] leading-normal text-muted-foreground">{item.description}</p>
+                                </li>
+                            );
+                        })}
+                    </ol>
+                </section>
 
-                                <div className="mt-8 pt-8 border-t border-border/50 text-center">
-                                    <p className="text-sm text-muted-foreground mb-4">Or reach us directly at</p>
-                                    <a
-                                        href="mailto:hello@usevibestack.com"
-                                        className="inline-flex items-center gap-2 text-vibe-link hover:text-primary transition-colors"
-                                    >
-                                        <Mail className="h-4 w-4" />
-                                        hello@usevibestack.com
+                {/* Team */}
+                <section className="mb-24">
+                    <div className="mb-10">
+                        <h2 className={`${h2} mb-4`}>Meet the Team</h2>
+                        <p className="text-[18px] text-muted-foreground">The people behind VibeStack</p>
+                    </div>
+
+                    <div className="grid max-w-3xl gap-3 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+                        {team.map((member) => (
+                            <div key={member.name} className="bg-card p-6">
+                                <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-vibe-electric text-[24px] font-semibold text-vibe-deep">
+                                    {member.avatar}
+                                </div>
+                                <h3 className="mb-1 text-[20px] font-semibold">{member.name}</h3>
+                                <p className="mb-3 text-[15px] font-semibold text-vibe-link">{member.role}</p>
+                                <p className="mb-4 text-[16px] leading-normal text-muted-foreground">{member.bio}</p>
+                                <div className="flex gap-2">
+                                    <a href={member.social.twitter} aria-label={`${member.name} on Twitter`} className={`bg-secondary p-2.5 transition-colors hover:bg-accent ${focus}`}>
+                                        <Twitter aria-hidden="true" className="h-4 w-4" />
+                                    </a>
+                                    <a href={member.social.github} aria-label={`${member.name} on GitHub`} className={`bg-secondary p-2.5 transition-colors hover:bg-accent ${focus}`}>
+                                        <Github aria-hidden="true" className="h-4 w-4" />
+                                    </a>
+                                    <a href={member.social.linkedin} aria-label={`${member.name} on LinkedIn`} className={`bg-secondary p-2.5 transition-colors hover:bg-accent ${focus}`}>
+                                        <Linkedin aria-hidden="true" className="h-4 w-4" />
                                     </a>
                                 </div>
-                            </CardContent>
-                        </Card>
+                            </div>
+                        ))}
                     </div>
-                </motion.div>
+                </section>
+
+                {/* Contact */}
+                <section>
+                    <div className="max-w-2xl">
+                        <div className="mb-10">
+                            <h2 className={`${h2} mb-4`}>Get in Touch</h2>
+                            <p className="text-[18px] text-muted-foreground">Have a question or suggestion? We&apos;d love to hear from you.</p>
+                        </div>
+
+                        <div className="bg-card p-6 sm:p-8">
+                            <form onSubmit={handleSubmit} className="space-y-6">
+                                <div className="grid gap-4 sm:grid-cols-2">
+                                    <div>
+                                        <label htmlFor="contact-name" className="mb-2 block text-[15px] font-semibold">Name</label>
+                                        <Input
+                                            id="contact-name"
+                                            placeholder="Your name"
+                                            value={formData.name}
+                                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                            required
+                                            className="bg-background"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="contact-email" className="mb-2 block text-[15px] font-semibold">Email</label>
+                                        <Input
+                                            id="contact-email"
+                                            type="email"
+                                            placeholder="your@email.com"
+                                            value={formData.email}
+                                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                            required
+                                            className="bg-background"
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label htmlFor="contact-message" className="mb-2 block text-[15px] font-semibold">Message</label>
+                                    <Textarea
+                                        id="contact-message"
+                                        placeholder="Tell us what's on your mind..."
+                                        value={formData.message}
+                                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                                        required
+                                        rows={5}
+                                        className="bg-background"
+                                    />
+                                </div>
+                                <Button
+                                    type="submit"
+                                    className="h-12 w-full rounded-none text-[16px] font-semibold"
+                                    disabled={isSubmitting}
+                                >
+                                    {isSubmitting ? (
+                                        "Sending..."
+                                    ) : (
+                                        <>
+                                            <Send aria-hidden="true" className="mr-2 h-4 w-4" />
+                                            Send Message
+                                        </>
+                                    )}
+                                </Button>
+                            </form>
+
+                            <div className="mt-10">
+                                <p className="mb-2 text-[15px] text-muted-foreground">Or reach us directly at</p>
+                                <a
+                                    href="mailto:hello@usevibestack.com"
+                                    className={`inline-flex items-center gap-2 text-[17px] font-semibold text-vibe-link underline-offset-4 hover:underline ${focus}`}
+                                >
+                                    <Mail aria-hidden="true" className="h-4 w-4" />
+                                    hello@usevibestack.com
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </Container>
         </PageBackground>
     );

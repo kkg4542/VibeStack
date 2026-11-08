@@ -68,12 +68,12 @@ export default function AnalyticsPage() {
         </div>
         <div className="grid gap-4 md:grid-cols-4">
           {[1, 2, 3, 4].map((i) => (
-            <Card key={i} className="animate-pulse">
+            <Card key={i}>
               <CardHeader className="pb-2">
-                <div className="h-4 w-24 bg-muted rounded"></div>
+                <div className="h-4 w-24 bg-secondary"></div>
               </CardHeader>
               <CardContent>
-                <div className="h-8 w-16 bg-muted rounded"></div>
+                <div className="h-8 w-16 bg-secondary"></div>
               </CardContent>
             </Card>
           ))}
@@ -96,7 +96,7 @@ export default function AnalyticsPage() {
           <select
             value={days}
             onChange={(e) => setDays(Number(e.target.value))}
-            className="border rounded-md px-3 py-1 text-sm bg-background"
+            className="rounded-none bg-card px-3 py-1 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link"
           >
             <option value={7}>Last 7 days</option>
             <option value={30}>Last 30 days</option>
@@ -187,7 +187,7 @@ export default function AnalyticsPage() {
                       <div className="text-sm text-muted-foreground">({tool.toolSlug})</div>
                     </div>
                     <div className="flex items-center gap-4">
-                      <div className="w-32 h-2 bg-muted rounded-full overflow-hidden">
+                      <div className="h-2 w-32 overflow-hidden bg-muted">
                         <div
                           className="h-full bg-vibe-electric"
                           style={{
@@ -220,9 +220,9 @@ export default function AnalyticsPage() {
                   <div key={page.path} className="flex items-center justify-between">
                     <div className="font-medium truncate">{page.path}</div>
                     <div className="flex items-center gap-4">
-                      <div className="w-32 h-2 bg-muted rounded-full overflow-hidden">
+                      <div className="h-2 w-32 overflow-hidden bg-muted">
                         <div
-                          className="h-full bg-amber-500"
+                          className="h-full bg-vibe-electric"
                           style={{
                             width: `${(page.clicks / (data?.referrerStats[0]?.clicks || 1)) * 100}%`,
                           }}
@@ -258,9 +258,9 @@ export default function AnalyticsPage() {
                       Variant {stat.variant === "none" ? "No Test" : stat.variant}
                     </div>
                     <div className="flex items-center gap-4">
-                      <div className="w-32 h-2 bg-muted rounded-full overflow-hidden">
+                      <div className="h-2 w-32 overflow-hidden bg-muted">
                         <div
-                          className="h-full bg-emerald-500"
+                          className="h-full bg-vibe-electric"
                           style={{
                             width: `${(stat.clicks / (data?.totalClicks || 1)) * 100}%`,
                           }}
@@ -291,9 +291,9 @@ export default function AnalyticsPage() {
                   <div key={stat.source} className="flex items-center justify-between">
                     <div className="font-medium capitalize">{stat.source.replace("_", " ")}</div>
                     <div className="flex items-center gap-4">
-                      <div className="w-32 h-2 bg-muted rounded-full overflow-hidden">
+                      <div className="h-2 w-32 overflow-hidden bg-muted">
                         <div
-                          className="h-full bg-violet-500"
+                          className="h-full bg-vibe-electric"
                           style={{
                             width: `${(stat.count / (data?.totalEmails || 1)) * 100}%`,
                           }}

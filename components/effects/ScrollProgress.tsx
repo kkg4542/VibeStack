@@ -11,7 +11,7 @@ interface ScrollProgressProps {
 }
 
 export function ScrollProgress({
-    color = "linear-gradient(90deg, #6366f1, #a855f7, #ec4899)", // indigo to purple to pink
+    color = "#ff4a1f", // solid safety orange
     height = 3,
     position = "top",
     showPercentage = false,
@@ -47,10 +47,7 @@ export function ScrollProgress({
             {/* Percentage Indicator (optional) */}
             {showPercentage && (
                 <m.div
-                    className="fixed bottom-4 right-4 z-50 bg-background/80 backdrop-blur-sm border border-border rounded-full px-3 py-1 text-sm font-medium text-muted-foreground"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
+                    className="fixed bottom-4 right-4 z-50 bg-background px-3 py-1 text-sm font-medium text-muted-foreground"
                 >
                     {progress}%
                 </m.div>
@@ -63,7 +60,7 @@ export function ScrollProgress({
 export function ScrollProgressCircular({
     size = 50,
     strokeWidth = 4,
-    color = "#6366f1",
+    color = "#ff4a1f",
 }: {
     size?: number;
     strokeWidth?: number;
@@ -84,12 +81,7 @@ export function ScrollProgressCircular({
 
     return (
         <div className="fixed bottom-6 right-6 z-50">
-            <m.div
-                className="relative"
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 1 }}
-            >
+            <div className="relative">
                 <svg
                     width={size}
                     height={size}
@@ -102,7 +94,8 @@ export function ScrollProgressCircular({
                         cy={size / 2}
                         r={radius}
                         fill="none"
-                        stroke="rgba(99, 102, 241, 0.2)"
+                        stroke="currentColor"
+                        className="text-muted"
                         strokeWidth={strokeWidth}
                     />
                     {/* Progress circle */}
@@ -113,7 +106,7 @@ export function ScrollProgressCircular({
                         fill="none"
                         stroke={color}
                         strokeWidth={strokeWidth}
-                        strokeLinecap="round"
+                        strokeLinecap="butt"
                         strokeDasharray={circumference}
                         animate={{ strokeDashoffset }}
                         transition={{ duration: 0.1 }}
@@ -121,11 +114,11 @@ export function ScrollProgressCircular({
                 </svg>
                 {/* Percentage text */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-xs font-bold text-foreground">
+                    <span className="text-[13px] font-semibold text-foreground">
                         {Math.round(progress * 100)}%
                     </span>
                 </div>
-            </m.div>
+            </div>
         </div>
     );
 }
@@ -152,16 +145,16 @@ export function ReadingProgress() {
     }, []);
 
     return (
-        <div className="sticky top-14 z-40 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="flex items-center justify-between py-2 text-xs text-muted-foreground">
+        <div className="sticky top-14 z-40 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 bg-background">
+            <div className="flex items-center justify-between py-2 text-[13px] text-muted-foreground">
                 <span>Reading time: {readingTime} min</span>
                 <span className="flex items-center gap-1">
-                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                    <span className="w-2 h-2 bg-[#ff4a1f]" />
                     Reading
                 </span>
             </div>
             <m.div
-                className="h-0.5 bg-linear-to-r from-vibe-electric via-vibe-purple to-vibe-pink origin-left"
+                className="h-0.5 bg-[#ff4a1f] origin-left"
                 style={{ scaleX }}
             />
         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
 
@@ -10,23 +10,25 @@ interface PageTransitionProps {
 }
 
 const variants = {
+  // Entering content never starts at opacity 0 (direction B rule); only
+  // the transform animates in. Exits may still fade.
   fade: {
-    initial: { opacity: 0 },
+    initial: { opacity: 1 },
     animate: { opacity: 1 },
     exit: { opacity: 0 },
   },
   slide: {
-    initial: { opacity: 0, x: -20 },
+    initial: { opacity: 1, x: -20 },
     animate: { opacity: 1, x: 0 },
     exit: { opacity: 0, x: 20 },
   },
   slideUp: {
-    initial: { opacity: 0, y: 20 },
+    initial: { opacity: 1, y: 20 },
     animate: { opacity: 1, y: 0 },
     exit: { opacity: 0, y: -20 },
   },
   scale: {
-    initial: { opacity: 0, scale: 0.95 },
+    initial: { opacity: 1, scale: 0.97 },
     animate: { opacity: 1, scale: 1 },
     exit: { opacity: 0, scale: 1.05 },
   },
@@ -47,7 +49,7 @@ export function PageTransition({
 
   return (
     <AnimatePresence mode="wait" initial={false}>
-      <motion.div
+      <m.div
         key={pathname}
         initial={selectedVariant.initial}
         animate={selectedVariant.animate}
@@ -58,7 +60,7 @@ export function PageTransition({
         }}
       >
         {children}
-      </motion.div>
+      </m.div>
     </AnimatePresence>
   );
 }
@@ -82,11 +84,11 @@ export function StaggerContainer({
   }
 
   return (
-    <motion.div
+    <m.div
       initial="hidden"
       animate="visible"
       variants={{
-        hidden: { opacity: 0 },
+        hidden: { opacity: 1 },
         visible: {
           opacity: 1,
           transition: {
@@ -97,7 +99,7 @@ export function StaggerContainer({
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -115,9 +117,9 @@ export function StaggerItem({ children, className }: StaggerItemProps) {
   }
 
   return (
-    <motion.div
+    <m.div
       variants={{
-        hidden: { opacity: 0, y: 20 },
+        hidden: { opacity: 1, y: 20 },
         visible: { 
           opacity: 1, 
           y: 0,
@@ -130,6 +132,6 @@ export function StaggerItem({ children, className }: StaggerItemProps) {
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

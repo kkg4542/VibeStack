@@ -34,21 +34,16 @@ export function PageHero({
       className={`${centered ? 'text-center' : ''} mb-16`}
     >
       {badge && (
-        <m.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${designSystem.badges.primary} text-sm font-medium mb-6 backdrop-blur-sm`}
-        >
+        <div className="inline-flex items-center gap-2 text-base font-semibold text-vibe-link mb-6">
           {badge.icon}
           <span>{badge.text}</span>
-        </m.div>
+        </div>
       )}
 
       <h1 className={`${designSystem.typography.hero} mb-6 ${centered ? 'max-w-4xl mx-auto' : ''}`}>
         {title}{" "}
         {highlightText && (
-          <span className="text-gradient-brand">
+          <span className="text-vibe-link">
             {highlightText}
           </span>
         )}
@@ -92,7 +87,7 @@ export function SectionHeader({
   return (
     <div className={`${centered ? 'text-center' : ''} max-w-3xl ${centered ? 'mx-auto' : ''} mb-12`}>
       {badge && (
-        <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${designSystem.badges.primary} text-sm font-medium mb-4`}>
+        <div className="inline-flex items-center gap-2 text-base font-semibold text-vibe-link mb-4">
           {badge.icon}
           <span>{badge.text}</span>
         </div>
@@ -101,7 +96,7 @@ export function SectionHeader({
       <h2 className={`${designSystem.typography.section} mb-4`}>
         {title}{" "}
         {highlightText && (
-          <span className="text-gradient-brand">
+          <span className="text-vibe-link">
             {highlightText}
           </span>
         )}

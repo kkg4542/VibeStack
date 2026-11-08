@@ -35,7 +35,7 @@ export default async function AdminToolsPage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b bg-muted/50">
+              <tr /* taste-skill-ignore: real table row */ className="border-b bg-muted/50">
                 <th className="px-4 py-3 text-left text-sm font-medium">Name</th>
                 <th className="px-4 py-3 text-left text-sm font-medium">Category</th>
                 <th className="px-4 py-3 text-left text-sm font-medium">Pricing</th>
@@ -47,7 +47,7 @@ export default async function AdminToolsPage() {
             </thead>
             <tbody>
               {tools.map((tool) => (
-                <tr key={tool.id} className="border-b">
+                <tr key={tool.id} /* taste-skill-ignore: real table row */ className="border-b">
                   <td className="px-4 py-3 font-medium">{tool.title}</td>
                   <td className="px-4 py-3">
                     <Badge variant="secondary">{tool.category}</Badge>
@@ -64,7 +64,7 @@ export default async function AdminToolsPage() {
                   </td>
                   <td className="px-4 py-3">
                     {tool.isFeatured ? (
-                      <Badge variant="secondary" className="bg-amber-500/10 text-amber-700 dark:text-amber-400">
+                      <Badge variant="secondary" className="rounded-none bg-secondary text-[13px] font-semibold text-warning">
                         Featured
                       </Badge>
                     ) : (

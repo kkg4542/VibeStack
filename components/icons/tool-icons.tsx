@@ -1,4 +1,4 @@
-import { LucideIcon, Github } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import {
   ChatGPTIcon,
   ClaudeIcon,
@@ -28,6 +28,7 @@ import {
   BoltIcon,
 } from "@/components/icons/AiIcons";
 import { ComponentType } from "react";
+import { brandMarkFor } from "@/components/icons/brand-marks";
 
 export type ToolIcon = LucideIcon | ComponentType<{ className?: string }>;
 
@@ -96,7 +97,61 @@ export function getToolIcon(slug: string): ToolIcon {
       }
   }
 
-  return Github;
+  // The official brand mark when we have one, else the tool's initials,
+  // never a borrowed logo (the old fallback was the GitHub octocat, which
+  // read as a cat on every unmapped tool).
+  const mark = brandMarkFor(normalizedSlug);
+  if (mark) return mark;
+  return monogramFor(normalizedSlug);
+}
+
+const monogramCache = new Map<string, ToolIcon>();
+
+/** "adobe-firefly" -> "AF", "slack-ai" -> "S", "figma" -> "F". */
+function monogramText(slug: string): string {
+  const words = slug
+    .split("-")
+    .filter((word) => /^[a-z]/.test(word) && word !== "ai");
+  const letters = words.slice(0, 2).map((word) => word[0].toUpperCase());
+  return letters.join("") || slug[0]?.toUpperCase() || "?";
+}
+
+/**
+ * One stable component per slug (so React does not remount it on every
+ * render). It is an SVG so it scales with the same h-/w- classes as the real
+ * icons, drawn in currentColor with the display face.
+ */
+function monogramFor(slug: string): ToolIcon {
+  const cached = monogramCache.get(slug);
+  if (cached) return cached;
+  const text = monogramText(slug);
+  const Monogram: ComponentType<{ className?: string }> = ({ className }) => (
+    <svg
+      viewBox="0 0 24 24"
+      className={className}
+      role="img"
+      aria-hidden="true"
+      focusable="false"
+    >
+      {/* Same footprint as the brand icons that carry their own tile; the
+          tile and letters swap with the theme (ink tile, ground letters). */}
+      <rect width="24" height="24" rx="2" fill="var(--foreground)" />
+      <text
+        x="12"
+        y="12.5"
+        textAnchor="middle"
+        dominantBaseline="central"
+        fontSize={text.length > 1 ? 14 : 17}
+        fontWeight={800}
+        fill="var(--background)"
+        style={{ fontFamily: "var(--font-big-shoulders), Impact, sans-serif" }}
+      >
+        {text}
+      </text>
+    </svg>
+  );
+  monogramCache.set(slug, Monogram);
+  return Monogram;
 }
 
 // Keep the map export for components that might iterate over it (though getToolIcon is preferred)
