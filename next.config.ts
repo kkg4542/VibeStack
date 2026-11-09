@@ -189,8 +189,10 @@ const nextConfig: NextConfig = {
           // The Signals/ads hosts are left out on purpose. They carry
           // advertising and cross-site remarketing traffic, not the analytics
           // this site actually reads, so blocking them costs us nothing and
-          // keeps the policy narrow. If GA4 reports are ever missing
-          // demographics data, that is why — widen this deliberately, not by
+          // keeps the policy narrow. GoogleAnalytics.tsx also sets
+          // allow_google_signals: false, so gtag never tries those hosts and
+          // the console stays clean. If GA4 reports are ever missing
+          // demographics data, that is why — widen both deliberately, not by
           // pasting in whatever the console complains about.
           "connect-src 'self' https://api.stripe.com https://*.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://vitals.vercel-insights.com https://va.vercel-scripts.com https://*.ingest.sentry.io https://sentry.io",
           "frame-src https://js.stripe.com https://hooks.stripe.com",
