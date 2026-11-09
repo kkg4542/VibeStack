@@ -37,7 +37,8 @@ const PROSE_CLASSES = [
     "prose-pre:rounded-none prose-pre:bg-card prose-pre:text-[15px] prose-pre:leading-[1.6]",
     "prose-code:before:content-none prose-code:after:content-none prose-code:font-normal",
     "prose-blockquote:border-l-4 prose-blockquote:bg-card prose-blockquote:px-6 prose-blockquote:py-1 prose-blockquote:font-normal prose-blockquote:not-italic",
-    "prose-img:rounded-none prose-table:text-[16px]",
+    // Wide comparison tables scroll inside the column instead of widening the page on phones.
+    "prose-img:rounded-none prose-table:block prose-table:max-w-full prose-table:overflow-x-auto prose-table:text-[16px]",
 ].join(" ");
 
 interface Props {

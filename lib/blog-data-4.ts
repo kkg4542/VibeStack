@@ -27,7 +27,7 @@ export const postsBatch4: BlogPost[] = [
 
       <h2>1. The editor — where you live</h2>
       <p><a href="/tool/cursor">Cursor</a> is the heart of most vibe coding stacks. It's an AI-first editor that indexes your whole codebase, predicts multi-file edits, and runs an agent that can implement a feature from a single sentence. The Cursor 3.11 release (July 2026) added a side chat panel, searchable agent transcripts, a Cursor for iOS public beta, and first-class support for xAI's <strong>Grok 4.5</strong> — a model co-trained on real Cursor usage data. Its Composer 2.5 agent handles the multi-file heavy lifting. If you want the most powerful "describe it and watch it happen" experience, start here.</p>
-      <p>Prefer to stay in your current editor? <a href="/tool/github-copilot">GitHub Copilot</a> brings strong AI into VS Code, JetBrains, and more — see our <a href="/blog/cursor-vs-github-copilot">Cursor vs GitHub Copilot</a> breakdown. Also worth a look: <a href="/tool/devin-ai">Devin Desktop</a>, the AI editor Codeium shipped as Windsurf — Cognition acquired it and relaunched it under the Devin name on June 2, 2026, keeping VS Code extension and keybinding compatibility (our <a href="/blog/cursor-vs-windsurf">Cursor vs Windsurf</a> comparison describes the pre-rebrand version).</p>
+      <p>Prefer to stay in your current editor? <a href="/tool/github-copilot">GitHub Copilot</a> brings strong AI into VS Code, JetBrains, and more — see our <a href="/blog/cursor-vs-github-copilot">Cursor vs GitHub Copilot</a> breakdown. Also worth a look: <a href="/tool/devin-ai">Devin Desktop</a>, the AI editor Codeium shipped as Windsurf; Cognition now calls Devin Desktop "the new name for Windsurf", and its plans and pricing carried over (our <a href="/blog/cursor-vs-windsurf">Cursor vs Windsurf</a> comparison describes the pre-rebrand version).</p>
 
       <h2>2. The app builder — zero to working app</h2>
       <p>When you want to go from prompt to a running app without local setup, reach for an app builder:</p>
@@ -81,8 +81,8 @@ export const postsBatch4: BlogPost[] = [
         </thead>
         <tbody>
           <tr><td>Free</td><td>$0</td><td>Cursor free + one assistant free tier + v0/Bolt free credits</td></tr>
-          <tr><td>Solo builder</td><td>~$40&ndash;60/mo</td><td>Cursor Pro + Claude or ChatGPT Pro; enough to build daily</td></tr>
-          <tr><td>Full stack</td><td>~$80&ndash;120/mo</td><td>Editor + both assistants + an app builder + Framer for sites</td></tr>
+          <tr><td>Solo builder</td><td>~$30&ndash;50/mo</td><td>Cursor Plus ($8) or Premium ($30) + Claude Pro or ChatGPT Plus ($20); enough to build daily</td></tr>
+          <tr><td>Full stack</td><td>~$95/mo + Framer</td><td>Cursor Premium + both assistants + an app builder (Bolt.new or Lovable Pro, $25) + Framer for sites</td></tr>
         </tbody>
       </table>
       <p>If you can only pay for one thing, pay for the editor — that's where the hours go and where the paid tier changes the most, roughly the difference between an agent that finishes a feature and one that gives up partway. The order to cut everything else, first to last: the app builder, the second assistant, the design tools (a plain Tailwind landing page ships fine), and only then the editor.</p>
@@ -128,11 +128,11 @@ export const postsBatch4: BlogPost[] = [
     faq: [
       {
         q: "What tools do I need to start vibe coding?",
-        a: "Three: an AI-first editor, a frontier assistant, and somewhere to deploy. Cursor plus Claude or ChatGPT plus Vercel is a complete stack, and all three have usable free tiers. Everything else — an app builder, design tools, automated review, a planning tool — is worth adding once you've shipped something and know which layer is actually slowing you down.",
+        a: "Three: an AI-first editor, a frontier assistant, and somewhere to deploy. Cursor plus Claude or ChatGPT plus Vercel is a complete stack, and all three have free plans, though Vercel's free Hobby plan is for personal, non-commercial use only. Everything else — an app builder, design tools, automated review, a planning tool — is worth adding once you've shipped something and know which layer is actually slowing you down.",
       },
       {
         q: "How much does a vibe coding stack cost per month?",
-        a: "You can start at $0 on free tiers. A serious solo setup runs roughly $40 to $60 a month for a paid editor plus one assistant, and a full stack with both assistants, an app builder, and design tools lands around $80 to $120. If you only pay for one thing, pay for the editor — that's where the paid tier changes the most about what you can actually finish.",
+        a: "You can start at $0 on free tiers. A serious solo setup runs roughly $30 to $50 a month: Cursor Plus ($8) or Premium ($30, needed for Claude and GPT models) plus Claude Pro or ChatGPT Plus ($20). A full stack with both assistants and an app builder starts around $95 before design tools. Prices change, so check each vendor's pricing page. If you only pay for one thing, pay for the editor — that's where the paid tier changes the most about what you can actually finish.",
       },
       {
         q: "Do I still need to know how to code?",
@@ -265,7 +265,7 @@ export const postsBatch4: BlogPost[] = [
     image: "/images/blog/blog_cursor_ide.png",
     tags: ["Cursor", "Windsurf", "AI Editor"],
     content: `
-      <p><strong>Update:</strong> Windsurf no longer ships under that name. Cognition acquired it from Codeium in July 2025 and relaunched it as <a href="/tool/devin-ai">Devin Desktop</a> on June 2, 2026; codeium.com and windsurf.com now both redirect to devin.ai/desktop. Cognition describes Devin Desktop as the next generation of Windsurf and said at launch that it remains compatible with Windsurf and VS Code extensions, keybindings, and LSP integrations. The comparison below describes Windsurf as it stood before that relaunch — treat its pricing and feature specifics as historical, and check Cognition's site for what Devin Desktop offers today.</p>
+      <p><strong>Update:</strong> Windsurf no longer ships under that name. Cognition acquired it from Codeium in July 2025 and renamed it <a href="/tool/devin-ai">Devin Desktop</a>; devin.ai/desktop calls it "the new name for Windsurf", and windsurf.com/pricing now redirects to devin.ai/pricing. Cognition says plans and pricing carried over. The feature comparison below describes Windsurf before the rename, so check Cognition's site for what Devin Desktop offers today.</p>
 
       <p>If you're choosing an AI-first editor for vibe coding, the two names that come up most are <a href="/tool/cursor">Cursor</a> and Windsurf, now <a href="/tool/devin-ai">Devin Desktop</a>. Both are forks of VS Code reimagined around AI, so your extensions and keybindings come along either way. The differences are in the agent, the flow, and the feel. Here's how they compare in mid-2026.</p>
 
@@ -312,17 +312,17 @@ export const postsBatch4: BlogPost[] = [
           <tr><td>Standout</td><td>Raw agent power, iOS beta, transcripts</td><td>Clean UX, long-session coherence</td></tr>
           <tr><td>Models</td><td>OpenAI, Anthropic, xAI (Grok added in 3.11)</td><td>OpenAI, Anthropic, and more</td></tr>
           <tr><td>Feel</td><td>More power, more knobs</td><td>Cleaner, more guided</td></tr>
-          <tr><td>Price</td><td>Free (Hobby) + $20/mo Pro</td><td>Free + $20/mo Pro</td></tr>
+          <tr><td>Price</td><td>Free; Plus $8, Premium $30, Super $100, Ultra $200/mo</td><td>Free; Pro $20, Max $200/mo</td></tr>
         </tbody>
       </table>
 
       <h2>Pricing</h2>
-      <p>Both offer free tiers and land at $20/month for their individual paid plan — but they meter it differently. Cursor moved to <strong>credit-based</strong> billing: Hobby is free with limited completions and agent requests, Pro is $20/mo (or $16/mo annually) with a monthly credit pool, and heavy users step up to Pro+ ($60) or Ultra ($200). Because credits burn faster on frontier models, two developers on the same Pro plan can have very different experiences.</p>
-      <p>Windsurf overhauled its pricing on <strong>March 19, 2026</strong>, retiring credits in favor of daily and weekly quotas and raising Pro from $15 to <strong>$20/mo</strong> (Max is $200/mo, Teams $40/user/mo). Its free tier is unusual in a good way: Tab autocomplete is unlimited and never touches quota, while the Cascade agent and chat run on a light quota that realistically covers two to three days of active coding per period. Start free on both, push a real task through each, and keep the winner — at the same headline price, the deciding factor should be which flow you enjoy.</p>
+      <p>Both offer free plans, but the paid ladders differ. For new customers, Cursor sells <strong>Free</strong> (Agent and Chat with limited usage, limited Tab, no third-party models), <strong>Plus</strong> at $8/mo (Cursor's own models only), <strong>Premium</strong> at $30/mo, <strong>Super</strong> at $100/mo and <strong>Ultra</strong> at $200/mo. Claude and GPT models need Premium or above and are billed at API list price, separate from the plan's pool. The older Hobby, Pro ($20) and Pro+ ($60) plans are legacy plans no longer sold to new customers. Because frontier-model usage is billed on top, two developers on the same plan can see very different bills.</p>
+      <p>Windsurf, now Devin Desktop, runs Free ($0), Pro at <strong>$20/mo</strong> and Max at $200/mo. Its free plan is unusual in a good way: Tab completions and inline edits are unlimited, while agent work runs on a light quota with limited model availability. Start free on both, push a real task through each, and keep the winner; the deciding factor should be which flow you enjoy.</p>
 
       <h2>Verdict</h2>
       <ul>
-        <li><strong><a href="/tool/cursor">Cursor</a></strong> — the most powerful, most popular choice, and the safe default for maximum agentic control.</li>
+        <li><strong><a href="/tool/cursor">Cursor</a></strong> — the more configurable of the two, and our pick if you want maximum agentic control.</li>
         <li><strong>Windsurf, now <a href="/tool/devin-ai">Devin Desktop</a></strong> — a cleaner, guided agent flow that many developers preferred for its calm, coherent sessions; Cognition's relaunch is the version you would install today.</li>
       </ul>
       <p>Either one anchors a great <a href="/blog/complete-vibe-coding-stack-2026">vibe coding stack</a>. The editor is only the first layer, though — see the <a href="/blog/best-ai-tools-for-vibe-coding">best AI tools for vibe coding</a> for the assistant, app builder, and deployment pieces that go around it. You can also browse more options in our <a href="/best/coding">best AI coding tools</a> guide, or compare Cursor with the other big rival in <a href="/blog/cursor-vs-github-copilot">Cursor vs GitHub Copilot</a>.</p>
@@ -334,15 +334,15 @@ export const postsBatch4: BlogPost[] = [
       },
       {
         q: "How much does Windsurf cost?",
-        a: "After the March 19, 2026 overhaul, Windsurf runs Free ($0), Pro ($20/mo, up from $15), Max ($200/mo), Teams ($40/user/mo), and Enterprise. The overhaul retired the old credit system in favor of daily and weekly quotas. On Free, Tab autocomplete is unlimited and never touches quota, but the Cascade agent and chat run dry after roughly two to three days of active coding per period — so serious agent users move to Pro quickly.",
+        a: "Windsurf is now Devin Desktop, and Cognition says its plans and pricing carried over: Free ($0), Pro ($20/mo) and Max ($200/mo). On Free, Tab completions and inline edits are unlimited, while agent work runs on a light quota with limited model availability, so heavy agent users will want Pro. See devin.ai/pricing for current details.",
       },
       {
         q: "How much does Cursor cost?",
-        a: "Hobby is free with limited completions and agent requests, Pro is $20/mo ($16/mo annually) with a monthly credit pool, Pro+ is $60/mo for 3x usage, Ultra is $200/mo for 20x, and Teams is $40/user/mo. Cursor bills by credits rather than a fixed request count, so frontier models deplete your pool faster than economical ones — your real cost depends on how you work.",
+        a: "New customers choose from Free (limited Agent, Chat and Tab, no third-party models), Plus at $8/mo (Cursor's own models only), Premium at $30/mo, Super at $100/mo and Ultra at $200/mo. Claude and GPT models need Premium or above and are billed at API list price, separate from the plan's pool, so your real cost depends on which models you use. Hobby, Pro ($20) and Pro+ ($60) are legacy plans no longer sold to new customers.",
       },
       {
         q: "Is Windsurf the same as Codeium?",
-        a: "Codeium rebranded to Windsurf in late 2024, evolving from an autocomplete extension into a full AI editor, with an agent called Cascade — the direct equivalent of Cursor's Composer. The name changed again after that: Cognition acquired Windsurf in July 2025 and relaunched it as Devin Desktop on June 2, 2026, so codeium.com and windsurf.com both lead to devin.ai/desktop today.",
+        a: "Codeium rebranded to Windsurf in late 2024, evolving from an autocomplete extension into a full AI editor, with an agent called Cascade — the direct equivalent of Cursor's Composer. The name changed again after that: Cognition acquired Windsurf in July 2025 and later renamed it Devin Desktop, which devin.ai/desktop calls \"the new name for Windsurf\".",
       },
       {
         q: "Can I switch between Cursor and Windsurf easily?",
@@ -429,7 +429,7 @@ export const postsBatch4: BlogPost[] = [
       },
       {
         q: "What AI tools do I need to build an app in a weekend?",
-        a: "One per stage: an assistant (Claude or ChatGPT) to shape the idea and cut scope, an app builder (v0 or Bolt.new) to generate clickable screens fast, an AI editor (Cursor) to implement the core flow and wire up auth and data, and Vercel to deploy. Framer is optional for a landing page. Every one of these has a free tier, so the whole stack costs nothing for a first build.",
+        a: "One per stage: an assistant (Claude or ChatGPT) to shape the idea and cut scope, an app builder (v0 or Bolt.new) to generate clickable screens fast, an AI editor (Cursor) to implement the core flow and wire up auth and data, and Vercel to deploy. Framer is optional for a landing page. Every one of these has a free plan, so a first personal build costs nothing; Vercel's free Hobby plan is for personal, non-commercial use, so a commercial launch needs Vercel Pro ($20/mo).",
       },
       {
         q: "Do I need to know how to code to do this?",
@@ -451,14 +451,16 @@ export const postsBatch4: BlogPost[] = [
   },
   {
     slug: "best-ai-tools-for-vibe-coding",
-    title: "Best AI Tools for Vibe Coding in 2026",
+    callout: { kind: "guide", slug: "coding" },
+    relatedStack: "vibe-coding",
+    title: "Best Vibe Coding Tools (2026): What's Free, What Costs Money",
     excerpt:
-      "The best AI tools for vibe coding in 2026: the editors, assistants, app builders, and deploy tools that matter — plus how to build a stack free or for $20.",
+      "Which vibe coding tools are free and which cost money: free plan limits, first paid plans and catches for 12 tools, checked on vendor pages Nov 8, 2026.",
     date: "Jul 18, 2026",
-    updated: "Sep 18, 2026",
+    updated: "Nov 8, 2026",
     author: "David Kim",
     category: "Guide",
-    readTime: "17 min read",
+    readTime: "13 min read",
     image: "/images/blog/cursor-vs-vscode.png",
     tags: [
       "Cursor",
@@ -474,173 +476,134 @@ export const postsBatch4: BlogPost[] = [
       "AI Stack",
     ],
     content: `
-      <p>Vibe coding lives or dies by your tools. You describe what you want, AI writes most of the code, and you steer — but that loop only feels magic when each layer of the stack pulls its weight. These are the <strong>best AI tools for vibe coding in 2026</strong>, grouped by the job they do, with the current versions, models, and prices noted so you know exactly what you're getting.</p>
-      <p>New to the idea itself? Start with <a href="/blog/what-is-vibe-coding">What Is Vibe Coding?</a> and come back. If you already know the shape of it, read on — this is the full stack, layer by layer, plus how to assemble it on a budget and what to build with it first.</p>
+      <p><em>Checked against each vendor's pricing page on November 8, 2026.</em></p>
+      <p>You can start vibe coding for $0. Every tool in the table below has a free way in (for Ollama, that means local models on your own hardware). The catch is that free plans differ far more than their names suggest: one gives you a daily message cap, another will not let you touch the code it wrote, and a third forbids commercial use. Several pricing pages also changed recently, so a lot of what you will read elsewhere, including older versions of this page, is out of date.</p>
+      <p>This guide covers the four layers a vibe coding setup needs, a table of what each tool's free plan gives you and what its first paid plan costs, the specific limits you will hit and when, three ways to start, and when paying actually makes sense. Every price and limit below comes from the vendor's own pricing page, linked in each row. New to the idea? Read <a href="/blog/what-is-vibe-coding">What Is Vibe Coding?</a> first.</p>
 
-      <h2>What makes a tool good for vibe coding?</h2>
-      <p>Plenty of tools have "AI" in the marketing. Only a few genuinely change how fast you ship. The ones that do share five traits, and they're worth naming because they're the filter for everything below.</p>
-      <ul>
-        <li><strong>It works from intent, not syntax.</strong> You describe the outcome — "add a login page with Google auth" — and it produces the change. If you still have to specify every step, it's autocomplete with extra steps.</li>
-        <li><strong>It sees your whole project.</strong> A tool that only knows the file you're in will keep suggesting code that contradicts the rest of your codebase. Repo-wide context is what turns a suggestion engine into a collaborator.</li>
-        <li><strong>It produces real code you own.</strong> This is the line between vibe coding and no-code. When you outgrow a no-code tool you hit a wall; when you outgrow a prompt, you open the file and keep going.</li>
-        <li><strong>It keeps you in the loop.</strong> The good tools show you the diff, let you reject it, and make it cheap to undo. Agents that quietly rewrite half a repo are a liability, not a feature.</li>
-        <li><strong>It hands off cleanly.</strong> No single tool covers the whole loop. The best ones export, sync to GitHub, or drop code into your editor without a fight.</li>
-      </ul>
-      <p>Judge every tool below against those five, and the endless "best AI tool" arguments get a lot quieter.</p>
+      <h2>The four layers you actually need</h2>
+      <p>A working setup has four jobs to cover. You need one tool per job, not one of everything.</p>
+      <h3>1. An AI editor or agent</h3>
+      <p>This is where the code lives and where an agent makes changes across your project. Cursor, Devin Desktop (the editor formerly called Windsurf), GitHub Copilot and Kiro sit here. If you plan to keep a project past the first weekend, this is the layer you will spend the most time in.</p>
+      <h3>2. An app builder</h3>
+      <p>App builders go from a prompt to a running app in the browser with no local setup. v0, Bolt.new, Lovable and Replit sit here. They are the quickest way to see whether an idea works, but each one limits what you can do with the code on its free plan, so read the catches before you build anything you want to keep.</p>
+      <h3>3. A general assistant</h3>
+      <p>Claude or ChatGPT is where you plan a feature, paste an error the agent cannot fix, or ask for a second opinion on a diff. Both also have coding agents of their own (Claude Code and Codex), which is where their free plans differ most.</p>
+      <h3>4. A deploy target</h3>
+      <p>Something has to turn your code into a public URL. Vercel is the common choice for web apps, and some app builders publish for you. The deploy layer is also where "free" most often stops being enough, because hosting terms decide whether you can run a business on it.</p>
 
-      <h2>The stack at a glance</h2>
+      <h2>Free vs paid: every tool in one table</h2>
+      <p>"What the free plan gives" uses each vendor's own wording, shortened. "First paid plan" is the cheapest plan a new customer can buy today. Vendors change these often, so each row links to the pricing page we checked.</p>
       <table>
         <thead>
-          <tr><th>Layer</th><th>What it does</th><th>Top picks</th></tr>
+          <tr><th>Tool</th><th>Free plan</th><th>What the free plan gives (vendor wording)</th><th>First paid plan</th><th>The catch</th></tr>
         </thead>
         <tbody>
-          <tr><td>Editor</td><td>Where you build and where the agent works</td><td>Cursor, GitHub Copilot, Devin Desktop</td></tr>
-          <tr><td>Assistant</td><td>Planning, debugging, code review, writing</td><td>Claude, ChatGPT, Perplexity</td></tr>
-          <tr><td>App builder</td><td>Prompt to running app, no local setup</td><td>v0, Bolt.new, Lovable, Replit</td></tr>
-          <tr><td>Design &amp; media</td><td>Sites, UI, imagery, voice</td><td>Framer, Figma, Midjourney, ElevenLabs</td></tr>
-          <tr><td>Ship &amp; organize</td><td>Deploys, tracking what you're building</td><td>Vercel, Linear, Notion AI</td></tr>
+          <tr><td><a href="/tool/cursor">Cursor</a></td><td>Yes (Free)</td><td>Agent and Chat with limited usage, limited Tab</td><td>Plus, $8/mo (Cursor's own models only)</td><td>No third-party models on Free or Plus. Claude and GPT models need Premium ($30/mo) or above and are billed at API list price, separate from the plan. <a href="https://cursor.com/pricing" target="_blank" rel="noopener">Pricing page</a></td></tr>
+          <tr><td><a href="/tool/devin-ai">Devin Desktop (Windsurf)</a></td><td>Yes ($0)</td><td>A light quota to code with agents, limited model availability, unlimited inline edits, unlimited Tab completions</td><td>Pro, $20/mo</td><td>Free has only a light agent quota and limited model availability. <a href="https://devin.ai/pricing" target="_blank" rel="noopener">Pricing page</a></td></tr>
+          <tr><td><a href="/tool/github-copilot">GitHub Copilot</a></td><td>Yes, no credit card</td><td>2,000 completions per month, entry-level models, Copilot CLI, limited chat and agent usage</td><td>Pro, $10/user/mo</td><td>Completions are capped per month and GitHub says allotments may change over time. <a href="https://github.com/features/copilot/plans" target="_blank" rel="noopener">Pricing page</a></td></tr>
+          <tr><td><a href="/tool/claude">Claude</a></td><td>Yes (Free)</td><td>Some of Claude's models (not the top tier), limited usage every 5 hours and every week; web search, code execution, Artifacts, connectors</td><td>Pro, $20/mo billed monthly ($17/mo billed annually, $200 up front)</td><td>Claude Code is not included in Free; it starts at Pro. <a href="https://claude.com/pricing" target="_blank" rel="noopener">Pricing page</a></td></tr>
+          <tr><td><a href="/tool/chatgpt">ChatGPT (Codex)</a></td><td>Yes (Free)</td><td>Free includes "limited Codex access"</td><td>Go, $8/mo in the US (localised elsewhere)</td><td>Go is the plan that may include ads. Plus is $20/mo. <a href="https://learn.chatgpt.com/docs/pricing" target="_blank" rel="noopener">Pricing page</a></td></tr>
+          <tr><td><a href="/tool/v0-by-vercel">v0</a></td><td>Yes (Free)</td><td>7 messages a day, $5 of one-time credits for new users, Design Mode, GitHub sync, deploy to Vercel</td><td>Plus, $30/user/mo per v0's docs (see the pricing page)</td><td>The 7-message daily cap, and new users get $5 once, not every month. The old Premium plan is closed to new users. <a href="https://v0.app/pricing" target="_blank" rel="noopener">Pricing page</a></td></tr>
+          <tr><td><a href="/tool/bolt-new">Bolt.new</a></td><td>Yes, free forever, no card</td><td>1M tokens a month with a 300K daily limit</td><td>Pro, $25/mo</td><td>Bolt branding on your websites. Pro removes it and adds a custom domain. <a href="https://bolt.new/pricing" target="_blank" rel="noopener">Pricing page</a></td></tr>
+          <tr><td><a href="/tool/lovable">Lovable</a></td><td>Yes (Free)</td><td>5 build credits a day, up to 30 a month; Git sync; publishing to invited people only (up to 10 per project)</td><td>Pro, from $25/mo (100 credits)</td><td>You cannot edit or download code on Free, and there is no custom domain. <a href="https://docs.lovable.dev/introduction/plans-and-credits" target="_blank" rel="noopener">Pricing page</a></td></tr>
+          <tr><td><a href="/tool/replit">Replit</a></td><td>Yes (Starter)</td><td>A daily Agent allowance, limited monthly cloud credits, basic Agent access, one published app</td><td>Core, includes $20 of monthly credits ($18/mo billed annually; check the pricing page for monthly billing)</td><td>One published app on Starter. <a href="https://replit.com/pricing" target="_blank" rel="noopener">Pricing page</a></td></tr>
+          <tr><td><a href="/tool/vercel">Vercel</a></td><td>Yes (Hobby, $0)</td><td>"For personal, non-commercial use"; 1M CDN requests, 100 GB Fast Data Transfer, 1M function invocations and 4 hours of Fluid Active CPU a month, 10 GB deployment storage, 1 seat</td><td>Pro, $20/mo</td><td>Non-commercial only, and Hobby cannot buy extra usage. A real product needs Pro. <a href="https://vercel.com/pricing" target="_blank" rel="noopener">Pricing page</a></td></tr>
+          <tr><td><a href="/tool/ollama">Ollama</a></td><td>Yes, for local models</td><td>Local models are free, with no subscription or service fees, unlimited on your own hardware</td><td>Pro, $20/mo (for cloud models)</td><td>Cloud models are paid per token with usage credits and have a 3-concurrent-request limit. <a href="https://ollama.com/pricing" target="_blank" rel="noopener">Pricing page</a></td></tr>
+          <tr><td>Kiro (AWS)</td><td>Yes (free tier)</td><td>50 credits a month</td><td>Pro, $20/user/mo</td><td>The free tier is 50 credits a month; check the pricing page for what a credit covers. <a href="https://kiro.dev/pricing" target="_blank" rel="noopener">Pricing page</a></td></tr>
         </tbody>
       </table>
-      <p>You need one tool per layer, not all of them. Here's what each layer actually does and how to pick.</p>
+      <p>Two names have moved. Devin Desktop is Windsurf: Cognition's own page calls it "the new name for Windsurf", and windsurf.com/pricing now redirects to devin.ai/pricing. And Cursor's Pro, Pro+, Hobby and Teams plans still appear in many articles, but Cursor lists them as legacy plans that new customers can no longer buy; new customers choose from Free, Plus, Premium ($30/mo), Super ($100/mo) and Ultra ($200/mo).</p>
 
-      <h2>Layer 1: the editor — where you live</h2>
-      <p>The editor is the highest-leverage choice in the stack, because it's where the agent does its work and where you spend your hours. Get this one right and everything else is swappable.</p>
+      <h2>What the free plans cannot do</h2>
+      <p>Each free plan has one limit that decides whether it works for you. Here is each one, framed by when you will run into it.</p>
       <ul>
-        <li><strong><a href="/tool/cursor">Cursor</a></strong> — the default AI-first editor and the safe pick for maximum agentic power. It's a VS Code fork, so your extensions, themes, and keybindings come with you. The July 2026 <strong>3.11</strong> release added a side chat panel, searchable agent transcripts, a Cursor for iOS public beta, and first-class support for xAI's <strong>Grok 4.5</strong>, all riding on the <strong>Composer 2.5</strong> agent. Its "Tab" prediction is the underrated part: it stages multi-line edits and your next likely refactor, not just the next token. Pricing is credit-based — Hobby (free), Pro ($20/mo, or $16/mo annually), Pro+ ($60/mo), Ultra ($200/mo) — so heavy frontier-model use drains the pool faster than economical models.</li>
-        <li><strong><a href="/tool/devin-ai">Devin Desktop</a></strong> — the editor Codeium shipped as Windsurf, also a VS Code fork, known for a cleaner default UI and context handling that keeps long sessions coherent. Cognition acquired it in July 2025 and relaunched it under the Devin name on June 2, 2026; codeium.com and windsurf.com now both redirect to devin.ai/desktop. Cognition calls it the next generation of Windsurf and kept it compatible with Windsurf and VS Code extensions, keybindings, and LSP integrations at launch, so switching is closer to a rename than a migration. Check Cognition's site for current plans — the old Windsurf tiers no longer apply. Our <a href="/blog/cursor-vs-windsurf">Cursor vs Windsurf</a> comparison covers the pre-rebrand editor.</li>
-        <li><strong><a href="/tool/github-copilot">GitHub Copilot</a></strong> — AI inside the editor you already use: VS Code, Visual Studio, JetBrains, Neovim, Xcode and more. Its agent mode is capable and its GitHub-native flow (turn an issue into a pull request) is genuinely strong, and it has the best enterprise controls — SSO, audit logs, policy management, content exclusions. Roughly $10&ndash;20/mo with a free tier. See <a href="/blog/cursor-vs-github-copilot">Cursor vs GitHub Copilot</a>.</li>
-      </ul>
-      <p><strong>How to choose:</strong> if you want the agent to do the heavy lifting and don't mind switching editors, take Cursor. If you need to stay in JetBrains or you're buying for a team with a security review, take Copilot. Devin Desktop is the third option, and the one to follow if it was Windsurf's calmer, more guided flow you liked. Cursor and Copilot both have free tiers, and because Cursor and Devin Desktop are both VS Code forks, trying the other one costs you an afternoon at most.</p>
-
-      <h2>Layer 2: the assistant — your thinking partner</h2>
-      <p>The editor writes the code; the assistant is where you figure out <em>what</em> to build, unstick a bug, and get a second opinion on a design. Most people who vibe code seriously keep one open in a browser tab all day.</p>
-      <ul>
-        <li><strong><a href="/tool/claude">Claude</a></strong> — led by <strong>Claude Opus 5</strong>, Anthropic's recommended starting point for most workloads, with <strong>Claude Fable 5.1</strong> as the escalation tier above it and <strong>Claude Sonnet 5</strong> (June 2026) as the fast default for Free and Pro users. It's the one to reach for when the input is large: a sprawling module, a long spec, a full diff. Claude Code is the companion tool for sustained development work; its parallel "agent teams" mode — experimental and disabled by default until you set an environment variable — coordinates several Claude Code sessions on a single task. Around $20/mo for Pro; the free tier runs on Sonnet 5 and is genuinely strong.</li>
-        <li><strong><a href="/tool/chatgpt">ChatGPT</a></strong> — led by <strong>GPT-6 Astra</strong>, announced September 3, 2026, which OpenAI calls "the world's most intelligent and aligned model" and describes as state of the art on software engineering, computer use, and browsing. The earlier <strong>GPT-5.6</strong> family is still available — Sol (that generation's flagship, with an "ultra" mode that delegates subtasks to smaller models), Terra (balanced default), and Luna (tuned for speed); OpenAI has said Sol at maximum reasoning used 54% fewer output tokens than the next-highest-scoring model on the third-party Artificial Analysis Coding Agent Index, a comparison against a rival model on that index rather than against OpenAI's own earlier releases. Broadest ecosystem by far — custom GPTs, image generation, voice, integrations — plus ChatGPT Work for business use. Around $20/mo for Plus.</li>
-        <li><strong><a href="/tool/perplexity">Perplexity</a></strong> — the research layer. When you need a current, cited answer (which library, which API, is this still true), it beats asking a general assistant and hoping. See <a href="/blog/chatgpt-vs-perplexity">ChatGPT vs Perplexity</a>.</li>
-      </ul>
-      <p><strong>How to choose:</strong> Claude for writing, editing, code review, and long-context reasoning; ChatGPT for integrations, multimodal work, and all-rounder convenience. Both have free tiers good enough to decide with, so run a week of real work through each — see <a href="/blog/chatgpt-vs-claude">ChatGPT vs Claude</a> for the full comparison. Many vibe coders eventually keep both: one to generate, one to review.</p>
-
-      <h2>Layer 3: app builders — prompt to running app</h2>
-      <p>App builders skip the setup entirely. You describe an app, and a few minutes later there's a live URL. They're the fastest way to test an idea, and the fastest way to get a UI you can drop into your editor and finish properly.</p>
-      <ul>
-        <li><strong><a href="/tool/v0-by-vercel">v0 by Vercel</a></strong> — the best output quality for UI. It generates real React + Tailwind (shadcn/ui) components you can paste straight into a codebase, with iterative refinement and one-click deploy. Free ($0, $5 in monthly credits, up to 200 projects, Design Mode, GitHub sync) and Premium ($20/mo, $20 in credits, Figma imports, the v0 API); credits scale with generation complexity, so budget by how much you generate rather than the sticker price.</li>
-        <li><strong><a href="/tool/bolt-new">Bolt.new</a></strong> — full-stack apps in an in-browser environment with a live preview and zero setup. Free gives 1M tokens/month with a 300K daily limit and no credit card, though deployed sites carry Bolt branding and can't use a custom domain; Pro ($25/mo) raises that to 10M+ tokens with rollover, custom domains, and no branding. Tokens are consumed largely by syncing your project to the model, so bigger projects cost more per message.</li>
-        <li><strong><a href="/tool/lovable">Lovable</a></strong> — the most product-minded of the group, and the best pick for non-developers. It turns a plain-language description into a working React + Supabase project (frontend, backend, auth, database) deployed to a live URL, with one-click GitHub connect and full source export — no lock-in. The free tier is generous enough to build a real MVP; paid plans unlock higher message volume, private projects, custom domains, and collaboration.</li>
-        <li><strong><a href="/tool/replit">Replit</a></strong> — a full browser IDE with hosting, databases, and an agent in one place. Replit Agent can build and deploy a working app from a prompt, which makes it a natural home for learning, hackathons, and mobile tinkering. Starter (free) includes 1,200 minutes of development time a month and one published app; Core ($20/mo, or $25 billed monthly) unlocks full Agent access, unlimited apps, and $25 in monthly usage credits.</li>
-      </ul>
-      <p><strong>How to choose:</strong> v0 when you want polished UI to bring into an existing codebase, Bolt.new when you want a full-stack prototype in the browser, Lovable when you're not a developer and want a real deployed MVP, Replit when you want the whole environment — editor, host, database — in one tab. The most common pattern is prototype in a builder, then move the code into Cursor to finish the hard parts. Full comparison: <a href="/blog/ai-app-builders-bolt-v0-lovable">Bolt.new vs v0 vs Lovable</a>, and <a href="/blog/nocode-design-v0">v0 vs Builder.io</a> if your team needs generated UI to respect an existing design system.</p>
-
-      <h2>Models worth knowing about</h2>
-      <p>Even if you access them through the tools above, it helps to know the model landscape. OpenAI's flagship is <strong>GPT-6 Astra</strong> at $10 / $50 per million input/output tokens, with the older <strong>GPT-5.6</strong> family below it — OpenAI's "54% fewer output tokens" claim for Sol was measured against the next-highest-scoring model on the third-party Artificial Analysis Coding Agent Index, not against OpenAI's own previous generation. Anthropic's <strong>Claude Opus 5</strong>, <strong>Fable 5.1</strong> and <strong>Sonnet 5</strong>, and xAI's <strong>Grok 4.6</strong> — which xAI says builds on Grok 4.5, the model co-trained on Cursor usage data, with a particular focus on long-running agents and more ambitious interactive and visual work — round out the frontier for building. Google's Pro tier is now <strong>Gemini 3.1 Pro</strong> — still marked Preview on Google's model list, where <strong>Gemini 3 Pro</strong> no longer appears — and <strong>Gemini 3.8 Flash</strong> is a fast, capable choice for agentic and coding work (see our <a href="/blog/gemini-3-pro-deep-dive">Gemini Pro deep dive</a> for which tier to pick), and if you want open weights, Meta's <strong>Llama 5</strong> (600B parameters, 5M-token context) is self-hostable. For a head-to-head on the two that matter most for building, see <a href="/blog/gpt-5-3-codex-vs-claude-4-6">GPT-5.6 vs Claude Fable 5.1</a>.</p>
-
-      <h2>Layer 4: supporting tools — design, media, and voice</h2>
-      <p>These are situational. Add them the day a project actually needs one, not before — but when you need them, the gap they fill is one an editor and an assistant can't cover.</p>
-      <ul>
-        <li><strong><a href="/tool/framer">Framer</a></strong> — the fastest route to a real marketing site or landing page. AI Wireframer generates layouts from a prompt and AI Workshop assists with code, while hosting, CMS, and SEO basics are handled for you. Free (with Framer branding and a subdomain), Basic ($10/mo annually, removes branding and adds a custom domain), Pro ($30/mo annually).</li>
-        <li><strong><a href="/tool/figma">Figma</a></strong> — for app UI and design systems rather than published sites. Starter is free but capped at three design files; Professional is $16/user/mo. Worth it once you're designing screens deliberately instead of prompting your way to them.</li>
-        <li><strong><a href="/tool/midjourney">Midjourney</a></strong> — the image model with the most distinctive aesthetic, now on V7 with Omni Reference for character consistency. Great for hero imagery, illustration, and anything that needs to look intentional. No free tier.</li>
-        <li><strong><a href="/tool/elevenlabs">ElevenLabs</a></strong> — realistic AI voice if your product needs audio. Free gives 10,000 credits a month (roughly ten minutes, no commercial rights), Starter is $5/mo with commercial rights and instant voice cloning, Creator $22/mo for 100,000 characters. See our <a href="/blog/elevenlabs-review">ElevenLabs review</a>.</li>
+        <li><strong>v0: 7 messages a day.</strong> You will hit this on the first real afternoon of iterating on a UI. New users also get $5 of credits once, not monthly, so the free plan is a trial run for a screen or two, not a place to build a whole app.</li>
+        <li><strong>Lovable: no code editing or downloading, and private publishing.</strong> You will hit this the moment you want to change a line by hand or take the code elsewhere. Git sync is included on Free, but publishing is limited to people you invite (up to 10 per project) and there is no custom domain, so you cannot launch to the public on Free.</li>
+        <li><strong>Vercel Hobby: non-commercial use only.</strong> You will hit this the day the project makes money or is built for a business. Vercel describes Hobby as "for personal, non-commercial use", and Hobby cannot buy extra usage when you exceed its monthly limits. A paying product belongs on Pro ($20/mo).</li>
+        <li><strong>Claude: no Claude Code on Free.</strong> You will hit this as soon as you want Claude's agent working inside your repository rather than in a chat window. Claude Code starts at Pro. The free chat plan is still useful for planning and debugging, within its 5-hour and weekly usage limits.</li>
+        <li><strong>Bolt.new: branding and token caps.</strong> You will hit the 300K daily token limit on a long build session, and the branding the day you want to show the site to customers. Pro ($25/mo) removes the daily limit and the branding and adds a custom domain.</li>
+        <li><strong>Replit: one published app.</strong> You will hit this when you want a second project live at the same time. Starter also has only a daily Agent allowance and limited monthly cloud credits.</li>
+        <li><strong>Cursor Free: no third-party models.</strong> You will hit this if you want Claude or GPT models inside Cursor. They are not on Free or Plus; Cursor requires Premium or above and bills them at API list price on top of the plan.</li>
+        <li><strong>GitHub Copilot Free: 2,000 completions a month.</strong> You will hit this in steady daily use, and chat and agent usage are limited too. Pro is $10/user/mo.</li>
       </ul>
 
-      <h2>Layer 5: ship and organize</h2>
-      <p>The least glamorous layer, and the one that decides whether a weekend prototype becomes something people can actually use.</p>
+      <h2>Three ways to start</h2>
+      <p>Each of these uses only the plans in the table above. Totals add the listed monthly prices and nothing else.</p>
+
+      <h3>1. The $0 stack: editor, assistant, deploy</h3>
+      <p>Use <a href="/tool/cursor">Cursor</a> Free as your editor, <a href="/tool/claude">Claude</a> Free for planning and debugging, and <a href="/tool/vercel">Vercel</a> Hobby to deploy. That is the same three tools as our <a href="/stack/vibe-coding">Vibe Coding Stack</a>, on their free plans. Total: $0 a month.</p>
+      <p>What you give up: Cursor Free has limited Agent, Chat and Tab usage and no third-party models; Claude Free has 5-hour and weekly limits and no Claude Code; Vercel Hobby is for personal, non-commercial projects only. If you prefer to stay in VS Code, swap Cursor for <a href="/tool/github-copilot">GitHub Copilot</a> Free (2,000 completions a month); if you want unlimited Tab completions, try <a href="/tool/devin-ai">Devin Desktop</a> Free. Either way the total stays $0. For comparison, see <a href="/compare/cursor-vs-github-copilot">Cursor vs GitHub Copilot</a>.</p>
+
+      <h3>2. App builder first</h3>
+      <p>If you would rather not set up an editor yet, start in a builder. Our <a href="/stack/weekend-build">Weekend Build Stack</a> uses <a href="/tool/claude">Claude</a> to shape the idea, <a href="/tool/bolt-new">Bolt.new</a> to build the app in the browser, and <a href="/tool/vercel">Vercel</a> to deploy it. On free plans that costs $0, with Bolt branding on the site and Vercel Hobby's non-commercial rule.</p>
+      <p>Which builder to pick, based on the free plans: Bolt.new if you want a monthly token allowance (1M tokens a month, 300K a day); <a href="/tool/v0-by-vercel">v0</a> if you mainly need UI and are happy with 7 messages a day; <a href="/tool/replit">Replit</a> if you want one published app hosted in the same place you build it; <a href="/tool/lovable">Lovable</a> only if you are fine not editing or downloading the code until you pay. Our judgment, based on those limits: plan to move the code into an editor once the idea proves itself, because every builder's free plan caps how far one project can go. Side by side: <a href="/compare/v0-by-vercel-vs-bolt-new">v0 vs Bolt.new</a> and <a href="/compare/cursor-vs-replit">Cursor vs Replit</a>.</p>
+
+      <h3>3. Around $20 a month: pay for one layer</h3>
+      <p>Pay for the one layer whose limit you hit first, and keep everything else free. Three verified ways to spend about $20:</p>
       <ul>
-        <li><strong><a href="/tool/vercel">Vercel</a></strong> — deploys most modern web apps in minutes with a preview link on every push, so you can share a working URL before the feature is even finished. The free tier is generous enough for real side projects.</li>
-        <li><strong><a href="/tool/linear">Linear</a></strong> — when the "just one more thing" list outgrows your head. Fast, keyboard-first issue tracking with AI triage. Free supports unlimited members with an issue cap; Basic is around $8/user/mo and Business around $14/user/mo.</li>
-        <li><strong><a href="/tool/notion-ai">Notion AI</a></strong> — for specs, notes, and the docs you'll paste into your assistant later. Since May 2025 the separate AI add-on is gone and full AI access is folded into the Business plan ($20/user/mo), including Agents and "Ask Notion" across your workspace.</li>
+        <li><strong>Claude Pro ($20/mo billed monthly) + Copilot Free or Devin Desktop Free + Vercel Hobby = $20/mo.</strong> This is the option that unlocks Claude Code, the agent that works in your repository. Billed annually, Claude Pro is $17/mo ($200 up front).</li>
+        <li><strong>Devin Desktop Pro ($20/mo) + Claude Free + Vercel Hobby = $20/mo.</strong> Choose this if the editor's agent quota is what keeps stopping you.</li>
+        <li><strong>ChatGPT Plus ($20/mo) + Copilot Free + Vercel Hobby = $20/mo.</strong> Choose this if you already work in ChatGPT and want more than Free's limited Codex access.</li>
       </ul>
-      <p>Git and GitHub belong in this layer too, and they're free. Commit before every agent run and your undo button is always one command away.</p>
+      <p>If you want something cheaper, Copilot Pro is $10/user/mo and Cursor Plus is $8/mo (Cursor's own models only). If the project is commercial, add Vercel Pro at $20/mo to any of these, which makes the total $40/mo. See <a href="/compare/chatgpt-vs-claude">ChatGPT vs Claude</a> if you are choosing between the two assistants.</p>
 
-      <h2>How to assemble a stack by budget</h2>
-      <p>You do not need to spend money to vibe code well. What you buy with a subscription is mostly the removal of limits that interrupt your flow — so upgrade when a cap starts costing you time, not before. Three realistic tiers:</p>
-
-      <h3>Free ($0/month)</h3>
-      <p>A complete loop, genuinely. Use <strong>Cursor Hobby</strong> as your editor, or <strong>GitHub Copilot</strong>'s free tier if you would rather stay in the editor you already have. Add <strong>Claude</strong>'s free tier, which runs on Sonnet 5, or <strong>ChatGPT</strong>'s free tier for planning and debugging. Use <strong>v0 Free</strong> ($5 in monthly credits) or <strong>Bolt.new Free</strong> (1M tokens a month, no credit card) when you want to start from a running app. Ship on <strong>Vercel</strong>'s free tier, version with git. Total: nothing. This is enough to build and launch a real project — the constraint is agent quota, not capability.</p>
-
-      <h3>About $20/month</h3>
-      <p>Buy exactly one upgrade: the layer you hit limits in first. For most people that's the editor — <strong>Cursor Pro</strong> ($20/mo, $16 annually) removes the interruptions that break flow during a long build session. If you spend more time planning and debugging in chat than in the agent, spend the $20 on <strong>Claude Pro</strong> or <strong>ChatGPT Plus</strong> instead and stay on the free editor tier. One paid tool, chosen honestly, beats three half-used ones.</p>
-
-      <h3>$50+/month</h3>
-      <p>Now you're building regularly and each tool earns its keep. The common shape is <strong>editor Pro ($20) + assistant Pro ($20)</strong> — roughly $40&ndash;60/month all in — which is the sweet spot for a solo builder shipping weekly. Past that, add capability rather than duplicates: an app builder you actually use (<strong>v0 Premium</strong> at $20/mo or <strong>Bolt Pro</strong> at $25/mo), <strong>Framer Basic</strong> ($10/mo annually) if you're publishing landing pages, or a second assistant so you can generate with one and review with the other. Heavy agent users step up within a tool instead — Cursor Pro+ at $60/mo or Ultra at $200/mo.</p>
-
-      <table>
-        <thead>
-          <tr><th>Budget</th><th>Editor</th><th>Assistant</th><th>App builder</th><th>Ship</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>$0</td><td>Cursor Hobby / Copilot Free</td><td>Claude or ChatGPT free tier</td><td>v0 Free / Bolt Free</td><td>Vercel free + git</td></tr>
-          <tr><td>~$20/mo</td><td>Cursor Pro ($20)</td><td>Free tier</td><td>Free tier</td><td>Vercel free</td></tr>
-          <tr><td>~$40&ndash;60/mo</td><td>Cursor Pro ($20)</td><td>Claude Pro or ChatGPT Plus ($20)</td><td>Free tier</td><td>Vercel free</td></tr>
-          <tr><td>$80&ndash;120/mo</td><td>Editor Pro ($20)</td><td>Both assistants ($40)</td><td>v0 Premium ($20) or Bolt Pro ($25)</td><td>Framer Basic ($10)</td></tr>
-        </tbody>
-      </table>
-      <p>Prices are the current individual rates at the time of writing; annual billing is cheaper on most of these. The pattern that matters more than the numbers: start free, upgrade the layer that's blocking you, and re-evaluate monthly.</p>
-
-      <h2>Don't forget the fundamentals</h2>
-      <p>The AI tools get the headlines, but a few unglamorous basics keep vibe coding from turning into a mess. Use git and commit often so any agent run is reversible. Keep a host like Vercel wired up so shipping is never a blocker. And lean on your assistant for the parts people skip — writing tests, reviewing security, and explaining unfamiliar code. These aren't separate from vibe coding; they're what makes it sustainable past the first prototype.</p>
-
-      <h2>The core tools compared</h2>
-      <table>
-        <thead>
-          <tr><th>Tool</th><th>Layer</th><th>Best for</th><th>Free tier</th><th>Paid from</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><a href="/tool/cursor">Cursor</a></td><td>Editor</td><td>Maximum agentic power, repo-wide edits</td><td>Yes (Hobby)</td><td>$20/mo Pro</td></tr>
-          <tr><td><a href="/tool/github-copilot">GitHub Copilot</a></td><td>Editor</td><td>Staying in your current IDE; team controls</td><td>Yes</td><td>~$10&ndash;20/mo</td></tr>
-          <tr><td><a href="/tool/claude">Claude</a></td><td>Assistant</td><td>Writing, code review, long-context work</td><td>Yes (Sonnet 5)</td><td>~$20/mo Pro</td></tr>
-          <tr><td><a href="/tool/chatgpt">ChatGPT</a></td><td>Assistant</td><td>Ecosystem, multimodal, all-round convenience</td><td>Yes</td><td>~$20/mo Plus</td></tr>
-          <tr><td><a href="/tool/v0-by-vercel">v0 by Vercel</a></td><td>App builder</td><td>Production-quality React + Tailwind UI</td><td>Yes ($5 credits)</td><td>$20/mo Premium</td></tr>
-          <tr><td><a href="/tool/bolt-new">Bolt.new</a></td><td>App builder</td><td>Full-stack prototypes in the browser</td><td>Yes (1M tokens)</td><td>$25/mo Pro</td></tr>
-          <tr><td><a href="/tool/lovable">Lovable</a></td><td>App builder</td><td>Non-developers shipping a real MVP</td><td>Yes</td><td>Paid tiers</td></tr>
-          <tr><td><a href="/tool/replit">Replit</a></td><td>App builder</td><td>All-in-one browser IDE, host, and agent</td><td>Yes (1,200 min)</td><td>$20/mo Core</td></tr>
-          <tr><td><a href="/tool/framer">Framer</a></td><td>Design</td><td>Publishing a polished marketing site</td><td>Yes (branded)</td><td>$10/mo Basic</td></tr>
-          <tr><td><a href="/tool/vercel">Vercel</a></td><td>Ship</td><td>Deploys with preview links on every push</td><td>Yes</td><td>Paid tiers</td></tr>
-        </tbody>
-      </table>
-
-      <h2>Your first weekend with the stack</h2>
-      <p>Reading about tools is the slowest way to learn them. Here's the compressed version of our <a href="/blog/build-app-in-a-weekend-ai-stack">weekend build playbook</a> — enough to go from nothing to a deployed app in two days.</p>
+      <h2>Setup order: blank editor to live URL</h2>
       <ol>
-        <li><strong>Friday night — shape it.</strong> Talk the idea through with <a href="/tool/claude">Claude</a> or <a href="/tool/chatgpt">ChatGPT</a>: who it's for, the one core flow, the simplest version worth shipping. Then cut scope until the app fits in one sentence. This is the step that decides whether you finish.</li>
-        <li><strong>Saturday morning — generate the UI.</strong> Use <a href="/tool/v0-by-vercel">v0</a> for screens you'll paste into a codebase, or <a href="/tool/bolt-new">Bolt.new</a> for a full-stack starter with a live preview. You want something clickable within the hour — skeleton, not polish.</li>
-        <li><strong>Saturday afternoon — build the core.</strong> Move into <a href="/tool/cursor">Cursor</a> or <a href="/tool/devin-ai">Devin Desktop</a> and describe the core flow. Let the agent wire up state, routes, and data. Review every change and run the app after each step so a bug can't hide three prompts deep.</li>
-        <li><strong>Sunday morning — connect the real pieces.</strong> Auth, a real database, any external API. Describe each integration to the agent, then test the unhappy paths: failed requests, empty fields, logged-out users.</li>
-        <li><strong>Sunday afternoon — ship.</strong> A quick landing page in <a href="/tool/framer">Framer</a>, deploy on <a href="/tool/vercel">Vercel</a>, launch copy from your assistant. Resist one more feature. A shipped small app beats an unshipped ambitious one.</li>
+        <li><strong>Install an editor.</strong> Pick one from the table (Cursor, Devin Desktop, or Copilot inside VS Code) and open an empty folder. Put it under git from the first minute so any agent change can be undone.</li>
+        <li><strong>Open an assistant in a browser tab.</strong> Claude Free or ChatGPT Free. Use it to write a one-paragraph spec: who the app is for, the one thing it does, and what you are leaving out.</li>
+        <li><strong>Build the first feature with the agent.</strong> Paste the spec into the editor's agent, ask for the smallest working version, and run the app after every change. Review each diff before accepting it. If you would rather start from a running app, generate it in a builder first (see <a href="/compare/cursor-vs-v0-by-vercel">Cursor vs v0</a>) and bring the code over.</li>
+        <li><strong>Deploy.</strong> Connect the repository to Vercel and push. Hobby is fine while the project is personal and non-commercial.</li>
+        <li><strong>Pay only when a limit stops you.</strong> Note which cap you keep hitting, then use the rules below to decide what, if anything, to buy.</li>
       </ol>
-      <p>Commit at every stage. The whole reason you can move this fast is that a bad agent run is a <code>git reset</code> away rather than a lost afternoon.</p>
 
-      <h2>Where to start if you're new</h2>
-      <p>Overwhelmed by the list? Start with exactly three tools: <a href="/tool/cursor">Cursor</a> as your editor, one assistant (<a href="/tool/claude">Claude</a> or <a href="/tool/chatgpt">ChatGPT</a>), and <a href="/tool/vercel">Vercel</a> to deploy. That's a complete loop — build, review, ship — and it's free to try. Add an app builder the first time you want to skip setup and start from a running app, and add design or voice tools the day a specific project needs them. The fastest way to learn the stack isn't reading about more tools; it's shipping one small thing with a few. Everything else you can add later, once you feel the gap it fills.</p>
+      <h2>When to pay</h2>
+      <p>Pay when a specific limit blocks something you need, not because a plan sounds better. These are the triggers that matter:</p>
+      <ul>
+        <li><strong>The project is commercial.</strong> Move from Vercel Hobby to Pro ($20/mo). Hobby is for personal, non-commercial use, so this is a terms question, not a traffic question.</li>
+        <li><strong>You need a custom domain on a builder-hosted site.</strong> Bolt.new Pro ($25/mo) adds one and removes the branding. Lovable's free plan has no custom domain; its Pro plan starts at $25/mo.</li>
+        <li><strong>You need to edit or own the code from Lovable.</strong> Editing and downloading code are not on Lovable's free plan.</li>
+        <li><strong>You keep running out of daily allowance.</strong> v0 Free stops at 7 messages a day and Bolt.new Free at 300K tokens a day. If that happens every session, either pay for that builder or move the project into an editor.</li>
+        <li><strong>You want Claude Code.</strong> It needs Claude Pro ($20/mo billed monthly) or higher.</li>
+        <li><strong>You want Claude or GPT models inside Cursor.</strong> That needs Cursor Premium ($30/mo) or above, plus API list-price usage on top. Our judgment: if that is the main reason to pay, compare it with paying for Claude Pro or ChatGPT Plus directly before deciding.</li>
+      </ul>
 
-      <h2>Put it together</h2>
-      <p>You don't need all of these — pick one per layer and go. The best stack in 2026 isn't the most impressive one; it's the smallest one that gets you from idea to shipped without friction. Start with an editor, an assistant, and a place to deploy, then add a layer the day you feel its absence.</p>
-      <p>Next steps: read <a href="/blog/complete-vibe-coding-stack-2026">The Complete Vibe Coding Stack for 2026</a> for the recommended combo, walk through a real build in <a href="/blog/build-app-in-a-weekend-ai-stack">How to Build an App in a Weekend</a>, brush up on the fundamentals in <a href="/blog/what-is-vibe-coding">What Is Vibe Coding?</a>, or <a href="/build">take the quiz</a> for a personalized stack. You can also browse everything in our <a href="/best/coding">best AI coding tools</a> and <a href="/best/design">best AI design tools</a> guides.</p>
+      <h2>Avoid starting here</h2>
+      <p>These tools still appear in many lists, but they are a poor place to begin today:</p>
+      <ul>
+        <li><strong><a href="https://developers.google.com/gemini-code-assist/docs/deprecations/code-assist-individuals" target="_blank" rel="noopener">Gemini Code Assist for individuals</a>.</strong> Google says that starting June 18, 2026 the IDE extensions stopped serving requests for the individual, AI Pro and AI Ultra tiers, and points users to Antigravity.</li>
+        <li><strong><a href="https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/q-developer-ide-end-of-support.html" target="_blank" rel="noopener">Amazon Q Developer IDE plugins</a>.</strong> AWS says it will discontinue support for the Q Developer IDE plugins on April 30, 2027, and points to Kiro. The pricing page still lists a Free tier (50 agentic requests a month) and Pro at $19/user/mo, but starting there means planning a move within months.</li>
+        <li><strong>Tabnine.</strong> Its public pricing URL now redirects to a contact-sales page. There is no public price we could verify; check with the vendor.</li>
+        <li><strong>Cody (Sourcegraph).</strong> Sourcegraph's pricing page lists only an Enterprise plan with a minimum annual contract. No Cody plan or free plan is listed.</li>
+      </ul>
+
+      <h2>How we check this</h2>
+      <p>Every price, plan name and free-plan limit on this page was checked against the vendor's own pricing or documentation page on November 8, 2026, and each table row links to the page we used. Where a vendor's pages disagree (v0's pricing page shows a figure that its docs do not explain), we say so and use the documented number. Where we could not verify a price, we say that instead of estimating one.</p>
+      <p>What we did not do: we did not benchmark model quality or compare code output between tools, so nothing here ranks tools on how good their AI is. Prices and allowances change, sometimes without notice (GitHub says its allotments "may change over time"), so check the vendor's pricing page before you buy. For a broader ranking of coding tools, see our <a href="/best/coding">best AI coding tools</a> guide.</p>
     `,
     faq: [
       {
-        q: "What tools do I need to start vibe coding?",
-        a: "Three, and all of them have free tiers: an AI-first editor (Cursor), an assistant for planning and debugging (Claude or ChatGPT), and somewhere to deploy (Vercel, plus git for version control). That's a complete loop — build, review, ship. Add an app builder like v0 or Bolt.new the first time you want to skip setup and start from a running app.",
+        q: "Is vibe coding free?",
+        a: "You can start for $0. Cursor, Devin Desktop, GitHub Copilot, Claude, ChatGPT, v0, Bolt.new, Lovable, Replit, Vercel and Kiro all have free plans, and Ollama is free for local models on your own hardware. The free plans have real limits, though: for example v0 allows 7 messages a day, Lovable does not let you edit or download code, and Vercel Hobby is for personal, non-commercial use only.",
       },
       {
-        q: "What is the best AI tool for vibe coding in 2026?",
-        a: "For most people, Cursor. It's the AI-first editor with the most mature agent — Composer 2.5, with repo-wide context, terminal execution, and Tab prediction that stages your next edit — and the July 2026 3.11 release added a side chat, searchable agent transcripts, and an iOS beta. Devin Desktop — the editor Codeium launched as Windsurf, relaunched under Cognition in June 2026 — is the main alternative if you prefer a calmer, more guided flow, and GitHub Copilot is the pick if you need to stay in JetBrains or need enterprise controls.",
+        q: "What is the cheapest way to start vibe coding?",
+        a: "A $0 stack: Cursor Free (or GitHub Copilot Free, or Devin Desktop Free) as the editor, Claude Free or ChatGPT Free as the assistant, and Vercel Hobby to deploy a personal project. If you want to pay for one thing, the cheapest verified paid plans here are Cursor Plus at $8/mo (Cursor's own models only), ChatGPT Go at $8/mo in the US, and Copilot Pro at $10/user/mo. Checked against vendor pricing pages on November 8, 2026.",
       },
       {
-        q: "How much does a vibe coding stack cost?",
-        a: "Anywhere from $0 to about $120/month. Free tiers of an editor, an assistant, an app builder, and Vercel are genuinely enough to ship a real project. One paid upgrade — usually the editor at $20/mo — removes the limits that interrupt flow. A solo builder shipping weekly typically runs editor Pro plus assistant Pro at roughly $40–60/month, and a full stack with an app builder and Framer lands around $80–120.",
+        q: "Is Cursor still free?",
+        a: "Yes. New customers get Cursor's Free plan, which includes Agent and Chat with limited usage and limited Tab. Third-party models such as Claude and GPT are not on Free; they need Premium ($30/mo) or above and are billed at API list price. The old Pro, Pro+, Hobby and Teams plans are legacy plans that new customers can no longer buy; the cheapest paid plan for new customers is Plus at $8/mo.",
       },
       {
-        q: "Can I vibe code without knowing how to code?",
-        a: "You can get started, yes — Lovable and Bolt.new let non-developers turn a description into a working, deployed app. But you'll hit a ceiling fast if you can't read what the AI produces. The skill that matters is shifting from writing code to specifying intent clearly and reviewing output sharply; if you can't tell what a change does, ask the AI to explain it before moving on.",
+        q: "Is Windsurf now Devin Desktop?",
+        a: "Yes. Cognition's devin.ai/desktop page calls Devin Desktop \"the new name for Windsurf\", and windsurf.com/pricing redirects to devin.ai/pricing. The Free plan ($0) includes a light agent quota, limited model availability, unlimited inline edits and unlimited Tab completions. Pro is $20/mo and Max is $200/mo.",
       },
       {
-        q: "Do I need both Claude and ChatGPT?",
-        a: "Not at first. Pick one based on your work: Claude for writing, editing, code review, and long-context reasoning; ChatGPT for integrations, multimodal features, and all-round convenience. Both free tiers are strong enough to decide with. Plenty of people eventually pay for both and use one to generate and the other to review, but that's an optimization, not a starting requirement.",
+        q: "Can I use Claude Code on the free plan?",
+        a: "No. Claude Code is not included in Claude's Free plan. It is available on Pro ($20/mo billed monthly, or $17/mo billed annually at $200 up front), Max ($100/mo) and Ultra ($200/mo). Claude Free still covers chat with web search, code execution, Artifacts and connectors, with usage limits every 5 hours and every week.",
       },
       {
-        q: "What's the difference between an AI editor and an app builder?",
-        a: "An AI editor (Cursor, GitHub Copilot, Devin Desktop) works on code on your machine, with your repo, your git history, and full control — it's where you finish real projects. An app builder (v0, Bolt.new, Lovable, Replit) runs in the browser and goes from prompt to a running app with no setup, which is unbeatable for prototypes and first drafts. The common workflow is to prototype in a builder and then move the code into an editor to finish the hard parts.",
+        q: "Is Vercel Hobby OK for a real product?",
+        a: "Not for a commercial one. Vercel describes Hobby as \"for personal, non-commercial use\", and Hobby cannot buy extra usage beyond its monthly limits. A product that makes money or serves a business needs Vercel Pro, which is $20/mo. Hobby is fine for personal, non-commercial projects.",
       },
     ],
   },

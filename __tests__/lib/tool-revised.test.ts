@@ -36,7 +36,9 @@ describe("toolLastRevised", () => {
     // 11 live tools are in exactly this state: the September audit touched
     // the DB row after the editorial date was written, so the DB half of the
     // max() — not the hand-maintained map — is what should win.
-    const slug = "lovable";
+    // ("descript" is still on its 2026-09-16 override; "lovable" was used here
+    // until its copy was revised on 2026-11-08, after this fixture date.)
+    const slug = "descript";
     const override = TOOL_CONTENT_REVISED_BY_SLUG[slug];
     expect(override).toBeTruthy();
 

@@ -223,7 +223,7 @@ export const TOOL_EXTENDED_CONTENT_B2: Record<string, ToolExtendedContent> = {
 
             <h3>As a general assistant it is mid-pack, and that is fine</h3>
 
-            <p>Outside AWS-shaped work, Q Developer is competent rather than exciting. Inline suggestions, chat, test generation, documentation, and an agentic mode that takes a task and edits multiple files all work, and developers who have used both consistently rate its everyday fluency below <a href="/tool/cursor">Cursor</a>. The free individual tier — usable with a Builder ID, without an AWS account attached — means this does not have to be an either/or. Plenty of people keep it installed for the AWS half of the job and drive something else for the rest, which is a perfectly sane arrangement and arguably the intended one. If that broader comparison is what you are actually resolving, <a href="/compare/cursor-vs-amazon-q-developer">Cursor versus Amazon Q Developer</a> takes it head-on, and <a href="/blog/cursor-vs-github-copilot">Cursor versus Copilot</a> covers the assistant you will probably pair it with.</p>
+            <p>Outside AWS-shaped work, Q Developer is competent rather than exciting. Inline suggestions, chat, test generation, documentation, and an agentic mode that takes a task and edits multiple files all work, and developers who have used both consistently rate its everyday fluency below <a href="/tool/cursor">Cursor</a>. The free individual tier — usable with a Builder ID, without an AWS account attached — means this does not have to be an either/or. Plenty of people keep it installed for the AWS half of the job and drive something else for the rest, which is a perfectly sane arrangement and arguably the intended one. One date to plan around: AWS says it will discontinue support for the Q Developer IDE plugins on April 30, 2027 and points to Kiro. If that broader comparison is what you are actually resolving, <a href="/compare/cursor-vs-amazon-q-developer">Cursor versus Amazon Q Developer</a> takes it head-on, and <a href="/blog/cursor-vs-github-copilot">Cursor versus Copilot</a> covers the assistant you will probably pair it with.</p>
 
             <h3>When there is no reason to evaluate it</h3>
 
@@ -258,7 +258,7 @@ export const TOOL_EXTENDED_CONTENT_B2: Record<string, ToolExtendedContent> = {
             },
         ],
         pricingDetail:
-            "Amazon Q Developer follows a freemium model with a genuinely strong free tier for individual developers, covering everyday chat, code suggestions, and a monthly allowance of the larger transformation and agentic features. The free tier works with a personal Builder ID, so a developer can try it without an AWS account at all. A paid Pro tier, billed per user and appearing on the organization's existing AWS invoice, raises usage limits and adds the administrative and policy controls a company needs to standardize on it — the current feature split between tiers moves often enough that it is worth checking AWS's own page rather than trusting any summary. As with most usage-metered AI coding tools, the free tier is enough for regular individual use, while teams running frequent large-scale transformations or requiring centralized management need the paid tier.",
+            "Amazon Q Developer follows a freemium model. AWS's pricing page still lists a Free tier (50 agentic requests per month) and Pro at $19/user/mo. The free tier works with a personal Builder ID, so a developer can try it without an AWS account at all. The paid Pro tier appears on the organization's existing AWS invoice, raises usage limits, and adds the administrative and policy controls a company needs to standardize on it; the current feature split between tiers moves often enough that it is worth checking AWS's own page rather than trusting any summary. Before standardizing, weigh the support date: AWS says it will discontinue support for the Q Developer IDE plugins on April 30, 2027 and points to Kiro.",
         faq: [
             {
                 q: "Is Amazon Q Developer worth using if we are not on AWS?",
@@ -266,7 +266,7 @@ export const TOOL_EXTENDED_CONTENT_B2: Record<string, ToolExtendedContent> = {
             },
             {
                 q: "Is it free?",
-                a: "There is a free individual tier that is generous relative to competitors, covering chat, code suggestions, and a monthly allocation of the heavier agentic and transformation features. It works with a personal Builder ID, so you do not need an AWS account to try it. The paid Pro tier adds higher limits and enterprise controls.",
+                a: "There is a free individual tier: AWS's pricing page lists 50 agentic requests per month on Free. It works with a personal Builder ID, so you do not need an AWS account to try it. The paid Pro tier, at $19/user/mo, adds higher limits and enterprise controls. Note that AWS says it will discontinue support for the Q Developer IDE plugins on April 30, 2027 and points to Kiro.",
             },
             {
                 q: "Does it only work in the AWS console?",

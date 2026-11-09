@@ -46,7 +46,7 @@ export const postsBatch3: BlogPost[] = [
       <p>Copilot wins on reach. It works across many editors and has mature enterprise controls — SSO, audit logs, policy management — plus deep integration with the GitHub platform your team may already run on. If your org is standardized on JetBrains, has strict procurement requirements, or wants AI review baked into pull requests, Copilot is the safer institutional choice.</p>
 
       <h2>Pricing & feature comparison</h2>
-      <p>Both sit in the roughly $20/month range for individuals, and both have free tiers to try first. Here's a quick side-by-side — and our <a href="/compare/cursor-vs-github-copilot">Cursor vs GitHub Copilot comparison page</a> keeps the full spec, pricing, and feature data up to date:</p>
+      <p>Both have free tiers to try first, and their paid ladders differ: Cursor sells new customers Plus at $8/mo (Cursor's own models only) and Premium at $30/mo (needed for Claude and GPT models, billed at API list price on top), while Copilot Pro is $10/user/mo and Pro+ is $39. Here's a quick side-by-side — and our <a href="/compare/cursor-vs-github-copilot">Cursor vs GitHub Copilot comparison page</a> keeps the full spec, pricing, and feature data up to date:</p>
       <table>
         <thead>
           <tr><th>Feature</th><th>Cursor</th><th>GitHub Copilot</th></tr>
@@ -58,7 +58,7 @@ export const postsBatch3: BlogPost[] = [
           <tr><td>Editor coverage</td><td>Its own editor + iOS public beta</td><td>VS Code, JetBrains, Neovim, Xcode, more</td></tr>
           <tr><td>Model choice</td><td>Frontier models from OpenAI, Anthropic and xAI (Grok added in 3.11)</td><td>Frontier models from OpenAI, Anthropic, Google and more</td></tr>
           <tr><td>Free tier</td><td>Yes</td><td>Yes</td></tr>
-          <tr><td>Individual price</td><td>~$20/mo</td><td>~$10&ndash;20/mo</td></tr>
+          <tr><td>Individual price</td><td>Plus $8/mo, Premium $30/mo, Super $100/mo, Ultra $200/mo</td><td>Pro $10/user/mo, Pro+ $39, Max $100</td></tr>
           <tr><td>Best for</td><td>Maximum agentic power</td><td>AI inside your current setup</td></tr>
         </tbody>
       </table>
@@ -75,7 +75,7 @@ export const postsBatch3: BlogPost[] = [
         <li><strong>Choose <a href="/tool/github-copilot">GitHub Copilot</a></strong> if you want AI inside your current editor with broad coverage, enterprise controls, and tight GitHub integration. It's the safer choice for larger teams and regulated environments.</li>
       </ul>
       <p>The honest test: install both free tiers, push the same real task — say, adding a feature that touches three files — through each, and keep the one whose flow clicks for you. For most independent developers building fast in 2026, that ends up being Cursor; for teams living inside GitHub, it's Copilot.</p>
-      <p>Still deciding? See our full ranking of the <a href="/best/coding">best AI coding tools</a> for more options like Aider and <a href="/tool/devin-ai">Devin</a>. Two names you'll still see in older roundups have moved: Codeium's Windsurf editor now ships as Devin Desktop after Cognition's June 2026 relaunch, and Supermaven was acquired by Cursor's maker and folded into Cursor Tab before being sunset in November 2025. Our <a href="/blog/cursor-vs-windsurf">Cursor vs Windsurf</a> comparison covers that editor as it stood before the rebrand. If the editor is only one piece of what you're assembling, our guide to the <a href="/blog/best-ai-tools-for-vibe-coding">best AI tools for vibe coding</a> covers the rest of the stack.</p>
+      <p>Still deciding? See our full ranking of the <a href="/best/coding">best AI coding tools</a> for more options like Aider and <a href="/tool/devin-ai">Devin</a>. Two names you'll still see in older roundups have moved: Codeium's Windsurf editor now ships as Devin Desktop, which Cognition calls the new name for Windsurf, and Supermaven was acquired by Cursor's maker and folded into Cursor Tab before being sunset in November 2025. Our <a href="/blog/cursor-vs-windsurf">Cursor vs Windsurf</a> comparison covers that editor as it stood before the rebrand. If the editor is only one piece of what you're assembling, our guide to the <a href="/blog/best-ai-tools-for-vibe-coding">best AI tools for vibe coding</a> covers the rest of the stack.</p>
     `,
     faq: [
       {
@@ -84,7 +84,7 @@ export const postsBatch3: BlogPost[] = [
       },
       {
         q: "Which is cheaper, Cursor or GitHub Copilot?",
-        a: "Both sit in roughly the $20/month range for individuals, with Copilot's individual plans running about $10–20/mo. Both also have free tiers, so you can run a real task through each before paying anything. Cursor's Pro plan bills against a monthly credit pool, so your effective cost depends on which models you use and how complex your prompts are.",
+        a: "Copilot Pro is $10/user/mo, with Pro+ at $39 and Max at $100. Cursor sells new customers Plus at $8/mo, which covers Cursor's own models only, and Premium at $30/mo, which you need for Claude and GPT models; those are billed at API list price, separate from the plan. Both also have free tiers, so you can run a real task through each before paying anything. Cursor's Pro ($20) and Pro+ ($60) are legacy plans no longer sold to new customers, so older comparisons quoting them are out of date, and on either tool your effective cost depends on which models you use.",
       },
       {
         q: "Do I have to switch editors to use Cursor?",
@@ -120,7 +120,7 @@ export const postsBatch3: BlogPost[] = [
       <p><a href="/tool/chatgpt">ChatGPT</a> and <a href="/tool/claude">Claude</a> are the assistants most people reach for first. Both are excellent generalists, and in 2026 both are backed by brand-new frontier models. The right pick depends on what you do most — so let's start with what actually shipped this year, then match it to your work.</p>
 
       <h2>The 2026 lineup</h2>
-      <p>Both labs moved fast, so a refresher helps. ChatGPT is now led by OpenAI's <strong>GPT-6 Astra</strong>, announced on September 3, 2026 and billed by OpenAI as "the world's most intelligent and aligned model" — state of the art, in OpenAI's own framing, on computer use, browsing, software engineering, cybersecurity, science, and professional work. It went to a limited set of organizations first, then across ChatGPT Plus, Pro, Business and Enterprise, plus the OpenAI API, Microsoft Azure, and AWS Bedrock. The previous <strong>GPT-5.6</strong> family is still available: released in July 2026 in three variants — <strong>Sol</strong> (that generation's flagship, with an "ultra" mode that delegates subtasks to smaller models), <strong>Terra</strong> (the balanced default), and <strong>Luna</strong> (tuned for speed). Claude, meanwhile, is led by <strong>Claude Opus 5</strong> — the tier Anthropic tells you to start with for most workloads — with <strong>Claude Fable 5.1</strong> above it as the escalation tier for demanding reasoning and long-horizon agentic work, <strong>Claude Sonnet 5</strong> (released June 2026) as the fast, capable default for Free and Pro users, and <strong>Claude Haiku 4.5</strong> as the fastest tier. Anthropic's previous generation, Opus 4.8 and earlier, is still available for those who want it.</p>
+      <p>Both labs moved fast, so a refresher helps. ChatGPT is now led by OpenAI's <strong>GPT-6 Astra</strong>, announced on September 3, 2026 and billed by OpenAI as "the world's most intelligent and aligned model" — state of the art, in OpenAI's own framing, on computer use, browsing, software engineering, cybersecurity, science, and professional work. It went to a limited set of organizations first, then across ChatGPT Plus, Pro, Business and Enterprise, plus the OpenAI API, Microsoft Azure, and AWS Bedrock. The previous <strong>GPT-5.6</strong> family is still available: released in July 2026 in three variants — <strong>Sol</strong> (that generation's flagship, with an "ultra" mode that delegates subtasks to smaller models), <strong>Terra</strong> (the balanced default), and <strong>Luna</strong> (tuned for speed). Claude, meanwhile, is led by <strong>Claude Opus 5</strong> — the tier Anthropic tells you to start with for most workloads — with <strong>Claude Fable 5.1</strong> above it as the escalation tier for demanding reasoning and long-horizon agentic work, <strong>Claude Sonnet 5</strong> (released June 2026) as the fast, capable default, and <strong>Claude Haiku 4.5</strong> as the fastest tier. Anthropic's previous generation, Opus 4.8 and earlier, is still available for those who want it.</p>
 
       <h2>Writing &amp; long documents</h2>
       <p>Claude has a long-standing reputation for natural, controlled prose and remains a favorite for long-form writing, editing, and working with big documents thanks to its large context window. Sonnet 5 keeps that everyday polish, and Fable 5.1 pushes it further on nuance and instruction-following. If you paste in a full report or a long thread and ask for a careful, faithful rewrite, Claude tends to hold the thread better.</p>
@@ -141,7 +141,7 @@ export const postsBatch3: BlogPost[] = [
       <p>Personality is subjective, but the patterns hold. Claude is often described as more measured and careful, with a writing voice many find more natural for long prose and less prone to filler. ChatGPT is more eager and flexible, and its willingness to just attempt a task can be either a feature or a source of over-confident answers, depending on how you prompt it. Both hallucinate far less than a year ago; both still need a human check on anything that actually matters.</p>
 
       <h2>Pricing</h2>
-      <p>For consumers, both charge around $20/month for their Pro/Plus tiers. The bigger differences show up in API pricing, which matters if you're building on top of them:</p>
+      <p>For consumers, the main paid tiers line up at $20/month: ChatGPT Plus, and Claude Pro billed monthly ($17/month billed annually). The bigger differences show up in API pricing, which matters if you're building on top of them:</p>
       <table>
         <thead>
           <tr><th></th><th>ChatGPT (OpenAI)</th><th>Claude</th></tr>
@@ -162,14 +162,14 @@ export const postsBatch3: BlogPost[] = [
       <p>For cited, up-to-date research specifically, a dedicated tool like <a href="/tool/perplexity">Perplexity</a> often beats both — see our <a href="/blog/chatgpt-vs-perplexity">ChatGPT vs Perplexity</a> comparison for when to use which.</p>
 
       <h2>Free tiers &amp; getting started</h2>
-      <p>Both let you start for nothing. ChatGPT's free tier gives you access to a capable model with usage limits, and Claude's free tier runs on Sonnet 5 — genuinely strong for everyday work. That makes the "which is better" question easy to settle for yourself: sign in to both, run a week of your actual tasks through each, and notice which one you instinctively reach for. Subscriptions (~$20/month) mainly buy higher limits, priority access to the flagship models, and heavier features like advanced voice or bigger context windows. Most people know their pick within a few days of real use.</p>
+      <p>Both let you start for nothing. ChatGPT's free tier comes with usage limits and limited Codex access, and Claude's free tier includes Sonnet and Haiku (not Opus), with limited usage every five hours and every week. That makes the "which is better" question easy to settle for yourself: sign in to both, run a week of your actual tasks through each, and notice which one you instinctively reach for. Subscriptions (~$20/month) mainly buy higher limits, priority access to the flagship models, and heavier features like advanced voice or bigger context windows. Most people know their pick within a few days of real use.</p>
 
       <h2>Bottom line</h2>
       <ul>
         <li><strong>Claude</strong> (Sonnet 5 for everyday, Opus 5 for the hardest work, Fable 5.1 when that still isn't enough) for writing, editing, and long-context reasoning.</li>
         <li><strong>ChatGPT</strong> (GPT-6 Astra) for the widest ecosystem, integrations, and all-rounder convenience.</li>
       </ul>
-      <p>Both have generous free tiers — the honest answer is to try each on your real work for a week. Explore more options in our <a href="/best/assistance">best AI assistants</a> guide, or see where an assistant fits alongside an editor and app builder in the <a href="/blog/best-ai-tools-for-vibe-coding">best AI tools for vibe coding</a>.</p>
+      <p>Both have free tiers, so the honest answer is to try each on your real work for a week. Explore more options in our <a href="/best/assistance">best AI assistants</a> guide, or see where an assistant fits alongside an editor and app builder in the <a href="/blog/best-ai-tools-for-vibe-coding">best AI tools for vibe coding</a>.</p>
     `,
     faq: [
       {
@@ -182,15 +182,15 @@ export const postsBatch3: BlogPost[] = [
       },
       {
         q: "Which models power ChatGPT and Claude in 2026?",
-        a: "ChatGPT is led by OpenAI's GPT-6 Astra, announced September 3, 2026 and described by OpenAI as its most intelligent and aligned model, rolled out across ChatGPT Plus, Pro, Business and Enterprise as well as the OpenAI API, Azure, and AWS Bedrock. The earlier GPT-5.6 family, released in July 2026, is still available: Sol (that generation's flagship, with an \"ultra\" mode that delegates subtasks to smaller models), Terra (the balanced default), and Luna (tuned for speed). Claude is led by Claude Opus 5, which Anthropic recommends as the starting point for most workloads, with Claude Fable 5.1 above it for demanding reasoning and long-horizon agentic work, Claude Sonnet 5 — released June 2026 — as the fast default for Free and Pro users, and Claude Haiku 4.5 as the fastest tier. The previous generation, Opus 4.8 and earlier, is still available.",
+        a: "ChatGPT is led by OpenAI's GPT-6 Astra, announced September 3, 2026 and described by OpenAI as its most intelligent and aligned model, rolled out across ChatGPT Plus, Pro, Business and Enterprise as well as the OpenAI API, Azure, and AWS Bedrock. The earlier GPT-5.6 family, released in July 2026, is still available: Sol (that generation's flagship, with an \"ultra\" mode that delegates subtasks to smaller models), Terra (the balanced default), and Luna (tuned for speed). Claude is led by Claude Opus 5, which Anthropic recommends as the starting point for most workloads, with Claude Fable 5.1 above it for demanding reasoning and long-horizon agentic work, Claude Sonnet 5, released June 2026, as the fast default, and Claude Haiku 4.5 as the fastest tier. The previous generation, Opus 4.8 and earlier, is still available.",
       },
       {
         q: "How much do ChatGPT and Claude cost?",
-        a: "For consumers both charge around $20/month for their Pro/Plus tiers. The bigger differences are in API pricing: GPT-6 Astra runs $10/$50 per million input/output tokens, while Claude Opus 5 runs $5/$25 and Claude Sonnet 5 $2/$10. OpenAI has announced repeated price cuts to the older GPT-5.6 tiers without consistently updating its published price table, so check OpenAI's pricing page for those before you budget.",
+        a: "For consumers the main paid tiers are ChatGPT Plus at $20/month and Claude Pro at $20/month billed monthly ($17/month billed annually). The bigger differences are in API pricing: GPT-6 Astra runs $10/$50 per million input/output tokens, while Claude Opus 5 runs $5/$25 and Claude Sonnet 5 $2/$10. OpenAI has announced repeated price cuts to the older GPT-5.6 tiers without consistently updating its published price table, so check OpenAI's pricing page for those before you budget.",
       },
       {
         q: "Are the free tiers good enough?",
-        a: "For most everyday work, yes. ChatGPT's free tier gives you a capable model with usage limits, and Claude's free tier runs on Sonnet 5. Subscriptions mainly buy higher limits, priority access to the flagship models, and heavier features like advanced voice or bigger context windows.",
+        a: "For most everyday work, yes. ChatGPT's free tier comes with usage limits and limited Codex access, and Claude's free tier includes Sonnet and Haiku (not Opus), with usage limits that reset every five hours and every week. Claude Code is not part of Claude's free plan; it starts at Pro. Subscriptions mainly buy higher limits, priority access to the flagship models, and heavier features like advanced voice or bigger context windows.",
       },
       {
         q: "Should I pay for both?",
@@ -411,14 +411,14 @@ export const postsBatch3: BlogPost[] = [
           <tr><th></th><th>v0</th><th>Bolt.new</th><th>Lovable</th></tr>
         </thead>
         <tbody>
-          <tr><td>Billing unit</td><td>Credits</td><td>Tokens</td><td>Messages</td></tr>
-          <tr><td>Free tier</td><td>$5/mo in credits, up to 200 projects, Design Mode, GitHub sync</td><td>1M tokens/mo, 300K daily cap, no card required</td><td>Daily message allowance, unlimited projects</td></tr>
-          <tr><td>Entry paid plan</td><td>Premium ~$20/mo ($20 in credits, Figma import, v0 API)</td><td>Pro ~$25/mo (10M+ tokens, no daily cap, rollover, custom domain)</td><td>Starter, then Pro</td></tr>
-          <tr><td>Team plans</td><td>Team ~$30/user/mo, Business ~$100/user/mo</td><td>Teams ~$30/member/mo</td><td>Teams</td></tr>
+          <tr><td>Billing unit</td><td>Credits</td><td>Tokens</td><td>Credits</td></tr>
+          <tr><td>Free tier</td><td>7 messages/day; $5 one-time credits for new users; Design Mode, GitHub sync, deploy to Vercel</td><td>1M tokens/mo, 300K daily cap, no card required</td><td>5 build credits/day (up to 30/mo); publishing to invited people only; no code editing or download</td></tr>
+          <tr><td>Entry paid plan</td><td>Plus $30/user/mo (see the pricing page); Premium is closed to new users</td><td>Pro $25/mo (starts at 10M tokens/mo, no daily limit, no branding, custom domain)</td><td>Pro from $25/mo (100 credits)</td></tr>
+          <tr><td>Team plans</td><td>Business $100/user/mo</td><td>Teams ~$30/member/mo</td><td>Business from $50/mo</td></tr>
           <tr><td>What makes the bill grow</td><td>How much and how complex your generations are</td><td>How big your codebase is</td><td>How many times you iterate</td></tr>
         </tbody>
       </table>
-      <p>Bolt's model is the one that catches people out. Its tokens are consumed mostly by syncing your project's file system to the model, not by the length of your prompt — so a message that changes one line in a forty-file project costs dramatically more than the same message did on day one. Budget by project size, not by how many messages you plan to send. v0's credits scale with generation complexity instead, which makes rework the expensive thing: three vague prompts that each need a redo cost more than one specific prompt that lands. Lovable's per-message meter rewards exactly the same discipline for the same reason.</p>
+      <p>Bolt's model is the one that catches people out. Its tokens are consumed mostly by syncing your project's file system to the model, not by the length of your prompt — so a message that changes one line in a forty-file project costs dramatically more than the same message did on day one. Budget by project size, not by how many messages you plan to send. v0's credits scale with generation complexity instead, which makes rework the expensive thing: three vague prompts that each need a redo cost more than one specific prompt that lands. Lovable's credit meter rewards exactly the same discipline for the same reason.</p>
       <p>Two footnotes worth knowing. v0's purchased credits expire after a year, so bulk-buying ahead of a project you haven't started is a bad idea. And Bolt's free deployments carry Bolt branding with no custom domain, which makes that tier excellent for learning and unusable for client work. Rates and limits in this category move constantly — treat the numbers above as the <em>shape</em> of each pricing model rather than a quote, and confirm current rates before you put a team on one.</p>
 
       <h2>Quick guide</h2>
@@ -442,7 +442,7 @@ export const postsBatch3: BlogPost[] = [
       },
       {
         q: "How much do Bolt.new, v0, and Lovable cost?",
-        a: "All three are free to start and then meter usage differently. v0's free tier includes about $5/month in credits with Premium around $20/month, Bolt's free tier gives 1M tokens per month with Pro around $25/month, and Lovable meters by messages with a daily free allowance. Rates in this category change often, so check current pricing before putting a team on one.",
+        a: "All three are free to start and then meter usage differently. v0's free tier has a 7-message daily limit plus $5 of one-time credits for new users, with Plus at $30/user/month; Bolt's free tier gives 1M tokens per month with Pro at $25/month; and Lovable's free tier gives 5 build credits a day (up to 30 a month), with Pro from $25/month. Rates in this category change often, so check current pricing before putting a team on one.",
       },
       {
         q: "Why do Bolt.new tokens run out so fast?",
@@ -497,14 +497,14 @@ export const postsBatch3: BlogPost[] = [
           <tr><th>Tier</th><th>Perplexity</th><th>ChatGPT</th></tr>
         </thead>
         <tbody>
-          <tr><td>Free</td><td>5 Deep Research queries + 3 Pro Searches per day</td><td>A limited fast model with tight message caps; ads in the US</td></tr>
+          <tr><td>Free</td><td>5 Deep Research queries + 3 Pro Searches per day</td><td>A limited fast model with tight message caps and limited Codex access; no ads (only the separate Go plan may include ads)</td></tr>
           <tr><td>~$20/mo</td><td>Pro: full Sonar family, third-party model selection, Spaces, Pages, Labs</td><td>Plus: full model suite, Deep Research, image generation, Agent Mode, Codex tools, ad-free</td></tr>
-          <tr><td>$200/mo</td><td>Max: adds Perplexity Computer, orchestrating 19 models as sub-agents</td><td>Pro: largest context window and high Deep Research limits</td></tr>
+          <tr><td>Top tier</td><td>Max ($200/mo): adds Perplexity Computer, orchestrating 19 models as sub-agents</td><td>Pro, from $100/mo ($100, $200 or $500 tiers): largest context window and high Deep Research limits</td></tr>
           <tr><td>Students</td><td>Education Pro around $10/mo</td><td>&mdash;</td></tr>
           <tr><td>Teams</td><td>Enterprise Pro around $40/seat/mo; Enterprise Max around $325/seat/mo</td><td>ChatGPT Work, a separate enterprise workspace</td></tr>
         </tbody>
       </table>
-      <p>The most important line in that table is the free row. Perplexity's free tier is unusually generous for what it is — a handful of genuine Deep Research runs every day is enough for a student or an occasional researcher to never pay. ChatGPT's free tier is noticeably thinner than it was a year ago: a smaller model, tighter limits, and ads in the US. If your budget is zero and your work is research, that asymmetry decides it. Both $200 tiers are aimed at people running AI as a core part of daily work, and both are hard to justify otherwise — the jump from $20 to $200 is the steepest cliff in either product.</p>
+      <p>The most important line in that table is the free row. Perplexity's free tier is unusually generous for what it is — a handful of genuine Deep Research runs every day is enough for a student or an occasional researcher to never pay. ChatGPT's free tier is noticeably thinner than it was a year ago: a smaller model and tighter limits. If your budget is zero and your work is research, that asymmetry decides it. The top tiers (Perplexity Max at $200/month, ChatGPT Pro from $100/month) are aimed at people running AI as a core part of daily work, and both are hard to justify otherwise; the jump from a $20 plan to either is the steepest cliff in each product.</p>
 
       <h2>Comet changes the free-tier math</h2>
       <p>Perplexity dropped the paywall on its <strong>Comet</strong> browser in March 2026, and it's now free on iOS, Android, Windows, and Mac. That matters more than a typical feature release, because Comet puts agentic search, page summarization, voice mode, and Deep Research directly into the browsing surface — you ask questions about the page you're already on, or hand off a multi-step web task, without opening a separate tab. Comet Plus (around $5/mo, and included with Pro and Max) adds premium publisher content on top. There's no equivalent on the ChatGPT side; OpenAI's answer to "AI while you browse" runs through the app and its integrations rather than through the browser itself. If most of your research happens while reading web pages, that's a real workflow difference, and it costs nothing to test.</p>
@@ -557,7 +557,7 @@ export const postsBatch3: BlogPost[] = [
       },
       {
         q: "Is Perplexity's free tier enough?",
-        a: "For a student or occasional researcher, often yes. The free tier includes a handful of genuine Deep Research queries plus a few Pro Searches every day, which is unusually generous for the category. ChatGPT's free tier is thinner by comparison — a smaller fast model, tighter message caps, and ads in the US — so if your budget is zero and your work is research, that asymmetry decides it.",
+        a: "For a student or occasional researcher, often yes. The free tier includes a handful of genuine Deep Research queries plus a few Pro Searches every day, which is unusually generous for the category. ChatGPT's free tier is thinner by comparison — a smaller fast model and tighter message caps — so if your budget is zero and your work is research, that asymmetry decides it.",
       },
       {
         q: "Is the Comet browser free?",
@@ -572,8 +572,8 @@ export const postsBatch3: BlogPost[] = [
         a: "Most power users do, because at roughly $20/month each the combination is cheap relative to the time saved: Perplexity to find and verify, ChatGPT to reason over the findings and produce the deliverable. If you can only pick one, choose by your dominant task — constant fact-finding leans Perplexity, constant creating leans ChatGPT.",
       },
       {
-        q: "Are the $200/month tiers worth it?",
-        a: "Only if AI is a core part of your daily work rather than an occasional assist. The jump from $20 to $200 is the steepest cliff in either product: Perplexity's Max tier adds Perplexity Computer, which orchestrates many models as sub-agents, and ChatGPT Pro buys the largest context window and high Deep Research limits. Neither is justified by heavier casual use alone.",
+        q: "Are the top-tier plans worth it?",
+        a: "Only if AI is a core part of your daily work rather than an occasional assist. The jump from a $20 plan to the top tier is the steepest cliff in either product: Perplexity's Max tier ($200/month) adds Perplexity Computer, which orchestrates many models as sub-agents, and ChatGPT Pro (from $100/month, with $100, $200 and $500 tiers) buys the largest context window and high Deep Research limits. Neither is justified by heavier casual use alone.",
       },
     ],
   },
@@ -594,7 +594,7 @@ export const postsBatch3: BlogPost[] = [
     tags: ["Windsurf", "Supermaven", "Sora", "Deprecations", "AI Tools"],
     content: `
       <p>Products in this category do not usually die loudly. They get acquired, folded into something else, renamed, or quietly moved behind a paid tier — and the internet keeps describing them the way they were.</p>
-      <p>That gap is easy to observe. In spot checks during September 2026, AI-generated search summaries still described Supermaven as the engine behind Cursor's autocomplete, and still quoted a monthly price for Windsurf's Cascade agent. Both statements were accurate once. Neither is accurate now.</p>
+      <p>That gap is easy to observe. In spot checks during September 2026, AI-generated search summaries still described Supermaven as the engine behind Cursor's autocomplete, and still described Windsurf's Cascade agent as the current product. Both statements were accurate once. Neither is accurate now.</p>
       <p>This page is the correction. Every claim below points at the vendor's own announcement and carries the date it was published, so you can check it rather than trust it.</p>
 
       <h2>Supermaven — folded into Cursor's Tab</h2>
@@ -603,9 +603,9 @@ export const postsBatch3: BlogPost[] = [
       <p><strong>If you are choosing today:</strong> there is no Supermaven to sign up for. The capability lives in <a href="/tool/cursor">Cursor</a>. If you are a Neovim or JetBrains user who was relying on the standalone plugin, treat it as running on borrowed time rather than as a supported product.</p>
 
       <h2>Windsurf — renamed Devin Desktop</h2>
-      <p>This one is a rename, not a shutdown, and the difference matters. On <strong>June 2, 2026</strong>, Cognition published "Windsurf is now Devin Desktop." Windsurf users received it as a standard over-the-air update, and the announcement stated plainly that plan, pricing, extensions and other features stayed the same. The editor remains backwards-compatible with Windsurf and VS Code extensions and keybindings.</p>
+      <p>This one is a rename, not a shutdown, and the difference matters. Cognition published "Windsurf is now Devin Desktop," and its Devin Desktop page now calls it the new name for Windsurf. Windsurf users received it as a standard over-the-air update, and the announcement stated plainly that plan, pricing, extensions and other features stayed the same. The editor remains backwards-compatible with Windsurf and VS Code extensions and keybindings.</p>
       <p>What did change is the agent underneath. <strong>Cascade was replaced by Devin Local</strong>, rewritten from scratch in Rust with the same capabilities and settings, which Cognition describes as up to 30% more token efficient and which adds subagents. The legacy Cascade agent remained usable through July 1 for incremental migration. The release also made the Agent Command Center — a Kanban view over every local and cloud agent — the default surface, added Spaces for sharing context between agents, and shipped support for the Agent Client Protocol, so Codex, Claude Agent, OpenCode and in-house agents run inside the same editor.</p>
-      <p><strong>If you are choosing today:</strong> both <code>windsurf.com</code> and <code>codeium.com/windsurf</code> now resolve to the Devin Desktop page. Any comparison quoting "Windsurf Cascade" pricing is describing a configuration that no longer ships. Our directory entry is <a href="/tool/devin-ai">Devin</a>.</p>
+      <p><strong>If you are choosing today:</strong> both <code>windsurf.com</code> and <code>codeium.com/windsurf</code> now resolve to the Devin Desktop page. Plans and pricing carried over from Windsurf: there is still a Free plan, and Pro is $20/mo on Devin's pricing page. Our directory entry is <a href="/tool/devin-ai">Devin</a>.</p>
 
       <h2>Sora — the API shuts down on September 24, 2026</h2>
       <p>This is the most time-sensitive item on the page. OpenAI's help center states that <strong>the Sora web and app experiences were discontinued on April 26, 2026</strong>, and that <strong>the Sora API will be discontinued on September 24, 2026</strong>.</p>
@@ -615,7 +615,7 @@ export const postsBatch3: BlogPost[] = [
 
       <h2>Gemini Code Assist — the free individual tier ended</h2>
       <p>This one produces the most stubborn wrong answers, because Google's own marketing pages were slower to update than its documentation. Per Google's deprecation notice, <strong>Gemini Code Assist consumer accounts were deprecated on May 18, 2026 and shut down on June 18, 2026</strong>. After that date the Gemini Code Assist IDE extensions and the Gemini CLI stopped serving requests for Google AI Pro and Ultra subscribers as well as for Gemini Code Assist for individuals, and those users were directed to Antigravity.</p>
-      <p>The old individual allowance — reported at up to 6,000 code-related requests and 240 chat requests per day — was genuinely one of the most generous offers in the category. It is historical. The product now ships in two editions, Standard and Enterprise, both managed through Google Cloud.</p>
+      <p>The old no-cost individual allowance, once a common recommendation for anyone wanting a free coding assistant, is historical. The product now ships in two editions, Standard and Enterprise, both managed through Google Cloud.</p>
       <p><strong>If you are choosing today:</strong> <a href="/tool/gemini-code-assist">Gemini Code Assist</a> is a paid product. If you came looking for a free assistant, compare against the free tiers that still exist in <a href="/best/coding">the best AI coding tools</a>.</p>
 
       <h2>Galileo AI — now Google Stitch</h2>
@@ -634,7 +634,7 @@ export const postsBatch3: BlogPost[] = [
       },
       {
         q: "What happened to Windsurf?",
-        a: "It was renamed. On June 2, 2026 Cognition announced that Windsurf is now Devin Desktop, delivered to existing users as an over-the-air update with plan, pricing and extensions unchanged, and still backwards-compatible with Windsurf and VS Code extensions and keybindings. The substantive change was underneath: the Cascade agent was replaced by Devin Local, a from-scratch Rust rewrite that Cognition describes as up to 30% more token efficient, with legacy Cascade remaining usable through July 1 for migration. Both windsurf.com and codeium.com/windsurf now resolve to the Devin Desktop page.",
+        a: "It was renamed. Cognition announced that Windsurf is now Devin Desktop, delivered to existing users as an over-the-air update with plan, pricing and extensions carried over (there is still a Free plan, and Pro is $20/month), and still backwards-compatible with Windsurf and VS Code extensions and keybindings. The substantive change was underneath: the Cascade agent was replaced by Devin Local, a from-scratch Rust rewrite that Cognition describes as up to 30% more token efficient, with legacy Cascade remaining usable through July 1 for migration. Both windsurf.com and codeium.com/windsurf now resolve to the Devin Desktop page.",
       },
       {
         q: "Is Sora shut down?",

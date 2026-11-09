@@ -23,7 +23,7 @@ export const tools: ToolData[] = [
     title: "Devin",
     description: "Cognition's autonomous AI software engineer, now shipped alongside Devin Desktop — the IDE that was Windsurf before the 2026 rebrand.",
     category: "Assistance",
-    pricing: "Paid",
+    pricing: "Freemium",
     websiteUrl: "https://devin.ai",
     color: "text-foreground",
     bgGradient: "bg-secondary",
@@ -43,7 +43,7 @@ export const tools: ToolData[] = [
     bgGradient: "bg-secondary",
     features: ["Composer Agent", "Codebase Q&A", "Multi-file edits", "Tab autocomplete"],
     pros: ["Best-in-class agentic coding", "Fast cursor predictions", "Native VS Code feel"],
-    cons: ["Pro plan needed for heavy use", "Index can be slow on huge repos"],
+    cons: ["Paid plan needed for heavy use", "Index can be slow on huge repos"],
     isFeatured: true,
   },
   {
@@ -154,7 +154,7 @@ export const tools: ToolData[] = [
     color: "text-foreground",
     bgGradient: "bg-secondary",
     features: ["Preview deployments", "Edge runtime", "AI SDK", "Analytics"],
-    pros: ["Zero-config Next.js", "Generous free tier", "Top DX"],
+    pros: ["Zero-config Next.js", "Free Hobby plan for personal, non-commercial use", "Top DX"],
     cons: ["Pricey at scale for heavy traffic", "Locked into their runtime"],
     isFeatured: true,
   },
@@ -255,9 +255,9 @@ export const tools: ToolData[] = [
     pros: [
       "Fastest path from idea to deployed full-stack app for non-developers",
       "Generated code is conventional and pickup-able by a real developer",
-      "True ejectability — push to your GitHub at any point and leave the tool",
+      "Git sync, even on the free plan, lets you push the project to your own GitHub",
       "Supabase backend means easy integration with existing data and tooling",
-      "Free tier is generous enough to build a real MVP without paying",
+      "Free plan (5 build credits a day, up to 30 a month) lets you try it before paying",
     ],
     cons: [
       "Quality degrades once a project exceeds roughly ten screens",
