@@ -14,6 +14,12 @@ interface FeaturedStacksProps {
    * so the links below cannot 404.
    */
   stacks: FeaturedStack[];
+  /**
+   * Per-stack free-plan count, keyed by stack id, derived from the tools' own
+   * `pricing` (lib/stack-facts.ts). A stack with no entry (some tool's pricing
+   * is unknown) shows its tool count instead.
+   */
+  freePlanById?: Readonly<Record<string, { free: number; total: number }>>;
 }
 
 /**
@@ -24,7 +30,7 @@ interface FeaturedStacksProps {
  *
  * Server component: plain links in the initial HTML.
  */
-export function FeaturedStacks({ stacks }: FeaturedStacksProps) {
+export function FeaturedStacks({ stacks, freePlanById = {} }: FeaturedStacksProps) {
   return (
     <section className="bg-background pb-24 pt-24 text-foreground md:pb-36 md:pt-36">
       <Container>
@@ -46,7 +52,9 @@ export function FeaturedStacks({ stacks }: FeaturedStacksProps) {
       </Container>
 
       <ul className="flex flex-col">
-        {stacks.map((stack, index) => (
+        {stacks.map((stack, index) => {
+          const freePlan = freePlanById[stack.id];
+          return (
           <li key={stack.id} className={cn("reveal", revealDelays[index % revealDelays.length])}>
             <Link
               href={`/stack/${stack.id}`}
@@ -61,8 +69,13 @@ export function FeaturedStacks({ stacks }: FeaturedStacksProps) {
                   <span className="font-display min-w-0 text-[clamp(32px,4.2vw,64px)] text-foreground group-hover:text-vibe-deep group-focus-visible:text-vibe-deep">
                     {stack.name}
                   </span>
-                  <span className="font-display shrink-0 text-right text-[clamp(32px,4.2vw,64px)] tabular-nums text-vibe-link group-hover:text-vibe-deep group-focus-visible:text-vibe-deep md:order-3 md:justify-self-end">
-                    {stack.totalPrice || "Free"}
+                  <span className="flex shrink-0 flex-col items-end text-right md:order-3 md:justify-self-end">
+                    <span className="font-display text-[clamp(32px,4.2vw,64px)] tabular-nums text-vibe-link group-hover:text-vibe-deep group-focus-visible:text-vibe-deep">
+                      {freePlan ? `${freePlan.free}/${freePlan.total}` : stack.tools.length}
+                    </span>
+                    <span className="text-[16px] leading-none text-foreground group-hover:text-vibe-deep group-focus-visible:text-vibe-deep">
+                      {freePlan ? "with a free plan" : stack.tools.length === 1 ? "tool" : "tools"}
+                    </span>
                   </span>
                 </span>
                 <span className="text-[18px] leading-normal text-foreground group-hover:text-vibe-deep group-focus-visible:text-vibe-deep md:order-2">
@@ -71,7 +84,8 @@ export function FeaturedStacks({ stacks }: FeaturedStacksProps) {
               </Container>
             </Link>
           </li>
-        ))}
+          );
+        })}
       </ul>
     </section>
   );

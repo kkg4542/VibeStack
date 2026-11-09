@@ -1,6 +1,7 @@
 import { getVerifiedTestimonials, getFeaturedStackRanking, resolveFeaturedStacks } from "@/lib/data/stacks";
 import { getTools } from "@/lib/tools-db";
 import { stacks } from "@/lib/stacks";
+import { countToolsWithFreePlan } from "@/lib/stack-facts";
 import { VibeHero } from "@/components/landing/VibeHero";
 import type { StackPick } from "@/components/landing/StackPicker";
 import { ToolCategories } from "@/components/landing/ToolCategories";
@@ -49,11 +50,21 @@ export default async function Home() {
         goal: source.idealFor[0] ?? featured.name,
         tools: featured.tools.map((tool) => tool.name),
         toolSlugs: featured.tools.map((tool) => tool.slug),
-        price: featured.totalPrice,
         steps: source.workflow.slice(0, 4).map((step) => step.replace(/^\s*\d+\.\s*/, "")),
       }];
     })
     .slice(0, 6);
+
+  // Free-plan counts for the ledger, from each tool's own `pricing`. Computed
+  // against the stack's full slug list in lib/stacks.ts (not the live-tool
+  // subset on the card), so a stack with a retired tool shows no count.
+  const freePlanById: Record<string, { free: number; total: number }> = {};
+  for (const featured of featuredStacks) {
+    const source = stacks.find((stack) => stack.id === featured.id);
+    if (!source) continue;
+    const free = countToolsWithFreePlan(source.tools, allTools);
+    if (free !== null) freePlanById[featured.id] = { free, total: source.tools.length };
+  }
 
   // Real per-category tool counts (category id → count) for the category cards.
   const categoryIdByName: Record<string, string> = {
@@ -100,7 +111,7 @@ export default async function Home() {
       <PopularTools tools={allTools} />
       
       {/* Featured Stacks - Curated workflows */}
-      <FeaturedStacks stacks={featuredStacks} />
+      <FeaturedStacks stacks={featuredStacks} freePlanById={freePlanById} />
 
       {/* Guides & comparisons — server-rendered links into the blog pillar */}
       <FeaturedGuides />

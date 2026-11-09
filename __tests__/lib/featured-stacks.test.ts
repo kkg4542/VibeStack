@@ -60,7 +60,6 @@ describe("resolveFeaturedStacks", () => {
       const curated = stacks.find((stack) => stack.id === card.id)!;
       expect(card.name).toBe(curated.name);
       expect(card.description).toBe(curated.description);
-      expect(card.totalPrice).toBe(curated.totalPrice);
       expect(card.icon).toBe(curated.icon);
       expect(card.tools.map((tool) => tool.slug)).toEqual(curated.tools);
     }

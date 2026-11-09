@@ -55,7 +55,7 @@ export function VibeHero({ stacks }: VibeHeroProps) {
   const intro = (
     <>
       <p className="max-w-[44ch] text-[17px] leading-normal text-[#b0b2b6] md:text-[18px]">
-        Hand-picked AI tools grouped into stacks, with real prices and the order to set them up.
+        Hand-picked AI tools grouped into stacks, with the order to set them up.
         Free to browse.
       </p>
       <Link

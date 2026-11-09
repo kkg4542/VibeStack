@@ -18,6 +18,7 @@ import { PageBackground, BackgroundPresets } from "@/components/effects/PageBack
 import { Container } from "@/components/primitives/Container";
 import { StackViewTracker } from "@/components/stacks/StackViewTracker";
 import { cn } from "@/lib/utils";
+import { countToolsWithFreePlan } from "@/lib/stack-facts";
 
 interface StackDetailClientProps {
     stack: Stack;
@@ -53,6 +54,11 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
     );
     const [favoriteStatus, setFavoriteStatus] = useState("");
 
+    // Derived from each tool's own pricing field; null (hidden) unless every
+    // tool of the stack is present in `stackTools`.
+    const totalTools = stack.tools.length;
+    const freeCount = countToolsWithFreePlan(stack.tools, stackTools);
+
     const toggleFavorite = () => {
         const next = isFavorite
             ? removeLocalFavorite(stack.id, "stack")
@@ -81,7 +87,12 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                 </Link>
 
                 {/* Hero */}
-                <div className="mb-16 grid lg:grid-cols-[minmax(0,1fr)_18rem]">
+                <div
+                    className={cn(
+                        "mb-16 grid",
+                        freeCount !== null && "lg:grid-cols-[minmax(0,1fr)_18rem]"
+                    )}
+                >
                     <div className="bg-card p-8 md:p-12">
                         {/* Tags */}
                         <ul className="mb-6 flex flex-wrap gap-2">
@@ -103,10 +114,14 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
 
                         {/* Quick Stats */}
                         <dl className="mb-10 flex flex-wrap gap-x-10 gap-y-4">
-                            <div>
-                                <dt className="text-[14px] text-muted-foreground">Per month</dt>
-                                <dd className="font-display text-[40px] leading-none tabular-nums text-foreground">{stack.totalPrice}</dd>
-                            </div>
+                            {freeCount !== null && (
+                                <div>
+                                    <dt className="text-[14px] text-muted-foreground">With a free plan</dt>
+                                    <dd className="font-display text-[40px] leading-none tabular-nums text-foreground">
+                                        {freeCount}/{totalTools}
+                                    </dd>
+                                </div>
+                            )}
                             <div>
                                 <dt className="text-[14px] text-muted-foreground">Tools</dt>
                                 <dd className="font-display text-[40px] leading-none tabular-nums text-foreground">{stackTools.length}</dd>
@@ -154,16 +169,18 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                         </div>
                     </div>
 
-                    {/* Cost summary: the page's one orange field */}
-                    <div className="flex flex-col justify-end bg-vibe-electric p-8 text-vibe-deep">
-                        <h2 className="text-[16px] font-semibold">Total cost</h2>
-                        <div className="font-display my-3 text-[clamp(56px,6vw,88px)] leading-[0.88] tabular-nums">
-                            {stack.totalPrice}
+                    {/* Free-plan summary: the page's one orange field */}
+                    {freeCount !== null && (
+                        <div className="flex flex-col justify-end bg-vibe-electric p-8 text-vibe-deep">
+                            <h2 className="text-[16px] font-semibold">Free plans</h2>
+                            <div className="font-display my-3 text-[clamp(56px,6vw,88px)] leading-[0.88] tabular-nums">
+                                {freeCount}/{totalTools}
+                            </div>
+                            <p className="text-[16px] leading-normal">
+                                {freeCount === 1 ? "tool in this stack offers" : "tools in this stack offer"} a free plan, per each tool&apos;s own page
+                            </p>
                         </div>
-                        <p className="text-[16px] leading-normal">
-                            Estimated monthly cost for all tools combined
-                        </p>
-                    </div>
+                    )}
                 </div>
 
                 <div className="grid gap-12 lg:grid-cols-3 lg:gap-8">
@@ -299,7 +316,9 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                             <dl className="space-y-1">
                                 {[
                                     { label: "Tools", value: stackTools.length },
-                                    { label: "Monthly Cost", value: stack.totalPrice },
+                                    ...(freeCount !== null
+                                        ? [{ label: "With a free plan", value: `${freeCount} of ${totalTools}` }]
+                                        : []),
                                     { label: "Workflow Steps", value: stack.workflow.length },
                                     { label: "Target Users", value: `${stack.idealFor.length} types` },
                                 ].map((row, index) => (

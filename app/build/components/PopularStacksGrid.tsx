@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Zap, Layers, Brain, GraduationCap, Paintbrush, Wand2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAllTools } from "@/hooks/use-tools";
-import { countToolsWithFreePlan, freePlanLabel } from "./stack-facts";
+import { countToolsWithFreePlan, freePlanLabel } from "@/lib/stack-facts";
 
 // Ids/names/descriptions/tools below mirror the curated stacks in
 // lib/stacks.ts — they used to be a separate, made-up list (ids like

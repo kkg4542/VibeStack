@@ -16,6 +16,7 @@ import {
 import { useAllTools } from "@/hooks/use-tools";
 import { getToolIcon } from "@/components/icons/tool-icons";
 import { stacks } from "@/lib/stacks";
+import { countToolsWithFreePlan, freePlanLabel } from "@/lib/stack-facts";
 import { useSession } from "next-auth/react";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import type { Tool } from "@prisma/client";
@@ -346,6 +347,7 @@ export default function FavoritesPage() {
                                     {favoriteStacks.map((item) => {
                                         const stack = stacks.find(s => s.id === item.id);
                                         if (!stack) return null;
+                                        const freeCount = countToolsWithFreePlan(stack.tools, tools);
 
                                         return (
                                             <div key={item.id} className="group bg-card p-4 text-card-foreground transition-colors duration-150 hover:bg-secondary motion-reduce:transition-none">
@@ -360,7 +362,9 @@ export default function FavoritesPage() {
                                                                 {stack.name}
                                                             </h3>
                                                             <p className="mt-1 text-[14px] font-semibold text-muted-foreground">
-                                                                {stack.totalPrice}
+                                                                {freeCount === null
+                                                                    ? `${stack.tools.length} tools`
+                                                                    : freePlanLabel(freeCount, stack.tools.length)}
                                                             </p>
                                                         </div>
                                                     </Link>

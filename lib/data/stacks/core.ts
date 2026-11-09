@@ -168,7 +168,6 @@ export function resolveFeaturedStacks(
       id: stack.id,
       name: stack.name,
       description: stack.description,
-      totalPrice: stack.totalPrice,
       tags: stack.tags,
       icon: stack.icon,
       tools,

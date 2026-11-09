@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { Badge } from "@/components/ui/badge";
 import { Info, Layers } from "lucide-react";
 import { stacks } from "@/lib/stacks";
+import { getTools } from "@/lib/tools-db";
+import { countToolsWithFreePlan, freePlanLabel } from "@/lib/stack-facts";
 
 /**
  * Read-only on purpose.
@@ -53,7 +55,7 @@ async function getStackMetricRows(): Promise<StackMetricsRow[]> {
 }
 
 export default async function AdminStacksPage() {
-  const rows = await getStackMetricRows();
+  const [rows, allTools] = await Promise.all([getStackMetricRows(), getTools()]);
   const metricsById = new Map(rows.map((row) => [row.idField, row.stackMetrics]));
 
   const curatedIds = new Set(stacks.map((stack) => stack.id));
@@ -76,7 +78,7 @@ export default async function AdminStacksPage() {
         <div className="space-y-1">
           <p className="font-medium">Stack definitions live in <code>lib/stacks.ts</code>.</p>
           <p className="text-muted-foreground">
-            Names, descriptions, prices, tools and workflows are code, not database
+            Names, descriptions, tools and workflows are code, not database
             rows — they ship with a deploy and cannot be edited here. The numbers
             below come from the database and update on their own.
           </p>
@@ -91,7 +93,7 @@ export default async function AdminStacksPage() {
                 <th className="px-4 py-3 text-left text-sm font-medium">Name</th>
                 <th className="px-4 py-3 text-left text-sm font-medium">ID</th>
                 <th className="px-4 py-3 text-left text-sm font-medium">Tools</th>
-                <th className="px-4 py-3 text-left text-sm font-medium">Price</th>
+                <th className="px-4 py-3 text-left text-sm font-medium">Free plans</th>
                 <th className="px-4 py-3 text-right text-sm font-medium">Views</th>
                 <th className="px-4 py-3 text-right text-sm font-medium">Saves</th>
                 <th className="px-4 py-3 text-right text-sm font-medium">Rating</th>
@@ -100,6 +102,7 @@ export default async function AdminStacksPage() {
             <tbody>
               {stacks.map((stack) => {
                 const metrics = metricsById.get(stack.id) ?? null;
+                const freeCount = countToolsWithFreePlan(stack.tools, allTools);
                 return (
                   <tr key={stack.id} /* taste-skill-ignore: real table row */ className="border-b">
                     <td className="px-4 py-3 font-medium">
@@ -117,7 +120,11 @@ export default async function AdminStacksPage() {
                       </div>
                     </td>
                     <td className="px-4 py-3">
-                      <Badge variant="outline">{stack.totalPrice}</Badge>
+                      {freeCount === null ? (
+                        <span className="text-sm text-muted-foreground">—</span>
+                      ) : (
+                        <Badge variant="outline">{freePlanLabel(freeCount, stack.tools.length)}</Badge>
+                      )}
                     </td>
                     <td className="px-4 py-3 text-right text-sm">
                       {metrics ? metrics.views.toLocaleString() : "—"}

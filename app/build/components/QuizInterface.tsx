@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 import type { Tool } from "@prisma/client";
 import { QuizLeadCapture } from "@/components/landing/QuizLeadCapture";
 import { Container } from "@/components/primitives/Container";
-import { countToolsWithFreePlan, freePlanLabel } from "./stack-facts";
+import { countToolsWithFreePlan, freePlanLabel } from "@/lib/stack-facts";
 
 export type StackRecommendation = {
   name: string;
@@ -80,8 +80,8 @@ export const STEPS = [
     question: "What is your budget?",
     description: "We have great options for every price point",
     options: [
-      { id: "free", label: "Free Tier Only", icon: DollarSign, description: "$0 / month", color: "bg-secondary" },
-      { id: "budget", label: "Budget Friendly", icon: DollarSign, description: "Under $20/mo", color: "bg-secondary" },
+      { id: "free", label: "Free Tier Only", icon: DollarSign, description: "No budget", color: "bg-secondary" },
+      { id: "budget", label: "Budget Friendly", icon: DollarSign, description: "Low cost", color: "bg-secondary" },
       { id: "paid", label: "Premium", icon: Zap, description: "Best performance", color: "bg-secondary" },
     ],
   },

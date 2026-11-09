@@ -25,7 +25,6 @@ export interface StackPick {
   goal: string;
   tools: string[];
   toolSlugs?: string[];
-  price: string;
   steps: string[];
 }
 
@@ -90,7 +89,7 @@ export function HeroHeadline({ stackId, tools = [] }: { stackId?: string; tools?
 /**
  * The hero's working piece: pick a goal in the list and the frame inside the
  * headline rebuilds that stack as bars, while the result block shows the same
- * stack as real text (name, tools, price, first setup steps, link).
+ * stack as real text (name, tools, first setup steps, link).
  *
  * Every goal is a real `<a href="/stack/{id}">`, so with no JavaScript (or a
  * middle/modified click) it simply opens that stack's page, and crawlers see
@@ -252,10 +251,7 @@ export function StackPicker({ stacks, children }: StackPickerProps) {
           <p className="mt-2 line-clamp-2 text-[18px] font-semibold leading-[1.35] text-[#eff0f1]">
             {selected.tools.join(" + ")}
           </p>
-          <div className="mt-3 flex flex-wrap items-baseline justify-between gap-x-5 gap-y-1">
-            <p className="font-display text-[28px] font-extrabold leading-none tracking-[-0.005em] text-[#eff0f1]">
-              {selected.price}
-            </p>
+          <div className="mt-3">
             <a
               href={`/stack/${selected.id}`}
               className="text-[16px] font-semibold text-vibe-electric underline decoration-2 underline-offset-4 transition-colors hover:text-[#eff0f1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#eff0f1] motion-reduce:transition-none"

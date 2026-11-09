@@ -10,6 +10,7 @@ import { ToolData } from "@/lib/tool-types";
 import { useAllTools } from "@/hooks/use-tools";
 import { getToolIcon } from "@/components/icons/tool-icons";
 import { stacks, Stack } from "@/lib/stacks";
+import { countToolsWithFreePlan, freePlanLabel } from "@/lib/stack-facts";
 import { trackSearchQuery } from "@/lib/analytics";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { Container } from "@/components/primitives/Container";
@@ -284,7 +285,9 @@ function SearchPageContent() {
                                     <span className="text-[16px] font-semibold tabular-nums text-muted-foreground">{searchStacks.length}</span>
                                 </div>
                                 <div className="space-y-1">
-                                    {searchStacks.map((stack: Stack) => (
+                                    {searchStacks.map((stack: Stack) => {
+                                        const freeCount = countToolsWithFreePlan(stack.tools, tools);
+                                        return (
                                         <div key={stack.id}>
                                             <Link href={`/stack/${stack.id}`} className="group flex items-start gap-4 bg-card p-4 text-foreground transition-colors duration-150 hover:bg-secondary focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-vibe-link motion-reduce:transition-none">
                                                 {/* stack.icon is an emoji; direction B shows the initial instead. */}
@@ -296,9 +299,11 @@ function SearchPageContent() {
                                                         <h3 className="text-[18px] font-semibold transition-colors group-hover:text-vibe-link">
                                                             {highlightMatch(stack.name)}
                                                         </h3>
-                                                        <span className="shrink-0 text-[14px] font-semibold text-foreground">
-                                                            {stack.totalPrice}
-                                                        </span>
+                                                        {freeCount !== null && (
+                                                            <span className="shrink-0 text-[14px] font-semibold text-foreground">
+                                                                {freePlanLabel(freeCount, stack.tools.length)}
+                                                            </span>
+                                                        )}
                                                     </div>
                                                     <p className="line-clamp-2 text-[16px] leading-normal text-muted-foreground">
                                                         {highlightMatch(stack.description)}
@@ -310,7 +315,8 @@ function SearchPageContent() {
                                                 <ArrowRight aria-hidden="true" className="h-5 w-5 shrink-0 self-center text-muted-foreground transition-transform duration-150 group-hover:translate-x-1 group-hover:text-vibe-link motion-reduce:transition-none motion-reduce:group-hover:translate-x-0" />
                                             </Link>
                                         </div>
-                                    ))}
+                                        );
+                                    })}
                                 </div>
                             </div>
                         )}

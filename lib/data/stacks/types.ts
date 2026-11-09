@@ -39,7 +39,6 @@ export interface FeaturedStack {
   id: string;
   name: string;
   description: string;
-  totalPrice: string;
   tags: string[];
   icon: string;
   /**

@@ -98,7 +98,7 @@ export default async function Image({ params }: { params: Promise<{ stackId: str
             }}
           >
             <span style={{ fontSize: 36, fontWeight: 800, color: '#ff4a1f' }}>
-              {stack.totalPrice}
+              {stack.tools.length} {stack.tools.length === 1 ? 'tool' : 'tools'}
             </span>
             <div style={{ fontSize: 32, fontWeight: 600, color: '#eff0f1' }}>
               usevibestack.com

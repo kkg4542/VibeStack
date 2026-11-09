@@ -3,6 +3,7 @@ export interface Stack {
     name: string;
     description: string;
     longDescription: string;
+    /** @deprecated not displayed - unsourced */
     totalPrice: string;
     tags: string[];
     tools: string[]; // Tool slugs
