@@ -16,11 +16,11 @@ import { cn } from "@/lib/utils";
 import type { Tool } from "@prisma/client";
 import { QuizLeadCapture } from "@/components/landing/QuizLeadCapture";
 import { Container } from "@/components/primitives/Container";
+import { countToolsWithFreePlan, freePlanLabel } from "./stack-facts";
 
 export type StackRecommendation = {
   name: string;
   description: string;
-  totalPrice: string;
   tools: string[];
   whyThisStack: string;
   compatibility: string;
@@ -105,7 +105,6 @@ export function useStackRecommendation(answers: Record<string, string>): StackRe
     let stack: StackRecommendation = {
       name: "The Universal Stack",
       description: "A balanced set of tools for general development",
-      totalPrice: "$0-30/mo",
       tools: ["cursor", "claude"],
       whyThisStack: "These tools offer the best balance of power and accessibility.",
       compatibility: "Works with any editor and language",
@@ -118,7 +117,6 @@ export function useStackRecommendation(answers: Record<string, string>): StackRe
         stack = {
           name: "The Magic Wand Stack",
           description: "Generate beautiful UI from text prompts without writing complex CSS",
-          totalPrice: "$0-15/mo",
           tools: ["v0-by-vercel", "builder-io"],
           whyThisStack: "Perfect for designers and frontend devs who want to move fast without deep CSS knowledge",
           compatibility: "Exports to React, Vue, and plain HTML",
@@ -129,7 +127,6 @@ export function useStackRecommendation(answers: Record<string, string>): StackRe
         stack = {
           name: "The Product Designer Stack",
           description: "Professional tools to convert designs directly into production code",
-          totalPrice: "$25-40/mo",
           tools: ["builder-io", "v0-by-vercel", "figma"],
           whyThisStack: "Seamlessly bridge design and development with AI-powered conversion",
           compatibility: "Full Figma integration, exports clean code",
@@ -145,7 +142,6 @@ export function useStackRecommendation(answers: Record<string, string>): StackRe
         stack = {
           name: "The Learner Stack",
           description: "Zero-setup environments that explain code as you write it",
-          totalPrice: "$0-20/mo",
           tools: ["cursor", "replit"],
           whyThisStack: "Built-in tutorials and explanations make learning to code approachable",
           compatibility: "Supports many languages, with explanations as you go",
@@ -156,7 +152,6 @@ export function useStackRecommendation(answers: Record<string, string>): StackRe
         stack = {
           name: "The 10x Engineer Stack",
           description: "Autonomous agents and massive context windows for maximum velocity",
-          totalPrice: "$40-60/mo",
           tools: ["devin-ai", "cursor"],
           whyThisStack: "Devin works independently while you focus on architecture, and Cursor keeps you in the loop for everything you want to steer directly.",
           compatibility: "Works with any codebase, massive context windows",
@@ -177,7 +172,6 @@ export function useStackRecommendation(answers: Record<string, string>): StackRe
         stack = {
           name: "The Full-Stack Pro Stack",
           description: "Complete frontend to backend coverage with AI assistance",
-          totalPrice: "$50-70/mo",
           tools: ["cursor", "v0-by-vercel", "claude"],
           whyThisStack: "Every layer of your stack enhanced with AI",
           compatibility: "Works across frontend, backend, and database",
@@ -187,7 +181,6 @@ export function useStackRecommendation(answers: Record<string, string>): StackRe
         stack = {
           name: "The Indie Hacker Stack",
           description: "Ship complete products on a budget",
-          totalPrice: "$0-30/mo",
           tools: ["cursor", "v0-by-vercel", "claude"],
           whyThisStack: "Cursor for code, v0 for UI, Claude for everything else",
           compatibility: "Perfect for rapid prototyping and MVPs",
@@ -201,7 +194,6 @@ export function useStackRecommendation(answers: Record<string, string>): StackRe
       stack = {
         name: "The Researcher Stack",
         description: "Deep research, documentation, and content creation",
-        totalPrice: "$0-20/mo",
         tools: ["claude", "perplexity", "notion-ai"],
         whyThisStack: "Perplexity for research, Claude for writing, Notion AI for organizing notes",
         compatibility: "Web-based, works everywhere",
@@ -260,7 +252,7 @@ export function QuizInterface({ onRestart }: QuizInterfaceProps) {
 
   useEffect(() => {
     if (isFinished) {
-      trackStackRecommended(getRecommendedStack.name, getRecommendedStack.totalPrice);
+      trackStackRecommended(getRecommendedStack.name, getRecommendedStack.tools.length);
     }
   }, [isFinished, getRecommendedStack]);
 
@@ -373,6 +365,7 @@ export function QuizInterface({ onRestart }: QuizInterfaceProps) {
             onShare={handleShare}
             copied={copied}
             getToolDetails={getToolDetails}
+            tools={tools}
           />
         )}
       </AnimatePresence>
@@ -386,6 +379,7 @@ interface StackRecommendationResultProps {
   onShare: () => void;
   copied: boolean;
   getToolDetails: (slug: string) => Tool | undefined;
+  tools: Tool[];
 }
 
 function StackRecommendationResult({
@@ -393,9 +387,11 @@ function StackRecommendationResult({
   onRestart,
   onShare,
   copied,
-  getToolDetails
+  getToolDetails,
+  tools
 }: StackRecommendationResultProps) {
   const reduceMotion = useReducedMotion();
+  const freeCount = countToolsWithFreePlan(stack.tools, tools);
 
   return (
     <m.div
@@ -423,9 +419,11 @@ function StackRecommendationResult({
               <Layers className="h-5 w-5" aria-hidden="true" />
               {stack.tools.length} {stack.tools.length === 1 ? "tool" : "tools"}
             </div>
-            <span className="bg-secondary px-4 py-1 text-[18px] font-semibold tabular-nums text-foreground">
-              {stack.totalPrice}
-            </span>
+            {freeCount !== null && (
+              <span className="bg-secondary px-4 py-1 text-[16px] font-semibold text-foreground">
+                {freePlanLabel(freeCount, stack.tools.length)}
+              </span>
+            )}
           </div>
 
           {stack.stackId && (
@@ -459,7 +457,6 @@ function StackRecommendationResult({
         {/* Lead capture — fires right after the user sees the "why" */}
         <QuizLeadCapture
           stackName={stack.name}
-          stackPrice={stack.totalPrice}
           toolSlugs={stack.tools}
         />
 

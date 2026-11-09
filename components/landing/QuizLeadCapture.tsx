@@ -8,7 +8,6 @@ import { useCsrfFetch } from "@/hooks/useCsrfFetch";
 
 interface QuizLeadCaptureProps {
   stackName: string;
-  stackPrice: string;
   toolSlugs: string[];
 }
 
@@ -21,7 +20,6 @@ interface QuizLeadCaptureProps {
  */
 export function QuizLeadCapture({
   stackName,
-  stackPrice,
   toolSlugs,
 }: QuizLeadCaptureProps) {
   const { csrfFetch } = useCsrfFetch();
@@ -50,7 +48,6 @@ export function QuizLeadCapture({
           source: "quiz",
           metadata: JSON.stringify({
             stackName,
-            stackPrice,
             toolSlugs,
           }),
         }),

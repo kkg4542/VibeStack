@@ -3,8 +3,10 @@
 import Link from "next/link";
 import { Zap, Layers, Brain, GraduationCap, Paintbrush, Wand2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAllTools } from "@/hooks/use-tools";
+import { countToolsWithFreePlan, freePlanLabel } from "./stack-facts";
 
-// Ids/names/descriptions/tools/price below mirror the curated stacks in
+// Ids/names/descriptions/tools below mirror the curated stacks in
 // lib/stacks.ts — they used to be a separate, made-up list (ids like
 // "design-pro", "startup", "fullstack", "researcher" that don't exist as
 // stack pages) with no links at all. Keeping them in sync means every card
@@ -15,7 +17,6 @@ export const POPULAR_STACKS = [
     name: "The 10x Engineer Stack",
     description: "An autonomous coding agent paired with fast, opinionated issue tracking for maximum velocity",
     tools: ["devin-ai", "linear"],
-    price: "$40+/mo",
     color: "bg-secondary",
     icon: Zap
   },
@@ -24,7 +25,6 @@ export const POPULAR_STACKS = [
     name: "The Product Designer Stack",
     description: "Professional tools to convert Figma designs directly into production code",
     tools: ["builder-io", "v0-by-vercel"],
-    price: "$19+/mo",
     color: "bg-secondary",
     icon: Paintbrush
   },
@@ -33,7 +33,6 @@ export const POPULAR_STACKS = [
     name: "The Learner Stack",
     description: "Zero-setup environments that explain code as you write it",
     tools: ["cursor", "replit"],
-    price: "$0/mo",
     color: "bg-secondary",
     icon: GraduationCap
   },
@@ -42,7 +41,6 @@ export const POPULAR_STACKS = [
     name: "The Power Pair Stack",
     description: "The smartest reasoning models integrated directly into your IDE",
     tools: ["github-copilot", "gemini-code-assist"],
-    price: "$30+/mo",
     color: "bg-secondary",
     icon: Layers
   },
@@ -51,7 +49,6 @@ export const POPULAR_STACKS = [
     name: "The Smart Assistant Stack",
     description: "High-intelligence chat and search models available for free",
     tools: ["claude", "perplexity"],
-    price: "$0/mo",
     color: "bg-secondary",
     icon: Brain
   },
@@ -60,7 +57,6 @@ export const POPULAR_STACKS = [
     name: "The Magic Wand Stack",
     description: "Generate beautiful UI from text prompts without writing complex CSS",
     tools: ["v0-by-vercel", "builder-io"],
-    price: "$0/mo",
     color: "bg-secondary",
     icon: Wand2
   }
@@ -71,20 +67,23 @@ interface PopularStack {
   name: string;
   description: string;
   tools: string[];
-  price: string;
   color: string;
   icon: React.ComponentType<{ className?: string }>;
 }
 
 interface PopularStackCardProps {
   stack: PopularStack;
+  tools: { slug: string; pricing?: string | null }[];
 }
 
 // Direction B: flat card cells, icon on a flat `bg-secondary` square (the
 // per-stack `color` is now that neutral token), hover = one tone step. Plain
 // markup, so the grid is in the SSR HTML (no framer opacity:0 entry state).
-function PopularStackCard({ stack }: PopularStackCardProps) {
+function PopularStackCard({ stack, tools }: PopularStackCardProps) {
   const Icon = stack.icon;
+  // Derived from each tool's own pricing field; stays hidden until the tool
+  // data has loaded rather than showing a guess.
+  const freeCount = countToolsWithFreePlan(stack.tools, tools);
   return (
     <Link
       href={`/stack/${stack.id}`}
@@ -98,17 +97,20 @@ function PopularStackCard({ stack }: PopularStackCardProps) {
       <h3 className="mb-2 text-[18px] font-semibold text-foreground group-hover:text-vibe-link">{stack.name}</h3>
       <p className="mb-4 text-[16px] text-muted-foreground">{stack.description}</p>
       <div className="flex items-center justify-between text-[14px] text-muted-foreground">
-        <span className="font-semibold text-foreground">{stack.price}</span>
         <span className="flex items-center gap-1">
           <Layers className="h-4 w-4" aria-hidden="true" />
           {stack.tools.length} {stack.tools.length === 1 ? "tool" : "tools"}
         </span>
+        {freeCount !== null && (
+          <span className="font-semibold text-foreground">{freePlanLabel(freeCount, stack.tools.length)}</span>
+        )}
       </div>
     </Link>
   );
 }
 
 export function PopularStacksGrid() {
+  const { tools } = useAllTools();
   return (
     <section className="mb-24">
       <div className="mb-10">
@@ -121,7 +123,7 @@ export function PopularStacksGrid() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {POPULAR_STACKS.map((stack) => (
           <div key={stack.id} className="reveal">
-            <PopularStackCard stack={stack} />
+            <PopularStackCard stack={stack} tools={tools} />
           </div>
         ))}
       </div>

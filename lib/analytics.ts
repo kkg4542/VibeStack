@@ -33,7 +33,7 @@ interface EventParams {
   search_query: { query: string; results_count: number };
   filter_use: { filter_type: string; filter_value: string };
   stack_finder_step: { step_id: string; option_id: string };
-  stack_recommended: { stack_name: string; total_price: string };
+  stack_recommended: { stack_name: string; tool_count: number };
 }
 
 export function trackEvent<T extends AnalyticsEvent>(
@@ -99,6 +99,6 @@ export function trackStackFinderStep(stepId: string, optionId: string): void {
   trackEvent("stack_finder_step", { step_id: stepId, option_id: optionId });
 }
 
-export function trackStackRecommended(stackName: string, totalPrice: string): void {
-  trackEvent("stack_recommended", { stack_name: stackName, total_price: totalPrice });
+export function trackStackRecommended(stackName: string, toolCount: number): void {
+  trackEvent("stack_recommended", { stack_name: stackName, tool_count: toolCount });
 }
