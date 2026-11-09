@@ -46,6 +46,12 @@ vi.mock("@/lib/alerts", () => ({
   sendSlackAlert: vi.fn(),
 }));
 
+// The route gates itself with requireAdminMutation; the guard has its own
+// suite (__tests__/lib/admin-guard.test.ts), so this one exercises replay only.
+vi.mock("@/lib/admin-guard", () => ({
+  requireAdminMutation: vi.fn(async () => null),
+}));
+
 // The admin route replays an event it fetches by id, so `events.retrieve` is
 // this suite's entry point where the live webhook has `webhooks.constructEvent`.
 const stripeMock = {

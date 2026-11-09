@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 import ToolsPageClient from "./ToolsPageClient";
 import { SiteDirectory } from "@/components/seo/SiteDirectory";
 import { Container } from "@/components/primitives/Container";
@@ -65,6 +66,14 @@ export default async function ToolsPage() {
     const tools = await getTools();
     const categories = categoryBreakdown(tools);
     const comparisonCount = comparePairs(tools).length;
+
+    // Filter options and header stats for the client island, derived from the
+    // same read so the chips can never go stale against the data (this is how
+    // "Other" had gone missing from the hard-coded list).
+    const categoryOptions = categories.map((c) => c.category);
+    const PRICING_ORDER: ToolData["pricing"][] = ["Free", "Freemium", "Paid", "Enterprise"];
+    const pricingOptions = PRICING_ORDER.filter((p) => tools.some((t) => t.pricing === p));
+    const freeToolsCount = tools.filter((t) => t.pricing === "Free").length;
 
     const itemListJsonLd = {
         "@context": "https://schema.org",
@@ -153,7 +162,20 @@ export default async function ToolsPage() {
                 </Container>
             </section>
 
-            <ToolsPageClient />
+            {/* ToolsPageClient reads ?category= / ?q= via useSearchParams, which
+                needs a Suspense boundary; everything above stays server-rendered
+                and the route stays static. */}
+            <Suspense fallback={null}>
+                <ToolsPageClient
+                    categories={categoryOptions}
+                    pricingOptions={pricingOptions}
+                    stats={{
+                        totalTools: tools.length,
+                        categoriesCount: categoryOptions.length,
+                        freeToolsCount,
+                    }}
+                />
+            </Suspense>
             <Container>
                 <SiteDirectory />
             </Container>

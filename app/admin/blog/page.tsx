@@ -2,7 +2,8 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Pencil, Trash2, Calendar, User } from "lucide-react";
+import { Plus, Pencil, Calendar, User } from "lucide-react";
+import { ConfirmDeleteButton } from "@/components/admin/ConfirmDeleteButton";
 import { deleteBlogPost } from "@/app/admin/actions/blog";
 
 async function getBlogPosts() {
@@ -73,11 +74,11 @@ export default async function AdminBlogPage() {
                           <Pencil className="h-4 w-4" />
                         </Link>
                       </Button>
-                      <form action={deleteBlogPost.bind(null, post.id)}>
-                        <Button type="submit" variant="ghost" size="icon" className="text-red-700 dark:text-red-400 hover:bg-red-500/10 hover:text-red-700 dark:hover:text-red-400" aria-label={`Delete ${post.title}`}>
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </form>
+                      <ConfirmDeleteButton
+                        action={deleteBlogPost.bind(null, post.id)}
+                        itemName={post.title}
+                        itemType="blog post"
+                      />
                     </div>
                   </td>
                 </tr>

@@ -1,5 +1,4 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Settings, Database, Globe, Bell } from "lucide-react";
@@ -10,7 +9,7 @@ export default function AdminSettingsPage() {
       <div>
         <h1 className="text-3xl font-bold tracking-tight text-balance">Settings</h1>
         <p className="text-muted-foreground">
-          Manage system settings and configurations.
+          Read-only overview. Editing settings from this page is not available yet.
         </p>
       </div>
 
@@ -29,16 +28,16 @@ export default function AdminSettingsPage() {
           <CardContent className="space-y-4">
             <div className="grid gap-2">
               <label htmlFor="site-name" className="text-sm font-medium">Site Name</label>
-              <Input id="site-name" defaultValue="VibeStack" />
+              <Input id="site-name" defaultValue="VibeStack" readOnly />
             </div>
             <div className="grid gap-2">
               <label htmlFor="site-description" className="text-sm font-medium">Site Description</label>
               <Input 
                 id="site-description" 
-                defaultValue="Curated AI tools for developers" 
+                defaultValue="Curated AI tools for developers"
+                readOnly
               />
             </div>
-            <Button>Save Changes</Button>
           </CardContent>
         </Card>
 
@@ -83,7 +82,7 @@ export default function AdminSettingsPage() {
                   Automatically generate sitemap.xml
                 </p>
               </div>
-              <input type="checkbox" defaultChecked aria-label="Enable Sitemap" className="h-4 w-4" />
+              <input type="checkbox" defaultChecked disabled aria-label="Enable Sitemap" className="h-4 w-4" />
             </div>
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
@@ -92,7 +91,7 @@ export default function AdminSettingsPage() {
                   Generate RSS feed for blog posts
                 </p>
               </div>
-              <input type="checkbox" defaultChecked aria-label="Enable RSS Feed" className="h-4 w-4" />
+              <input type="checkbox" defaultChecked disabled aria-label="Enable RSS Feed" className="h-4 w-4" />
             </div>
           </CardContent>
         </Card>
@@ -116,7 +115,7 @@ export default function AdminSettingsPage() {
                   Get notified when users submit new tools
                 </p>
               </div>
-              <input type="checkbox" aria-label="New Tool Submissions" className="h-4 w-4" />
+              <input type="checkbox" disabled aria-label="New Tool Submissions" className="h-4 w-4" />
             </div>
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
@@ -125,7 +124,7 @@ export default function AdminSettingsPage() {
                   Notify when Stripe webhook processing fails
                 </p>
               </div>
-              <input type="checkbox" aria-label="Webhook Failures" className="h-4 w-4" />
+              <input type="checkbox" disabled aria-label="Webhook Failures" className="h-4 w-4" />
             </div>
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
@@ -134,7 +133,7 @@ export default function AdminSettingsPage() {
                   Receive weekly analytics reports
                 </p>
               </div>
-              <input type="checkbox" aria-label="Weekly Reports" className="h-4 w-4" />
+              <input type="checkbox" disabled aria-label="Weekly Reports" className="h-4 w-4" />
             </div>
           </CardContent>
         </Card>

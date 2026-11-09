@@ -1,75 +1,49 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import Link from "next/link";
 import { Heart, Trash2, Search, Loader2, Grid3X3, List, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from "@/components/ui/dialog";
 import { useAllTools } from "@/hooks/use-tools";
 import { getToolIcon } from "@/components/icons/tool-icons";
 import { stacks } from "@/lib/stacks";
 import { useSession } from "next-auth/react";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
-import { FavoriteWithTool } from "@/lib/schemas";
 import type { Tool } from "@prisma/client";
-import { useCsrfFetch } from "@/hooks/useCsrfFetch";
+import { useFavorites, type FavoriteItem } from "@/hooks/useFavorites";
 import { Container } from "@/components/primitives/Container";
-
-type FavoriteItem = {
-    id: string;
-    type: 'tool' | 'stack';
-    addedAt: number;
-};
 
 type ViewMode = 'grid' | 'list';
 type SortOption = 'newest' | 'oldest' | 'name';
 
 export default function FavoritesPage() {
     const { data: session } = useSession();
-    const { csrfFetch } = useCsrfFetch();
     const { tools } = useAllTools();
-    const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
+    // Single source of truth: tools (database when signed in, localStorage
+    // otherwise) and stacks (localStorage) in one {id,type,addedAt}[] list.
+    const {
+        favorites,
+        isLoading,
+        error: favoritesError,
+        removeFavorite: removeSaved,
+        clearAll: clearSaved,
+    } = useFavorites();
     const [searchQuery, setSearchQuery] = useState("");
-    const [mounted, setMounted] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
     const [viewMode, setViewMode] = useState<ViewMode>('grid');
     const [sortBy, setSortBy] = useState<SortOption>('newest');
     const [selectedCategory, setSelectedCategory] = useState<string>('all');
-
-    const loadFavorites = async () => {
-        setIsLoading(true);
-
-        if (session?.user?.id) {
-            try {
-                const response = await fetch('/api/favorites');
-                if (response.ok) {
-                    const dbFavorites: FavoriteWithTool[] = await response.json();
-                    const formatted = dbFavorites.map((f) => ({
-                        id: f.tool.slug,
-                        type: 'tool' as const,
-                        addedAt: new Date(f.createdAt).getTime(),
-                    }));
-                    setFavorites(formatted);
-                }
-            } catch (error) {
-                // Error handled silently
-            }
-        } else {
-            const saved = localStorage.getItem("vibestack-favorites");
-            if (saved) {
-                setFavorites(JSON.parse(saved));
-            }
-        }
-
-        setIsLoading(false);
-    };
-
-    // Load favorites
-    useEffect(() => {
-        setMounted(true);
-        loadFavorites();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [session]);
+    const [confirmClearOpen, setConfirmClearOpen] = useState(false);
+    const [isClearing, setIsClearing] = useState(false);
+    const cancelClearRef = useRef<HTMLButtonElement>(null);
 
     // Get unique categories from favorite tools
     const categories = useMemo(() => {
@@ -143,41 +117,22 @@ export default function FavoritesPage() {
         return filtered;
     }, [favorites, searchQuery, selectedCategory, sortBy, tools]);
 
-    const removeFavorite = async (id: string, type: 'tool' | 'stack') => {
-        if (session?.user?.id && type === 'tool') {
-            try {
-                await csrfFetch('/api/favorites', {
-                    method: 'DELETE',
-                    body: JSON.stringify({ toolId: id }),
-                });
-            } catch (error) {
-                // Error handled silently
-            }
-        }
+    const removeFavorite = (item: FavoriteItem) => removeSaved(item.id, item.type);
 
-        const updated = favorites.filter(f => f.id !== id);
-        setFavorites(updated);
-        localStorage.setItem("vibestack-favorites", JSON.stringify(updated));
-    };
-
-    const clearAll = async () => {
-        if (confirm("Are you sure you want to remove all favorites?")) {
-            if (session?.user?.id) {
-                for (const fav of favorites) {
-                    if (fav.type === 'tool') {
-                        await csrfFetch('/api/favorites', {
-                            method: 'DELETE',
-                            body: JSON.stringify({ toolId: fav.id }),
-                        });
-                    }
-                }
-            }
-            setFavorites([]);
-            localStorage.removeItem("vibestack-favorites");
+    // Clear All opens an in-page dialog (Radix Dialog: focus is trapped,
+    // Escape and the overlay cancel). Focus starts on Cancel so a stray Enter
+    // cannot wipe the list.
+    const confirmClearAll = async () => {
+        setIsClearing(true);
+        try {
+            await clearSaved();
+        } finally {
+            setIsClearing(false);
+            setConfirmClearOpen(false);
         }
     };
 
-    if (!mounted || isLoading) {
+    if (isLoading) {
         return (
             <div className="min-h-svh bg-background pb-20 pt-32">
                 <Container size="default">
@@ -231,7 +186,7 @@ export default function FavoritesPage() {
                                 <Button
                                     variant="secondary"
                                     size="sm"
-                                    onClick={clearAll}
+                                    onClick={() => setConfirmClearOpen(true)}
                                     className="h-9 rounded-none text-[14px] font-semibold"
                                 >
                                     <Trash2 aria-hidden="true" className="mr-2 h-4 w-4" />
@@ -241,6 +196,12 @@ export default function FavoritesPage() {
                         </div>
                     </div>
                 </div>
+
+                {favoritesError && (
+                    <p role="alert" className="mb-6 bg-card px-4 py-3 text-[16px] text-foreground">
+                        {favoritesError}
+                    </p>
+                )}
 
                 {/* Filters Bar */}
                 <div className="mb-10 flex flex-col gap-1 sm:flex-row">
@@ -360,7 +321,7 @@ export default function FavoritesPage() {
                                                             <Button
                                                                 variant="ghost"
                                                                 size="sm"
-                                                                onClick={() => removeFavorite(item.id, 'tool')}
+                                                                onClick={() => removeFavorite(item)}
                                                                 aria-label={`Remove ${tool.title} from favorites`}
                                                                 className="shrink-0 rounded-none text-muted-foreground hover:bg-vibe-electric hover:text-vibe-deep"
                                                             >
@@ -406,7 +367,7 @@ export default function FavoritesPage() {
                                                     <Button
                                                         variant="ghost"
                                                         size="sm"
-                                                        onClick={() => removeFavorite(item.id, 'stack')}
+                                                        onClick={() => removeFavorite(item)}
                                                         aria-label={`Remove ${stack.name} from favorites`}
                                                         className="shrink-0 rounded-none text-muted-foreground hover:bg-vibe-electric hover:text-vibe-deep"
                                                     >
@@ -441,6 +402,50 @@ export default function FavoritesPage() {
                     </div>
                 )}
             </Container>
+
+            <Dialog
+                open={confirmClearOpen}
+                onOpenChange={(next) => {
+                    // Keep the dialog open while the removal is in flight.
+                    if (!isClearing) setConfirmClearOpen(next);
+                }}
+            >
+                <DialogContent
+                    className="bg-popover p-8 sm:max-w-[440px]"
+                    onOpenAutoFocus={(event) => {
+                        event.preventDefault();
+                        cancelClearRef.current?.focus();
+                    }}
+                >
+                    <DialogHeader>
+                        <DialogTitle className="font-display text-3xl uppercase leading-[0.9] tracking-[-0.005em]">
+                            Remove all favorites?
+                        </DialogTitle>
+                        <DialogDescription className="text-[16px] leading-normal">
+                            This removes {favorites.length} saved {favorites.length === 1 ? 'item' : 'items'} from your favorites.
+                            {session?.user ? " Saved tools are also removed from your account." : ""} This cannot be undone.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter className="mt-4">
+                        <Button
+                            ref={cancelClearRef}
+                            variant="secondary"
+                            onClick={() => setConfirmClearOpen(false)}
+                            disabled={isClearing}
+                            className="h-11 rounded-none px-6 text-[16px] font-semibold"
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={confirmClearAll}
+                            disabled={isClearing}
+                            className="h-11 rounded-none bg-vibe-electric px-6 text-[16px] font-semibold text-vibe-deep shadow-none hover:bg-vibe-electric/90"
+                        >
+                            {isClearing ? "Removing..." : `Remove ${favorites.length === 1 ? 'item' : `all ${favorites.length}`}`}
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </PageBackground>
     );
 }

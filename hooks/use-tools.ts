@@ -2,10 +2,11 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type { CreateToolInput, CreateReviewInput } from "@/lib/schemas";
 
 // Tool Queries
-const fetchTools = async (params?: { category?: string; pricing?: string; page?: number; limit?: number; q?: string }) => {
+const fetchTools = async (params?: { category?: string; pricing?: string; sort?: string; page?: number; limit?: number; q?: string }) => {
   const searchParams = new URLSearchParams();
   if (params?.category) searchParams.set("category", params.category);
   if (params?.pricing) searchParams.set("pricing", params.pricing);
+  if (params?.sort) searchParams.set("sort", params.sort);
   if (params?.page) searchParams.set("page", params.page.toString());
   if (params?.limit) searchParams.set("limit", params.limit.toString());
   if (params?.q) searchParams.set("q", params.q);
@@ -34,20 +35,37 @@ const createTool = async (data: CreateToolInput) => {
 };
 
 // Review Queries
-const fetchReviews = async (toolId: string) => {
-  const response = await fetch(`/api/reviews?toolId=${toolId}`);
+// app/api/reviews wraps every success body as { data, timestamp } (see
+// createSuccessResponse in lib/api-utils.ts). GET returns Review[] and POST
+// returns the created Review, both with the author's public name and image.
+// Dates arrive as ISO strings because they have been through JSON.
+export interface ReviewWithUser {
+  id: string;
+  userId: string;
+  toolId: string;
+  rating: number;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  user: { name: string | null; image: string | null };
+}
+
+const fetchReviews = async (toolId: string): Promise<ReviewWithUser[]> => {
+  const response = await fetch(`/api/reviews?toolId=${encodeURIComponent(toolId)}`);
   if (!response.ok) throw new Error("Failed to fetch reviews");
-  return response.json();
+  const json = await response.json();
+  return json.data ?? json;
 };
 
-const createReview = async (data: CreateReviewInput) => {
+const createReview = async (data: CreateReviewInput): Promise<ReviewWithUser> => {
   const response = await fetch("/api/reviews", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
   if (!response.ok) throw new Error("Failed to create review");
-  return response.json();
+  const json = await response.json();
+  return json.data ?? json;
 };
 
 // Hooks

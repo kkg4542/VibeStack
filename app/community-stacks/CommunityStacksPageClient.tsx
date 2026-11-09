@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Plus, Users, TrendingUp, Clock, Eye, Heart, ArrowRight } from 'lucide-react';
@@ -15,15 +16,57 @@ interface CommunityStacksPageClientProps {
     filters: CommunityStackFilters;
 }
 
-export function CommunityStacksPageClient({ stacks, totalCount, filters }: CommunityStacksPageClientProps) {
+const PAGE_SIZE = 20;
+
+export function CommunityStacksPageClient({ stacks: initialStacks, totalCount, filters }: CommunityStacksPageClientProps) {
+    // Extra pages fetched by "Load More". They belong to the server-rendered page
+    // they were loaded for (`base`); when the filters change the server hands us
+    // a new `initialStacks` array and the extras are ignored (no effect needed).
+    const [more, setMore] = useState<{ base: CommunityStackWithDetails[]; items: CommunityStackWithDetails[] }>({
+        base: initialStacks,
+        items: [],
+    });
+    const [isLoadingMore, setIsLoadingMore] = useState(false);
+    const [loadError, setLoadError] = useState('');
+
+    const extra = more.base === initialStacks ? more.items : [];
+    const stacks = [...initialStacks, ...extra];
+    const hasMore = stacks.length < totalCount;
+
+    const loadMore = async () => {
+        if (isLoadingMore) return;
+        setIsLoadingMore(true);
+        setLoadError('');
+        try {
+            const params = new URLSearchParams();
+            if (filters.search) params.set('search', filters.search);
+            if (filters.sortBy) params.set('sortBy', filters.sortBy);
+            if (filters.timeRange) params.set('timeRange', filters.timeRange);
+            params.set('limit', String(PAGE_SIZE));
+            params.set('offset', String(stacks.length));
+
+            const res = await fetch(`/api/community-stacks?${params.toString()}`);
+            if (!res.ok) throw new Error('bad status');
+            const data = await res.json();
+            const incoming: CommunityStackWithDetails[] = Array.isArray(data.stacks) ? data.stacks : [];
+            const seen = new Set(stacks.map((s) => s.id));
+            setMore({
+                base: initialStacks,
+                items: [...extra, ...incoming.filter((s) => !seen.has(s.id))],
+            });
+        } catch {
+            setLoadError('Could not load more stacks. Please try again.');
+        } finally {
+            setIsLoadingMore(false);
+        }
+    };
+
     // Stats for the page
     const stats = [
         { label: 'Community Stacks', value: totalCount.toLocaleString(), icon: Users },
         { label: 'Most Popular', value: 'This Week', icon: TrendingUp },
         { label: 'Updated', value: 'Just Now', icon: Clock },
     ];
-
-    const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link";
 
     return (
         <PageBackground {...BackgroundPresets.content}>
@@ -80,15 +123,14 @@ export function CommunityStacksPageClient({ stacks, totalCount, filters }: Commu
                 {stacks.length > 0 ? (
                     <div className="grid gap-3 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
                         {stacks.map((stack) => (
-                            <Link
+                            <article
                                 key={stack.id}
-                                href={`/community-stack/${stack.id}`}
-                                className={`group flex h-full flex-col bg-card p-6 transition-colors duration-150 hover:bg-accent sm:p-8 ${focus}`}
+                                className="flex h-full flex-col bg-card p-6 sm:p-8"
                             >
                                 {/* Name and featured tag */}
                                 <div className="mb-4 flex items-start justify-between gap-3">
                                     <div>
-                                        <h3 className="line-clamp-2 text-[20px] font-semibold text-foreground decoration-vibe-electric decoration-2 underline-offset-4 group-hover:underline">
+                                        <h3 className="line-clamp-2 text-[20px] font-semibold text-foreground">
                                             {stack.name}
                                         </h3>
                                         <p className="mt-1 text-[14px] text-muted-foreground">
@@ -107,6 +149,20 @@ export function CommunityStacksPageClient({ stacks, totalCount, filters }: Commu
                                     <p className="mb-4 line-clamp-2 text-[16px] leading-normal text-muted-foreground">
                                         {stack.description}
                                     </p>
+                                )}
+
+                                {/* Tools in this stack (plain text: tool pages are not guaranteed for every stored tool) */}
+                                {stack.tools.length > 0 && (
+                                    <ul className="mb-4 flex flex-wrap gap-2" aria-label="Tools in this stack">
+                                        {stack.tools.slice(0, 5).map((tool) => (
+                                            <li key={tool.id} className="bg-background px-2.5 py-1 text-[14px] font-semibold text-foreground">
+                                                {tool.name}
+                                            </li>
+                                        ))}
+                                        {stack.tools.length > 5 && (
+                                            <li className="px-1 py-1 text-[14px] text-muted-foreground">+{stack.tools.length - 5} more</li>
+                                        )}
+                                    </ul>
                                 )}
 
                                 {/* Metrics */}
@@ -148,9 +204,8 @@ export function CommunityStacksPageClient({ stacks, totalCount, filters }: Commu
                                             Community Curator
                                         </p>
                                     </div>
-                                    <ArrowRight aria-hidden="true" className="h-4 w-4 text-muted-foreground transition-[color,transform] duration-150 group-hover:translate-x-1 group-hover:text-vibe-link motion-reduce:transition-none motion-reduce:group-hover:translate-x-0" />
                                 </div>
-                            </Link>
+                            </article>
                         ))}
                     </div>
                 ) : (
@@ -177,17 +232,23 @@ export function CommunityStacksPageClient({ stacks, totalCount, filters }: Commu
                 )}
 
                 {/* Load more (if there are more results) */}
-                {stacks.length < totalCount && (
+                {hasMore && (
                     <div className="mt-12 text-center">
                         <Button
+                            type="button"
                             variant="secondary"
                             size="lg"
+                            onClick={loadMore}
+                            disabled={isLoadingMore}
                             className="h-12 rounded-none px-8 text-[16px] font-semibold hover:bg-accent"
                         >
-                            Load More Stacks
+                            {isLoadingMore ? 'Loading...' : 'Load More Stacks'}
                         </Button>
                     </div>
                 )}
+                <div aria-live="polite" className="mt-4 text-center">
+                    {loadError && <p className="text-[15px] font-semibold text-destructive">{loadError}</p>}
+                </div>
             </Container>
         </PageBackground>
     );

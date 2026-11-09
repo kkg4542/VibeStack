@@ -57,6 +57,10 @@ function ToolCard({ tool }: { tool: ToolData }) {
 
 interface ToolsListProps {
     tools: ToolData[];
+    /** Category names present in the data (server-derived, so "Other" is included). */
+    categories: string[];
+    /** Pricing models present in the data. */
+    pricingOptions: string[];
     pagination?: {
         page: number;
         limit: number;
@@ -76,12 +80,14 @@ interface ToolsListProps {
         setPricing: (p: string) => void;
         setPage: (p: number) => void;
         setSortBy: (s: string) => void;
+        /** Reset search text, category, pricing and page in one go. */
+        clearAll: () => void;
     };
 }
 
-export function ToolsList({ tools, pagination, isLoading, filters, setFilters }: ToolsListProps) {
+export function ToolsList({ tools, categories: categoryNames, pricingOptions, pagination, isLoading, filters, setFilters }: ToolsListProps) {
     const { category, pricing, sortBy, page } = filters;
-    const { setCategory, setPricing, setSortBy, setPage } = setFilters;
+    const { setCategory, setPricing, setSortBy, setPage, clearAll } = setFilters;
     const [compareCount, setCompareCount] = useState(0);
 
     useEffect(() => {
@@ -99,8 +105,9 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
     }, []);
 
     // Options
-    const categories = ["All", "Coding", "Design", "Productivity", "Assistance", "Management"]; // Expanded default list
-    const pricingModels = ["All", "Free", "Freemium", "Paid"];
+    // Derived from the data on the server (app/tools/page.tsx), not hard-coded.
+    const categories = ["All", ...categoryNames];
+    const pricingModels = ["All", ...pricingOptions];
 
     const featuredTool = useMemo(() => {
         const featured = tools.filter(t => t.isFeatured);
@@ -154,7 +161,6 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                                 className="cursor-pointer appearance-none rounded-none bg-card py-2 pl-4 pr-10 text-[14px] font-semibold text-foreground transition-colors duration-150 hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link motion-reduce:transition-none"
                             >
                                 <option value="default">Default</option>
-                                <option value="rating">Top Rated</option>
                                 <option value="newest">Newest</option>
                             </select>
                             <ChevronDown aria-hidden="true" className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -222,10 +228,7 @@ export function ToolsList({ tools, pagination, isLoading, filters, setFilters }:
                                 <p className="text-[16px] text-muted-foreground">No tools found matching your criteria.</p>
                                 <Button
                                     variant="link"
-                                    onClick={() => {
-                                        setCategory("All");
-                                        setPricing("All");
-                                    }}
+                                    onClick={clearAll}
                                     className="mt-2 text-[16px] text-vibe-link"
                                 >
                                     Clear all filters

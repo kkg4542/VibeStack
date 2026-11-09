@@ -4,6 +4,7 @@ import { CreateReviewSchema } from "@/lib/schemas";
 import { validateRequest, createErrorResponse, createSuccessResponse, formatZodError } from "@/lib/api-utils";
 import { NextRequest } from "next/server";
 import { validateBodySize } from "@/lib/body-size";
+import { limitOrRespond, routeRateLimits } from "@/lib/route-rate-limit";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -61,6 +62,14 @@ export async function POST(request: NextRequest) {
   if (!session || !session.user) {
     return createErrorResponse("Unauthorized", 401);
   }
+
+  // Per user, not per IP: the write is attributed to the account, and the
+  // one-review-per-tool rule below is what a throwaway-account loop works around.
+  const limited = await limitOrRespond(
+    `review-create:${session.user.id ?? session.user.email ?? "anonymous"}`,
+    routeRateLimits.reviewCreate
+  );
+  if (limited) return limited;
 
   try {
     const body = await request.json();

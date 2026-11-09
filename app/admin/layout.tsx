@@ -1,5 +1,7 @@
 import { Metadata } from "next";
+import { cookies } from "next/headers";
 import { AdminNav } from "@/components/admin/AdminNav";
+import { ADMIN_COOKIE_NAME, isValidAdminToken } from "@/lib/admin-token";
 
 export const dynamic = "force-dynamic";
 
@@ -9,11 +11,21 @@ export const metadata: Metadata = {
   description: "VibeStack admin dashboard",
 };
 
-export default function AdminLayout({
+export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // Middleware already guarantees a valid admin cookie on every /admin/* route
+  // except /admin/login. Chrome (sidebar, Sign Out) is rendered only when that
+  // cookie is present and valid, so the signed-out login page shows the form
+  // alone. This is presentation only; middleware remains the access gate.
+  const isAdmin = await isValidAdminToken((await cookies()).get(ADMIN_COOKIE_NAME)?.value);
+
+  if (!isAdmin) {
+    return <>{children}</>;
+  }
+
   return (
     <div className="min-h-svh bg-background pt-14">
       <div className="flex">

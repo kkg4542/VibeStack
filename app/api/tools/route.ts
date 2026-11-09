@@ -8,6 +8,11 @@ import { validateBodySize } from "@/lib/body-size";
 import { unstable_cache, revalidateTag } from "next/cache";
 import { POPULARITY_ORDER, RETIRED_TOOL_SLUGS } from "@/lib/tools-db";
 
+// Allow-list for ?sort=. There is no rating column on Tool, so the only
+// honest orderings are the curated popularity order and createdAt.
+const TOOL_SORTS = ['default', 'newest'] as const;
+type ToolSort = (typeof TOOL_SORTS)[number];
+
 function popularityRank(slug: string): number {
   const i = POPULARITY_ORDER.indexOf(slug);
   return i === -1 ? Number.MAX_SAFE_INTEGER : i;
@@ -27,11 +32,17 @@ function popularityRank(slug: string): number {
 // The admin write paths below are deliberately untouched: admin must keep
 // seeing retired tools so the retirement stays reversible.
 const getCachedTools = unstable_cache(
-  async (where: Record<string, unknown>, skip: number, limit: number | undefined) => {
+  async (where: Record<string, unknown>, skip: number, limit: number | undefined, sort: ToolSort) => {
     const all = await prisma.tool.findMany({
       where: { ...where, slug: { notIn: [...RETIRED_TOOL_SLUGS] } },
     });
     all.sort((a, b) => {
+      // "newest" orders by the real createdAt column; ties (and the default
+      // order) fall back to the curated popularity rank, then the title.
+      if (sort === 'newest') {
+        const dt = b.createdAt.getTime() - a.createdAt.getTime();
+        if (dt !== 0) return dt;
+      }
       const ra = popularityRank(a.slug);
       const rb = popularityRank(b.slug);
       if (ra !== rb) return ra - rb;
@@ -48,8 +59,12 @@ const getCachedTools = unstable_cache(
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const page = parseInt(searchParams.get("page") || "1");
-    const limit = Math.min(parseInt(searchParams.get("limit") || "20"), 500);
+    const page = Math.max(1, parseInt(searchParams.get("page") || "1") || 1);
+    const limit = Math.min(Math.max(1, parseInt(searchParams.get("limit") || "20") || 20), 500);
+    const sortParam = searchParams.get("sort");
+    const sort: ToolSort = (TOOL_SORTS as readonly string[]).includes(sortParam ?? "")
+      ? (sortParam as ToolSort)
+      : "default";
     const category = searchParams.get("category");
     const pricing = searchParams.get("pricing");
     const search = searchParams.get("q");
@@ -59,11 +74,13 @@ export async function GET(request: NextRequest) {
     const where: Record<string, unknown> = {};
 
     if (category) {
-      where.category = category;
+      // Case-insensitive so /api/tools?category=design and ?category=Design
+      // (the stored value) both resolve.
+      where.category = { equals: category, mode: 'insensitive' };
     }
 
     if (pricing) {
-      where.pricing = pricing;
+      where.pricing = { equals: pricing, mode: 'insensitive' };
     }
 
     if (search) {
@@ -73,7 +90,7 @@ export async function GET(request: NextRequest) {
       ];
     }
 
-    const { tools, total } = await getCachedTools(where, skip, limit);
+    const { tools, total } = await getCachedTools(where, skip, limit, sort);
 
     return createSuccessResponse({
       tools,

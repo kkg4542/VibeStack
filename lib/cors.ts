@@ -9,12 +9,28 @@ interface CorsConfig {
   maxAge: number;
 }
 
+/**
+ * Exact origins only. Responses carry Access-Control-Allow-Credentials, so an
+ * entry here can read authenticated responses: never add "*", and never list
+ * a domain we don't own. The default used to be vibestack.dev, which is not
+ * this site (production is usevibestack.com, see app/robots.ts and
+ * app/sitemap.ts), so the real origin was never on the list.
+ */
+const PRODUCTION_ORIGINS = ["https://usevibestack.com", "https://www.usevibestack.com"];
+const DEV_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000"];
+
+function resolveAllowedOrigins(): string[] {
+  const fromEnv = process.env.CORS_ALLOWED_ORIGINS?.split(",")
+    .map((origin) => origin.trim())
+    .filter((origin) => origin && origin !== "*");
+  if (fromEnv && fromEnv.length > 0) return fromEnv;
+  return process.env.NODE_ENV === "production"
+    ? PRODUCTION_ORIGINS
+    : [...PRODUCTION_ORIGINS, ...DEV_ORIGINS];
+}
+
 const defaultConfig: CorsConfig = {
-  origin: process.env.CORS_ALLOWED_ORIGINS?.split(",") || [
-    "http://localhost:3000",
-    "https://vibestack.dev",
-    "https://www.vibestack.dev",
-  ],
+  origin: resolveAllowedOrigins(),
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: [
     "Content-Type",
@@ -35,7 +51,9 @@ function isOriginAllowed(origin: string, allowedOrigins: CorsConfig["origin"]): 
   if (typeof allowedOrigins === "function") {
     return allowedOrigins(origin);
   }
-  return allowedOrigins === origin || allowedOrigins === "*";
+  // A bare "*" is never honoured: the caller would then reflect the request's
+  // own Origin alongside Allow-Credentials, i.e. trust every site.
+  return allowedOrigins === origin;
 }
 
 export function withCORS(

@@ -11,6 +11,7 @@ import {
   CSRF_HEADER_NAME
 } from "@/lib/csrf";
 import { withCORS, isPreflightRequest, handleCorsPreflight } from "@/lib/cors";
+import { ADMIN_COOKIE_NAME, isValidAdminToken } from "@/lib/admin-token";
 
 // Initialize Redis client for rate limiting.
 // The URL is shape-checked because Upstash's other credential set — the
@@ -284,24 +285,9 @@ export async function middleware(req: NextRequest) {
       return response;
     }
 
-    const adminCookie = req.cookies.get("vibestack_admin")?.value;
-    let isAuthenticated = false;
-
-    if (adminCookie) {
-      const validPwd = process.env.ADMIN_PASSWORD;
-      if (validPwd) {
-        // Compute expected hash
-        const encoder = new TextEncoder();
-        const data = encoder.encode(validPwd + "vibestack_admin_salt_7391");
-        const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        const expectedHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        
-        if (adminCookie === expectedHash) {
-          isAuthenticated = true;
-        }
-      }
-    }
+    // Same derivation as the login action (lib/admin-token.ts, Web Crypto
+    // only, Edge-safe). False when the cookie is missing or ADMIN_PASSWORD unset.
+    const isAuthenticated = await isValidAdminToken(req.cookies.get(ADMIN_COOKIE_NAME)?.value);
 
     if (isAuthenticated) {
       // Clear failed attempts on success

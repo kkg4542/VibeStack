@@ -1,11 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { m, AnimatePresence } from "framer-motion";
-import { X, Mail, Download, Gift } from "lucide-react";
+import { Mail, Newspaper, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { useCsrfFetch } from "@/hooks/useCsrfFetch";
 
 interface ExitIntentPopupProps {
@@ -18,6 +22,9 @@ export function ExitIntentPopup({ toolSlug, toolName }: ExitIntentPopupProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   // Use lazy initialization to check sessionStorage without useEffect setState
   const [hasShown, setHasShown] = useState(() => {
@@ -57,131 +64,132 @@ export function ExitIntentPopup({ toolSlug, toolName }: ExitIntentPopupProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
 
-    if (!email || !email.includes("@")) return;
+    if (!email || !email.includes("@")) {
+      setErrorMessage("Please enter a valid email address.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setErrorMessage("");
 
     try {
-      await Promise.all([
-        csrfFetch("/api/analytics/email-capture", {
-          method: "POST",
-          body: JSON.stringify({
-            email,
-            source: "exit_intent",
-            toolSlug: toolSlug || null,
-            metadata: toolName ? JSON.stringify({ toolName }) : null
-          })
-        }),
-        csrfFetch("/api/newsletter", {
-          method: "POST",
-          body: JSON.stringify({ email })
-        }),
-      ]);
+      // Attribution is best effort: a failure here must not decide the outcome.
+      const attribution = csrfFetch("/api/analytics/email-capture", {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+          source: "exit_intent",
+          toolSlug: toolSlug || null,
+          metadata: toolName ? JSON.stringify({ toolName }) : null
+        })
+      }).catch(() => null);
 
+      const res = await csrfFetch("/api/newsletter", {
+        method: "POST",
+        body: JSON.stringify({ email })
+      });
+      await attribution;
+
+      if (!res.ok) {
+        if (res.status === 429) {
+          setErrorMessage("Too many attempts, try again later.");
+        } else if (res.status === 400) {
+          const data = await res.json().catch(() => null);
+          setErrorMessage(
+            typeof data?.error === "string" && data.error
+              ? data.error
+              : "Please enter a valid email address."
+          );
+        } else {
+          setErrorMessage("We couldn't sign you up right now. Please try again later.");
+        }
+        return;
+      }
+
+      const data = await res.json().catch(() => null);
+      setSuccessMessage(
+        typeof data?.message === "string" && data.message ? data.message : "You're subscribed!"
+      );
       setIsSubmitted(true);
-    } catch (error) {
-      // Error handled silently
+    } catch {
+      setErrorMessage("Network error. Please check your connection and try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  const handleClose = () => {
-    setIsVisible(false);
-  };
-
+  // Radix Dialog supplies role="dialog", aria-modal, the focus trap, Escape to
+  // close, and focus restoration to whatever was focused before it opened.
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <>
-          {/* Backdrop */}
-          <m.div
-            initial={false}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/60 z-50"
-            onClick={handleClose}
-          />
+    <Dialog open={isVisible} onOpenChange={setIsVisible}>
+      <DialogContent
+        showCloseButton
+        className="gap-0 overflow-hidden bg-popover p-8 sm:max-w-md"
+      >
+        {/* Signature orange bar */}
+        <div className="absolute inset-x-0 top-0 h-1.5 bg-vibe-electric" aria-hidden="true" />
 
-          {/* Popup */}
-          <m.div
-            initial={{ opacity: 1, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 16 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-md px-4"
-          >
-            <Card className="relative overflow-hidden rounded-none shadow-lg"> {/* taste-skill-ignore (real overlay) */}
-              {/* Close button */}
-              <button
-                onClick={handleClose}
-                aria-label="Close"
-                className="absolute top-4 right-4 p-2 rounded-none hover:bg-accent transition-colors z-10 focus-visible:outline-2 focus-visible:outline-ring"
+        {!isSubmitted ? (
+          <>
+            <div className="mb-6 text-center">
+              <Newspaper className="mx-auto mb-4 h-8 w-8 text-vibe-link" aria-hidden="true" />
+              <DialogTitle className="mb-3 font-display text-4xl uppercase leading-[0.88] tracking-[-0.005em]">
+                Before You Go
+              </DialogTitle>
+              <DialogDescription className="text-base text-muted-foreground">
+                Get the weekly VibeStack newsletter with new AI tools.
+              </DialogDescription>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
+                <Input
+                  type="email"
+                  placeholder="Enter your email"
+                  aria-label="Email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={isSubmitting}
+                  className="h-12 pl-10"
+                  required
+                />
+              </div>
+              <Button
+                type="submit"
+                className="h-12 w-full rounded-none"
+                size="lg"
+                disabled={isSubmitting}
               >
-                <X className="w-5 h-5 text-muted-foreground" />
-              </button>
-
-              {/* Signature orange bar */}
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-vibe-electric" />
-
-              <CardContent className="p-8">
-                {!isSubmitted ? (
-                  <>
-                    <div className="text-center mb-6">
-                      <Gift className="w-8 h-8 text-vibe-link mx-auto mb-4" aria-hidden="true" />
-                      <h3 className="font-display uppercase text-4xl leading-[0.88] tracking-[-0.005em] mb-3">
-                        Wait! Don&apos;t Miss Out
-                      </h3>
-                      <p className="text-muted-foreground">
-                        {toolName ? (
-                          <>Get notified when <strong>{toolName}</strong> offers a discount</>
-                        ) : (
-                          <>Get our exclusive <strong>2026 AI Tools Buying Guide</strong> for free</>
-                        )}
-                      </p>
-                    </div>
-
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                      <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                        <Input
-                          type="email"
-                          placeholder="Enter your email"
-                          aria-label="Email address"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          className="pl-10 h-12"
-                          required
-                        />
-                      </div>
-                      <Button
-                        type="submit"
-                        className="w-full h-12 rounded-none"
-                        size="lg"
-                      >
-                        <Download className="w-4 h-4 mr-2" />
-                        {toolName ? "Get Discount Alerts" : "Get Free Guide"}
-                      </Button>
-                      <p className="text-[13px] text-center text-muted-foreground">
-                        No spam. Unsubscribe anytime.
-                      </p>
-                    </form>
-                  </>
-                ) : (
-                  <div className="text-center py-4">
-                    <svg className="w-8 h-8 text-vibe-link mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <h3 className="font-display uppercase text-4xl leading-[0.88] tracking-[-0.005em] mb-3">You&apos;re In!</h3>
-                    <p className="text-muted-foreground mb-4">
-                      Check your inbox for the confirmation email.
-                    </p>
-                    <Button onClick={handleClose} variant="outline" className="rounded-none">
-                      Continue Browsing
-                    </Button>
-                  </div>
+                {isSubmitting ? "Subscribing..." : "Subscribe"}
+              </Button>
+              <div aria-live="assertive">
+                {errorMessage && (
+                  <p className="text-center text-[14px] font-semibold text-destructive">{errorMessage}</p>
                 )}
-              </CardContent>
-            </Card>
-          </m.div>
-        </>
-      )}
-    </AnimatePresence>
+              </div>
+              <p className="text-center text-[13px] text-muted-foreground">
+                No spam. Unsubscribe anytime.
+              </p>
+            </form>
+          </>
+        ) : (
+          <div className="py-4 text-center">
+            <Check className="mx-auto mb-4 h-8 w-8 text-vibe-link" aria-hidden="true" />
+            <DialogTitle className="mb-3 font-display text-4xl uppercase leading-[0.88] tracking-[-0.005em]">
+              {successMessage}
+            </DialogTitle>
+            <DialogDescription className="mb-4 text-base text-muted-foreground">
+              You&apos;ll get the weekly VibeStack newsletter.
+            </DialogDescription>
+            <Button onClick={() => setIsVisible(false)} variant="outline" className="rounded-none">
+              Continue Browsing
+            </Button>
+          </div>
+        )}
+      </DialogContent>
+    </Dialog>
   );
 }

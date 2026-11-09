@@ -1,11 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { requireAdminMutation } from "@/lib/admin-guard";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
 export async function POST(request: NextRequest, { params }: Props) {
+  const denied = await requireAdminMutation(request);
+  if (denied) return denied;
+
   const { id } = await params;
 
   const submission = await prisma.submission.findUnique({

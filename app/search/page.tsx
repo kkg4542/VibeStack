@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { Suspense, useState, useEffect, useMemo, useId } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Search, X, Clock, TrendingUp, ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -13,14 +14,54 @@ import { trackSearchQuery } from "@/lib/analytics";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { Container } from "@/components/primitives/Container";
 
+const SEARCH_LOADING = (
+    <div className="min-h-svh bg-background pb-20 pt-32">
+        <Container size="small">
+            <p className="text-[16px] text-muted-foreground">Loading...</p>
+        </Container>
+    </div>
+);
+
+// useSearchParams needs a Suspense boundary, so the page body lives in
+// SearchPageContent and the default export only supplies the boundary.
 export default function SearchPage() {
-    const [query, setQuery] = useState("");
+    return (
+        <Suspense fallback={SEARCH_LOADING}>
+            <SearchPageContent />
+        </Suspense>
+    );
+}
+
+/** Mirror the query into ?q= without a navigation (no RSC request, no scroll). */
+function writeQueryToUrl(value: string) {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (value.trim()) params.set("q", value);
+    else params.delete("q");
+    const next = params.toString();
+    window.history.replaceState(
+        window.history.state,
+        "",
+        `${window.location.pathname}${next ? `?${next}` : ""}${window.location.hash}`
+    );
+}
+
+function SearchPageContent() {
+    const urlQuery = useSearchParams().get("q") ?? "";
+    const inputId = useId();
+    const [query, setQuery] = useState(urlQuery);
+    // Follow ?q= when it changes while the page is already mounted (e.g. the
+    // mobile drawer or a trending link used from /search itself).
+    const [prevUrlQuery, setPrevUrlQuery] = useState(urlQuery);
+    if (urlQuery !== prevUrlQuery) {
+        setPrevUrlQuery(urlQuery);
+        setQuery(urlQuery);
+    }
     const [mounted, setMounted] = useState(false);
     const [recentSearches, setRecentSearches] = useState<string[]>([]);
     const { tools } = useAllTools();
 
     useEffect(() => {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setMounted(true);
         const saved = localStorage.getItem('vibestack-recent-searches');
         if (saved) {
@@ -28,18 +69,24 @@ export default function SearchPage() {
         }
     }, []);
 
-    const searchTools = useMemo(() => {
-        if (!query.trim()) return [];
+    const matchTools = (q: string): ToolData[] => {
+        if (!q.trim()) return [];
 
-        const lowerQuery = query.toLowerCase();
+        const lowerQuery = q.toLowerCase();
 
         return tools.filter((tool: ToolData) =>
             tool.title.toLowerCase().includes(lowerQuery) ||
             tool.description.toLowerCase().includes(lowerQuery) ||
             tool.category.toLowerCase().includes(lowerQuery) ||
             tool.features?.some(f => f.toLowerCase().includes(lowerQuery))
-        ).map((tool: ToolData) => ({ type: 'tool' as const, ...tool }));
-    }, [query, tools]);
+        );
+    };
+
+    const searchTools = useMemo(
+        () => matchTools(query).map((tool: ToolData) => ({ type: 'tool' as const, ...tool })),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [query, tools]
+    );
 
     const searchStacks = useMemo(() => {
         if (!query.trim()) return [];
@@ -72,8 +119,12 @@ export default function SearchPage() {
 
     const handleSearch = (newQuery: string) => {
         setQuery(newQuery);
-        if (newQuery.trim() && searchTools.length > 0) {
-            trackSearchQuery(newQuery, searchTools.length);
+        writeQueryToUrl(newQuery);
+        // Count results for the query being submitted, not the previous one
+        // still held in state.
+        const resultCount = matchTools(newQuery).length;
+        if (newQuery.trim() && resultCount > 0) {
+            trackSearchQuery(newQuery, resultCount);
 
             // Save to recent searches
             if (typeof window !== 'undefined') {
@@ -96,7 +147,9 @@ export default function SearchPage() {
     const highlightMatch = (text: string) => {
         if (!query.trim()) return text;
 
-        const parts = text.split(new RegExp(`(${query})`, 'gi'));
+        // Escape regex metacharacters so queries like "(" or "+" cannot throw.
+        const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const parts = text.split(new RegExp(`(${escaped})`, 'gi'));
         return parts.map((part, i) =>
             part.toLowerCase() === query.toLowerCase()
                 ? <mark key={i} className="bg-vibe-electric px-0.5 text-vibe-deep">{part}</mark>
@@ -105,13 +158,7 @@ export default function SearchPage() {
     };
 
     if (!mounted) {
-        return (
-            <div className="min-h-svh bg-background pb-20 pt-32">
-                <Container size="small">
-                    <p className="text-[16px] text-muted-foreground">Loading...</p>
-                </Container>
-            </div>
-        );
+        return SEARCH_LOADING;
     }
 
     const hasResults = searchTools.length > 0 || searchStacks.length > 0;
@@ -138,10 +185,13 @@ export default function SearchPage() {
                         <div className="relative bg-card focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-vibe-link">
                             <div className="flex items-center px-4 py-2">
                                 <Search aria-hidden="true" className="mr-3 h-5 w-5 text-muted-foreground" />
+                                <label htmlFor={inputId} className="sr-only">
+                                    Search tools, stacks, or features
+                                </label>
                                 <Input
+                                    id={inputId}
                                     type="text"
                                     placeholder="Search tools, stacks, or features..."
-                                    aria-label="Search tools, stacks, or features"
                                     value={query}
                                     onChange={(e) => setQuery(e.target.value)}
                                     onKeyDown={(e) => e.key === 'Enter' && handleSearch(query)}
@@ -150,7 +200,7 @@ export default function SearchPage() {
                                 />
                                 {query && (
                                     <button
-                                        onClick={() => setQuery('')}
+                                        onClick={() => { setQuery(''); writeQueryToUrl(''); }}
                                         aria-label="Clear search"
                                         className="p-2 text-muted-foreground hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link"
                                     >

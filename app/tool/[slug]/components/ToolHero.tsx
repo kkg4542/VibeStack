@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Star, ShieldCheck, Sparkles, Heart, Scale } from "lucide-react";
+import { Star, ShieldCheck, Sparkles, Scale } from "lucide-react";
+import { SaveToolButton } from "./SaveToolButton";
 import { ToolIconRenderer } from "@/components/tools/ToolIconRenderer";
 import { AffiliateLink } from "@/components/ui/AffiliateLink";
 import { SocialShare } from "@/components/ui/SocialShare";
@@ -12,7 +13,7 @@ import Link from "next/link";
  * would disappear here) in text-foreground, never in the tool's own colour.
  *
  * Server component, no entrance animation: everything is in the SSR HTML at
- * full opacity.
+ * full opacity. The one client island is SaveToolButton (favorites toggle).
  *
  * 375px: the text column is `w-full self-stretch min-w-0` so long titles and
  * descriptions wrap instead of widening the flex row, and every action row
@@ -96,13 +97,7 @@ export function ToolHero({ tool }: { tool: any }) {
                 toolName={tool.title}
                 url={`https://usevibestack.com/tool/${tool.slug}`}
               />
-              <Button
-                variant="secondary"
-                className="h-12 rounded-none bg-background px-6 text-[16px] text-foreground hover:bg-accent"
-              >
-                <Heart aria-hidden="true" className="mr-2 h-4 w-4" />
-                Save
-              </Button>
+              <SaveToolButton slug={tool.slug} title={tool.title} />
               <Button
                 variant="secondary"
                 className="h-12 rounded-none bg-background px-6 text-[16px] text-foreground hover:bg-accent"

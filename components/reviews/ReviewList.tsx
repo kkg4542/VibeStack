@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-// import { getReviews, Review } from "@/lib/reviews-store"; // Removed local store
+import { Button } from "@/components/ui/button";
 import { ReviewItem } from "./ReviewItem";
 
 interface Review {
@@ -15,34 +15,65 @@ interface Review {
     };
 }
 
+type LoadState = "loading" | "ready" | "error";
+
 export function ReviewList({ toolSlug }: { toolSlug: string }) {
     const [reviews, setReviews] = useState<Review[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [state, setState] = useState<LoadState>("loading");
 
+    // GET /api/reviews?toolSlug=... answers { data: Review[], timestamp } (no
+    // pagination: all reviews, newest first). Errors answer { error, ... }.
     const loadReviews = useCallback(async () => {
         try {
-            const res = await fetch(`/api/reviews?slug=${toolSlug}`);
-            if (res.ok) {
-                const data = await res.json();
-                setReviews(data);
-            }
+            const res = await fetch(`/api/reviews?toolSlug=${encodeURIComponent(toolSlug)}`);
+            if (!res.ok) throw new Error(`Reviews request failed with ${res.status}`);
+            const json: unknown = await res.json();
+            const data = (json as { data?: unknown } | null)?.data;
+            if (!Array.isArray(data)) throw new Error("Unexpected reviews response");
+            setReviews(data as Review[]);
+            setState("ready");
         } catch (error) {
             console.error(error);
-        } finally {
-            setIsLoading(false);
+            setState("error");
         }
     }, [toolSlug]);
 
+    const retry = () => {
+        setState("loading");
+        void loadReviews();
+    };
+
     useEffect(() => {
-        loadReviews();
+        void loadReviews();
 
         // Listen for updates from form
-        window.addEventListener("review-submitted", loadReviews);
-        return () => window.removeEventListener("review-submitted", loadReviews);
+        const onSubmitted = () => void loadReviews();
+        window.addEventListener("review-submitted", onSubmitted);
+        return () => window.removeEventListener("review-submitted", onSubmitted);
     }, [loadReviews]);
 
-    if (isLoading) {
-        return <div className="py-8 text-center text-base text-muted-foreground">Loading reviews...</div>;
+    if (state === "loading") {
+        return (
+            <div role="status" className="py-8 text-center text-base text-muted-foreground">
+                Loading reviews...
+            </div>
+        );
+    }
+
+    if (state === "error") {
+        return (
+            <div role="alert" className="bg-card px-6 py-12 text-center">
+                <p className="mb-6 text-base text-foreground">Could not load reviews.</p>
+                <Button
+                    type="button"
+                    variant="secondary"
+                    onClick={retry}
+                    className="h-11 rounded-none px-6 text-[16px] font-semibold"
+                >
+                    Try again
+                </Button>
+            </div>
+        );
     }
 
     if (reviews.length === 0) {

@@ -1,17 +1,9 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import {
     Zap,
     Heart,
     Rocket,
     Mail,
-    Twitter,
-    Github,
-    Linkedin,
-    Send,
     Lightbulb,
     Code2,
     Palette,
@@ -19,8 +11,6 @@ import {
     RefreshCw,
     Layers
 } from "lucide-react";
-import { useState } from "react";
-import { toast } from "sonner";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { Container } from "@/components/primitives/Container";
 
@@ -29,12 +19,7 @@ const team = [
         name: "David Kim",
         role: "Founder & Developer",
         bio: "Full-stack developer passionate about AI tools and productivity.",
-        avatar: "DK",
-        social: {
-            twitter: "#",
-            github: "#",
-            linkedin: "#"
-        }
+        avatar: "DK"
     }
 ];
 
@@ -83,25 +68,6 @@ const values = [
 ];
 
 export default function AboutPage() {
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        message: ""
-    });
-    const [isSubmitting, setIsSubmitting] = useState(false);
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsSubmitting(true);
-
-        // Simulate form submission
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
-        toast.success("Message sent successfully! We'll get back to you soon.");
-        setFormData({ name: "", email: "", message: "" });
-        setIsSubmitting(false);
-    };
-
     const h2 = "font-display text-balance text-[clamp(32px,4vw,56px)] uppercase leading-[0.9] tracking-[-0.005em] text-foreground";
     const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link";
 
@@ -235,18 +201,7 @@ export default function AboutPage() {
                                 </div>
                                 <h3 className="mb-1 text-[20px] font-semibold">{member.name}</h3>
                                 <p className="mb-3 text-[15px] font-semibold text-vibe-link">{member.role}</p>
-                                <p className="mb-4 text-[16px] leading-normal text-muted-foreground">{member.bio}</p>
-                                <div className="flex gap-2">
-                                    <a href={member.social.twitter} aria-label={`${member.name} on Twitter`} className={`bg-secondary p-2.5 transition-colors hover:bg-accent ${focus}`}>
-                                        <Twitter aria-hidden="true" className="h-4 w-4" />
-                                    </a>
-                                    <a href={member.social.github} aria-label={`${member.name} on GitHub`} className={`bg-secondary p-2.5 transition-colors hover:bg-accent ${focus}`}>
-                                        <Github aria-hidden="true" className="h-4 w-4" />
-                                    </a>
-                                    <a href={member.social.linkedin} aria-label={`${member.name} on LinkedIn`} className={`bg-secondary p-2.5 transition-colors hover:bg-accent ${focus}`}>
-                                        <Linkedin aria-hidden="true" className="h-4 w-4" />
-                                    </a>
-                                </div>
+                                <p className="text-[16px] leading-normal text-muted-foreground">{member.bio}</p>
                             </div>
                         ))}
                     </div>
@@ -261,70 +216,15 @@ export default function AboutPage() {
                         </div>
 
                         <div className="bg-card p-6 sm:p-8">
-                            <form onSubmit={handleSubmit} className="space-y-6">
-                                <div className="grid gap-4 sm:grid-cols-2">
-                                    <div>
-                                        <label htmlFor="contact-name" className="mb-2 block text-[15px] font-semibold">Name</label>
-                                        <Input
-                                            id="contact-name"
-                                            placeholder="Your name"
-                                            value={formData.name}
-                                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                            required
-                                            className="bg-background"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="contact-email" className="mb-2 block text-[15px] font-semibold">Email</label>
-                                        <Input
-                                            id="contact-email"
-                                            type="email"
-                                            placeholder="your@email.com"
-                                            value={formData.email}
-                                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                            required
-                                            className="bg-background"
-                                        />
-                                    </div>
-                                </div>
-                                <div>
-                                    <label htmlFor="contact-message" className="mb-2 block text-[15px] font-semibold">Message</label>
-                                    <Textarea
-                                        id="contact-message"
-                                        placeholder="Tell us what's on your mind..."
-                                        value={formData.message}
-                                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                        required
-                                        rows={5}
-                                        className="bg-background"
-                                    />
-                                </div>
-                                <Button
-                                    type="submit"
-                                    className="h-12 w-full rounded-none text-[16px] font-semibold"
-                                    disabled={isSubmitting}
-                                >
-                                    {isSubmitting ? (
-                                        "Sending..."
-                                    ) : (
-                                        <>
-                                            <Send aria-hidden="true" className="mr-2 h-4 w-4" />
-                                            Send Message
-                                        </>
-                                    )}
-                                </Button>
-                            </form>
-
-                            <div className="mt-10">
-                                <p className="mb-2 text-[15px] text-muted-foreground">Or reach us directly at</p>
-                                <a
-                                    href="mailto:hello@usevibestack.com"
-                                    className={`inline-flex items-center gap-2 text-[17px] font-semibold text-vibe-link underline-offset-4 hover:underline ${focus}`}
-                                >
-                                    <Mail aria-hidden="true" className="h-4 w-4" />
-                                    hello@usevibestack.com
+                            <p className="mb-6 text-[17px] leading-normal text-muted-foreground">
+                                Email is the best way to reach us. The button opens a new message in your mail app.
+                            </p>
+                            <Button asChild className="h-12 rounded-none px-8 text-[16px] font-semibold">
+                                <a href="mailto:hello@usevibestack.com">
+                                    <Mail aria-hidden="true" className="mr-2 h-4 w-4" />
+                                    Email hello@usevibestack.com
                                 </a>
-                            </div>
+                            </Button>
                         </div>
                     </div>
                 </section>

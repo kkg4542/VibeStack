@@ -3,6 +3,7 @@ import type Stripe from "stripe";
 import { prisma } from "@/lib/prisma";
 import { getStripe } from "@/lib/stripe";
 import { notifySlack, processStripeEvent } from "@/lib/stripe-events";
+import { requireAdminMutation } from "@/lib/admin-guard";
 
 interface Props {
   params: Promise<{ eventId: string }>;
@@ -28,6 +29,9 @@ async function markWebhookEvent(
 }
 
 export async function POST(request: NextRequest, { params }: Props) {
+  const denied = await requireAdminMutation(request);
+  if (denied) return denied;
+
   const { eventId } = await params;
   const stripe = getStripe();
 

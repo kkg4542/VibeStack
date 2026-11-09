@@ -2,7 +2,8 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Pencil, Trash2 } from "lucide-react";
+import { Plus, Pencil } from "lucide-react";
+import { ConfirmDeleteButton } from "@/components/admin/ConfirmDeleteButton";
 import { deleteTool } from "@/app/admin/actions/tools";
 
 async function getTools() {
@@ -81,11 +82,12 @@ export default async function AdminToolsPage() {
                           <Pencil className="h-4 w-4" />
                         </Link>
                       </Button>
-                      <form action={deleteTool.bind(null, tool.id)}>
-                        <Button type="submit" variant="ghost" size="icon" className="text-red-700 dark:text-red-400 hover:bg-red-500/10 hover:text-red-700 dark:hover:text-red-400" aria-label={`Delete ${tool.title}`}>
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </form>
+                      <ConfirmDeleteButton
+                        action={deleteTool.bind(null, tool.id)}
+                        itemName={tool.title}
+                        itemType="tool"
+                        warning="Its reviews, favorites and click history will be deleted too."
+                      />
                     </div>
                   </td>
                 </tr>

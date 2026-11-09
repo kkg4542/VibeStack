@@ -7,7 +7,13 @@ import { Stack } from "@/lib/stacks";
 import { ToolData } from "@/lib/tool-types";
 import { getToolIcon } from "@/components/icons/tool-icons";
 import { SocialShare } from "@/components/ui/SocialShare";
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
+import {
+    addLocalFavorite,
+    isLocalFavorite,
+    removeLocalFavorite,
+    subscribeLocalFavorites,
+} from "@/lib/favorites-storage";
 import { PageBackground, BackgroundPresets } from "@/components/effects/PageBackground";
 import { Container } from "@/components/primitives/Container";
 import { StackViewTracker } from "@/components/stacks/StackViewTracker";
@@ -37,24 +43,25 @@ const squareButton = cn(
 );
 
 export function StackDetailClient({ stack, metrics, stackTools }: StackDetailClientProps) {
-    // Lazy initialization to avoid setState in effect
-    const [isFavorite, setIsFavorite] = useState(() => {
-        if (typeof window === 'undefined') return false;
-        try {
-            const favorites = JSON.parse(localStorage.getItem("vibestack-favorites") || "[]");
-            return favorites.includes(stack.id);
-        } catch {
-            return false;
-        }
-    });
+    // Stacks are always saved in this browser (localStorage, shared format in
+    // lib/favorites-storage.ts, so /favorites lists them). useSyncExternalStore
+    // keeps the SSR/hydration render at "not saved" and then reads the real value.
+    const isFavorite = useSyncExternalStore(
+        subscribeLocalFavorites,
+        () => isLocalFavorite(stack.id, "stack"),
+        () => false
+    );
+    const [favoriteStatus, setFavoriteStatus] = useState("");
 
     const toggleFavorite = () => {
-        const favorites = JSON.parse(localStorage.getItem("vibestack-favorites") || "[]");
-        const newFavorites = favorites.includes(stack.id)
-            ? favorites.filter((id: string) => id !== stack.id)
-            : [...favorites, stack.id];
-        localStorage.setItem("vibestack-favorites", JSON.stringify(newFavorites));
-        setIsFavorite(!isFavorite);
+        const next = isFavorite
+            ? removeLocalFavorite(stack.id, "stack")
+            : addLocalFavorite(stack.id, "stack");
+        if (next === null) {
+            setFavoriteStatus("Could not save: your browser is blocking local storage.");
+            return;
+        }
+        setFavoriteStatus(isFavorite ? `${stack.name} removed from your favorites.` : `${stack.name} saved to your favorites.`);
     };
 
     return (
@@ -123,9 +130,12 @@ export function StackDetailClient({ stack, metrics, stackTools }: StackDetailCli
                                         : "bg-secondary text-foreground hover:bg-muted"
                                 )}
                             >
-                                <Heart className={cn("h-4 w-4", isFavorite && "fill-current")} />
+                                <Heart aria-hidden="true" className={cn("h-4 w-4", isFavorite && "fill-current")} />
                                 {isFavorite ? "Saved" : "Save Stack"}
                             </button>
+                            <span role="status" aria-live="polite" className="sr-only">
+                                {favoriteStatus}
+                            </span>
                             <Link
                                 href="/build"
                                 className={cn(squareButton, "bg-secondary text-foreground hover:bg-muted")}

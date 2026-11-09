@@ -5,7 +5,7 @@ import { adminLogin } from "../actions/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "@/components/ui/card";
 import { Shield } from "lucide-react";
 
 export default function AdminLoginPage() {
@@ -18,7 +18,7 @@ export default function AdminLoginPage() {
         <form action={formAction}>
           <CardHeader className="space-y-3 text-center pt-8">
             <Shield aria-hidden="true" className="mx-auto h-8 w-8 text-vibe-link" />
-            <CardTitle className="font-display text-[40px] uppercase leading-[0.9] tracking-[-0.005em]">VibeStack Admin</CardTitle>
+            <h1 className="font-display text-[40px] font-semibold uppercase leading-[0.9] tracking-[-0.005em]">VibeStack Admin</h1>
             <CardDescription>
               Enter your credentials to access the management panel
             </CardDescription>

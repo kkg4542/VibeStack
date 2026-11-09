@@ -97,11 +97,18 @@ export default function NewsletterPage() {
             });
 
             if (response.ok) {
-                toast.success("Successfully subscribed! Check your inbox for confirmation.");
+                const data = await response.json().catch(() => null);
+                toast.success(
+                    typeof data?.message === "string" && data.message ? data.message : "Successfully subscribed!"
+                );
                 setEmail("");
+            } else if (response.status === 429) {
+                toast.error("Too many attempts, try again later.");
             } else {
-                const data = await response.json();
-                toast.error(data.error || "Failed to subscribe. Please try again.");
+                const data = await response.json().catch(() => null);
+                toast.error(
+                    typeof data?.error === "string" && data.error ? data.error : "Failed to subscribe. Please try again."
+                );
             }
         } catch (error) {
             toast.error("Network error. Please try again.");

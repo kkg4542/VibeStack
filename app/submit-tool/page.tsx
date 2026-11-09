@@ -25,6 +25,27 @@ const FOCUS = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visi
 const H2 = "font-display text-balance text-[clamp(32px,4vw,56px)] uppercase leading-[0.9] tracking-[-0.005em] text-foreground";
 const SELECT = `h-11 w-full rounded-none border border-input bg-background px-3 text-[16px] ${FOCUS}`;
 
+// Turns the checkout route's error body into one readable line. Validation
+// failures arrive as { error: "Validation failed", details: ZodIssue[] }.
+function describeSubmitError(status: number, data: unknown): string {
+    const body = (data ?? {}) as { error?: unknown; details?: unknown };
+    if (status === 429) {
+        return "Too many attempts, try again later.";
+    }
+    if (Array.isArray(body.details)) {
+        const messages = body.details
+            .map((d) => (d && typeof d === "object" && "message" in d ? String((d as { message: unknown }).message) : ""))
+            .filter(Boolean);
+        if (messages.length > 0) {
+            return `${typeof body.error === "string" ? body.error : "Validation failed"}: ${messages.join("; ")}.`;
+        }
+    }
+    if (typeof body.error === "string" && body.error) {
+        return body.error;
+    }
+    return "Something went wrong while submitting your tool. Please try again.";
+}
+
 export default function SubmitToolPage() {
     const searchParams = useSearchParams();
     const { csrfFetch } = useCsrfFetch();
@@ -40,19 +61,30 @@ export default function SubmitToolPage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [submittedEmail, setSubmittedEmail] = useState("");
+    const [submittedPaid, setSubmittedPaid] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [canceled, setCanceled] = useState(false);
 
     useEffect(() => {
         const success = searchParams.get("success");
         if (success === "1") {
             const storedEmail = localStorage.getItem("submission_email") || "";
             setSubmittedEmail(storedEmail);
+            // Only the Stripe redirect lands here with ?success=1 (free tier never leaves the page).
+            setSubmittedPaid(true);
             setSubmitted(true);
         }
+        // Stripe sends the user back with ?canceled=1 when they leave checkout.
+        setCanceled(searchParams.get("canceled") === "1");
     }, [searchParams]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (isSubmitting) return;
         setIsSubmitting(true);
+        setErrorMessage("");
+        setCanceled(false);
+        let redirecting = false;
 
         try {
             const response = await csrfFetch("/api/submissions/checkout", {
@@ -70,16 +102,22 @@ export default function SubmitToolPage() {
                 const data = await response.json();
                 if (data.checkoutUrl) {
                     localStorage.setItem("submission_email", formData.email);
+                    redirecting = true; // keep the button disabled while the browser leaves for Stripe
                     window.location.href = data.checkoutUrl;
                     return;
                 }
                 setSubmittedEmail(formData.email);
+                setSubmittedPaid(false);
                 setSubmitted(true);
+                return;
             }
-        } catch (error) {
-            // Error handled by form state
+
+            const data = await response.json().catch(() => null);
+            setErrorMessage(describeSubmitError(response.status, data));
+        } catch {
+            setErrorMessage("Network error. Check your connection and try again. Your answers are still in the form.");
         } finally {
-            setIsSubmitting(false);
+            if (!redirecting) setIsSubmitting(false);
         }
     };
 
@@ -91,8 +129,15 @@ export default function SubmitToolPage() {
                         <CheckCircle2 aria-hidden="true" className="mb-6 h-12 w-12 text-vibe-link" />
                         <h2 className={`${H2} mb-4`}>Submission Received!</h2>
                         <p className="mb-8 text-[17px] leading-normal text-muted-foreground">
-                            Thank you for submitting your tool. We&apos;ve sent a confirmation email{submittedEmail ? ` to ${submittedEmail}` : ""}.
-                            {selectedPlan !== "free" && " Your payment has been received."}
+                            {submittedPaid ? (
+                                <>
+                                    Thank you for submitting your tool. Your payment went through, and your listing is created once Stripe confirms it. We&apos;ll email{submittedEmail ? ` ${submittedEmail}` : " you"} when it&apos;s approved. It can take a little while to appear on the site.
+                                </>
+                            ) : (
+                                <>
+                                    Thank you for submitting your tool. It&apos;s in our review queue, and we&apos;ll email{submittedEmail ? ` ${submittedEmail}` : " you"} when it&apos;s approved.
+                                </>
+                            )}
                         </p>
                         <div className="flex flex-wrap gap-3">
                             <Button asChild variant="secondary" className="h-11 rounded-none bg-background px-6 text-[16px] font-semibold hover:bg-accent">
@@ -111,6 +156,12 @@ export default function SubmitToolPage() {
     return (
         <PageBackground {...BackgroundPresets.content}>
             <Section spacing="small" containerSize="default">
+                {canceled && (
+                    <div role="status" className="mb-10 bg-card p-5 text-[16px] font-semibold text-foreground">
+                        Payment canceled, you were not charged. Your tool has not been published. You can submit again whenever you&apos;re ready.
+                    </div>
+                )}
+
                 {/* Hero */}
                 <header className="mb-20">
                     <p className="mb-5 text-[16px] font-semibold text-vibe-link">For Tool Creators</p>
@@ -208,7 +259,7 @@ export default function SubmitToolPage() {
                         </div>
                     </div>
 
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form onSubmit={handleSubmit} className="space-y-6" aria-busy={isSubmitting}>
                         <div className="space-y-2">
                             <label htmlFor="tool-name" className="text-[15px] font-semibold">Tool Name *</label>
                             <Input
@@ -257,8 +308,9 @@ export default function SubmitToolPage() {
 
                         <div className="grid gap-4 md:grid-cols-2">
                             <div className="space-y-2">
-                                <label className="text-[15px] font-semibold">Category *</label>
+                                <label htmlFor="tool-category" className="text-[15px] font-semibold">Category *</label>
                                 <select
+                                    id="tool-category"
                                     required
                                     className={SELECT}
                                     value={formData.category}
@@ -275,8 +327,9 @@ export default function SubmitToolPage() {
                             </div>
 
                             <div className="space-y-2">
-                                <label className="text-[15px] font-semibold">Pricing Model *</label>
+                                <label htmlFor="tool-pricing" className="text-[15px] font-semibold">Pricing Model *</label>
                                 <select
+                                    id="tool-pricing"
                                     required
                                     className={SELECT}
                                     value={formData.pricing}
@@ -303,7 +356,7 @@ export default function SubmitToolPage() {
                                 className="bg-background"
                             />
                             <p className="text-[14px] text-muted-foreground">
-                                We&apos;ll send updates about your submission to this email.
+                                We&apos;ll use this email to tell you when your submission is approved.
                             </p>
                         </div>
 
@@ -322,6 +375,12 @@ export default function SubmitToolPage() {
                                 </>
                             )}
                         </Button>
+
+                        <div aria-live="assertive">
+                            {errorMessage && (
+                                <p className="bg-background p-4 text-[15px] font-semibold text-destructive">{errorMessage}</p>
+                            )}
+                        </div>
 
                         <p className="text-[14px] text-muted-foreground">
                             By submitting, you agree to our{" "}

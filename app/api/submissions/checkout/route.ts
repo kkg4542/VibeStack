@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getStripe } from "@/lib/stripe";
-import { z } from "zod";
 import { validateBodySize } from "@/lib/body-size";
+import { getClientIp, limitOrRespond, routeRateLimits } from "@/lib/route-rate-limit";
+import { checkoutConfigErrorResponse, getCheckoutBaseUrl } from "@/lib/checkout-base-url";
 
 import { checkoutSchema } from "@/lib/validations/forms";
 
@@ -11,14 +12,6 @@ const PRICE_IDS: Record<string, string | undefined> = {
   premium: process.env.STRIPE_SUBMISSION_PREMIUM_PRICE_ID,
 };
 
-function getBaseUrl(request: NextRequest): string {
-  return (
-    request.headers.get("origin") ||
-    process.env.NEXT_PUBLIC_APP_URL ||
-    "http://localhost:3000"
-  );
-}
-
 export async function POST(request: NextRequest) {
   try {
     // Validate request body size
@@ -26,6 +19,14 @@ export async function POST(request: NextRequest) {
     if (!sizeValid && sizeResponse) {
       return sizeResponse;
     }
+
+    // Per-IP: each call creates a Submission row (and, for paid tiers, a
+    // Stripe Checkout session), so an unthrottled loop fills both.
+    const limited = await limitOrRespond(
+      `submission-checkout:${getClientIp(request)}`,
+      routeRateLimits.submissionCheckout
+    );
+    if (limited) return limited;
 
     const body = await request.json();
 
@@ -42,6 +43,13 @@ export async function POST(request: NextRequest) {
 
     const amount =
       tier === "free" ? 0 : tier === "priority" ? 4900 : 14900;
+
+    // Resolved before the row is written so a misconfigured deploy does not
+    // leave a pending_payment submission behind for a checkout that never opens.
+    const baseUrl = tier === "free" ? null : getCheckoutBaseUrl(request);
+    if (tier !== "free" && !baseUrl) {
+      return checkoutConfigErrorResponse();
+    }
 
     const submission = await prisma.submission.create({
       data: {
@@ -74,7 +82,6 @@ export async function POST(request: NextRequest) {
     }
 
     const stripe = getStripe();
-    const baseUrl = getBaseUrl(request);
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",

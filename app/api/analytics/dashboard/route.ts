@@ -1,21 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { auth } from "@/auth";
+import { requireAdmin } from "@/lib/admin-guard";
 
 export async function GET(request: NextRequest) {
   try {
-    // Check authentication
-    const session = await auth();
-    if (!session?.user) {
-      return NextResponse.json(
-        { error: "Unauthorized" },
-        { status: 401 }
-      );
-    }
+    // Admin only. This used to accept any signed-in OAuth user, and it sits
+    // outside /api/admin so the middleware's admin-cookie gate never ran.
+    const denied = await requireAdmin(request);
+    if (denied) return denied;
 
-    // Get date range from query params
+    // Get date range from query params (clamped: NaN or a huge value would
+    // otherwise produce an Invalid Date or a full-table scan).
     const { searchParams } = new URL(request.url);
-    const days = parseInt(searchParams.get("days") || "30");
+    const parsedDays = parseInt(searchParams.get("days") || "30", 10);
+    const days = Number.isFinite(parsedDays) ? Math.min(Math.max(parsedDays, 1), 365) : 30;
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - days);
 

@@ -1,7 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Users, Shield, Mail, Plus } from "lucide-react";
+import { Users, Shield, Mail } from "lucide-react";
 
 export default function AdminUsersPage() {
   return (
@@ -10,13 +9,9 @@ export default function AdminUsersPage() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-balance">Users</h1>
           <p className="text-muted-foreground">
-            Manage user accounts and permissions.
+            User accounts are not editable here yet.
           </p>
         </div>
-        <Button>
-          <Plus className="mr-2 h-4 w-4" />
-          Add User
-        </Button>
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">

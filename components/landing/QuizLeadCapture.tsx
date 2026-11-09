@@ -14,9 +14,10 @@ interface QuizLeadCaptureProps {
 
 /**
  * Lead capture shown at the top of the quiz result page.
- * - Sends to /api/newsletter (Mailchimp) for the audience list
+ * - Sends to /api/newsletter (Mailchimp) for the audience list. Only this
+ *   call decides success or failure.
  * - Sends to /api/analytics/email-capture with source="quiz" so we can
- *   attribute which stack the lead came from
+ *   attribute which stack the lead came from. Best effort, never blocks.
  */
 export function QuizLeadCapture({
   stackName,
@@ -28,6 +29,7 @@ export function QuizLeadCapture({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,30 +42,51 @@ export function QuizLeadCapture({
     setErrorMessage("");
 
     try {
-      await Promise.all([
-        csrfFetch("/api/newsletter", {
-          method: "POST",
-          body: JSON.stringify({ email }),
-        }),
-        csrfFetch("/api/analytics/email-capture", {
-          method: "POST",
-          body: JSON.stringify({
-            email,
-            source: "quiz",
-            metadata: JSON.stringify({
-              stackName,
-              stackPrice,
-              toolSlugs,
-            }),
+      // Attribution is best effort: a failure here must not decide the outcome.
+      const attribution = csrfFetch("/api/analytics/email-capture", {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+          source: "quiz",
+          metadata: JSON.stringify({
+            stackName,
+            stackPrice,
+            toolSlugs,
           }),
         }),
-      ]);
+      }).catch(() => null);
 
+      const res = await csrfFetch("/api/newsletter", {
+        method: "POST",
+        body: JSON.stringify({ email }),
+      });
+      await attribution;
+
+      if (!res.ok) {
+        if (res.status === 429) {
+          setErrorMessage("Too many attempts, try again later.");
+        } else if (res.status === 400) {
+          const data = await res.json().catch(() => null);
+          setErrorMessage(
+            typeof data?.error === "string" && data.error
+              ? data.error
+              : "Please enter a valid email address."
+          );
+        } else {
+          setErrorMessage("We couldn't sign you up right now. Please try again later.");
+        }
+        return;
+      }
+
+      const data = await res.json().catch(() => null);
       trackNewsletterSubscribe(email);
+      setSuccessMessage(
+        typeof data?.message === "string" && data.message ? data.message : "You're subscribed!"
+      );
       setIsSuccess(true);
       setEmail("");
     } catch {
-      setErrorMessage("Something went wrong. Please try again.");
+      setErrorMessage("Network error. Please check your connection and try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -77,10 +100,10 @@ export function QuizLeadCapture({
       <div className="mb-8 flex items-start gap-4 bg-background p-6" role="status">
         <CheckCircle2 className="mt-1 h-6 w-6 shrink-0 text-vibe-link" aria-hidden="true" />
         <div>
-          <h3 className="mb-1 text-[18px] font-semibold text-foreground">Check your inbox</h3>
+          <h3 className="mb-1 text-[18px] font-semibold text-foreground">{successMessage}</h3>
           <p className="text-[16px] text-muted-foreground">
-            We sent <span className="font-semibold text-foreground">{stackName}</span> to your
-            email, plus you&apos;ll get our weekly AI tool drops.
+            You&apos;ll get the weekly VibeStack newsletter with new AI tools. Your{" "}
+            <span className="font-semibold text-foreground">{stackName}</span> result stays on this page.
           </p>
         </div>
       </div>
@@ -92,11 +115,10 @@ export function QuizLeadCapture({
       <div className="flex flex-col items-start gap-6 md:flex-row md:items-center">
         <div className="flex-1">
           <h3 className="mb-1 text-[clamp(20px,2.4vw,24px)] font-semibold leading-tight">
-            Save your stack + get the setup guide
+            Get the weekly AI tool newsletter
           </h3>
           <p className="mb-4 text-[16px] opacity-80 md:mb-0">
-            We&apos;ll email you <span className="font-semibold">{stackName}</span>
-            {" "}with setup links, pricing tips, and weekly new-tool drops. No spam.
+            New AI tools in your inbox, once a week. No spam.
           </p>
         </div>
 
@@ -129,7 +151,7 @@ export function QuizLeadCapture({
               </>
             ) : (
               <>
-                Send it
+                Subscribe
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </>
             )}
@@ -137,11 +159,13 @@ export function QuizLeadCapture({
         </form>
       </div>
 
-      {errorMessage && (
-        <p className="mt-3 text-[14px] font-semibold text-background" role="alert">
-          {errorMessage}
-        </p>
-      )}
+      <div aria-live="assertive">
+        {errorMessage && (
+          <p className="mt-3 text-[14px] font-semibold text-background">
+            {errorMessage}
+          </p>
+        )}
+      </div>
     </div>
   );
 }

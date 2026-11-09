@@ -12,14 +12,33 @@ import {
 } from "@/components/ui/dialog";
 import { signIn } from "next-auth/react";
 
+// Only same-origin relative paths are allowed as a post-sign-in destination:
+// a single leading "/", never "//" or "/\\" (protocol-relative), no scheme, and
+// no control characters. Anything else falls back to the home page.
+function safeCallbackUrl(url: string | undefined): string {
+    if (
+        typeof url === "string" &&
+        url.startsWith("/") &&
+        !url.startsWith("//") &&
+        !url.startsWith("/\\") &&
+        !/[\u0000-\u001f\u007f]/.test(url)
+    ) {
+        return url;
+    }
+    return "/";
+}
+
 export function AuthDialog({
     trigger,
     open,
-    onOpenChange
+    onOpenChange,
+    callbackUrl = "/",
 }: {
     trigger?: React.ReactNode;
     open?: boolean;
     onOpenChange?: (open: boolean) => void;
+    /** Where to land after signing in. Same-origin relative path only; defaults to "/". */
+    callbackUrl?: string;
 }) {
     const [isLoading, setIsLoading] = useState(false);
     const [internalOpen, setInternalOpen] = useState(false);
@@ -32,7 +51,7 @@ export function AuthDialog({
     const handleSocialLogin = async (provider: string) => {
         setIsLoading(true);
         try {
-            await signIn(provider, { callbackUrl: "/" });
+            await signIn(provider, { callbackUrl: safeCallbackUrl(callbackUrl) });
         } catch (error) {
             console.error(error);
         } finally {
