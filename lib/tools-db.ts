@@ -56,6 +56,24 @@ export const POPULARITY_ORDER: string[] = [
  */
 export const RETIRED_TOOL_SLUGS = new Set(["galileo-ai", "openai-sora", "windsurf-ide", "supermaven"]);
 
+/**
+ * Where each retired slug now lands. Mirrors the /tool/<slug> 301s in
+ * next.config.ts so callers that redirect (app/go/[slug]) can go straight to
+ * the final page in one hop instead of bouncing through /tool/<slug> first.
+ * Keep the two in sync.
+ */
+export const RETIRED_TOOL_DESTINATIONS: Record<string, string> = {
+    "galileo-ai": "/best/design",
+    "openai-sora": "/best/design",
+    "windsurf-ide": "/tool/devin-ai",
+    "supermaven": "/tool/cursor",
+};
+
+/** Final landing path for a retired slug, or null if it is not retired. */
+export function getRetiredToolDestination(slug: string): string | null {
+    return RETIRED_TOOL_DESTINATIONS[slug] ?? null;
+}
+
 /** True when a slug has been retired from the public directory. */
 export function isRetiredTool(slug: string): boolean {
     return RETIRED_TOOL_SLUGS.has(slug);

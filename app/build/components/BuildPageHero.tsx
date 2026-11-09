@@ -48,7 +48,7 @@ export function BuildPageHero({ onStartQuiz }: BuildPageHeroProps) {
       </div>
 
       <ul className="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-[16px] text-muted-foreground">
-        {["Takes 2 minutes", "100% Free", "Personalized Results"].map((item) => (
+        {["A few quick questions", "100% Free", "Personalized Results"].map((item) => (
           <li key={item} className="flex items-center gap-2">
             <Check className="h-4 w-4 text-vibe-link" aria-hidden="true" />
             <span>{item}</span>

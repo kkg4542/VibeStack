@@ -18,39 +18,36 @@ interface SponsorshipPlanCardProps {
 }
 
 export function SponsorshipPlanCard({ plan, selectedPlan, setSelectedPlan }: SponsorshipPlanCardProps) {
+    const isSelected = selectedPlan === plan.name;
+
     return (
         <div
             onClick={() => setSelectedPlan(plan.name as "Standard" | "Premium")}
             className={cn(
-                "relative flex flex-col rounded-xl border p-6 transition-all duration-200 cursor-pointer",
-                selectedPlan === plan.name
-                    ? (plan.isPremium
-                        ? "bg-primary/10 border-primary/50 ring-1 ring-primary/50"
-                        : "bg-blue-500/5 border-blue-500/50 ring-1 ring-blue-500/50")
-                    : "bg-muted/50 border-border hover:border-border opacity-70 hover:opacity-100"
+                "relative flex flex-col p-6 cursor-pointer transition-colors duration-200",
+                isSelected
+                    ? "bg-accent outline-2 -outline-offset-2 outline-vibe-electric"
+                    : "bg-secondary hover:bg-accent"
             )}
         >
             {plan.isPremium && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-vibe-electric text-vibe-deep text-[13px] font-bold px-3 py-1 uppercase tracking-wider">
                     Most Popular
                 </div>
             )}
 
             <div className="flex items-center justify-between mb-2">
-                <span className={cn(
-                    "text-base font-semibold",
-                    plan.isPremium ? "text-primary" : "text-blue-700 dark:text-blue-400"
-                )}>
+                <span className="text-base font-semibold text-vibe-link">
                     {plan.name}
                 </span>
-                {selectedPlan === plan.name && <Check className={cn("h-5 w-5", plan.isPremium ? "text-primary" : "text-blue-700 dark:text-blue-500")} />}
+                {isSelected && <Check className="h-5 w-5 text-vibe-link" />}
             </div>
 
             <div className="mb-4">
-                <div className="text-4xl font-bold text-foreground">
+                <div className="font-display text-5xl font-extrabold uppercase leading-none text-foreground">
                     {plan.price}
                     {plan.price !== "Custom" && (
-                        <span className="text-sm font-normal text-muted-foreground ml-1">/mo</span>
+                        <span className="font-sans text-sm font-normal normal-case text-muted-foreground ml-1">/mo</span>
                     )}
                 </div>
                 <p className="text-sm text-muted-foreground mt-2 min-h-[40px]">
@@ -62,15 +59,7 @@ export function SponsorshipPlanCard({ plan, selectedPlan, setSelectedPlan }: Spo
                 <ul className="space-y-3 mb-6">
                     {plan.features.map((feature) => (
                         <li key={feature} className="flex items-start gap-3 text-sm text-muted-foreground">
-                            <div className={cn(
-                                "mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full",
-                                plan.isPremium ? "bg-primary/20" : "bg-blue-500/20"
-                            )}>
-                                <Check className={cn(
-                                    "h-2.5 w-2.5",
-                                    plan.isPremium ? "text-primary" : "text-blue-700 dark:text-blue-400"
-                                )} />
-                            </div>
+                            <Check aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-vibe-link" />
                             <span className="leading-tight">{feature}</span>
                         </li>
                     ))}
@@ -78,12 +67,12 @@ export function SponsorshipPlanCard({ plan, selectedPlan, setSelectedPlan }: Spo
             </div>
 
             <div className={cn(
-                "w-full py-2 text-center rounded-lg text-sm font-medium transition-colors",
-                selectedPlan === plan.name
-                    ? (plan.isPremium ? "bg-primary/20 text-primary" : "bg-blue-500/20 text-blue-700 dark:text-blue-300")
-                    : "bg-muted text-muted-foreground"
+                "w-full py-2 text-center text-sm font-medium transition-colors",
+                isSelected
+                    ? "bg-vibe-electric text-vibe-deep"
+                    : "bg-background text-muted-foreground"
             )}>
-                {selectedPlan === plan.name ? "Selected" : "Select Plan"}
+                {isSelected ? "Selected" : "Select Plan"}
             </div>
         </div>
     );

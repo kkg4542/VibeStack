@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Star, Users, Zap, Layers, Brain, GraduationCap, Paintbrush, Wand2 } from "lucide-react";
+import { Zap, Layers, Brain, GraduationCap, Paintbrush, Wand2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Ids/names/descriptions/tools/price below mirror the curated stacks in
@@ -16,8 +16,6 @@ export const POPULAR_STACKS = [
     description: "An autonomous coding agent paired with fast, opinionated issue tracking for maximum velocity",
     tools: ["devin-ai", "linear"],
     price: "$40+/mo",
-    users: 2847,
-    rating: 4.9,
     color: "bg-secondary",
     icon: Zap
   },
@@ -27,8 +25,6 @@ export const POPULAR_STACKS = [
     description: "Professional tools to convert Figma designs directly into production code",
     tools: ["builder-io", "v0-by-vercel"],
     price: "$19+/mo",
-    users: 1923,
-    rating: 4.7,
     color: "bg-secondary",
     icon: Paintbrush
   },
@@ -38,8 +34,6 @@ export const POPULAR_STACKS = [
     description: "Zero-setup environments that explain code as you write it",
     tools: ["cursor", "replit"],
     price: "$0/mo",
-    users: 4532,
-    rating: 4.8,
     color: "bg-secondary",
     icon: GraduationCap
   },
@@ -49,8 +43,6 @@ export const POPULAR_STACKS = [
     description: "The smartest reasoning models integrated directly into your IDE",
     tools: ["github-copilot", "gemini-code-assist"],
     price: "$30+/mo",
-    users: 2678,
-    rating: 4.8,
     color: "bg-secondary",
     icon: Layers
   },
@@ -60,8 +52,6 @@ export const POPULAR_STACKS = [
     description: "High-intelligence chat and search models available for free",
     tools: ["claude", "perplexity"],
     price: "$0/mo",
-    users: 1845,
-    rating: 4.7,
     color: "bg-secondary",
     icon: Brain
   },
@@ -71,8 +61,6 @@ export const POPULAR_STACKS = [
     description: "Generate beautiful UI from text prompts without writing complex CSS",
     tools: ["v0-by-vercel", "builder-io"],
     price: "$0/mo",
-    users: 5124,
-    rating: 4.9,
     color: "bg-secondary",
     icon: Wand2
   }
@@ -84,8 +72,6 @@ interface PopularStack {
   description: string;
   tools: string[];
   price: string;
-  users: number;
-  rating: number;
   color: string;
   icon: React.ComponentType<{ className?: string }>;
 }
@@ -108,18 +94,14 @@ function PopularStackCard({ stack }: PopularStackCardProps) {
         <div className={cn("p-3 text-foreground group-hover:bg-background", stack.color)}>
           <Icon className="h-6 w-6" />
         </div>
-        <div className="flex items-center gap-1 text-[14px] text-foreground">
-          <Star className="h-4 w-4 fill-current text-vibe-link" aria-hidden="true" />
-          <span className="font-semibold">{stack.rating}</span>
-        </div>
       </div>
       <h3 className="mb-2 text-[18px] font-semibold text-foreground group-hover:text-vibe-link">{stack.name}</h3>
       <p className="mb-4 text-[16px] text-muted-foreground">{stack.description}</p>
       <div className="flex items-center justify-between text-[14px] text-muted-foreground">
         <span className="font-semibold text-foreground">{stack.price}</span>
         <span className="flex items-center gap-1">
-          <Users className="h-4 w-4" aria-hidden="true" />
-          {stack.users.toLocaleString()}
+          <Layers className="h-4 w-4" aria-hidden="true" />
+          {stack.tools.length} {stack.tools.length === 1 ? "tool" : "tools"}
         </span>
       </div>
     </Link>

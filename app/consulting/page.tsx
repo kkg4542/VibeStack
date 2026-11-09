@@ -22,9 +22,9 @@ export default function ConsultingPage() {
     const services = [
         {
             title: "AI Workflow Audit",
-            description: "We analyze your current development process and identify bottlenecks where AI agents can accelerate output by 10x.",
+            description: "We analyze your current development process and identify bottlenecks where AI agents can accelerate delivery.",
             icon: <Terminal className="h-6 w-6 text-vibe-link" />,
-            features: ["Codebase Analysis", "Agent Integration Plan", "ROI Estmation"],
+            features: ["Codebase Analysis", "Agent Integration Plan", "ROI Estimation"],
         },
         {
             title: "Custom Agent Build",
@@ -47,15 +47,15 @@ export default function ConsultingPage() {
             {/* Hero */}
             <Section spacing="none" containerSize="default" className="pt-16 pb-24">
                 <p className="mb-6 text-[16px] font-semibold text-vibe-link">
-                    Now Accepting Partners for Q1 2026
+                    Now Accepting Sponsors and Partners
                 </p>
 
                 <h1 className="font-display text-balance text-[clamp(32px,6vw,96px)] uppercase leading-[0.88] tracking-[-0.005em] text-foreground">
-                    Promote Your AI Tool to Thousands of Developers
+                    Promote Your AI Tool to Developers Choosing Their Stack
                 </h1>
 
                 <p className="mt-8 max-w-[60ch] text-[19px] leading-normal text-muted-foreground">
-                    VibeStack is the fastest-growing community for AI productivity.
+                    VibeStack is a curated directory of AI tools for developers.
                     Showcase your product where the builders are.
                 </p>
 
@@ -132,7 +132,7 @@ export default function ConsultingPage() {
                             Ready to Get Started?
                         </h2>
                         <p className="mb-8 text-[18px] leading-normal">
-                            Let&apos;s discuss how we can help you reach thousands of developers actively searching for tools like yours.
+                            Let&apos;s discuss how we can help you reach developers who are actively searching for tools like yours.
                         </p>
                         <div className="flex flex-col gap-4 sm:flex-row">
                             <Button

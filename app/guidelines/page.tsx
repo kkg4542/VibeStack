@@ -2,7 +2,7 @@ import { PageBackground, BackgroundPresets } from "@/components/effects/PageBack
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { ArrowLeft, CheckCircle2, AlertTriangle, FileText, Image as ImageIcon, Tag } from "lucide-react";
+import { ArrowLeft, CheckCircle2, AlertTriangle, FileText, Image as ImageIcon, Tag, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
 import { Section } from "@/components/primitives/Section";
@@ -35,7 +35,7 @@ export default function ContentGuidelinesPage() {
                     {/* Images Section */}
                     <section>
                         <div className="flex items-center gap-3 mb-4">
-                            <div className="p-2 bg-vibe-electric/10 rounded-lg">
+                            <div className="p-2 bg-secondary">
                                 <ImageIcon className="w-5 h-5 text-vibe-link" />
                             </div>
                             <h2 className="text-2xl font-semibold">1. Images & Visuals</h2>
@@ -48,19 +48,19 @@ export default function ContentGuidelinesPage() {
                                 </CardHeader>
                                 <CardContent className="space-y-4">
                                     <div className="flex items-start gap-3">
-                                        <CheckCircle2 className="w-5 h-5 text-emerald-700 dark:text-emerald-400 shrink-0 mt-0.5" />
+                                        <CheckCircle2 className="w-5 h-5 text-vibe-link shrink-0 mt-0.5" />
                                         <div className="text-sm">
                                             <strong>Aspect Ratio:</strong> 1:1 (Square)
                                         </div>
                                     </div>
                                     <div className="flex items-start gap-3">
-                                        <CheckCircle2 className="w-5 h-5 text-emerald-700 dark:text-emerald-400 shrink-0 mt-0.5" />
+                                        <CheckCircle2 className="w-5 h-5 text-vibe-link shrink-0 mt-0.5" />
                                         <div className="text-sm">
                                             <strong>Format:</strong> SVG (Best) or transparent PNG
                                         </div>
                                     </div>
                                     <div className="flex items-start gap-3">
-                                        <AlertTriangle className="w-5 h-5 text-amber-700 dark:text-amber-500 shrink-0 mt-0.5" />
+                                        <AlertTriangle className="w-5 h-5 text-vibe-link shrink-0 mt-0.5" />
                                         <div className="text-sm text-muted-foreground">
                                             Do not use pre-rounded images; our UI handles the border radius.
                                         </div>
@@ -74,13 +74,13 @@ export default function ContentGuidelinesPage() {
                                 </CardHeader>
                                 <CardContent className="space-y-4">
                                     <div className="flex items-start gap-3">
-                                        <CheckCircle2 className="w-5 h-5 text-emerald-700 dark:text-emerald-400 shrink-0 mt-0.5" />
+                                        <CheckCircle2 className="w-5 h-5 text-vibe-link shrink-0 mt-0.5" />
                                         <div className="text-sm">
                                             <strong>Aspect Ratio:</strong> 16:9 (Widescreen)
                                         </div>
                                     </div>
                                     <div className="flex items-start gap-3">
-                                        <CheckCircle2 className="w-5 h-5 text-emerald-700 dark:text-emerald-400 shrink-0 mt-0.5" />
+                                        <CheckCircle2 className="w-5 h-5 text-vibe-link shrink-0 mt-0.5" />
                                         <div className="text-sm">
                                             <strong>Content:</strong> Show the actual tool interface, not just a marketing banner.
                                         </div>
@@ -93,8 +93,8 @@ export default function ContentGuidelinesPage() {
                     {/* Text Style Section */}
                     <section>
                         <div className="flex items-center gap-3 mb-4">
-                            <div className="p-2 bg-pink-500/10 rounded-lg">
-                                <FileText className="w-5 h-5 text-pink-700 dark:text-pink-500" />
+                            <div className="p-2 bg-secondary">
+                                <FileText className="w-5 h-5 text-vibe-link" />
                             </div>
                             <h2 className="text-2xl font-semibold">2. Text & Descriptions</h2>
                         </div>
@@ -105,8 +105,8 @@ export default function ContentGuidelinesPage() {
                                     <h3 className="font-medium mb-2">Naming</h3>
                                     <p className="text-sm text-muted-foreground mb-2">Use the official product name without slogans.</p>
                                     <div className="flex gap-4 text-sm">
-                                        <div className="text-emerald-700 dark:text-emerald-400">✅ GitHub Copilot</div>
-                                        <div className="text-red-700 dark:text-red-400">❌ GitHub Copilot - Best AI Coding Tool</div>
+                                        <div className="flex items-start gap-2 text-foreground"><Check aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-vibe-link" /><span>GitHub Copilot</span></div>
+                                        <div className="flex items-start gap-2 text-muted-foreground"><X aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" /><span>GitHub Copilot - Best AI Coding Tool</span></div>
                                     </div>
                                 </div>
 
@@ -114,8 +114,8 @@ export default function ContentGuidelinesPage() {
                                     <h3 className="font-medium mb-2">Tagline (Short Description)</h3>
                                     <p className="text-sm text-muted-foreground mb-2">Keep it objective and under 60 characters.</p>
                                     <div className="flex flex-col gap-2 text-sm">
-                                        <div className="text-emerald-700 dark:text-emerald-400">✅ AI pair programmer that helps you write code faster.</div>
-                                        <div className="text-red-700 dark:text-red-400">❌ The world&apos;s best and most amazing tool that you will ever use!!!</div>
+                                        <div className="flex items-start gap-2 text-foreground"><Check aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-vibe-link" /><span>AI pair programmer that helps you write code faster.</span></div>
+                                        <div className="flex items-start gap-2 text-muted-foreground"><X aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" /><span>The world&apos;s best and most amazing tool that you will ever use!!!</span></div>
                                     </div>
                                 </div>
                             </CardContent>
@@ -125,8 +125,8 @@ export default function ContentGuidelinesPage() {
                     {/* Taxonomy Section */}
                     <section>
                         <div className="flex items-center gap-3 mb-4">
-                            <div className="p-2 bg-blue-500/10 rounded-lg">
-                                <Tag className="w-5 h-5 text-blue-700 dark:text-blue-500" />
+                            <div className="p-2 bg-secondary">
+                                <Tag className="w-5 h-5 text-vibe-link" />
                             </div>
                             <h2 className="text-2xl font-semibold">3. Categories & Tags</h2>
                         </div>

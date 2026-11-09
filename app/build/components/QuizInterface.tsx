@@ -6,7 +6,7 @@ import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import { trackStackFinderStep, trackStackRecommended } from "@/lib/analytics";
 import {
   ArrowRight, Code2, Paintbrush, Brain, ArrowLeft, CheckCircle2, DollarSign,
-  GraduationCap, Zap, Share2, RotateCcw, Users, Layers, BookOpen, Star,
+  GraduationCap, Zap, Share2, RotateCcw, Users, Layers, BookOpen,
   Lightbulb, Monitor, FileCode, Check
 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
@@ -25,8 +25,6 @@ export type StackRecommendation = {
   whyThisStack: string;
   compatibility: string;
   bestFor: string[];
-  usersCount: number;
-  rating: number;
   // id in lib/stacks.ts for the matching curated stack page, when this quiz
   // result maps 1:1 to one. Lets us link out to the full write-up instead of
   // duplicating it here with no way back.
@@ -111,9 +109,7 @@ export function useStackRecommendation(answers: Record<string, string>): StackRe
       tools: ["cursor", "claude"],
       whyThisStack: "These tools offer the best balance of power and accessibility.",
       compatibility: "Works with any editor and language",
-      bestFor: ["General development", "Learning", "Prototyping"],
-      usersCount: 5234,
-      rating: 4.7
+      bestFor: ["General development", "Learning", "Prototyping"]
     };
 
     // UI/Frontend focused
@@ -127,8 +123,6 @@ export function useStackRecommendation(answers: Record<string, string>): StackRe
           whyThisStack: "Perfect for designers and frontend devs who want to move fast without deep CSS knowledge",
           compatibility: "Exports to React, Vue, and plain HTML",
           bestFor: ["Landing pages", "Prototyping", "Design systems"],
-          usersCount: 3421,
-          rating: 4.6,
           stackId: "magic-wand"
         };
       } else {
@@ -140,8 +134,6 @@ export function useStackRecommendation(answers: Record<string, string>): StackRe
           whyThisStack: "Seamlessly bridge design and development with AI-powered conversion",
           compatibility: "Full Figma integration, exports clean code",
           bestFor: ["Design teams", "Production apps", "Design systems"],
-          usersCount: 2847,
-          rating: 4.8,
           stackId: "product-designer"
         };
       }
@@ -156,10 +148,8 @@ export function useStackRecommendation(answers: Record<string, string>): StackRe
           totalPrice: "$0-20/mo",
           tools: ["cursor", "replit"],
           whyThisStack: "Built-in tutorials and explanations make learning to code approachable",
-          compatibility: "Supports 50+ languages with smart explanations",
+          compatibility: "Supports many languages, with explanations as you go",
           bestFor: ["Learning", "Education", "Small projects"],
-          usersCount: 4532,
-          rating: 4.8,
           stackId: "learner"
         };
       } else if (budget === "paid" || workflow === "autonomy") {
@@ -171,8 +161,6 @@ export function useStackRecommendation(answers: Record<string, string>): StackRe
           whyThisStack: "Devin works independently while you focus on architecture, and Cursor keeps you in the loop for everything you want to steer directly.",
           compatibility: "Works with any codebase, massive context windows",
           bestFor: ["Complex projects", "Senior developers", "High-velocity teams"],
-          usersCount: 2847,
-          rating: 4.9,
           stackId: "10x-engineer"
         };
       }
@@ -193,9 +181,7 @@ export function useStackRecommendation(answers: Record<string, string>): StackRe
           tools: ["cursor", "v0-by-vercel", "claude"],
           whyThisStack: "Every layer of your stack enhanced with AI",
           compatibility: "Works across frontend, backend, and database",
-          bestFor: ["Full-stack apps", "Startups", "Agencies"],
-          usersCount: 2678,
-          rating: 4.8
+          bestFor: ["Full-stack apps", "Startups", "Agencies"]
         };
       } else {
         stack = {
@@ -205,9 +191,7 @@ export function useStackRecommendation(answers: Record<string, string>): StackRe
           tools: ["cursor", "v0-by-vercel", "claude"],
           whyThisStack: "Cursor for code, v0 for UI, Claude for everything else",
           compatibility: "Perfect for rapid prototyping and MVPs",
-          bestFor: ["Indie hackers", "Side projects", "MVPs"],
-          usersCount: 4521,
-          rating: 4.7
+          bestFor: ["Indie hackers", "Side projects", "MVPs"]
         };
       }
     }
@@ -221,9 +205,7 @@ export function useStackRecommendation(answers: Record<string, string>): StackRe
         tools: ["claude", "perplexity", "notion-ai"],
         whyThisStack: "Perplexity for research, Claude for writing, Notion AI for organizing notes",
         compatibility: "Web-based, works everywhere",
-        bestFor: ["Research", "Documentation", "Content creation"],
-        usersCount: 1845,
-        rating: 4.7
+        bestFor: ["Research", "Documentation", "Content creation"]
       };
     }
 
@@ -437,23 +419,9 @@ function StackRecommendationResult({
           </p>
 
           <div className="mb-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-[16px]">
-            <div className="flex items-center gap-2">
-              <div className="flex" aria-hidden="true">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className={cn(
-                      "h-5 w-5",
-                      i < Math.floor(stack.rating) ? "fill-current text-vibe-link" : "text-muted-foreground"
-                    )}
-                  />
-                ))}
-              </div>
-              <span className="font-semibold text-foreground">{stack.rating}</span>
-            </div>
             <div className="flex items-center gap-2 text-muted-foreground">
-              <Users className="h-5 w-5" aria-hidden="true" />
-              {stack.usersCount.toLocaleString()} users
+              <Layers className="h-5 w-5" aria-hidden="true" />
+              {stack.tools.length} {stack.tools.length === 1 ? "tool" : "tools"}
             </div>
             <span className="bg-secondary px-4 py-1 text-[18px] font-semibold tabular-nums text-foreground">
               {stack.totalPrice}

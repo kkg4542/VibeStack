@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { after } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { isRetiredTool } from "@/lib/tools-db";
+import { isRetiredTool, getRetiredToolDestination } from "@/lib/tools-db";
 import { checkRateLimit, rateLimitConfigs } from "@/lib/redis";
 
 // This route computes a per-request redirect target and writes an analytics
@@ -32,16 +32,18 @@ export async function GET(request: NextRequest, { params }: Params) {
   // claim we no longer stand behind.
   //
   // Answer with an internal redirect rather than a 404 because this endpoint's
-  // whole job is to send a browser somewhere: every retired slug has a
-  // /tool/<slug> -> live-alternative 301 in next.config.ts (supermaven ->
-  // cursor, windsurf-ide -> devin-ai, openai-sora and galileo-ai ->
-  // /best/design), so the reader lands on the tool that replaced it. It stays a
+  // whole job is to send a browser somewhere. Go straight to the live
+  // alternative (supermaven -> cursor, windsurf-ide -> devin-ai, openai-sora
+  // and galileo-ai -> /best/design; RETIRED_TOOL_DESTINATIONS mirrors the
+  // /tool/<slug> 301s in next.config.ts) in a single hop rather than via
+  // /tool/<slug>, which would immediately 301 again. It stays a
   // temporary 307, like the affiliate redirect below, so that removing a slug
   // from RETIRED_TOOL_SLUGS takes effect immediately instead of being pinned in
   // browser caches. Returned before the after() below is registered, so no
   // AffiliateClick row is written for a destination we never sent anyone to.
   if (isRetiredTool(slug)) {
-    return NextResponse.redirect(new URL(`/tool/${slug}`, request.nextUrl.origin), 307);
+    const target = getRetiredToolDestination(slug) ?? `/tool/${slug}`;
+    return NextResponse.redirect(new URL(target, request.nextUrl.origin), 307);
   }
 
   // Use prisma directly rather than lib/tools-db.ts's getToolBySlug: the

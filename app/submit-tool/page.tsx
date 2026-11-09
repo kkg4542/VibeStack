@@ -171,7 +171,7 @@ export default function SubmitToolPage() {
                     </h1>
 
                     <p className="max-w-[60ch] text-[19px] leading-normal text-muted-foreground">
-                        Get your AI tool discovered by thousands of developers. Choose the submission tier that fits your needs.
+                        Get your AI tool discovered by developers. Choose the submission tier that fits your needs.
                     </p>
                 </header>
 

@@ -1,21 +1,23 @@
+// No invented metrics here: each card is a qualitative reason, numbered 01-03
+// as a layout device only.
 const WHY_STACKS_MATTER = [
   {
     title: "Synergy",
-    description: "Tools that work together multiply your productivity",
-    stat: "3.2x",
-    statLabel: "Productivity Boost"
+    description: "Tools chosen to work together cover each other's gaps instead of overlapping",
+    stat: "01",
+    statLabel: "Built to fit together"
   },
   {
     title: "Cost Efficiency",
-    description: "Bundled tools often cost less than individual subscriptions",
-    stat: "40%",
-    statLabel: "Average Savings"
+    description: "Fewer overlapping subscriptions means you pay for what you actually use",
+    stat: "02",
+    statLabel: "Less overlap"
   },
   {
     title: "Learning Curve",
     description: "Curated stacks reduce decision fatigue and setup time",
-    stat: "70%",
-    statLabel: "Faster Onboarding"
+    stat: "03",
+    statLabel: "Fewer choices to make"
   }
 ];
 
@@ -30,7 +32,7 @@ export function WhyStacksMatter() {
         <h2 className="font-display mb-4 text-[clamp(32px,4vw,56px)] leading-[0.88] text-balance text-foreground">
           Why Stacks Matter
         </h2>
-        <p className="text-[18px] text-muted-foreground">The right combination multiplies your productivity</p>
+        <p className="text-[18px] text-muted-foreground">The right combination does more than the sum of its parts</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">

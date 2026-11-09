@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     description: "Curated AI tools for developers. Discover the best tools to accelerate your workflow.",
     siteName: "VibeStack",
     images: [{
-      url: "/opengraph-image.png",
+      url: "/opengraph-image",
       width: 1200,
       height: 630,
       alt: "VibeStack - AI Productivity Lab",
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     title: "VibeStack - AI Productivity Lab",
     description: "Curated AI tools for developers.",
     creator: "@vibestack",
-    images: ["/twitter-image.png"],
+    images: ["/opengraph-image"],
   },
   verification: {
     other: {
@@ -124,8 +124,10 @@ export default function RootLayout({
           <CsrfProvider>
             <SessionProvider>
               <QueryProvider>
-                <ScrollProgress />
-                <CustomCursor />
+                <LazyMotionProvider>
+                  <ScrollProgress />
+                  <CustomCursor />
+                </LazyMotionProvider>
                 <Navbar />
                 <main id="main-content">
                   <LazyMotionProvider>

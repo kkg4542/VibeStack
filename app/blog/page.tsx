@@ -344,7 +344,7 @@ export default function BlogListingPage() {
                                 Get weekly insights on AI tools and productivity tips.
                             </p>
                             <Link
-                                href="/#newsletter"
+                                href="/newsletter"
                                 className="group inline-flex h-11 w-full items-center justify-center gap-2 bg-vibe-deep px-5 text-[16px] font-semibold text-[#eff0f1] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-deep"
                             >
                                 Subscribe

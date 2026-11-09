@@ -17,7 +17,7 @@ const roadmapItems = [
         title: "Platform Foundation",
         description: "Core platform features",
         items: [
-            { text: "Launched with 60+ curated AI tools", completed: true },
+            { text: "Launched with a curated directory of AI tools", completed: true },
             { text: "Stack Finder quiz", completed: true },
             { text: "User authentication & favorites", completed: true },
             { text: "Tool comparison feature", completed: true },
@@ -113,7 +113,7 @@ const changelog = [
         date: "November 2025",
         version: "v1.0.0",
         changes: [
-            { type: "feature", text: "Initial launch with 60+ tools" },
+            { type: "feature", text: "Initial launch with a curated AI tool directory" },
             { type: "feature", text: "Stack Finder quiz" },
             { type: "feature", text: "User favorites system" },
             { type: "feature", text: "Review & rating system" }

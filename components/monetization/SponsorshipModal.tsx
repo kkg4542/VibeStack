@@ -2,8 +2,7 @@
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Check, Rocket, Sparkles, Star } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Rocket, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { SponsorshipPlacements } from "@/lib/sponsorships";
 import { SponsorshipPlanCard } from "./SponsorshipPlanCard";
@@ -72,16 +71,16 @@ export function SponsorshipModal({ trigger }: SponsorshipModalProps = {}) {
         <Dialog>
             <DialogTrigger asChild>
                 {trigger ?? (
-                    <Button variant="outline" size="sm" className="hidden border-primary/30 bg-primary/5 text-primary hover:bg-primary/10 hover:text-primary md:inline-flex">
+                    <Button variant="outline" size="sm" className="hidden rounded-none bg-secondary text-foreground hover:bg-accent hover:text-foreground md:inline-flex">
                         <Rocket className="mr-2 h-3.5 w-3.5" />
                         Advertise with us
                     </Button>
                 )}
             </DialogTrigger>
-            <DialogContent className="sm:max-w-3xl bg-popover border-border p-0 overflow-hidden gap-0">
+            <DialogContent className="sm:max-w-3xl bg-popover p-0 overflow-hidden gap-0">
                 <DialogHeader className="p-6 pb-2 text-center">
-                    <DialogTitle className="flex items-center justify-center gap-2 text-2xl font-bold">
-                        <Sparkles className="h-6 w-6 text-primary" />
+                    <DialogTitle className="flex items-center justify-center gap-2 font-display text-3xl font-extrabold uppercase">
+                        <Sparkles aria-hidden="true" className="h-6 w-6 text-vibe-link" />
                         Get Featured on VibeStack
                     </DialogTitle>
                     <p className="text-muted-foreground mt-2">
@@ -100,31 +99,31 @@ export function SponsorshipModal({ trigger }: SponsorshipModalProps = {}) {
                     ))}
                 </div>
 
-                <div className="p-6 bg-muted/50 border-t border-border flex flex-col items-center gap-4">
+                <div className="p-6 bg-secondary flex flex-col items-center gap-4">
                     <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-3">
                         <input
-                            className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground"
+                            className="w-full h-11 rounded-none border border-input bg-background px-3 py-2 text-sm text-foreground"
                             placeholder="Company name"
                             aria-label="Company name"
                             value={sponsorName}
                             onChange={(e) => setSponsorName(e.target.value)}
                         />
                         <input
-                            className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground"
+                            className="w-full h-11 rounded-none border border-input bg-background px-3 py-2 text-sm text-foreground"
                             placeholder="Website URL"
                             aria-label="Website URL"
                             value={sponsorUrl}
                             onChange={(e) => setSponsorUrl(e.target.value)}
                         />
                         <input
-                            className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground"
+                            className="w-full h-11 rounded-none border border-input bg-background px-3 py-2 text-sm text-foreground"
                             placeholder="Contact email"
                             aria-label="Contact email"
                             value={sponsorEmail}
                             onChange={(e) => setSponsorEmail(e.target.value)}
                         />
                         <input
-                            className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground"
+                            className="w-full h-11 rounded-none border border-input bg-background px-3 py-2 text-sm text-foreground"
                             placeholder="Tool to feature (optional)"
                             aria-label="Tool to feature (optional)"
                             value={toolSlug}
@@ -132,19 +131,14 @@ export function SponsorshipModal({ trigger }: SponsorshipModalProps = {}) {
                         />
                     </div>
                     <Button
-                        className={cn(
-                            "w-full sm:min-w-[200px] font-semibold h-12 rounded-lg transition-all text-lg shadow-xl",
-                            currentPlan.isPremium
-                                ? "bg-primary hover:bg-primary/90 text-primary-foreground shadow-primary/20"
-                                : "bg-blue-600 hover:bg-blue-500 text-white shadow-blue-500/20"
-                        )}
+                        className="w-full sm:min-w-[200px] font-semibold h-12 rounded-none text-lg"
                         onClick={handleContact}
                         disabled={!sponsorName || !sponsorUrl || !sponsorEmail}
                     >
                         {`Contact us about ${currentPlan.name}`}
                     </Button>
-                    <p className="text-xs text-muted-foreground flex items-center justify-center gap-2">
-                        <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                    <p className="text-[13px] text-muted-foreground flex items-center justify-center gap-2">
+                        <span className="flex h-1.5 w-1.5 bg-vibe-electric"></span>
                         We&apos;ll reply within 1 business day with availability &amp; next steps.
                     </p>
                 </div>

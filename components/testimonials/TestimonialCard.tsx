@@ -4,7 +4,7 @@ import { m } from "framer-motion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { Quote, Briefcase, BarChart, CheckCircle2 } from "lucide-react";
+import { Quote, Briefcase, BarChart, CheckCircle2, Star } from "lucide-react";
 // Import Testimonial type from Prisma if possible, but for client component using a defined interface might be safer/cleaner
 // or duplicate the type definition if simple.
 // Since we used `include` in the fetch, we need a compatible type.
@@ -46,13 +46,13 @@ export function TestimonialCard({ testimonial, index }: TestimonialCardProps) {
 
     return (
         <m.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 1, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             className="h-full"
         >
-            <Card className="h-full border-border/50 hover:border-vibe-electric/30 hover:shadow-lg hover:shadow-vibe-electric/5 transition-all duration-300 relative overflow-hidden group">
+            <Card className="h-full hover:bg-accent transition-colors duration-200 relative overflow-hidden group">
                 <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
                     <Quote className="w-12 h-12 text-vibe-link rotate-180" />
                 </div>
@@ -60,9 +60,9 @@ export function TestimonialCard({ testimonial, index }: TestimonialCardProps) {
                 <CardContent className="p-6 flex flex-col h-full">
                     {/* Header: User Info */}
                     <div className="flex items-start gap-4 mb-4">
-                        <Avatar className="w-12 h-12 border-2 border-background ring-2 ring-border/50">
+                        <Avatar className="w-12 h-12 rounded-none">
                             <AvatarImage src={testimonial.user.avatar || undefined} alt={testimonial.user.name || "User"} />
-                            <AvatarFallback className="bg-vibe-electric/10 text-vibe-link font-semibold">
+                            <AvatarFallback className="rounded-none bg-vibe-electric text-vibe-deep font-semibold">
                                 {testimonial.user.name?.charAt(0)}
                             </AvatarFallback>
                         </Avatar>
@@ -70,7 +70,7 @@ export function TestimonialCard({ testimonial, index }: TestimonialCardProps) {
                             <div className="font-semibold text-foreground flex items-center gap-2">
                                 {testimonial.user.name}
                                 {testimonial.user.verified && (
-                                    <CheckCircle2 className="w-3.5 h-3.5 text-blue-700 dark:text-blue-500 fill-blue-500/10" aria-label="Verified User" />
+                                    <CheckCircle2 className="w-3.5 h-3.5 text-vibe-link" aria-label="Verified User" />
                                 )}
                             </div>
                             <div className="text-sm text-muted-foreground flex items-center gap-1.5 flex-wrap">
@@ -102,7 +102,7 @@ export function TestimonialCard({ testimonial, index }: TestimonialCardProps) {
                         {metrics && (
                             <div className="flex flex-wrap gap-2">
                                 {Object.entries(metrics).map(([key, value]) => (
-                                    <Badge key={key} variant="secondary" className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20">
+                                    <Badge key={key} variant="secondary" className="bg-accent text-foreground">
                                         <BarChart className="w-3 h-3 mr-1.5" />
                                         <span className="capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}:</span>
                                         <span className="ml-1 font-bold">{typeof value === 'string' ? value : JSON.stringify(value)}</span>
@@ -111,7 +111,7 @@ export function TestimonialCard({ testimonial, index }: TestimonialCardProps) {
                             </div>
                         )}
 
-                        <div className="pt-4 border-t border-border/50 flex items-center justify-between text-xs text-muted-foreground">
+                        <div className="pt-4 flex items-center justify-between text-[13px] text-muted-foreground">
                             <div>
                                 {testimonial.toolName && (
                                     <span>Using <span className="font-medium text-foreground">{testimonial.toolName}</span></span>
@@ -121,11 +121,13 @@ export function TestimonialCard({ testimonial, index }: TestimonialCardProps) {
                                 )}
                             </div>
                             {/* Stars could go here if rating is needed */}
-                            <div className="flex gap-0.5">
+                            <div className="flex gap-0.5" role="img" aria-label={`Rated ${testimonial.rating} out of 5`}>
                                 {[...Array(5)].map((_, i) => (
-                                    <span key={i} className={`text-base ${i < testimonial.rating ? "text-amber-700 dark:text-amber-400" : "text-muted"}`}>
-                                        ★
-                                    </span>
+                                    <Star
+                                        key={i}
+                                        aria-hidden="true"
+                                        className={`h-4 w-4 ${i < testimonial.rating ? "fill-current text-vibe-link" : "text-muted-foreground/40"}`}
+                                    />
                                 ))}
                             </div>
                         </div>

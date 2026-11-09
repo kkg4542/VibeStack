@@ -160,7 +160,7 @@ export default function SubmitStackPage() {
                     <p className="mb-5 text-[16px] font-semibold text-vibe-link">Community Contributions</p>
                     <h1 className="mb-5 font-display text-balance text-[clamp(40px,6vw,88px)] uppercase leading-[0.88] tracking-[-0.005em] text-foreground">Submit Your Stack</h1>
                     <p className="text-[18px] leading-normal text-muted-foreground">
-                        Share your workflow with thousands of other developers.
+                        Share your workflow with other developers.
                     </p>
                 </header>
 

@@ -1034,7 +1034,7 @@ export const postsBatch1: BlogPost[] = [
     author: "Sarah Jenkins",
     category: "Design",
     readTime: "11 min read",
-    image: "/images/blog/nocode-design-v0.png",
+    image: "/images/blog/vibe-coding-manifesto.png",
     tags: ["v0", "Builder.io", "Generative UI"],
     content: `
       <h2>The End of Lorem Ipsum</h2>
