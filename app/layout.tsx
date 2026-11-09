@@ -82,9 +82,8 @@ export const metadata: Metadata = {
       'impact-site-verification': '5db97e44-cd36-4f35-9f7b-f7495b5eac1e',
     },
   },
-  icons: {
-    icon: "/favicon.ico",
-  },
+  // Icons come from the file conventions in app/ (favicon.ico, icon.png, apple-icon.png);
+  // declaring `icons` here as well would emit duplicate <link rel="icon"> tags.
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
