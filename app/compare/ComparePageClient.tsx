@@ -16,12 +16,14 @@ export default function ComparePageClient() {
     const [selectedTools, setSelectedTools] = useState<ToolData[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const searchParams = useSearchParams();
-    const { tools } = useAllTools();
+    const { tools, isLoading: isToolsLoading } = useAllTools();
 
     useEffect(() => {
-        const loadTools = () => {
-            setIsLoading(true);
+        // Wait for the tool list; resolving against an empty list would flash
+        // the "build your own comparison" state and clear the saved selection.
+        if (isToolsLoading) return;
 
+        const loadTools = () => {
             // Check for URL params first
             const toolsParam = searchParams.get('tools');
             if (toolsParam) {
@@ -41,7 +43,7 @@ export default function ComparePageClient() {
         };
 
         loadTools();
-    }, [searchParams, tools]);
+    }, [searchParams, tools, isToolsLoading]);
 
     const removeTool = (slug: string) => {
         const compareList = JSON.parse(localStorage.getItem("compareTools") || "[]") as string[];

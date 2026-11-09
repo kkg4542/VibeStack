@@ -227,7 +227,7 @@ export default function SubmitStackPage() {
                                                 type="button"
                                                 onClick={() => removeTool(slug)}
                                                 aria-label={`Remove ${tool.title}`}
-                                                className="p-1 hover:bg-vibe-deep/10 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-vibe-deep"
+                                                className="-my-3 inline-flex size-10 items-center justify-center hover:bg-vibe-deep/10 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-vibe-deep"
                                             >
                                                 <X aria-hidden="true" className="h-3.5 w-3.5" />
                                             </button>

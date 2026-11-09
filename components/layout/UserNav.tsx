@@ -27,7 +27,7 @@ export function UserNav() {
                 open={isAuthOpen}
                 onOpenChange={setIsAuthOpen}
                 trigger={
-                    <Button size="sm" variant="ghost" className="ml-2 font-medium">
+                    <Button size="sm" variant="ghost" className="ml-1 h-11 px-3 font-medium md:ml-2 md:h-8">
                         Sign In
                     </Button>
                 }
@@ -38,7 +38,7 @@ export function UserNav() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-8 w-8 rounded-full ml-2">
+                <Button variant="ghost" className="relative ml-1 h-11 w-11 rounded-full md:ml-2 md:h-8 md:w-8" aria-label={`Account menu for ${user.name || user.email || "your account"}`}>
                     <Avatar className="h-8 w-8">
                         {user.image ? (
                             <AvatarImage src={user.image} alt={user.name || "User"} />
@@ -58,7 +58,7 @@ export function UserNav() {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => signOut()} className="text-red-700 dark:text-red-500 focus:text-red-700 dark:focus:text-red-500">
-                    <LogOut className="mr-2 h-4 w-4" />
+                    <LogOut aria-hidden="true" className="mr-2 h-4 w-4" />
                     <span>Log out</span>
                 </DropdownMenuItem>
             </DropdownMenuContent>

@@ -79,7 +79,7 @@ export function CompareButton({ toolSlug, toolTitle }: CompareButtonProps) {
                 onClick={toggleCompare}
                 aria-pressed={isAdded}
                 aria-label={isAdded ? `Remove ${toolTitle} from comparison` : `Compare ${toolTitle}`}
-                className={`h-8 gap-2 rounded-none border-0 text-[14px] transition-colors ${isAdded ? 'bg-vibe-electric text-vibe-deep hover:bg-vibe-electric/90' : 'bg-secondary text-foreground hover:bg-accent dark:bg-secondary dark:hover:bg-accent'}`}
+                className={`h-10 gap-2 rounded-none border-0 text-[14px] transition-colors ${isAdded ? 'bg-vibe-electric text-vibe-deep hover:bg-vibe-electric/90' : 'bg-secondary text-foreground hover:bg-accent dark:bg-secondary dark:hover:bg-accent'}`}
             >
                 {isAdded ? (
                     <>

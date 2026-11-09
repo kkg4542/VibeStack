@@ -142,7 +142,7 @@ export function ToolsList({ tools, categories: categoryNames, pricingOptions, pa
                                     key={p}
                                     onClick={() => setPricing(p)}
                                     aria-pressed={pricing === p}
-                                    className={`rounded-none px-3 py-2 text-[14px] font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link motion-reduce:transition-none ${pricing === p
+                                    className={`min-h-10 rounded-none px-3 py-2 text-[14px] font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link motion-reduce:transition-none ${pricing === p
                                         ? "bg-vibe-electric text-vibe-deep"
                                         : "bg-card text-foreground hover:bg-secondary"
                                         }`}
@@ -158,7 +158,7 @@ export function ToolsList({ tools, categories: categoryNames, pricingOptions, pa
                                 value={sortBy}
                                 onChange={(e) => setSortBy(e.target.value)}
                                 aria-label="Sort tools"
-                                className="cursor-pointer appearance-none rounded-none bg-card py-2 pl-4 pr-10 text-[14px] font-semibold text-foreground transition-colors duration-150 hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link motion-reduce:transition-none"
+                                className="min-h-10 cursor-pointer appearance-none rounded-none bg-card py-2 pl-4 pr-10 text-[14px] font-semibold text-foreground transition-colors duration-150 hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link motion-reduce:transition-none"
                             >
                                 <option value="default">Default</option>
                                 <option value="newest">Newest</option>
@@ -175,7 +175,7 @@ export function ToolsList({ tools, categories: categoryNames, pricingOptions, pa
                                 key={cat}
                                 onClick={() => setCategory(cat)}
                                 aria-pressed={category === cat}
-                                className={`rounded-none px-4 py-2.5 text-[16px] font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link motion-reduce:transition-none ${category === cat
+                                className={`min-h-10 rounded-none px-4 py-2.5 text-[16px] font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link motion-reduce:transition-none ${category === cat
                                     ? "bg-vibe-electric text-vibe-deep"
                                     : "bg-card text-foreground hover:bg-secondary"
                                     }`}
@@ -196,7 +196,7 @@ export function ToolsList({ tools, categories: categoryNames, pricingOptions, pa
                             <Link
                                 key={cat}
                                 href={`/categories/${cat.toLowerCase()}`}
-                                className="text-[16px] font-semibold text-vibe-link underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link"
+                                className="inline-flex min-h-10 items-center text-[16px] font-semibold text-vibe-link underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vibe-link"
                             >
                                 {cat}
                             </Link>
@@ -250,7 +250,7 @@ export function ToolsList({ tools, categories: categoryNames, pricingOptions, pa
                             setPage(page - 1);
                             window.scrollTo({ top: 400, behavior: 'smooth' });
                         }}
-                        className="rounded-none"
+                        className="h-10 rounded-none px-4"
                     >
                         Previous
                     </Button>
@@ -284,7 +284,7 @@ export function ToolsList({ tools, categories: categoryNames, pricingOptions, pa
                             setPage(page + 1);
                             window.scrollTo({ top: 400, behavior: 'smooth' });
                         }}
-                        className="rounded-none"
+                        className="h-10 rounded-none px-4"
                     >
                         Next
                     </Button>
@@ -309,7 +309,7 @@ export function ToolsList({ tools, categories: categoryNames, pricingOptions, pa
                                         <p className="text-[14px] text-vibe-deep">Compare features side-by-side</p>
                                     </div>
                                 </div>
-                                <Button asChild size="sm" className="group rounded-none bg-vibe-deep font-semibold text-[#eff0f1] hover:bg-vibe-deep/90">
+                                <Button asChild size="sm" className="group h-10 rounded-none bg-vibe-deep font-semibold text-[#eff0f1] hover:bg-vibe-deep/90">
                                     <Link href="/compare" className="flex items-center gap-2">
                                         Compare Now
                                         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

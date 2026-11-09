@@ -69,6 +69,12 @@ const createReview = async (data: CreateReviewInput): Promise<ReviewWithUser> =>
 };
 
 // Hooks
+
+// A fresh `[]` on every render while the query has no data would change the
+// identity of `tools` each render, so any effect depending on it (e.g. the
+// compare page) re-ran forever. Keep one stable empty array instead.
+const NO_TOOLS: never[] = [];
+
 export function useTools(params?: Parameters<typeof fetchTools>[0]) {
   const query = useQuery({
     queryKey: ["tools", params],
@@ -77,7 +83,7 @@ export function useTools(params?: Parameters<typeof fetchTools>[0]) {
 
   return {
     ...query,
-    tools: query.data?.tools ?? [],
+    tools: query.data?.tools ?? NO_TOOLS,
     pagination: query.data?.pagination,
   };
 }

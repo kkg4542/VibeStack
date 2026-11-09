@@ -350,7 +350,7 @@ function SearchPageContent() {
                                         variant="ghost"
                                         size="sm"
                                         onClick={clearRecentSearches}
-                                        className="rounded-none text-[16px] text-muted-foreground hover:text-foreground"
+                                        className="h-10 rounded-none text-[16px] text-muted-foreground hover:text-foreground"
                                     >
                                         Clear
                                     </Button>

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Menu, Sparkles, Search, Wand2, Heart, FileText } from "lucide-react";
+import { Heart } from "lucide-react";
 
 import { m } from "framer-motion";
 import { LazyMotionProvider } from "@/components/providers/LazyMotionProvider";
@@ -11,30 +11,12 @@ import { CommandMenu } from "@/components/command-menu";
 import { SubmitDialog } from "@/components/layout/SubmitDialog";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import {
-    Sheet,
-    SheetContent,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-    SheetClose,
-} from "@/components/ui/sheet";
-import { useState } from "react";
 import { MobileNavDrawer } from "@/components/layout/MobileNavDrawer";
 
 import { UserNav } from "@/components/layout/UserNav";
 import { Container } from "@/components/primitives/Container";
-const navItems = [
-    { href: "/", label: "Home", icon: Sparkles },
-    { href: "/build", label: "Find Stack", icon: Wand2 },
-    { href: "/tools", label: "Tools", icon: Search },
-    { href: "/blog", label: "Blog", icon: FileText },
-    { href: "/pricing", label: "Pricing", icon: Sparkles },
-];
-
 export function Navbar() {
     const pathname = usePathname();
-    const [isOpen, setIsOpen] = useState(false);
 
     return (
         <LazyMotionProvider>
@@ -118,7 +100,7 @@ export function Navbar() {
                                             asChild
                                         >
                                             <Link href="/favorites">
-                                                <Heart className="h-5 w-5" />
+                                                <Heart aria-hidden="true" className="h-5 w-5" />
                                             </Link>
                                         </Button>
                                     </TooltipTrigger>
@@ -135,20 +117,9 @@ export function Navbar() {
 
                         <UserNav />
 
-                        {/* Mobile Menu */}
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => setIsOpen(true)}
-                            className="md:hidden text-muted-foreground"
-                            aria-label="Open navigation menu"
-                            aria-expanded={isOpen}
-                        >
-                            <Menu className="h-5 w-5" />
-                        </Button>
-
-                        {/* Enhanced Mobile Navigation Drawer */}
-                        <MobileNavDrawer isOpen={isOpen} onClose={() => setIsOpen(false)} />
+                        {/* Mobile menu: the drawer owns its hamburger trigger so
+                            Radix can restore focus to it on close. */}
+                        <MobileNavDrawer />
                     </div>
                 </Container>
             </header>

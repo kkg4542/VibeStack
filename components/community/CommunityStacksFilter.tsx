@@ -75,7 +75,7 @@ export function CommunityStacksFilter({ initialFilters }: CommunityStacksFilterP
             className="bg-muted h-10"
           />
         </div>
-        <Button type="submit" variant="secondary">
+        <Button type="submit" variant="secondary" className="h-10 rounded-none px-5">
           Search
         </Button>
       </form>
@@ -83,7 +83,7 @@ export function CommunityStacksFilter({ initialFilters }: CommunityStacksFilterP
       {/* Filter Row */}
       <div className="flex flex-wrap items-center gap-3">
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <SlidersHorizontal className="h-4 w-4" />
+          <SlidersHorizontal aria-hidden="true" className="h-4 w-4" />
           <span>Filters:</span>
         </div>
 
@@ -97,7 +97,7 @@ export function CommunityStacksFilter({ initialFilters }: CommunityStacksFilterP
               updateFilters({ sortBy: value });
             }}
             aria-label="Sort stacks"
-            className="appearance-none bg-muted border border-input rounded-md px-3 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+            className="appearance-none bg-muted border border-input rounded-none min-h-10 px-3 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
           >
             {sortOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -105,7 +105,7 @@ export function CommunityStacksFilter({ initialFilters }: CommunityStacksFilterP
               </option>
             ))}
           </select>
-          <TrendingUp className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+          <TrendingUp aria-hidden="true" className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
         </div>
 
         {/* Time Range Dropdown */}
@@ -118,7 +118,7 @@ export function CommunityStacksFilter({ initialFilters }: CommunityStacksFilterP
               updateFilters({ timeRange: value });
             }}
             aria-label="Filter by time range"
-            className="appearance-none bg-muted border border-input rounded-md px-3 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+            className="appearance-none bg-muted border border-input rounded-none min-h-10 px-3 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
           >
             {timeOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -126,7 +126,7 @@ export function CommunityStacksFilter({ initialFilters }: CommunityStacksFilterP
               </option>
             ))}
           </select>
-          <Clock className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+          <Clock aria-hidden="true" className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
         </div>
 
         {/* Clear Filters */}
@@ -135,9 +135,9 @@ export function CommunityStacksFilter({ initialFilters }: CommunityStacksFilterP
             variant="ghost"
             size="sm"
             onClick={clearFilters}
-            className="text-muted-foreground hover:text-foreground gap-1"
+            className="h-10 text-muted-foreground hover:text-foreground gap-1"
           >
-            <X className="h-3 w-3" />
+            <X aria-hidden="true" className="h-3 w-3" />
             Clear filters
           </Button>
         )}
@@ -147,44 +147,50 @@ export function CommunityStacksFilter({ initialFilters }: CommunityStacksFilterP
       {hasActiveFilters && (
         <div className="flex flex-wrap gap-2">
           {search && (
-            <Badge variant="secondary" className="gap-1">
+            <Badge variant="secondary" className="gap-1 overflow-visible">
               Search: {search}
               <button
+                type="button"
                 onClick={() => {
                   setSearch('');
                   updateFilters({ search: undefined });
                 }}
-                className="ml-1 hover:text-destructive"
+                aria-label="Clear search filter"
+                className="-my-3 -mr-2 ml-1 inline-flex size-10 items-center justify-center hover:text-destructive"
               >
-                <X className="h-3 w-3" />
+                <X aria-hidden="true" className="h-3 w-3" />
               </button>
             </Badge>
           )}
           {sortBy !== 'popular' && (
-            <Badge variant="secondary" className="gap-1">
+            <Badge variant="secondary" className="gap-1 overflow-visible">
               Sort: {sortOptions.find(o => o.value === sortBy)?.label}
               <button
+                type="button"
                 onClick={() => {
                   setSortBy('popular');
                   updateFilters({ sortBy: 'popular' });
                 }}
-                className="ml-1 hover:text-destructive"
+                aria-label="Clear sort filter"
+                className="-my-3 -mr-2 ml-1 inline-flex size-10 items-center justify-center hover:text-destructive"
               >
-                <X className="h-3 w-3" />
+                <X aria-hidden="true" className="h-3 w-3" />
               </button>
             </Badge>
           )}
           {timeRange !== 'all' && (
-            <Badge variant="secondary" className="gap-1">
+            <Badge variant="secondary" className="gap-1 overflow-visible">
               Time: {timeOptions.find(o => o.value === timeRange)?.label}
               <button
+                type="button"
                 onClick={() => {
                   setTimeRange('all');
                   updateFilters({ timeRange: 'all' });
                 }}
-                className="ml-1 hover:text-destructive"
+                aria-label="Clear time range filter"
+                className="-my-3 -mr-2 ml-1 inline-flex size-10 items-center justify-center hover:text-destructive"
               >
-                <X className="h-3 w-3" />
+                <X aria-hidden="true" className="h-3 w-3" />
               </button>
             </Badge>
           )}

@@ -94,7 +94,7 @@ export function AffiliateLink({
         target="_blank"
         rel={AFFILIATE_REL}
         onClick={handleClick}
-        className="font-medium text-vibe-link hover:underline truncate max-w-[150px]"
+        className="inline-flex min-h-10 items-center font-medium text-vibe-link hover:underline truncate max-w-[150px] md:min-h-0"
       >
         {children}
       </a>

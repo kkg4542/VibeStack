@@ -187,7 +187,7 @@ export default function FavoritesPage() {
                                     variant="secondary"
                                     size="sm"
                                     onClick={() => setConfirmClearOpen(true)}
-                                    className="h-9 rounded-none text-[14px] font-semibold"
+                                    className="h-10 rounded-none text-[14px] font-semibold"
                                 >
                                     <Trash2 aria-hidden="true" className="mr-2 h-4 w-4" />
                                     Clear All
@@ -323,7 +323,7 @@ export default function FavoritesPage() {
                                                                 size="sm"
                                                                 onClick={() => removeFavorite(item)}
                                                                 aria-label={`Remove ${tool.title} from favorites`}
-                                                                className="shrink-0 rounded-none text-muted-foreground hover:bg-vibe-electric hover:text-vibe-deep"
+                                                                className="size-10 shrink-0 rounded-none px-0 text-muted-foreground hover:bg-vibe-electric hover:text-vibe-deep"
                                                             >
                                                                 <Trash2 aria-hidden="true" className="h-4 w-4" />
                                                             </Button>
@@ -369,7 +369,7 @@ export default function FavoritesPage() {
                                                         size="sm"
                                                         onClick={() => removeFavorite(item)}
                                                         aria-label={`Remove ${stack.name} from favorites`}
-                                                        className="shrink-0 rounded-none text-muted-foreground hover:bg-vibe-electric hover:text-vibe-deep"
+                                                        className="size-10 shrink-0 rounded-none px-0 text-muted-foreground hover:bg-vibe-electric hover:text-vibe-deep"
                                                     >
                                                         <Trash2 aria-hidden="true" className="h-4 w-4" />
                                                     </Button>

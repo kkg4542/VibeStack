@@ -29,8 +29,8 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <Button variant="ghost" size="icon" className="h-9 w-9">
-        <Sun className="h-[1.2rem] w-[1.2rem]" />
+      <Button variant="ghost" size="icon" className="h-10 w-10 md:h-9 md:w-9">
+        <Sun aria-hidden="true" className="h-[1.2rem] w-[1.2rem]" />
         <span className="sr-only">Toggle theme</span>
       </Button>
     );
@@ -39,10 +39,9 @@ export function ThemeToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="h-9 w-9" aria-label="Toggle theme">
-          <Sun className="h-[1.2rem] w-[1.2rem] dark:hidden" />
-          <Moon className="hidden h-[1.2rem] w-[1.2rem] dark:block" />
-          <span className="sr-only">Toggle theme</span>
+        <Button variant="ghost" size="icon" className="h-10 w-10 md:h-9 md:w-9" aria-label="Toggle theme">
+          <Sun aria-hidden="true" className="h-[1.2rem] w-[1.2rem] dark:hidden" />
+          <Moon aria-hidden="true" className="hidden h-[1.2rem] w-[1.2rem] dark:block" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">

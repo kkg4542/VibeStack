@@ -26,12 +26,14 @@ export async function SiteDirectory() {
 
     const sortedTools = [...tools].sort((a, b) => a.title.localeCompare(b.title));
 
-    const linkClass = "hover:text-primary transition-colors";
+    // min-h-10 gives a 40px tap target on phones; desktop keeps the compact list.
+    const linkClass =
+        "inline-flex min-h-10 items-center hover:text-primary transition-colors md:min-h-0";
 
     return (
         <nav
             aria-label="Site directory"
-            className="mt-24 border-t border-border/60 pt-12"
+            className="mt-28 pt-4"
         >
             <div className="mb-10">
                 <h2 className="text-2xl font-semibold text-foreground">Browse the full directory</h2>
@@ -43,7 +45,7 @@ export async function SiteDirectory() {
             {/* All tools */}
             <section className="mb-12">
                 <h3 className="text-sm font-semibold text-foreground mb-4">All AI Tools</h3>
-                <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-2 text-sm text-muted-foreground">
+                <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-0 md:gap-y-2 text-sm text-muted-foreground">
                     {sortedTools.map((tool: ToolData) => (
                         <li key={tool.slug}>
                             <Link href={`/tool/${tool.slug}`} className={linkClass}>
@@ -58,7 +60,7 @@ export async function SiteDirectory() {
             <section className="mb-12 grid gap-10 md:grid-cols-2">
                 <div>
                     <h3 className="text-sm font-semibold text-foreground mb-4">Best AI Tools by Use Case</h3>
-                    <ul className="space-y-2 text-sm text-muted-foreground">
+                    <ul className="space-y-0 md:space-y-2 text-sm text-muted-foreground">
                         {BEST_CATEGORIES.map((c) => (
                             <li key={c.slug}>
                                 <Link href={`/best/${c.slug}`} className={linkClass}>
@@ -70,7 +72,7 @@ export async function SiteDirectory() {
                 </div>
                 <div>
                     <h3 className="text-sm font-semibold text-foreground mb-4">Categories</h3>
-                    <ul className="space-y-2 text-sm text-muted-foreground capitalize">
+                    <ul className="space-y-0 md:space-y-2 text-sm text-muted-foreground capitalize">
                         {CATEGORY_SLUGS.map((slug) => (
                             <li key={slug}>
                                 <Link href={`/categories/${slug}`} className={linkClass}>
@@ -86,7 +88,7 @@ export async function SiteDirectory() {
             {comparisons.length > 0 && (
                 <section className="mb-12">
                     <h3 className="text-sm font-semibold text-foreground mb-4">Popular Comparisons</h3>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-2 text-sm text-muted-foreground">
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-0 md:gap-y-2 text-sm text-muted-foreground">
                         {comparisons.map((c) => (
                             <li key={c.slug}>
                                 <Link href={`/compare/${c.slug}`} className={linkClass}>
@@ -102,7 +104,7 @@ export async function SiteDirectory() {
             {stacks.length > 0 && (
                 <section className="mb-12">
                     <h3 className="text-sm font-semibold text-foreground mb-4">Curated Stacks</h3>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-2 text-sm text-muted-foreground">
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-0 md:gap-y-2 text-sm text-muted-foreground">
                         {stacks.map((stack) => (
                             <li key={stack.id}>
                                 <Link href={`/stack/${stack.id}`} className={linkClass}>
@@ -118,7 +120,7 @@ export async function SiteDirectory() {
             {blogPosts.length > 0 && (
                 <section>
                     <h3 className="text-sm font-semibold text-foreground mb-4">From the Blog</h3>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-sm text-muted-foreground">
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-0 md:gap-y-2 text-sm text-muted-foreground">
                         {blogPosts.map((post) => (
                             <li key={post.slug}>
                                 <Link href={`/blog/${post.slug}`} className={linkClass}>

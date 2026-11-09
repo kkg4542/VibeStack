@@ -22,7 +22,7 @@ import { Container } from "@/components/primitives/Container";
  */
 const MUTED = "text-[#9c9ea3] dark:text-[#5b5d62]";
 const LINK =
-    "inline-block py-1 transition-colors duration-150 hover:text-vibe-electric dark:hover:text-[#b93a16] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current motion-reduce:transition-none";
+    "inline-block py-2.5 md:py-1 transition-colors duration-150 hover:text-vibe-electric dark:hover:text-[#b93a16] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current motion-reduce:transition-none";
 const GROUP_TITLE = "text-[14px] font-semibold leading-normal";
 const LIST =
     "mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[15px] leading-normal md:mt-3 md:block md:space-y-1 md:text-[16px]";
@@ -93,15 +93,15 @@ export function Footer() {
                             The AI Productivity Lab. We curate the best AI tools to help developers build faster and better.
                         </p>
                         <div className="mt-5 flex gap-5">
-                            <a href="https://x.com/vibestack" target="_blank" rel="noopener noreferrer" className={`inline-flex p-2 -m-2 ${LINK}`} aria-label="Follow VibeStack on X">
+                            <a href="https://x.com/vibestack" target="_blank" rel="noopener noreferrer" className={`inline-flex p-2.5 -m-2.5 ${LINK}`} aria-label="Follow VibeStack on X">
                                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5" aria-hidden="true">
                                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                                 </svg>
                             </a>
-                            <a href="https://github.com/vibestack" target="_blank" rel="noopener noreferrer" aria-label="VibeStack on GitHub" className={`inline-flex p-2 -m-2 ${LINK}`}>
+                            <a href="https://github.com/vibestack" target="_blank" rel="noopener noreferrer" aria-label="VibeStack on GitHub" className={`inline-flex p-2.5 -m-2.5 ${LINK}`}>
                                 <Github className="h-5 w-5" aria-hidden="true" />
                             </a>
-                            <a href="mailto:hello@usevibestack.com" aria-label="Email VibeStack" className={`inline-flex p-2 -m-2 ${LINK}`}>
+                            <a href="mailto:hello@usevibestack.com" aria-label="Email VibeStack" className={`inline-flex p-2.5 -m-2.5 ${LINK}`}>
                                 <Mail className="h-5 w-5" aria-hidden="true" />
                             </a>
                         </div>

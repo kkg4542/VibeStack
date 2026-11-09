@@ -24,12 +24,32 @@ export function CommandMenu({ ...props }: DialogProps) {
     const router = useRouter()
     const [open, setOpen] = React.useState(false)
     const { tools } = useAllTools()
+    const triggerRef = React.useRef<HTMLButtonElement>(null)
+    // Whatever had focus when the palette opened (the search button, or the
+    // page element the Cmd/Ctrl+K shortcut was pressed from).
+    const openerRef = React.useRef<HTMLElement | null>(null)
+
+    const openPalette = React.useCallback(() => {
+        const active = document.activeElement
+        openerRef.current =
+            active instanceof HTMLElement && active !== document.body ? active : triggerRef.current
+        setOpen(true)
+    }, [])
 
     React.useEffect(() => {
         const down = (e: KeyboardEvent) => {
             if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
                 e.preventDefault()
-                setOpen((open) => !open)
+                setOpen((isOpen) => {
+                    if (!isOpen) {
+                        const active = document.activeElement
+                        openerRef.current =
+                            active instanceof HTMLElement && active !== document.body
+                                ? active
+                                : triggerRef.current
+                    }
+                    return !isOpen
+                })
             }
         }
 
@@ -45,22 +65,33 @@ export function CommandMenu({ ...props }: DialogProps) {
     return (
         <>
             <Button
+                ref={triggerRef}
                 variant="ghost"
                 size="sm"
                 className={cn(
-                    "relative h-9 w-9 p-0 xl:h-10 xl:w-60 xl:justify-start xl:px-3 xl:py-2 text-muted-foreground hover:bg-foreground/5 hover:text-foreground md:flex",
+                    "relative h-10 w-10 p-0 md:h-9 md:w-9 xl:h-10 xl:w-60 xl:justify-start xl:px-3 xl:py-2 text-muted-foreground hover:bg-foreground/5 hover:text-foreground md:flex",
                 )}
-                onClick={() => setOpen(true)}
+                onClick={openPalette}
                 aria-label="Search tools (Cmd+K)"
                 {...props}
             >
-                <Search className="h-4 w-4 xl:mr-2" />
+                <Search aria-hidden="true" className="h-4 w-4 xl:mr-2" />
                 <span className="hidden xl:inline-flex">Search tools...</span>
                 <kbd className="pointer-events-none absolute right-1.5 top-1.5 hidden h-7 select-none items-center gap-1 rounded-none bg-secondary px-2 text-[13px] font-medium text-foreground opacity-100 xl:flex">
                     <span>⌘</span>K
                 </kbd>
             </Button>
-            <CommandDialog open={open} onOpenChange={setOpen}>
+            <CommandDialog
+                open={open}
+                onOpenChange={setOpen}
+                onCloseAutoFocus={(event) => {
+                    // Escape, overlay click and item selection all land here:
+                    // always hand focus back to the element that opened the palette.
+                    event.preventDefault()
+                    const opener = openerRef.current
+                    ;(opener?.isConnected ? opener : triggerRef.current)?.focus()
+                }}
+            >
                 <CommandInput placeholder="Type a command or search..." />
                 <CommandList>
                     <CommandEmpty>No results found.</CommandEmpty>

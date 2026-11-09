@@ -49,8 +49,8 @@ export function SubmitDialog() {
                 </Button>
             </DialogTrigger>
             <DialogContent showCloseButton={false} className="sm:max-w-[800px] border-0 bg-popover p-0 overflow-hidden shadow-2xl" /* taste-skill-ignore: real dialog overlay */>
-                <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground text-muted-foreground hover:text-foreground z-50 cursor-pointer">
-                    <X className="h-4 w-4" />
+                <DialogClose className="absolute right-1 top-1 inline-flex size-11 items-center justify-center rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground text-muted-foreground hover:text-foreground z-50 cursor-pointer">
+                    <X aria-hidden="true" className="h-4 w-4" />
                     <span className="sr-only">Close</span>
                 </DialogClose>
                 <div className="grid grid-cols-1 md:grid-cols-2">
