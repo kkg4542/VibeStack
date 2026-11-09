@@ -175,6 +175,7 @@ export const postsBatch1: BlogPost[] = [
   // 1. Vibe Coding Manifesto (Expanded)
   {
     slug: "vibe-coding-manifesto",
+    callout: { kind: "guide", slug: "coding" },
     title: "The Vibe Coding Manifesto: Why Speed is the Only Metric",
     excerpt: "The argument behind vibe coding: what actually changed in 2026 to make it viable, the five principles that hold it together, what changes on a real team, the strongest objections, and the situations where the whole philosophy stops applying.",
     date: "Jul 18, 2026",
@@ -432,6 +433,7 @@ export const postsBatch1: BlogPost[] = [
   // 3. GPT-5.6 vs Claude Sonnet 5: Which Model Wins in 2026? (Expanded)
   {
     slug: "gpt5-vs-claude5",
+    callout: { kind: "compare", slug: "chatgpt-vs-claude" },
     title: "GPT-5.6 vs Claude Sonnet 5: Which Model Wins in 2026?",
     excerpt: "We compare the two titans of mid-2026. Does OpenAI's Sol tier beat Anthropic's Claude Sonnet 5, Claude Opus 5 and Claude Fable 5.1 for real engineering work?",
     date: "Jul 18, 2026",
@@ -758,6 +760,7 @@ export const postsBatch1: BlogPost[] = [
   // 6. Autonomous Agents (Expanded)
   {
     slug: "autonomous-agents-devin",
+    callout: { kind: "tool", slug: "devin-ai" },
     title: "From Copilot to Autopilot: The Dawn of Agentic Engineering",
     excerpt: "Devin was just the beginning. In mid-2026, autonomous agents built on GPT-5.6 and Claude Sonnet 5 are managing entire sub-systems. Are we ready?",
     date: "Jul 18, 2026",
@@ -818,6 +821,7 @@ export const postsBatch1: BlogPost[] = [
   // 7. Llama 4 (Expanded)
   {
     slug: "local-llm-llama4",
+    callout: { kind: "tool", slug: "ollama" },
     title: "Digital Sovereignty: Why Your Next AI Will Live on Your Mac",
     excerpt: "With the M5 chip, Llama 4, and now Meta's frontier Llama 5 release, running GPT-4-class models locally is a reality — from your Mac all the way down to the NPU in your phone. Updated for August 2026.",
     date: "Jul 18, 2026",
@@ -1306,6 +1310,7 @@ export const postsBatch1: BlogPost[] = [
   // 12. Cursor vs VS Code (Expanded)
   {
     slug: "cursor-vs-vscode",
+    callout: { kind: "tool", slug: "cursor" },
     title: "Why Developers are Abandoning VS Code for Cursor",
     excerpt: "Cursor is a fork of VS Code, which makes this comparison narrower and more decidable than it looks. A hands-on breakdown of where the two editors actually diverge, the extension gap, the real pricing structures, and how much switching (or switching back) costs you.",
     date: "Jul 18, 2026",
@@ -1548,6 +1553,7 @@ export const postsBatch1: BlogPost[] = [
   // 14. Linear Method (Expanded)
   {
     slug: "linear-method-explained",
+    callout: { kind: "tool", slug: "linear" },
     title: "The Product Craft: Why Linear's Method Wins",
     excerpt: "The Linear Method explained: what its principles actually say, how cycles differ from sprints, how to adopt the method without adopting the tool, and why ticket quality became the real bottleneck once AI agents started implementing the tickets.",
     date: "Jul 18, 2026",
@@ -1646,6 +1652,7 @@ export const postsBatch1: BlogPost[] = [
   // 15. Claude Sonnet 5 and Claude Fable 5.1: Anthropic's Four-Tier Lineup
   {
     slug: "claude-opus-4-6-release",
+    callout: { kind: "tool", slug: "claude" },
     title: "Claude Sonnet 5 and Claude Fable 5.1: Anthropic's Four-Tier Lineup",
     excerpt: "Anthropic's roster now runs four deep: Haiku 4.5, Sonnet 5 (June 30), Opus 5, and the Claude Fable 5.1 flagship. What each tier costs, what it's documented for, and where parallel agents actually live. Updated for September 2026.",
     date: "Jul 18, 2026",

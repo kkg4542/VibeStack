@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="axis" gradientUnits="userSpaceOnUse" x1="90" y1="0" x2="1110" y2="0">
+      <stop offset="0%" stop-color="#00d9ff"/>
+      <stop offset="50%" stop-color="#b829dd"/>
+      <stop offset="100%" stop-color="#d900d9"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00d9ff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#00d9ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#b829dd" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#b829dd" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#ffffff" stroke-opacity="0.045" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="675" fill="#0a0a1a"/>
+  <rect width="1200" height="675" fill="url(#grid)"/>
+  <ellipse cx="180" cy="120" rx="460" ry="360" fill="url(#glowA)"/>
+  <ellipse cx="1040" cy="600" rx="440" ry="340" fill="url(#glowB)"/>
+
+  <text x="90" y="104" font-size="15" letter-spacing="3.4" font-weight="700" fill="#00d9ff">PRODUCT STATUS</text>
+  <text x="90" y="170" font-size="50" font-weight="700" fill="#ffffff">What actually changed</text>
+  <text x="90" y="212" font-size="21" fill="#9aa4b8">Dates taken from each vendor&#8217;s own announcement.</text>
+
+  <line x1="90" y1="400" x2="1110" y2="400" stroke="url(#axis)" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- node 1 -->
+  <circle cx="150" cy="400" r="9" fill="#0a0a1a" stroke="#00d9ff" stroke-width="3"/>
+  <text x="150" y="352" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">Nov 21, 2025</text>
+  <text x="150" y="300" font-size="18" fill="#9aa4b8" text-anchor="middle">Supermaven</text>
+  <text x="150" y="322" font-size="18" fill="#9aa4b8" text-anchor="middle">&#8594; Cursor Tab</text>
+
+  <!-- node 2 -->
+  <circle cx="380" cy="400" r="9" fill="#0a0a1a" stroke="#3ba7e8" stroke-width="3"/>
+  <text x="380" y="452" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">Apr 26, 2026</text>
+  <text x="380" y="482" font-size="18" fill="#9aa4b8" text-anchor="middle">Sora web &amp; app</text>
+  <text x="380" y="504" font-size="18" fill="#9aa4b8" text-anchor="middle">discontinued</text>
+
+  <!-- node 3 -->
+  <circle cx="610" cy="400" r="9" fill="#0a0a1a" stroke="#8a5fe0" stroke-width="3"/>
+  <text x="610" y="352" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">Jun 2, 2026</text>
+  <text x="610" y="300" font-size="18" fill="#9aa4b8" text-anchor="middle">Windsurf renamed</text>
+  <text x="610" y="322" font-size="18" fill="#9aa4b8" text-anchor="middle">Devin Desktop</text>
+
+  <!-- node 4 -->
+  <circle cx="840" cy="400" r="9" fill="#0a0a1a" stroke="#b829dd" stroke-width="3"/>
+  <text x="840" y="452" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">Jun 18, 2026</text>
+  <text x="840" y="482" font-size="18" fill="#9aa4b8" text-anchor="middle">Gemini Code Assist</text>
+  <text x="840" y="504" font-size="18" fill="#9aa4b8" text-anchor="middle">free tier ends</text>
+
+  <!-- node 5 -->
+  <circle cx="1070" cy="400" r="11" fill="#d900d9" stroke="#d900d9" stroke-width="3"/>
+  <text x="1070" y="352" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">Sep 24, 2026</text>
+  <text x="1070" y="300" font-size="18" fill="#9aa4b8" text-anchor="middle">Sora API</text>
+  <text x="1070" y="322" font-size="18" fill="#9aa4b8" text-anchor="middle">discontinued</text>
+
+  <text x="90" y="622" font-size="17" fill="#6b7280">usevibestack.com</text>
+</svg>

@@ -1,11 +1,17 @@
 import { BlogPost } from "./blog-types";
 
 /**
- * Batch 3 — search-intent comparison & review posts.
- * These target bottom-of-funnel queries ("X vs Y", "is X worth it") and link
- * internally to /tool/[slug] and /best/[category] pages to pass authority and
- * surface affiliate links. Content is kept factual and current for mid-2026 —
- * no fabricated benchmarks or unreleased model version numbers.
+ * Batch 3 — search-intent comparison, review & product-status posts.
+ * These target bottom-of-funnel queries ("X vs Y", "is X worth it", "what
+ * happened to X") and link internally to /tool/[slug] and /best/[category]
+ * pages to pass authority and surface affiliate links. Content is kept factual
+ * and current for mid-2026 — no fabricated benchmarks or unreleased model
+ * version numbers.
+ *
+ * discontinued-ai-tools-2026 is the status post: every claim in it is tied to a
+ * vendor announcement and its publication date. When a directory entry is
+ * retired, add its story there rather than letting the redirect be the only
+ * record of what happened.
  */
 export const postsBatch3: BlogPost[] = [
   {
@@ -568,6 +574,79 @@ export const postsBatch3: BlogPost[] = [
       {
         q: "Are the $200/month tiers worth it?",
         a: "Only if AI is a core part of your daily work rather than an occasional assist. The jump from $20 to $200 is the steepest cliff in either product: Perplexity's Max tier adds Perplexity Computer, which orchestrates many models as sub-agents, and ChatGPT Pro buys the largest context window and high Deep Research limits. Neither is justified by heavier casual use alone.",
+      },
+    ],
+  },
+  {
+    slug: "discontinued-ai-tools-2026",
+    title: "Discontinued AI Tools in 2026: What Happened, and What to Use Instead",
+    excerpt:
+      "Windsurf, Supermaven, Sora, Galileo AI and Gemini Code Assist's free tier all changed or ended in 2026 — and AI assistants are still describing several of them as if they hadn't. Here is what each vendor actually announced, with dates and primary sources.",
+    date: "Sep 22, 2026",
+    author: "David Kim",
+    category: "News",
+    readTime: "7 min read",
+    // Drawn for this post rather than reused. The hero renders at aspect-video,
+    // so this is 16:9 (1200x675) and nothing gets cropped away; the other blog
+    // images are 1024x1024 and lose their top and bottom. The SVG it was
+    // rendered from sits beside it, so the dates can be corrected in place.
+    image: "/images/blog/discontinued-ai-tools-2026.png",
+    tags: ["Windsurf", "Supermaven", "Sora", "Deprecations", "AI Tools"],
+    content: `
+      <p>Products in this category do not usually die loudly. They get acquired, folded into something else, renamed, or quietly moved behind a paid tier — and the internet keeps describing them the way they were.</p>
+      <p>That gap is easy to observe. In spot checks during September 2026, AI-generated search summaries still described Supermaven as the engine behind Cursor's autocomplete, and still quoted a monthly price for Windsurf's Cascade agent. Both statements were accurate once. Neither is accurate now.</p>
+      <p>This page is the correction. Every claim below points at the vendor's own announcement and carries the date it was published, so you can check it rather than trust it.</p>
+
+      <h2>Supermaven — folded into Cursor's Tab</h2>
+      <p>Anysphere, the company behind <a href="/tool/cursor">Cursor</a>, acquired Supermaven roughly a year before the shutdown notice. On <strong>November 21, 2025</strong>, Supermaven published a post titled "Sunsetting Supermaven" confirming the product was being discontinued and that its autocomplete capability had been integrated into Cursor's Tab feature.</p>
+      <p>The detail most summaries get wrong is that this was not a clean switch-off. Existing customers were issued prorated refunds for the remaining time on their subscriptions, and the vendor said it would keep providing free autocomplete inference to existing customers for the foreseeable future — specifically naming Neovim and JetBrains users, who had no Cursor equivalent to move to. What did stop was the agent conversation feature. VS Code users were pointed at Cursor and its newer autocomplete model.</p>
+      <p><strong>If you are choosing today:</strong> there is no Supermaven to sign up for. The capability lives in <a href="/tool/cursor">Cursor</a>. If you are a Neovim or JetBrains user who was relying on the standalone plugin, treat it as running on borrowed time rather than as a supported product.</p>
+
+      <h2>Windsurf — renamed Devin Desktop</h2>
+      <p>This one is a rename, not a shutdown, and the difference matters. On <strong>June 2, 2026</strong>, Cognition published "Windsurf is now Devin Desktop." Windsurf users received it as a standard over-the-air update, and the announcement stated plainly that plan, pricing, extensions and other features stayed the same. The editor remains backwards-compatible with Windsurf and VS Code extensions and keybindings.</p>
+      <p>What did change is the agent underneath. <strong>Cascade was replaced by Devin Local</strong>, rewritten from scratch in Rust with the same capabilities and settings, which Cognition describes as up to 30% more token efficient and which adds subagents. The legacy Cascade agent remained usable through July 1 for incremental migration. The release also made the Agent Command Center — a Kanban view over every local and cloud agent — the default surface, added Spaces for sharing context between agents, and shipped support for the Agent Client Protocol, so Codex, Claude Agent, OpenCode and in-house agents run inside the same editor.</p>
+      <p><strong>If you are choosing today:</strong> both <code>windsurf.com</code> and <code>codeium.com/windsurf</code> now resolve to the Devin Desktop page. Any comparison quoting "Windsurf Cascade" pricing is describing a configuration that no longer ships. Our directory entry is <a href="/tool/devin-ai">Devin</a>.</p>
+
+      <h2>Sora — the API shuts down on September 24, 2026</h2>
+      <p>This is the most time-sensitive item on the page. OpenAI's help center states that <strong>the Sora web and app experiences were discontinued on April 26, 2026</strong>, and that <strong>the Sora API will be discontinued on September 24, 2026</strong>.</p>
+      <p>The developer-facing side is documented separately and is unusually specific. OpenAI's deprecations page records that developers using the Videos API and the Sora 2 video generation aliases and snapshots were notified on March 24, 2026 of their removal from the API on September 24, 2026. The listed identifiers are <code>sora-2</code>, <code>sora-2-pro</code>, <code>sora-2-2025-10-06</code>, <code>sora-2-2025-12-08</code> and <code>sora-2-pro-2025-10-06</code>. There is <strong>no recommended replacement model</strong> — these are being discontinued, not migrated.</p>
+      <p>If you created work in Sora, OpenAI directs you to export it from <code>sora.chatgpt.com/sunset</code>, and says data associated with your use of Sora will be permanently deleted after any final export window passes. Purchased ChatGPT or Sora credits can still be used for Codex.</p>
+      <p><strong>If you are choosing today:</strong> do not build on the Sora API. For generative video and design work the directory's surviving options are collected under <a href="/best/design">the best AI design tools</a>.</p>
+
+      <h2>Gemini Code Assist — the free individual tier ended</h2>
+      <p>This one produces the most stubborn wrong answers, because Google's own marketing pages were slower to update than its documentation. Per Google's deprecation notice, <strong>Gemini Code Assist consumer accounts were deprecated on May 18, 2026 and shut down on June 18, 2026</strong>. After that date the Gemini Code Assist IDE extensions and the Gemini CLI stopped serving requests for Google AI Pro and Ultra subscribers as well as for Gemini Code Assist for individuals, and those users were directed to Antigravity.</p>
+      <p>The old individual allowance — reported at up to 6,000 code-related requests and 240 chat requests per day — was genuinely one of the most generous offers in the category. It is historical. The product now ships in two editions, Standard and Enterprise, both managed through Google Cloud.</p>
+      <p><strong>If you are choosing today:</strong> <a href="/tool/gemini-code-assist">Gemini Code Assist</a> is a paid product. If you came looking for a free assistant, compare against the free tiers that still exist in <a href="/best/coding">the best AI coding tools</a>.</p>
+
+      <h2>Galileo AI — now Google Stitch</h2>
+      <p>Galileo AI's text-to-UI product is no longer reachable under its own name: <code>usegalileo.ai</code> now resolves to <code>stitch.withgoogle.com</code>, Google's design-to-code tool. We verified this redirect directly rather than inferring it from coverage.</p>
+      <p><strong>If you are choosing today:</strong> the directory entry is retired and the URL redirects to <a href="/best/design">the best AI design tools</a>.</p>
+
+      <h2>What we changed in the directory</h2>
+      <p>We do not leave dead entries up. Each of these products was removed from the listings, and every URL it previously occupied — its tool page and every head-to-head comparison it appeared in — was given a permanent redirect to the closest surviving answer, so an old link lands somewhere useful instead of on a 404.</p>
+      <p>That is also why one stack disappeared. The Efficiency Stack was Supermaven plus Cursor; with Supermaven gone it would have been a list of one, so it was dropped rather than published as a stack with a single tool in it.</p>
+      <p>The dates on this page are the vendors' own. Where we could only verify a redirect rather than an announcement, we say so.</p>
+    `,
+    faq: [
+      {
+        q: "Is Supermaven still available?",
+        a: "No, not as a product you can sign up for. Supermaven announced on November 21, 2025 that it was being discontinued following its acquisition by Cursor's parent company, and its autocomplete was integrated into Cursor's Tab feature. Existing customers received prorated refunds, and the vendor said it would keep providing free autocomplete inference to them for the foreseeable future — notably for Neovim and JetBrains, where there is no Cursor equivalent. The agent conversation feature was discontinued outright.",
+      },
+      {
+        q: "What happened to Windsurf?",
+        a: "It was renamed. On June 2, 2026 Cognition announced that Windsurf is now Devin Desktop, delivered to existing users as an over-the-air update with plan, pricing and extensions unchanged, and still backwards-compatible with Windsurf and VS Code extensions and keybindings. The substantive change was underneath: the Cascade agent was replaced by Devin Local, a from-scratch Rust rewrite that Cognition describes as up to 30% more token efficient, with legacy Cascade remaining usable through July 1 for migration. Both windsurf.com and codeium.com/windsurf now resolve to the Devin Desktop page.",
+      },
+      {
+        q: "Is Sora shut down?",
+        a: "The consumer product already is, and the API is about to be. OpenAI's help center states that the Sora web and app experiences were discontinued on April 26, 2026, and that the Sora API will be discontinued on September 24, 2026. OpenAI's deprecations page confirms the Videos API and the sora-2 and sora-2-pro aliases and snapshots are removed on that date, with no recommended replacement model. If you have work in Sora, OpenAI directs you to export it from sora.chatgpt.com/sunset, and says the associated data is permanently deleted after any final export window.",
+      },
+      {
+        q: "Does Gemini Code Assist still have a free tier for individuals?",
+        a: "No. Google's deprecation documentation records that Gemini Code Assist consumer accounts were deprecated on May 18, 2026 and shut down on June 18, 2026, after which the IDE extensions and the Gemini CLI stopped serving individual, Google AI Pro and Google AI Ultra users, who were directed to Antigravity. The product now ships as Standard and Enterprise editions managed through Google Cloud. Marketing pages describing a no-cost individual tier lagged behind this change, which is why the claim is still widely repeated.",
+      },
+      {
+        q: "Why do AI assistants still describe these products as if nothing changed?",
+        a: "Because a model answers from what it absorbed during training unless something forces it to check, and the sources it learned from — roundups, comparison posts, vendor marketing — are rarely revised after a product changes hands. A rename is the worst case: the old name keeps returning confident, fluent, well-structured answers about a configuration that no longer ships. The fix on the reader's side is to ask for the vendor's own announcement and its date, which is the standard this page holds itself to.",
       },
     ],
   },

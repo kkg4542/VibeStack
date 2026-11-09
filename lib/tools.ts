@@ -292,7 +292,7 @@ export const tools: ToolData[] = [
     color: "text-foreground",
     bgGradient: "bg-secondary",
     features: ["Gemini models", "In-IDE completion", "Large context", "Multi-language"],
-    pros: ["Generous free tier for individuals", "Very large context window", "Deep Google Cloud integration"],
+    pros: ["Private-codebase customization on Enterprise", "Very large context window", "Deep Google Cloud integration"],
     cons: ["Smaller ecosystem than Copilot", "Strongest only inside the Google stack"],
     isFeatured: true,
   }

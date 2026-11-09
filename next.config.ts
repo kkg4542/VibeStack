@@ -179,7 +179,20 @@ const nextConfig: NextConfig = {
           "font-src 'self' data: https://fonts.gstatic.com",
           "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
           `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval' " : ""}https://js.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://va.vercel-scripts.com`,
-          "connect-src 'self' https://api.stripe.com https://www.google-analytics.com https://www.googletagmanager.com https://vitals.vercel-insights.com https://va.vercel-scripts.com https://*.ingest.sentry.io https://sentry.io",
+          // GA4 does not post to www.google-analytics.com. Observed in a clean
+          // browser on production: every /g/collect beacon went to
+          // analytics.google.com (and, for Google Signals, www.google.com and
+          // stats.g.doubleclick.net), all refused by this directive, so not a
+          // single page_view was recorded. The wildcard also covers the
+          // regional endpoints (region1.google-analytics.com and friends).
+          //
+          // The Signals/ads hosts are left out on purpose. They carry
+          // advertising and cross-site remarketing traffic, not the analytics
+          // this site actually reads, so blocking them costs us nothing and
+          // keeps the policy narrow. If GA4 reports are ever missing
+          // demographics data, that is why — widen this deliberately, not by
+          // pasting in whatever the console complains about.
+          "connect-src 'self' https://api.stripe.com https://*.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://vitals.vercel-insights.com https://va.vercel-scripts.com https://*.ingest.sentry.io https://sentry.io",
           "frame-src https://js.stripe.com https://hooks.stripe.com",
           "worker-src 'self' blob:",
           "manifest-src 'self'",
