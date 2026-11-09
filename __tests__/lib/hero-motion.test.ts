@@ -253,6 +253,103 @@ describe("drawFrame", () => {
     }
   });
 
+  describe("stage option", () => {
+    const stage = { x: 900, y: 80, w: 960, h: 540 };
+    type Box4 = [number, number, number, number]; // x0, y0, x1, y1
+    const inside = (b: Box4) =>
+      b[0] >= stage.x - 1 && b[1] >= stage.y - 1 && b[2] <= stage.x + stage.w + 1 && b[3] <= stage.y + stage.h + 1;
+    const xf = (m: number[], x: number, y: number) => [m[0] * x + m[2] * y + m[4], m[1] * x + m[3] * y + m[5]];
+    const bboxOf = (m: number[], pts: number[][]): Box4 => {
+      const ps = pts.map(([x, y]) => xf(m, x, y));
+      const xs = ps.map((p) => p[0]);
+      const ys = ps.map((p) => p[1]);
+      return [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)];
+    };
+    const meet = (a: Box4, b: Box4): Box4 | null => {
+      const r: Box4 = [Math.max(a[0], b[0]), Math.max(a[1], b[1]), Math.min(a[2], b[2]), Math.min(a[3], b[3])];
+      return r[0] < r[2] && r[1] < r[3] ? r : null;
+    };
+
+    it("draws everything but the ground clipped inside the stage rect (t every 1/30 s)", () => {
+      for (let i = 0; i < 240; i++) {
+        const t = i / 30;
+        const log = render(t, { stage } as Partial<typeof opts>);
+        expect(log).toContainEqual(["fillRect", 0, 0, 1920, 1080]); // ground fills the canvas
+        let m = [1, 0, 0, 1, 0, 0];
+        let font = "10px sans-serif";
+        let align = "left";
+        let baseline = "alphabetic";
+        let clip: Box4 | null = null;
+        let path: number[] = [];
+        const stack: { m: number[]; clip: Box4 | null; font: string; align: string; baseline: string }[] = [];
+        let draws = 0;
+        for (const [name, ...a] of log) {
+          const n = a as number[];
+          if (name === "setTransform") m = n;
+          else if (name === "set:font") font = String(a[0]);
+          else if (name === "set:textAlign") align = String(a[0]);
+          else if (name === "set:textBaseline") baseline = String(a[0]);
+          else if (name === "save") stack.push({ m, clip, font, align, baseline });
+          else if (name === "restore") ({ m, clip, font, align, baseline } = stack.pop()!);
+          else if (name === "rect") path = n;
+          else if (name === "clip") {
+            const r = bboxOf(m, [[path[0], path[1]], [path[0] + path[2], path[1] + path[3]]]);
+            // An empty intersection shows nothing: model it as an empty box in the stage.
+            clip = clip ? meet(clip, r) ?? [stage.x, stage.y, stage.x, stage.y] : r;
+          } else if (DRAW_METHODS.has(name)) {
+            draws++;
+            if (draws === 1) continue; // the ground
+            let box: Box4;
+            if (name === "fillRect") box = bboxOf(m, [[n[0], n[1]], [n[0] + n[2], n[1]], [n[0], n[1] + n[3]], [n[0] + n[2], n[1] + n[3]]]);
+            else if (name === "fillText") {
+              const px = Number(/(\d+(?:\.\d+)?)px/.exec(font)?.[1]);
+              let w = 0;
+              for (const ch of String(a[0])) w += ch === "I" ? 0.22 * px : /[MW]/.test(ch) ? 0.62 * px : 0.46 * px;
+              const x0 = align === "right" ? n[1] - w : align === "center" ? n[1] - w / 2 : n[1];
+              const y0 = baseline === "middle" ? n[2] - px / 2 : n[2] - 0.8 * px;
+              box = bboxOf(m, [[x0, y0], [x0 + w, y0], [x0, y0 + px], [x0 + w, y0 + px]]);
+            } else {
+              // Brand-mark path: check the mark's anchor point.
+              const [px, py] = xf(m, 0, 0);
+              box = [px, py, px, py];
+            }
+            // Every non-ground draw happens under a clip that lies inside the stage...
+            expect(clip, `${name} @ t=${t}`).not.toBeNull();
+            expect(inside(clip!), `clip @ t=${t}`).toBe(true);
+            // ...so what reaches the canvas is inside the stage.
+            const visible = name === "fill" ? box : meet(box, clip!);
+            if (visible) expect(inside(visible), `${name} @ t=${t}`).toBe(true);
+          }
+        }
+        expect(stack).toHaveLength(0); // save/restore balanced
+      }
+    });
+
+    it("fits bar-1 words to the stage and still closes the loop", () => {
+      expect(render(8, { stage } as Partial<typeof opts>)).toEqual(render(0, { stage } as Partial<typeof opts>));
+      expect(render(16, { stage } as Partial<typeof opts>)).toEqual(render(0, { stage } as Partial<typeof opts>));
+      for (let i = 0; i < 4; i++) {
+        let m = [1, 0, 0, 1, 0, 0];
+        let font = "";
+        const boxes: Box4[] = [];
+        for (const [name, ...a] of render(i * 0.5 + 0.48, { stage, anchor: 0.9 } as Partial<typeof opts>)) {
+          if (name === "setTransform") m = a as number[];
+          else if (name === "set:font") font = String(a[0]);
+          else if (name === "fillText" && String(a[0]).length === 1) {
+            const px = Number(/(\d+(?:\.\d+)?)px/.exec(font)?.[1]);
+            const ch = String(a[0]);
+            const w = ch === "I" ? 0.22 * px : /[MW]/.test(ch) ? 0.62 * px : 0.46 * px;
+            boxes.push(bboxOf(m, [[Number(a[1]), 0], [Number(a[1]) + w, 0]]));
+          }
+        }
+        expect(boxes.length).toBeGreaterThan(0);
+        // anchor is ignored: the settled word sits fully inside the stage.
+        expect(Math.min(...boxes.map((b) => b[0]))).toBeGreaterThanOrEqual(stage.x);
+        expect(Math.max(...boxes.map((b) => b[2]))).toBeLessThanOrEqual(stage.x + stage.w);
+      }
+    });
+  });
+
   it("mixes colours toward the ground at low contrast", () => {
     const low = render(5.97, { contrast: 0.3 });
     expect(low).not.toContainEqual(["set:fillStyle", "rgb(239,240,241)"]);

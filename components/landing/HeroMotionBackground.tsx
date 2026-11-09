@@ -8,24 +8,13 @@ import {
   representativeTime,
 } from "@/lib/hero-motion/scene";
 
-/* Tuning. Contrast mixes every scene colour toward the hero ground (0 = invisible, 1 = full). */
-/**
- * Scene contrast at 768px and up. Measured over all 240 frames at 1440x900:
- * at 0.2 the #b0b2b6 intro stays >= 4.59:1 and the h1 >= 5.7:1; at 0.24 the
- * intro drops to 3.99:1 in 16% of frames. Don't raise it without re-measuring.
- */
-const CONTRAST_DEFAULT = 0.2;
-/** Scene contrast below 768px, where the copy covers more of the scene. */
-const CONTRAST_SMALL = 0.18;
-/** Horizontal focus of the composition (0 = left edge, 1 = right edge) at 1024px and up. */
-const ANCHOR_WIDE = 0.72;
-/** Horizontal focus below 1024px. */
-const ANCHOR_NARROW = 0.5;
 /** Backing-store resolution cap (device pixels per CSS pixel). */
 const MAX_DPR = 1.5;
-const WIDE_QUERY = "(min-width: 1024px)";
-const SMALL_QUERY = "(max-width: 767.98px)";
 const REDUCED_QUERY = "(prefers-reduced-motion: reduce)";
+/** The empty 16:9 box in the hero layout the scene is fitted into. */
+const STAGE_SELECTOR = "[data-hero-stage]";
+/** The hero's layout grid: its size changes whenever the stage may have moved. */
+const LAYOUT_SELECTOR = "[data-hero-layout]";
 
 /** The four fields the scene reads, picked from ToolData on the server. */
 export interface HeroMotionTool {
@@ -46,8 +35,14 @@ function fontFromVar(name: string): string {
 }
 
 /**
- * The hero's looping motion graphic (lib/hero-motion/scene.js) as a
- * full-bleed, low-contrast background canvas. Decorative only.
+ * The hero's looping motion graphic (lib/hero-motion/scene.js) on a
+ * full-bleed canvas behind the hero, at full contrast. Decorative only.
+ *
+ * The canvas covers the whole section, so the ground colour is seamless; the
+ * 1920x1080 composition is contain-fitted into the stage, an empty 16:9
+ * placeholder in the hero layout (`data-hero-stage`, in the same section).
+ * Its rect is measured relative to the canvas and passed to drawFrame as
+ * `stage` in canvas pixels. Without a placeholder the scene covers the canvas.
  *
  * - Drawn imperatively: no React state, one reused options object, so a frame
  *   allocates nothing beyond what drawFrame itself does.
@@ -72,22 +67,29 @@ export function HeroMotionBackground({ tools }: HeroMotionBackgroundProps) {
     const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) return;
 
-    const wideMq = window.matchMedia(WIDE_QUERY);
-    const smallMq = window.matchMedia(SMALL_QUERY);
+    const section = wrap.parentElement;
+    const stageEl = section?.querySelector<HTMLElement>(STAGE_SELECTOR) ?? null;
+    const layoutEl = section?.querySelector<HTMLElement>(LAYOUT_SELECTOR) ?? null;
     const reducedMq = window.matchMedia(REDUCED_QUERY);
 
-    // Reused for every frame.
-    const opts = {
+    // Reused for every frame (the stage rect is updated in place on resize).
+    const stage = { x: 0, y: 0, w: 0, h: 0 };
+    const opts: {
+      width: number;
+      height: number;
+      fontFamily: string;
+      bodyFontFamily: string;
+      contrast: number;
+      data: typeof data;
+      stage: typeof stage | undefined;
+    } = {
       width: 0,
       height: 0,
       fontFamily: "sans-serif",
       bodyFontFamily: "sans-serif",
-      contrast: CONTRAST_DEFAULT,
-      anchor: ANCHOR_WIDE,
-      // Phones: the hero is a tall canvas, so cover-fit would keep only a thin
-      // vertical slice of the 1920x1080 scene; fit it to the width instead.
-      fit: "cover" as "cover" | "width",
+      contrast: 1,
       data,
+      stage: undefined,
     };
 
     let disposed = false;
@@ -152,9 +154,6 @@ export function HeroMotionBackground({ tools }: HeroMotionBackgroundProps) {
       const ratio = Math.min(window.devicePixelRatio || 1, MAX_DPR);
       const w = Math.max(0, Math.round(rect.width * ratio));
       const h = Math.max(0, Math.round(rect.height * ratio));
-      opts.anchor = wideMq.matches ? ANCHOR_WIDE : ANCHOR_NARROW;
-      opts.contrast = smallMq.matches ? CONTRAST_SMALL : CONTRAST_DEFAULT;
-      opts.fit = smallMq.matches ? "width" : "cover";
       if (w !== canvas.width || h !== canvas.height) {
         // Resizing clears the canvas: redraw now so no blank frame is painted.
         canvas.width = w;
@@ -162,6 +161,18 @@ export function HeroMotionBackground({ tools }: HeroMotionBackgroundProps) {
       }
       opts.width = w;
       opts.height = h;
+      opts.stage = undefined;
+      if (stageEl && rect.width > 0 && rect.height > 0) {
+        // Stage rect relative to the canvas, in canvas (backing-store) pixels.
+        const sr = stageEl.getBoundingClientRect();
+        const rx = w / rect.width;
+        const ry = h / rect.height;
+        stage.x = (sr.left - rect.left) * rx;
+        stage.y = (sr.top - rect.top) * ry;
+        stage.w = sr.width * rx;
+        stage.h = sr.height * ry;
+        if (stage.w > 0 && stage.h > 0) opts.stage = stage;
+      }
       if (!canDraw()) {
         update();
         return;
@@ -174,8 +185,12 @@ export function HeroMotionBackground({ tools }: HeroMotionBackgroundProps) {
       update();
     };
 
+    // The wrapper (canvas size), the stage (its size) and the layout grid
+    // (reflow above the stage, e.g. the h1 after the font swap, moves it).
     const ro = new ResizeObserver(resize);
     ro.observe(wrap);
+    if (stageEl) ro.observe(stageEl);
+    if (layoutEl) ro.observe(layoutEl);
 
     let io: IntersectionObserver | null = null;
     if (typeof IntersectionObserver !== "undefined") {
@@ -185,7 +200,8 @@ export function HeroMotionBackground({ tools }: HeroMotionBackgroundProps) {
         onScreen = entry.isIntersecting;
         update();
       });
-      io.observe(wrap);
+      // Pause when the stage (the only place the scene shows) leaves the viewport.
+      io.observe(stageEl ?? wrap);
     }
 
     const onVisibility = () => update();
@@ -193,7 +209,6 @@ export function HeroMotionBackground({ tools }: HeroMotionBackgroundProps) {
       reduced = reducedMq.matches;
       update();
     };
-    // Breakpoint changes always come with a resize, which re-reads both queries.
     document.addEventListener("visibilitychange", onVisibility);
     reducedMq.addEventListener("change", onReducedChange);
 

@@ -3,6 +3,7 @@ import { getTools } from "@/lib/tools-db";
 import { stacks } from "@/lib/stacks";
 import { countToolsWithFreePlan } from "@/lib/stack-facts";
 import { VibeHero } from "@/components/landing/VibeHero";
+import { GoalPickerSection } from "@/components/landing/GoalPickerSection";
 import type { StackPick } from "@/components/landing/StackPicker";
 import { ToolCategories } from "@/components/landing/ToolCategories";
 import { PopularTools } from "@/components/landing/PopularTools";
@@ -36,8 +37,8 @@ export default async function Home() {
   // (dynamicParams = false) would 404 on. See lib/data/stacks/core.ts.
   const featuredStacks = resolveFeaturedStacks(featuredRanking, allTools, 6);
 
-  // Hero stack picker: the same resolved stacks (retired tools already dropped),
-  // plus the goal label (`idealFor[0]`) and setup steps (`workflow`) from
+  // Goal picker (and the hero h1's frame, which shows the first stack): the
+  // same resolved stacks (retired tools already dropped), plus the goal label (`idealFor[0]`) and setup steps (`workflow`) from
   // lib/stacks.ts, which FeaturedStack does not carry. Stacks left with no live
   // tools are skipped so the picker never shows an empty "A + B" line.
   const stackPicks: StackPick[] = featuredStacks
@@ -112,6 +113,9 @@ export default async function Home() {
       
       {/* Hero Section */}
       <VibeHero stacks={stackPicks} tools={heroMotionTools} />
+
+      {/* Goal picker - the goal list and the selected stack, right under the hero */}
+      <GoalPickerSection stacks={stackPicks} />
       
       {/* Tool Categories - Browse by category */}
       <ToolCategories counts={categoryCounts} />

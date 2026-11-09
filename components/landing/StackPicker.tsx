@@ -8,7 +8,6 @@ import {
   type CSSProperties,
   type KeyboardEvent,
   type MouseEvent,
-  type ReactNode,
 } from "react";
 
 /**
@@ -17,7 +16,7 @@ import {
  * `idealFor` entry in lib/stacks.ts, and `steps` is its `workflow` with the
  * leading "1. " numbering removed (the list renders its own numbers).
  * `toolSlugs` (optional, same order as `tools`) is kept for callers; the
- * hero no longer draws tool icons.
+ * picker does not draw tool icons.
  */
 export interface StackPick {
   id: string;
@@ -30,15 +29,10 @@ export interface StackPick {
 
 interface StackPickerProps {
   stacks: StackPick[];
-  /** Server-rendered supporting sentence and button (under the headline, left). */
-  children?: ReactNode;
 }
 
 /** Auto-advance interval; matches `--cycle` on the progress bar. */
 const CYCLE_MS = 4000;
-/** Bar colours in the headline frame, bottom to top: accent, ink, then greys. */
-const BAR_COLOURS = ["var(--color-vibe-electric)", "#eff0f1", "#5a5c61", "#74767b"];
-const MAX_BARS = 4;
 
 // --- media/visibility as external stores (server snapshot = "no autoplay") ---
 function subscribeReducedMotion(callback: () => void) {
@@ -55,41 +49,9 @@ const getVisible = () => document.visibilityState === "visible";
 const getServerFalse = () => false;
 
 /**
- * The hero's h1: "Pick a goal. / Get [frame] the stack." The frame sits on
- * the baseline where a word would be and holds one flat bar per tool of the
- * selected stack; the bars drop in again whenever `stackId` changes. The
- * frame is decorative (aria-hidden, no text), so the heading's text is
- * exactly "Pick a goal. Get the stack." Styles live in VibeHero's HERO_CSS.
- */
-export function HeroHeadline({ stackId, tools = [] }: { stackId?: string; tools?: string[] }) {
-  const bars = tools.slice(0, MAX_BARS);
-  return (
-    <h1
-      id="hero-heading"
-      className="font-display text-[clamp(2rem,11vw,8rem)] font-extrabold uppercase leading-[0.88] tracking-[-0.005em] text-[#eff0f1]"
-    >
-      <span className="block whitespace-nowrap">Pick a goal.</span>{" "}
-      <span className="block whitespace-nowrap">
-        Get{" "}
-        <span aria-hidden="true" className="vh-frame">
-          <span key={stackId ?? "none"} className="vh-bars">
-            {bars.map((tool, index) => (
-              <span key={`${tool}-${index}`} className="vh-bar-bob" style={{ "--i": index } as CSSProperties}>
-                <span className="vh-bar" style={{ background: BAR_COLOURS[index % BAR_COLOURS.length] }} />
-              </span>
-            ))}
-          </span>
-        </span>{" "}
-        the stack.
-      </span>
-    </h1>
-  );
-}
-
-/**
- * The hero's working piece: pick a goal in the list and the frame inside the
- * headline rebuilds that stack as bars, while the result block shows the same
- * stack as real text (name, tools, first setup steps, link).
+ * The goal picker (the section under the hero, GoalPickerSection): pick a goal
+ * in the list and the result block shows that stack as real text (name,
+ * tools, first setup steps, link).
  *
  * Every goal is a real `<a href="/stack/{id}">`, so with no JavaScript (or a
  * middle/modified click) it simply opens that stack's page, and crawlers see
@@ -101,7 +63,7 @@ export function HeroHeadline({ stackId, tools = [] }: { stackId?: string; tools?
  * focuses, clicks or types in the list or result (then never again). Never
  * under prefers-reduced-motion or while the tab is hidden.
  */
-export function StackPicker({ stacks, children }: StackPickerProps) {
+export function StackPicker({ stacks }: StackPickerProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   // The result text only animates after the selection changes, never on load.
   const [hasChanged, setHasChanged] = useState(false);
@@ -121,16 +83,7 @@ export function StackPicker({ stacks, children }: StackPickerProps) {
     return () => window.clearTimeout(timer);
   }, [autoplay, selectedIndex, stacks.length]);
 
-  if (stacks.length === 0) {
-    return (
-      <div className="vh-grid">
-        <div className="vh-head">
-          <HeroHeadline />
-        </div>
-        <div className="vh-intro">{children}</div>
-      </div>
-    );
-  }
+  if (stacks.length === 0) return null;
 
   const selected = stacks[selectedIndex] ?? stacks[0];
 
@@ -181,14 +134,11 @@ export function StackPicker({ stacks, children }: StackPickerProps) {
   };
 
   return (
-    <div data-paused={paused ? "" : undefined} className="vh-grid">
-      <div className="vh-head">
-        <HeroHeadline stackId={selected.id} tools={selected.tools} />
-      </div>
-
-      <div className="vh-intro">{children}</div>
-
-      <ul aria-label="Goals" className="vh-list flex flex-col gap-1" {...pauseHandlers}>
+    <div
+      data-paused={paused ? "" : undefined}
+      className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-12"
+    >
+      <ul aria-label="Goals" className="flex flex-col gap-1" {...pauseHandlers}>
         {stacks.map((stack, index) => {
           const isSelected = index === selectedIndex;
           return (
@@ -229,12 +179,12 @@ export function StackPicker({ stacks, children }: StackPickerProps) {
       {/*
         Fixed minimum height: every line below is clamped (name 1 line, tools
         2, each step 2, at most 3 steps), so the worst case (~339px) fits in
-        22rem and the hero never changes height when the selection changes.
+        22rem and the section never changes height when the selection changes.
       */}
       <div
         data-ui
         aria-live={autoplay ? "off" : "polite"}
-        className="vh-result min-h-[22rem] bg-[#222427] p-5 md:p-6"
+        className="min-h-[22rem] bg-[#222427] p-5 md:p-6"
         {...pauseHandlers}
       >
         <div
