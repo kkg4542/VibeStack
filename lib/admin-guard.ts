@@ -44,7 +44,7 @@ function hostOf(value: string): string | null {
  * check does not cover (it only runs on /api/*). Rejects when Origin (or, if
  * Origin is absent, Referer) names a different host, or is the opaque "null"
  * origin. A request carrying neither header is allowed: callers only use this
- * after requireAdmin has passed, and the admin cookie is SameSite=Lax, so a
+ * after requireAdmin has passed, and the admin cookie is SameSite=Strict, so a
  * cross-site POST does not carry it in the first place.
  */
 export function requireSameOrigin(request: NextRequest): NextResponse | null {

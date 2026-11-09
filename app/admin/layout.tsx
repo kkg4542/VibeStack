@@ -6,8 +6,9 @@ import { ADMIN_COOKIE_NAME, isValidAdminToken } from "@/lib/admin-token";
 export const dynamic = "force-dynamic";
 
 
+// The root layout's title template appends " | VibeStack"; do not repeat it.
 export const metadata: Metadata = {
-  title: "Admin Dashboard | VibeStack",
+  title: "Admin Dashboard",
   description: "VibeStack admin dashboard",
 };
 

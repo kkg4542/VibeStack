@@ -1,75 +1,153 @@
-import { describe, it, expect, afterEach, vi } from "vitest";
+import { describe, it, expect, afterEach, beforeEach, vi } from "vitest";
 import {
   ADMIN_COOKIE_NAME,
-  ADMIN_TOKEN_SALT,
-  computeAdminToken,
-  constantTimeEqual,
+  ADMIN_SESSION_MAX_AGE_SECONDS,
+  ADMIN_SESSION_TTL_MS,
+  createAdminToken,
   isValidAdminToken,
 } from "@/lib/admin-token";
 
 const DUMMY_PASSWORD = "dummy-test-password";
+const NOW = 1_800_000_000_000;
 
-// The derivation auth.ts and middleware.ts used inline before they imported
-// lib/admin-token.ts. Any drift from it signs every admin out.
+// The old cookie value: hex(SHA-256(password + fixed salt)). It must no longer
+// validate under any configuration.
 async function legacyToken(secret: string): Promise<string> {
   const data = new TextEncoder().encode(secret + "vibestack_admin_salt_7391");
-  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-  return Array.from(new Uint8Array(hashBuffer))
+  const hash = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(hash))
     .map((b) => b.toString(16).padStart(2, "0"))
     .join("");
 }
 
+function flipLastSigChar(token: string): string {
+  const last = token.at(-1)!;
+  return token.slice(0, -1) + (last === "A" ? "B" : "A");
+}
+
 describe("lib/admin-token", () => {
+  beforeEach(() => {
+    vi.stubEnv("ADMIN_PASSWORD", DUMMY_PASSWORD);
+    vi.stubEnv("ADMIN_SESSION_SECRET", "");
+    vi.stubEnv("AUTH_SECRET", "");
+    vi.stubEnv("NEXTAUTH_SECRET", "n".repeat(32));
+  });
+
   afterEach(() => {
     vi.unstubAllEnvs();
   });
 
-  it("keeps the cookie name and salt the live sessions were issued with", () => {
+  it("keeps the cookie name and a 7-day lifetime that the cookie maxAge matches", () => {
     expect(ADMIN_COOKIE_NAME).toBe("vibestack_admin");
-    expect(ADMIN_TOKEN_SALT).toBe("vibestack_admin_salt_7391");
+    expect(ADMIN_SESSION_TTL_MS).toBe(7 * 24 * 60 * 60 * 1000);
+    expect(ADMIN_SESSION_MAX_AGE_SECONDS * 1000).toBe(ADMIN_SESSION_TTL_MS);
   });
 
-  it("is byte-identical to the legacy inline derivation", async () => {
-    for (const pwd of [DUMMY_PASSWORD, "x", "unicode-üñï-\u{1F511}"]) {
-      expect(await computeAdminToken(pwd)).toBe(await legacyToken(pwd));
+  it("creates a v1.<exp>.<sig> token expiring one lifetime from now", async () => {
+    const token = (await createAdminToken(NOW))!;
+    const [version, exp, sig] = token.split(".");
+    expect(version).toBe("v1");
+    expect(Number(exp)).toBe(NOW + ADMIN_SESSION_TTL_MS);
+    expect(sig).toMatch(/^[A-Za-z0-9_-]{43}$/);
+  });
+
+  it("accepts a fresh token at the real clock", async () => {
+    expect(await isValidAdminToken(await createAdminToken())).toBe(true);
+  });
+
+  it("accepts a valid token until it expires", async () => {
+    const token = (await createAdminToken(NOW))!;
+    expect(await isValidAdminToken(token, NOW)).toBe(true);
+    expect(await isValidAdminToken(token, NOW + ADMIN_SESSION_TTL_MS - 1)).toBe(true);
+  });
+
+  it("rejects an expired token", async () => {
+    const token = (await createAdminToken(NOW))!;
+    expect(await isValidAdminToken(token, NOW + ADMIN_SESSION_TTL_MS)).toBe(false);
+    expect(await isValidAdminToken(token, NOW + ADMIN_SESSION_TTL_MS + 1)).toBe(false);
+  });
+
+  it("rejects a token whose expiry is too far in the future", async () => {
+    // Signed legitimately, but by a clock a year ahead.
+    const token = (await createAdminToken(NOW + 365 * 24 * 60 * 60 * 1000))!;
+    expect(await isValidAdminToken(token, NOW)).toBe(false);
+  });
+
+  it("rejects a tampered signature", async () => {
+    const token = (await createAdminToken(NOW))!;
+    expect(await isValidAdminToken(flipLastSigChar(token), NOW)).toBe(false);
+  });
+
+  it("rejects a tampered expiry", async () => {
+    const token = (await createAdminToken(NOW))!;
+    const [v, exp, sig] = token.split(".");
+    const extended = `${v}.${Number(exp) + 1000}.${sig}`;
+    expect(await isValidAdminToken(extended, NOW)).toBe(false);
+    const padded = `${v}.0${exp}.${sig}`;
+    expect(await isValidAdminToken(padded, NOW)).toBe(false);
+  });
+
+  it("rejects malformed tokens", async () => {
+    const token = (await createAdminToken(NOW))!;
+    const [, exp, sig] = token.split(".");
+    for (const bad of [
+      undefined,
+      null,
+      "",
+      "configuration_error",
+      `v2.${exp}.${sig}`,
+      `v1.${exp}`,
+      `v1..${sig}`,
+      `v1.${exp}.${sig}.extra`,
+      `v1.${exp}.${sig}=`,
+      `v1.-${exp}.${sig}`,
+      `v1.${exp}.${sig.slice(0, -1)}`,
+      `v1.${"9".repeat(17)}.${sig}`,
+      ` ${token}`,
+    ]) {
+      expect(await isValidAdminToken(bad, NOW)).toBe(false);
     }
   });
 
-  it("returns a 64-char lowercase hex token", async () => {
-    expect(await computeAdminToken(DUMMY_PASSWORD)).toMatch(/^[0-9a-f]{64}$/);
+  it("rejects the old deterministic SHA-256 cookie", async () => {
+    expect(await isValidAdminToken(await legacyToken(DUMMY_PASSWORD), NOW)).toBe(false);
+    expect(await isValidAdminToken(await legacyToken(DUMMY_PASSWORD))).toBe(false);
   });
 
-  it("returns null when ADMIN_PASSWORD is unset", async () => {
+  it("fails closed when ADMIN_PASSWORD is unset", async () => {
+    const token = (await createAdminToken(NOW))!;
     vi.stubEnv("ADMIN_PASSWORD", "");
-    expect(await computeAdminToken()).toBeNull();
+    expect(await createAdminToken(NOW)).toBeNull();
+    expect(await isValidAdminToken(token, NOW)).toBe(false);
   });
 
-  it("constantTimeEqual compares exactly", () => {
-    expect(constantTimeEqual("abc", "abc")).toBe(true);
-    expect(constantTimeEqual("abc", "abd")).toBe(false);
-    expect(constantTimeEqual("abc", "abcd")).toBe(false);
-    expect(constantTimeEqual("", "")).toBe(true);
+  it("fails closed when neither a secret nor ADMIN_PASSWORD is configured", async () => {
+    vi.stubEnv("ADMIN_PASSWORD", "");
+    vi.stubEnv("NEXTAUTH_SECRET", "");
+    expect(await createAdminToken(NOW)).toBeNull();
+    expect(await isValidAdminToken("v1.1.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", 0)).toBe(false);
   });
 
-  describe("isValidAdminToken", () => {
-    it("accepts the token derived from ADMIN_PASSWORD", async () => {
-      vi.stubEnv("ADMIN_PASSWORD", DUMMY_PASSWORD);
-      expect(await isValidAdminToken(await legacyToken(DUMMY_PASSWORD))).toBe(true);
-    });
+  it("invalidates every session when the admin password changes", async () => {
+    const token = (await createAdminToken(NOW))!;
+    vi.stubEnv("ADMIN_PASSWORD", "a-new-password");
+    expect(await isValidAdminToken(token, NOW)).toBe(false);
+  });
 
-    it("rejects a wrong, missing or empty cookie", async () => {
-      vi.stubEnv("ADMIN_PASSWORD", DUMMY_PASSWORD);
-      expect(await isValidAdminToken(await legacyToken("other-password"))).toBe(false);
-      expect(await isValidAdminToken(undefined)).toBe(false);
-      expect(await isValidAdminToken(null)).toBe(false);
-      expect(await isValidAdminToken("")).toBe(false);
-    });
+  it("invalidates every session when the server secret changes", async () => {
+    const token = (await createAdminToken(NOW))!;
+    vi.stubEnv("NEXTAUTH_SECRET", "m".repeat(32));
+    expect(await isValidAdminToken(token, NOW)).toBe(false);
+  });
 
-    it("rejects everything when ADMIN_PASSWORD is unset", async () => {
-      vi.stubEnv("ADMIN_PASSWORD", "");
-      expect(await isValidAdminToken(await legacyToken(""))).toBe(false);
-      // The old sentinel value must not work as a cookie either.
-      expect(await isValidAdminToken("configuration_error")).toBe(false);
-    });
+  it("prefers ADMIN_SESSION_SECRET and revokes on rotating it", async () => {
+    vi.stubEnv("ADMIN_SESSION_SECRET", "explicit-session-secret-1");
+    const token = (await createAdminToken(NOW))!;
+    expect(await isValidAdminToken(token, NOW)).toBe(true);
+    // Derived-secret tokens do not validate under the explicit secret.
+    vi.stubEnv("ADMIN_SESSION_SECRET", "");
+    expect(await isValidAdminToken(token, NOW)).toBe(false);
+    vi.stubEnv("ADMIN_SESSION_SECRET", "explicit-session-secret-2");
+    expect(await isValidAdminToken(token, NOW)).toBe(false);
   });
 });

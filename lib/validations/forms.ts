@@ -16,12 +16,7 @@ export const baseSubmissionSchema = z.object({
   tier: z.enum(["free", "priority", "premium"]).default("free"),
 });
 
-export const submissionSchema = baseSubmissionSchema.extend({
-  amount: z.number().default(0),
-});
-
 export const checkoutSchema = baseSubmissionSchema;
 
 export type SubscribeInput = z.infer<typeof subscribeSchema>;
-export type SubmissionInput = z.infer<typeof submissionSchema>;
 export type CheckoutInput = z.infer<typeof checkoutSchema>;

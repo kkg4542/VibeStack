@@ -285,8 +285,9 @@ export async function middleware(req: NextRequest) {
       return response;
     }
 
-    // Same derivation as the login action (lib/admin-token.ts, Web Crypto
-    // only, Edge-safe). False when the cookie is missing or ADMIN_PASSWORD unset.
+    // Signed, expiring session token (lib/admin-token.ts, Web Crypto only,
+    // Edge-safe). False when the cookie is missing, expired, forged, or admin
+    // auth is not configured.
     const isAuthenticated = await isValidAdminToken(req.cookies.get(ADMIN_COOKIE_NAME)?.value);
 
     if (isAuthenticated) {
