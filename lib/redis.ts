@@ -168,10 +168,80 @@ export async function checkRateLimit(
   }
 }
 
+/**
+ * Peek / record pair for "count failures only" limits (e.g. failed logins).
+ * checkRateLimit above consumes a slot on every call, which is wrong when
+ * successes must not count: peek before the work, record only on failure.
+ * Same Redis-then-in-process fallback behaviour as checkRateLimit.
+ */
+export async function peekRateLimit(
+  identifier: string,
+  config: RateLimitConfig
+): Promise<{ blocked: boolean; count: number; resetTime: number }> {
+  const now = Date.now();
+  const windowStart = now - config.windowSize;
+
+  const fromMemory = () => {
+    const hits = (memoryHits.get(identifier) ?? []).filter((t) => t > windowStart);
+    memoryHits.set(identifier, hits);
+    return {
+      blocked: hits.length >= config.maxRequests,
+      count: hits.length,
+      resetTime: (hits[0] ?? now) + config.windowSize,
+    };
+  };
+
+  if (!redis) return fromMemory();
+
+  const key = `rate_limit:${identifier}`;
+  try {
+    await redis.zremrangebyscore(key, 0, windowStart);
+    const count = await redis.zcard(key);
+    return {
+      blocked: count >= config.maxRequests,
+      count,
+      resetTime: now + config.windowSize,
+    };
+  } catch (error) {
+    console.error("Rate limiting error:", error);
+    return fromMemory();
+  }
+}
+
+/** Record one hit against `identifier` without checking the limit. */
+export async function recordRateLimitHit(
+  identifier: string,
+  config: RateLimitConfig
+): Promise<void> {
+  const now = Date.now();
+
+  const toMemory = () => {
+    const hits = (memoryHits.get(identifier) ?? []).filter((t) => t > now - config.windowSize);
+    hits.push(now);
+    memoryHits.set(identifier, hits);
+    pruneMemoryStore(now);
+  };
+
+  if (!redis) {
+    toMemory();
+    return;
+  }
+
+  const key = `rate_limit:${identifier}`;
+  try {
+    await redis.zadd(key, { score: now, member: `${now}-${Math.random()}` });
+    await redis.expire(key, Math.ceil(config.windowSize / 1000));
+  } catch (error) {
+    console.error("Rate limiting error:", error);
+    toMemory();
+  }
+}
+
 // Common rate limit configurations
 export const rateLimitConfigs = {
   strict: { windowSize: 60 * 1000, maxRequests: 5 }, // 5 requests per minute
   standard: { windowSize: 60 * 1000, maxRequests: 30 }, // 30 requests per minute
   generous: { windowSize: 60 * 1000, maxRequests: 100 }, // 100 requests per minute
+  adminLoginFailures: { windowSize: 15 * 60 * 1000, maxRequests: 5 }, // 5 failed logins per 15 minutes
   newsletter: { windowSize: 60 * 60 * 1000, maxRequests: 3 }, // 3 requests per hour
 };

@@ -8,13 +8,14 @@
  */
 "use server";
 
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import {
   ADMIN_COOKIE_NAME,
   ADMIN_SESSION_MAX_AGE_SECONDS,
   createAdminToken,
 } from "@/lib/admin-token";
+import { peekRateLimit, recordRateLimitHit, rateLimitConfigs } from "@/lib/redis";
 
 async function sha256Hex(value: string): Promise<string> {
   const hashBuffer = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value));
@@ -39,6 +40,16 @@ async function secretsMatch(submitted: string, expected: string): Promise<boolea
   return constantTimeEqual(a, b);
 }
 
+async function getClientIP(): Promise<string> {
+  const h = await headers();
+  const forwarded = h.get("x-forwarded-for");
+  if (forwarded) {
+    const first = forwarded.split(",")[0].trim();
+    if (first) return first;
+  }
+  return h.get("x-real-ip") || "unknown";
+}
+
 /**
  * Validates admin credentials against environment variables and sets
  * a secure HTTP-Only cookie if correct.
@@ -56,6 +67,15 @@ export async function adminLogin(_prevState: { error: string | null }, formData:
 
   if (!validUser || !validPwd) {
     return { error: "Server missing admin configuration" };
+  }
+
+  // Failed-login lockout lives here (not in middleware, which cannot tell a
+  // failed login from a page view). Only failures are recorded, so successful
+  // logins never count toward the limit.
+  const limitKey = `admin-login-fail:${await getClientIP()}`;
+  const limitConfig = rateLimitConfigs.adminLoginFailures;
+  if ((await peekRateLimit(limitKey, limitConfig)).blocked) {
+    return { error: "Too many failed attempts. Try again in 15 minutes." };
   }
 
   // Evaluate both comparisons (no short-circuit) so timing does not reveal
@@ -81,6 +101,7 @@ export async function adminLogin(_prevState: { error: string | null }, formData:
 
     redirect("/admin"); // Redirect to admin dashboard
   } else {
+    await recordRateLimitHit(limitKey, limitConfig);
     return { error: "Invalid credentials" };
   }
 }

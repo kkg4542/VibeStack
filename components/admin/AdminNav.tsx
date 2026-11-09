@@ -73,7 +73,11 @@ export function AdminNav() {
       <ul className="space-y-1 px-4 py-2">
         {navItems.map((item) => {
           const Icon = item.icon;
-          const isActive = pathname === item.href || pathname?.startsWith(`${item.href}/`);
+          // "/admin" (Dashboard) is the parent of every other item, so it only
+          // matches exactly; the others also match their sub-pages.
+          const isActive =
+            pathname === item.href ||
+            (item.href !== "/admin" && pathname?.startsWith(`${item.href}/`));
 
           return (
             <li key={item.href}>

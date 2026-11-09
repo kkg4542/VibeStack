@@ -99,68 +99,6 @@ async function limitOrPassThrough(
   }
 }
 
-// In-memory failed attempt tracking — secondary defense only.
-// WARNING: This Map is NOT shared across serverless instances or Edge workers.
-// Primary rate limiting should rely on Redis (Upstash) below.
-const failedAttempts = new Map<string, { count: number; resetTime: number }>();
-const MAX_TRACKED_IPS = 10000;
-
-// Periodic cleanup of expired entries to prevent memory leaks
-function cleanupExpiredAttempts() {
-  const now = Date.now();
-  for (const [ip, attempt] of failedAttempts.entries()) {
-    if (now > attempt.resetTime) {
-      failedAttempts.delete(ip);
-    }
-  }
-}
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-
-  // Cleanup if map is getting too large
-  if (failedAttempts.size > MAX_TRACKED_IPS) {
-    cleanupExpiredAttempts();
-  }
-
-  const attempt = failedAttempts.get(ip);
-
-  if (!attempt || now > attempt.resetTime) {
-    failedAttempts.set(ip, { count: 1, resetTime: now + 15 * 60 * 1000 }); // 15 minutes
-    return false;
-  }
-
-  attempt.count++;
-
-  // Block after 5 failed attempts
-  if (attempt.count >= 5) {
-    return true;
-  }
-
-  return false;
-}
-
-/**
- * Timing-safe string comparison to prevent timing attacks on credentials
- */
-async function timingSafeEqual(a: string, b: string): Promise<boolean> {
-  const encoder = new TextEncoder();
-  const aBytes = encoder.encode(a);
-  const bBytes = encoder.encode(b);
-
-  // Hash both values to ensure constant-time comparison regardless of length
-  const aHash = new Uint8Array(await crypto.subtle.digest("SHA-256", aBytes));
-  const bHash = new Uint8Array(await crypto.subtle.digest("SHA-256", bBytes));
-
-  if (aHash.length !== bHash.length) return false;
-
-  let result = 0;
-  for (let i = 0; i < aHash.length; i++) {
-    result |= aHash[i] ^ bHash[i];
-  }
-  return result === 0;
-}
-
 function getClientIP(req: NextRequest): string {
   const forwarded = req.headers.get("x-forwarded-for");
   const realIP = req.headers.get("x-real-ip");
@@ -254,18 +192,18 @@ export async function middleware(req: NextRequest) {
     req.nextUrl.pathname.startsWith("/api/admin");
 
   if (isProtectedPath) {
-    // Check rate limiting
-    if (isRateLimited(ip)) {
-      return new NextResponse("Too many failed attempts. Please try again in 15 minutes.", {
-        status: 429,
-        headers: {
-          "Retry-After": "900", // 15 minutes in seconds
-        },
-      });
-    }
+    const isLoginPath = req.nextUrl.pathname.startsWith("/admin/login");
 
-    // Apply rate limiting for Redis
-    if (process.env.UPSTASH_REDIS_REST_URL && ratelimit) {
+    // Signed, expiring session token (lib/admin-token.ts, Web Crypto only,
+    // Edge-safe). False when the cookie is missing, expired, forged, or admin
+    // auth is not configured.
+    const isAuthenticated = await isValidAdminToken(req.cookies.get(ADMIN_COOKIE_NAME)?.value);
+
+    // The Upstash admin limiter applies only to unauthenticated traffic (the
+    // login page and requests that fail the token check), so a logged-in admin
+    // browsing or prefetching is never throttled. Failed password attempts are
+    // counted in the adminLogin server action, not here.
+    if (!isAuthenticated && process.env.UPSTASH_REDIS_REST_URL && ratelimit) {
       const result = await limitOrPassThrough(ratelimit.admin, ip);
 
       if (result && !result.success) {
@@ -280,20 +218,12 @@ export async function middleware(req: NextRequest) {
     }
 
     // Custom Cookie-based Auth for Admin
-    if (req.nextUrl.pathname.startsWith("/admin/login")) {
+    if (isLoginPath) {
       // Allow access to login page
       return response;
     }
 
-    // Signed, expiring session token (lib/admin-token.ts, Web Crypto only,
-    // Edge-safe). False when the cookie is missing, expired, forged, or admin
-    // auth is not configured.
-    const isAuthenticated = await isValidAdminToken(req.cookies.get(ADMIN_COOKIE_NAME)?.value);
-
     if (isAuthenticated) {
-      // Clear failed attempts on success
-      failedAttempts.delete(ip);
-
       // Add security headers
       response.headers.set("X-Content-Type-Options", "nosniff");
       response.headers.set("X-Frame-Options", "DENY");
