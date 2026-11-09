@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>VibeStack hero loop (8 s)</title>
+<!--
+  Standalone render page for lib/hero-motion/scene.js.
+  Serve the REPO ROOT over http (module imports do not work from file://), e.g.
+    python3 -m http.server 8765        (run in the repo root)
+    open http://localhost:8765/scripts/hero-motion/index.html?play=1
+  Query: ?contrast=0..1 (default 1) &anchor=0..1 (default 0.5) &t=seconds &play=1
+  beats.mjs / render.mjs load it through Playwright request routing instead
+  (no port needed) and drive it with window.seek(t) after window.ready.
+-->
+<style>
+  @font-face {
+    font-family: "Big Shoulders";
+    src: url("fonts/big-shoulders-800-latin.woff2") format("woff2");
+    font-weight: 800;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Public Sans";
+    src: url("fonts/public-sans-latin-var.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+  }
+  html, body { margin: 0; background: #18191b; overflow: hidden; }
+  canvas { display: block; width: 1920px; height: 1080px; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script type="module">
+  import { drawFrame, buildSceneData, LOOP_SECONDS, representativeTime } from "../../lib/hero-motion/scene.js";
+
+  const params = new URLSearchParams(location.search);
+  const num = (key, fallback) => {
+    const v = parseFloat(params.get(key) ?? "");
+    return Number.isFinite(v) ? v : fallback;
+  };
+  const canvas = document.getElementById("c");
+  const ctx = canvas.getContext("2d", { alpha: false });
+  const opts = {
+    width: canvas.width,
+    height: canvas.height,
+    fontFamily: '"Big Shoulders", Impact, sans-serif',
+    bodyFontFamily: '"Public Sans", system-ui, sans-serif',
+    contrast: num("contrast", 1),
+    anchor: num("anchor", 0.5),
+    data: null,
+  };
+
+  /** Synchronous draw of the frame at t seconds. */
+  window.seek = (t) => drawFrame(ctx, t, opts);
+  window.LOOP_SECONDS = LOOP_SECONDS;
+
+  window.ready = (async () => {
+    const snapshot = await (await fetch("./snapshot.json")).json();
+    const tools = Object.entries(snapshot.tools).map(([slug, [title, pricing, category]]) => ({
+      slug, title, pricing, category,
+    }));
+    opts.data = buildSceneData(tools);
+    await Promise.all([
+      document.fonts.load('800 100px "Big Shoulders"', "CODING"),
+      document.fonts.load('600 40px "Public Sans"', "Cursor"),
+    ]);
+    await document.fonts.ready;
+    const fontsOk =
+      document.fonts.check('800 100px "Big Shoulders"') && document.fonts.check('600 40px "Public Sans"');
+    window.seek(num("t", representativeTime));
+    return { fontsOk, data: opts.data };
+  })();
+
+  if (params.get("play") === "1") {
+    window.ready.then(() => {
+      const start = performance.now();
+      const tick = (now) => {
+        window.seek((now - start) / 1000);
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  }
+</script>
+</body>
+</html>

@@ -2,10 +2,13 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/primitives/Container";
 import { StackPicker, type StackPick } from "@/components/landing/StackPicker";
+import { HeroMotionBackground, type HeroMotionTool } from "@/components/landing/HeroMotionBackground";
 
 interface VibeHeroProps {
   /** Curated stacks resolved on the server (app/page.tsx). Up to six. */
   stacks: StackPick[];
+  /** Minimal tool records (slug, title, pricing, category) for the background motion graphic. */
+  tools: HeroMotionTool[];
 }
 
 /**
@@ -49,9 +52,11 @@ const HERO_CSS = `
  * as real text.
  *
  * Server component: everything here, including the picker's default
- * selection, is in the server HTML. The hero is always a dark surface.
+ * selection, is in the server HTML. The hero is always a dark surface. Behind
+ * the content sits HeroMotionBackground, a client canvas that plays the
+ * lib/hero-motion scene at low contrast (decorative, aria-hidden).
  */
-export function VibeHero({ stacks }: VibeHeroProps) {
+export function VibeHero({ stacks, tools }: VibeHeroProps) {
   const intro = (
     <>
       <p className="max-w-[44ch] text-[17px] leading-normal text-[#b0b2b6] md:text-[18px]">
@@ -77,11 +82,13 @@ export function VibeHero({ stacks }: VibeHeroProps) {
       aria-labelledby="hero-heading"
       className="relative isolate overflow-hidden bg-vibe-deep pt-16 font-sans text-[#eff0f1]"
     >
+      {/* Decorative full-bleed motion graphic at low contrast, behind everything else. */}
+      <HeroMotionBackground tools={tools} />
       <style>{HERO_CSS}</style>
       {/* The signature: one solid orange bar across the top, right under the fixed nav. */}
-      <div aria-hidden="true" className="h-[7px] bg-vibe-electric" />
+      <div aria-hidden="true" className="relative z-10 h-[7px] bg-vibe-electric" />
 
-      <Container className="pb-12 pt-8 md:pt-10">
+      <Container className="relative z-10 pb-12 pt-8 md:pt-10">
         <StackPicker stacks={stacks}>{intro}</StackPicker>
       </Container>
     </section>

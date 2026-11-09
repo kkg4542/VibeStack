@@ -55,6 +55,15 @@ export default async function Home() {
     })
     .slice(0, 6);
 
+  // Hero background motion graphic: only the four fields the scene reads, so
+  // the client payload stays small.
+  const heroMotionTools = allTools.map(({ slug, title, pricing, category }) => ({
+    slug,
+    title,
+    pricing,
+    category,
+  }));
+
   // Free-plan counts for the ledger, from each tool's own `pricing`. Computed
   // against the stack's full slug list in lib/stacks.ts (not the live-tool
   // subset on the card), so a stack with a retired tool shows no count.
@@ -102,7 +111,7 @@ export default async function Home() {
       />
       
       {/* Hero Section */}
-      <VibeHero stacks={stackPicks} />
+      <VibeHero stacks={stackPicks} tools={heroMotionTools} />
       
       {/* Tool Categories - Browse by category */}
       <ToolCategories counts={categoryCounts} />
