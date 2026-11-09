@@ -107,7 +107,7 @@ export function VibeHero({ stacks, tools }: VibeHeroProps) {
 
         <div
           data-hero-layout
-          className="mx-auto grid w-full max-w-[1600px] flex-1 grid-cols-1 content-center gap-y-10 px-4 py-10 sm:px-6 md:py-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-center lg:gap-x-12 lg:px-10"
+          className="mx-auto grid w-full max-w-[1600px] flex-1 grid-cols-1 content-center gap-y-10 px-4 py-10 sm:px-6 md:py-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] xl:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:items-center lg:gap-x-12 lg:px-10"
         >
           <div className="@container">
             <HeroHeadline tools={stacks[0]?.tools} />

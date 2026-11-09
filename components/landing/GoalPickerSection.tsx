@@ -24,7 +24,7 @@ export function GoalPickerSection({ stacks }: GoalPickerSectionProps) {
           id="goal-picker-heading"
           className="font-display text-[clamp(2.25rem,6vw,4rem)] font-extrabold uppercase leading-[0.9] tracking-[-0.005em] text-[#eff0f1]"
         >
-          Pick your goal
+          Your goal, your stack.
         </h2>
         <div className="mt-8 md:mt-10">
           <StackPicker stacks={stacks} />
