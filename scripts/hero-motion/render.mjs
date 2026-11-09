@@ -7,13 +7,13 @@
  *
  * What it does:
  *   1. Opens scripts/hero-motion/index.html in headless Chrome (Playwright).
- *   2. For each of the 480 output frames (60 fps x 8.000 s) draws 3 subframes
+ *   2. For each of the 480 output frames (60 fps x 8.000 s) draws 8 subframes
  *      spread across a 180-degree shutter (1/120 s centred on the frame time;
  *      the scene wraps time, so the loop stays seamless) and saves them as PNG.
- *   3. ffmpeg averages each triple (tmix) and keeps one frame in three:
+ *   3. ffmpeg averages each group of 8 (tmix) and keeps one frame in eight:
  *
- *      /opt/homebrew/bin/ffmpeg -y -framerate 180 -i <tmp>/s%05d.png \
- *        -vf "tmix=frames=3:weights='1 1 1',select='eq(mod(n\,3)\,2)',setpts=N/(60*TB),
+ *      /opt/homebrew/bin/ffmpeg -y -framerate 480 -i <tmp>/s%05d.png \
+ *        -vf "tmix=frames=8:weights='1 1 1 1 1 1 1 1',select='eq(mod(n\,8)\,7)',setpts=N/(60*TB),
  *             scale=out_color_matrix=bt709:out_range=tv,format=yuv420p" \
  *        -r 60 -frames:v 480 -an -c:v libx264 -preset slow -crf 16 \
  *        -colorspace bt709 -color_primaries bt709 -color_trc bt709 \
@@ -31,7 +31,7 @@ import { ROOT, flag, frameAt, openScene } from "./browser.mjs";
 const FFMPEG = "/opt/homebrew/bin/ffmpeg";
 const FPS = 60;
 const SECONDS = 8;
-const SUB = 3;
+const SUB = 8; // 8 subframes: 3 read as separate ghost copies on fast type
 const SHUTTER = 0.5 / FPS; // 180 degrees
 const contrast = Number(flag("contrast", "1"));
 const anchor = Number(flag("anchor", "0.5"));
@@ -59,7 +59,7 @@ try {
     "-y", "-loglevel", "error",
     "-framerate", String(FPS * SUB), "-i", join(tmp, "s%05d.png"),
     "-vf",
-    `tmix=frames=${SUB}:weights='1 1 1',select='eq(mod(n\\,${SUB})\\,${SUB - 1})',setpts=N/(${FPS}*TB),` +
+    `tmix=frames=${SUB}:weights='${Array(SUB).fill(1).join(" ")}',select='eq(mod(n\\,${SUB})\\,${SUB - 1})',setpts=N/(${FPS}*TB),` +
       "scale=out_color_matrix=bt709:out_range=tv,format=yuv420p",
     "-r", String(FPS), "-frames:v", String(FPS * SECONDS), "-an",
     "-c:v", "libx264", "-preset", "slow", "-crf", "16",
