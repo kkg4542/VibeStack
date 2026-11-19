@@ -993,7 +993,7 @@ claude plugin uninstall lemo-opuscar@lemolab</code></pre>
 
       <h2>무슨 일이 있었나</h2>
       <p>저는 Claude Code에 Notion MCP를 분명히 연결했어요. 그런데 작업하는 프로젝트 폴더에서 Claude Code를 열면 Notion이 보이지 않았어요.</p>
-      <p>답은 등록할 때 터미널에 이미 나와 있었어요. 등록 결과에 <code>to local config</code>, 그리고 <code>[project: /Users/David]</code>가 찍혀 있었거든요. 기본값(local) 범위로, 그것도 홈 폴더에 등록된 거예요. 그래서 홈 폴더가 아닌 프로젝트 폴더에서는 안 보였던 거죠.</p>
+      <p>답은 등록할 때 터미널에 이미 나와 있었어요. 등록 결과에 <code>to local config</code>, 그리고 <code>[project: /Users/(내 계정 이름)]</code>가 찍혀 있었거든요. 기본값(local) 범위로, 그것도 홈 폴더에 등록된 거예요. 그래서 홈 폴더가 아닌 프로젝트 폴더에서는 안 보였던 거죠.</p>
 
       <h2>원인: MCP 등록 범위는 세 가지예요</h2>
       <p>공식 문서에 따르면 MCP 서버는 세 가지 범위(scope)로 등록할 수 있고, 범위에 따라 어느 프로젝트에서 불러오는지, 팀과 공유되는지가 달라져요.</p>
@@ -1045,7 +1045,7 @@ claude mcp get notion
       <ul>
         <li><a href="https://code.claude.com/docs/en/mcp" target="_blank" rel="noopener noreferrer">Claude Code Docs, Connect Claude Code to tools via MCP</a> — 범위 3종(MCP installation scopes)과 저장 위치, 우선순위, Notion 연결 예시, <code>claude mcp list</code>·<code>get</code>·<code>remove</code>·<code>/mcp</code>, 원격 서버 삭제 시 OAuth 토큰 삭제, 같은 이름 충돌 경고.</li>
       </ul>
-      <p><code>to local config</code>, <code>[project: /Users/David]</code> 메시지는 저희가 등록할 때 터미널에 나온 문구예요.</p>
+      <p><code>to local config</code>, <code>[project: /Users/(내 계정 이름)]</code> 메시지는 저희가 등록할 때 터미널에 나온 문구예요.</p>
     `,
   },
 ];
