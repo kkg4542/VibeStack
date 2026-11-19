@@ -178,7 +178,7 @@ const nextConfig: NextConfig = {
           "img-src 'self' data: blob: https:",
           "font-src 'self' data: https://fonts.gstatic.com",
           "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-          `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval' " : ""}https://js.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://va.vercel-scripts.com`,
+          `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval' " : ""}https://js.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://va.vercel-scripts.com https://www.instagram.com`,
           // GA4 does not post to www.google-analytics.com. Observed in a clean
           // browser on production: every /g/collect beacon went to
           // analytics.google.com (and, for Google Signals, www.google.com and
@@ -195,7 +195,8 @@ const nextConfig: NextConfig = {
           // demographics data, that is why — widen both deliberately, not by
           // pasting in whatever the console complains about.
           "connect-src 'self' https://api.stripe.com https://*.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://vitals.vercel-insights.com https://va.vercel-scripts.com https://*.ingest.sentry.io https://sentry.io",
-          "frame-src https://js.stripe.com https://hooks.stripe.com",
+          // Instagram: reel embeds on reel companion posts (components/blog/InstagramReelEmbed.tsx).
+          "frame-src https://js.stripe.com https://hooks.stripe.com https://www.instagram.com",
           "worker-src 'self' blob:",
           "manifest-src 'self'",
           "media-src 'self'",
@@ -246,6 +247,16 @@ const nextConfig: NextConfig = {
           ...securityHeaders,
           { key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' },
         ],
+      },
+      // Blog posts can embed an Instagram reel (components/blog/InstagramReelEmbed.tsx).
+      // A cross-origin iframe is blocked under COEP — even 'credentialless' — unless
+      // the framed page opts in, and Instagram's embed page doesn't, so the embed
+      // renders as a 2px frame (verified locally 2026-11-19). Nothing on the site
+      // needs cross-origin isolation (no SharedArrayBuffer), so relax COEP on blog
+      // posts only. Next.js applies every matching rule; the later one wins per key.
+      {
+        source: '/blog/:slug',
+        headers: [{ key: 'Cross-Origin-Embedder-Policy', value: 'unsafe-none' }],
       },
       // Non-page assets: keep them out of Google's index.
       // These are crawled but can never be indexed as pages, so they linger forever in

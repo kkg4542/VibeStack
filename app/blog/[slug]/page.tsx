@@ -8,6 +8,7 @@ import { ReadingProgress } from "@/components/blog/ReadingProgress";
 import { StackPromoCard } from "@/components/blog/StackPromoCard";
 import { BlogRelatedLinks } from "@/components/seo/BlogRelatedLinks";
 import { BlogInlineCallout } from "@/components/blog/BlogInlineCallout";
+import { InstagramReelEmbed } from "@/components/blog/InstagramReelEmbed";
 import { BlogBodyLinkTracker, BLOG_BODY_ID } from "@/components/analytics/BlogBodyLinkTracker";
 import { getTools } from "@/lib/tools-db";
 import { getInlineCallout } from "@/lib/blog-related";
@@ -143,7 +144,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     Back to Blog
                 </Link>
 
-                <article>
+                <article lang={post.lang} className={post.lang === "ko" ? "break-keep" : undefined}>
                     <header className="mb-12">
                         <div className="mb-6 flex flex-wrap items-center gap-3 text-[15px]">
                             <span className="bg-secondary px-2.5 py-1 font-semibold text-foreground">
@@ -155,7 +156,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                             </span>
                         </div>
 
-                        <h1 className="mb-8 font-display text-balance text-[clamp(32px,5vw,64px)] uppercase leading-[0.9] tracking-[-0.005em] text-foreground">
+                        <h1 className={`mb-8 font-display text-balance text-[clamp(32px,5vw,64px)] uppercase leading-[0.9] tracking-[-0.005em] text-foreground${post.lang === "ko" ? " break-keep" : ""}`}>
                             {post.title}
                         </h1>
 
@@ -171,15 +172,20 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         </div>
                     </header>
 
-                    <div className="relative mb-12 aspect-video w-full overflow-hidden bg-secondary">
-                        <Image
-                            src={post.image}
-                            alt={post.title}
-                            fill
-                            priority
-                            className="object-cover"
-                        />
-                    </div>
+                    {post.reel?.url ? (
+                        // Reel companion post: the reel itself replaces the hero image.
+                        <InstagramReelEmbed url={post.reel.url} />
+                    ) : (
+                        <div className="relative mb-12 aspect-video w-full overflow-hidden bg-secondary">
+                            <Image
+                                src={post.image}
+                                alt={post.title}
+                                fill
+                                priority
+                                className="object-cover"
+                            />
+                        </div>
+                    )}
 
                     <div id={BLOG_BODY_ID}>
                         {callout && split ? (
