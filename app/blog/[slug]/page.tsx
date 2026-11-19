@@ -8,7 +8,7 @@ import { ReadingProgress } from "@/components/blog/ReadingProgress";
 import { StackPromoCard } from "@/components/blog/StackPromoCard";
 import { BlogRelatedLinks } from "@/components/seo/BlogRelatedLinks";
 import { BlogInlineCallout } from "@/components/blog/BlogInlineCallout";
-import { InstagramReelEmbed } from "@/components/blog/InstagramReelEmbed";
+import { InstagramReelCard } from "@/components/blog/InstagramReelCard";
 import { BlogBodyLinkTracker, BLOG_BODY_ID } from "@/components/analytics/BlogBodyLinkTracker";
 import { getTools } from "@/lib/tools-db";
 import { getInlineCallout } from "@/lib/blog-related";
@@ -173,8 +173,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     </header>
 
                     {post.reel?.url ? (
-                        // Reel companion post: the reel itself replaces the hero image.
-                        <InstagramReelEmbed url={post.reel.url} />
+                        // Reel companion post: the reel cover (links to Instagram) replaces the hero image.
+                        <InstagramReelCard url={post.reel.url} title={post.title} />
                     ) : (
                         <div className="relative mb-12 aspect-video w-full overflow-hidden bg-secondary">
                             <Image

@@ -1,16 +1,16 @@
 import { describe, it, expect } from "vitest";
-import { toEmbedPermalink } from "@/components/blog/InstagramReelEmbed";
+import { toReelPermalink } from "@/components/blog/InstagramReelCard";
 import { postsKo } from "@/lib/blog-data-ko";
 
-describe("toEmbedPermalink", () => {
+describe("toReelPermalink", () => {
     it("drops the profile segment embed.js can't resolve", () => {
-        expect(toEmbedPermalink("https://www.instagram.com/vibestack.ai/reel/Df47dHlsHQ4/")).toBe(
+        expect(toReelPermalink("https://www.instagram.com/vibestack.ai/reel/Df47dHlsHQ4/")).toBe(
             "https://www.instagram.com/reel/Df47dHlsHQ4/",
         );
     });
     it("keeps canonical reel and post links", () => {
-        expect(toEmbedPermalink("https://www.instagram.com/reel/Abc_1-2/?igsh=x")).toBe("https://www.instagram.com/reel/Abc_1-2/");
-        expect(toEmbedPermalink("https://instagram.com/p/Df2i8IWAafz")).toBe("https://www.instagram.com/p/Df2i8IWAafz/");
+        expect(toReelPermalink("https://www.instagram.com/reel/Abc_1-2/?igsh=x")).toBe("https://www.instagram.com/reel/Abc_1-2/");
+        expect(toReelPermalink("https://instagram.com/p/Df2i8IWAafz")).toBe("https://www.instagram.com/p/Df2i8IWAafz/");
     });
 });
 

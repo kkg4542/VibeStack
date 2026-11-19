@@ -25,8 +25,8 @@ export interface BlogPost {
   /** Page language for non-English posts (sets <article lang>). */
   lang?: "ko";
   /**
-   * Instagram reel this post accompanies. When `url` is set the reel is embedded
-   * at the top of the post (official embed.js); leave it unset until the reel is live.
+   * Instagram reel this post accompanies. When `url` is set the reel cover
+   * (/images/reels/<shortcode>.jpg) is shown at the top and links to Instagram; leave it unset until the reel is live.
    */
   reel?: { url?: string };
 }
