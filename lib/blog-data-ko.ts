@@ -902,7 +902,7 @@ claude -p "Run the test suite and fix any failures" \\
     reel: { url: "https://www.instagram.com/vibestack.ai/reel/DfqvM3tMA6s/" },
     content: `
       <p>릴스에서 말씀드린 'Lemo Opuscar로 애니메이션 영상 만들기'를 글로 정리했어요. <a href="https://www.instagram.com/p/DfMPGCguhRQ/" target="_blank" rel="noopener noreferrer">@nick_saraev 님 영상</a>에서 본 방법이고, 저도 설치해서 화이트보드·카툰·수채화·다큐멘터리 스타일로 만들어 봤어요.</p>
-      <p>릴스 캡션에는 '10분', '100% 무료' 같은 표현이 있었는데, 저장소 README를 다시 확인해 보니 맞지 않는 부분이 있어서 이 글에서는 README 기준으로 바로잡았어요.</p>
+      <p>릴스 영상과 처음 올린 캡션에는 '10분', '100% 무료' 같은 표현이 있었는데, 저장소 README를 다시 확인해 보니 맞지 않는 부분이 있어서 이 글과 캡션을 README 기준으로 바로잡았어요.</p>
 
       <h2>Lemo Opuscar가 하는 일</h2>
       <p>Lemo Opuscar는 코딩 에이전트에게 영상 스타일을 주는 Claude Code 스킬이에요. README 첫 줄은 "스타일을 고르고 이야기를 가져오면, 에이전트가 영상을 전부 코드로 만든다"예요.</p>
