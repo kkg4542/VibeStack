@@ -13,14 +13,14 @@ export const postsKo: BlogPost[] = [
     title: "카드뉴스 만드는 순서: 클로드 코드로 카드 7장 만들기",
     excerpt:
       "vibestack.ai가 카드뉴스 7장을 만들 때 실제로 거치는 8단계. 헤드리스 크롬 캡처 명령, 카드 HTML 뼈대, 클로드 코드 지시문 예시, 게시 전 점검 체크리스트를 정리했어요.",
-    date: "Nov 20, 2026",
+    date: "Nov 21, 2026",
     author: "David Kim",
     category: "Guide",
     readTime: "5 min read",
     image: "/images/blog/card-news-automation-guide.png",
     // No tags: tag matching would drop an English "Our Claude review" callout mid-article.
     tags: [],
-    reel: {},
+    reel: { url: "https://www.instagram.com/vibestack.ai/reel/DgAE2znsod5/" },
     content: `
       <p>릴스에서 말씀드린 정리본이에요. 카드뉴스 7장을 만들 때 저희가 실제로 거치는 순서를 그대로 적었어요. 같은 내용을 PDF로도 받을 수 있어요.</p>
       <p><a href="/guides/card-news-guide.pdf" target="_blank" rel="noopener">정리본 PDF 받기 (4쪽)</a></p>
