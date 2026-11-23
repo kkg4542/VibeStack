@@ -8,6 +8,57 @@ import { BlogPost } from "./blog-types";
  */
 export const postsKo: BlogPost[] = [
   {
+    slug: "gemini-notebook-make-me-a-site",
+    lang: "ko",
+    title: "Gemini Notebook \"make me a site\": 쌓아 둔 자료로 사이트 만드는 법",
+    excerpt:
+      "릴스에서 소개한 Gemini Notebook의 \"make me a site\" 기능 정리본. 따라 하는 4단계, 공유할 때 알아 둘 점, 아직 안 보일 때 확인할 것을 공식 안내 기준으로 적었어요.",
+    date: "Nov 23, 2026",
+    author: "David Kim",
+    category: "Guide",
+    readTime: "3 min read",
+    image: "/images/blog/gemini-notebook-make-me-a-site.png",
+    // No tags: tag matching would drop an English "Our Gemini review" callout mid-article.
+    tags: [],
+    reel: { url: "https://www.instagram.com/vibestack.ai/reel/DgFOpzrsibC/" },
+    content: `
+      <p>릴스에서 말씀드린 정리본이에요. Google이 11월 16일에 발표한 Gemini Notebook의 새 기능으로, 노트북에 넣어 둔 소스로 눌러 보는 사이트를 만들어 줘요. 이 기능은 이미 카드뉴스로도 소개했고, 이 글은 그 영상판 정리본이에요.</p>
+
+      <h2>무엇을 해 주나요</h2>
+      <p>Gemini Notebook 채팅에 <code>make me a site</code>와 만들고 싶은 것을 적으면 노트북의 소스로 상호작용 가능한 사이트를 만들어 줘요. 구글이 든 예시는 세 가지예요.</p>
+      <ul>
+        <li>시험 대비 시각 자료(주기율표, 역사 연표)</li>
+        <li>데이터를 훑어보는 대시보드(분기 매출 등)</li>
+        <li>할 일·마감을 정리하는 프로젝트 트래커</li>
+      </ul>
+
+      <h2>따라 하는 법: 4단계</h2>
+      <ol>
+        <li><strong>노트북 열기</strong> — notebook.google.com에서 열어요(편집 권한이 필요해요).</li>
+        <li><strong>소스 올리기</strong> — 사이트에 쓰고 싶은 자료를 넣어요.</li>
+        <li><strong>채팅에 요청</strong> — <code>make me a site</code>와 원하는 것을 설명해요.</li>
+        <li><strong>열어 보기</strong> — Studio 패널에서 사이트 옆 ⋮ → <code>Open in new tab</code>.</li>
+      </ol>
+      <p>영상 속 요청 문장은 저희가 만든 예시예요. 가진 자료 하나로 먼저 해 보세요.</p>
+
+      <h2>알아 둘 점</h2>
+      <ul>
+        <li><strong>지금은 웹만 돼요.</strong> 모바일 앱은 곧 나온다고 안내돼 있어요.</li>
+        <li><strong>순차 배포 중이라 아직 안 보일 수 있어요.</strong></li>
+        <li><strong>18세 이상</strong>이 쓸 수 있고, 사용 한도가 있어요.</li>
+        <li><strong>공유받는 사람도 노트북 접근 권한</strong>이 있어야 해요. 공유 링크는 <code>Copy link to artifact</code>로 받아요.</li>
+        <li><strong>공개 공유</strong>는 개인 계정의 노트북 소유자·편집자만 할 수 있어요.</li>
+      </ul>
+
+      <h2>출처 (확인일 2026.11.23)</h2>
+      <ul>
+        <li><a href="https://blog.google/innovation-and-ai/products/gemini-notebook/interactive-sites/" target="_blank" rel="noopener noreferrer">Google 블로그, Turn Gemini Notebook sources into interactive sites</a> (2026.11.16)</li>
+        <li><a href="https://workspaceupdates.googleblog.com/2026/11/transform-your-notes-and-research-into-dynamic-tools-with-Gemini-Notebook.html" target="_blank" rel="noopener noreferrer">Google Workspace Updates, Transform your notes and research into dynamic tools with Gemini Notebook</a> (2026.11)</li>
+        <li>Gemini Notebook 고객센터(사용 한도, 공유 권한 안내)</li>
+      </ul>
+    `,
+  },
+  {
     slug: "card-news-automation-guide",
     lang: "ko",
     title: "카드뉴스 만드는 순서: 클로드 코드로 카드 7장 만들기",
